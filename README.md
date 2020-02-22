@@ -19,7 +19,9 @@ Ambiente de EC2 + RDS + CodeIgniter
 
 ## Mais info:
 
-Neste momento, só eu consigo submeter a aplicação para ficar online, mas decidi partilhar a mesma BD para todos para facilitar a utilização. Por esta razão, peço-vos que exportem a BD regularmente, de modo a poderem restaurá-la se fizerem merda :)
+Peço-vos que exportem a BD regularmente, de modo a poderem restaurá-la se fizerem merda :)
+
+Nunca façam commits para o master sem testarem bem os componentes. Se quiserem partilhar código não testado, criem outro branch.
 
 ## Domínio atual:
 Aplus-env.pysedehqf5.eu-west-3.elasticbeanstalk.com

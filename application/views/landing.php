@@ -1,8 +1,7 @@
 
+<title>A+</title>
+</head>
 
-    </head>
-
-    <body>
-        landing page :)
-    </body>
-</html>
+<body>
+    <h1>Bem-vindo ao A+</h1>
+    <p>Esta é a nossa landing page!</p>

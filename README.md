@@ -1,6 +1,6 @@
 # aplus
 
-Criei um ambiente que vos facilita ao máximo a vossa utilização:
+Ambiente de EC2 + RDS + CodeIgniter
 
 ## Set up:
 
@@ -16,3 +16,7 @@ Criei um ambiente que vos facilita ao máximo a vossa utilização:
 > Devem ter ficado com acesso à DB pelo phpMyAdmin
 
 5> Abrir localhost/aplus no browser
+
+## Mais info:
+
+Neste momento, só eu consigo submeter a aplicação para ficar online, mas decidi partilhar a mesma BD para todos para facilitar a utilização. Por esta razão, peço-vos que exportem a BD regularmente, de modo a poderem restaurá-la se fizerem merda :)

@@ -13,6 +13,9 @@
 	"require": {
 		"php": ">=5.3.7"
 	},
+	"require": {
+		"leafo/scssphp": "0.0.12"
+	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
 	},

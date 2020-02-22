@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => '',
-	'password' => '',
-	'database' => '',
+	'hostname' => 'aaxg79qdsax3kt.czwbq18acehv.eu-west-3.rds.amazonaws.com',
+	'username' => 'root',
+	'password' => 'carapau2020',
+	'database' => 'aplus',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

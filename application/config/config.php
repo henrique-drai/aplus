@@ -24,7 +24,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = '';
-$config['base_url'] = 'http://localhost/aplus';
+if (ENVIRONMENT == "development"){
+    $config['base_url'] = 'http://localhost/aplus';
+} else {
+    $config['base_url'] = 'http://aplus-env.pysedehqf5.eu-west-3.elasticbeanstalk.com/';
+}
 
 /*
 |--------------------------------------------------------------------------

@@ -19,51 +19,45 @@ class Api extends REST_Controller {
         $this->load->helper(['jwt', 'authorization']);
     }
 
+    public function getUserByEmail_get($email = '')
+    {
+        $this->load->model('UserModel');
+        echo json_encode($this->UserModel->getUserByEmail($email));
+    }
+
+
+
+    
+
     public function login_post()
     {
-        // TODO (substituir por dados verdadeiros)
-        $dummy_user = [
-            'username' => 'Test',
-            'password' => 'test'
-        ];
-
-        // Extract user data from POST request
-        $username = $this->post('username');
+        $email = $this->post('email');
         $password = $this->post('password');
 
-        // Check if valid user
-        if ($username === $dummy_user['username'] && $password === $dummy_user['password']) {
-            
-            // Create a token from the user data and send it as reponse
-            $token = AUTHORIZATION::generateToken(['username' => $dummy_user['username']]);
+        $this->load->model('UserModel');
 
-            // Prepare the response
+        if ($this->UserModel->isValidPassword($email, $password)) {
+
+            $user = $this->UserModel->getUserByEmail($email);
+
+            $session_data = array(
+                "email" => $email,
+                "role" => $user->role
+            );
+
+            $this->session->set_userdata($session_data);
+            
+            $token = AUTHORIZATION::generateToken(['username' => $email]);
+
             $status = parent::HTTP_OK;
 
-            $response = ['status' => $status, 'token' => $token];
+            $response = ['status' => $status, 'token' => $token, 'role' => $user->role];
 
             $this->response($response, $status);
         }
         else {
             $this->response(['msg' => 'Invalid username or password!'], parent::HTTP_NOT_FOUND);
         }
-
-    }
-
-    public function getUserByEmail($email = '')
-    {
-        $this->load->model('UserModel');
-        echo json_encode($this->UserModel->getUserByEmail($email));
-    }
-
-    public function get_me_data_post()
-    {
-        // Call the verification method and store the return value in the variable
-        $data = $this->verify_request();
-        // Send the return data as reponse
-        $status = parent::HTTP_OK;
-        $response = ['status' => $status, 'data' => $data];
-        $this->response($response, $status);
     }
 
     private function verify_request()

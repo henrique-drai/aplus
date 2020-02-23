@@ -14,6 +14,11 @@ class App extends CI_Controller {
     {
         if (! file_exists(APPPATH.'views/student/'.$page.'.php')){show_404();}
 
+        if($this->session->userdata('role') != "student"){
+            echo "Não tem permissões para aceder a este ficheiro.";
+            return false;
+        }
+
         $data["base_url"] = base_url();
 
         $this->load->view('templates/head', $data);
@@ -25,16 +30,26 @@ class App extends CI_Controller {
     {
         if (! file_exists(APPPATH.'views/teacher/'.$page.'.php')){show_404();}
 
+        if($this->session->userdata('role') != "teacher"){
+            echo "Não tem permissões para aceder a este ficheiro.";
+            return false;
+        }
+
         $data["base_url"] = base_url();
 
         $this->load->view('templates/head', $data);
-        $this->load->view('teachert/'.$page, $data);
+        $this->load->view('teacher/'.$page, $data);
         $this->load->view('templates/footer');
     }
 
     public function admin($page = 'home')
     {
         if (! file_exists(APPPATH.'views/admin/'.$page.'.php')){show_404();}
+
+        if($this->session->userdata('role') != "admin"){
+            echo "Não tem permissões para aceder a este ficheiro.";
+            return false;
+        }
 
         $data["base_url"] = base_url();
 

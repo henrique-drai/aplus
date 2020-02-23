@@ -8,3 +8,5 @@
     -->
     <script src="<?php echo $base_url; ?>js/jquery-3.4.1.min.js"></script>
 	<meta property="og:type" content="website">
+	<script src="<?php echo $base_url; ?>js/utils.js"></script>
+	<script> setBaseUrl("<?php echo $base_url; ?>") </script>

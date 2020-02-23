@@ -6,7 +6,7 @@ $(document).ready(() => {
 function submitLogin(){
 
     const data = {
-        username: $("#login-form input[name='username']").val(),
+        email: $("#login-form input[name='email']").val(),
         password: $("#login-form input[name='password']").val(),
     }
 
@@ -16,6 +16,10 @@ function submitLogin(){
         data: data,
         success: function(data) {
             sessionStorage.setItem("token", data.token)
+            window.location.href = base_url + "app/" + data.role
+        },
+        error: function(data) {
+            alert("Dados inválidos. (Esta mensagem vai ser substituída, como é óbvio)")
         }
     });
     

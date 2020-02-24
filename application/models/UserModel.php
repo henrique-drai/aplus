@@ -11,4 +11,8 @@ class UserModel extends CI_Model {
         $query = $this->db->get_where('user', array('email' => $email,'password' => $password));
         return ($query->num_rows() > 0)? true : false;
     }
+
+    public function registerUser($data) {
+        $query = $this->db->insert("user",$data);
+    }
 }

@@ -14,7 +14,9 @@ class Api extends REST_Controller {
 
     public function getUserInfo_post() {
         $email = $this->post('email');
+
         $this->load->model('UserModel');
+        
         $user = $this->UserModel->getUserByEmail($email);
         $data = Array(
             "name" => $user->name,
@@ -29,6 +31,24 @@ class Api extends REST_Controller {
     {
         $this->load->model('UserModel');
         echo json_encode($this->UserModel->getUserByEmail($email));
+    }
+
+    public function registerUser_post ()
+    {
+        $email = $this->post('email');
+
+        $data = Array(
+            "name"      => $this->post('name'),
+            "surname"   => $this->post('surname'),
+            "email"     => $this->post('email'),
+            "password"  => $this->post('password'),
+            "role"      => $this->post('role'),
+        );
+
+        $this->load->model('UserModel');
+        $this->UserModel->registerUser($data);
+
+        $this->response(json_encode($data), parent::HTTP_OK);
     }
 
 }

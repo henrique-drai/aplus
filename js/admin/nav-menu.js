@@ -18,9 +18,13 @@ function AdminNavMenu() {
             "href": base_url + "app/admin/teachers",
             "name": "Teachers"
         },
-        "atudents": {
+        "students": {
             "href": base_url + "app/admin/students",
             "name": "Students"
+        },
+        "registerUser": {
+            "href": base_url + "app/admin/registerUser",
+            "name": "Register User"
         }
     }
 

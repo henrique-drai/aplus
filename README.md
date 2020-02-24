@@ -21,7 +21,7 @@ Ambiente de EC2 + RDS + CodeIgniter
 
 Peço-vos que exportem a BD regularmente, de modo a poderem restaurá-la se fizerem merda :)
 
-Nunca façam commits para o master sem testarem bem os componentes. Se quiserem partilhar código não testado, criem outro branch.
+Nunca façam commits para o master sem testarem bem os componentes. Se quiserem partilhar código não testado, criem outro branch...
 
 ## Domínio atual:
 Aplus-env.pysedehqf5.eu-west-3.elasticbeanstalk.com

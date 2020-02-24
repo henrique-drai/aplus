@@ -12,10 +12,11 @@ function submitLogin(){
 
     $.ajax({
         type: "POST",
-        url: window.location.href + "/../../../api/login",
+        url: base_url + "auth/login",
         data: data,
         success: function(data) {
             sessionStorage.setItem("token", data.token)
+            sessionStorage.setItem("email", data.email)
             window.location.href = base_url + "app/" + data.role
         },
         error: function(data) {

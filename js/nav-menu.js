@@ -19,8 +19,8 @@ function getNavBarLinks(pages)
 
 function getNavBarProfilePic(){
     let user_picture_href = base_url + "uploads/profile/default.jpg"
-    if (fileExists(base_url + "uploads/profile/"+sessionStorage.email+".jpg")){
-        user_picture_href = base_url + "uploads/profile/"+sessionStorage.email+".jpg"
+    if (fileExists(base_url + "uploads/profile/"+localStorage.email+".jpg")){
+        user_picture_href = base_url + "uploads/profile/"+localStorage.email+".jpg"
     }
     return $("<img class='nav-menu-profile-picture' src='" + user_picture_href + "' alt='Profile Picture'>")
 }
@@ -36,7 +36,7 @@ function loadNavBarUserInfo(){
     $.ajax({
         type: "POST",
         url: base_url + "api/getUserInfo",
-        data: {email: sessionStorage.email},
+        data: {email: localStorage.email},
         success: function(data) {
             data = JSON.parse(data)
             $(".nav-menu-user-name").html(data.name + " " + data.surname)

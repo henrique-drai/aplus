@@ -1,22 +1,33 @@
 html, body {
     width: 100%;
-    font-family: 'Poppins', sans-serif;
-    background-color: #efefef;
     margin: 0px;
     padding: 0px;
 }
 body {
     display: flex;
+    font-family: 'Poppins', sans-serif;
+    background-color: #efefef;
 }
-
 main {
     padding: 20px;
     box-sizing: border-box;
 }
 
+
+
+
+
+
+
+
+/*************************************************
+                    NAV-MENU
+*************************************************/  
+
 #nav-menu-hook {
     background-color: #225;
     width: 220px;
+    min-width: 220px;
 }
 #nav-menu-hook hr{
     width: 50px;
@@ -52,6 +63,5 @@ main {
     color:white
 }
 .nav-menu-selected-link{
-    
     background: rgb(255,255,255,0.2);
 }

@@ -15,8 +15,8 @@ function submitLogin(){
         url: base_url + "auth/login",
         data: data,
         success: function(data) {
-            sessionStorage.setItem("token", data.token)
-            sessionStorage.setItem("email", data.email)
+            localStorage.setItem("token", data.token)
+            localStorage.setItem("email", data.email)
             window.location.href = base_url + "app/" + data.role
         },
         error: function(data) {

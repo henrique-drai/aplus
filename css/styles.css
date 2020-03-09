@@ -44,7 +44,7 @@ main {
     border: 1px solid white;
 }
 .nav-menu-user-name {
-    color: #ddd;
+    color: #fff;
     text-align: center;
 }
 #nav-menu-hook ul {
@@ -64,4 +64,14 @@ main {
 }
 .nav-menu-selected-link{
     background: rgb(255,255,255,0.2);
+}
+.nav-menu-btn {
+    text-align: center;
+    color: #ccc;
+    text-transform: uppercase;
+    font-size: 12px;
+    cursor: pointer;
+}
+.nav-menu-btn:hover {
+    opacity: 0.8;
 }

@@ -30,7 +30,19 @@ function getNavBarUserSection(){
     let user_section = $("<div class='nav-menu-user-section'></div>")
     user_section.append(getNavBarProfilePic())
     user_section.append("<div class='nav-menu-user-name'>Loading...</div>")
+    user_section.append(getLogoutBtn())
     return user_section
+}
+
+function getLogoutBtn(){
+    let logout_btn = $("<div class='nav-menu-btn-logout nav-menu-btn'>Logout</div>");
+    logout_btn.click(() => {
+        localStorage.removeItem("profile_pic")
+        localStorage.removeItem("token")
+        localStorage.removeItem("user_id")
+        window.location.href = base_url + "app/auth/login"
+    })
+    return logout_btn
 }
 
 function loadNavBarUserInfo(){

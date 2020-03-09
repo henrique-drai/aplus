@@ -19,8 +19,9 @@ function getNavBarLinks(pages)
 
 function getNavBarProfilePic(){
     let user_picture_href = base_url + "uploads/profile/default.jpg"
-    if (fileExists(base_url + "uploads/profile/"+localStorage.email+".jpg")){
-        user_picture_href = base_url + "uploads/profile/"+localStorage.email+".jpg"
+    console.log("Will show default picture if error occurs.")
+    if (fileExists(base_url + "uploads/profile/"+localStorage.profile_pic)){
+        user_picture_href = base_url + "uploads/profile/"+localStorage.profile_pic
     }
     return $("<img class='nav-menu-profile-picture' src='" + user_picture_href + "' alt='Profile Picture'>")
 }
@@ -36,13 +37,14 @@ function loadNavBarUserInfo(){
     $.ajax({
         type: "POST",
         url: base_url + "api/getUserInfo",
-        data: {email: localStorage.email},
+        data: {user_id: localStorage.user_id},
         success: function(data) {
             data = JSON.parse(data)
             $(".nav-menu-user-name").html(data.name + " " + data.surname)
         },
         error: function(data) {
             console.log("Problema na API (getUserInfo)")
+            console.log(data)
         }
     })
 } 

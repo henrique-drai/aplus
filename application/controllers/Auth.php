@@ -31,6 +31,7 @@ class Auth extends REST_Controller {
             $user = $this->UserModel->getUserByEmail($email);
 
             $session_data = array(
+                "id" => $user->id,
                 "email" => $email,
                 "role" => $user->role
             );
@@ -45,7 +46,8 @@ class Auth extends REST_Controller {
                 'status' => $status,
                 'token' => $token,
                 'role' => $user->role,
-                'email' => $user->email
+                'id' => $user->id,
+                'profile_pic' => $user->profile_pic_url
             ];
 
             $this->response($response, $status);

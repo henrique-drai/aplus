@@ -13,11 +13,11 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 class Api extends REST_Controller {
 
     public function getUserInfo_post() {
-        $email = $this->post('email');
+        $user_id = $this->post('user_id');
 
         $this->load->model('UserModel');
         
-        $user = $this->UserModel->getUserByEmail($email);
+        $user = $this->UserModel->getUserById($user_id);
         $data = Array(
             "name" => $user->name,
             "surname" => $user->surname,

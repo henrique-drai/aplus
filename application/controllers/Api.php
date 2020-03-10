@@ -38,7 +38,15 @@ class Api extends REST_Controller {
 
     public function admin_get($f){
         switch($f){
-            case "getallstudents": $this->getAllStudents(); break; //      /api/admin/getallstudents
+            case "getAllStudents": $this->getAllStudents(); break; //      /api/admin/getAllStudents
+
+            default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function admin_delete($f){
+        switch($f){
+            case "deleteStudent": $this->deleteStudent(); break; //      /api/admin/deleteStudent
 
             default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -124,7 +132,7 @@ class Api extends REST_Controller {
         
     }
 
-    public function deleteStudent_delete(){
+    public function deleteStudent(){
         $email = $this->delete('email');
         $this->load->model('UserModel');
         $this->UserModel->deleteStudent($email);

@@ -22,7 +22,7 @@ function submitRegister(){
             console.log(data);
         },
         error: function(data) {
-            alert("Dados inválidos. (Esta mensagem vai ser substituída, como é óbvio)")
+            console.log("ERRO NA API")
         }
     });
     

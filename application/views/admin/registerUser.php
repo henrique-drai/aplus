@@ -7,28 +7,27 @@
 <body>
     <div id="nav-menu-hook"></div>
     <main>
-    <h1>Registar User!</h1>
+        <h1>Registar User!</h1>
 
-    <form id="register-form" action="javascript:void(0)">
-        <label for="name">Name</label><br>
-        <input type="text" name="name"><br>
-        <label for="surname">Surname</label><br>
-        <input type="text" name="surname"><br>
-        <label for="email">Email</label><br>
-        <input type="text" name="email"><br>
-        <label for="password">Password</label><br>
-        <input type="password" name="password"><br>
-        <label for="role">Role</label><br>
-        <input type="text" name="role"><br><br>
+        <form id="register-form" action="javascript:void(0)">
+            <label for="name">Name</label><br>
+            <input type="text" name="name"><br>
+            <label for="surname">Surname</label><br>
+            <input type="text" name="surname"><br>
+            <label for="email">Email</label><br>
+            <input type="text" name="email"><br>
+            <label for="password">Password</label><br>
+            <input type="password" name="password"><br>
+            <label for="role">Role</label><br>
+            <input type="text" name="role"><br><br>
 
-        <input type="submit" id="register-form-submit">
-    </form><br>
+            <input type="submit" id="register-form-submit">
+        </form><br>
 
-    <h3>TODO:</h3>
-    <ul>
-        <li>Importar utilizadores</li>
-        <li>Exportar utilizadores</li>
-    </ul>
+        <h3>TODO:</h3>
+        <ul>
+            <li>Importar utilizadores</li>
+            <li>Exportar utilizadores</li>
+        </ul>
     
-
     </main>

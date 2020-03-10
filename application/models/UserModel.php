@@ -18,7 +18,30 @@ class UserModel extends CI_Model {
     }
 
     public function registerUser($data) {
-        $query = $this->db->insert("user",$data);
+
+        $this->db->insert("user", $data);
+
+        $id = $this->db->insert_id();
+
+        $data["user_id"] = $id;
+
+        switch ($data["role"]) {
+            case "admin":
+                $this->db->insert("admin", Array("user_id" => $id));
+                $data["admin_id"] = $this->db->insert_id();
+                break;
+            case "student":
+                $this->db->insert("aluno", Array("user_id" => $id));
+                $data["student_id"] = $this->db->insert_id();
+                break;
+            case "teacher":
+                $this->db->insert("professor", Array("user_id" => $id));
+                $data["teacher_id"] = $this->db->insert_id();
+                break;
+            default: $data["msg"] = "ERRO (o role eh invalido)";
+        }
+
+        return $data;
     }
 
     #Admin ver e dar manage nos Alunos

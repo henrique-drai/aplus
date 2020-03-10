@@ -30,6 +30,14 @@ class Api extends REST_Controller {
         }
     }
 
+    public function admin_get($f){
+        switch($f){
+            case "getallstudents": $this->getAllStudents(); break; //      /api/admin/getallstudents
+
+            default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+        }
+    }
+
     //api/student/função
     public function student_post($f) {
         switch ($f) {
@@ -77,8 +85,8 @@ class Api extends REST_Controller {
     //                          ADMIN
     //////////////////////////////////////////////////////////////
 
-    public function registerUser ()
-    {
+    public function registerUser(){
+
         $email = $this->post('email');
 
         $data = Array(
@@ -95,12 +103,27 @@ class Api extends REST_Controller {
         $this->response(json_encode($data), parent::HTTP_OK);
     }
 
+    public function getAllStudents(){
+        $this->load->model('UserModel');
+        $data["students"] = $this->UserModel->getStudents();
+        
+        $this->response($data, parent::HTTP_OK);
+        
+    }
+
+    public function deleteStudent_delete(){
+        $email = $this->delete('email');
+        $this->load->model('UserModel');
+        $this->UserModel->deleteStudent($email);
+
+    }
+
 
     //////////////////////////////////////////////////////////////
     //                          STUDENT
     //////////////////////////////////////////////////////////////
 
-
+    
 
 
 

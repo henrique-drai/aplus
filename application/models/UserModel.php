@@ -20,4 +20,14 @@ class UserModel extends CI_Model {
     public function registerUser($data) {
         $query = $this->db->insert("user",$data);
     }
+
+    #Admin ver e dar manage nos Alunos
+    public function getStudents(){
+        $query = $this->db->get_where('user', array('role' => "student"));
+        return $query->result_array();
+    }
+
+    public function deleteStudent($email){
+        $query = $this->db->delete('user', array('email'=>$email));
+    }
 }

@@ -12,7 +12,7 @@ function submitLogin(){
 
     $.ajax({
         type: "POST",
-        url: base_url + "auth/login",
+        url: base_url + "api/login",
         data: data,
         success: function(data) {
             console.log(data)
@@ -22,7 +22,8 @@ function submitLogin(){
             window.location.href = base_url + "app/" + data.role
         },
         error: function(data) {
-            alert("Dados inválidos. (Esta mensagem vai ser substituída, como é óbvio)")
+            alert("Dados inválidos.")
+            console.log(data)
         }
     });
     

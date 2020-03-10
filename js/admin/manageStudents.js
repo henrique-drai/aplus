@@ -1,17 +1,16 @@
 $(document).ready(() => {
-    $(".editStudent").click(() => editStudent())
-    $(".deleteStudent").click(() => deleteStudent())
-    console.log("cenas")
+    // $("body").on("click", ".editStudent",() => editStudent());
+    $("body").on("click", ".deleteStudent",() => deleteStudent());
 })
 
 function deleteStudent(){
-    console.log("Cenas")
+    var linha = $(event.target).closest("tr");
     $.ajax({
         type: "DELETE",
         url: base_url + "api/deleteStudent",
-        data: {email: $(".student_email").val()},
+        data: {email: linha.find("td:eq(0)").text()},
         success: function(data) {
-            console.log("Apagou!!")
+            getAllStudents();
         },
         error: function(data) {
             alert("Dados inválidos. (Esta mensagem vai ser substituída, como é óbvio)")

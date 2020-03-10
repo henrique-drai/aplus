@@ -20,7 +20,6 @@ function getNavBarLinks(pages)
 function getNavBarProfilePic(){
     let user_picture_href = base_url + "uploads/profile/default.jpg"
     if (localStorage.profile_pic && fileExists(base_url + "uploads/profile/"+localStorage.profile_pic)){
-        console.log("found image")
         user_picture_href = base_url + "uploads/profile/"+localStorage.profile_pic
     }
     return $("<img class='nav-menu-profile-picture' src='" + user_picture_href + "' alt='Profile Picture'>")

@@ -120,9 +120,9 @@ class Api extends REST_Controller {
         );
 
         $this->load->model('UserModel');
-        $this->UserModel->registerUser($data);
+        $retrieved = $this->UserModel->registerUser($data);
 
-        $this->response(json_encode($data), parent::HTTP_OK);
+        $this->response(json_encode($retrieved), parent::HTTP_OK);
     }
 
     public function getAllStudents(){

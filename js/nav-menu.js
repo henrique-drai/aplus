@@ -48,15 +48,14 @@ function getLogoutBtn(){
 function loadNavBarUserInfo(){
     $.ajax({
         type: "POST",
-        url: base_url + "api/getUserInfo",
+        url: base_url + "api/user/getInfo",
         data: {user_id: localStorage.user_id},
         success: function(data) {
             data = JSON.parse(data)
             $(".nav-menu-user-name").html(data.name + " " + data.surname)
         },
         error: function(data) {
-            console.log("Problema na API (getUserInfo)")
-            console.log(data)
+            console.log("Problema na API: O utilizador não foi atualizado.")
         }
     })
 } 

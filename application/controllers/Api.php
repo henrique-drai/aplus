@@ -12,7 +12,50 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
 class Api extends REST_Controller {
 
-    public function getUserInfo_post() {
+    //api/user/função
+    public function user_post($f) {
+        switch ($f) {
+            case "getInfo":     $this->getUserInfo(); break; //     /api/user/getInfo
+
+            default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+        }
+    }
+
+    //api/admin/função
+    public function admin_post($f) {
+        switch ($f) {
+            case "register":     $this->registerUser(); break; //     /api/admin/register
+
+            default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+        }
+    }
+
+    //api/student/função
+    public function student_post($f) {
+        switch ($f) {
+            // adicionem aqui as vossas funções
+
+            default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+        }
+    }
+
+    //api/teacher/função
+    public function teacher_post($f) {
+        switch ($f) {
+            // adicionem aqui as vossas funções
+
+            default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+        }
+    }
+
+
+
+
+    //////////////////////////////////////////////////////////////
+    //                          USER
+    //////////////////////////////////////////////////////////////
+
+    public function getUserInfo() {
         $user_id = $this->post('user_id');
 
         $this->load->model('UserModel');
@@ -26,14 +69,15 @@ class Api extends REST_Controller {
         $this->response(json_encode($data), parent::HTTP_OK);
     }
 
-    // SÓ PARA TESTES, DEVE SER ELIMINADA
-    public function getUserByEmail_get ($email = '')
-    {
-        $this->load->model('UserModel');
-        echo json_encode($this->UserModel->getUserByEmail($email));
-    }
 
-    public function registerUser_post ()
+
+
+
+    //////////////////////////////////////////////////////////////
+    //                          ADMIN
+    //////////////////////////////////////////////////////////////
+
+    public function registerUser ()
     {
         $email = $this->post('email');
 
@@ -41,7 +85,7 @@ class Api extends REST_Controller {
             "name"      => $this->post('name'),
             "surname"   => $this->post('surname'),
             "email"     => $this->post('email'),
-            "password"  => $this->post('password'),
+            "password"  => md5($this->post('password')),
             "role"      => $this->post('role'),
         );
 
@@ -50,5 +94,27 @@ class Api extends REST_Controller {
 
         $this->response(json_encode($data), parent::HTTP_OK);
     }
+
+
+    //////////////////////////////////////////////////////////////
+    //                          STUDENT
+    //////////////////////////////////////////////////////////////
+
+
+
+
+
+
+    //////////////////////////////////////////////////////////////
+    //                          TEACHER
+    //////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
 
 }

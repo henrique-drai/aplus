@@ -15,6 +15,7 @@ function submitLogin(){
         url: base_url + "auth/login",
         data: data,
         success: function(data) {
+            console.log(data)
             localStorage.setItem("token", data.token)
             localStorage.setItem("user_id", data.id)
             localStorage.setItem("profile_pic", data.profile_pic)

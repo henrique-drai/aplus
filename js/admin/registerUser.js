@@ -16,7 +16,7 @@ function submitRegister(){
 
     $.ajax({
         type: "POST",
-        url: base_url + "api/registerUser",
+        url: base_url + "api/admin/register",
         data: data,
         success: function(data) {
             console.log(data);

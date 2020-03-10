@@ -10,18 +10,25 @@
     <h1>Registar User!</h1>
 
     <form id="register-form" action="javascript:void(0)">
-        <label for="name">Name</label>
-        <input type="text" name="name">
-        <label for="surname">Surname</label>
-        <input type="text" name="surname">
-        <label for="email">Email</label>
-        <input type="text" name="email">
-        <label for="password">Password</label>
-        <input type="password" name="password">
-        <label for="role">Role</label>
-        <input type="text" name="role">
+        <label for="name">Name</label><br>
+        <input type="text" name="name"><br>
+        <label for="surname">Surname</label><br>
+        <input type="text" name="surname"><br>
+        <label for="email">Email</label><br>
+        <input type="text" name="email"><br>
+        <label for="password">Password</label><br>
+        <input type="password" name="password"><br>
+        <label for="role">Role</label><br>
+        <input type="text" name="role"><br><br>
 
         <input type="submit" id="register-form-submit">
-    </form>
+    </form><br>
+
+    <h3>TODO:</h3>
+    <ul>
+        <li>Importar utilizadores</li>
+        <li>Exportar utilizadores</li>
+    </ul>
+    
 
     </main>

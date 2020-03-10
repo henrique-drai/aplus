@@ -24,7 +24,7 @@ function AdminNavMenu() {
         },
         "registerUser": {
             "href": base_url + "app/admin/registerUser",
-            "name": "Register User"
+            "name": "Manage Users"
         }
     }
 

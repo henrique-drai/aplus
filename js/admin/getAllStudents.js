@@ -5,7 +5,7 @@ $(document).ready(() => {
 function getAllStudents(){
     $.ajax({
         type: "GET",
-        url: base_url + "api/admin/getallstudents",
+        url: base_url + "api/admin/getAllStudents",
         success: function(data) {
             $("#show_students").css("display", "block");
             $(".student_row").remove();

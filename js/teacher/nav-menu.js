@@ -13,6 +13,10 @@ function TeacherNavMenu() {
         "courses": {
             "href": base_url + "app/teacher/courses",
             "name": "Courses"
+        },
+        "projects": {
+            "href": base_url + "app/teacher/projects",
+            "name": "Projects"
         }
     }
 

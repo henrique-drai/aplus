@@ -7,7 +7,7 @@ $(document).ready(() => {
         },
         url: base_url + "api/user/teste",
         data: {
-            "kek":"oi"
+            "fake":"taxi"
         },
         success: function(data) {
             console.log(data)

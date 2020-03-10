@@ -68,6 +68,7 @@ class Api extends REST_Controller {
         
         $user = $this->UserModel->getUserById($user_id);
         $data = Array(
+            "email" => $user->email,
             "name" => $user->name,
             "surname" => $user->surname,
             "role" => $user->role,

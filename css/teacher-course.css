@@ -1,0 +1,24 @@
+.button {
+    background-color: #b3b3b3; 
+    color: black;
+    padding: 1%;
+    border-radius: 5%;
+    text-decoration: none;
+}
+
+.button:hover {
+    cursor: pointer;
+    color: rgb(235, 235, 235);
+}
+
+.form-container{
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
+    padding: 2%;
+    width: 100%;
+}
+
+main {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}

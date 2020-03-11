@@ -31,7 +31,6 @@ class Api extends REST_Controller {
     public function admin_post($f) {
         switch ($f) {
             case "register":     $this->registerUser(); break; //     /api/admin/register
-
             default:             $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
@@ -40,6 +39,7 @@ class Api extends REST_Controller {
         switch($f){
             case "getAllStudents": $this->getAllStudents(); break; //      /api/admin/getAllStudents
             case "getAllTeachers": $this -> getAllTeachers(); break;
+            case "saveCSV":     $this->export(); break;
             
             default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -150,6 +150,29 @@ class Api extends REST_Controller {
         $email = $this->delete('email');
         $this->load->model('UserModel');
         $this->UserModel->deleteTeacher($email);
+    }
+
+    public function export(){
+        $this->load->model('UserModel');
+       
+        $file_name = "stInfo".date('Ymd').'.csv';
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=$file_name");
+        header("Content-Type: application/csv;");
+
+        $studentsInfo = $this -> UserModel -> getStudents();
+
+        $file = fopen('php://output','w');
+        $header = array("Name", "Surname", "Email");
+
+        fputcsv($file, $header);
+    
+        foreach($studentsInfo as $student){
+            $dados = array($student['name'], $student['surname'],$student['email']);
+            fputcsv($file, $dados);
+        }
+        fclose($file);
+        exit;
     }
 
     //////////////////////////////////////////////////////////////

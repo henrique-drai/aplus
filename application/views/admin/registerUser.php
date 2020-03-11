@@ -29,5 +29,10 @@
             <li>Importar utilizadores</li>
             <li>Exportar utilizadores</li>
         </ul>
+
+
+        <form id="exportCsv" action="<?php echo base_url(); ?>api/admin/saveCSV">
+            <input type="submit" id="exportInfo" value="Exportar Users">
+        </form><br>
     
     </main>

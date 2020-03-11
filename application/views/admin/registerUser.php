@@ -19,7 +19,12 @@
             <label for="password">Password</label><br>
             <input type="password" name="password"><br>
             <label for="role">Role</label><br>
-            <input type="text" name="role"><br><br>
+            <select name="role">
+                <option value="admin">Admin</option>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+            </select>
+            <br><br>
 
             <input type="submit" id="register-form-submit">
         </form><br>

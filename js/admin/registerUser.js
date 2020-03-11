@@ -11,7 +11,7 @@ function submitRegister(){
         surname:    $("#register-form input[name='surname']").val(),
         email:      $("#register-form input[name='email']").val(),
         password:   $("#register-form input[name='password']").val(),
-        role:       $("#register-form input[name='role']").val(),
+        role:       $("#register-form select[name='role']").val(),
     }
 
     $.ajax({

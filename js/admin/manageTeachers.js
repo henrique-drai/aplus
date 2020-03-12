@@ -7,7 +7,7 @@ function deleteTeacher(){
     var linha = $(event.target).closest("tr");
     $.ajax({
         type: "DELETE",
-        url: base_url + "api/admin/deleteTeacher",
+        url: base_url + "api/admin/deleteUser",
         data: {email: linha.find("td:eq(0)").text()},
         success: function(data) {
             getAllTeachers();

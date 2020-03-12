@@ -31,6 +31,7 @@ class Api extends REST_Controller {
     public function admin_post($f) {
         switch ($f) {
             case "register":     $this->registerUser(); break; //     /api/admin/register
+            case "editStudent":  $this->editStudent(); break; //     /api/admin/editStudent
             default:             $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
@@ -47,8 +48,7 @@ class Api extends REST_Controller {
 
     public function admin_delete($f){
         switch($f){
-            case "deleteStudent": $this->deleteStudent(); break; //      /api/admin/deleteStudent
-            case "deleteTeacher": $this->deleteTeacher(); break;
+            case "deleteUser": $this->deleteStudent(); break; //      /api/admin/deleteUser
 
             default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -134,22 +134,30 @@ class Api extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function deleteStudent(){
+    public function deleteUser(){
         $email = $this->delete('email');
         $this->load->model('UserModel');
         $this->UserModel->deleteStudent($email);
+    }
+
+    public function editStudent(){
+        $email = $this->post('email');
+        $data = Array(
+            "name"      => $this->post('name'),
+            "surname"   => $this->post('surname'),
+            "email"     => $this->post('email'),
+            "password"  => md5($this->post('password')),
+            "role"      => $this->post('role'),
+        );
+
+        $this->load->model('UserModel');
+        $this->UserModel->editStudent($email, $data);
     }
 
     public function getAllTeachers(){
         $this -> load -> model('UserModel');
         $data["teachers"] = $this -> UserModel -> getTeachers();
         $this -> response($data, parent::HTTP_OK);
-    }
-
-    public function deleteTeacher(){
-        $email = $this->delete('email');
-        $this->load->model('UserModel');
-        $this->UserModel->deleteTeacher($email);
     }
 
     public function export(){

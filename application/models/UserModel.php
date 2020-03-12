@@ -54,12 +54,18 @@ class UserModel extends CI_Model {
         $query = $this->db->delete('user', array('email'=>$email));
     }
 
+    public function editStudent($email, $data){
+        $this->db->set('name', $data["name"]);
+        $this->db->set('surname', $data["surname"]);
+        $this->db->set('email', $data["email"]);
+        $this->db->set('password', $data["password"]);
+        $this->db->set("role", $data["role"]);
+        $this->db->where('email', $email);
+        $this->db->update('mytable');
+    }
+
     public function getTeachers(){
         $query = $this -> db -> get_where('user', array('role' => "teacher"));
         return $query->result_array();
-    }
-    // NAO DEVERIA SER DELETEUSER, JÁ QUE A FUNÇÃO É IGUAL PARA AMBOS?
-    public function deleteTeacher($email){
-        $query = $this->db->delete('user', array('email'=>$email));
     }
 }

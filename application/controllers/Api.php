@@ -48,7 +48,7 @@ class Api extends REST_Controller {
 
     public function admin_delete($f){
         switch($f){
-            case "deleteUser": $this->deleteStudent(); break; //      /api/admin/deleteUser
+            case "deleteUser": $this->deleteUser(); break; //      /api/admin/deleteUser
 
             default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -137,11 +137,11 @@ class Api extends REST_Controller {
     public function deleteUser(){
         $email = $this->delete('email');
         $this->load->model('UserModel');
-        $this->UserModel->deleteStudent($email);
+        $this->UserModel->deleteUser($email);
     }
 
     public function editStudent(){
-        $email = $this->post('email');
+        $email = $this->post('oldemail');
         $data = Array(
             "name"      => $this->post('name'),
             "surname"   => $this->post('surname'),
@@ -149,9 +149,10 @@ class Api extends REST_Controller {
             "password"  => md5($this->post('password')),
             "role"      => $this->post('role'),
         );
-
         $this->load->model('UserModel');
-        $this->UserModel->editStudent($email, $data);
+        $retrieved = $this->UserModel->editStudent($email, $data);
+
+        $this->response(json_encode($retrieved), parent::HTTP_OK);
     }
 
     public function getAllTeachers(){

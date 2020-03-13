@@ -4,6 +4,8 @@ $(document).ready(() => {
     $("body").on("click", ".deleteStudent",() => deleteStudent());
 })
 
+var oldemail = "";
+
 function deleteStudent(){
     var linha = $(event.target).closest("tr");
     $.ajax({
@@ -21,34 +23,27 @@ function deleteStudent(){
 
 function displayEditStudent(){
     $("#editStudent-form").css("display", "block");
+    var linha = $(event.target).closest("tr");
+    oldemail = linha.find("td:eq(0)").text();
 }
 
 function editStudent(){
-    var linha = $(event.target).closest("tr");
-
     const data = {
         name:       $("#editStudent-form input[name='name']").val(),
         surname:    $("#editStudent-form input[name='surname']").val(),
         email:      $("#editStudent-form input[name='email']").val(),
         password:   $("#editStudent-form input[name='password']").val(),
         role:       $("#editStudent-form select[name='role']").val(),
+        oldemail:   oldemail,
     }
-
-    console.log(data);
 
     $.ajax({
         type: "POST",
         url: base_url + "api/admin/editStudent",
-        data: {
-            email: linha.find("td:eq(0)").text(),
-            data,   
+        data: data,   
+        success: function() {
         },
-        success: function(data) {
-            console.log(data)
-            console.log("MODIFICADO!!!");
-        },
-        error: function(data) {
-            console.log("carapau");
+        error: function() {
             alert("Dados inválidos. (Esta mensagem vai ser substituída, como é óbvio)")
         }
     });

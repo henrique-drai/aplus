@@ -29,7 +29,7 @@ class UserModel extends CI_Model {
         return $query->result_array();
     }
 
-    public function deleteStudent($email){
+    public function deleteUser($email){
         $query = $this->db->delete('user', array('email'=>$email));
     }
 
@@ -40,7 +40,7 @@ class UserModel extends CI_Model {
         $this->db->set('password', $data["password"]);
         $this->db->set("role", $data["role"]);
         $this->db->where('email', $email);
-        $this->db->update('mytable');
+        $this->db->update('user');
     }
 
     public function getTeachers(){

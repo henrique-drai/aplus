@@ -4,7 +4,7 @@ $(document).ready(() => {
     $("body").on("click", ".deleteStudent",() => deleteStudent());
 })
 
-var oldemail = "";
+var oldEmail = "";
 
 function deleteStudent(){
     var linha = $(event.target).closest("tr");
@@ -24,7 +24,7 @@ function deleteStudent(){
 function displayEditStudent(){
     $("#editStudent-form").css("display", "block");
     var linha = $(event.target).closest("tr");
-    oldemail = linha.find("td:eq(0)").text();
+    oldEmail = linha.find("td:eq(0)").text();
 }
 
 function editStudent(){
@@ -34,7 +34,7 @@ function editStudent(){
         email:      $("#editStudent-form input[name='email']").val(),
         password:   $("#editStudent-form input[name='password']").val(),
         role:       $("#editStudent-form select[name='role']").val(),
-        oldemail:   oldemail,
+        oldemail:   oldEmail,
     }
 
     $.ajax({

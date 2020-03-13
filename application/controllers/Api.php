@@ -31,7 +31,7 @@ class Api extends REST_Controller {
     public function admin_post($f) {
         switch ($f) {
             case "register":     $this->registerUser(); break; //     /api/admin/register
-            case "editStudent":  $this->editStudent(); break; //     /api/admin/editStudent
+            case "editUser":     $this->editUser(); break; //     /api/admin/editUser
             default:             $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
@@ -140,7 +140,7 @@ class Api extends REST_Controller {
         $this->UserModel->deleteUser($email);
     }
 
-    public function editStudent(){
+    public function editUser(){
         $email = $this->post('oldemail');
         $data = Array(
             "name"      => $this->post('name'),

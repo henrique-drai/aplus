@@ -1,9 +1,9 @@
 <title>A+ for Admins</title>
 <script>setPageName("home")</script>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin-students.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin-users.css">
 <script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/getAllStudents.js"></script>
-<script src="<?php echo $base_url; ?>js/admin/manageStudents.js"></script>
+<script src="<?php echo $base_url; ?>js/admin/manageUsers.js"></script>
 </head>
 
 <body>
@@ -21,7 +21,7 @@
         </tr>
         
     </table>
-    <form id="editStudent-form" action="javascript:void(0)">
+    <form id="editUser-form" action="javascript:void(0)">
         <label for="name">Name</label><br>
         <input type="text" name="name"><br>
         <label for="surname">Surname</label><br>
@@ -38,5 +38,5 @@
         </select>
         <br><br>
 
-        <input type="submit" id="editStudent-form-submit">
+        <input type="submit" id="editUser-form-submit">
     </form><br>

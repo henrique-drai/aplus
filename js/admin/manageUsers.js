@@ -43,7 +43,8 @@ function editUser(){
         success: function() {
         },
         error: function() {
-            alert("Dados inválidos. (Esta mensagem vai ser substituída, como é óbvio)")
+            msgErro = "<p class='msgErro'> Não foi possivel registar a faculdade.</p>";
+            $("body").append(msgErro);
         }
     });
 }

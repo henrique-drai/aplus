@@ -31,7 +31,9 @@ class Api extends REST_Controller {
     public function admin_post($f) {
         switch ($f) {
             case "register":     $this->registerUser(); break; //     /api/admin/register
+            case "registerCollege": $this->registerCollege(); break; //     /api/admin/registerCollege
             case "editUser":     $this->editUser(); break; //     /api/admin/editUser
+            
             default:             $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
@@ -124,6 +126,17 @@ class Api extends REST_Controller {
         $this->load->model('UserModel');
         $retrieved = $this->UserModel->registerUser($data);
 
+        $this->response(json_encode($retrieved), parent::HTTP_OK);
+    }
+
+    public function registerCollege(){
+        $data = Array(
+            "name" => $this->post('nomefaculdade'),
+            "location"   => $this->post('morada'),
+        );
+
+        $this->load->model('CollegeModel');
+        $retrieved = $this->CollegeModel->registerCollege($data);
         $this->response(json_encode($retrieved), parent::HTTP_OK);
     }
 

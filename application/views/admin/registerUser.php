@@ -7,12 +7,12 @@
 <body>
     <div id="nav-menu-hook"></div>
     <main>
-        <h1>Registar User!</h1>
+        <h1>Registar Utilizador!</h1>
 
         <form id="register-form" action="javascript:void(0)">
-            <label for="name">Name</label><br>
+            <label for="name">Nome:</label><br>
             <input type="text" name="name"><br>
-            <label for="surname">Surname</label><br>
+            <label for="surname">Apelido</label><br>
             <input type="text" name="surname"><br>
             <label for="email">Email</label><br>
             <input type="text" name="email"><br>

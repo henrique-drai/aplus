@@ -1,3 +1,7 @@
 #editUser-form {
     display: none;
 }
+
+.msgErro {
+    background: red;
+}

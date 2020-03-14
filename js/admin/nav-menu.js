@@ -10,7 +10,7 @@ function AdminNavMenu() {
             "href": base_url + "app/admin/home",
             "name": "Dashboard"
         },
-        "schoolYear": {
+        "anoLetivo": {
             "href": base_url + "app/admin/anoLetivo",
             "name": "School Year"
         },
@@ -18,7 +18,7 @@ function AdminNavMenu() {
             "href": base_url + "app/admin/college",
             "name": "College"
         },
-        "curricularUnits": {
+        "unidCurricular": {
             "href": base_url + "app/admin/unidCurricular",
             "name": "Curricular Units"
         },

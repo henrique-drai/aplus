@@ -1,5 +1,5 @@
 <title>A+ for Admins</title>
-<script>setPageName("College")</script>
+<script>setPageName("college")</script>
 <script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/registerCollege.js"></script>
 </head>

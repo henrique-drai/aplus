@@ -4,10 +4,10 @@ $(document).ready(() => {
     $("body").on("click", ".deleteUser",() => deleteUser());
     
 
-    if (page_name=="Students"){
+    if (page_name=="students"){
         getAllStudents();
         setInterval(getAllStudents, 3000);
-    } else if (page_name=="Teachers") {
+    } else if (page_name=="teachers") {
         getAllTeachers();
         setInterval(getAllTeachers, 3000); 
     } 
@@ -23,9 +23,9 @@ function deleteUser(){
         url: base_url + "api/admin/deleteUser",
         data: {email: linha.find("td:eq(0)").text()},
         success: function() {
-            if (page_name=="Students"){
+            if (page_name=="students"){
                 getAllStudents();
-            } else if (page_name=="Teachers") {
+            } else if (page_name=="teachers") {
                 getAllTeachers();
             } 
         },
@@ -56,9 +56,9 @@ function editUser(){
         url: base_url + "api/admin/editUser",
         data: data,   
         success: function() {
-            if (page_name=="Students"){
+            if (page_name=="students"){
                 getAllStudents();
-            } else if (page_name=="Teachers") {
+            } else if (page_name=="teachers") {
                 getAllTeachers();
             } 
         },
@@ -97,7 +97,7 @@ function getAllStudents(){
             
         },
         error: function(data) {
-            alert("Erro a mostrar os alunos!")
+            console.log("Erro a mostrar os alunos!")
         }
     });
 }
@@ -129,7 +129,7 @@ function getAllTeachers(){
             
         },
         error: function(data) {
-            alert("Erro a mostrar os professores!")
+            console.log("Erro a mostrar os professores!")
         }
     });
     

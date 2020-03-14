@@ -34,11 +34,22 @@
 #nav-menu-hook li a:visited,
 #nav-menu-hook li a {
     text-decoration: none;
-    color:white
+    color:white;
 }
 .nav-menu-selected-link{
     background: rgb(255,255,255,0.2);
+    position: relative;
 }
+.nav-menu-selected-link::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent; 
+    border-right: 8px solid #efefef; 
+  }
 .nav-menu-btn {
     text-align: center;
     color: #ccc;

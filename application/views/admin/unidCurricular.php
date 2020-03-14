@@ -1,5 +1,5 @@
 <title>A+ for Admins</title>
-<script>setPageName("UC")</script>
+<script>setPageName("unidCurricular")</script>
 <script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 </head>
 

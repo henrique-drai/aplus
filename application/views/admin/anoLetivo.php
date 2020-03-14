@@ -1,5 +1,5 @@
 <title>A+ for Admins</title>
-<script>setPageName("School Year")</script>
+<script>setPageName("anoLetivo")</script>
 <script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 </head>
 

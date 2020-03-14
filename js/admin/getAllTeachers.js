@@ -34,4 +34,4 @@ function getAllTeachers(){
     
 }
 
-var timeout = setInterval(getAllTeachers, 1000);   
+var timeout = setInterval(getAllTeachers, 3000);   

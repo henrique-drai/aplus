@@ -1,0 +1,16 @@
+main{
+    margin: auto;
+}
+
+main > div {
+    text-align: left;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background-color: white;
+    text-align: center;
+}
+
+main a {
+    text-decoration: none;
+    color: black;
+}

@@ -1,3 +1,5 @@
+@import "nav-menu.css";
+
 html, body {
     width: 100%;
     margin: 0px;
@@ -12,66 +14,25 @@ main {
     padding: 20px;
     box-sizing: border-box;
 }
-
-
-
-
-
-
-
-
-/*************************************************
-                    NAV-MENU
-*************************************************/  
-
-#nav-menu-hook {
-    background-color: #225;
-    width: 220px;
-    min-width: 220px;
-}
-#nav-menu-hook hr{
-    width: 50px;
-    border-bottom: 0px;
-}
-.nav-menu-user-section {
-    padding: 10px;
-}
-.nav-menu-profile-picture {
-    border-radius: 100px;
-    margin: 10px auto;
+input, select {
+    text-align: left;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background-color: white;
     display: block;
-    width: 100px;
-    border: 1px solid white;
+    padding: 5px 10px;
 }
-.nav-menu-user-name {
-    color: #fff;
-    text-align: center;
+label {
+    display: block;
+    margin-top: 15px;
 }
-#nav-menu-hook ul {
-    padding: 0px;
+table {
+    background-color: white;
+    border-collapse: collapse;
 }
-#nav-menu-hook li {
-    list-style-type: none;
-    padding: 10px;
+table td{
+    padding: 5px 10px;
 }
-#nav-menu-hook li:hover {
-    background: rgb(255,255,255,0.1);
-}
-#nav-menu-hook li a:visited,
-#nav-menu-hook li a {
-    text-decoration: none;
-    color:white
-}
-.nav-menu-selected-link{
-    background: rgb(255,255,255,0.2);
-}
-.nav-menu-btn {
-    text-align: center;
-    color: #ccc;
-    text-transform: uppercase;
-    font-size: 12px;
-    cursor: pointer;
-}
-.nav-menu-btn:hover {
-    opacity: 0.8;
+table, tr, td, th {
+    border: 1px solid #aaa;
 }

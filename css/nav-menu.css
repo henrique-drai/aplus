@@ -1,0 +1,51 @@
+#nav-menu-hook {
+    background-color: #225;
+    width: 220px;
+    min-width: 220px;
+}
+#nav-menu-hook hr{
+    width: 50px;
+    border-bottom: 0px;
+}
+.nav-menu-user-section {
+    padding: 10px;
+}
+.nav-menu-profile-picture {
+    border-radius: 100px;
+    margin: 10px auto;
+    display: block;
+    width: 100px;
+    border: 1px solid white;
+}
+.nav-menu-user-name {
+    color: #fff;
+    text-align: center;
+}
+#nav-menu-hook ul {
+    padding: 0px;
+}
+#nav-menu-hook li {
+    list-style-type: none;
+    padding: 10px;
+}
+#nav-menu-hook li:hover {
+    background: rgb(255,255,255,0.1);
+}
+#nav-menu-hook li a:visited,
+#nav-menu-hook li a {
+    text-decoration: none;
+    color:white
+}
+.nav-menu-selected-link{
+    background: rgb(255,255,255,0.2);
+}
+.nav-menu-btn {
+    text-align: center;
+    color: #ccc;
+    text-transform: uppercase;
+    font-size: 12px;
+    cursor: pointer;
+}
+.nav-menu-btn:hover {
+    opacity: 0.8;
+}

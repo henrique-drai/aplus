@@ -14,7 +14,6 @@
             <input type="text" name="nomefaculdade"><br>
             <label for="morada">Morada:</label><br>
             <input type="text" name="morada"><br>
-            <br><br>
 
             <input type="submit" id="register-college-submit">
         </form><br>

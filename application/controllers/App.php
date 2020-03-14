@@ -68,5 +68,14 @@ class App extends CI_Controller {
         $this->load->view('auth/'.$page, $data);
         $this->load->view('templates/footer');
     }
+
+    public function profile()
+    {
+        $data["base_url"] = base_url();
+
+        $this->load->view('templates/head', $data);
+        $this->load->view('profile', $data);
+        $this->load->view('templates/footer');
+    }
 }
 

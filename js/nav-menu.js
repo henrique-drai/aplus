@@ -1,4 +1,6 @@
-
+$(document).ready(() => {
+    setUserInfo()
+})
 
 // assim só precisam de indicar as páginas que vão estar disponíveis
 // exemplo de utilização: js/teacher/nav-menu.js
@@ -22,7 +24,14 @@ function getNavBarProfilePic(){
     if (localStorage.profile_pic && fileExists(base_url + "uploads/profile/"+localStorage.profile_pic)){
         user_picture_href = base_url + "uploads/profile/"+localStorage.profile_pic
     }
-    return $("<img class='nav-menu-profile-picture' src='" + user_picture_href + "' alt='Profile Picture'>")
+    let img = $("<img src='" + user_picture_href + "' alt='Profile Picture'>")
+    let hover = $("<div class='nav-menu-profile-picture-hover'>Edit</div>")
+    let a = $("<a href='"+base_url+"app/profile'></a>")
+    let outter = $("<div class='nav-menu-profile-picture'></div>")
+    
+    outter.append(a.append(img).append(hover))
+    
+    return outter
 }
 
 function getNavBarUserSection(){

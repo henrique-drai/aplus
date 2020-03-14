@@ -1,7 +1,7 @@
 .button {
     background-color: #b3b3b3; 
     color: black;
-    padding: 1%;
+    padding: 0.5%;
     border-radius: 5%;
     text-decoration: none;
 }
@@ -15,10 +15,42 @@
     box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
     padding: 2%;
     width: 100%;
+    background-color: #EDEDED;
 }
 
 main {
     width: 70%;
     margin-left: auto;
     margin-right: auto;
+    height: auto;
+}
+
+#card_info {
+    width: 30%;
+    height: 20%;
+    font-size: 20px;
+    display: inline-block;
+    margin-left: 2%;
+    cursor: pointer;
+}
+
+#card_info img {
+    position: relative;
+    width: 100%;
+    height: 80%;
+    margin-bottom: -4%;
+}
+
+.course {
+    background-color: white;
+}
+
+.course p {
+    margin-left: 5%;
+}
+
+#title {
+    font-size: 15px;
+    color: grey;
+    margin-bottom: -5%;
 }

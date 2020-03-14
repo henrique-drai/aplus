@@ -2,6 +2,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-course.css">
 <script>setPageName("courses")</script>
 <script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
+<script src="<?php echo $base_url; ?>js/teacher/courses.js"></script>
 </head>
 
 <body>
@@ -11,6 +12,7 @@
         <h1>Página de cadeiras para professores  *suposto aceder pelas cadeiras que leciona*</h1>
         <div class="form-container">
             <h2>Sumário da Cadeira</h2>
+            <div id="summary"></div>
             <p>*buscar descrição da cadeira à base de dados*</p>
 
             <br><br>

@@ -11,7 +11,7 @@ function TeacherNavMenu() {
             "name": "Dashboard"
         },
         "courses": {
-            "href": base_url + "app/teacher/courses",
+            "href": base_url + "app/teacher/courses_prof",
             "name": "Courses"
         },
         "projects": {

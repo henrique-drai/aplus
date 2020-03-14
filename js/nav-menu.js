@@ -45,10 +45,7 @@ function getNavBarUserSection(){
 function getLogoutBtn(){
     let logout_btn = $("<div class='nav-menu-btn-logout nav-menu-btn'>Logout</div>");
     logout_btn.click(() => {
-        localStorage.removeItem("profile_pic")
-        localStorage.removeItem("token")
-        localStorage.removeItem("user_id")
-        window.location.href = base_url + "app/auth/login"
+        endSession()
     })
     return logout_btn
 }
@@ -67,3 +64,22 @@ function loadNavBarUserInfo(){
         }
     })
 } 
+
+function endSession(){
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "api/user/logout",
+        success: function(data) {
+            localStorage.removeItem("profile_pic")
+            localStorage.removeItem("token")
+            localStorage.removeItem("user_id")
+            window.location.href = base_url + "app/auth/login"
+        },
+        error: function(data) {
+            console.log("Problema na API: O logout deu erro.")
+        }
+    })
+}

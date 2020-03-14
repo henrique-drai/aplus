@@ -1,6 +1,48 @@
-.project-form{
-    padding: 1%
-}
 .etapa {
     margin-left: 3%;
+}
+
+.form-container{
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
+    padding: 2%;
+    width: 100%;
+}
+
+main {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-container-header{
+    background-color: #f1f1f1;
+}
+
+.form-container-header, .project-form{
+    padding: 0.01em 16px;
+}
+
+.form-input-text, .form-input-number{
+    border: 1px solid white;
+    border-left: 3px solid;
+    border-radius:5px;
+    padding:6px;
+    width:100%;
+    transition: .5s ease-out;
+}
+
+.project-form input:required:valid {
+    border-left-color: palegreen;
+}
+
+.project-form input:invalid {
+    border-left-color: salmon;
+}
+
+.project-form input:optional {
+    border-left-color: #999;
+}
+
+.form-button{
+    margin-bottom: 16px;
 }

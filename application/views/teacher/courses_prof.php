@@ -9,7 +9,7 @@
     <div id="nav-menu-hook"></div>
     <main>
         
-        <h1>Cadeiras que leciona *novo push*</h1>
+        <h1>Cadeiras que leciona</h1>
         <div class="form-container">
             <div class="cadeiras"></div>
         </div>

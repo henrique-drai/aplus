@@ -21,14 +21,14 @@ function showCadeiras() {
 
 function show($var) {
     var url = base_url + "app/teacher/courses";
-    var image_url = base_url + "uploads/profile/bjk43v23j4nb2m.jpg";
+    var image_url = base_url + "uploads/profile/edu.jpg";
     $.ajax({
         type: "POST",
         url: base_url + "api/teacher/getCadeiraInfo",
         data: {cadeira_id: $var},
         success: function(data) {
             console.log(data);
-            $(".cadeiras").append("<a href='" + url + "'><div id='card_info'><img src=" + image_url + "><div class='course'><p id='title'>Tecnologias de Informação</p><p>" + data.info[0].code + ": " + data.info[0].name + "</p></div></div></a>");
+            $(".cadeiras").append("<a href='" + url + "'><div id='card_info'><img src=" + image_url + "><div class='course'><div id='title'>Tecnologias de Informação</div><div>" + data.info[0].code + ": " + data.info[0].name + "</div></div></div></a>");
         },
         error: function(data) {
             alert("There was an error");

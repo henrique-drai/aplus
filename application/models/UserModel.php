@@ -76,7 +76,6 @@ class UserModel extends CI_Model {
 
     public function getCadeiraInfo($id) {
         $query = $this->db->get_where('cadeira', array('id =' => $id));
-        print_r($query);
         return $query->result_array();
     }
 

@@ -13,6 +13,7 @@ function showCadeiras() {
         data: {id: localStorage.user_id},
         success: function(data) {
             for(var i = 0; i < data.cadeiras_id.length; i++) {
+                console.log(data.cadeiras_id[i].cadeira_id);
                 var cadeira_id = data.cadeiras_id[i].cadeira_id;
                 show(cadeira_id);
             }
@@ -24,7 +25,7 @@ function showCadeiras() {
 }
 
 function show($var) {
-    var url = base_url + "teacher/app/courses";
+    var url = base_url + "app/teacher/courses";
     var image_url = base_url + "uploads/profile/edu.jpg";
     $.ajax({
         type: "POST",

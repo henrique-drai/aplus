@@ -225,34 +225,6 @@ class Api extends REST_Controller {
 
 
 
-    //////////////////////////////////////////////////////////////
-    //                         TEACHER
-    //////////////////////////////////////////////////////////////
-    public function getCadeiras() {
-        $user_id = $this->post('id');
-        $this->load->model('UserModel');
-        $data["cadeiras_id"] = $this->UserModel->getCadeiras($user_id);
-
-        $this->response($data, parent::HTTP_OK);
-    }
-
-    public function getCadeiraInfo() {
-        $cadeira_id = $this->post('cadeira_id');
-        $this->load->model('UserModel');
-        $data["info"] = $this->UserModel->getCadeiraInfo($cadeira_id);
-
-        $this->response($data, parent::HTTP_OK);
-    }
-
-    public function getDescription() {
-        $cadeira_id = $this->post('cadeira_id');
-        $this->load->model('UserModel');
-        $data["info"] = $this->UserModel->getDescription($cadeira_id);
-
-        $this->response($data, parent::HTTP_OK);
-    }
-
-
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

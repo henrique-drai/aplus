@@ -1,14 +1,15 @@
 $(document).ready(() => {
-    getInfo();
+    getInfo(localStorage.cadeira_id);
 })
 
-function getInfo() {
+function getInfo($id) {
     $.ajax({
         type: "POST",
-        url: base_url + "api/teacher/getDescription",
-        data: {cadeira_id: localStorage.cadeira_id},
+        url: base_url + "teacher/api/getDescription",
+        data: {cadeira_id: $id},
         success: function(data) {
-            console.log(data.info);
+            $("#course_title").append("<h1>" + data.info[0].name + "</h1>");
+            $("#summary").append("<p>" + data.info[0].description + "</p>");
         },
         error: function(data) {
             alert("error");

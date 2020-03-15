@@ -20,10 +20,11 @@ class Teacher extends REST_Controller {
     //teacher/api/função
     public function api_post($f) {
         switch ($f) {
-            case "getCadeiras":     $this->getCadeiras(); break;//    /teacher/api/getCadeiras
+            case "getCadeiras":     $this->getCadeiras(); break;//     /teacher/api/getCadeiras
             case "getCadeiraInfo":  $this->getCadeiraInfo(); break;//  /teacher/api/getCadeiraInfo
-            
-            default:            $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+            case "getDescription":  $this->getDescription(); break;//  /teacher/api/getDescription
+
+            default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
@@ -44,6 +45,14 @@ class Teacher extends REST_Controller {
         $cadeira_id = $this->post('cadeira_id');
         $this->load->model('UserModel');
         $data["info"] = $this->UserModel->getCadeiraInfo($cadeira_id);
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getDescription() {
+        $cadeira_id = $this->post('cadeira_id');
+        $this->load->model('UserModel');
+        $data["info"] = $this->UserModel->getDescription($cadeira_id);
 
         $this->response($data, parent::HTTP_OK);
     }

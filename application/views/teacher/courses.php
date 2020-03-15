@@ -9,11 +9,10 @@
     <div id="nav-menu-hook"></div>
     <main>
         
-        <h1>Página de cadeiras para professores  *suposto aceder pelas cadeiras que leciona*</h1>
+        <div id="course_title"></div>
         <div class="form-container">
             <h2>Sumário da Cadeira</h2>
             <div id="summary"></div>
-            <p>*buscar descrição da cadeira à base de dados*</p>
 
             <br><br>
 

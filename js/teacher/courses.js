@@ -1,5 +1,9 @@
 $(document).ready(() => {
     showCadeiras();
+
+    $("body").on("click", "a", function() {
+        localStorage.setItem("cadeira_id", $(this).attr("id"));
+    })
 })
 
 function showCadeiras() {
@@ -27,8 +31,7 @@ function show($var) {
         url: base_url + "api/teacher/getCadeiraInfo",
         data: {cadeira_id: $var},
         success: function(data) {
-            console.log(data);
-            $(".cadeiras").append("<a href='" + url + "'><div id='card_info'><img src=" + image_url + "><div class='course'><div id='title'>Tecnologias de Informação</div><div>" + data.info[0].code + ": " + data.info[0].name + "</div></div></div></a>");
+            $(".cadeiras").append("<a id='" + data.info[0].code + "' href='" + url + "'><div id='card_info'><img src=" + image_url + "><div class='course'><div id='title'>Tecnologias de Informação</div><div>" + data.info[0].code + ": " + data.info[0].name + "</div></div></div></a>");
         },
         error: function(data) {
             alert("There was an error");

@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-course.css">
 <script>setPageName("courses")</script>
 <script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
-<script src="<?php echo $base_url; ?>js/teacher/courses.js"></script>
+<script src="<?php echo $base_url; ?>js/teacher/course_page.js"></script>
 </head>
 
 <body>

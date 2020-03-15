@@ -61,7 +61,7 @@ class Api extends REST_Controller {
             // adicionem aqui as vossas funções
             case "getCadeiras": $this->getCadeiras(); break;//    /api/teacher/getCadeiras
             case "getCadeiraInfo": $this->getCadeiraInfo(); break;//  /api/teacher/getCadeiraInfo
-            
+            case "getDescription": $this->getDescription(); break;//  /api/teacher/getDescription
 
             default:            $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -240,6 +240,14 @@ class Api extends REST_Controller {
         $cadeira_id = $this->post('cadeira_id');
         $this->load->model('UserModel');
         $data["info"] = $this->UserModel->getCadeiraInfo($cadeira_id);
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getDescription() {
+        $cadeira_id = $this->post('cadeira_id');
+        $this->load->model('UserModel');
+        $data["info"] = $this->UserModel->getDescription($cadeira_id);
 
         $this->response($data, parent::HTTP_OK);
     }

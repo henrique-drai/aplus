@@ -2,7 +2,7 @@ main{
     margin: auto;
 }
 
-main > div {
+main a div {
     text-align: left;
     border: 1px solid #aaa;
     border-radius: 5px;

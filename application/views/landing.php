@@ -5,5 +5,5 @@
 <body>
     <main>
         <h1>Landing Page</h1>
-        <div><a href="<?php echo $base_url; ?>app/auth/login">Login</a></div>
+        <a href="<?php echo $base_url; ?>app/auth/login"><div>Login</div></a>
     </main>

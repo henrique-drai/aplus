@@ -10,118 +10,42 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
 
-class Api extends REST_Controller {
+class Admin extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
         $this->load->helper(['jwt', 'authorization']);
     }
 
-    //api/admin/função
-    public function admin_post($f) {
+    //admin/api/função
+    public function api_post($f) {
         switch ($f) {
-            case "register":     $this->registerUser(); break; //     /api/admin/register
-            case "registerCollege": $this->registerCollege(); break; //     /api/admin/registerCollege
-            case "editUser":     $this->editUser(); break; //     /api/admin/editUser
+            case "register":        $this->registerUser(); break; //        admin/api/register
+            case "registerCollege": $this->registerCollege(); break; //     admin/api/registerCollege
+            case "editUser":        $this->editUser(); break; //            admin/api/editUser
             
             default:             $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
-    public function admin_get($f){
+    public function api_get($f){
         switch($f){
-            case "getAllStudents": $this->getAllStudents(); break; //      /api/admin/getAllStudents
-            case "getAllTeachers": $this -> getAllTeachers(); break;
-            case "saveCSV":     $this->export(); break;
+            case "getAllStudents":  $this->getAllStudents(); break; //      admin/api/getAllStudents
+            case "getAllTeachers":  $this->getAllTeachers(); break;
+            case "saveCSV":         $this->export(); break;
             
             default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
-    public function admin_delete($f){
+    public function api_delete($f){
         switch($f){
-            case "deleteUser": $this->deleteUser(); break; //      /api/admin/deleteUser
+            case "deleteUser": $this->deleteUser(); break; //       admin/api/deleteUser
 
             default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
-    //api/student/função
-    public function student_post($f) {
-        switch ($f) {
-            // adicionem aqui as vossas funções
-
-            default:            $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
-        }
-    }
-
-    //api/teacher/função
-    public function teacher_post($f) {
-        switch ($f) {
-            // adicionem aqui as vossas funções
-            case "getCadeiras": $this->getCadeiras(); break;//    /api/teacher/getCadeiras
-            case "getCadeiraInfo": $this->getCadeiraInfo(); break;//  /api/teacher/getCadeiraInfo
-            
-
-            default:            $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
-        }
-    }
-
-
-
-
-    //////////////////////////////////////////////////////////////
-    //                          USER
-    //////////////////////////////////////////////////////////////
-
-    public function getUserInfo() {
-        $user_id = $this->post('user_id');
-
-        $this->load->model('UserModel');
-        
-        $user = $this->UserModel->getUserById($user_id);
-        $data = Array(
-            "email" => $user->email,
-            "name" => $user->name,
-            "surname" => $user->surname,
-            "role" => $user->role,
-        );
-        $this->response(json_encode($data), parent::HTTP_OK);
-    }
-
-
-    public function testeLogin() {
-
-        $data = $this->verify_request();
-
-        $this->response($data, parent::HTTP_OK);
-    }
-
-    public function logout() {
-
-        $data = $this->verify_request();
-
-        $this->session->sess_destroy();
-
-        $this->response($data, parent::HTTP_OK);
-    }
-
-
-    public function updateInfo(){
-
-        $data = Array(
-            "id" => $this->verify_request()->id,
-            "name" => $this->post('name'),
-            "surname" => $this->post('surname'),
-            "password" => $this->post('password'),
-        );
-
-        $this->load->model('UserModel');
-
-        $this->UserModel->updateUser($data);
-
-        $this->response($data, parent::HTTP_OK);
-    }
 
 
 
@@ -216,77 +140,12 @@ class Api extends REST_Controller {
         exit;
     }
 
-    //////////////////////////////////////////////////////////////
-    //                          STUDENT
-    //////////////////////////////////////////////////////////////
-
-    
-
-
-
-
-    //////////////////////////////////////////////////////////////
-    //                         TEACHER
-    //////////////////////////////////////////////////////////////
-    public function getCadeiras() {
-        $user_id = $this->post('id');
-        $this->load->model('UserModel');
-        $data["cadeiras_id"] = $this->UserModel->getCadeiras($user_id);
-
-        $this->response($data, parent::HTTP_OK);
-    }
-
-    public function getCadeiraInfo() {
-        $cadeira_id = $this->post('cadeira_id');
-        $this->load->model('UserModel');
-        $data["info"] = $this->UserModel->getCadeiraInfo($cadeira_id);
-
-        $this->response($data, parent::HTTP_OK);
-    }
 
 
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION
     //////////////////////////////////////////////////////////////
-
-    public function login_post()
-    {
-        $email = $this->post('email');
-        $password = $this->post('password');
-
-        $this->load->model('UserModel');
-
-        if ($this->UserModel->isValidPassword($email, $password)) {
-
-            $user = $this->UserModel->getUserByEmail($email);
-
-            $session_data = array(
-                "id" => $user->id,
-                "email" => $email,
-                "role" => $user->role
-            );
-
-            $this->session->set_userdata($session_data);
-            
-            $token = AUTHORIZATION::generateToken(['id' => strval($user->id)]);
-
-            $status = parent::HTTP_OK;
-
-            $response = [
-                'status' => $status,
-                'token' => $token,
-                'role' => $user->role,
-                'id' => $user->id,
-                'profile_pic' => $user->profile_pic_url
-            ];
-
-            $this->response($response, $status);
-        }
-        else {
-            $this->response(['msg' => 'Invalid username or password!'], parent::HTTP_NOT_FOUND);
-        }
-    }
 
     private function verify_request()
     {

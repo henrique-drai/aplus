@@ -43,6 +43,21 @@ class UserModel extends CI_Model {
         $this->db->update('user');
     }
 
+    public function updateUser($data){
+        $null = true;
+        if(isset($data["name"]))
+            {$this->db->set('name', $data["name"]); $null=false;}
+        if(isset($data["surname"]))
+            {$this->db->set('surname', $data["surname"]); $null=false;}
+        if(isset($data["password"]))
+            {$this->db->set('password', md5($data["password"])); $null=false;}
+
+        if(!$null) {
+            $this->db->where('id', $data["id"]);
+            $this->db->update('user');
+        }
+    }
+
     public function getTeachers(){
         $query = $this -> db -> get_where('user', array('role' => "teacher"));
         return $query->result_array();

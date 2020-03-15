@@ -53,7 +53,7 @@ function getLogoutBtn(){
 function loadNavBarUserInfo(){
     $.ajax({
         type: "POST",
-        url: base_url + "api/user/getInfo",
+        url: base_url + "user/api/getInfo",
         data: {user_id: localStorage.user_id},
         success: function(data) {
             data = JSON.parse(data)
@@ -71,7 +71,7 @@ function endSession(){
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "api/user/logout",
+        url: base_url + "user/api/logout",
         success: function(data) {
             localStorage.removeItem("profile_pic")
             localStorage.removeItem("token")

@@ -12,7 +12,7 @@
     
     <div class="form-container">
         <div class="form-container-header">
-            <h2>Criar novo projeto</h2>
+            <h2>Criar novo projeto para a cadeira -xxx-</h2>
         </div>
 
         <form id="projForm" class="project-form"  action="javascript:void(0)">
@@ -38,7 +38,7 @@
 
             <p>
                 <label for="file">Ficheiro do enunciado:</label>
-                <input type="file" id="file" name="file" required>
+                <input class="form-input-file" type="file" id="file" name="file" required>
             </p>
 
             <p>
@@ -52,11 +52,14 @@
                 <label class="form-label">Descrição</label>
                 <input class="form-input-text" type="text" name="etapaDescription" required>
                 <label class="form-label">Data de entrega</label>
-                <input class="form-input-text" type="date" name="etapaDate" required>
+                <input class="form-input-text" type="datetime-local" name="etapaDate" required>
             </p>
 
+            <p>
+                <div id="errormsg" class="submit-error">Mensagem de erro template</div>
+            </p>
 
-            <div>
+            <div class="btn-wrap">
                 <button type="submit" id="createProjectButton" class="form-button">Criar</button>
             </div>
 

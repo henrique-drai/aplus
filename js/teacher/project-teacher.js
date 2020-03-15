@@ -1,7 +1,8 @@
-var etapas = [{id:'etapa1', nome:'', desc:'', data:''}];
+const etapas = [{id:1, nome:'', desc:'', data:''}];
 
 $(document).ready(() => {
 
+    //definir um numero que nunca se repita para id de cada etapa
     var etapanum = $('.etapa').length;
 
     $('body').on('click', '#addEtapa', function(e) {
@@ -14,35 +15,47 @@ $(document).ready(() => {
              '<label class="form-label">Descrição</label> ' + 
              '<input class="form-input-text" type="text" name="etapaDescription" required> ' +
              '<label class="form-label">Data de entrega</label> ' + 
-             '<input class="form-input-text" type="date" name="etapaDate" required> ' +
+             '<input class="form-input-text" type="datetime-local" name="etapaDate" required> ' +
              '<label id="removeEtapa"> X </label> ' +
              '</p> '
         
-        etapas.push({id:'etapa'+etapanum, nome:'', desc:'', data:''});
-        $('.etapa').last().after(etapa);     
+        etapas.push({id:etapanum, nome:'', desc:'', data:''});
+        console.log(etapas);
 
+        $('.etapa').last().after(etapa);     
         $('.etapa').last().change(function(){
             var name = $(this).find('input[name="etapaName"]').val();
             var desc = $(this).find('input[name="etapaDescription"]').val();
             var data = $(this).find('input[name="etapaDate"]').val();
-            insertIntoEtapas(pid, name, desc, data);
+
+            var newid = parseInt(pid.replace("etapa",""));
+
+            insertIntoEtapas(newid, name, desc, data);
         })
     })
 
     $('body').on('click', '#removeEtapa', function(e) {
+        var strid = $(this).parent().attr("id");
+        var id = parseInt(strid.replace("etapa",""));
+
         for (i=0; i<etapas.length; i++){
-            if(etapas[i].id == $(this).parent().attr("id"))
-                etapas.splice(i);
+            if(etapas[i].id == id){
+                etapas.splice(i,1);
+            }
         }
+
         console.log(etapas);
+        
         $(this).parent().remove();
     }) 
+
+
 
     $("#etapa1").change(function(){
         var name = $(this).find('input[name="etapaName"]').val();
         var desc = $(this).find('input[name="etapaDescription"]').val();
         var data = $(this).find('input[name="etapaDate"]').val();
-        insertIntoEtapas("etapa1", name, desc, data);
+        insertIntoEtapas(1, name, desc, data);
     })
 
     $("#maxnuminput").keyup(function(){
@@ -59,15 +72,21 @@ $(document).ready(() => {
 
 
 function insertIntoEtapas(id, name, desc, data){
-    console.log(name +" " + desc + " " + data);
+    console.log(id + " " + name +" " + desc + " " + data);
     for (i=0; i<etapas.length; i++){
-        if(etapas[i].id == id)
+        if(etapas[i].id == id){
             etapas[i].nome = name;
             etapas[i].desc = desc;
             etapas[i].data = data;
+        }
     }
 
-    verifyDates(id);
+    console.log(etapas);
+
+    if (!verifyDates(data))
+        $("#etapa"+id+" input[name='etapaDate']").css("border-left-color", "salmon");
+    else
+        $("#etapa"+id+" input[name='etapaDate']").css("border-left-color", "palegreen");
 }
 
 
@@ -86,24 +105,39 @@ function validateFormNumb(){
 }
 
 
-function verifyDates(id){
-    for (i=0; i<etapas.length; i++){
-        if(etapas[i].id == id)
-            etapas[i].nome = name;
-            etapas[i].desc = desc;
-            etapas[i].data = data;
+function verifyDates(data){
+    var dmaior = new Date(data);
+    var today = new Date();
+
+    if (dmaior < today){
+        return false;
     }
+
+    return true;
 }
 
 
+function validateAllDates(){
+    for (i=0; i<etapas.length; i++){
+        if (!verifyDates(etapas[i].data)){
+            return false;
+        }
+    }
+
+    return true;
+}
+
 function verifyallinputs(){
     if (!validateFormNumb()){
-        console.log("mensagem de erro do input dos grupos")
+        $("#errormsg").text("O número máximo de alunos por grupo tem de ser maior que o mínimo");
+        $("#errormsg").show().delay(5000).fadeOut();
+        return false;
+    } else if (!validateAllDates()) {
+        $("#errormsg").text("A data de cada etapa tem de ser maior que a data atual");
+        $("#errormsg").show().delay(5000).fadeOut();
         return false;
     } else {
-        console.log("inputs estão bem");
         return true;
-        //por enquanto so estamos a verifcar este
     }
 }
 
@@ -119,6 +153,8 @@ function submitProject(){
             file:            $("#projForm input[name='file']").val(),
             listetapas:      etapas,
         }
+
+        //pedido ajax para o CI
     
         console.log(data);
     }

@@ -1,0 +1,21 @@
+.container {
+	box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
+	padding: 2%;
+	width: 100%;
+	background-color: #EDEDED;
+}
+
+main {
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+	height: auto;
+}
+
+#students_list {
+	width: 100%;
+}
+
+#students_list td {
+	text-align: center;
+}

@@ -22,7 +22,7 @@
             <br><br>
 
             <a class="button">Fórum</a>
-            <a class="button">Lista de Alunos</a>
+            <a href="<?php echo $base_url; ?>app/teacher/studentsList" class="button">Lista de Alunos</a>
 
             <br><br>
             

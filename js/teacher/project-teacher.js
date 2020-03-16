@@ -10,13 +10,14 @@ $(document).ready(() => {
         var pid = 'etapa'+etapanum;
 
         const etapa = '<p id='+pid+' class="etapa">' +
+             '<label id="etapa-label" class="form-label-title"> </label>' +
              '<label class="form-label">Nome</label> ' +
              '<input class="form-input-text" type="text" name="etapaName" required> ' +
              '<label class="form-label">Descrição</label> ' + 
-             '<input class="form-input-text" type="text" name="etapaDescription" required> ' +
+             '<textarea class="form-text-area" type="text" name="etapaDescription" required></textarea> ' + 
              '<label class="form-label">Data de entrega</label> ' + 
              '<input class="form-input-text" type="datetime-local" name="etapaDate" required> ' +
-             '<label id="removeEtapa"> X </label> ' +
+             '<label id="removeEtapa"><img src="'+base_url+'/images/close.png"></label> ' +
              '</p> '
         
         etapas.push({id:etapanum, nome:'', desc:'', data:''});
@@ -25,13 +26,17 @@ $(document).ready(() => {
         $('.etapa').last().after(etapa);     
         $('.etapa').last().change(function(){
             var name = $(this).find('input[name="etapaName"]').val();
-            var desc = $(this).find('input[name="etapaDescription"]').val();
+            var desc = $(this).find('textarea[name="etapaDescription"]').val();
             var data = $(this).find('input[name="etapaDate"]').val();
 
             var newid = parseInt(pid.replace("etapa",""));
 
             insertIntoEtapas(newid, name, desc, data);
         })
+
+
+        refreshEtapasTitle();
+
     })
 
     $('body').on('click', '#removeEtapa', function(e) {
@@ -47,13 +52,15 @@ $(document).ready(() => {
         console.log(etapas);
         
         $(this).parent().remove();
+
+        refreshEtapasTitle();
     }) 
 
 
 
     $("#etapa1").change(function(){
         var name = $(this).find('input[name="etapaName"]').val();
-        var desc = $(this).find('input[name="etapaDescription"]').val();
+        var desc = $(this).find('textarea[name="etapaDescription"]').val();
         var data = $(this).find('input[name="etapaDate"]').val();
         insertIntoEtapas(1, name, desc, data);
     })
@@ -69,6 +76,14 @@ $(document).ready(() => {
     $("#createProjectButton").click(() => submitProject());
 
 })
+
+
+function refreshEtapasTitle(){
+    $('.etapa').each(function(index){
+        var trueindex = index+1;
+        $(this).find("#etapa-label").text('Etapa '+trueindex);
+    })
+}
 
 
 function insertIntoEtapas(id, name, desc, data){
@@ -149,7 +164,7 @@ function submitProject(){
             projName:        $("#projForm input[name='projName']").val(),
             groups_min:      $("#projForm input[name='groups_min']").val(),
             groups_max:      $("#projForm input[name='groups_max']").val(),
-            projDescription: $("#projForm input[name='projDescription']").val(),
+            projDescription: $("#projForm textarea[name='projDescription']").val(),
             file:            $("#projForm input[name='file']").val(),
             listetapas:      etapas,
         }

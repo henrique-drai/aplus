@@ -17,13 +17,13 @@ class User extends REST_Controller {
         $this->load->helper(['jwt', 'authorization']);
     }
 
-    //api/user/função
+    //user/api/função
     public function api_post($f) {
         switch ($f) {
-            case "getInfo":     $this->getUserInfo(); break; //     /api/user/getInfo
-            case "teste":       $this->testeLogin(); break; //      /api/user/teste
-            case "logout":      $this->logout(); break; //          /api/user/logout
-            case "updateInfo":  $this->updateInfo(); break; //      /api/user/updateInfo
+            case "getInfo":     $this->getUserInfo(); break; //     /user/api/getInfo
+            case "teste":       $this->testeLogin(); break; //      /user/api/teste
+            case "logout":      $this->logout(); break; //          /user/api/logout
+            case "updateInfo":  $this->updateInfo(); break; //      /user/api/updateInfo
 
             default:            $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }

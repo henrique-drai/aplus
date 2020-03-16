@@ -20,7 +20,7 @@ function deleteUser(){
     var linha = $(event.target).closest("tr");
     $.ajax({
         type: "DELETE",
-        url: base_url + "api/admin/deleteUser",
+        url: base_url + "admin/api/deleteUser",
         data: {email: linha.find("td:eq(0)").text()},
         success: function() {
             if (page_name=="students"){
@@ -53,7 +53,7 @@ function editUser(){
 
     $.ajax({
         type: "POST",
-        url: base_url + "api/admin/editUser",
+        url: base_url + "adminapi/editUser",
         data: data,   
         success: function() {
             if (page_name=="students"){
@@ -74,7 +74,7 @@ function editUser(){
 function getAllStudents(){
     $.ajax({
         type: "GET",
-        url: base_url + "api/admin/getAllStudents",
+        url: base_url + "admin/api/getAllStudents",
         success: function(data) {
             $("#show_students").css("display", "block");
             $(".student_row").remove();
@@ -106,7 +106,7 @@ function getAllStudents(){
 function getAllTeachers(){
     $.ajax({
         type: "GET",
-        url: base_url + "api/admin/getAllTeachers",
+        url: base_url + "admin/api/getAllTeachers",
         success: function(data) {
             $("#show_teachers").css("display", "block");
             $(".teacher_row").remove();

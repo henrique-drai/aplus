@@ -6,4 +6,11 @@ class CollegeModel extends CI_Model {
         $data["faculdade_id"] = $this->db->insert_id();
         return $data;
     }
+
+
+    public function getColleges(){
+        $query = $this->db->get("faculdade");
+        return $query->result_array();
+    }
+
 }

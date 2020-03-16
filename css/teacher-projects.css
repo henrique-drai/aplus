@@ -27,16 +27,16 @@ main {
     padding: 0.01em 16px;
 }
 
-.form-input-text, .form-input-number, .form-input-file{
+.form-input-text, .form-input-number, .form-input-file, .form-text-area{
     border: 1px solid white;
     border-left: 3px solid;
     border-radius:5px;
-    padding:6px;
+    padding:4px;
     width:100%;
     transition: .5s ease-out;
 }
 
-.project-form input:required:valid {
+.project-form input:required:valid, .form-text-area:required:valid{
     border-left-color: palegreen;
 }
 
@@ -48,6 +48,10 @@ main {
     border-left-color: #999;
 }
 
+.form-text-area {
+    border-left-color: salmon;
+}
+
 .form-button{
     margin-top: 10px;
     background-color: #999;
@@ -57,7 +61,7 @@ main {
     border-radius: 4px;
     font-size: 16px;
     width: 50%;
-    padding: 6px;
+    padding: 4px;
 }
 
 .form-button:hover{
@@ -67,9 +71,9 @@ main {
 .submit-error {
     display:none;
     text-align: center;
-    width:99%;
+    width:100%;
     background: salmon;
-    padding: 6px;
+    padding: 4px;
     border-radius: 4px;
     position: relative;
     margin-top: 10px;
@@ -77,4 +81,21 @@ main {
 
 .btn-wrap{
     text-align:center;
+}
+
+.form-label-title{
+    font-weight: 600;
+}
+
+#removeEtapa, #removeEtapa img, #addEtapa, #addEtapa img{
+    width:30px;
+    border-radius: 15px;
+}
+
+#removeEtapa, #addEtapa{
+    cursor:pointer;
+}
+
+#removeEtapa:hover, #addEtapa:hover{
+    background-color:rgb(194, 194, 194);
 }

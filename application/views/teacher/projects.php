@@ -33,7 +33,8 @@
 
             <p>
                 <label class="form-label">Descrição:</label>
-                <input class="form-input-text" type="text" name="projDescription">
+                <!-- <input class="form-input-text" type="text" name="projDescription"> -->
+                <textarea class="form-text-area" type="text" name="projDescription" required></textarea>
             </p>
 
             <p>
@@ -43,14 +44,15 @@
 
             <p>
                 <label class="form-label">Etapas:</label>
-                <label id="addEtapa">+</label>
+                <label id="addEtapa"><img src="<?php echo $base_url; ?>/images/add.png"></label>
             </p>
 
             <p id="etapa1" class="etapa">
+                <label id="etapa-label" class="form-label-title">Etapa 1</label>
                 <label class="form-label">Nome</label>
                 <input class="form-input-text" type="text" name="etapaName" required>
                 <label class="form-label">Descrição</label>
-                <input class="form-input-text" type="text" name="etapaDescription" required>
+                <textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>
                 <label class="form-label">Data de entrega</label>
                 <input class="form-input-text" type="datetime-local" name="etapaDate" required>
             </p>
@@ -66,5 +68,3 @@
         </form>
     </div>   
     </main>
-
- 

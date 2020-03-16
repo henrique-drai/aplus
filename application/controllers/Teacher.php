@@ -22,11 +22,18 @@ class Teacher extends REST_Controller {
         switch ($f) {
             case "getCadeiras":     $this->getCadeiras(); break;//     /teacher/api/getCadeiras
             case "getCadeiraInfo":  $this->getCadeiraInfo(); break;//  /teacher/api/getCadeiraInfo
-            case "getDescription":  $this->getDescription(); break;//  /teacher/api/getDescription
+            case "getDescription":  $this->getDescription(); break;//  /teacher/cadeira/id/getDescription
+            case "getHours":        $this->getHours(); break;//        /teacher/cadeira/id/getHours
+            case "insertText":      $this->insertText(); break;//       /teacher/cadeira/id/insertText
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
+
+    // //teacher/cadeira/id/
+    // public function getCadeiraDescription_post($id) {
+
+    // }
 
 
 
@@ -53,6 +60,27 @@ class Teacher extends REST_Controller {
         $cadeira_id = $this->post('cadeira_id');
         $this->load->model('UserModel');
         $data["info"] = $this->UserModel->getDescription($cadeira_id);
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getHours() {
+        $cadeira_id = $this->post('cadeira_id');
+        $user_id = $this->post('prof_id');
+        $this->load->model('UserModel');
+        $data["hours"] = $this->UserModel->getHours($cadeira_id, $user_id);
+        $data["user"] = $this->UserModel->getUserById($user_id);
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function insertText() {
+        $data = Array(
+            "id"    => $this->post("cadeira_id"),
+            "text"  => $this->post("text"),
+        );
+        $this->load->model('UserModel');
+        $this->UserModel->insertText($data);
 
         $this->response($data, parent::HTTP_OK);
     }

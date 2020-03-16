@@ -11,8 +11,13 @@
         
         <div id="course_title"></div>
         <div class="form-container">
-            <h2>Sumário da Cadeira</h2>
+            <div id="header">
+                <h2>Sumário da Cadeira</h2>
+                <a href="#" class="button" id="edit_button">Editar</a>
+            </div>
             <div id="summary"></div>
+
+            <a href="#" class="button" id="save_button">Guardar</a>
 
             <br><br>
 
@@ -28,6 +33,5 @@
 
             <h2>Horário de Dúvidas</h2>
             <div id="hours"></div>
-            <p>*ir buscar info*</p>
         </div>
     </main>

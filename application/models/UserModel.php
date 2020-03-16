@@ -83,4 +83,15 @@ class UserModel extends CI_Model {
         $query = $this->db->get_where('cadeira', array('code =' => $id));
         return $query->result_array();
     }
+
+    public function getHours($id, $user_id) {
+        $query = $this->db->get_where('professor_cadeira', array('cadeira_id =' => $id, 'user_id =' => $user_id));
+        return $query->result_array();
+    }
+
+    public function insertText($data) {
+        $this->db->set('description', $data["text"]);
+        $this->db->where('code', $data["id"]);
+        $data = $this->db->update('cadeira');
+    }
 }

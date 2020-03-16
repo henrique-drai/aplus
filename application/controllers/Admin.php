@@ -30,8 +30,9 @@ class Admin extends REST_Controller {
 
     public function api_get($f){
         switch($f){
+            case "getAllColleges":  $this->getAllColleges(); break; //      admin/api/getAllColleges
             case "getAllStudents":  $this->getAllStudents(); break; //      admin/api/getAllStudents
-            case "getAllTeachers":  $this->getAllTeachers(); break;
+            case "getAllTeachers":  $this->getAllTeachers(); break; //      admin/api/getAllTeachers
             case "saveCSV":         $this->export(); break;
             
             default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
@@ -81,6 +82,13 @@ class Admin extends REST_Controller {
         $this->load->model('CollegeModel');
         $retrieved = $this->CollegeModel->registerCollege($data);
         $this->response(json_encode($retrieved), parent::HTTP_OK);
+    }
+
+    public function getAllColleges(){
+        $this->load->model('CollegeModel');
+        $data["colleges"] = $this->CollegeModel->getColleges();
+        
+        $this->response($data, parent::HTTP_OK);
     }
 
     public function getAllStudents(){

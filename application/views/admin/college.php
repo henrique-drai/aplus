@@ -2,6 +2,7 @@
 <script>setPageName("college")</script>
 <script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/registerCollege.js"></script>
+<script src="<?php echo $base_url; ?>js/admin/manageCollege.js"></script>
 </head>
 
 <body>
@@ -17,4 +18,13 @@
 
             <input type="submit" id="register-college-submit">
         </form><br>
+
+        <table id="show_colleges">
+            <tr>
+                <th>Nome</th>
+                <th>Localizacao</th>
+            </tr>
+            
+        </table>
+
     </main>

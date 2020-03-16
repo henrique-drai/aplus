@@ -27,6 +27,7 @@
             <br><br>
 
             <h2>Horário de Dúvidas</h2>
+            <div id="hours"></div>
             <p>*ir buscar info*</p>
         </div>
     </main>

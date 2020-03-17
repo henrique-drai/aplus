@@ -71,7 +71,7 @@ function endSession(){
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "user/api/logout",
+        url: base_url + "auth/logout",
         success: function(data) {
             localStorage.removeItem("profile_pic")
             localStorage.removeItem("token")

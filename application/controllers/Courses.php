@@ -9,17 +9,18 @@ class Courses extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
         $this->load->model('CourseModel');
+
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403');
+            return null;
+        }
     }
 
     //      Página que mostra todas as cadeiras de um user:
     //      aplus.com/courses/
     public function index()
     {
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403');
-        }
-
         $data["base_url"] = base_url();
 
         $this->load->view('templates/head', $data);
@@ -44,11 +45,6 @@ class Courses extends CI_Controller {
         //verificar se o objeto existe
         if(is_null($data["course"])){
             $this->load->view('errors/404');
-        }
-
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403');
         }
 
         $data["base_url"] = base_url();

@@ -69,12 +69,22 @@ class App extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    //app/profile/:user_id
     public function profile($user_id)
     {
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403');
+        }
+
         $data["base_url"] = base_url();
 
         $this->load->view('templates/head', $data);
-        $this->load->view('profile', $data);
+        //escolher que página deve ser mostrada
+        switch ($this->session->userdata('id') == $user_id) {
+            case true:  $this->load->view('app/profile_edit', $data); break;
+            case false: $this->load->view('app/profile_show', $data); break;
+        }
         $this->load->view('templates/footer');
     }
 }

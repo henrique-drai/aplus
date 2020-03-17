@@ -22,7 +22,6 @@ class User extends REST_Controller {
         switch ($f) {
             case "getInfo":     $this->getUserInfo(); break; //     /user/api/getInfo
             case "teste":       $this->testeLogin(); break; //      /user/api/teste
-            case "logout":      $this->logout(); break; //          /user/api/logout
             case "updateInfo":  $this->updateInfo(); break; //      /user/api/updateInfo
 
             default:            $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
@@ -55,14 +54,7 @@ class User extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function logout() {
-
-        $data = $this->verify_request();
-
-        $this->session->sess_destroy();
-
-        $this->response($data, parent::HTTP_OK);
-    }
+    
 
 
     public function updateInfo(){

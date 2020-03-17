@@ -16,4 +16,8 @@ class CollegeModel extends CI_Model {
         $query = $this->db->delete('faculdade', array('siglas'=>$siglas));
     }
 
+    public function countColleges(){
+        return $this->db->count_all_results('faculdade');
+    }
+
 }

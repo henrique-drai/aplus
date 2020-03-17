@@ -10,20 +10,26 @@
     <main>
         <section class="admin-stats">
             <div class="admin-stats-window" id="users-hook">
-                <div class="admin-stats-title">Users:</div>
+                <div class="admin-stats-title">Users</div>
                 <div class="admin-stats-content">
-                Registed Teachers: <span id="hook-num_teachers"></span>
-                <br>
-                Registed Students: <span id="hook-num_students"></span>
+                    Registered Teachers: <span id="hook-num_teachers"></span>
+                    <br>
+                    Registered Students: <span id="hook-num_students"></span>
                 </div>
-                <div class="admin-stats-btn">Manage</div>
+                <div class="admin-stats-btn">
+                    
+                    <a href="<?php echo $base_url; ?>app/admin/registerUser"><div>Manage</div></a>
+                </div>
             </div>
 
             <div class="admin-stats-window" id="unis-hook">
-                <div class="admin-stats-title">Universities:</div>
+                <div class="admin-stats-title">Colleges</div>
                 <div class="admin-stats-content">
+                    Registered Colleges: <span id="hook-num_colleges"></span>
                 </div>
-                <div class="admin-stats-btn">Manage</div>
+                <div class="admin-stats-btn">
+                <a href="<?php echo $base_url; ?>app/admin/college"><div>Manage</div></a>
+                </div>
             </div>
         </section>
     </main>

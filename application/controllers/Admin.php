@@ -160,6 +160,7 @@ class Admin extends REST_Controller {
     public function getAdminHome(){
         
         $this->load->model('UserModel');
+        $this->load->model('CollegeModel');
 
         $auth = $this->verify_request();
 
@@ -173,6 +174,7 @@ class Admin extends REST_Controller {
         $data = Array(
             "num_students" => $this->UserModel->countStudents(),
             "num_teachers" => $this->UserModel->countTeachers(),
+            "num_colleges" => $this->CollegeModel->countColleges(),
         );
 
         $this->response($data, parent::HTTP_OK);

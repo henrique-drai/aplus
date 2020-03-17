@@ -14,10 +14,6 @@ function AdminNavMenu() {
             "href": base_url + "app/admin/anoLetivo",
             "name": "School Year"
         },
-        "college": {
-            "href": base_url + "app/admin/college",
-            "name": "College"
-        },
         "unidCurricular": {
             "href": base_url + "app/admin/unidCurricular",
             "name": "Curricular Units"
@@ -34,10 +30,6 @@ function AdminNavMenu() {
             "href": base_url + "app/admin/students",
             "name": "Students"
         },
-        "registerUser": {
-            "href": base_url + "app/admin/registerUser",
-            "name": "Manage Users"
-        }
     }
 
     hook.append(getNavBarUserSection())

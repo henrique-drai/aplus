@@ -7,7 +7,7 @@ function StudentNavMenu() {
 
     const pages = {
         "home": {
-            "href": base_url + "app/student/home",
+            "href": base_url + "app",
             "name": "Dashboard"
         },
         "courses": {

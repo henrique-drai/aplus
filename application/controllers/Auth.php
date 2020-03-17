@@ -17,6 +17,7 @@ class Auth extends REST_Controller {
         $this->load->helper(['jwt', 'authorization']);
     }
 
+    //auth/login
     public function login_post()
     {
         $email      = $this->post('email');
@@ -56,6 +57,7 @@ class Auth extends REST_Controller {
     }
 
 
+    //auth/logout
     public function logout_post() {
 
         $data = $this->verify_request();

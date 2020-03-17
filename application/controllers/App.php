@@ -10,6 +10,7 @@ class App extends CI_Controller {
         $this->load->helper('url');
     }
 
+    //app/
     public function index()
     {
         $data["base_url"] = base_url();
@@ -31,6 +32,7 @@ class App extends CI_Controller {
         $this->load->view('templates/footer');       
     }   
 
+    //app/student
     public function student($page = 'home')
     {
         if (! file_exists(APPPATH.'views/student/'.$page.'.php')){show_404();}
@@ -47,6 +49,7 @@ class App extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    //app/teacher
     public function teacher($page = 'home')
     {
         if (! file_exists(APPPATH.'views/teacher/'.$page.'.php')){show_404();}
@@ -63,6 +66,7 @@ class App extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    //app/admin
     public function admin($page = 'home')
     {
         if (! file_exists(APPPATH.'views/admin/'.$page.'.php')){show_404();}
@@ -93,7 +97,7 @@ class App extends CI_Controller {
             $this->load->view('errors/404', $data);
             return null;
         }
-        
+
         $this->load->model('UserModel');
 
         $data["user"] = $this->UserModel->getUserById($user_id);

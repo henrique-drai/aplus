@@ -7,7 +7,7 @@ function TeacherNavMenu() {
 
     const pages = {
         "home": {
-            "href": base_url + "app/teacher/home",
+            "href": base_url + "app",
             "name": "Dashboard"
         },
         "courses": {

@@ -6,6 +6,5 @@
 <body>
     <div id="nav-menu-hook"></div>
     <main>
-        <h1>Registar User!</h1>
-
-        <form id="register-form" action="javascript:void(0)">
+        <h1>Procurar cadeiras.</h1>
+    </main>

@@ -7,7 +7,7 @@ function AdminNavMenu() {
 
     const pages = {
         "home": {
-            "href": base_url + "app/admin/home",
+            "href": base_url + "app/",
             "name": "Dashboard"
         },
         "anoLetivo": {

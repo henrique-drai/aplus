@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-
+    align-items: baseline;   
 }
 .admin-stats-window {
     border: 1px solid #aaa;
@@ -10,6 +10,7 @@
     border-radius: 5px;
     margin: 10px;
     min-width: 300px;
+    overflow: hidden;
 }
 .admin-stats-window > * {
     padding: 5px 8px;
@@ -22,7 +23,17 @@
 
 
 .admin-stats-btn {
-    border-top: 1px solid #aaa;
-    cursor: pointer;
+    border-top: 1px solid #ccc;
     text-align: center;
+    background-color: #eee;
+}
+.admin-stats-btn:hover {
+    background-color: #ccc;
+}
+.admin-stats-btn a{
+    text-decoration: none;
+    color: #000;
+}
+.admin-stats-btn a div{
+    width: 100%;
 }

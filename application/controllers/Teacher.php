@@ -30,47 +30,44 @@ class Teacher extends REST_Controller {
         }
     }
 
-    // //teacher/cadeira/id/
-    // public function getCadeiraDescription_post($id) {
-
-    // }
-
-
-
     //////////////////////////////////////////////////////////////
     //                         TEACHER
     //////////////////////////////////////////////////////////////
     public function getCadeiras() {
         $user_id = $this->post('id');
-        $this->load->model('UserModel');
-        $data["cadeiras_id"] = $this->UserModel->getCadeiras($user_id);
+        $this->load->model('CourseModel');
+        $data["cadeiras_id"] = $this->CourseModel->getCadeiras($user_id);
 
         $this->response($data, parent::HTTP_OK);
     }
 
     public function getCadeiraInfo() {
         $cadeira_id = $this->post('cadeira_id');
-        $this->load->model('UserModel');
-        $data["info"] = $this->UserModel->getCadeiraInfo($cadeira_id);
+        $this->load->model('CourseModel');
+        $data["info"] = $this->CourseModel->getCadeiraInfo($cadeira_id);
 
         $this->response($data, parent::HTTP_OK);
     }
 
     public function getDescription() {
         $cadeira_id = $this->post('cadeira_id');
-        $this->load->model('UserModel');
-        $data["info"] = $this->UserModel->getDescription($cadeira_id);
+        $this->load->model('CourseModel');
+        $data["info"] = $this->CourseModel->getDescription($cadeira_id);
 
         $this->response($data, parent::HTTP_OK);
     }
 
     public function getHours() {
         $cadeira_id = $this->post('cadeira_id');
-        $user_id = $this->post('prof_id');
-        $this->load->model('UserModel');
-        $data["hours"] = $this->UserModel->getHours($cadeira_id, $user_id);
-        $data["user"] = $this->UserModel->getUserById($user_id);
+        $this->load->model('CourseModel');
+        $data["hours"] = $this->CourseModel->getHours($cadeira_id);
 
+        $this->load->model('UserModel');
+        $data['user'] = array();
+        for ($i=0; $i < count($data["hours"]); $i++) {
+            array_push($data["user"], $this->UserModel->getUserById($data["hours"][$i]['id_prof']));
+        }
+        
         $this->response($data, parent::HTTP_OK);
     }
 
@@ -79,8 +76,8 @@ class Teacher extends REST_Controller {
             "id"    => $this->post("cadeira_id"),
             "text"  => $this->post("text"),
         );
-        $this->load->model('UserModel');
-        $this->UserModel->insertText($data);
+        $this->load->model('CourseModel');
+        $this->CourseModel->insertText($data);
 
         $this->response($data, parent::HTTP_OK);
     }

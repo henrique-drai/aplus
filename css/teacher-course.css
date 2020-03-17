@@ -2,7 +2,7 @@
     background-color: #b3b3b3; 
     color: black;
     padding: 0.5%;
-    border-radius: 5%;
+    border-radius: 5px;
     text-decoration: none;
 }
 
@@ -87,4 +87,20 @@ main {
     position: relative;
     float: right;
     margin-top: 1%;
+}
+
+#message {
+    background-color: rgb(106, 192, 66, 0.7);
+    text-align: center;
+    border-radius: 5px;
+    float: left;
+    width: 90%;
+    margin-left: 141%;
+    margin-top: -23%;
+    padding: 2%;
+    display: none;
+}
+
+#summary {
+    white-space: pre;
 }

@@ -27,7 +27,7 @@ class Courses extends CI_Controller {
         //escolher que página deve ser mostrada
         switch ($this->session->userdata('role')) {
             case 'student': $this->load->view('student/courses', $data); break;
-            case 'teacher': $this->load->view('teacher/courses', $data); break;
+            case 'teacher': $this->load->view('teacher/courses_prof', $data); break;
             case 'admin':   $this->load->view('admin/courses', $data); break;
         }
 

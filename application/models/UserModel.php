@@ -72,36 +72,4 @@ class UserModel extends CI_Model {
         $this->db->where('role', 'teacher');
         return $this->db->count_all_results('user');
     }
-
-    //////////////////////////////////////////////////////////////
-    //                         TEACHER
-    //////////////////////////////////////////////////////////////
-    #buscar as cadeiras de um prof
-    public function getCadeiras($id) {
-        $this->db->select("cadeira_id");
-        $this->db->where(array('user_id =' => $id));
-        $query = $this->db->get('professor_cadeira');
-        return $query->result_array();
-    }
-
-    public function getCadeiraInfo($id) {
-        $query = $this->db->get_where('cadeira', array('id =' => $id));
-        return $query->result_array();
-    }
-
-    public function getDescription($id) {
-        $query = $this->db->get_where('cadeira', array('code =' => $id));
-        return $query->result_array();
-    }
-
-    public function getHours($id, $user_id) {
-        $query = $this->db->get_where('professor_cadeira', array('cadeira_id =' => $id, 'user_id =' => $user_id));
-        return $query->result_array();
-    }
-
-    public function insertText($data) {
-        $this->db->set('description', $data["text"]);
-        $this->db->where('code', $data["id"]);
-        $data = $this->db->update('cadeira');
-    }
 }

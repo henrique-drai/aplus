@@ -1,5 +1,8 @@
 $(document).ready(() => {
         getAllColleges();
+        
+        $("body").on("click", ".deleteCollege",() => deleteCollege());
+
         setInterval(getAllColleges, 3000);
 })
 
@@ -14,8 +17,8 @@ function getAllColleges(){
             var linhas = '';
             if(data.colleges.length>0){
                 for(i=0; i<data.colleges.length;i++){
-                    linhas += '<tr class="college_row"><td>' + data.colleges[i].name + '</td><td>' + data.colleges[i].location +
-                    '</td><td><button class="deleteUser" type="button">Apagar</button></td></tr>'; 
+                    linhas += '<tr class="college_row"><td>' + data.colleges[i].name + '</td><td>' + data.colleges[i].location + 
+                    '</td><td>' + data.colleges[i].siglas + '</td><td><button class="deleteCollege" type="button">Apagar</button></td></tr>'; 
                 }
                 $('#show_colleges').append(linhas);
             }
@@ -34,21 +37,23 @@ function getAllColleges(){
 }
 
 
-// function deleteCollege(){
-//     var linha = $(event.target).closest("tr");
-//     $.ajax({
-//         type: "DELETE",
-//         url: base_url + "admin/api/deleteCollege",
-//         data: {email: linha.find("td:eq(0)").text()},
-//         success: function() {
-//             if (page_name=="students"){
-//                 getAllStudents();
-//             } else if (page_name=="teachers") {
-//                 getAllTeachers();
-//             } 
-//         },
-//         error: function() {
-//             alert("Dados inválidos. (Esta mensagem vai ser substituída, como é óbvio)")
-//         }
-//     });
-// }
+function deleteCollege(){
+    var linha = $(event.target).closest("tr");
+    $.ajax({
+        type: "DELETE",
+        url: base_url + "admin/api/deleteCollege",
+        data: {siglas: linha.find("td:eq(2)").text()},
+        success: function() {
+            $(".msgSucesso").remove();
+            $(".msgErro").remove();
+            msgSucesso = "<p class='msgSucesso'>Faculdade eliminada com Sucesso.</p>";
+            $("body").append(msgSucesso);
+        },
+        error: function() {
+            $(".msgSucesso").remove();
+            $(".msgErro").remove();
+            msgErro = "<p class='msgErro'> Não foi possivel eliminar a faculdade.</p>";
+            $("body").append(msgErro);
+        }
+    });
+}

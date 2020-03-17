@@ -66,7 +66,7 @@ class UserModel extends CI_Model {
     //////////////////////////////////////////////////////////////
     //                         TEACHER
     //////////////////////////////////////////////////////////////
-    #burcar as cadeiras de um prof
+    #buscar as cadeiras de um prof
     public function getCadeiras($id) {
         $this->db->select("cadeira_id");
         $this->db->where(array('user_id =' => $id));

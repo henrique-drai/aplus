@@ -7,10 +7,13 @@ class CollegeModel extends CI_Model {
         return $data;
     }
 
-
     public function getColleges(){
         $query = $this->db->get("faculdade");
         return $query->result_array();
+    }
+
+    public function deleteCollege($siglas){
+        $query = $this->db->delete('faculdade', array('siglas'=>$siglas));
     }
 
 }

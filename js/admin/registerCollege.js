@@ -8,6 +8,7 @@ function submitRegister(){
     const data = {
         nomefaculdade:   $("#register-faculdade-form input[name='nomefaculdade']").val(),
         morada:    $("#register-faculdade-form input[name='morada']").val(),
+        siglas:    $("#register-faculdade-form input[name='siglas']").val(),
     }
     $("input[type='text']").val("");
     $(".msgSucesso").remove();

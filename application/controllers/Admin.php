@@ -42,6 +42,7 @@ class Admin extends REST_Controller {
     public function api_delete($f){
         switch($f){
             case "deleteUser": $this->deleteUser(); break; //       admin/api/deleteUser
+            case "deleteCollege": $this->deleteCollege(); break; //  admin/api/deleteCollege
 
             default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -77,6 +78,7 @@ class Admin extends REST_Controller {
         $data = Array(
             "name" => $this->post('nomefaculdade'),
             "location"   => $this->post('morada'),
+            "siglas"   => $this->post('siglas'),
         );
 
         $this->load->model('CollegeModel');
@@ -89,6 +91,12 @@ class Admin extends REST_Controller {
         $data["colleges"] = $this->CollegeModel->getColleges();
         
         $this->response($data, parent::HTTP_OK);
+    }
+
+    public function deleteCollege(){
+        $siglas = $this->delete('siglas');
+        $this->load->model('CollegeModel');
+        $this->CollegeModel->deleteCollege($siglas);
     }
 
     public function getAllStudents(){

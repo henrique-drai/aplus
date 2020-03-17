@@ -15,6 +15,8 @@
             <input type="text" name="nomefaculdade"><br>
             <label for="morada">Morada:</label><br>
             <input type="text" name="morada"><br>
+            <label for="siglas">Siglas da Faculdade:</label><br>
+            <input type="text" name="siglas"><br>
 
             <input type="submit" id="register-college-submit">
         </form><br>
@@ -23,6 +25,7 @@
             <tr>
                 <th>Nome</th>
                 <th>Localizacao</th>
+                <th>Siglas</th>
             </tr>
             
         </table>

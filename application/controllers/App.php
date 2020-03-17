@@ -69,7 +69,7 @@ class App extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
-    public function profile()
+    public function profile($user_id)
     {
         $data["base_url"] = base_url();
 

@@ -1,0 +1,28 @@
+.admin-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+.admin-stats-window {
+    border: 1px solid #aaa;
+    background-color: white;
+    border-radius: 5px;
+    margin: 10px;
+    min-width: 300px;
+}
+.admin-stats-window > * {
+    padding: 5px 8px;
+}
+
+.admin-stats-title {
+    border-bottom: 1px solid #aaa;
+    text-align: center;
+}
+
+
+.admin-stats-btn {
+    border-top: 1px solid #aaa;
+    cursor: pointer;
+    text-align: center;
+}

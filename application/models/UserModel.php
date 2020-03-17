@@ -63,6 +63,16 @@ class UserModel extends CI_Model {
         return $query->result_array();
     }
 
+    public function countStudents(){
+        $this->db->where('role', 'student');
+        return $this->db->count_all_results('user');
+    }
+
+    public function countTeachers(){
+        $this->db->where('role', 'teacher');
+        return $this->db->count_all_results('user');
+    }
+
     //////////////////////////////////////////////////////////////
     //                         TEACHER
     //////////////////////////////////////////////////////////////

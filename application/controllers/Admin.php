@@ -23,6 +23,7 @@ class Admin extends REST_Controller {
             case "register":        $this->registerUser(); break; //        admin/api/register
             case "registerCollege": $this->registerCollege(); break; //     admin/api/registerCollege
             case "editUser":        $this->editUser(); break; //            admin/api/editUser
+            case "getAdminHome":    $this->getAdminHome(); break; //        admin/api/getAdminHome
             
             default:             $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -154,6 +155,27 @@ class Admin extends REST_Controller {
         }
         fclose($file);
         exit;
+    }
+
+    public function getAdminHome(){
+        
+        $this->load->model('UserModel');
+
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        $data = Array(
+            "num_students" => $this->UserModel->countStudents(),
+            "num_teachers" => $this->UserModel->countTeachers(),
+        );
+
+        $this->response($data, parent::HTTP_OK);
     }
 
 

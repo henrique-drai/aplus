@@ -14,6 +14,7 @@ function getAllColleges(){
             $("#show_colleges").css("display", "block");
             $(".college_row").remove();
             $("#mens_sem_faculdades").remove();
+            $("#mens_erro_faculdades").remove();
             var linhas = '';
             if(data.colleges.length>0){
                 for(i=0; i<data.colleges.length;i++){
@@ -31,7 +32,11 @@ function getAllColleges(){
             
         },
         error: function(data) {
-            console.log("Erro a mostrar as faculdades!")
+            $("#show_colleges").css("display", "none");
+            $("#mens_sem_faculdades").remove();
+            $("#mens_erro_faculdades").remove();
+            var mensagem = "<h2 id='mens_erro_faculdades'>Não é possivel apresentar as faculdades.</h2>";
+            $("body").append(mensagem);
         }
     });
 }
@@ -47,13 +52,13 @@ function deleteCollege(){
             $(".msgSucesso").remove();
             $(".msgErro").remove();
             msgSucesso = "<p class='msgSucesso'>Faculdade eliminada com Sucesso.</p>";
-            $("body").append(msgSucesso);
+            $("#show_colleges").after(msgSucesso);
         },
         error: function() {
             $(".msgSucesso").remove();
             $(".msgErro").remove();
             msgErro = "<p class='msgErro'> Não foi possivel eliminar a faculdade.</p>";
-            $("body").append(msgErro);
+            $("#show_colleges").after(msgErro);
         }
     });
 }

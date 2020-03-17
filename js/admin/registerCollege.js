@@ -19,11 +19,11 @@ function submitRegister(){
         data: data,
         success: function(data) {
             msgSucesso = "<p class='msgSucesso'>Faculdade registada com Sucesso.</p>";
-            $("body").append(msgSucesso);
+            $("#register-faculdade-form").after(msgSucesso);
         },
         error: function(data) {
             msgErro = "<p class='msgErro'> Não foi possivel registar a faculdade.</p>";
-            $("body").append(msgErro);
+            $("#register-faculdade-form").after(msgErro);
         }
     });
     

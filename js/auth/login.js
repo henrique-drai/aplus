@@ -19,7 +19,7 @@ function submitLogin(){
             localStorage.setItem("token", data.token)
             localStorage.setItem("user_id", data.id)
             localStorage.setItem("profile_pic", data.profile_pic)
-            window.location.href = base_url + "app/" + data.role
+            window.location.href = base_url + "app/"
         },
         error: function(data) {
             alert("Dados inválidos.")

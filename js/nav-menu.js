@@ -76,7 +76,7 @@ function endSession(){
             localStorage.removeItem("profile_pic")
             localStorage.removeItem("token")
             localStorage.removeItem("user_id")
-            window.location.href = base_url + "app/auth/login"
+            window.location.href = base_url + "landing/login"
         },
         error: function(data) {
             console.log("Problema na API: O logout deu erro.")

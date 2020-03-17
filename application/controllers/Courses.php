@@ -9,12 +9,6 @@ class Courses extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
         $this->load->model('CourseModel');
-
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403');
-            return null;
-        }
     }
 
     //      Página que mostra todas as cadeiras de um user:
@@ -22,6 +16,11 @@ class Courses extends CI_Controller {
     public function index()
     {
         $data["base_url"] = base_url();
+        
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403', $data); return null;
+        }
 
         $this->load->view('templates/head', $data);
 
@@ -39,6 +38,13 @@ class Courses extends CI_Controller {
     //      aplus.com/courses/course/:course_code
     public function course($course_code = '')
     {
+        $data["base_url"] = base_url();
+        
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403', $data); return null;
+        }
+
         //buscar a info sobre o objeto
         $data["course"] = $this->CourseModel->getCourseByCode($course_code);
 
@@ -46,8 +52,6 @@ class Courses extends CI_Controller {
         if(is_null($data["course"])){
             $this->load->view('errors/404');
         }
-
-        $data["base_url"] = base_url();
 
         $this->load->view('templates/head', $data);
 

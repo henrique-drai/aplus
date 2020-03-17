@@ -10,16 +10,37 @@ class App extends CI_Controller {
         $this->load->helper('url');
     }
 
+    public function index()
+    {
+        $data["base_url"] = base_url();
+        
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403', $data); return null;
+        }
+
+        $this->load->view('templates/head', $data);
+
+        //escolher que página deve ser mostrada
+        switch ($this->session->userdata('role')) {
+            case 'student': $this->load->view('student/home', $data); break;
+            case 'teacher': $this->load->view('teacher/home', $data); break;
+            case 'admin':   $this->load->view('admin/home', $data); break;
+        }
+
+        $this->load->view('templates/footer');       
+    }   
+
     public function student($page = 'home')
     {
         if (! file_exists(APPPATH.'views/student/'.$page.'.php')){show_404();}
 
-        if($this->session->userdata('role') != "student"){
-            echo "Não tem permissões para aceder a este ficheiro.";
-            return false;
-        }
-
         $data["base_url"] = base_url();
+        
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403', $data); return null;
+        }
 
         $this->load->view('templates/head', $data);
         $this->load->view('student/'.$page, $data);
@@ -30,12 +51,12 @@ class App extends CI_Controller {
     {
         if (! file_exists(APPPATH.'views/teacher/'.$page.'.php')){show_404();}
 
-        if($this->session->userdata('role') != "teacher"){
-            echo "Não tem permissões para aceder a este ficheiro.";
-            return false;
-        }
-
         $data["base_url"] = base_url();
+        
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403', $data); return null;
+        }
 
         $this->load->view('templates/head', $data);
         $this->load->view('teacher/'.$page, $data);
@@ -46,38 +67,42 @@ class App extends CI_Controller {
     {
         if (! file_exists(APPPATH.'views/admin/'.$page.'.php')){show_404();}
 
-        if($this->session->userdata('role') != "admin"){
-            echo "Não tem permissões para aceder a este ficheiro.";
-            return false;
-        }
-
         $data["base_url"] = base_url();
+        
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403', $data); return null;
+        }
 
         $this->load->view('templates/head', $data);
         $this->load->view('admin/'.$page, $data);
         $this->load->view('templates/footer');
     }
 
-    public function auth($page = 'home')
-    {
-        if (! file_exists(APPPATH.'views/auth/'.$page.'.php')){show_404();}
-
-        $data["base_url"] = base_url();
-
-        $this->load->view('templates/head', $data);
-        $this->load->view('auth/'.$page, $data);
-        $this->load->view('templates/footer');
-    }
-
     //app/profile/:user_id
-    public function profile($user_id)
+    public function profile($user_id = null)
     {
+        $data["base_url"] = base_url();
+        
         //verificar se a pessoa fez login
         if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403');
+            $this->load->view('errors/403', $data); return null;
         }
+        
+        if(is_null($user_id)) {
+            $this->load->view('errors/404', $data);
+            return null;
+        }
+        
+        $this->load->model('UserModel');
 
-        $data["base_url"] = base_url();
+        $data["user"] = $this->UserModel->getUserById($user_id);
+        
+
+        if(is_null($data["user"])){
+            $this->load->view('errors/404', $data);
+            return null;
+        }
 
         $this->load->view('templates/head', $data);
         //escolher que página deve ser mostrada

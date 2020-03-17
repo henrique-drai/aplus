@@ -8,7 +8,7 @@ class Projects extends CI_Controller {
     {
         parent::__construct();
         $this->load->helper('url');
-        $this->load->model('ProjectsModel');
+        $this->load->model('ProjectModel');
     }
 
     //      projects/

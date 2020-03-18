@@ -8,7 +8,7 @@
 }
 
 .form-container{
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2), 0 2px 4px 0 rgba(0,0,0,0.19);
+    /* box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2), 0 2px 4px 0 rgba(0,0,0,0.19); */
     padding: 2%;
     width: 100%;
 }
@@ -98,4 +98,20 @@ main {
 
 #removeEtapa:hover, #addEtapa:hover{
     background-color:rgb(194, 194, 194);
+}
+
+.form-input-number{
+    width: unset;
+    display: flex;
+    min-width: 48%;
+}
+
+.pminmax{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.pminmax label{
+    min-width:100%;
 }

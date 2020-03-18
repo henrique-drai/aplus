@@ -3,16 +3,15 @@
 <script>setPageName("projects")</script>
 <script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/project-teacher.js"></script>
+<script>setCourseID("<?php echo $course->id; ?>")</script>
 </head>
 
 <body>
     <div id="nav-menu-hook"></div>
     <main>
-    <h1>Suposto ser acedido pela página de cada cadeira!</h1>
-    
     <div class="form-container">
         <div class="form-container-header">
-            <h2>Criar novo projeto para a cadeira -xxx-</h2>
+            <h2>Criar novo projeto para a cadeira <?php echo $course->name; ?></h2>
         </div>
 
         <form id="projForm" class="project-form"  action="javascript:void(0)">
@@ -21,19 +20,14 @@
                 <input class="form-input-text" type="text" name="projName" required>
             </p>
 
-            <p>
-                <label class="form-label">Número mínimo de alunos por grupo:</label>
-                <input id="minnuminput" class="form-input-number" type="number" name="groups_min" min="1" required>
-            </p>
-
-            <p>
-                <label class="form-label">Número máximo de alunos por grupo:</label>
-                <input id="maxnuminput" class="form-input-number" type="number" name="groups_max" min="1" required>
+            <p class="pminmax">
+                <label class="form-label">Número de alunos por grupo:</label>
+                <input id="minnuminput" class="form-input-number" type="number" name="groups_min" min="1" placeholder="Mínimo" required>
+                <input id="maxnuminput" class="form-input-number" type="number" name="groups_max" min="1" placeholder="Máximo" required>
             </p>
 
             <p>
                 <label class="form-label">Descrição:</label>
-                <!-- <input class="form-input-text" type="text" name="projDescription"> -->
                 <textarea class="form-text-area" type="text" name="projDescription" required></textarea>
             </p>
 

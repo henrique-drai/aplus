@@ -18,7 +18,7 @@ function submitLogin(){
             console.log(data)
             localStorage.setItem("token", data.token)
             localStorage.setItem("user_id", data.id)
-            localStorage.setItem("profile_pic", data.profile_pic)
+            localStorage.setItem("has_pic", data.has_pic)
             window.location.href = base_url + "app/"
         },
         error: function(data) {

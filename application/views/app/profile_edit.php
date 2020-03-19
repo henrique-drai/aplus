@@ -10,18 +10,38 @@
 
     <main>
         <form class="profile-edit-user" action="javascript:void(0)">
-            <label for="name">      Name
+            <label for="name">      Nome
                 <input type="text" name="name" value="Loading..."></label>
-            <label for="surname">   Surname
+            <label for="surname">   Apelido
                 <input type="text" name="surname" value="Loading..."></label>
-            <label for="password">  New Password
+            <label for="password"> Password Nova
                 <input type="password" name="password"></label>
-            <label for="confirm">  Confirm Password
+            <label for="confirm">  Confirmar Password
                 <input type="password" name="confirm">
                 <div class="form-error-message"></div>
             </label>
 
             <br><input type="submit" value="Update Profile" disabled>
         </form>
+        <br>
+
+
+        <div class="picture-form">
+            <h3>Alterar imagem de perfil:</h3>
+            <?php echo form_open_multipart('app/uploadProfilePic'); ?>
+                <input type="file" name="userfile" size="20">
+                <input type="submit" value="Carregar">
+            </form>
+        </div>
+        
+
+
+        <!--
+
+        https://codeigniter.com/user_guide/libraries/file_uploading.html
+        https://codeigniter.com/user_guide/libraries/ftp.html
+        https://stackoverflow.com/questions/9747897/deleting-a-file-using-php-codeigniter
+
+            -->
 
     </main>

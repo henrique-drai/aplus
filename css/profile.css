@@ -2,3 +2,20 @@
     font-size: 10px;
     color: red;
 }
+
+.picture-form form{
+    display: flex;
+    
+}
+
+.picture-form input[type=file] {
+    border: none;
+    background-color: transparent;
+    padding-left: 0px;
+}
+
+.picture-form input[type=submit] {
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background-color: white;
+}

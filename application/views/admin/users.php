@@ -9,7 +9,7 @@
     <div id="nav-menu-hook"></div>
     <main>
         <h1>Utilizadores</h1>
-        <h4>Painel de Controlo</h4>
+        <h4><a href="<?php echo base_url(); ?>app">Painel de Controlo</a></h4>
 
         <section class="flex-section">
             
@@ -29,9 +29,7 @@
                         <option value="admin">Admin</option>
                         <option value="student">Student</option>
                         <option value="teacher">Teacher</option>
-                    </select>
-                    <br>
-
+                    </select><br>
                     <input type="submit" id="register-form-submit">
                 </form>
             </div>
@@ -40,7 +38,13 @@
             <div class="admin-users-window">
                 <div class="title">Migrações</div>
                 <form id="exportCsv" action="<?php echo base_url(); ?>admin/api/saveCSV">
-                    <input type="submit" id="exportInfo" value="Exportar Utilizadores">
+                    <label for="myfile">Exportar dados:</label>
+                    <input type="submit" id="exportInfo" value="Exportar">
+                </form>
+                <form id="file-form" method="post" action="<?php echo base_url(); ?>admin/api/importCSV" enctype="multipart/form-data">
+                    <label for="myfile">Importar dados:</label>
+                    <input type="file" id="myfile" name="userfile">
+                    <input type="submit" id="import-data-submit"  value="Importar">
                 </form>
             </div>
 

@@ -2,8 +2,9 @@ main > * {
     margin: 10px;
 }
 
-h4 {
+h4 a{
     color: #225;
+    text-decoration: none;
 }
 
 .flex-section {
@@ -59,6 +60,15 @@ h4 {
     cursor:pointer;
 }
 
+.admin-users-window input[type=file] {
+    background-color: white;
+    border: none;
+}
+
 .admin-users-window input[type=submit]:hover {
     background-color: #ccc;
+}
+
+#exportInfo {
+    border-bottom: 1px solid #aaa;
 }

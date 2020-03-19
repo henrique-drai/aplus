@@ -2,38 +2,9 @@ main > * {
     margin: 10px;
 }
 
-.form-container{
-    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
-    padding: 2%;
-    width: 100%;
-    background-color: #EDEDED;
-}
-
-main {
-    width: 70%;
-    margin-left: auto;
-    margin-right: auto;
-    height: auto;
-}
-
-
-#importSide{
-    float: left;
-    margin-left: 15%;
-    margin-right: 15%;
-    width: 25%;
-}
-
-#exportSide{
-    margin-left: 10%;
-    margin-right: 10%;
-    
-}
-
 .admin-stats {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     align-items: baseline;  
     margin: 0px; 
 }

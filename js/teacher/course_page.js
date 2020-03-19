@@ -35,7 +35,7 @@ $(document).ready(() => {
             '<label class="form-label">Fim:</label>' +
             '<input type="time" class="form-input-number maxnuminput" id="' + count + '"' +
             'name="end_time" min="09:00" max="18:00" required></p><p>' +
-            '<label class="form-label">Dia da Semana:</label><select id="day">' +
+            '<label class="form-label">Dia da Semana:</label><select class="day" id="' + count + '">' +
             '<option value="Segunda-feira">Segunda-feira</option>' +
             '<option value="Terça-feira">Terça-feira</option>' +
             '<option value="Quarta-feira">Quarta-feira</option>' +
@@ -48,6 +48,21 @@ $(document).ready(() => {
 
     $("#remove_hour").click(function() {
         $("#hours_inputs > #element").last().remove();
+
+        var count = $(".minnuminput").last().attr("id");
+        var flag = true;
+
+        for (var i=0; i <= count; i++) {
+            if($("#" + i + ".minnuminput").css("border-left-color") == 'rgb(152, 251, 152)') {
+                flag = flag && true;
+            } else {
+                flag = flag && false;
+            }
+        }
+
+        if (flag) {
+            $("#save_button_hours").show();
+        }
 
         if($("#hours_inputs #element").length == 1) {
             $("#remove_hour").css('visibility','hidden');
@@ -65,8 +80,21 @@ $(document).ready(() => {
     })
 
     $("body").on("click", "#save_button_hours", function() {
-        // saveHours();
-        $("#hours_inputs").empty();
+        for(var i=0; i <= $(".minnuminput").last().attr("id"); i++) {
+            console.log("dentro");
+            const data = {
+                'user_id': localStorage.getItem('user_id'),
+                'cadeira_id': localStorage.getItem('cadeira_id'),
+                'start_time': $("#" + i + ".minnuminput").val(),
+                'end_time': $("#" + i + ".maxnuminput").val(),
+                'day': $("#" + i + ".day").val(),
+            }
+            saveHours(data);
+        }
+        
+        $("#hours_inputs").hide();
+        $("#hours_inputs #element").remove();
+        $("#save_button_hours").hide();
         getHours(localStorage.getItem("cadeira_id"));
     })
 })
@@ -103,7 +131,7 @@ function getInfo($id) {
             getHours(data.info[0].id);
         },
         error: function(data) {
-            alert("There was an error1. Try again");
+            alert("Houve um erro ao ir buscar a informação da cadeira.");
         }
     });
 }
@@ -127,7 +155,7 @@ function getHours($id) {
             
         },
         error: function(data) {
-            alert("There was an error2. Try again");
+            alert("Houve um erro a ir buscar os horários de dúvidas.");
         }
     })
 }
@@ -144,7 +172,7 @@ function insertText($text) {
             }, 2000);
         },
         error: function(data) {
-            alert("There was an error3. Try again");
+            alert("Houve um erro ao inserir o texto.");
         }
     })
 }
@@ -168,7 +196,7 @@ function setHours($id) {
                             '<input type="time" class="form-input-number maxnuminput" id="' + count + '"' +
                             'name="end_time" min="09:00" max="18:00" value="' + 
                             data.hours[i].end_time.substring(0, 5) + '" required></p><p>' +
-                            '<label class="form-label">Fim:</label><select id="day">' +
+                            '<label class="form-label">Fim:</label><select class="day" id="' + count + '">' +
                             '<option value="Segunda-feira">Segunda-feira</option>' +
                             '<option value="Terça-feira">Terça-feira</option>' +
                             '<option value="Quarta-feira">Quarta-feira</option>' +
@@ -177,9 +205,9 @@ function setHours($id) {
                             '</select></p></div>');
                         
                         count++;
-                        for(var j=0; j < $("#day option").length; j++) {
-                            if($("#day option")[j].value == data.hours[i].day) {
-                                $("#day option[value='" + data.hours[i].day + "']").last().attr("selected", "selected");
+                        for(var j=0; j < $(".day option").length; j++) {
+                            if($(".day option")[j].value == data.hours[i].day) {
+                                $(".day option[value='" + data.hours[i].day + "']").last().attr("selected", "selected");
                             }
                         }
                     }
@@ -201,7 +229,7 @@ function setHours($id) {
                     '<label class="form-label">Fim:</label>' +
                     '<input type="time" class="form-input-number maxnuminput" id="' + count + '"' +
                     'name="end_time" min="09:00" max="18:00" required></p><p>' +
-                    '<label class="form-label">Fim:</label><select id="day">' +
+                    '<label class="form-label">Fim:</label><select class="day" id="' + count + '">' +
                     '<option value="Segunda-feira">Segunda-feira</option>' +
                     '<option value="Terça-feira">Terça-feira</option>' +
                     '<option value="Quarta-feira">Quarta-feira</option>' +
@@ -211,7 +239,21 @@ function setHours($id) {
             }
         },
         error: function(data) {
-            alert("There was an error2. Try again");
+            alert("Houve um erro ao mostrar os horários de dúvidas.");
+        }
+    })
+}
+
+function saveHours(data) {
+    $.ajax({
+        type: "POST",
+        url: base_url + "teacher/api/saveHours",
+        data: data,
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(data) {
+            alert("Houve um erro ao inserir as novas datas.")
         }
     })
 }

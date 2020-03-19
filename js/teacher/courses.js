@@ -8,6 +8,7 @@ $(document).ready(() => {
 })
 
 function showCadeiras() {
+    console.log(localStorage.user_id);
     $.ajax({
         type: "POST",
         url: base_url + "teacher/api/getCadeiras",
@@ -19,7 +20,8 @@ function showCadeiras() {
             }
         },
         error: function(data) {
-            alert("There was an error");
+            console.log(data);
+            alert("Houve um erro ao ir buscar a informação das cadeiras lecionadas.");
         }
     });
 }
@@ -35,7 +37,7 @@ function show($var) {
             $(".cadeiras").append("<a id='" + data.info[0].code + "' href='" + url + "'><div id='card_info'><img src=" + image_url + "><div class='course'><div id='title'>Tecnologias de Informação</div><div>" + data.info[0].code + ": " + data.info[0].name + "</div></div></div></a>");
         },
         error: function(data) {
-            alert("There was an error");
+            alert("Houve um erro a mostrar as cadeiras.");
         }
     })
 }

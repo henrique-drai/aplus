@@ -34,4 +34,12 @@ class CourseModel extends CI_Model {
         $data = $this->db->update('cadeira');
     }
 
+    public function saveHours($data) {
+        $this->db->where('id_prof', $data['id_prof']);
+        $this->db->delete('horario_duvidas');
+
+        $this->db->insert('horario_duvidas', $data);
+        return $this->db->insert_id();
+    }
+
 }

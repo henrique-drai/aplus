@@ -25,7 +25,8 @@ class Teacher extends REST_Controller {
             case "getDescription":  $this->getDescription(); break;//  /teacher/cadeira/id/getDescription
             case "getHours":        $this->getHours(); break;//        /teacher/cadeira/id/getHours
             case "insertText":      $this->insertText(); break;//      /teacher/cadeira/id/insertText
-            case "createProject":   $this->createProject(); break;//    /teacher/api/createProject
+            case "createProject":   $this->createProject(); break;//   /teacher/api/createProject
+            case "saveHours":       $this->saveHours(); break;//       /teacher/api/saveHours 
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -83,8 +84,20 @@ class Teacher extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-<<<<<<< HEAD
-=======
+    public function saveHours() {
+        $data = Array (
+            'id_prof'             => $this->post('user_id'),
+            'id_cadeira'          => $this->post('cadeira_id'),
+            'start_time'          => $this->post('start_time'),
+            'end_time'            => $this->post('end_time'),
+            'day'                 => $this->post('day'),
+        );
+
+        $this->load->model('CourseModel');
+        $this->CourseModel->saveHours($data);
+
+        $this->response($data, parent::HTTP_OK);
+    }
 
     public function createProject(){
         $dataProj = Array(
@@ -122,7 +135,6 @@ class Teacher extends REST_Controller {
 
 
 
->>>>>>> 6fc0d18d0d4a4e10d90ea6d92a4100b2c7b4a0d5
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION
     //////////////////////////////////////////////////////////////

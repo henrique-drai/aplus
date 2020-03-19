@@ -1,0 +1,64 @@
+main > * {
+    margin: 10px;
+}
+
+h4 {
+    color: #225;
+}
+
+.flex-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 0px;
+}
+
+.admin-users-window {
+    border: 1px solid #aaa;
+    background-color: white;
+    border-radius: 5px;
+    margin: 10px;
+    min-width: 300px;
+    overflow: hidden;
+}
+
+.admin-users-window .title {
+    border-bottom: 1px solid #aaa;
+    text-align: center;
+    padding: 5px 8px;
+}
+
+.admin-users-window form {
+    width: 100%;
+    margin: 0px;
+}
+
+.admin-users-window label {
+    padding: 5px 10px 5px;
+    margin: 0px;
+}
+.admin-users-window select {
+    padding: 5px;
+}
+
+.admin-users-window input,
+.admin-users-window select {
+    width: 100%;
+    border-left: none;
+    border-right: none;
+    border-radius: 0px;
+    background-color: #eee;
+}
+
+.admin-users-window input[type=submit] {
+    text-align: center;
+    border: none;
+    border-top: 1px solid #aaa;
+    padding: 5px 8px;
+    cursor:pointer;
+}
+
+.admin-users-window input[type=submit]:hover {
+    background-color: #ccc;
+}

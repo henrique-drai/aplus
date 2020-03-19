@@ -1,8 +1,12 @@
+main > * {
+    margin: 10px;
+}
 .admin-stats {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: baseline;   
+    align-items: baseline;  
+    margin: 0px; 
 }
 .admin-stats-window {
     border: 1px solid #aaa;

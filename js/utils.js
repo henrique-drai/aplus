@@ -33,6 +33,7 @@ function setUserInfo(){
         success: function(data) {
             console.log(JSON.parse(data))
             user_info = JSON.parse(data)
+            localStorage.setItem("has_pic", JSON.parse(data).has_pic)
         },
         error: function(data) {
             console.log("Problema na API ao procurar o utilizador atual.")

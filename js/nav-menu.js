@@ -21,10 +21,10 @@ function getNavBarLinks(pages)
 
 function getNavBarProfilePic(){
     let user_picture_href = base_url + "uploads/profile/default.jpg"
-    if (localStorage.profile_pic && fileExists(base_url + "uploads/profile/"+localStorage.profile_pic)){
-        user_picture_href = base_url + "uploads/profile/"+localStorage.profile_pic
+    if (localStorage.has_pic === "1"){
+        user_picture_href = "http://files.luzamag.com/profile/"+localStorage.user_id+".jpg?"+Date.now()
     }
-    let img = $("<img src='" + user_picture_href + "' alt='Profile Picture'>")
+    let img = $("<img src='" + user_picture_href + "' alt='Profile Picture' crossorigin='anonymous'>")
     let hover = $("<div class='nav-menu-profile-picture-hover'>Edit</div>")
     let a = $("<a href='"+base_url+"app/profile/"+localStorage.user_id+"'></a>")
     let outter = $("<div class='nav-menu-profile-picture'></div>")

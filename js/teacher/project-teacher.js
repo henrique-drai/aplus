@@ -1,4 +1,5 @@
 const etapas = [{id:1, nome:'', desc:'', data:''}];
+var course_id
 
 $(document).ready(() => {
 
@@ -77,6 +78,10 @@ $(document).ready(() => {
 
 })
 
+
+function setCourseID(id){
+    course_id = id;
+}
 
 function refreshEtapasTitle(){
     $('.etapa').each(function(index){
@@ -166,11 +171,30 @@ function submitProject(){
             groups_max:      $("#projForm input[name='groups_max']").val(),
             projDescription: $("#projForm textarea[name='projDescription']").val(),
             file:            $("#projForm input[name='file']").val(),
+            cadeira_id:      course_id,
             listetapas:      etapas,
         }
 
         //pedido ajax para o CI
+
+        // console.log(data);
+
+        $.ajax({
+            type: "POST",
+            headers: {
+                "Authorization": localStorage.token
+            },
+            url: base_url + "teacher/api/createProject",
+            data: data,
+            success: function(data) {
+                console.log(data)
+            },
+            error: function(data) {
+                console.log("Erro na API:")
+                console.log(data)
+            }
+        });
     
-        console.log(data);
+
     }
 }

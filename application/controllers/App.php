@@ -93,20 +93,23 @@ class App extends CI_Controller {
             $this->load->view('errors/403', $data); return null;
         }
         
+        //verificar foi dado algum parâmetro
         if(is_null($user_id)) {
             $this->load->view('errors/404', $data);
             return null;
         }
 
         $this->load->model('UserModel');
-
+        
         $data["user"] = $this->UserModel->getUserById($user_id);
         
-
+        //verificar se o user existe
         if(is_null($data["user"])){
             $this->load->view('errors/404', $data);
             return null;
         }
+
+        $this->load->helper('form');
 
         $this->load->view('templates/head', $data);
         //escolher que página deve ser mostrada
@@ -115,6 +118,47 @@ class App extends CI_Controller {
             case false: $this->load->view('app/profile_show', $data); break;
         }
         $this->load->view('templates/footer');
+    }
+
+    public function uploadProfilePic()
+    {
+        $user_id = $this->session->userdata('id');
+        $upload['upload_path'] = './uploads/temp/';
+        $upload['allowed_types'] = 'jpg';
+        $upload['file_name'] = $user_id;
+        $upload['overwrite'] = true;
+
+        $this->load->library('upload', $upload);
+
+        if ( ! $this->upload->do_upload('userfile'))
+        {
+            $error = array('error' => $this->upload->display_errors());
+            print_r($error);
+        }
+        else
+        {
+            // Deslocar os ficheiros para o url files.luzamag.com/profile
+            // mais info https://codeigniter.com/user_guide/libraries/file_uploading.html
+            $this->load->library('ftp');
+            
+            $ftp['hostname'] = 'luzamag.com';
+            $ftp['username'] = 'u349279621';
+            $ftp['password'] = 'weeb1999';
+            $ftp['debug'] = TRUE;
+
+            $this->ftp->connect($ftp);
+            $this->ftp->upload('./uploads/temp/'.$user_id.'.jpg', '/public_html/aplus/profile/'.$user_id.'.jpg');
+            $this->ftp->close();
+
+            // limpar a pasta temp
+            $this->load->helper("file");
+            delete_files('./uploads/temp/');
+
+            $this->load->model('UserModel');
+            $this->UserModel->updatePic($user_id);
+
+            header("Location: ".base_url()."app/profile/".$user_id);
+        }
     }
 }
 

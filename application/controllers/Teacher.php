@@ -25,6 +25,7 @@ class Teacher extends REST_Controller {
             case "getDescription":  $this->getDescription(); break;//  /teacher/cadeira/id/getDescription
             case "getHours":        $this->getHours(); break;//        /teacher/cadeira/id/getHours
             case "insertText":      $this->insertText(); break;//      /teacher/cadeira/id/insertText
+            case "createProject":   $this->createProject(); break;//    /teacher/api/createProject
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -82,6 +83,46 @@ class Teacher extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+<<<<<<< HEAD
+=======
+
+    public function createProject(){
+        $dataProj = Array(
+            "cadeira_id"          => $this->post("cadeira_id"),
+            "nome"                => $this->post("projName"),
+            "min_elementos"       => $this->post("groups_min"),
+            "max_elementos"       => $this->post("groups_max"),
+            "description"         => $this->post("projDescription"),
+            "enunciado_url"        => $this->post("file"),
+        );
+        
+        $dataEtapa = $this->post("listetapas");
+
+
+        $this->load->model('ProjectModel');
+        $proj_id = $this->ProjectModel->insertProject($dataProj);
+
+        $this->load->model('EtapaModel');
+
+        for($i=0; $i < count($dataEtapa); $i++) {
+
+            $newEtapa = Array (
+                "projeto_id"        => $proj_id,
+                "nome"              => $dataEtapa[$i]["nome"],
+                "description"       => $dataEtapa[$i]["desc"],
+                "deadline"          => $dataEtapa[$i]["data"],
+            );
+
+            $this->EtapaModel->insertEtapa($newEtapa);
+        }
+
+
+        $this->response($dataProj, parent::HTTP_OK);
+    }
+
+
+
+>>>>>>> 6fc0d18d0d4a4e10d90ea6d92a4100b2c7b4a0d5
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION
     //////////////////////////////////////////////////////////////

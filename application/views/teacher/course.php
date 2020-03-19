@@ -27,7 +27,7 @@
 
             <br><br>
             
-            <a href="<?php echo $base_url; ?>app/teacher/projects" class="button">Criar Projeto</a>
+            <a href="<?php echo $base_url; ?>projects/new/<?php echo $course->code; ?>" class="button">Criar Projeto</a>
             <a class="button">Projeto 1 *buscar se existir algum projeto*</a>
 
             <br><br>

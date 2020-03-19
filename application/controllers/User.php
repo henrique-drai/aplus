@@ -42,6 +42,7 @@ class User extends REST_Controller {
             "name" => $user->name,
             "surname" => $user->surname,
             "role" => $user->role,
+            "has_pic" => $user->has_pic,
         );
         $this->response(json_encode($data), parent::HTTP_OK);
     }

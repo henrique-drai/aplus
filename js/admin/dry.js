@@ -1,5 +1,10 @@
 $(document).ready(() => {
-    
+      
+})
+
+
+
+function kek () {
     $.ajax({
         type: "POST",
         headers: {
@@ -17,5 +22,4 @@ $(document).ready(() => {
             console.log(data)
         }
     });
-})
-
+}

@@ -72,4 +72,10 @@ class UserModel extends CI_Model {
         $this->db->where('role', 'teacher');
         return $this->db->count_all_results('user');
     }
+
+    public function updatePic($user_id){
+        $this->db->set('has_pic', true);
+        $this->db->where('id', $user_id);
+        $this->db->update('user');
+    }
 }

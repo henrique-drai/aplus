@@ -50,7 +50,7 @@ class Courses extends CI_Controller {
 
         //verificar se o objeto existe
         if(is_null($data["course"])){
-            $this->load->view('errors/404');
+            $this->load->view('errors/404', $data); return null;
         }
 
         $this->load->view('templates/head', $data);

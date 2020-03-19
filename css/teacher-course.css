@@ -89,7 +89,7 @@ main {
     margin-top: 1%;
 }
 
-#message {
+.message {
     background-color: rgb(106, 192, 66, 0.7);
     text-align: center;
     border-radius: 5px;
@@ -101,6 +101,87 @@ main {
     display: none;
 }
 
+#message_hour {
+    margin-top: -16%;
+    margin-left: 100%;
+    padding: 1.5%;
+}
+
 #summary {
     white-space: pre;
+}
+
+#hours_header {
+    display: inline-block;
+}
+
+#edit_button_hours {
+    margin-top: -24%;
+    float: left;
+    margin-left: 110%;
+    padding: 2%;
+}
+
+#hours_inputs {
+    display: flex;
+}
+
+#hours_inputs input:required:valid {
+    border-left-color: palegreen;
+}
+
+#hours_inputs input:invalid {
+    border-left-color: salmon;
+}
+
+input, select {
+    border: 1px solid white;
+    border-left: 3px solid;
+    border-radius:5px;
+    padding:4px;
+    width: 100%;
+    transition: .5s ease-out;
+}
+
+select {
+    border-left: 3px solid palegreen;
+}
+
+#remove_hour, #remove_hour img, #add_hour, #add_hour img{
+    width:30px;
+    border-radius: 15px;
+}
+
+#remove_hour, #add_hour{
+    cursor:pointer;
+    height: 0%;
+    margin-top: -1%;
+    z-index: 2;
+}
+
+#remove_hour:hover, #add_hour:hover{
+    background-color:rgb(194, 194, 194);
+}
+
+#remove_hour {
+    margin-left: 1%;
+    visibility: hidden;
+}
+
+#element {
+    position: relative;
+    width: 25%;
+    padding: 1%;
+    margin-left: -8%;
+    margin-right: 9%;
+}
+
+#hour_inputs label {
+    display:block;
+}
+
+#save_button_hours {
+    display: none;
+    float: right;
+    margin-top: -31%;
 }

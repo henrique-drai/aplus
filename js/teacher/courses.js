@@ -2,7 +2,7 @@ $(document).ready(() => {
     showCadeiras();
 
     $("body").on("click", "a", function() {
-        localStorage.setItem("cadeira_id", $(this).attr("id"));
+        localStorage.setItem("cadeira_code", $(this).attr("id"));
         window.location = base_url + "courses/course/" + $(this).attr("id");
     })
 })

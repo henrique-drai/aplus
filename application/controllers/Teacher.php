@@ -24,7 +24,7 @@ class Teacher extends REST_Controller {
             case "getCadeiraInfo":  $this->getCadeiraInfo(); break;//  /teacher/api/getCadeiraInfo
             case "getDescription":  $this->getDescription(); break;//  /teacher/cadeira/id/getDescription
             case "getHours":        $this->getHours(); break;//        /teacher/cadeira/id/getHours
-            case "insertText":      $this->insertText(); break;//       /teacher/cadeira/id/insertText
+            case "insertText":      $this->insertText(); break;//      /teacher/cadeira/id/insertText
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -81,8 +81,6 @@ class Teacher extends REST_Controller {
 
         $this->response($data, parent::HTTP_OK);
     }
-
-
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

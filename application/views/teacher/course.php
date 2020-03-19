@@ -14,7 +14,7 @@
             <div id="header">
                 <h2>Sumário da Cadeira</h2>
                 <a href="#" class="button" id="edit_button">Editar</a>
-                <div id="message">Editado com sucesso!</div>
+                <div class="message">Editado com sucesso!</div>
             </div>
             <div id="summary"></div>
 
@@ -32,8 +32,20 @@
 
             <br><br>
 
-            <h2>Horário de Dúvidas</h2>
+            <div id="hours_header">
+                <h2>Horário de Dúvidas</h2>
+                <a href="#" class="button" id="edit_button_hours">Editar</a>
+                <div class="message" id="message_hour">Editado com sucesso!</div>
+            </div>
             <div id="hours"></div>
+
+            <div id="hours_inputs">
+                <label id="add_hour"><img src="<?php echo $base_url; ?>/images/add.png"></label>
+                <label id="remove_hour"><img src="<?php echo $base_url; ?>/images/close.png"></label>
+                <br>
+            </div>
+
+            <a href="#" class="button" id="save_button_hours">Guardar</a>
         </div>
 
     </main>

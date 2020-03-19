@@ -19,7 +19,7 @@
                 </div>
                 <div class="admin-stats-btn">
                     
-                    <a href="<?php echo $base_url; ?>app/admin/registerUser"><div>Manage</div></a>
+                    <a href="<?php echo $base_url; ?>app/admin/users"><div>Manage</div></a>
                 </div>
             </div>
 

@@ -1,8 +1,8 @@
 <title>A+ for Teachers</title>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-course.css">
-<script>setPageName("courses")</script>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-subject.css">
+<script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
-<script src="<?php echo $base_url; ?>js/teacher/courses.js"></script>
+<script src="<?php echo $base_url; ?>js/teacher/subjects.js"></script>
 </head>
 
 <body>

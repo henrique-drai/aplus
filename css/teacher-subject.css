@@ -43,7 +43,7 @@ main {
     height: 69%;
 }
 
-.course {
+.subject {
     background-color: white;
     position: relative;
     font-size: 0.8em;
@@ -51,7 +51,7 @@ main {
     height: auto;
 }
 
-.course div {
+.subject div {
     margin-left: 5%;
     display: flex;
 }

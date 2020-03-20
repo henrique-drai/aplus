@@ -24,7 +24,6 @@ class Admin extends REST_Controller {
             case "register":        $this->registerUser(); break; //        admin/api/register
             case "registerCollege": $this->registerCollege(); break; //     admin/api/registerCollege
             case "editUser":        $this->editUser(); break; //            admin/api/editUser
-            case "getAdminHome":    $this->getAdminHome(); break; //        admin/api/getAdminHome
             case "importCSV":       $this ->importCSV(); break; //        admin/api/importCSV
             
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
@@ -36,9 +35,10 @@ class Admin extends REST_Controller {
             case "getAllColleges":  $this->getAllColleges(); break; //      admin/api/getAllColleges
             case "getAllStudents":  $this->getAllStudents(); break; //      admin/api/getAllStudents
             case "getAllTeachers":  $this->getAllTeachers(); break; //      admin/api/getAllTeachers
+            case "getAdminHome":    $this->getAdminHome(); break; //        admin/api/getAdminHome
+            case "getAllFaculdadesUnidCurricular":  $this->getAllColleges(); break; // admin/api/getAllFaculdadesUnidCurricular
             case "saveCSV":         $this->export(); break;
 
-            
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
@@ -141,7 +141,6 @@ class Admin extends REST_Controller {
 
         $this->load->helper('url');
 
-        echo "lol";
         $this -> load -> model('UserModel');
         
         $count_files = $_FILES["userfile"]['tmp_name'];
@@ -211,9 +210,6 @@ class Admin extends REST_Controller {
 
         $this->response($data, parent::HTTP_OK);
     }
-
-
-
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

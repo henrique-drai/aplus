@@ -1,5 +1,5 @@
 const etapas = [{id:1, nome:'', desc:'', data:''}];
-var course_id
+var subject_id
 
 $(document).ready(() => {
 
@@ -79,8 +79,8 @@ $(document).ready(() => {
 })
 
 
-function setCourseID(id){
-    course_id = id;
+function setSubjectID(id){
+    subject_id = id;
 }
 
 function refreshEtapasTitle(){
@@ -171,7 +171,7 @@ function submitProject(){
             groups_max:      $("#projForm input[name='groups_max']").val(),
             projDescription: $("#projForm textarea[name='projDescription']").val(),
             file:            $("#projForm input[name='file']").val(),
-            cadeira_id:      course_id,
+            cadeira_id:      subject_id,
             listetapas:      etapas,
         }
 

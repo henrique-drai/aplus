@@ -9,7 +9,6 @@ class Projects extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
         $this->load->model('ProjectModel');
-        $this->load->model('EtapaModel');
     }
 
     //      projects/
@@ -18,10 +17,10 @@ class Projects extends CI_Controller {
 
     }
 
-    //      projects/new/:course_code
-    public function new($course_code)
+    //      projects/new/:subject_code
+    public function new($subject_code)
     {
-        $this->load->model('CourseModel');
+        $this->load->model('SubjectModel');
 
         $data["base_url"] = base_url();
         
@@ -31,10 +30,10 @@ class Projects extends CI_Controller {
         }
 
         //buscar a info sobre o codigo do curso
-        $data["course"] = $this->CourseModel->getCourseByCode($course_code);
+        $data["subject"] = $this->SubjectModel->getSubjectByCode($subject_code);
 
         //verificar se o objeto existe
-        if(is_null($data["course"])){
+        if(is_null($data["subject"])){
             $this->load->view('errors/404', $data); return null;
         }
 

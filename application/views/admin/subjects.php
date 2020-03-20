@@ -1,5 +1,5 @@
 <title>A+ for Admins</title>
-<script>setPageName("courses")</script>
+<script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 </head>
 

@@ -5,7 +5,7 @@ $(document).ready(() => {
 
 function loadAdminHome() {
     $.ajax({
-        type: "POST",
+        type: "GET",
         headers: {
             "Authorization": localStorage.token
         },

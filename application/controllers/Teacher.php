@@ -37,32 +37,32 @@ class Teacher extends REST_Controller {
     //////////////////////////////////////////////////////////////
     public function getCadeiras() {
         $user_id = $this->post('id');
-        $this->load->model('CourseModel');
-        $data["cadeiras_id"] = $this->CourseModel->getCadeiras($user_id);
+        $this->load->model('SubjectModel');
+        $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id);
 
         $this->response($data, parent::HTTP_OK);
     }
 
     public function getCadeiraInfo() {
         $cadeira_id = $this->post('cadeira_id');
-        $this->load->model('CourseModel');
-        $data["info"] = $this->CourseModel->getCadeiraInfo($cadeira_id);
+        $this->load->model('SubjectModel');
+        $data["info"] = $this->SubjectModel->getCadeiraInfo($cadeira_id);
 
         $this->response($data, parent::HTTP_OK);
     }
 
     public function getDescription() {
         $cadeira_id = $this->post('cadeira_id');
-        $this->load->model('CourseModel');
-        $data["info"] = $this->CourseModel->getDescription($cadeira_id);
+        $this->load->model('SubjectModel');
+        $data["info"] = $this->SubjectModel->getDescription($cadeira_id);
 
         $this->response($data, parent::HTTP_OK);
     }
 
     public function getHours() {
         $cadeira_id = $this->post('cadeira_id');
-        $this->load->model('CourseModel');
-        $data["hours"] = $this->CourseModel->getHours($cadeira_id);
+        $this->load->model('SubjectModel');
+        $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
 
         $this->load->model('UserModel');
         $data['user'] = array();
@@ -78,8 +78,8 @@ class Teacher extends REST_Controller {
             "id"    => $this->post("cadeira_id"),
             "text"  => $this->post("text"),
         );
-        $this->load->model('CourseModel');
-        $this->CourseModel->insertText($data);
+        $this->load->model('SubjectModel');
+        $this->SubjectModel->insertText($data);
 
         $this->response($data, parent::HTTP_OK);
     }
@@ -93,8 +93,8 @@ class Teacher extends REST_Controller {
             'day'                 => $this->post('day'),
         );
 
-        $this->load->model('CourseModel');
-        $this->CourseModel->saveHours($data);
+        $this->load->model('SubjectModel');
+        $this->SubjectModel->saveHours($data);
 
         $this->response($data, parent::HTTP_OK);
     }
@@ -115,7 +115,7 @@ class Teacher extends REST_Controller {
         $this->load->model('ProjectModel');
         $proj_id = $this->ProjectModel->insertProject($dataProj);
 
-        $this->load->model('EtapaModel');
+        $this->load->model('ProjectModel');
 
         for($i=0; $i < count($dataEtapa); $i++) {
 
@@ -126,7 +126,7 @@ class Teacher extends REST_Controller {
                 "deadline"          => $dataEtapa[$i]["data"],
             );
 
-            $this->EtapaModel->insertEtapa($newEtapa);
+            $this->ProjectModel->insertEtapa($newEtapa);
         }
 
 

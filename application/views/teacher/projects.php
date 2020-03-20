@@ -3,7 +3,7 @@
 <script>setPageName("projects")</script>
 <script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/project-teacher.js"></script>
-<script>setCourseID("<?php echo $course->id; ?>")</script>
+<script>setSubjectID("<?php echo $subject->id; ?>")</script>
 </head>
 
 <body>
@@ -11,7 +11,7 @@
     <main>
     <div class="form-container">
         <div class="form-container-header">
-            <h2>Criar novo projeto para a cadeira <?php echo $course->name; ?></h2>
+            <h2>Criar novo projeto para a cadeira <?php echo $subject->name; ?></h2>
         </div>
 
         <form id="projForm" class="project-form"  action="javascript:void(0)">

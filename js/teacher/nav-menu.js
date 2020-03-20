@@ -10,9 +10,9 @@ function TeacherNavMenu() {
             "href": base_url + "app",
             "name": "Dashboard"
         },
-        "courses": {
-            "href": base_url + "courses",
-            "name": "Courses"
+        "subjects": {
+            "href": base_url + "subjects",
+            "name": "Subjects"
         }
     }
 

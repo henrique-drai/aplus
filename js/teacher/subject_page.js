@@ -121,7 +121,7 @@ function getInfo($id) {
         url: base_url + "teacher/api/getDescription",
         data: {cadeira_id: $id},
         success: function(data) {
-            $("#course_title").append("<h1>" + data.info[0].name + "</h1>");
+            $("#subject_title").append("<h1>" + data.info[0].name + "</h1>");
             if(data.info[0].description == "") {
                 $("#summary").append("Não existe sumário para a cadeira.");
             } else {

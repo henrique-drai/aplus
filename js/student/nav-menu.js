@@ -10,9 +10,9 @@ function StudentNavMenu() {
             "href": base_url + "app",
             "name": "Dashboard"
         },
-        "courses": {
-            "href": base_url + "app/student/courses",
-            "name": "Courses"
+        "subjects": {
+            "href": base_url + "app/student/subjects",
+            "name": "Subjects"
         }
     }
 

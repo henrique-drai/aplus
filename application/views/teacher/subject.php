@@ -1,15 +1,15 @@
-<title><?php echo $course->name; ?></title>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-course.css">
-<script>setPageName("courses")</script>
+<title><?php echo $subject->name; ?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-subject.css">
+<script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
-<script src="<?php echo $base_url; ?>js/teacher/course_page.js"></script>
+<script src="<?php echo $base_url; ?>js/teacher/subject_page.js"></script>
 </head>
 
 <body>
     <div id="nav-menu-hook"></div>
     <main>
         
-        <div id="course_title"></div>
+        <div id="subject_title"></div>
         <div class="form-container">
             <div id="header">
                 <h2>Sumário da Cadeira</h2>
@@ -27,7 +27,7 @@
 
             <br><br>
             
-            <a href="<?php echo $base_url; ?>projects/new/<?php echo $course->code; ?>" class="button">Criar Projeto</a>
+            <a href="<?php echo $base_url; ?>projects/new/<?php echo $subject->code; ?>" class="button">Criar Projeto</a>
             <a class="button">Projeto 1 *buscar se existir algum projeto*</a>
 
             <br><br>

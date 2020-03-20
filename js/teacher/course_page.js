@@ -18,7 +18,7 @@ $(document).ready(() => {
     });
 
     $("#edit_button_hours").click(function() {
-        $("#hours p").hide();
+        $("#hours").empty();
         $("#hours_inputs").show();
 
         setHours(localStorage.getItem("cadeira_id"));
@@ -80,6 +80,7 @@ $(document).ready(() => {
     })
 
     $("body").on("click", "#save_button_hours", function() {
+        $("#hours").empty();
         for(var i=0; i <= $(".minnuminput").last().attr("id"); i++) {
             console.log("dentro");
             const data = {
@@ -92,10 +93,10 @@ $(document).ready(() => {
             saveHours(data);
         }
         
+        
         $("#hours_inputs").hide();
         $("#hours_inputs #element").remove();
         $("#save_button_hours").hide();
-        getHours(localStorage.getItem("cadeira_id"));
     })
 })
 
@@ -184,7 +185,18 @@ function setHours($id) {
         data: {cadeira_id: $id},
         success: function(data) {
             var count = 0;
-            if(data['hours'].length != 0) {
+            var flag = false;
+
+            for(var i=0; i < data['user'].length; i++) {
+                if(data.user[i].id == localStorage.getItem("user_id")) {
+                    flag= true;
+                    break;
+                } else {
+                    flag = false;
+                }
+            }
+            console.log(data);
+            if(flag) {
                 for(var i=0; i < data['user'].length; i++) {
                     if(data.user[i].id == localStorage.getItem("user_id")) {
                         $("#hours_inputs").append('<div id="element"><p>' +
@@ -196,7 +208,7 @@ function setHours($id) {
                             '<input type="time" class="form-input-number maxnuminput" id="' + count + '"' +
                             'name="end_time" min="09:00" max="18:00" value="' + 
                             data.hours[i].end_time.substring(0, 5) + '" required></p><p>' +
-                            '<label class="form-label">Fim:</label><select class="day" id="' + count + '">' +
+                            '<label class="form-label">Dia da Semana:</label><select class="day" id="' + count + '">' +
                             '<option value="Segunda-feira">Segunda-feira</option>' +
                             '<option value="Terça-feira">Terça-feira</option>' +
                             '<option value="Quarta-feira">Quarta-feira</option>' +
@@ -229,7 +241,7 @@ function setHours($id) {
                     '<label class="form-label">Fim:</label>' +
                     '<input type="time" class="form-input-number maxnuminput" id="' + count + '"' +
                     'name="end_time" min="09:00" max="18:00" required></p><p>' +
-                    '<label class="form-label">Fim:</label><select class="day" id="' + count + '">' +
+                    '<label class="form-label">Dia da Semana:</label><select class="day" id="' + count + '">' +
                     '<option value="Segunda-feira">Segunda-feira</option>' +
                     '<option value="Terça-feira">Terça-feira</option>' +
                     '<option value="Quarta-feira">Quarta-feira</option>' +
@@ -251,6 +263,12 @@ function saveHours(data) {
         data: data,
         success: function(data) {
             console.log(data);
+            $("#message_hour").fadeIn();
+            setTimeout(function() {
+                $("#message_hour").fadeOut();
+            }, 2000);
+
+            getHours(localStorage.cadeira_id);
         },
         error: function(data) {
             alert("Houve um erro ao inserir as novas datas.")

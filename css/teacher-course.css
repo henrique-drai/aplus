@@ -12,7 +12,6 @@
 }
 
 .form-container{
-    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
     padding: 2%;
     width: 100%;
     background-color: #EDEDED;
@@ -27,7 +26,7 @@ main {
 
 #card_info {
     width: 30%;
-    height: 20%;
+    height: 25%;
     font-size: 20px;
     display: inline-block;
     margin-left: 2%;
@@ -35,21 +34,21 @@ main {
 }
 
 #card_info:hover {
-    transform: scale(1.1);
-    transition-duration: 0.3s;
-    box-shadow: 2px 4px 24px 1px rgba(0,0,0,0.54);
+    background-color:grey;
 }
 
 #card_info img {
     position: relative;
     width: 100%;
-    height: 80%;
+    height: 69%;
 }
 
 .course {
     background-color: white;
     position: relative;
     font-size: 0.8em;
+    min-height: 30%;
+    height: auto;
 }
 
 .course div {
@@ -102,9 +101,9 @@ main {
 }
 
 #message_hour {
-    margin-top: -16%;
-    margin-left: 100%;
-    padding: 1.5%;
+    margin-top: -24%;
+    margin-left: 150%;
+    padding: 2%;
 }
 
 #summary {
@@ -134,7 +133,7 @@ main {
     border-left-color: salmon;
 }
 
-input, select {
+input, select, textarea {
     border: 1px solid white;
     border-left: 3px solid;
     border-radius:5px;
@@ -143,7 +142,7 @@ input, select {
     transition: .5s ease-out;
 }
 
-select {
+select, textarea {
     border-left: 3px solid palegreen;
 }
 
@@ -169,11 +168,11 @@ select {
 }
 
 #element {
-    position: relative;
-    width: 25%;
+    position: inherit;
+    width: 20%;
     padding: 1%;
-    margin-left: -8%;
-    margin-right: 9%;
+    margin-left: -6%;
+    margin-right: 8%;
 }
 
 #hour_inputs label {

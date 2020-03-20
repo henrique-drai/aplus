@@ -35,11 +35,17 @@ class CourseModel extends CI_Model {
     }
 
     public function saveHours($data) {
-        $this->db->where('id_prof', $data['id_prof']);
-        $this->db->delete('horario_duvidas');
+        $query = $this->db->get_where('horario_duvidas', array('id_prof =' => $data["id_prof"]));
+        // $this->db->get('horario_duvidas');
+        // return $query->result_array();
+        return $query->num_rows();
 
-        $this->db->insert('horario_duvidas', $data);
-        return $this->db->insert_id();
+        // if ($query->num_rows() > 0) {
+        //     $this->db->where(array('id_prof =' => $data['id_prof'], 'id_cadeira =' => data["id_cadeira"], 'day =' => data["day"]));
+        //     $this->db->update('horario_duvidas', $data);
+        // } else {
+        //     $this->db->insert('horario_duvidas', $data);
+        //     return $this->db->insert_id();
+        // }
     }
-
 }

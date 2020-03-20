@@ -1,6 +1,6 @@
 $(document).ready(() => {
     loadAdminHome();
-    setTimeout(loadAdminHome(), 3000); 
+    setInterval(loadAdminHome, 3000); 
 })
 
 function loadAdminHome() {

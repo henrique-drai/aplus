@@ -15,6 +15,7 @@ class Admin extends REST_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->helper(['jwt', 'authorization']);
+        
     }
 
     //admin/api/função
@@ -23,8 +24,9 @@ class Admin extends REST_Controller {
             case "register":        $this->registerUser(); break; //        admin/api/register
             case "registerCollege": $this->registerCollege(); break; //     admin/api/registerCollege
             case "editUser":        $this->editUser(); break; //            admin/api/editUser
+            case "importCSV":       $this ->importCSV(); break; //        admin/api/importCSV
             
-            default:             $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+            default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
@@ -36,8 +38,8 @@ class Admin extends REST_Controller {
             case "getAdminHome":    $this->getAdminHome(); break; //        admin/api/getAdminHome
             case "getAllFaculdadesUnidCurricular":  $this->getAllColleges(); break; // admin/api/getAllFaculdadesUnidCurricular
             case "saveCSV":         $this->export(); break;
-            
-            default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+
+            default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
@@ -135,6 +137,34 @@ class Admin extends REST_Controller {
         $this -> response($data, parent::HTTP_OK);
     }
 
+    public function importCSV(){
+
+        $this->load->helper('url');
+
+        $this -> load -> model('UserModel');
+        
+        $count_files = $_FILES["userfile"]['tmp_name'];
+        $file  = fopen($count_files, 'r');
+
+        print_r($count_files);
+
+        // Skip first line
+        fgetcsv($file, 0, ","); 
+        while (($column = fgetcsv($file, 0, ",")) !== FALSE) {
+
+            $data = Array(
+                "name"      => $column[0],
+                "surname"   => $column[1],
+                "email"     => $column[2],
+                "role"      => $column[3],
+                "password"  => $column[4]
+            );
+            $this -> UserModel -> registerUser($data);        
+        }
+        header("Location: ". base_url()."app/admin/");
+
+    }
+
     public function export(){
         $this->load->model('UserModel');
        
@@ -146,12 +176,12 @@ class Admin extends REST_Controller {
         $studentsInfo = $this -> UserModel -> getStudents();
 
         $file = fopen('php://output','w');
-        $header = array("Name", "Surname", "Email");
+        $header = array("Name", "Surname", "Email","Role", "Password");
 
         fputcsv($file, $header);
     
         foreach($studentsInfo as $student){
-            $dados = array($student['name'], $student['surname'],$student['email']);
+            $dados = array($student['name'], $student['surname'],$student['email'],$student['role'],$student['password']);
             fputcsv($file, $dados);
         }
         fclose($file);

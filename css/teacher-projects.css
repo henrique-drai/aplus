@@ -7,8 +7,7 @@
     margin-left: 3%;
 }
 
-.form-container{
-    /* box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2), 0 2px 4px 0 rgba(0,0,0,0.19); */
+.container{
     padding: 2%;
     width: 100%;
 }
@@ -19,11 +18,11 @@ main {
     margin-right: auto;
 }
 
-.form-container-header{
+.container-header{
     background-color: #f1f1f1;
 }
 
-.form-container-header, .project-form{
+.container-header, .project-form{
     padding: 0.01em 16px;
 }
 

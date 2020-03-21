@@ -28,7 +28,7 @@
             <br><br>
             
             <a href="<?php echo $base_url; ?>projects/new/<?php echo $subject->code; ?>" class="button">Criar Projeto</a>
-            <a class="button">Projeto 1 *buscar se existir algum projeto*</a>
+            <a href="<?php echo $base_url; ?>projects/project/8" class="button">Projeto 1 *static for now - buscar*</a>
 
             <br><br>
 

@@ -6,6 +6,11 @@ class SubjectModel extends CI_Model { //cadeira
         return $query->row();
     }
 
+    public function getSubjectByID($id) {
+        $query = $this->db->get_where('cadeira', array('id' => $id));
+        return $query->row();
+    }
+
     public function getCadeiras($id) {
         $this->db->select("cadeira_id");
         $this->db->where(array('user_id =' => $id));

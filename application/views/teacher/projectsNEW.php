@@ -1,6 +1,6 @@
 <title>A+ for Teachers</title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-projects.css">
-<script>setPageName("projects")</script>
+<script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/project-teacher.js"></script>
 <script>setSubjectID("<?php echo $subject->id; ?>")</script>
@@ -9,8 +9,10 @@
 <body>
     <div id="nav-menu-hook"></div>
     <main>
-    <div class="form-container">
-        <div class="form-container-header">
+    <div class="container">
+
+        <div class="container-header">
+            <a href="<?php echo $base_url; ?>subjects/subject/<?php echo $subject->code; ?>"  class="button">Back</a>
             <h2>Criar novo projeto para a cadeira <?php echo $subject->name; ?></h2>
         </div>
 

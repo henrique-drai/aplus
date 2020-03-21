@@ -10,8 +10,9 @@
     <main>
     <div class="container">
         <h1>Projeto x</h1>
+
         <div class="container-header">
-            <a href="<?php echo $base_url; ?>subjects/subject/<?php echo $subject->code; ?>"  class="button">Back</a>
+            <a class="back-a" href="<?php echo $base_url; ?>subjects/subject/<?php echo $subject->code; ?>"  class="button">Back</a>
             <h3>Grupos</h3>
         </div>
 
@@ -59,9 +60,13 @@
                 <p>14</p>
             </div>
         </div>
-
         
-
-
+        <div class="buttons-container">
+            <a id="removeProject" class="small-button">Eliminar projeto</a>
+            <!-- <div class="btn-wrap">
+                <button type="submit" id="removeProject" class="small-button">Eliminar projeto</button>
+            </div> -->
+            <a type="submit" id="viewEtapas" class="small-button">Ver etapas</a>
+        </div>
     </div>
     </main>

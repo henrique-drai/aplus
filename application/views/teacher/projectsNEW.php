@@ -14,7 +14,7 @@
         <h1>Novo projeto para a cadeira <?php echo $subject->name; ?></h1>
     
         <div class="container-header">
-            <a href="<?php echo $base_url; ?>subjects/subject/<?php echo $subject->code; ?>"  class="button">Back</a>
+            <a class="back-a" href="<?php echo $base_url; ?>subjects/subject/<?php echo $subject->code; ?>"  class="button">Back</a>
             <h3>Preencha todos os campos</h3>
         </div>
 

@@ -24,6 +24,21 @@ main {
     padding: 0.01em 16px;
 }
 
+.btn-wrap{
+    text-align:center;
+}
+
+.back-a {
+    background-color: #999;
+    cursor: pointer;
+    border: 0px;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 150px;
+    padding: 4px;
+    text-decoration: none;
+    color: black;
+}
 
 /* Especifico da página projectNEW */
 
@@ -83,9 +98,6 @@ main {
     margin-top: 10px;
 }
 
-.btn-wrap{
-    text-align:center;
-}
 
 .form-label-title{
     font-weight: 600;
@@ -128,7 +140,7 @@ main {
     display : flex;
     padding:20px;
     width:100%; 
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .item{
@@ -146,4 +158,18 @@ main {
     width:100%; 
     text-align:center; 
     color:black;
+}
+
+.small-button{
+    background-color: #999;
+    cursor: pointer;
+    border: 0px;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 150px;
+    padding: 4px;
+}
+
+#removeProject{
+    background-color: salmon;
 }

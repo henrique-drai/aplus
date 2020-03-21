@@ -37,10 +37,24 @@
 
             <div class="admin-users-window">
                 <div class="title">Migrações</div>
+                
                 <form id="exportCsv" action="<?php echo base_url(); ?>admin/api/saveCSV">
-                    <label for="myfile">Exportar dados:</label>
+                    <label>Exportar informação</label>
+                    
+                    <label for="data">Data:</label>
+                        
+                        <select name="role">
+                            <option value="student">Students</option>
+                            <option value="teacher">Teachers</option>
+                            <option value="studentsTeachers">Students + Teachers</option>
+                        </select>
+                        <br>
                     <input type="submit" id="exportInfo" value="Exportar">
+                
                 </form>
+
+                <br><br>
+
                 <form id="file-form" method="post" action="<?php echo base_url(); ?>admin/api/importCSV" enctype="multipart/form-data">
                     <label for="myfile">Importar dados:</label>
                     <input type="file" id="myfile" name="userfile">

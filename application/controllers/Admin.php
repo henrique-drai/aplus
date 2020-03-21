@@ -167,21 +167,30 @@ class Admin extends REST_Controller {
 
     public function export(){
         $this->load->model('UserModel');
-       
+        $role = $this -> get("role");
         $file_name = "stInfo".date('Ymd').'.csv';
+        
         header("Content-Description: File Transfer");
         header("Content-Disposition: attachment; filename=$file_name");
         header("Content-Type: application/csv;");
-
-        $studentsInfo = $this -> UserModel -> getStudents();
-
+        
         $file = fopen('php://output','w');
         $header = array("Name", "Surname", "Email","Role", "Password");
 
+        if($role == "student"){
+            $info = $this -> UserModel -> getStudents();
+        }
+        elseif($role == "teacher"){
+            $info = $this -> UserModel -> getTeachers();
+        }
+        else{
+            $info = $this -> UserModel -> getStudentsTeachers();
+        }
+
         fputcsv($file, $header);
     
-        foreach($studentsInfo as $student){
-            $dados = array($student['name'], $student['surname'],$student['email'],$student['role'],$student['password']);
+        foreach($info as $user){
+            $dados = array($user['name'], $user['surname'],$user['email'],$user['role'],$user['password']);
             fputcsv($file, $dados);
         }
         fclose($file);

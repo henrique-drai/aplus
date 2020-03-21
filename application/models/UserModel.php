@@ -78,4 +78,14 @@ class UserModel extends CI_Model {
         $this->db->where('id', $user_id);
         $this->db->update('user');
     }
+
+    public function getStudentsTeachers(){
+        $this->db->where('role', 'student');
+        $this->db->or_where('role', 'teacher');
+        $query = $this->db->get('user');
+        
+        return $query->result_array();
+
+    }
+
 }

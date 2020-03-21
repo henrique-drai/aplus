@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-projects.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
-<script src="<?php echo $base_url; ?>js/teacher/project-teacher.js"></script>
+<script src="<?php echo $base_url; ?>js/teacher/projectNEW.js"></script>
 <script>setSubjectID("<?php echo $subject->id; ?>")</script>
 </head>
 
@@ -11,9 +11,11 @@
     <main>
     <div class="container">
 
+        <h1>Novo projeto para a cadeira <?php echo $subject->name; ?></h1>
+    
         <div class="container-header">
             <a href="<?php echo $base_url; ?>subjects/subject/<?php echo $subject->code; ?>"  class="button">Back</a>
-            <h2>Criar novo projeto para a cadeira <?php echo $subject->name; ?></h2>
+            <h3>Preencha todos os campos</h3>
         </div>
 
         <form id="projForm" class="project-form"  action="javascript:void(0)">

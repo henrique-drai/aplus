@@ -1,10 +1,14 @@
+/* Geral */
+
 * {
     font-family: 'Poppins', sans-serif;
 }
 
-
-.etapa {
-    margin-left: 3%;
+main {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    
 }
 
 .container{
@@ -12,18 +16,19 @@
     width: 100%;
 }
 
-main {
-    width: 70%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .container-header{
     background-color: #f1f1f1;
 }
 
-.container-header, .project-form{
+.container-header, .project-form, .flex-container{
     padding: 0.01em 16px;
+}
+
+
+/* Especifico da página projectNEW */
+
+.etapa {
+    margin-left: 3%;
 }
 
 .form-input-text, .form-input-number, .form-input-file, .form-text-area{
@@ -113,4 +118,32 @@ main {
 
 .pminmax label{
     min-width:100%;
+}
+
+
+/* Especifico da página project */
+
+.flex-container{
+    flex-wrap: wrap;
+    display : flex;
+    padding:20px;
+    width:100%; 
+    justify-content: space-around;
+}
+
+.item{
+    background-color: blanchedalmond;
+    margin:0; 
+    display : inherit;
+    margin-bottom: 10px;
+    padding:50px; 
+    width:100px; 
+    height:100px;
+    align-items: center;
+}
+
+.item p{
+    width:100%; 
+    text-align:center; 
+    color:black;
 }

@@ -1,35 +1,36 @@
 $(document).ready(() => {
     getInfo(localStorage.cadeira_code);
-    $("#hours_inputs").hide();
+    getProj(localStorage.cadeira_id);
+    $(".hours_inputs").hide();
 
     $("#edit_button").click(function() {
-        var content = $("#summary").text();
+        var content = $(".summary").text();
         $("#save_button").show();
-        $("#summary").empty();
-        $("#summary").append("<textarea class='textarea'>" + content + "</textarea>");
+        $(".summary").empty();
+        $(".summary").append("<textarea class='textarea'>" + content + "</textarea>");
     });
 
     $("#save_button").click(function() {
         var text = $("textarea").val();
         insertText(text);
-        $("#summary").empty();
-        $("#summary").append(text);
+        $(".summary").empty();
+        $(".summary").append(text);
         $("#save_button").hide();
     });
 
     $("#edit_button_hours").click(function() {
-        $("#hours").empty();
-        $("#hours_inputs").show();
+        $(".hours").empty();
+        $(".hours_inputs").show();
 
         setHours(localStorage.getItem("cadeira_id"));
     })
 
-    $("#add_hour").click(function() {
+    $(".add_hour").click(function() {
         var count = $(".minnuminput").last().attr("id");
         count++;
         $("#save_button_hours").hide();
 
-        const hour = "<div id='element'><p><label class='form-label'>Início:</label>" +
+        const hour = "<div class='element'><p><label class='form-label'>Início:</label>" +
             '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
             'name="start_time" min="09:00" max="18:00" required></p><p>' +
             '<label class="form-label">Fim:</label>' +
@@ -42,14 +43,23 @@ $(document).ready(() => {
             '<option value="Quinta-feira">Quinta-feira</option>' +
             '<option value="Sexta-feira">Sexta-feira</option></select></p></div>';
 
-        $("#hours_inputs").append(hour);
+        $(".hours_inputs").append(hour);
         $("#remove_hour").css('visibility','visible');
     })
 
     $("#remove_hour").click(function() {
-        $("#hours_inputs > #element").last().remove();
-
         var count = $(".minnuminput").last().attr("id");
+        const data = {
+            'user_id': localStorage.getItem('user_id'),
+            'cadeira_id': localStorage.getItem('cadeira_id'),
+            'start_time': $("#" + count+ ".minnuminput").val(),
+            'end_time': $("#" + count + ".maxnuminput").val(),
+            'day': $("#" + count + ".day").val(),
+        }
+        removeHours(data);
+
+        $(".hours_inputs > .element").last().remove();
+
         var flag = true;
 
         for (var i=0; i <= count; i++) {
@@ -64,7 +74,7 @@ $(document).ready(() => {
             $("#save_button_hours").show();
         }
 
-        if($("#hours_inputs #element").length == 1) {
+        if($(".hours_inputs .element").length == 1) {
             $("#remove_hour").css('visibility','hidden');
         }
     })
@@ -80,9 +90,8 @@ $(document).ready(() => {
     })
 
     $("body").on("click", "#save_button_hours", function() {
-        $("#hours").empty();
+        $(".hours p").remove();
         for(var i=0; i <= $(".minnuminput").last().attr("id"); i++) {
-            console.log("dentro");
             const data = {
                 'user_id': localStorage.getItem('user_id'),
                 'cadeira_id': localStorage.getItem('cadeira_id'),
@@ -94,8 +103,8 @@ $(document).ready(() => {
         }
         
         
-        $("#hours_inputs").hide();
-        $("#hours_inputs #element").remove();
+        $(".hours_inputs").hide();
+        $(".hours_inputs .element").remove();
         $("#save_button_hours").hide();
     })
 })
@@ -124,9 +133,9 @@ function getInfo($id) {
         success: function(data) {
             $("#subject_title").append("<h1>" + data.info[0].name + "</h1>");
             if(data.info[0].description == "") {
-                $("#summary").append("Não existe sumário para a cadeira.");
+                $(".summary").append("Não existe sumário para a cadeira.");
             } else {
-                $("#summary").append(data.info[0].description);
+                $(".summary").append(data.info[0].description);
             }
             localStorage.setItem('cadeira_id', data.info[0].id);
             getHours(data.info[0].id);
@@ -143,15 +152,16 @@ function getHours($id) {
         url: base_url + "teacher/api/getHours",
         data: {cadeira_id: $id},
         success: function(data) {
+            $(".hours p").remove();
             if(data['hours'].length != 0) {
                 for(var i=0; i < data['user'].length; i++) {
-                    $("#hours").append("<p><b>" + 
+                    $(".hours").append("<p><b>" + 
                     data.user[i].name + " " + data.user[i].surname + ":</b> " + 
                     data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
                     data.hours[i].end_time.substring(0, 5) + "</p>");
                 }
             } else {
-                $("#hours").append("<p>Ainda não há horários de dúvidas disponíveis.</p>");
+                $(".hours").append("<p>Ainda não há horários de dúvidas disponíveis.</p>");
             }
             
         },
@@ -167,9 +177,9 @@ function insertText($text) {
         url: base_url + "teacher/api/insertText",
         data: {text: $text, cadeira_id: localStorage.cadeira_id},
         success: function(data) {
-            $(".message").fadeIn();
+            $("#message1").fadeIn();
             setTimeout(function() {
-                $(".message").fadeOut();
+                $("#message1").fadeOut();
             }, 2000);
         },
         error: function(data) {
@@ -195,11 +205,11 @@ function setHours($id) {
                     flag = false;
                 }
             }
-            console.log(data);
+
             if(flag) {
                 for(var i=0; i < data['user'].length; i++) {
                     if(data.user[i].id == localStorage.getItem("user_id")) {
-                        $("#hours_inputs").append('<div id="element"><p>' +
+                        $(".hours_inputs").append('<div class="element"><p>' +
                             '<label class="form-label">Início:</label>' +
                             '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
                             'name="start_time" min="09:00" max="18:00" value="' + 
@@ -227,14 +237,14 @@ function setHours($id) {
                     $(".minnuminput").css("border-left-color", "palegreen");
                     $(".maxnuminput").css("border-left-color", "palegreen");
                     
-                    if($("#hours_inputs #element").length > 1) {
+                    if($(".hours_inputs .element").length > 1) {
                         $("#remove_hour").css('visibility','visible');
                     }
 
                     $("#save_button_hours").show();
                 }
             } else {
-                $("#hours_inputs").append('<div id="element"><p>' +
+                $(".hours_inputs").append('<div class="element"><p>' +
                     '<label class="form-label">Início:</label>' +
                     '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
                     'name="start_time" min="09:00" max="18:00" required></p><p>' +
@@ -272,6 +282,43 @@ function saveHours(data) {
         },
         error: function(data) {
             alert("Houve um erro ao inserir as novas datas.")
+        }
+    })
+}
+
+function removeHours(data) {
+    $.ajax({
+        type: "POST",
+        url: base_url + "teacher/api/removeHours",
+        data: data,
+        success: function(data) {
+            console.log("apagou");
+        },
+        error: function(data) {
+            alert("Houve um erro a remover a data.")
+        }
+    })
+}
+
+function getProj(data) {
+    $.ajax({
+        type: "POST",
+        url: base_url + "teacher/api/getProj",
+        data: {cadeira_id: data},
+        success: function(data) {
+            $(".projetos").empty();
+            console.log(data);
+            if(data.length == 0) {
+                $(".projetos").append("<p>Ainda não existem projetos para a cadeira</p>");
+            } else {
+                for(var i=1; i <= data.length; i++) {
+                    $(".projetos").append("<a href='#' class='button'>Projeto " + i + "</a>");
+                }
+                
+            }
+        },
+        error: function(data) {
+            alert("Houve um erro a remover a data.")
         }
     })
 }

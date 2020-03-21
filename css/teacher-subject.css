@@ -1,3 +1,19 @@
+/* //////////////////////////////////////////////////////////////
+//                         HEADER
+////////////////////////////////////////////////////////////// */
+
+.header {
+    display: inline-block;
+}
+
+.header h1 {
+    float: left;
+}
+
+/* //////////////////////////////////////////////////////////////
+//                         GLOBAL
+////////////////////////////////////////////////////////////// */
+
 .button {
     background-color: #b3b3b3; 
     color: black;
@@ -14,7 +30,6 @@
 .form-container{
     padding: 2%;
     width: 100%;
-    background-color: #EDEDED;
 }
 
 main {
@@ -22,70 +37,6 @@ main {
     margin-left: auto;
     margin-right: auto;
     height: auto;
-}
-
-#card_info {
-    width: 30%;
-    height: 25%;
-    font-size: 20px;
-    display: inline-block;
-    margin-left: 2%;
-    cursor: pointer;
-}
-
-#card_info:hover {
-    background-color:grey;
-}
-
-#card_info img {
-    position: relative;
-    width: 100%;
-    height: 69%;
-}
-
-.subject {
-    background-color: white;
-    position: relative;
-    font-size: 0.8em;
-    min-height: 30%;
-    height: auto;
-}
-
-.subject div {
-    margin-left: 5%;
-    display: flex;
-}
-
-#title {
-    font-size: 0.7em;
-    color: grey;
-}
-
-#header {
-    display: inline-block;
-}
-
-#header h1 {
-    float: left;
-}
-
-#edit_button {
-    margin-top: -23%;
-    float: left;
-    margin-left: 108%;
-    padding: 2%;
-}
-
-.textarea {
-    width: 100%;
-    height: 15%;
-}
-
-#save_button {
-    display: none;
-    position: relative;
-    float: right;
-    margin-top: 1%;
 }
 
 .message {
@@ -100,37 +51,9 @@ main {
     display: none;
 }
 
-#message_hour {
-    margin-top: -24%;
-    margin-left: 150%;
-    padding: 2%;
-}
-
-#summary {
-    white-space: pre;
-}
-
-#hours_header {
-    display: inline-block;
-}
-
-#edit_button_hours {
-    margin-top: -24%;
-    float: left;
-    margin-left: 110%;
-    padding: 2%;
-}
-
-#hours_inputs {
-    display: flex;
-}
-
-#hours_inputs input:required:valid {
-    border-left-color: palegreen;
-}
-
-#hours_inputs input:invalid {
-    border-left-color: salmon;
+.textarea {
+    width: 100%;
+    height: 15%;
 }
 
 input, select, textarea {
@@ -146,28 +69,107 @@ select, textarea {
     border-left: 3px solid palegreen;
 }
 
-#remove_hour, #remove_hour img, #add_hour, #add_hour img{
+/* //////////////////////////////////////////////////////////////
+//                         SUMÁRIO
+////////////////////////////////////////////////////////////// */
+
+.summary {
+    white-space: pre;
+}
+
+#save_button {
+    display: none;
+    position: relative;
+    float: right;
+    margin-top: 1%;
+}
+
+#edit_button {
+    margin-top: -23%;
+    float: left;
+    margin-left: 108%;
+    padding: 2%;
+}
+
+/* //////////////////////////////////////////////////////////////
+//                         PROJETOS
+////////////////////////////////////////////////////////////// */
+
+.projetos {
+    margin-top: 2%;
+}
+
+.projetos a {
+    margin-right: 1%;
+}
+
+/* //////////////////////////////////////////////////////////////
+//                     HORÁRIO DE DÚVIDAS
+////////////////////////////////////////////////////////////// */
+
+.hours_header {
+    display: inline-block;
+}
+
+.hours_inputs {
+    display: flex;
+}
+
+.hour_inputs label {
+    display:block;
+}
+
+.hours_inputs input:required:valid {
+    border-left-color: palegreen;
+}
+
+.hours_inputs input:invalid {
+    border-left-color: salmon;
+}
+
+.remove_hour, .remove_hour img, .add_hour, .add_hour img{
     width:30px;
     border-radius: 15px;
 }
 
-#remove_hour, #add_hour{
+.remove_hour, .add_hour{
     cursor:pointer;
     height: 0%;
     margin-top: -1%;
     z-index: 2;
 }
 
-#remove_hour:hover, #add_hour:hover{
+.remove_hour:hover, .add_hour:hover{
     background-color:rgb(194, 194, 194);
 }
 
-#remove_hour {
+.remove_hour {
     margin-left: 1%;
     visibility: hidden;
 }
 
-#element {
+#edit_button_hours {
+    margin-top: -24%;
+    float: left;
+    margin-left: 110%;
+    padding: 2%;
+}
+
+#message_hour {
+    margin-top: -24%;
+    margin-left: 150%;
+    padding: 2%;
+}
+
+#save_button_hours {
+    display: none;
+    margin-top: -24%;
+    float: left;
+    margin-left: 136%;
+    padding: 2%;
+}
+
+.element {
     position: inherit;
     width: 20%;
     padding: 1%;
@@ -175,12 +177,43 @@ select, textarea {
     margin-right: 8%;
 }
 
-#hour_inputs label {
-    display:block;
+/* //////////////////////////////////////////////////////////////
+//                     PÁGINA CADEIRASSSS
+////////////////////////////////////////////////////////////// */
+
+.card_info {
+    width: 30%;
+    height: 25%;
+    font-size: 20px;
+    display: inline-block;
+    margin-left: 2%;
+    cursor: pointer;
 }
 
-#save_button_hours {
-    display: none;
-    float: right;
-    margin-top: -31%;
+.card_info:hover {
+    background-color:grey;
+}
+
+.card_info img {
+    position: relative;
+    width: 100%;
+    height: 69%;
+}
+
+#title {
+    font-size: 0.7em;
+    color: grey;
+}
+
+.subject {
+    background-color: white;
+    position: relative;
+    font-size: 0.8em;
+    min-height: 30%;
+    height: auto;
+}
+
+.subject div {
+    margin-left: 5%;
+    display: flex;
 }

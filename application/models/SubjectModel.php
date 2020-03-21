@@ -40,18 +40,39 @@ class SubjectModel extends CI_Model { //cadeira
     }
 
     public function saveHours($data) {
-        $query = $this->db->get_where('horario_duvidas', array('id_prof =' => $data["id_prof"]));
-        // $this->db->get('horario_duvidas');
-        // return $query->result_array();
-        return $query->num_rows();
+        $query = $this->db->get_where('horario_duvidas', array(
+            'id_prof ='         => $data["id_prof"], 
+            'id_cadeira ='      => $data["id_cadeira"], 
+            'day ='             => $data['day']
+        ));
 
-        // if ($query->num_rows() > 0) {
-        //     $this->db->where(array('id_prof =' => $data['id_prof'], 'id_cadeira =' => data["id_cadeira"], 'day =' => data["day"]));
-        //     $this->db->update('horario_duvidas', $data);
-        // } else {
-        //     $this->db->insert('horario_duvidas', $data);
-        //     return $this->db->insert_id();
-        // }
+        if ($query->num_rows() > 0) {
+            $this->db->where(array(
+                'id_prof ='     => $data['id_prof'],
+                'id_cadeira ='  => $data["id_cadeira"],
+                'day ='         => $data["day"]
+            ));
+            return $this->db->update('horario_duvidas', $data);
+        } else {
+            $this->db->insert('horario_duvidas', $data);
+            return $this->db->insert_id();
+        }
+    }
+
+    public function removeHours($data) {
+        $this->db->where(array(
+            'id_prof ='         => $data['id_prof'],
+            'id_cadeira ='      => $data["id_cadeira"],
+            'start_time ='      => $data["start_time"],
+            'end_time ='        => $data["end_time"],
+            'day ='             => $data["day"]
+        ));
+        return $this->db->delete('horario_duvidas');
+    }
+
+    public function getProj($id) {
+        $query = $this->db->get_where('projeto', array('cadeira_id =' => $id));
+        return $query->result_array();
     }
 
 }

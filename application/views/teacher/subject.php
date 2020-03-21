@@ -11,41 +11,41 @@
         
         <div id="subject_title"></div>
         <div class="form-container">
-            <div id="header">
+            <div class="header">
                 <h2>Sumário da Cadeira</h2>
                 <a href="#" class="button" id="edit_button">Editar</a>
-                <div class="message">Editado com sucesso!</div>
+                <div class="message" id="message1">Editado com sucesso!</div>
             </div>
-            <div id="summary"></div>
+            <div class="summary"></div>
 
             <a href="#" class="button" id="save_button">Guardar</a>
 
-            <br><br>
+            <br>
 
             <a class="button">Fórum</a>
             <a href="<?php echo $base_url; ?>app/teacher/studentsList" class="button">Lista de Alunos</a>
 
             <br><br>
             
+            <h2>Projetos</h2>
             <a href="<?php echo $base_url; ?>projects/new/<?php echo $subject->code; ?>" class="button">Criar Projeto</a>
-            <a href="<?php echo $base_url; ?>projects/project/8" class="button">Projeto 1 *static for now - buscar*</a>
+            <div class="projetos"></div>
 
-            <br><br>
-
-            <div id="hours_header">
+            <div class="hours_header">
                 <h2>Horário de Dúvidas</h2>
                 <a href="#" class="button" id="edit_button_hours">Editar</a>
                 <div class="message" id="message_hour">Editado com sucesso!</div>
+                <a href="#" class="button" id="save_button_hours">Guardar</a>
             </div>
-            <div id="hours"></div>
+            <div class="hours"></div>
 
-            <div id="hours_inputs">
-                <label id="add_hour"><img src="<?php echo $base_url; ?>/images/add.png"></label>
-                <label id="remove_hour"><img src="<?php echo $base_url; ?>/images/close.png"></label>
+            <div class="hours_inputs">
+                <label class="add_hour"><img src="<?php echo $base_url; ?>/images/add.png"></label>
+                <label class="remove_hour"><img src="<?php echo $base_url; ?>/images/close.png"></label>
                 <br>
             </div>
 
-            <a href="#" class="button" id="save_button_hours">Guardar</a>
+            
         </div>
 
     </main>

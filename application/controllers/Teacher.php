@@ -27,6 +27,8 @@ class Teacher extends REST_Controller {
             case "insertText":      $this->insertText(); break;//      /teacher/cadeira/id/insertText
             case "createProject":   $this->createProject(); break;//   /teacher/api/createProject
             case "saveHours":       $this->saveHours(); break;//       /teacher/api/saveHours 
+            case "removeHours":     $this->removeHours(); break;//     /teacher/api/removeHours
+            case "getProj":         $this->getProj(); break;//         /teacher/api/getProj
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -99,6 +101,29 @@ class Teacher extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function removeHours() {
+        $data = Array (
+            'id_prof'             => $this->post('user_id'),
+            'id_cadeira'          => $this->post('cadeira_id'),
+            'start_time'          => $this->post('start_time'),
+            'end_time'            => $this->post('end_time'),
+            'day'                 => $this->post('day'),
+        );
+
+        $this->load->model('SubjectModel');
+        $this->SubjectModel->removeHours($data);
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getProj() {
+        $cadeira_id = $this->post('cadeira_id');
+        $this->load->model('SubjectModel');
+        $data = $this->SubjectModel->getProj($cadeira_id);
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
     public function createProject(){
         $dataProj = Array(
             "cadeira_id"          => $this->post("cadeira_id"),
@@ -106,7 +131,7 @@ class Teacher extends REST_Controller {
             "min_elementos"       => $this->post("groups_min"),
             "max_elementos"       => $this->post("groups_max"),
             "description"         => $this->post("projDescription"),
-            "enunciado_url"        => $this->post("file"),
+            "enunciado_url"       => $this->post("file"),
         );
         
         $dataEtapa = $this->post("listetapas");

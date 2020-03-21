@@ -34,7 +34,7 @@ function show($var) {
         data: {cadeira_id: $var},
         success: function(data) {
             var url = base_url + "subjects/subject/" + data.info[0].code;
-            $(".cadeiras").append("<a id='" + data.info[0].code + "' href='" + url + "'><div id='card_info'><img src=" + image_url + "><div class='subject'><div id='title'>Tecnologias de Informação</div><div>" + data.info[0].code + ": " + data.info[0].name + "</div></div></div></a>");
+            $(".cadeiras").append("<a id='" + data.info[0].code + "' href='" + url + "'><div class='card_info'><img src=" + image_url + "><div class='subject'><div id='title'>Tecnologias de Informação</div><div>" + data.info[0].code + ": " + data.info[0].name + "</div></div></div></a>");
         },
         error: function(data) {
             alert("Houve um erro a mostrar as cadeiras.");

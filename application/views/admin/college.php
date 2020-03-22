@@ -21,6 +21,7 @@
             <input type="submit" id="register-college-submit">
         </form><br>
 
+        <h2>Consultar Faculdades</h2>
         <table id="show_colleges">
             <tr>
                 <th>Nome</th>

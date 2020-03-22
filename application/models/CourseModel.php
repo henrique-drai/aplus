@@ -11,4 +11,8 @@ class CourseModel extends CI_Model { //curso & curso_standard
         return $query->row();
     }
 
+    public function getCourse_StandardId($courseid){
+        $query = $this->db->get_where("curso", array("id"=>$course));
+        return $query->row("curso_standard_id");
+    }
 }

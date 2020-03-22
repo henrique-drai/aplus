@@ -81,4 +81,9 @@ class SubjectModel extends CI_Model { //cadeira
         return $data;
     }
 
+    public function getAllSubjects(){
+        $query = $this->db->get("cadeira");
+        return $query->result_array();
+    }
+
 }

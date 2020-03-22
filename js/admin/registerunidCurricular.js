@@ -9,7 +9,7 @@ $(document).ready(() => {
     $("#register-cadeira-submit").click(() => submitRegister())
 })
 
-
+var curso_id = "";
 function getAllfaculdades(){
     $.ajax({
         type: "GET",
@@ -24,8 +24,8 @@ function getAllfaculdades(){
             }
         },
         error: function(data) {
-            msgErro = "<p class='msgErro'> Não foi possivel registar a faculdade.</p>";
-            $("#register-faculdade-form").after(msgErro);
+            // msgErro = "<p class='msgErro'> Não foi possivel registar a faculdade.</p>";
+            // $("#register-faculdade-form").after(msgErro);
         }
     });
 
@@ -38,8 +38,18 @@ function getAllCursosFaculdade(faculdade){
         url: base_url + "admin/api/getAllCursosFaculdade",
         data: {faculdade},
         success: function(data) {
-            for(i=0; i<data.courses.length; i++){
-                getCursos_Standard(data.courses[i].curso_standard_id);
+            $(".msg").remove();
+            if(data.courses.length>0){
+                for(i=0; i<data.courses.length; i++){
+                    getCursos_Standard(data.courses[i].curso_standard_id, data.courses[i].id);
+                }
+            }
+            else{
+                $(".msg").remove();
+                $("#cursos_register_UnidCurricular").css("display", "none");
+                $("#cursos_register_UnidCurricular option").remove();
+                msg = "<p class='msg'> Não existem cursos associados à faculdade.</p>";
+                $("#faculdades_register_UnidCurricular").after(msg);
             }
         },
         error: function(data) {
@@ -51,16 +61,16 @@ function getAllCursosFaculdade(faculdade){
 }
 
 
-function getCursos_Standard(courseid){
+function getCursos_Standard(course_standard_id, curso_id){
     $.ajax({
         type: "GET",
         url: base_url + "admin/api/getCursoStandard",
-        data: {courseid},
+        data: {course_standard_id},
         success: function(data) {
             $("#cursos_register_UnidCurricular").css("display", "block");
+            $(".msg").remove();
             var linhas = '';
-           
-            linhas += '<option class="course_row" value=' + data.course.id +">" + data.course.name + '</option>'; 
+            linhas += '<option class="course_row" value=' + curso_id +">" + data.course.name + '</option>'; 
         
              $("#cursos_register_UnidCurricular").append(linhas);
             
@@ -78,13 +88,13 @@ function submitRegister(){
         nomeCadeira:    $("#register-cadeiras-form input[name='nomeCadeira']").val(),
         descCadeira:    $("#register-cadeiras-form input[name='descCadeira']").val(),
         curso:    $("#register-cadeiras-form select[name='curso']").val(),
-
     }
     $("input[type='text']").val("");
     $("#faculdades_register_UnidCurricular").val("Selecione uma Faculdade");
     $("#cursos_register_UnidCurricular").css("display", "none");
+    $("#cursos_register_UnidCurricular option").remove()
     $(".msgSucesso").remove();
-    $(".msgErro").remove();
+    $(".msgErro").remove(); 
     $.ajax({
         type: "POST",
         url: base_url + "admin/api/registerSubject",
@@ -98,5 +108,5 @@ function submitRegister(){
             $("#register-cadeiras-form").after(msgErro);
         }
     });
-    
+    getAllSubjects();
 }

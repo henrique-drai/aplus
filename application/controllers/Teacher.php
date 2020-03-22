@@ -124,6 +124,11 @@ class Teacher extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+
+    public function removeProject() {
+        $this->response($data, parent::HTTP_OK);
+    }
+
     public function createProject(){
         $dataProj = Array(
             "cadeira_id"          => $this->post("cadeira_id"),

@@ -60,13 +60,21 @@
                 <p>14</p>
             </div>
         </div>
-        
+
+        <div class="cd-popup" role="alert">
+	        <div class="cd-popup-container">
+		        <p>Tem a certeza que deseja eliminar o projeto?</p>
+                <ul class="cd-buttons">
+                    <li><a href="#" id="confirmRemove">Yes</a></li>
+                    <li><a href="#" id="closeButton">No</a></li>
+                </ul>
+		        <a class="cd-popup-close"></a>
+	        </div> <!-- cd-popup-container -->
+        </div> <!-- cd-popup -->
+
         <div class="buttons-container">
             <a id="removeProject" class="small-button">Eliminar projeto</a>
-            <!-- <div class="btn-wrap">
-                <button type="submit" id="removeProject" class="small-button">Eliminar projeto</button>
-            </div> -->
-            <a type="submit" id="viewEtapas" class="small-button">Ver etapas</a>
+            <a id="viewEtapas" class="small-button">Ver etapas</a>
         </div>
     </div>
     </main>

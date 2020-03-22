@@ -75,4 +75,10 @@ class SubjectModel extends CI_Model { //cadeira
         return $query->result_array();
     }
 
+    public function registerSubject($data){
+        $this->db->insert("cadeira", $data);
+        $data["cadeira_id"] = $this->db->insert_id();
+        return $data;
+    }
+
 }

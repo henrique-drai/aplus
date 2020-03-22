@@ -1,5 +1,6 @@
 <title>A+ for Admins</title>
 <script>setPageName("unidCurricular")</script>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin-subjects.css">
 <script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/registerunidCurricular.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/manageunidCurricular.js"></script>
@@ -15,11 +16,13 @@
             <input type="text" name="codeCadeira"><br>
             <label for="nomeCadeira">Unidade Curricular:</label><br>
             <input type="text" name="nomeCadeira"><br>
-            <label for="DescCadeira">Descrição da Unidade Curricular:</label><br>
-            <input type="text" name="DescCadeira"><br>
+            <label for="descCadeira">Descrição da Unidade Curricular:</label><br>
+            <input type="text" name="descCadeira"><br>
+
             <select id="faculdades_register_UnidCurricular" name="faculdade">
             </select>
-            <select id="cursos_register_UnidCurricular" name="faculdade">
+
+            <select id="cursos_register_UnidCurricular" name="curso">
             </select>
 
             <input type="submit" id="register-cadeira-submit">

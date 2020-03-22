@@ -24,6 +24,7 @@ class Admin extends REST_Controller {
             case "register":        $this->registerUser(); break; //        admin/api/register
             case "registerCollege": $this->registerCollege(); break; //     admin/api/registerCollege
             case "editUser":        $this->editUser(); break; //            admin/api/editUser
+            case "registerSubject":  $this->registerSubject(); break; //    admin/api/registerSubject
             case "importCSV":       $this ->importCSV(); break; //        admin/api/importCSV
             
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
@@ -37,6 +38,8 @@ class Admin extends REST_Controller {
             case "getAllTeachers":  $this->getAllTeachers(); break; //      admin/api/getAllTeachers
             case "getAdminHome":    $this->getAdminHome(); break; //        admin/api/getAdminHome
             case "getAllFaculdadesUnidCurricular":  $this->getAllColleges(); break; // admin/api/getAllFaculdadesUnidCurricular
+            case "getAllCursosFaculdade": $this->getAllCollegesCourses(); break; // admin/api/getAllCursosFaculdade
+            case "getCursoStandard": $this->getCursoStandard(); break; // admin/api/getCursoStandard
             case "saveCSV":         $this->export(); break;
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
@@ -95,6 +98,34 @@ class Admin extends REST_Controller {
         $data["colleges"] = $this->CollegeModel->getColleges();
         
         $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getAllCollegesCourses(){
+        $faculdade = $this->get('faculdade');
+        $this->load->model('CourseModel');
+        $data["courses"] = $this->CourseModel->getCollegeCourses($faculdade);
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getCursoStandard(){
+        $courseid = $this->get('courseid');
+        $this->load->model('CourseModel');
+        $data["course"] = $this->CourseModel->getCourse_Standard($courseid);
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function registerSubject(){
+        $data = Array(
+            "code" => $this->post('codeCadeira'),
+            "curso_id"   => $this->post('curso'),
+            "name" => $this->post('nomeCadeira'),
+            "description"   => $this->post('descCadeira'),
+        );
+
+        $this->load->model('SubjectModel');
+        $retrieved = $this->SubjectModel->registerSubject($data);
+        $this->response(json_encode($retrieved), parent::HTTP_OK);
+
     }
 
     public function deleteCollege(){

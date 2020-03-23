@@ -1,6 +1,24 @@
+var navbar_is_active = false
+
 $(document).ready(() => {
     setUserInfo()
 })
+
+function getToggleButton() {
+    let button = $("<div id='nav-menu-toggle'>></div>")
+
+    button.click(()=>{
+        if(navbar_is_active){
+            $("#nav-menu-hook").removeClass('active')
+            $("#nav-menu-toggle").text(">")
+        } else {
+            $("#nav-menu-hook").addClass('active')
+            $("#nav-menu-toggle").text("<")
+        }
+        navbar_is_active = !navbar_is_active
+    })
+    return button
+}
 
 // assim só precisam de indicar as páginas que vão estar disponíveis
 // exemplo de utilização: js/teacher/nav-menu.js
@@ -39,6 +57,7 @@ function getNavBarUserSection(){
     user_section.append(getNavBarProfilePic())
     user_section.append("<div class='nav-menu-user-name'>Loading...</div>")
     user_section.append(getLogoutBtn())
+    user_section.append(getToggleButton())
     return user_section
 }
 

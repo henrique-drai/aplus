@@ -14,6 +14,7 @@ function AdminNavMenu() {
             "href": base_url + "app/admin/anoLetivo",
             "name": "School Year"
         },
+<<<<<<< HEAD
         "courses": {
             "href": base_url + "app/admin/courses",
             "name": "Courses"
@@ -22,6 +23,8 @@ function AdminNavMenu() {
             "href": base_url + "app/admin/unidCurricular",
             "name": "Curricular Units"
         },
+=======
+>>>>>>> 3f023cf7160dcaab5decea13d0dd14a05bb0227a
         "subjects": {
             "href": base_url + "app/admin/subjects",
             "name": "Subjects"

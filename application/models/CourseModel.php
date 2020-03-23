@@ -11,6 +11,7 @@ class CourseModel extends CI_Model { //curso & curso_standard
         return $query->row();
     }
 
+<<<<<<< HEAD
     public function register_course_standard($data){
         $this->db->insert("curso_standard", $data);
         $course_id = $this->db->insert_id();
@@ -23,3 +24,10 @@ class CourseModel extends CI_Model { //curso & curso_standard
 
 }
 
+=======
+    public function getCourse_StandardId($courseid){
+        $query = $this->db->get_where("curso", array("id"=>$courseid));
+        return $query->row("curso_standard_id");
+    }
+}
+>>>>>>> 3f023cf7160dcaab5decea13d0dd14a05bb0227a

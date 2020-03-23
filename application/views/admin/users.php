@@ -19,11 +19,11 @@
                     <label for="name">Nome:</label>
                     <input type="text" name="name">
                     <label for="surname">Apelido:</label>
-                    <input type="text" name="surname">
+                    <input type="text" name="surname"><br>
                     <label for="email">Email:</label>
                     <input type="text" name="email">
                     <label for="password">Password:</label>
-                    <input type="password" name="password">
+                    <input type="password" name="password"><br>
                     <label for="role">Role:</label>
                     <select name="role">
                         <option value="admin">Admin</option>

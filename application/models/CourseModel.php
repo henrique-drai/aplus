@@ -11,4 +11,15 @@ class CourseModel extends CI_Model { //curso & curso_standard
         return $query->row();
     }
 
+    public function register_course_standard($data){
+        $this->db->insert("curso_standard", $data);
+        $course_id = $this->db->insert_id();
+        return $course_id;
+    }
+
+    public function register_course($data){
+        $this->db->insert("curso", $data);
+    }
+
 }
+

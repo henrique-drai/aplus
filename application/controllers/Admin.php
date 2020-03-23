@@ -26,6 +26,7 @@ class Admin extends REST_Controller {
             case "editUser":        $this->editUser(); break; //            admin/api/editUser
             case "registerSubject":  $this->registerSubject(); break; //    admin/api/registerSubject
             case "importCSV":       $this ->importCSV(); break; //        admin/api/importCSV
+            case "registerCurso":   $this -> registerCurso(); break; //     admin/api/registerCurso
             
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -166,6 +167,27 @@ class Admin extends REST_Controller {
         $this -> load -> model('UserModel');
         $data["teachers"] = $this -> UserModel -> getTeachers();
         $this -> response($data, parent::HTTP_OK);
+    }
+
+
+    public function registerCurso(){
+        $this -> load -> model('CourseModel');
+       
+        $data2 = Array(
+            "code"      => $this->post('codCourse'),
+            "name"   => $this->post('nameCourse'),
+        );
+       
+        $idCurso = $this->CourseModel-> register_course_standard($data2);
+
+        $data = Array(
+            "faculdade_id"      => $this->post('collegeName'),
+            "curso_standard_id" => $idCurso,
+            "ano_letivo_id"     => 1,  //Mudar ano letivo quando der - para o que atual? (ou o que quisermos)
+            "description"       => $this->post('descCourse'),
+        );
+       
+        $this->CourseModel->register_course($data);
     }
 
     public function importCSV(){

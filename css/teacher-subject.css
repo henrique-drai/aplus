@@ -15,28 +15,15 @@
 ////////////////////////////////////////////////////////////// */
 
 .button {
-    background-color: #b3b3b3; 
-    color: black;
-    padding: 0.5%;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.button:hover {
-    cursor: pointer;
-    color: rgb(235, 235, 235);
+    margin: 20px auto;
+    background-color: #ffffff;
+    color: #1e2c26;
+    border: 1px solid #3e5d4f;
 }
 
 .form-container{
     padding: 2%;
     width: 100%;
-}
-
-main {
-    width: 70%;
-    margin-left: auto;
-    margin-right: auto;
-    height: auto;
 }
 
 .message {
@@ -56,13 +43,8 @@ main {
     height: 15%;
 }
 
-input, select, textarea {
-    border: 1px solid white;
-    border-left: 3px solid;
-    border-radius:5px;
-    padding:4px;
-    width: 100%;
-    transition: .5s ease-out;
+input {
+    margin-left: 0% !important;
 }
 
 select, textarea {
@@ -85,10 +67,24 @@ select, textarea {
 }
 
 #edit_button {
-    margin-top: -23%;
+    margin-top: -21%;
     float: left;
-    margin-left: 108%;
-    padding: 2%;
+    margin-left: 108% !important;
+}
+
+.buttons {
+    display:inline-block;
+}
+
+.forum {
+    margin-right: 5%;
+    float: left;
+}
+
+.studentsList_button {
+    float: left;
+    margin-top: -27% !important;
+    margin-left: 40% !important;
 }
 
 /* //////////////////////////////////////////////////////////////
@@ -96,6 +92,8 @@ select, textarea {
 ////////////////////////////////////////////////////////////// */
 
 .projetos {
+    display: flex;
+    width: 50%;
     margin-top: 2%;
 }
 
@@ -120,7 +118,7 @@ select, textarea {
 }
 
 .hours_inputs input:required:valid {
-    border-left-color: palegreen;
+    border-left-color: #42d542;
 }
 
 .hours_inputs input:invalid {
@@ -149,10 +147,9 @@ select, textarea {
 }
 
 #edit_button_hours {
-    margin-top: -24%;
+    margin-top: -22%;
     float: left;
-    margin-left: 110%;
-    padding: 2%;
+    margin-left: 110% !important;
 }
 
 #message_hour {
@@ -163,10 +160,9 @@ select, textarea {
 
 #save_button_hours {
     display: none;
-    margin-top: -24%;
+    margin-top: -22%;
     float: left;
-    margin-left: 136%;
-    padding: 2%;
+    margin-left: 140% !important;
 }
 
 .element {
@@ -175,6 +171,10 @@ select, textarea {
     padding: 1%;
     margin-left: -6%;
     margin-right: 8%;
+}
+
+.minnuminput, .maxnuminput {
+    width: 80%;
 }
 
 /* //////////////////////////////////////////////////////////////

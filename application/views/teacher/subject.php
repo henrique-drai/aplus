@@ -1,4 +1,5 @@
 <title><?php echo $subject->name; ?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-subject.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
@@ -13,29 +14,33 @@
         <div class="form-container">
             <div class="header">
                 <h2>Sumário da Cadeira</h2>
-                <a href="#" class="button" id="edit_button">Editar</a>
+                <input type="button" id="edit_button" value="Editar">
                 <div class="message" id="message1">Editado com sucesso!</div>
             </div>
             <div class="summary"></div>
 
-            <a href="#" class="button" id="save_button">Guardar</a>
+            <input type="button" id="save_button" value="Guardar">
 
             <br>
 
-            <a class="button">Fórum</a>
-            <a href="<?php echo $base_url; ?>app/teacher/studentsList" class="button">Lista de Alunos</a>
+            <div class="buttons">
+                <input type="button" class ="forum" value="Fórum">
+                <input type="button" class="studentsList_button" value="Lista de Alunos"> 
+                <!-- mandar para base_url/app/teacher/studentsList -->
+            </div>
 
-            <br><br>
+            <br>
             
             <h2>Projetos</h2>
-            <a href="<?php echo $base_url; ?>projects/new/<?php echo $subject->code; ?>" class="button">Criar Projeto</a>
+            <input type="button" class="newProject_button" value="Criar Projeto">
+            <!-- mandar para base_url/projects/new/$subject->code -->
             <div class="projetos"></div>
 
             <div class="hours_header">
                 <h2>Horário de Dúvidas</h2>
-                <a href="#" class="button" id="edit_button_hours">Editar</a>
+                <input type="button" id="edit_button_hours" value="Editar">
                 <div class="message" id="message_hour">Editado com sucesso!</div>
-                <a href="#" class="button" id="save_button_hours">Guardar</a>
+                <input type="button" id="save_button_hours" value="Guardar">
             </div>
             <div class="hours"></div>
 

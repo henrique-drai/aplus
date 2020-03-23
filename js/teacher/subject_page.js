@@ -1,6 +1,5 @@
 $(document).ready(() => {
-    getInfo(localStorage.cadeira_code);
-    getProj(localStorage.cadeira_id);
+    getInfo(localStorage.cadeira_code);    
     $(".hours_inputs").hide();
 
     $("#edit_button").click(function() {
@@ -44,10 +43,10 @@ $(document).ready(() => {
             '<option value="Sexta-feira">Sexta-feira</option></select></p></div>';
 
         $(".hours_inputs").append(hour);
-        $("#remove_hour").css('visibility','visible');
+        $(".remove_hour").css('visibility','visible');
     })
 
-    $("#remove_hour").click(function() {
+    $(".remove_hour").click(function() {
         var count = $(".minnuminput").last().attr("id");
         const data = {
             'user_id': localStorage.getItem('user_id'),
@@ -61,9 +60,10 @@ $(document).ready(() => {
         $(".hours_inputs > .element").last().remove();
 
         var flag = true;
+        var count = $(".minnuminput").last().attr("id");
 
         for (var i=0; i <= count; i++) {
-            if($("#" + i + ".minnuminput").css("border-left-color") == 'rgb(152, 251, 152)') {
+            if($("#" + i + ".minnuminput").css("border-left-color") == 'rgb(66, 213, 66)') {
                 flag = flag && true;
             } else {
                 flag = flag && false;
@@ -75,7 +75,7 @@ $(document).ready(() => {
         }
 
         if($(".hours_inputs .element").length == 1) {
-            $("#remove_hour").css('visibility','hidden');
+            $(".remove_hour").css('visibility','hidden');
         }
     })
 
@@ -117,8 +117,8 @@ function validateFormNumb(id){
             $("#save_button_hours").hide();
             return false;
         } else {
-            $("#" + id + ".minnuminput").css("border-left-color", "palegreen");
-            $("#" + id +".maxnuminput").css("border-left-color", "palegreen");
+            $("#" + id + ".minnuminput").css("border-left-color", "#42d542");
+            $("#" + id +".maxnuminput").css("border-left-color", "#42d542");
             $("#save_button_hours").show();
             return true;
         }
@@ -139,6 +139,7 @@ function getInfo($id) {
             }
             localStorage.setItem('cadeira_id', data.info[0].id);
             getHours(data.info[0].id);
+            getProj(localStorage.cadeira_id);
         },
         error: function(data) {
             alert("Houve um erro ao ir buscar a informação da cadeira.");
@@ -234,11 +235,11 @@ function setHours($id) {
                         }
                     }
 
-                    $(".minnuminput").css("border-left-color", "palegreen");
-                    $(".maxnuminput").css("border-left-color", "palegreen");
+                    $(".minnuminput").css("border-left-color", "#42d542");
+                    $(".maxnuminput").css("border-left-color", "#42d542");
                     
                     if($(".hours_inputs .element").length > 1) {
-                        $("#remove_hour").css('visibility','visible');
+                        $(".remove_hour").css('visibility','visible');
                     }
 
                     $("#save_button_hours").show();
@@ -272,7 +273,6 @@ function saveHours(data) {
         url: base_url + "teacher/api/saveHours",
         data: data,
         success: function(data) {
-            console.log(data);
             $("#message_hour").fadeIn();
             setTimeout(function() {
                 $("#message_hour").fadeOut();
@@ -307,12 +307,11 @@ function getProj(data) {
         data: {cadeira_id: data},
         success: function(data) {
             $(".projetos").empty();
-            console.log(data);
             if(data.length == 0) {
                 $(".projetos").append("<p>Ainda não existem projetos para a cadeira</p>");
             } else {
                 for(var i=1; i <= data.length; i++) {
-                    $(".projetos").append("<a href='#' class='button'>Projeto " + i + "</a>");
+                    $(".projetos").append("<input type='button' value='Projeto " + i + "'>");
                 }
                 
             }

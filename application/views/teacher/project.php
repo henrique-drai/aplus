@@ -3,6 +3,9 @@
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/project.js"></script>
+<script>setProj("<?php echo $project[0]["id"]; ?>")</script>
+<script>setBackPage("<?php echo $base_url; ?>" + "subjects/subject/" + "<?php echo $subject->code; ?>")</script>
+
 </head>
 
 <body>
@@ -13,7 +16,7 @@
 
         <div class="container-header">
             <a class="back-a" href="<?php echo $base_url; ?>subjects/subject/<?php echo $subject->code; ?>"  class="button">Back</a>
-            <h3>Grupos</h3>
+            <h3>Grupos - Estaticos for now</h3>
         </div>
 
         <div class="flex-container">

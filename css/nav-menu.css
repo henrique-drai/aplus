@@ -2,10 +2,36 @@
     background-color: #225;
     width: 220px;
     min-width: 220px;
+    position: relative;
+    transition: 0.5s;
 }
 #nav-menu-hook hr{
     width: 50px;
     border-bottom: 0px;
+}
+#nav-menu-toggle {
+    position: absolute;
+    color: #225;
+    font-weight: bold;
+    display: none;
+    top: calc(50% - 70px);
+    right: -33px;
+    margin-top: -15px;
+    font-size: 30px;
+    padding: 100px 10px;
+    line-height: 0;
+    cursor: pointer;
+}
+@media(max-width: 767px){
+    #nav-menu-hook {
+        margin-left: -220px;
+    }
+    #nav-menu-hook.active {
+        margin-left: 0px;
+    }
+    #nav-menu-toggle {
+        display: block;
+    }
 }
 .nav-menu-user-section {
     padding: 10px;

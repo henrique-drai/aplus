@@ -87,16 +87,24 @@ main {
     background-color: rgb(194, 194, 194);
 }
 
-.submit-error {
+.submit-msg {
     display:none;
     text-align: center;
     width:100%;
-    background: salmon;
     padding: 4px;
     border-radius: 4px;
     position: relative;
     margin-top: 10px;
 }
+
+#errormsg {
+    background: salmon;
+}
+
+#successmsg {
+    background: palegreen;
+}
+
 
 
 .form-label-title{

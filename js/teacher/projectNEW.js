@@ -1,5 +1,6 @@
 const etapas = [{id:1, nome:'', desc:'', data:''}];
 var subject_id
+var project_page
 
 $(document).ready(() => {
 
@@ -83,6 +84,10 @@ function setSubjectID(id){
     subject_id = id;
 }
 
+function setProjectPage(url){
+    project_page = url;
+}
+
 function refreshEtapasTitle(){
     $('.etapa').each(function(index){
         var trueindex = index+1;
@@ -128,6 +133,12 @@ function validateFormNumb(){
 function verifyDates(data){
     var dmaior = new Date(data);
     var today = new Date();
+
+    var dParse = Date.parse(dmaior);
+
+    if (isNaN(dParse)){
+        return false;
+    }
 
     if (dmaior < today){
         return false;
@@ -187,7 +198,10 @@ function submitProject(){
             url: base_url + "teacher/api/createProject",
             data: data,
             success: function(data) {
-                console.log(data)
+                console.log(data);
+                var newpage = project_page + data.toString();
+                window.location.assign(newpage);
+
             },
             error: function(data) {
                 console.log("Erro na API:")

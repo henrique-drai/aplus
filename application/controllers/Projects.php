@@ -65,7 +65,7 @@ class Projects extends CI_Controller {
 
         //buscar a info sobre o codigo do curso
         $data["subject"] = $this->SubjectModel->getSubjectByID($data["project"][0]["cadeira_id"]);
-
+    
         //verificar se o objeto existe
         if(is_null($data["subject"])){
             $this->load->view('errors/404', $data); return null;

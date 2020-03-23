@@ -4,6 +4,7 @@
 <script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/projectNEW.js"></script>
 <script>setSubjectID("<?php echo $subject->id; ?>")</script>
+<script>setProjectPage("<?php echo $base_url; ?>" + "projects/project/")</script>
 </head>
 
 <body>
@@ -56,7 +57,8 @@
             </p>
 
             <p>
-                <div id="errormsg" class="submit-error">Mensagem de erro template</div>
+                <div id="errormsg" class="submit-msg">Mensagem de erro template</div>
+                <!-- <div id="successmsg" class="submit-msg">Projeto adicionado com sucesso</div> -->
             </p>
 
             <div class="btn-wrap">

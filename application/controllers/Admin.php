@@ -42,6 +42,8 @@ class Admin extends REST_Controller {
             case "getCursoStandard": $this->getCursoStandard(); break; // admin/api/getCursoStandard
             case "getCourseStandardId": $this->getCursoStandardId(); break; // admin/api/getCourseStandardId
             case "getAllSubjects": $this->getAllSubjects(); break; // admin/api/getAllSubjects
+            case "getAllCoursesByCollege": $this->getAllCoursesByCollege(); break; // admin/api/getAllCoursesByCollege
+            case "getAllSubjectsByCollege": $this->getAllSubjectsByCollege(); break; // admin/api/getAllSubjectsByCollege
             case "saveCSV":         $this->export(); break;
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
@@ -119,7 +121,7 @@ class Admin extends REST_Controller {
     public function getCursoStandardId(){
         $courseid = $this->get('course_id');
         $this->load->model('CourseModel');
-        $data["course_standard_id"] = $this->CourseModel->getCourse_Standard($courseid);
+        $data["course_standard_id"] = $this->CourseModel->getCourse_StandardId($courseid);
         $this->response($data, parent::HTTP_OK);
     }
 
@@ -140,6 +142,20 @@ class Admin extends REST_Controller {
     public function getAllSubjects(){
         $this->load->model('SubjectModel');
         $data["subjects"] = $this->SubjectModel->getAllSubjects();
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getAllCoursesByCollege(){
+        $faculdade = $this->get('faculdade');
+        $this->load->model('CourseModel');
+        $data["courses"] = $this->CourseModel->getCollegeCourses($faculdade);
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getAllSubjectsByCollege(){
+        $course = $this->get('course');
+        $this->load->model('SubjectModel');
+        $data["subjects"] = $this->SubjectModel->getSubjectsByCursoId($course);
         $this->response($data, parent::HTTP_OK);
     }
 

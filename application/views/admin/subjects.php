@@ -29,6 +29,24 @@
         </form><br>
 
         <h2>Consultar Unidades Curriculares</h2>
+
+        <select id="Consultar_Cadeiras" name="consultarcadeiras">
+            <option value="">Selecione uma Opção</option>
+            <option value="All">Todas as Cadeiras</option>
+            <option value="Faculdade">Por Faculdade</option>
+            <option value="Curso">Por Curso</option>
+            <option value="AnoLetivo">Por Ano Letivo (***** AINDA NAO ESTA FEITO *****)</option>
+        </select>
+
+        <select id="Consultar_Cadeiras_Faculdade" name="consultarCadeirasporFaculdade">
+        </select>
+
+        <select id="Consultar_Cadeiras_Curso" name="consultarCadeirasporCurso">
+        </select>
+
+        <select id="Consultar_Cadeiras_Ano" name="consultarCadeirasporAno">
+        </select>
+
         <table id="show_subjects">
             <tr>
                 <th>Código da UC</th>

@@ -108,5 +108,4 @@ function submitRegister(){
             $("#register-cadeiras-form").after(msgErro);
         }
     });
-    getAllSubjects();
 }

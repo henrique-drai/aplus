@@ -86,4 +86,8 @@ class SubjectModel extends CI_Model { //cadeira
         return $query->result_array();
     }
 
+    public function getSubjectsByCursoId($id){
+        $query = $this->db->get_where('cadeira', array('curso_id ' => $id));
+        return $query->result_array();
+    }
 }

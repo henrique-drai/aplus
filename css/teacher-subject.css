@@ -66,7 +66,7 @@ input, select, textarea {
 }
 
 select, textarea {
-    border-left: 3px solid palegreen;
+    border-left: 3px solid #42d542;
 }
 
 /* //////////////////////////////////////////////////////////////

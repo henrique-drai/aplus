@@ -6,3 +6,7 @@ main{
 main form input[type="submit"] {
     margin: 20px auto;
 }
+
+input{
+    margin: auto;
+}

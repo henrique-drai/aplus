@@ -11,20 +11,30 @@ body {
     background-color: #efefef;
 }
 main {
-    padding: 25px;
+    width: 100%;
+    padding: 3% 5%;
     box-sizing: border-box;
 }
 input, select {
     text-align: left;
-    border: 1px solid #aaa;
-    border-radius: 5px;
+    border: none;
+    border-left: 3px solid white;
+    border-radius: 3px;
     background-color: white;
     display: block;
     padding: 5px 10px;
 }
+input[type=button],input[type=submit]{
+    margin: 20px auto;
+    background-color: #ffffff;
+    color: #1e2c26;
+    border: 1px solid #3e5d4f;
+}
+
 label {
     display: block;
     margin-top: 15px;
+    color: #3e5d4f;
 }
 table {
     background-color: white;

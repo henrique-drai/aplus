@@ -66,6 +66,25 @@ class App extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    //app/students
+    public function students($page = 'home') {
+
+        $data["base_url"] = base_url();
+
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403', $data); return null;
+        }
+
+        $this->load->view('templates/head', $data);
+        //escolher que página deve ser mostrada
+        switch ($this->session->userdata('role') == 'teacher') {
+            case true:  $this->load->view('teacher/' .$page, $data); break;
+            case false: $this->load->view('admin/' .$page, $data); break;
+        }
+        $this->load->view('templates/footer');
+    }
+
     //app/admin
     public function admin($page = 'home')
     {

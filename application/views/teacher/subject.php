@@ -26,7 +26,6 @@
             <div class="buttons">
                 <input type="button" class ="forum" value="Fórum">
                 <input type="button" class="studentsList_button" value="Lista de Alunos"> 
-                <!-- mandar para base_url/app/teacher/studentsList -->
             </div>
 
             <br>

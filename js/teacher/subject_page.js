@@ -107,6 +107,14 @@ $(document).ready(() => {
         $(".hours_inputs .element").remove();
         $("#save_button_hours").hide();
     })
+
+    $("body").on("click", ".studentsList_button", function() {
+        window.location = base_url + "app/students/studentsList";
+    })
+
+    $("body").on("click", ".newProject_button", function() {
+        window.location = base_url + "projects/new/" + localStorage.cadeira_code;
+    })
 })
 
 function validateFormNumb(id){

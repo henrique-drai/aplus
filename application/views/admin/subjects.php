@@ -9,21 +9,27 @@
 <body>
     <div id="nav-menu-hook"></div>
     <main>
+    <div class="container">
+
         <h1>Unidades Curriculares</h1>
 
         <form id="register-cadeiras-form" action="javascript:void(0)">
-            <label for="codeCadeira">Código da Unidade Curricular(5 números):</label><br>
-            <input type="text" name="codeCadeira"><br>
-            <label for="nomeCadeira">Unidade Curricular:</label><br>
-            <input type="text" name="nomeCadeira"><br>
-            <label for="descCadeira">Descrição da Unidade Curricular:</label><br>
-            <input type="text" name="descCadeira"><br>
-
-            <select id="faculdades_register_UnidCurricular" name="faculdade">
-            </select>
-
-            <select id="cursos_register_UnidCurricular" name="curso">
-            </select>
+            <p>
+                <label for="codeCadeira">Código da Unidade Curricular(5 números):</label>
+                <input class="form-input-number" type="text" name="codeCadeira" required>
+            </p><p>
+                <label for="nomeCadeira">Unidade Curricular:</label>
+                <input class="form-input-text" type="text" name="nomeCadeira" required>
+            </p><p>
+                <label for="descCadeira">Descrição da Unidade Curricular:</label>
+                <input class="form-input-text" type="text" name="descCadeira" required>
+            </p><p>
+                <select id="faculdades_register_UnidCurricular" name="faculdade">
+                </select>
+            </p><p>
+                <select id="cursos_register_UnidCurricular" name="curso">
+                </select>
+            </p>
 
             <input type="submit" id="register-cadeira-submit">
         </form><br>
@@ -56,3 +62,5 @@
             </tr>
             
         </table>
+        <div>
+</main>

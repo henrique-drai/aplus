@@ -1,5 +1,6 @@
 main{
     margin: auto;
+    width: auto;
 }
 
 main a div {
@@ -23,4 +24,6 @@ main a {
 
 body{
     background-image: url("https://images.unsplash.com/photo-1462536943532-57a629f6cc60?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80") !important;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }

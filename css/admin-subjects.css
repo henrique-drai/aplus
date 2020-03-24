@@ -6,3 +6,10 @@
 input[type="submit"]{
     margin-top: 5%;
 }
+
+.form-input-text, .form-input-number, .form-input-file, .form-text-area{
+    width:100%;
+}
+.container {
+    width: 100%;
+}

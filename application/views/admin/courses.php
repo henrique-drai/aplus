@@ -33,4 +33,20 @@
         <div id="msgStatus">
         </div>
 
+
+
+        <h3>Consultar cursos de uma faculdade</h3>
+        <select id="consultar_cursos_faculdade" name="consultarCadeirasporFaculdade">
+        </select>
+
+        <br><br>
+        <table id="show_courses">
+            <tr>
+                <th>Código de Curso</th>  
+                <th>Nome</th>
+                
+            </tr>
+            
+        </table>
+
     </main>

@@ -21,7 +21,6 @@ class Teacher extends REST_Controller {
     public function api_post($f) {
         switch ($f) {
             case "getCadeiras":     $this->getCadeiras(); break;//     /teacher/api/getCadeiras
-            case "getCadeiraInfo":  $this->getCadeiraInfo(); break;//  /teacher/api/getCadeiraInfo
             case "getDescription":  $this->getDescription(); break;//  /teacher/cadeira/id/getDescription
             case "getHours":        $this->getHours(); break;//        /teacher/cadeira/id/getHours
             case "insertText":      $this->insertText(); break;//      /teacher/cadeira/id/insertText
@@ -43,13 +42,10 @@ class Teacher extends REST_Controller {
         $this->load->model('SubjectModel');
         $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id);
 
-        $this->response($data, parent::HTTP_OK);
-    }
-
-    public function getCadeiraInfo() {
-        $cadeira_id = $this->post('cadeira_id');
-        $this->load->model('SubjectModel');
-        $data["info"] = $this->SubjectModel->getCadeiraInfo($cadeira_id);
+        $data["info"] = array();
+        for($i=0; $i < count($data["cadeiras_id"]); $i++) {
+            array_push($data["info"], $this->SubjectModel->getCadeiraInfo($data["cadeiras_id"][$i]["cadeira_id"]));
+        }
 
         $this->response($data, parent::HTTP_OK);
     }

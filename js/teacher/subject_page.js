@@ -115,6 +115,10 @@ $(document).ready(() => {
     $("body").on("click", ".newProject_button", function() {
         window.location = base_url + "projects/new/" + localStorage.cadeira_code;
     })
+
+    $("body").on("click", ".project_button", function() {
+        window.location = base_url + "projects/project/" + $(this).attr("id");
+    })
 })
 
 function validateFormNumb(id){
@@ -314,12 +318,14 @@ function getProj(data) {
         url: base_url + "teacher/api/getProj",
         data: {cadeira_id: data},
         success: function(data) {
+            console.log(data);
             $(".projetos").empty();
             if(data.length == 0) {
                 $(".projetos").append("<p>Ainda não existem projetos para a cadeira</p>");
             } else {
-                for(var i=1; i <= data.length; i++) {
-                    $(".projetos").append("<input type='button' value='Projeto " + i + "'>");
+                for(var i=0; i < data.length; i++) {
+                    $(".projetos").append("<input type='button' class='project_button' id='" + data[i].id +
+                    "' value='Projeto " + (i+1) + "'>");
                 }
                 
             }

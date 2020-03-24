@@ -1,7 +1,6 @@
 <title>A+ for Admins</title>
 <script>setPageName("courses")</script>
 <script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
-<script src="<?php echo $base_url; ?>js/admin/registerunidCurricular.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/registerCurso.js"></script>
 
 </head>
@@ -30,5 +29,8 @@
 
             <input type="submit" id="register-course-submit">
         </form><br>
+
+        <div id="msgStatus">
+        </div>
 
     </main>

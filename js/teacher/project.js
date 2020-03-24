@@ -25,6 +25,17 @@ $(document).ready(() => {
     // back button
     $("#back").click(() => window.location.assign(back_page));
 
+
+    // getEtapas
+    // chama uma primeira vez
+    getEtapas(proj);
+
+    // refresh de segundo em segundo? defini 4 para nao ser demasiado for now
+    // setInterval(function(){
+    //      getEtapas(proj);
+    // }, 4000);
+
+
     //confirmed delete 
     //apagar projeto pelo id
 
@@ -50,6 +61,9 @@ $(document).ready(() => {
             }
         });
     })
+
+
+
 })
 
 function setProj(id){
@@ -58,4 +72,56 @@ function setProj(id){
 
 function setBackPage(href){
     back_page = href;
+}
+
+function makeEtapaTable(data){
+    etapas = '';
+    for (i=0; i<data.length; i++){
+        json = data[i];
+        etapas += '<tr>' +
+            '<td>'+ json["nome"] +'</td>' +
+            '<td>'+ json["deadline"] +'</td>' +
+            '<td>'+ json["description"] +'</td>' +
+            '<td><input id="editEtapaButton" type="button" value="Editar"></td>' +
+            '<td><input id="feedbackEtapaButton" class="remove" type="button" value="Feedback"></td>' +
+            '<td><input id="removeEtapaButton" class="remove" type="button" value="Eliminar"></td>' +
+            '</tr>'
+    }
+   
+    var table = '<table id="etapas_list">' +
+        '<tr><th>Nome</th>' + 
+        '<th>Data Entrega</th>' +
+        '<th>Descrição</th>' +
+        '<th>Editar</th>' + 
+        '<th>Feedback</th>' + 
+        '<th>Eliminar</th></tr>' +
+        etapas + 
+        '</table>'
+
+
+    $("#etapas-container").append(table);    
+}
+
+function getEtapas(proj_id){
+
+    const data_proj = {
+        projid : proj_id
+    }
+
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "teacher/api/getAllEtapas",
+        data: data_proj,
+        success: function(data) {
+            console.log(data);
+            makeEtapaTable(data);
+        },
+        error: function(data) {
+            console.log("Erro na API:")
+            console.log(data)
+        }
+    });
 }

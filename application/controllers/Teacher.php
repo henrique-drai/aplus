@@ -29,6 +29,7 @@ class Teacher extends REST_Controller {
             case "removeHours":     $this->removeHours(); break;//     /teacher/api/removeHours
             case "getProj":         $this->getProj(); break;//         /teacher/api/getProj
             case "removeProject":   $this->removeProject(); break; //   /teacher/api/removeProject
+            case "getAllEtapas":    $this->getAllEtapas(); break; //   /teacher/api/getAllEtapas
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -162,6 +163,14 @@ class Teacher extends REST_Controller {
 
 
         $this->response($proj_id, parent::HTTP_OK);
+    }
+
+    public function getAllEtapas(){
+        $proj_id = $this->post('projid');
+        $this->load->model('ProjectModel');
+        $data = $this->ProjectModel->getEtapasByProjectID($proj_id);
+
+        $this->response($data, parent::HTTP_OK);
     }
 
 

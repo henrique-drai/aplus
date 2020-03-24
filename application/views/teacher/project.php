@@ -12,11 +12,11 @@
     <div id="nav-menu-hook"></div>
     <main>
     <div class="container">
-        <h1>Projeto x</h1>
+        <h1>Projeto: <?php echo $project[0]["nome"]; ?></h1>
 
         <div class="container-header">
             <input type="button" id="back" value="Voltar">
-            <h3>Grupos</h3>
+            <h3>Grupos - Estático</h3>
         </div>
 
         <div class="container">
@@ -24,34 +24,20 @@
                 <tr>
                     <th>Nome</th>
                     <th>Número de elementos</th>
+                    <th>Elementos</th>
                     <th>Chat</th> 
                 </tr>
                 <tr>
                     <td>Grupo 1</td>
                     <td>4</td>
+                    <td>David Silva | Inês Sousa | Raul Koch | João Ye </td>
                     <td><input id="chatButton" type="button" value="Chat"></td>
                 </tr>
             </table>
         </div>
 
         <h3>Etapas</h3>
-        <div class="container">
-            <table id="etapas_list">
-                <tr>
-                    <th>Nome</th>
-                    <th>Data entrega</th>
-                    <th>Descrição</th> 
-                    <th>Editar</th>
-                    <th>Eliminar</th>  
-                </tr>
-                <tr>
-                    <td>Etapa inicial</td>
-                    <td>12-04-2020 11:59 PM</td>
-                    <td>Esta etapa é a etapa inicial do projeto que terá como objetivo introduzir as primeiras funcionalidades</td>
-                    <td><input id="editEtapaButton" type="button" value="Editar"></td>
-                    <td><input id="removeEtapaButton" class="remove" type="button" value="Eliminar"></td>
-                </tr>
-            </table>
+        <div id="etapas-container" class="container">
         </div>
 
         <div class="cd-popup" role="alert">

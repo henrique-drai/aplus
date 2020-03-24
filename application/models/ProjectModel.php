@@ -17,6 +17,10 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
     public function removeProjectByID($proj_id){
         return $this->db->delete("projeto", array("id" => $proj_id));
     }
+
+    public function getEtapasByProjectID($proj_id){
+        return $this->db->get_where("etapa",array("projeto_id" => $proj_id)) -> result_array();
+    }
 }
 
 

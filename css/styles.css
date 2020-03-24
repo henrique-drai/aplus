@@ -31,6 +31,20 @@ input[type=button],input[type=submit]{
     border: 1px solid #3e5d4f;
 }
 
+/* pseudo classes - não adicionei para o select porque não sei como estão a usar @david */
+
+input:focus, textarea:focus{
+    outline-color: #3e5d4f;
+}
+
+input:required:valid, textarea:required:valid{
+    border-left-color:lawngreen;
+}
+
+input:required, textarea:required {
+    border-left-color:red;
+}
+
 label {
     display: block;
     margin-top: 15px;

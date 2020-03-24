@@ -15,7 +15,7 @@
         <h1>Projeto x</h1>
 
         <div class="container-header">
-            <a class="back-a" href="<?php echo $base_url; ?>subjects/subject/<?php echo $subject->code; ?>"  class="button">Back</a>
+            <input type="button" id="back" value="Voltar">
             <h3>Grupos - Estaticos for now</h3>
         </div>
 
@@ -76,8 +76,8 @@
         </div> <!-- cd-popup -->
 
         <div class="buttons-container">
-            <a id="removeProject" class="small-button">Eliminar projeto</a>
-            <a id="viewEtapas" class="small-button">Ver etapas</a>
+            <input id="removeProject" type="button" value="Eliminar projeto">
+            <input id="viewEtapas" type="button" value="Ver etapas">
         </div>
     </div>
     </main>

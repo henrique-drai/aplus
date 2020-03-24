@@ -5,6 +5,7 @@
 <script src="<?php echo $base_url; ?>js/teacher/projectNEW.js"></script>
 <script>setSubjectID("<?php echo $subject->id; ?>")</script>
 <script>setProjectPage("<?php echo $base_url; ?>" + "projects/project/")</script>
+<script>setBackPage("<?php echo $base_url; ?>" + "subjects/subject/" + "<?php echo $subject->code; ?>")</script>
 </head>
 
 <body>
@@ -15,7 +16,7 @@
         <h1>Novo projeto para a cadeira <?php echo $subject->name; ?></h1>
     
         <div class="container-header">
-            <a class="back-a" href="<?php echo $base_url; ?>subjects/subject/<?php echo $subject->code; ?>"  class="button">Back</a>
+            <input type="button" id="back" value="Voltar">
             <h3>Preencha todos os campos</h3>
         </div>
 
@@ -58,11 +59,10 @@
 
             <p>
                 <div id="errormsg" class="submit-msg">Mensagem de erro template</div>
-                <!-- <div id="successmsg" class="submit-msg">Projeto adicionado com sucesso</div> -->
             </p>
 
             <div class="btn-wrap">
-                <button type="submit" id="createProjectButton" class="form-button">Criar</button>
+                <input type="submit" id="createProjectButton" value="Criar"></input>
             </div>
 
         </form>

@@ -1,6 +1,7 @@
 const etapas = [{id:1, nome:'', desc:'', data:''}];
 var subject_id
 var project_page
+var back_page
 
 $(document).ready(() => {
 
@@ -13,13 +14,13 @@ $(document).ready(() => {
 
         const etapa = '<p id='+pid+' class="etapa">' +
              '<label id="etapa-label" class="form-label-title"> </label>' +
+             '<label id="removeEtapa"><img src="'+base_url+'/images/close.png"></label> ' +
              '<label class="form-label">Nome</label> ' +
              '<input class="form-input-text" type="text" name="etapaName" required> ' +
              '<label class="form-label">Descrição</label> ' + 
              '<textarea class="form-text-area" type="text" name="etapaDescription" required></textarea> ' + 
              '<label class="form-label">Data de entrega</label> ' + 
              '<input class="form-input-text" type="datetime-local" name="etapaDate" required> ' +
-             '<label id="removeEtapa"><img src="'+base_url+'/images/close.png"></label> ' +
              '</p> '
         
         etapas.push({id:etapanum, nome:'', desc:'', data:''});
@@ -75,6 +76,8 @@ $(document).ready(() => {
         validateFormNumb();
     })
 
+    $("#back").click(() => window.location.assign(back_page));
+
     $("#createProjectButton").click(() => submitProject());
 
 })
@@ -86,6 +89,10 @@ function setSubjectID(id){
 
 function setProjectPage(url){
     project_page = url;
+}
+
+function setBackPage(url){
+    back_page = url;
 }
 
 function refreshEtapasTitle(){
@@ -109,24 +116,35 @@ function insertIntoEtapas(id, name, desc, data){
     console.log(etapas);
 
     if (!verifyDates(data))
-        $("#etapa"+id+" input[name='etapaDate']").css("border-left-color", "salmon");
+        $("#etapa"+id+" input[name='etapaDate']").css("border-left-color", "red");
     else
-        $("#etapa"+id+" input[name='etapaDate']").css("border-left-color", "palegreen");
+        $("#etapa"+id+" input[name='etapaDate']").css("border-left-color", "lawngreen");
 }
 
 
 function validateFormNumb(){
     if($("#minnuminput").val() != '' && $("#maxnuminput").val() != ''){
         if(parseInt($("#minnuminput").val()) >= parseInt($("#maxnuminput").val())){
-            $("#minnuminput").css("border-left-color", "salmon");
-            $("#maxnuminput").css("border-left-color", "salmon");
+            $("#minnuminput").css("border-left-color", "red");
+            $("#maxnuminput").css("border-left-color", "red");
             return false;
         } else {
-            $("#minnuminput").css("border-left-color", "palegreen");
-            $("#maxnuminput").css("border-left-color", "palegreen");
+            $("#minnuminput").css("border-left-color", "lawngreen");
+            $("#maxnuminput").css("border-left-color", "lawngreen");
             return true;
         }
     }
+
+    if($("#minnuminput").val() == ''){
+        $("#minnuminput").css("border-left-color", "red");
+        return false;
+    }
+
+    if($("#maxnuminput").val() == ''){
+        $("#maxnuminput").css("border-left-color", "red");
+        return false;
+    }
+
 }
 
 

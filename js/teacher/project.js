@@ -23,6 +23,8 @@ $(document).ready(() => {
     });
 
 
+    $("#back").click(() => window.location.assign(back_page));
+
     //confirmed delete 
     //apagar projeto pelo id
 

@@ -32,7 +32,6 @@
             
             <h2>Projetos</h2>
             <input type="button" class="newProject_button" value="Criar Projeto">
-            <!-- mandar para base_url/projects/new/$subject->code -->
             <div class="projetos"></div>
 
             <div class="hours_header">

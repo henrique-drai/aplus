@@ -22,7 +22,7 @@ $(document).ready(() => {
 	    }
     });
 
-
+    // back button
     $("#back").click(() => window.location.assign(back_page));
 
     //confirmed delete 

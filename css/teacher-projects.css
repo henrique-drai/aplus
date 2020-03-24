@@ -102,46 +102,26 @@
 
 /* Especifico da página project */
 
-.flex-container{
-    flex-wrap: wrap;
-    display : flex;
-    padding:20px;
-    width:100%; 
-    justify-content: space-between;
-}
-
-.item{
-    background-color: blanchedalmond;
-    margin:0; 
-    display : inherit;
-    margin-bottom: 10px;
-    padding:50px; 
-    width:100px; 
-    height:100px;
-    align-items: center;
-}
-
-.item p{
-    width:100%; 
-    text-align:center; 
-    color:black;
-}
-
-#removeProject , #viewEtapas{
+#removeProject {
     margin:unset;
 }
 
+.remove{
+     background-color: #fc8982  !important;
+}
+
 #removeProject{
-    background-color: salmon;
     margin-bottom: 1%;
+    margin-top: 1%;
 }
 
 
   /* -------------------------------- 
-  
-  xpopup 
-  
+                                    /
+                POPUP               /
+                                    /
   -------------------------------- */
+
 .cd-popup {
     position: fixed;
     left: 0;
@@ -176,8 +156,7 @@
     -webkit-transition-property: -webkit-transform;
     transition-property: transform;
     -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    
+    transition-duration: 0.3s;  
 }
 
 .cd-popup-container p {

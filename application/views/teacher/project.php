@@ -16,7 +16,7 @@
 
         <div class="container-header">
             <input type="button" id="back" value="Voltar">
-            <h3>Grupos - Estático</h3>
+            <h3>Grupos</h3>
         </div>
 
         <div class="container">

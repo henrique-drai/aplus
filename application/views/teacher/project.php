@@ -16,6 +16,7 @@
 
         <div class="container-header">
             <input type="button" id="back" value="Voltar">
+            <input id="removeProject" class="remove" type="button" value="Eliminar projeto">
             <h3>Grupos</h3>
         </div>
 
@@ -39,7 +40,21 @@
         </div>
 
         <div class="buttons-container">
-            <input id="removeProject" class="remove" type="button" value="Eliminar projeto">
+            <input id="opennewEtapa" type="button" value="Criar etapa">
         </div>
+
+        <form id="etapa-form">
+            <p id="etapa1" class="etapa">
+                <label id="etapa-label" class="form-label-title">Etapa 1</label>
+                <label class="form-label">Nome</label>
+                <input class="form-input-text" type="text" name="etapaName" required>
+                <label class="form-label">Descrição</label>
+                <textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>
+                <label class="form-label">Data de entrega</label>
+                <input class="form-input-text" type="datetime-local" name="etapaDate" required>
+            </p>
+            <input id="newEtapa" type="submit" value="Criar">
+        </form>
+
     </div>
     </main>

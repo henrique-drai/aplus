@@ -20,8 +20,7 @@
         </div>
 
         <div class="container">
-            <table id="groups_list">
-            </table>
+            <table id="groups_list"></table>
         </div>
 
         <h3>Etapas</h3>

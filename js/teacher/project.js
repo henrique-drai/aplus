@@ -32,9 +32,9 @@ $(document).ready(() => {
 
     // refresh de segundo em segundo? defini 4 para nao ser demasiado for now
 
-    setInterval(function(){
-         getEtapas(proj);
-    }, 3000);
+    // setInterval(function(){
+    //      getEtapas(proj);
+    // }, 3000);
 
 
     //confirmed delete 

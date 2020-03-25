@@ -108,7 +108,6 @@ function getAllTeachers(){
         type: "GET",
         url: base_url + "admin/api/getAllTeachers",
         success: function(data) {
-            $("#show_teachers").css("display", "block");
             $(".teacher_row").remove();
             $("#mens_sem_teachers").remove();
             var linhas = '';

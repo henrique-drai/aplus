@@ -19,17 +19,17 @@
                     <label for="name">Nome:</label>
                     <input type="text" name="name">
                     <label for="surname">Apelido:</label>
-                    <input type="text" name="surname"><br>
+                    <input type="text" name="surname">
                     <label for="email">Email:</label>
                     <input type="text" name="email">
                     <label for="password">Password:</label>
-                    <input type="password" name="password"><br>
+                    <input type="password" name="password">
                     <label for="role">Role:</label>
                     <select name="role">
                         <option value="admin">Admin</option>
                         <option value="student">Student</option>
                         <option value="teacher">Teacher</option>
-                    </select><br>
+                    </select>
                     <input type="submit" id="register-form-submit">
                 </form>
             </div>
@@ -39,21 +39,18 @@
                 <div class="title">Migrações</div>
                 
                 <form id="exportCsv" action="<?php echo base_url(); ?>admin/api/saveCSV">
-                    <label>Exportar informação</label>
-                    
-                    <label for="data">Data:</label>
+                    <label for="data">Exportar dados:</label>
                         
                         <select name="role">
                             <option value="student">Students</option>
                             <option value="teacher">Teachers</option>
                             <option value="studentsTeachers">Students + Teachers</option>
                         </select>
-                        <br>
                     <input type="submit" id="exportInfo" value="Exportar">
                 
                 </form>
 
-                <br><br>
+                <br>
 
                 <form id="file-form" method="post" action="<?php echo base_url(); ?>admin/api/importCSV" enctype="multipart/form-data">
                     <label for="myfile">Importar dados:</label>

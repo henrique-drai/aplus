@@ -26,9 +26,14 @@ input, select, textarea {
 }
 input[type=button],input[type=submit]{
     margin: 20px auto;
-    background-color: #ffffff;
-    color: #1e2c26;
     border: 1px solid #3e5d4f;
+    text-align: center;
+    cursor:pointer;
+}
+
+input[type=button]:hover,
+input[type=submit]:hover {
+    background-color: #eee;
 }
 
 /* pseudo classes - não adicionei para o select porque não sei como estão a usar @david */
@@ -45,7 +50,7 @@ input:required, textarea:required {
     border-left-color:red;
 }
 
-label, select {
+label {
     display: block;
     margin-top: 15px;
     color: #3e5d4f;

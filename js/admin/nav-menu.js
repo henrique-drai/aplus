@@ -3,7 +3,7 @@ $(document).ready(() => {
 })
 
 function AdminNavMenu() {
-    let hook = $("#nav-menu-hook");
+    let container = $("<div id='nav-menu-container'></div>")
 
     const pages = {
         "home": {
@@ -14,7 +14,6 @@ function AdminNavMenu() {
             "href": base_url + "app/admin/anoLetivo",
             "name": "Ano Letivo"
         },
-
         "courses": {
             "href": base_url + "app/admin/courses",
             "name": "Cursos"
@@ -33,9 +32,10 @@ function AdminNavMenu() {
         },
     }
 
-    hook.append(getNavBarUserSection())
-    hook.append("<hr>")
-    hook.append(getNavBarLinks(pages))
+    container.append(getNavBarUserSection())
+    container.append("<hr>")
+    container.append(getNavBarLinks(pages))
+    $("#nav-menu-hook").append(container)
 
     loadNavBarUserInfo();
 }

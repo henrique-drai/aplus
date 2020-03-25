@@ -20,9 +20,11 @@ function getToggleButton() {
     button.click(()=>{
         if(navbar_is_active){
             $("#nav-menu-hook").removeClass('active')
+            $("#nav-menu-container").removeClass('active')
             $("#nav-menu-toggle").text(">")
         } else {
             $("#nav-menu-hook").addClass('active')
+            $("#nav-menu-container").addClass('active')
             $("#nav-menu-toggle").text("<")
         }
         navbar_is_active = !navbar_is_active

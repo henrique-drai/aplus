@@ -2,7 +2,17 @@ var navbar_is_active = false
 
 $(document).ready(() => {
     setUserInfo()
+
+    if ($("#nav-menu-hook").length) {
+        $("body").append(getMobileNavBar())
+    }
 })
+
+function getMobileNavBar() {
+    let bar = $("<div id='mobile-navbar'></div>")
+    bar.append(getToggleButton())
+    return bar
+}
 
 function getToggleButton() {
     let button = $("<div id='nav-menu-toggle'>></div>")
@@ -57,7 +67,6 @@ function getNavBarUserSection(){
     user_section.append(getNavBarProfilePic())
     user_section.append("<div class='nav-menu-user-name'>Loading...</div>")
     user_section.append(getLogoutBtn())
-    user_section.append(getToggleButton())
     return user_section
 }
 

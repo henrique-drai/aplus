@@ -28,8 +28,9 @@ class Teacher extends REST_Controller {
             case "saveHours":       $this->saveHours(); break;//       /teacher/api/saveHours 
             case "removeHours":     $this->removeHours(); break;//     /teacher/api/removeHours
             case "getProj":         $this->getProj(); break;//         /teacher/api/getProj
-            case "removeProject":   $this->removeProject(); break; //   /teacher/api/removeProject
-            case "getAllEtapas":    $this->getAllEtapas(); break; //   /teacher/api/getAllEtapas
+            case "removeProject":   $this->removeProject(); break;//   /teacher/api/removeProject
+            case "getAllEtapas":    $this->getAllEtapas(); break;//    /teacher/api/getAllEtapas
+            case "removeEtapa":     $this->removeEtapa(); break;//     /teacher/api/removeEtapa
 
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
@@ -183,6 +184,14 @@ class Teacher extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+
+    public function removeEtapa(){
+        $id = $this->post('etapa_id');
+        $this->load->model('ProjectModel');
+        $data = $this->ProjectModel->removeEtapaByID($id);
+
+        $this->response($data, parent::HTTP_OK);
+    }
 
     public function getCourseStudents() {
         $cadeira_id = $this->get('id');

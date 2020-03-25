@@ -8,11 +8,11 @@ function StudentNavMenu() {
     const pages = {
         "home": {
             "href": base_url + "app",
-            "name": "Dashboard"
+            "name": "Painel de Controlo"
         },
         "subjects": {
             "href": base_url + "app/student/subjects",
-            "name": "Subjects"
+            "name": "Cadeiraas"
         }
     }
 

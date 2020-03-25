@@ -12,25 +12,25 @@
         <h1>Painel de Controlo</h1>
         <section class="admin-stats">
             <div class="admin-stats-window" id="users-hook">
-                <div class="admin-stats-title">Users</div>
+                <div class="admin-stats-title">Utilizadores</div>
                 <div class="admin-stats-content">
-                    Registered Teachers: <span id="hook-num_teachers"></span>
+                    Professores: <span id="hook-num_teachers"></span>
                     <br>
-                    Registered Students: <span id="hook-num_students"></span>
+                    Alunos: <span id="hook-num_students"></span>
                 </div>
                 <div class="admin-stats-btn">
                     
-                    <a href="<?php echo $base_url; ?>app/admin/users"><div>Manage</div></a>
+                    <a href="<?php echo $base_url; ?>app/admin/users"><div>Gerir</div></a>
                 </div>
             </div>
 
             <div class="admin-stats-window" id="unis-hook">
-                <div class="admin-stats-title">Colleges</div>
+                <div class="admin-stats-title">Faculdades</div>
                 <div class="admin-stats-content">
-                    Registered Colleges: <span id="hook-num_colleges"></span>
+                    Faculdades: <span id="hook-num_colleges"></span>
                 </div>
                 <div class="admin-stats-btn">
-                <a href="<?php echo $base_url; ?>app/admin/college"><div>Manage</div></a>
+                <a href="<?php echo $base_url; ?>app/admin/college"><div>Gerir</div></a>
                 </div>
             </div>
         </section>

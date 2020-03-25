@@ -1,5 +1,15 @@
 $(document).ready(() => {
     getAllfaculdades();
+    $("#register-cadeiras-form input[name='codeCadeira']").on("input", function(){
+        var codCadeira = $("#register-cadeiras-form input[name='codeCadeira']").val();
+        if(codCadeira.length !== 5){
+            $("#register-cadeiras-form input[name='codeCadeira']").css("border-left-color", "red");
+        }
+        else{
+            $("#register-cadeiras-form input[name='codeCadeira']").css("border-left-color", "lawngreen");
+        }
+    })
+   
     $("#faculdades_register_UnidCurricular").change(function(){
         if($(this).val()!="Selecione uma Faculdade"){
             getAllCursosFaculdade($(this).val()); 
@@ -67,6 +77,7 @@ function getCursos_Standard(course_standard_id, curso_id){
         url: base_url + "admin/api/getCursoStandard",
         data: {course_standard_id},
         success: function(data) {
+            $(".course_row").remove();
             $("#cursos_register_UnidCurricular").css("display", "block");
             $(".msg").remove();
             var linhas = '';

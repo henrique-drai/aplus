@@ -1,0 +1,11 @@
+#register-faculdade-form {
+    max-width: 400px;
+}
+
+#register-faculdade-form input[type=text] {
+    width: 100%;
+}
+
+#register-faculdade-form input[type=submit] {
+    width: unset;
+}

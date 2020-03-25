@@ -102,17 +102,12 @@
 
 /* Especifico da página project */
 
-#removeProject {
+.buttons-container input[type=button], .container-header input[type=button] {
     margin:unset;
+    margin-top: 1%;
 }
-
 .remove{
      background-color: #fc8982  !important;
-}
-
-#removeProject{
-    margin-bottom: 1%;
-    margin-top: 1%;
 }
 
 .container ::-webkit-scrollbar { 
@@ -130,6 +125,10 @@
 .container table td, .container table th {
     white-space: nowrap;
     overflow: scroll;
+}
+
+#etapa-form{
+    display: none;
 }
 
   /* -------------------------------- 

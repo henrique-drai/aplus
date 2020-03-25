@@ -8,11 +8,11 @@ function TeacherNavMenu() {
     const pages = {
         "home": {
             "href": base_url + "app",
-            "name": "Dashboard"
+            "name": "Painel de Controlo"
         },
         "subjects": {
             "href": base_url + "subjects",
-            "name": "Subjects"
+            "name": "Cadeiras"
         }
     }
 

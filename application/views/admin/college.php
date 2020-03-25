@@ -3,6 +3,9 @@
 <script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/registerCollege.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/manageCollege.js"></script>
+
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/college.css">
+
 </head>
 
 <body>
@@ -11,12 +14,12 @@
         <h1>Registar Faculdade!</h1>
 
         <form id="register-faculdade-form" action="javascript:void(0)">
-            <label for="nomefaculdade">Nome da Faculdade:</label><br>
-            <input type="text" name="nomefaculdade"><br>
-            <label for="morada">Morada:</label><br>
-            <input type="text" name="morada"><br>
-            <label for="siglas">Siglas da Faculdade:</label><br>
-            <input type="text" name="siglas"><br>
+            <label for="nomefaculdade">Nome da Faculdade:</label>
+            <input type="text" name="nomefaculdade">
+            <label for="morada">Morada:</label>
+            <input type="text" name="morada">
+            <label for="siglas">Siglas da Faculdade:</label>
+            <input type="text" name="siglas">
 
             <input type="submit" id="register-college-submit">
         </form><br>
@@ -27,6 +30,7 @@
                 <th>Nome</th>
                 <th>Localizacao</th>
                 <th>Siglas</th>
+                <th></th>
             </tr>
             
         </table>

@@ -6,15 +6,11 @@ main > * {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;  
-    margin: 0px; 
+    margin: -10px; 
 }
 .admin-stats-window {
-    border: 1px solid #aaa;
-    background-color: white;
-    border-radius: 5px;
-    margin: 10px;
+    margin: 20px;
     min-width: 300px;
-    overflow: hidden;
 }
 .admin-stats-window > * {
     padding: 5px 8px;
@@ -23,21 +19,30 @@ main > * {
 .admin-stats-title {
     border-bottom: 1px solid #aaa;
     text-align: center;
+    padding: 5px 8px;
+    font-weight: 600;
+    color: #333;
 }
 
-
-.admin-stats-btn {
-    border-top: 1px solid #ccc;
+.admin-stats-btn a div{
+    margin: 20px auto;
+    background-color: #ffffff;
+    color: #1e2c26;
+    border: 1px solid #3e5d4f;
     text-align: center;
-    background-color: #eee;
+    cursor:pointer;
+    padding: 5px 10px;
+    font: 400 13.333px Arial;
+    border-radius: 3px;
+    width: fit-content;
 }
-.admin-stats-btn:hover {
-    background-color: #ccc;
+.admin-stats-btn a div:hover {
+    background-color: #eee;
 }
 .admin-stats-btn a{
     text-decoration: none;
     color: #000;
 }
-.admin-stats-btn a div{
+.admin-stats-btn{
     width: 100%;
 }

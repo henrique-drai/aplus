@@ -8,28 +8,28 @@ function AdminNavMenu() {
     const pages = {
         "home": {
             "href": base_url + "app/",
-            "name": "Dashboard"
+            "name": "Painel de Controlo"
         },
         "anoLetivo": {
             "href": base_url + "app/admin/anoLetivo",
-            "name": "School Year"
+            "name": "Ano Letivo"
         },
 
         "courses": {
             "href": base_url + "app/admin/courses",
-            "name": "Courses"
+            "name": "Cursos"
         },  
         "subjects": {
             "href": base_url + "app/admin/subjects",
-            "name": "Subjects"
+            "name": "Cadeiras"
         },
         "teachers": {
             "href": base_url + "app/admin/teachers",
-            "name": "Teachers"
+            "name": "Professores"
         },
         "students": {
             "href": base_url + "app/admin/students",
-            "name": "Students"
+            "name": "Alunos"
         },
     }
 

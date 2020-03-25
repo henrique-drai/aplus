@@ -20,6 +20,7 @@ class Teacher extends REST_Controller {
     //teacher/api/função
     public function api_post($f) {
         switch ($f) {
+<<<<<<< HEAD
             case "getCadeiras":         $this->getCadeiras(); break;//     /teacher/api/getCadeiras
             case "getDescription":      $this->getDescription(); break;//  /teacher/api/getDescription
             case "getHours":            $this->getHours(); break;//        /teacher/api/getHours
@@ -34,6 +35,22 @@ class Teacher extends REST_Controller {
 
 
             default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+=======
+            case "getCadeiras":     $this->getCadeiras(); break;//     /teacher/api/getCadeiras
+            case "getDescription":  $this->getDescription(); break;//  /teacher/cadeira/id/getDescription
+            case "getHours":        $this->getHours(); break;//        /teacher/cadeira/id/getHours
+            case "insertText":      $this->insertText(); break;//      /teacher/cadeira/id/insertText
+            case "createProject":   $this->createProject(); break;//   /teacher/api/createProject
+            case "saveHours":       $this->saveHours(); break;//       /teacher/api/saveHours 
+            case "removeHours":     $this->removeHours(); break;//     /teacher/api/removeHours
+            case "getProj":         $this->getProj(); break;//         /teacher/api/getProj
+            case "removeProject":   $this->removeProject(); break;//   /teacher/api/removeProject
+            case "getAllEtapas":    $this->getAllEtapas(); break;//    /teacher/api/getAllEtapas
+            case "removeEtapa":     $this->removeEtapa(); break;//     /teacher/api/removeEtapa
+
+
+            default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+>>>>>>> 0037debb14078b4664138f92fa986bcd8de05434
         }
     }
 
@@ -190,6 +207,14 @@ class Teacher extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+
+    public function removeEtapa(){
+        $id = $this->post('etapa_id');
+        $this->load->model('ProjectModel');
+        $data = $this->ProjectModel->removeEtapaByID($id);
+
+        $this->response($data, parent::HTTP_OK);
+    }
 
     public function getCourseStudents() {
         $cadeira_id = $this->get('id');

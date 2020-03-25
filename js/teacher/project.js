@@ -33,13 +33,23 @@ $(document).ready(() => {
     getEtapas(proj);
 
     // refresh de segundo em segundo? defini 4 para nao ser demasiado for now
+
     // setInterval(function(){
     //      getEtapas(proj);
-    // }, 4000);
+    // }, 3000);
 
 
     //confirmed delete 
     //apagar projeto pelo id
+
+    $("body").on('click', "#removeEtapaButton", function(){
+        var id = $(this).parent().parent().find("td:first").text();
+
+        removeEtapa(id);
+        getEtapas(proj);
+    })
+
+
 
     $("#confirmRemove").on('click', function(){
         const data = {
@@ -103,7 +113,7 @@ function makeEtapaTable(data){
         '</table>'
 
 
-    $("#etapas-container").append(table);    
+    $("#etapas-container").html(table);    
 }
 
 function getEtapas(proj_id){
@@ -161,7 +171,29 @@ function showGroups(proj_id) {
                     "<td>" + count + "</td><td>" + names.slice(0, -2) + "</td><td>" +
                     "<input id='chatButton' type='button' value='Chat'></td></tr>");
             }
+        },
+        error: function(data) {
+            console.log("Erro na API:")
+            console.log(data)
+        }
+    });
+}
             
+
+function removeEtapa(id){
+    const data_etapa = {
+        etapa_id : id
+    }
+
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "teacher/api/removeEtapa",
+        data: data_etapa,
+        success: function(data) {
+            console.log("mensagem de sucesso");
         },
         error: function(data) {
             console.log("Erro na API:")

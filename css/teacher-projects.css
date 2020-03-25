@@ -115,6 +115,22 @@
     margin-top: 1%;
 }
 
+.container ::-webkit-scrollbar { 
+    display: none; 
+}
+
+.container table {
+    table-layout: fixed;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+
+}
+
+.container table td, .container table th {
+    white-space: nowrap;
+    overflow: scroll;
+}
 
   /* -------------------------------- 
                                     /

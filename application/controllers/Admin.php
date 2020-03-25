@@ -27,7 +27,7 @@ class Admin extends REST_Controller {
             case "registerSubject":  $this->registerSubject(); break; //    admin/api/registerSubject
             case "importCSV":       $this ->importCSV(); break; //        admin/api/importCSV
             case "registerCurso":   $this -> registerCurso(); break; //     admin/api/registerCurso
-            
+       //     case "registerSchoolYear" $this -> registerSchoolYear(); break;    // admin/api/registerSchoolYear
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
@@ -35,6 +35,7 @@ class Admin extends REST_Controller {
     public function api_get($f){
         switch($f){
             case "getAllColleges":  $this->getAllColleges(); break; //      admin/api/getAllColleges
+     //       case "getAllSchoolYears":  $this->getAllSchoolYears(); break; //      admin/api/getAllSchoolYears
             case "getAllStudents":  $this->getAllStudents(); break; //      admin/api/getAllStudents
             case "getAllTeachers":  $this->getAllTeachers(); break; //      admin/api/getAllTeachers
             case "getAdminHome":    $this->getAdminHome(); break; //        admin/api/getAdminHome
@@ -67,6 +68,14 @@ class Admin extends REST_Controller {
     //////////////////////////////////////////////////////////////
     //                          ADMIN
     //////////////////////////////////////////////////////////////
+
+    // public registerSchoolYear(){
+
+    // }
+
+    // public getAllSchoolYears(){
+
+    // }
 
     public function registerUser(){
 

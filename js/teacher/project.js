@@ -2,6 +2,8 @@ var proj
 var back_page
 
 $(document).ready(() => {
+    showGroups(proj);
+
 	//open popup
 	$('#removeProject').on('click', function(event){
 		event.preventDefault();
@@ -138,6 +140,45 @@ function getEtapas(proj_id){
     });
 }
 
+function showGroups(proj_id) {
+    $.ajax({
+        type: "POST",
+        url: base_url + "teacher/api/getAllGroups",
+        data: {proj_id: proj_id},
+        success: function(data) {
+            console.log(data);
+
+            $("#groups_list tr").remove();
+            $("#groups_list").append("<tr><th>Nome</th><th>Número de elementos</th>" +
+                "<th>Elementos</th><th>Chat</th></tr>");
+
+            for(var i=0; i < data["grupos"].length; i++) {
+                var count = 0;
+                var names = '';
+                for(var j=0; j < data["students"][0].length; j++) {
+                    if(data["students"][0][j].grupo_id == data["grupos"][i].id) {
+                        count++;
+                    }
+                }
+
+                for(var j=0; j < data["nomes"].length; j++) {
+                    if(data["nomes"][j].grupo_id == data["grupos"][i].id) {
+                        names = names + data["nomes"][j].user_name.name + " " + data["nomes"][j].user_name.surname + " | ";
+                    }
+                }
+
+                $("#groups_list").append("<tr><td>" + data["grupos"][i].name +"</td>" +
+                    "<td>" + count + "</td><td>" + names.slice(0, -2) + "</td><td>" +
+                    "<input id='chatButton' type='button' value='Chat'></td></tr>");
+            }
+        },
+        error: function(data) {
+            console.log("Erro na API:")
+            console.log(data)
+        }
+    });
+}
+            
 
 function removeEtapa(id){
     const data_etapa = {

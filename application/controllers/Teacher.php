@@ -20,34 +20,34 @@ class Teacher extends REST_Controller {
     //teacher/api/função
     public function api_post($f) {
         switch ($f) {
-            case "getCadeiras":     $this->getCadeiras(); break;//     /teacher/api/getCadeiras
-            case "getDescription":  $this->getDescription(); break;//  /teacher/cadeira/id/getDescription
-            case "getHours":        $this->getHours(); break;//        /teacher/cadeira/id/getHours
-            case "insertText":      $this->insertText(); break;//      /teacher/cadeira/id/insertText
-            case "createProject":   $this->createProject(); break;//   /teacher/api/createProject
-            case "saveHours":       $this->saveHours(); break;//       /teacher/api/saveHours 
-            case "removeHours":     $this->removeHours(); break;//     /teacher/api/removeHours
-            case "getProj":         $this->getProj(); break;//         /teacher/api/getProj
-            case "removeProject":   $this->removeProject(); break;//   /teacher/api/removeProject
-            case "getAllEtapas":    $this->getAllEtapas(); break;//    /teacher/api/getAllEtapas
-            case "removeEtapa":     $this->removeEtapa(); break;//     /teacher/api/removeEtapa
+            case "getCadeiras":         $this->getCadeiras(); break;//     /teacher/api/getCadeiras
+            case "getDescription":      $this->getDescription(); break;//  /teacher/api/getDescription
+            case "getHours":            $this->getHours(); break;//        /teacher/api/getHours
+            case "insertText":          $this->insertText(); break;//      /teacher/api/insertText
+            case "createProject":       $this->createProject(); break;//   /teacher/api/createProject
+            case "saveHours":           $this->saveHours(); break;//       /teacher/api/saveHours 
+            case "removeHours":         $this->removeHours(); break;//     /teacher/api/removeHours
+            case "getProj":             $this->getProj(); break;//         /teacher/api/getProj
+            case "removeProject":       $this->removeProject(); break; //  /teacher/api/removeProject
+            case "getAllEtapas":        $this->getAllEtapas(); break; //   /teacher/api/getAllEtapas
+            case "getAllGroups":        $this->getAllGroups(); break; //   /teacher/api/getAllGroups
+            case "removeEtapa":         $this->removeEtapa(); break;//     /teacher/api/removeEtapa
 
-
-            default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+            default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
     public function api_get($f) {
         switch ($f) {
-            case "getCourseStudents":    $this->getCourseStudents(); break; //   /teacher/api/getCourseStudents
+            case "getCourseStudents":   $this->getCourseStudents(); break; //   /teacher/api/getCourseStudents
 
 
-            default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+            default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
     //////////////////////////////////////////////////////////////
-    //                         TEACHER
+    //                         SUBJECT
     //////////////////////////////////////////////////////////////
     public function getCadeiras() {
         $user_id = $this->post('id');
@@ -125,6 +125,12 @@ class Teacher extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+
+
+    //////////////////////////////////////////////////////////////
+    //                         PROJECTS
+    //////////////////////////////////////////////////////////////
+
     public function getProj() {
         $cadeira_id = $this->post('cadeira_id');
         $this->load->model('SubjectModel');
@@ -201,6 +207,28 @@ class Teacher extends REST_Controller {
         $data["info"] = array();
         for($i=0; $i < count($data["users_id"]); $i++) {
             array_push($data["info"], $this->StudentListModel->getStudentsInfo($data["users_id"][$i]["user_id"]));
+        }
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getAllGroups() {
+        $proj_id = $this->post("proj_id");
+        $this->load->model("GroupModel");
+        $data["grupos"] = $this->GroupModel->getAllGroups($proj_id);
+
+        $data["students"] = array();
+        for($i=0; $i  < count($data["grupos"]); $i++) {
+            array_push($data["students"], $this->GroupModel->getStudents($data["grupos"][$i]["id"]));
+        }
+
+        $this->load->model("UserModel");
+        $data["nomes"] = array();
+        for($i=0; $i  < count($data["students"][0]); $i++) {
+            array_push($data["nomes"], array(
+                'grupo_id'      =>      $data["students"][0][$i]["grupo_id"], 
+                'user_name'     =>      $this->UserModel->getUserById($data["students"][0][$i]["user_id"]))
+            );
         }
 
         $this->response($data, parent::HTTP_OK);

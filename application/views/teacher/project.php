@@ -16,24 +16,11 @@
 
         <div class="container-header">
             <input type="button" id="back" value="Voltar">
-            <h3>Grupos - Estático</h3>
+            <h3>Grupos</h3>
         </div>
 
         <div class="container">
-            <table id="groups_list">
-                <tr>
-                    <th>Nome</th>
-                    <th>Número de elementos</th>
-                    <th>Elementos</th>
-                    <th>Chat</th> 
-                </tr>
-                <tr>
-                    <td>Grupo 1</td>
-                    <td>4</td>
-                    <td>David Silva | Inês Sousa | Raul Koch | João Ye </td>
-                    <td><input id="chatButton" type="button" value="Chat"></td>
-                </tr>
-            </table>
+            <table id="groups_list"></table>
         </div>
 
         <h3>Etapas</h3>

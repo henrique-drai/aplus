@@ -1,5 +1,6 @@
 var proj
 var back_page
+var etapa = [{id:1, nome:'', desc:'', data:''}];
 
 $(document).ready(() => {
     showGroups(proj);
@@ -38,6 +39,13 @@ $(document).ready(() => {
          getEtapas(proj);
     }, 3000);
 
+
+
+    // show etapa form - criar nova etapa
+    $("#opennewEtapa").on("click", function(){
+        $("#etapa-form").show();
+        // fazer verificação dos inputs como no projectNEW.js
+    });
 
     //confirmed delete 
     //apagar projeto pelo id

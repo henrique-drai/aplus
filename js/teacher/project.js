@@ -79,6 +79,7 @@ function makeEtapaTable(data){
     for (i=0; i<data.length; i++){
         json = data[i];
         etapas += '<tr>' +
+            '<td>'+ json["id"] +'</td>' +
             '<td>'+ json["nome"] +'</td>' +
             '<td>'+ json["deadline"] +'</td>' +
             '<td>'+ json["description"] +'</td>' +
@@ -89,7 +90,8 @@ function makeEtapaTable(data){
     }
    
     var table = '<table id="etapas_list">' +
-        '<tr><th>Nome</th>' + 
+        '<tr><th>ID</th>' +
+        '<th>Nome</th>' + 
         '<th>Data Entrega</th>' +
         '<th>Descrição</th>' +
         '<th>Editar</th>' + 

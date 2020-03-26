@@ -158,7 +158,7 @@ function verifyDates(data){
         return false;
     }
 
-    if (dmaior < today){
+    if (dmaior <= today){
         return false;
     }
 

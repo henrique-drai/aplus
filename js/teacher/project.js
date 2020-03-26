@@ -1,6 +1,6 @@
 var proj
 var back_page
-var etapa = [{id:1, nome:'', desc:'', data:''}];
+var etapa = {nome:'', desc:'', data:''};
 
 $(document).ready(() => {
     showGroups(proj);
@@ -37,7 +37,7 @@ $(document).ready(() => {
 
     setInterval(function(){
          getEtapas(proj);
-    }, 3000);
+    }, 1000);
 
 
 
@@ -56,8 +56,6 @@ $(document).ready(() => {
         removeEtapa(id);
         getEtapas(proj);
     })
-
-
 
     $("#confirmRemove").on('click', function(){
         const data = {
@@ -84,7 +82,91 @@ $(document).ready(() => {
 
 
 
+    //on change mudar a etapa
+    $("#etapa").change(function(){
+        var name = $(this).find('input[name="etapaName"]').val();
+        var desc = $(this).find('textarea[name="etapaDescription"]').val();
+        var data = $(this).find('input[name="etapaDate"]').val();
+        
+        etapa['nome'] = name;
+        etapa['desc'] = desc;
+        etapa['data'] = data;
+
+        if (!verifyDates(data)){
+            $("#etapa input[name='etapaDate']").css("border-left-color", "red");
+        } else {
+            $("#etapa input[name='etapaDate']").css("border-left-color", "lawngreen");
+        }
+    })
+
+
+    $("#newEtapa").click(() => submit_etapa());
+
+
 })
+
+
+//igual ao verifyDates do projectsNEW.js - faço um ficheiro geral, tento importar? for now vou repetir
+function verifyDates(data){
+
+    console.log(data);
+    var dmaior = new Date(data);
+    var today = new Date();
+
+    console.log(dmaior);
+
+    console.log(today);
+
+    var dParse = Date.parse(dmaior);
+    $("#errormsg").text("A data da etapa tem de ser maior que a data atual");
+
+    if (isNaN(dParse)){
+        return false;
+    }
+
+    if (dmaior <= today){
+        return false;
+    }
+
+    return true;
+}
+
+
+
+function submit_etapa(){
+
+    if (verifyDates(etapa["data"])){
+
+        const data = {
+            projid : parseInt(proj),
+            new_etapa : etapa,
+        }
+
+        $.ajax({
+            type: "POST",
+            headers: {
+                "Authorization": localStorage.token
+            },
+            url: base_url + "teacher/api/createEtapa",
+            data: data,
+            success: function(data) {
+                console.log(proj);
+                console.log(data);
+            },
+            error: function(data) {
+                console.log("Erro na API:");
+                console.log(data);
+            }
+        });
+    } else {
+        $("#errormsg").show().delay(5000).fadeOut();
+        return false;
+    }
+
+
+}
+
+
 
 function setProj(id){
     proj = id;
@@ -95,10 +177,10 @@ function setBackPage(href){
 }
 
 function makeEtapaTable(data){
-    etapas = '';
+    etapasSTR = '';
     for (i=0; i<data.length; i++){
         json = data[i];
-        etapas += '<tr>' +
+        etapasSTR += '<tr>' +
             '<td>'+ json["id"] +'</td>' +
             '<td>'+ json["nome"] +'</td>' +
             '<td>'+ json["deadline"] +'</td>' +
@@ -117,7 +199,7 @@ function makeEtapaTable(data){
         '<th>Editar</th>' + 
         '<th>Feedback</th>' + 
         '<th>Eliminar</th></tr>' +
-        etapas + 
+        etapasSTR + 
         '</table>'
 
 
@@ -138,7 +220,6 @@ function getEtapas(proj_id){
         url: base_url + "teacher/api/getAllEtapas",
         data: data_proj,
         success: function(data) {
-            console.log(data);
             makeEtapaTable(data);
         },
         error: function(data) {

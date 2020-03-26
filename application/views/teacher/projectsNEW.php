@@ -62,7 +62,7 @@
             </p>
 
             <div class="btn-wrap">
-                <input type="submit" id="createProjectButton" value="Criar"></input>
+                <input type="submit" id="createProjectButton" value="Criar">
             </div>
 
         </form>

@@ -1,6 +1,24 @@
 $(document).ready(() => {
     $("#register-anoletivo-submit").click(() => submitRegister())  
+    setInterval(getAllSchoolYears(), 3000);
+    // var year = {nome:'', desc:'', data:''};
 })
+
+function getAllSchoolYears(){
+    $.ajax({
+        type: "GET",
+        url: base_url + "admin/api/getAllSchoolYears",
+        success: function(data) {
+            console.log(data)
+            makeYearTable(data["schoolYears"])
+        },
+        error: function(data) {
+            console.log("Erro na API:")
+            console.log(data)
+        }
+    });
+
+}
 
 function makeYearTable(data){
     years = '';
@@ -9,7 +27,7 @@ function makeYearTable(data){
         years += '<tr>' +
             '<td>'+ json["inicio"] +'</td>' +
             '<td>'+ json["fim"] +'</td>' +
-            '<td><input id="removeEtapaButton" class="remove" type="button" value="Eliminar"></td>' +
+            '<td><input id="removeYearButton" class="remove" type="button" value="Eliminar"></td>' +
             '</tr>'
     }
    
@@ -17,7 +35,7 @@ function makeYearTable(data){
         '<tr><th>Início</th>' +
         '<th>Fim</th>' + 
         '<th>Eliminar</th></tr>' +
-        etapas + 
+        years + 
         '</table>'
 
 

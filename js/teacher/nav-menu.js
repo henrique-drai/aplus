@@ -3,7 +3,7 @@ $(document).ready(() => {
 })
 
 function TeacherNavMenu() {
-    let hook = $("#nav-menu-hook");
+    let container = $("<div id='nav-menu-container'></div>")
 
     const pages = {
         "home": {
@@ -16,9 +16,10 @@ function TeacherNavMenu() {
         }
     }
 
-    hook.append(getNavBarUserSection())
-    hook.append("<hr>")
-    hook.append(getNavBarLinks(pages))
+    container.append(getNavBarUserSection())
+    container.append("<hr>")
+    container.append(getNavBarLinks(pages))
+    $("#nav-menu-hook").append(container)
 
     loadNavBarUserInfo();
 }

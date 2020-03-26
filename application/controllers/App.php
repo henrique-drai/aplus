@@ -153,6 +153,7 @@ class App extends CI_Controller {
         {
             $error = array('error' => $this->upload->display_errors());
             print_r($error);
+            echo "<br>Provavelmente apagaram a pasta temp :)";
         }
         else
         {

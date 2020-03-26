@@ -76,7 +76,6 @@ function getAllStudents(){
         type: "GET",
         url: base_url + "admin/api/getAllStudents",
         success: function(data) {
-            $("#show_students").css("display", "block");
             $(".student_row").remove();
             $("#mens_sem_alunos").remove();
             var linhas = '';

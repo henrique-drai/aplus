@@ -15,7 +15,7 @@
         <form id="register-anoletivo-form" action="javascript:void(0)">
         <p>
             <label for="anoLetivo">Insira um ano válido:</label>
-            <input class="form-input-number" type="text" name="anoLetivo" required>
+            <input class="form-input-number" type="number" name="anoLetivo" required>
         </p>
 
         <input type="submit" id="register-anoletivo-submit">

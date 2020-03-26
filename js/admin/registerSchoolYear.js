@@ -27,10 +27,10 @@ function makeYearTable(data){
     function submitRegister(){
         const data = {
             inicio:   $("#register-anoletivo-form input[name='anoLetivo']").val(),
-            fim:    $("#register-anoletivo-form input[name='anoLetivo']").val()+1,
+            fim:    parseInt($("#register-anoletivo-form input[name='anoLetivo']").val())+1,
         }
         var currentTime = new Date()
-        
+        console.log(data);
         if (data.inicio != ""){
             if(data.inicio >= currentTime.getFullYear()){
                 $.ajax({

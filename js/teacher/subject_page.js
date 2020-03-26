@@ -3,7 +3,7 @@ $(document).ready(() => {
     $(".hours_inputs").hide();
 
     $("#edit_button").click(function() {
-        var content = $(".summary").text();
+        var content = $(".summary p").text();
         $("#save_button").show();
         $(".summary").empty();
         $(".summary").append("<textarea class='textarea'>" + content + "</textarea>");
@@ -13,13 +13,14 @@ $(document).ready(() => {
         var text = $("textarea").val();
         insertText(text);
         $(".summary").empty();
-        $(".summary").append(text);
+        $(".summary").append("<p>" + text + "</p>");
         $("#save_button").hide();
     });
 
     $("#edit_button_hours").click(function() {
         $(".hours").empty();
         $(".hours_inputs").show();
+        $(".hours_buttons").css('display', 'inline-flex');
 
         setHours(localStorage.getItem("cadeira_id"));
     })
@@ -102,7 +103,7 @@ $(document).ready(() => {
             saveHours(data);
         }
         
-        
+        $(".hours_buttons").hide();
         $(".hours_inputs").hide();
         $(".hours_inputs .element").remove();
         $("#save_button_hours").hide();
@@ -145,9 +146,9 @@ function getInfo($id) {
         success: function(data) {
             $("#subject_title").append("<h1>" + data.info[0].name + "</h1>");
             if(data.info[0].description == "") {
-                $(".summary").append("Não existe sumário para a cadeira.");
+                $(".summary").append("<p>Não existe sumário para a cadeira.</p>");
             } else {
-                $(".summary").append(data.info[0].description);
+                $(".summary").append("<p>" + data.info[0].description + "</p>");
             }
             localStorage.setItem('cadeira_id', data.info[0].id);
             getHours(data.info[0].id);
@@ -190,9 +191,9 @@ function insertText($text) {
         url: base_url + "teacher/api/insertText",
         data: {text: $text, cadeira_id: localStorage.cadeira_id},
         success: function(data) {
-            $("#message1").fadeIn();
+            $("#message1").fadeTo(2000, 1);
             setTimeout(function() {
-                $("#message1").fadeOut();
+                $("#message1").fadeTo(2000, 0);
             }, 2000);
         },
         error: function(data) {
@@ -285,9 +286,9 @@ function saveHours(data) {
         url: base_url + "teacher/api/saveHours",
         data: data,
         success: function(data) {
-            $("#message_hour").fadeIn();
+            $("#message_hour").fadeTo(2000, 1);
             setTimeout(function() {
-                $("#message_hour").fadeOut();
+                $("#message_hour").fadeTo(2000, 0);
             }, 2000);
 
             getHours(localStorage.cadeira_id);
@@ -318,7 +319,6 @@ function getProj(data) {
         url: base_url + "teacher/api/getProj",
         data: {cadeira_id: data},
         success: function(data) {
-            console.log(data);
             $(".projetos").empty();
             if(data.length == 0) {
                 $(".projetos").append("<p>Ainda não existem projetos para a cadeira</p>");

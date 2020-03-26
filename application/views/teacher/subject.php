@@ -8,9 +8,10 @@
 <body>
     <div id="nav-menu-hook"></div>
     <main>
+
+        <div class="container">
+            <div id="subject_title"></div>
         
-        <div id="subject_title"></div>
-        <div class="form-container">
             <div class="header">
                 <h2>Sumário da Cadeira</h2>
                 <input type="button" id="edit_button" value="Editar">
@@ -41,13 +42,14 @@
             </div>
             <div class="hours"></div>
 
-            <div class="hours_inputs">
+            <div class="hours_buttons">
                 <label class="add_hour"><img src="<?php echo $base_url; ?>/images/add.png"></label>
                 <label class="remove_hour"><img src="<?php echo $base_url; ?>/images/close.png"></label>
                 <br>
             </div>
 
-            
+            <div class="hours_inputs"></div>
+
         </div>
 
     </main>

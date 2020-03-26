@@ -8,6 +8,7 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
 
     public function insertEtapa($data){
         $this->db->insert("etapa", $data);
+        return $this->db->insert_id();
     }
 
     public function getProjectByID($proj_id){

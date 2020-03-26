@@ -81,7 +81,7 @@ class Admin extends REST_Controller {
 
     public function getAllSchoolYears(){
         $this->load->model('YearModel');
-        $data["schoolYears"] = $this->YearModel->getSchoolYears();
+        $data["schoolYears"] = $this->YearModel->getAllSchoolYears();
         
         $this->response($data, parent::HTTP_OK);
     }

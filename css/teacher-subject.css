@@ -21,10 +21,9 @@
     border: 1px solid #3e5d4f;
 }
 
-.form-container{
-    padding: 2%;
+/* .container{
     width: 100%;
-}
+} */
 
 .message {
     background-color: rgb(106, 192, 66, 0.7);
@@ -32,9 +31,8 @@
     border-radius: 5px;
     float: left;
     width: 90%;
-    margin-left: 141%;
-    margin-top: -23%;
-    padding: 2%;
+    margin-top: -5%;
+    padding: 1%;
     display: none;
 }
 
@@ -56,7 +54,7 @@ select, textarea {
 ////////////////////////////////////////////////////////////// */
 
 .summary {
-    white-space: pre;
+    white-space: pre-line;
 }
 
 #save_button {
@@ -93,7 +91,8 @@ select, textarea {
 
 .projetos {
     display: flex;
-    width: 50%;
+    flex-wrap: wrap;
+    width: 70%;
     margin-top: 2%;
 }
 
@@ -111,6 +110,10 @@ select, textarea {
 
 .hours_inputs {
     display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-left: 5%;
+    margin-top: -2%;
 }
 
 .hour_inputs label {
@@ -131,10 +134,9 @@ select, textarea {
 }
 
 .remove_hour, .add_hour{
-    cursor:pointer;
+    cursor: pointer;
     height: 0%;
     margin-top: -1%;
-    z-index: 2;
 }
 
 .remove_hour:hover, .add_hour:hover{
@@ -152,12 +154,6 @@ select, textarea {
     margin-left: 110% !important;
 }
 
-#message_hour {
-    margin-top: -24%;
-    margin-left: 150%;
-    padding: 2%;
-}
-
 #save_button_hours {
     display: none;
     margin-top: -22%;
@@ -170,11 +166,15 @@ select, textarea {
     width: 20%;
     padding: 1%;
     margin-left: -6%;
-    margin-right: 8%;
+    margin-right: 6%;
 }
 
-.minnuminput, .maxnuminput {
-    width: 80%;
+.minnuminput, .maxnuminput, select {
+    width: 100%;
+}
+
+.hours_buttons {
+    display: none;
 }
 
 /* //////////////////////////////////////////////////////////////
@@ -216,4 +216,65 @@ select, textarea {
 .subject div {
     margin-left: 5%;
     display: flex;
+}
+
+/* //////////////////////////////////////////////////////////////
+//                            MEDIA
+////////////////////////////////////////////////////////////// */
+@media only screen and (max-width: 1024px) {
+    .element {
+        width: 31%;
+    }
+}
+@media only screen and (max-width: 770px) {
+    .minnuminput, .maxnuminput {
+        width: 137%;
+    }
+
+    .element {
+        margin-right: 20%;
+        width: 34%;
+    }
+
+    select {
+        width: 136%;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    textarea {
+        height: 130px !important;
+    }
+
+    #save_button_hours {
+        position: absolute;
+        margin-top: 0% !important;
+        margin-left: 23% !important;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .message {
+        margin-left: 28% !important;
+        margin-top: -17% !important;
+    }
+
+    #edit_button, #edit_button_hours {
+        margin-top: -4% !important;
+        margin-bottom: 0% !important;
+        margin-left: 0% !important;
+    }
+
+    #save_button_hours {
+        margin-top: -3% !important;
+        margin-left: 21% !important;
+    }
+
+    textarea {
+        height: 130px !important;
+    }
+
+    .hours_buttons {
+        margin-top: 5% !important;
+    }
 }

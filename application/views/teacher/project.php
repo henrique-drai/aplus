@@ -44,8 +44,9 @@
         </div>
 
         <form id="etapa-form">
-            <p id="etapa1" class="etapa">
-                <label id="etapa-label" class="form-label-title">Etapa 1</label>
+
+            <p id="etapa" class="etapa">
+                <label id="etapa-label" class="form-label-title">Etapa:</label>
                 <label class="form-label">Nome</label>
                 <input class="form-input-text" type="text" name="etapaName" required>
                 <label class="form-label">Descrição</label>
@@ -53,7 +54,11 @@
                 <label class="form-label">Data de entrega</label>
                 <input class="form-input-text" type="datetime-local" name="etapaDate" required>
             </p>
-            <input id="newEtapa" type="submit" value="Criar">
+            <p>
+                <div id="errormsg" class="submit-msg">Mensagem de erro template</div>
+            </p>
+
+            <input type="submit" id="newEtapa" value="Criar">
         </form>
 
     </div>

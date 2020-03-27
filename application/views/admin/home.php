@@ -44,5 +44,16 @@
                 <a href="<?php echo $base_url; ?>app/admin/courses"><div>Gerir</div></a>
                 </div>
             </div>
+
+
+            <div class="admin-stats-window" id="years-hook">
+                <div class="admin-stats-title">Ano Letivo</div>
+                <div class="admin-stats-content">
+                    Ano Letivo: <span id="hook-num_academicYear"></span>
+                </div>
+                <div class="admin-stats-btn">
+                <a href="<?php echo $base_url; ?>app/admin/anoLetivo"><div>Gerir</div></a>
+                </div>
+            </div>
         </section>
     </main>

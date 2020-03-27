@@ -16,6 +16,7 @@ function loadAdminHome() {
             $("#hook-num_students").text(data.num_students)
             $("#hook-num_colleges").text(data.num_colleges)
             $("#hook-num_courses").text(data.num_courses)
+            $("#hook-num_academicYear").text(data.num_academicYear)
         },
         error: function(data) {
             console.log("Erro na API:")

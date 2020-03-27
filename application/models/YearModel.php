@@ -9,5 +9,8 @@ class YearModel extends CI_Model { //ano_letivo
     }
     public function deleteSchoolYear($inicio){
         $this->db->delete('ano_letivo', array('inicio'=>$inicio));
+
+    public function countAcademicYear(){
+        return $this->db->count_all_results('ano_letivo');
     }
 }

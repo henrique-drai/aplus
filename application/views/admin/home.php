@@ -33,5 +33,27 @@
                 <a href="<?php echo $base_url; ?>app/admin/college"><div>Gerir</div></a>
                 </div>
             </div>
+
+
+            <div class="admin-stats-window" id="courses-hook">
+                <div class="admin-stats-title">Cursos</div>
+                <div class="admin-stats-content">
+                    Cursos: <span id="hook-num_courses"></span>
+                </div>
+                <div class="admin-stats-btn">
+                <a href="<?php echo $base_url; ?>app/admin/registerCourses"><div>Gerir</div></a>
+                </div>
+            </div>
+
+
+            <div class="admin-stats-window" id="years-hook">
+                <div class="admin-stats-title">Ano Letivo</div>
+                <div class="admin-stats-content">
+                    Ano Letivo: <span id="hook-num_academicYear"></span>
+                </div>
+                <div class="admin-stats-btn">
+                <a href="<?php echo $base_url; ?>app/admin/anoLetivo"><div>Gerir</div></a>
+                </div>
+            </div>
         </section>
     </main>

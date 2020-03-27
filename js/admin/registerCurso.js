@@ -80,14 +80,15 @@ function submitRegister(){
             data: {faculdade},
             success: function(data) {
                 // $(".msg").remove();
+                $("#semCurso").remove();
                 if(data.courses.length>0){
                     for(i=0; i<data.courses.length; i++){
-                        getCursos_Standard(data.courses[i].curso_standard_id, data.courses[i].id);
+                        getCursos_Standard(data.courses[i].curso_standard_id, data.courses[i].id, data.courses[i].description);
  
                     }
                 }
                 else{
-                    $("#show_courses").append("<tr><td>Não existem cursos disponíveis</td></tr>");
+                    $("#show_courses").append("<tr id='semCurso'><td>Não existem cursos disponíveis</td></tr>");
                 }
             },
             error: function(data) {
@@ -97,7 +98,7 @@ function submitRegister(){
         });
     }
 
-    function getCursos_Standard(course_standard_id, curso_id){
+    function getCursos_Standard(course_standard_id, curso_id, description){
         $.ajax({
             type: "GET",
             url: base_url + "admin/api/getCursoStandard",
@@ -108,7 +109,9 @@ function submitRegister(){
                 var linhas = '';
                 linhas += '<tr class="course_row">' +
                                 "<td>" + data.course.id + "</td>"
-                                +"<td>" + data.course.name+ "</td>"
+                                +"<td>" + data.course.name + "</td>"
+                                +"<td>" + description + "</td>"
+                                
                                 + "</tr>"; 
             
                  $("#show_courses").append(linhas);
@@ -118,4 +121,5 @@ function submitRegister(){
             }
         });
     }
+
     

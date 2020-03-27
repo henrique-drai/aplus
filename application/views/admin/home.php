@@ -41,7 +41,7 @@
                     Cursos: <span id="hook-num_courses"></span>
                 </div>
                 <div class="admin-stats-btn">
-                <a href="<?php echo $base_url; ?>app/admin/courses"><div>Gerir</div></a>
+                <a href="<?php echo $base_url; ?>app/admin/registerCourses"><div>Gerir</div></a>
                 </div>
             </div>
 

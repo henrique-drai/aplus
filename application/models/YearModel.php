@@ -7,4 +7,7 @@ class YearModel extends CI_Model { //ano_letivo
     public function registerSchoolYear($data){
         $this->db->insert("ano_letivo", $data);
     }
+    public function deleteSchoolYear($inicio){
+        $this->db->delete('ano_letivo', array('inicio'=>$inicio));
+    }
 }

@@ -21,9 +21,10 @@
         <input type="submit" id="register-anoletivo-submit">
         
     </form>
-    <div id="msgStatus">
-        </div>
+    
     <div id="years-container" class="container">
+        </div>
+        <div id="msgStatus">
         </div>
 <!-- 
         <div class="cd-popup" role="alert">

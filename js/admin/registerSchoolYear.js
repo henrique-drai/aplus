@@ -1,7 +1,8 @@
 $(document).ready(() => {
     $("#register-anoletivo-submit").click(() => submitRegister())  
-    setInterval(getAllSchoolYears(), 3000);
-    // var year = {nome:'', desc:'', data:''};
+    setInterval(getAllSchoolYears, 2000);
+    $("body").on("click", "#removeYearButton",() => deleteSchoolYear());
+
 })
 
 function getAllSchoolYears(){
@@ -17,7 +18,23 @@ function getAllSchoolYears(){
             console.log(data)
         }
     });
-
+}
+function deleteSchoolYear(){
+    var linha = $(event.target).closest("tr");
+    console.log(linha.find("td:eq(0)").text());
+    $.ajax({
+        type: "DELETE",
+        url: base_url + "admin/api/deleteSchoolYear",
+        data: {inicio: linha.find("td:eq(0)").text()},
+        success: function() {
+            $("#msgStatus").text("Ano Letivo eliminado com Sucesso");
+            $("#msgStatus").show().delay(2000).fadeOut();
+        },
+        error: function() {
+            $("#msgStatus").text("Não foi possível eliminar o ano letivo");
+            $("#msgStatus").show().delay(2000).fadeOut();
+        }
+    });
 }
 
 function makeYearTable(data){

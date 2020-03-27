@@ -33,5 +33,16 @@
                 <a href="<?php echo $base_url; ?>app/admin/college"><div>Gerir</div></a>
                 </div>
             </div>
+
+
+            <div class="admin-stats-window" id="courses-hook">
+                <div class="admin-stats-title">Cursos</div>
+                <div class="admin-stats-content">
+                    Cursos: <span id="hook-num_courses"></span>
+                </div>
+                <div class="admin-stats-btn">
+                <a href="<?php echo $base_url; ?>app/admin/courses"><div>Gerir</div></a>
+                </div>
+            </div>
         </section>
     </main>

@@ -27,6 +27,10 @@ class CourseModel extends CI_Model { //curso & curso_standard
         return $query->row("curso_standard_id");
     }
 
+    public function countCourses(){
+        return $this->db->count_all_results('curso_standard');
+    }
+
 }
 
 

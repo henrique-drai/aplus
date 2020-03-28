@@ -32,6 +32,8 @@
                     </select>
                     <input type="submit" id="register-form-submit">
                 </form>
+                <div id="msgStatus">
+                </div>
             </div>
 
 

@@ -24,6 +24,9 @@
             <input type="submit" id="register-college-submit">
         </form><br>
 
+        <div id="msgStatus">
+        </div>
+
         <h2>Consultar Faculdades</h2>
         <table id="show_colleges">
             <tr>
@@ -34,5 +37,8 @@
             </tr>
             
         </table>
+
+        <div id="msgStatusDelete">
+        </div>
 
     </main>

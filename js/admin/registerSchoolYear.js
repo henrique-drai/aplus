@@ -23,7 +23,6 @@ $(document).ready(() => {
 function popupVisible(){
     event.preventDefault();
     var linha = $(event.target).closest("tr");
-    console.log(linha)
     $('.cd-popup').addClass('is-visible');
     $("body").on('click', "#confirmRemove", function(){
         $('.cd-popup').removeClass('is-visible');

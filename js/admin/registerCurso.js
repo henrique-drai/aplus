@@ -1,6 +1,8 @@
 $(document).ready(() => {
 
     getAllfaculdades();
+    getAllSchoolYears();
+
     $("#register-course-submit").click(() => submitRegister());
 
     $("#consultar_cursos_faculdade").change(function(){
@@ -15,6 +17,25 @@ $(document).ready(() => {
 
 })
 
+
+function getAllSchoolYears(){
+    $.ajax({
+        type: "GET",
+        url: base_url + "admin/api/getAllSchoolYears",
+        success: function(data) {
+            linhas="";
+            if(data.schoolYears.length>0){
+                for(i=0; i<data.schoolYears.length>0;i++){
+                    linhas += '<option class="ano_letivo" value=' + data.schoolYears[i].id +">" + data.schoolYears[i].inicio + '/' + data.schoolYears[i].fim + '</option>'; 
+                }
+                $("#consultar_anos_letivos").append(linhas);
+            }
+        },
+        error: function(data) {
+            console.log("Erro na API:")
+        }
+    });
+}
 
 function getAllfaculdades(){
     $.ajax({
@@ -42,7 +63,8 @@ function submitRegister(){
         codCourse:   $("#register-cursos-form input[name='codeCurso']").val(),
         nameCourse:    $("#register-cursos-form input[name='nomeCurso']").val(),
         descCourse:    $("#register-cursos-form input[name='descCurso']").val(),
-        collegeName:   $("#register-cursos-form select[name='faculdade']").val()
+        collegeName:   $("#register-cursos-form select[name='faculdade']").val(),
+        academicYear:   $("#register-cursos-form select[name='academicYear']").val()
     }
    
 

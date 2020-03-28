@@ -20,6 +20,12 @@
             <label for="descCurso">Descrição de Curso:</label><br>
             <input type="text" name="descCurso" required><br>
 
+            <label for="academicYear">Ano Letivo:</label>
+            <select id="consultar_anos_letivos" name="academicYear">
+            </select>
+            
+            <br>
+            <label for="college">Faculdade:</label>
             <select id="faculdades_register_UnidCurricular" name="faculdade">
             </select>
 

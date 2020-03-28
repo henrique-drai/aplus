@@ -1,4 +1,5 @@
 <title>A+ for Admins</title>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <script>setPageName("anoLetivo")</script>
 <script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/registerSchoolYear.js"></script>
@@ -26,17 +27,17 @@
         </div>
         <div id="msgStatus">
         </div>
-<!-- 
+
         <div class="cd-popup" role="alert">
 	        <div class="cd-popup-container">
-		        <p>Tem a certeza que deseja eliminar o projeto?</p>
+		        <p>Tem a certeza que deseja eliminar o ano letivo?</p>
                 <ul class="cd-buttons">
                     <li><a href="#" id="confirmRemove">Sim</a></li>
                     <li><a href="#" id="closeButton">Não</a></li>
                 </ul>
 		        <a class="cd-popup-close"></a>
 	        </div>
-        </div> -->
+        </div>
 
         <!-- <table id="show_years">
             <tr>

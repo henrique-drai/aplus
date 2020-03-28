@@ -1,27 +1,52 @@
 $(document).ready(() => {
     $("#register-anoletivo-submit").click(() => submitRegister())  
     setInterval(getAllSchoolYears, 2000);
-    $("body").on("click", "#removeYearButton",() => deleteSchoolYear());
+    $("body").on("click", "#removeYearButton",() => popupVisible());
+	
+	//close popup
+	$('.cd-popup').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+	});
+	//close popup when clicking the esc keyboard button
+	$(document).keyup(function(event){
+    	if(event.which=='27'){
+    		$('.cd-popup').removeClass('is-visible');
+	    }
+    });
+
 
 })
+
+function popupVisible(){
+    event.preventDefault();
+    var linha = $(event.target).closest("tr");
+    console.log(linha)
+    $('.cd-popup').addClass('is-visible');
+    $("body").on('click', "#confirmRemove", function(){
+        $('.cd-popup').removeClass('is-visible');
+        deleteSchoolYear(linha);
+        event.preventDefault();
+
+    })
+}
 
 function getAllSchoolYears(){
     $.ajax({
         type: "GET",
         url: base_url + "admin/api/getAllSchoolYears",
         success: function(data) {
-            console.log(data)
             makeYearTable(data["schoolYears"])
         },
         error: function(data) {
             console.log("Erro na API:")
-            console.log(data)
         }
     });
 }
-function deleteSchoolYear(){
-    var linha = $(event.target).closest("tr");
-    console.log(linha.find("td:eq(0)").text());
+
+function deleteSchoolYear(linha){
     $.ajax({
         type: "DELETE",
         url: base_url + "admin/api/deleteSchoolYear",
@@ -65,7 +90,6 @@ function makeYearTable(data){
             fim:    parseInt($("#register-anoletivo-form input[name='anoLetivo']").val())+1,
         }
         var currentTime = new Date()
-        console.log(data);
         if (data.inicio != ""){
             if(data.inicio >= currentTime.getFullYear()){
                 $.ajax({

@@ -2,7 +2,7 @@ $(document).ready(() => {
     getAllfaculdades();
     $("#register-cadeiras-form input[name='codeCadeira']").on("input", function(){
         var codCadeira = $("#register-cadeiras-form input[name='codeCadeira']").val();
-        if(codCadeira.length !== 5){
+        if(codCadeira.length !== 5 || !$.isNumeric(codCadeira)){
             $("#register-cadeiras-form input[name='codeCadeira']").css("border-left-color", "red");
         }
         else{
@@ -32,10 +32,16 @@ function getAllfaculdades(){
                 }
                 $("#faculdades_register_UnidCurricular").append(linhas);
             }
+            else{
+                $(".msg").remove();
+                $("#faculdades_register_UnidCurricular").css("display", "none");
+                $("#faculdades_register_UnidCurricular option").remove();
+                msg = "<p class='msg'> Não existem cursos associados à faculdade.</p>";
+                $("#register-cadeiras-form input[name='descCadeira']").after(msg);
+            }
         },
         error: function(data) {
-            // msgErro = "<p class='msgErro'> Não foi possivel registar a faculdade.</p>";
-            // $("#register-faculdade-form").after(msgErro);
+
         }
     });
 
@@ -63,8 +69,7 @@ function getAllCursosFaculdade(faculdade){
             }
         },
         error: function(data) {
-            // msgErro = "<p class='msgErro'> Não foi possivel registar a faculdade.</p>";
-            // $("#register-faculdade-form").after(msgErro);
+
         }
     });
 
@@ -87,36 +92,38 @@ function getCursos_Standard(course_standard_id, curso_id){
             
         },
         error: function(data) {
-            // msgErro = "<p class='msgErro'> Não foi possivel registar a faculdade.</p>";
-            // $("#register-faculdade-form").after(msgErro);
+
         }
     });
 }
 
 function submitRegister(){
+   
     const data = {
         codeCadeira:   $("#register-cadeiras-form input[name='codeCadeira']").val(),
         nomeCadeira:    $("#register-cadeiras-form input[name='nomeCadeira']").val(),
         descCadeira:    $("#register-cadeiras-form input[name='descCadeira']").val(),
         curso:    $("#register-cadeiras-form select[name='curso']").val(),
     }
-    $("input[type='text']").val("");
     $("#faculdades_register_UnidCurricular").val("Selecione uma Faculdade");
     $("#cursos_register_UnidCurricular").css("display", "none");
-    $("#cursos_register_UnidCurricular option").remove()
-    $(".msgSucesso").remove();
-    $(".msgErro").remove(); 
+    $("#cursos_register_UnidCurricular option").remove();
     $.ajax({
         type: "POST",
         url: base_url + "admin/api/registerSubject",
         data: data,
         success: function(data) {
-            msgSucesso = "<p class='msgSucesso'>Unidade Curricular registada com Sucesso.</p>";
-            $("#register-cadeiras-form").after(msgSucesso);
+            $("input[type='text']").val("");
+            $("#register-cadeiras-form input[name='codeCadeira']").css("border-left-color", "red");
+            $("#msgStatus").text("Unidade Curricular registada com Sucesso.");
+            $("#msgStatus").show().delay(2000).fadeOut();
         },
         error: function(data) {
-            msgErro = "<p class='msgErro'> Não foi possivel registar a unidade curricular.</p>";
-            $("#register-cadeiras-form").after(msgErro);
+            $("input[type='text']").val("");
+            $("#register-cadeiras-form input[name='codeCadeira']").css("border-left-color", "red");
+            $("#msgStatus").text("Não foi possivel registar a unidade curricular");
+            $("#msgStatus").show().delay(2000).fadeOut();
+            
         }
     });
 }

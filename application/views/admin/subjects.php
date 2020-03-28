@@ -34,6 +34,9 @@
             <input type="submit" id="register-cadeira-submit">
         </form><br>
 
+        <div id="msgStatus">
+        </div>
+        
         <h2>Consultar Unidades Curriculares</h2>
 
         <select id="Consultar_Cadeiras" name="consultarcadeiras">

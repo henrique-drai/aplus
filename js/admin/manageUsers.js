@@ -1,8 +1,15 @@
 $(document).ready(() => {
     $("body").on("click", ".editUser",() => displayEditUser());
     $("body").on("click", "#editUser-form-submit", () => editUser());
-    $("body").on("click", ".deleteUser",() => deleteUser());
+    $("body").on("click", ".deleteUser",() => popupVisible());
     
+    //close popup
+	$('.cd-popup').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+	});
 
     if (page_name=="students"){
         getAllStudents();
@@ -13,11 +20,21 @@ $(document).ready(() => {
     } 
 })
 
+function popupVisible(){
+    event.preventDefault();
+    var linha = $(event.target).closest("tr");
+    $('.cd-popup').addClass('is-visible');
+    $("body").on('click', "#confirmRemove", function(){
+        $('.cd-popup').removeClass('is-visible');
+        deleteUser(linha);
+        event.preventDefault();
+
+    })
+}
 
 var oldEmail = "";
 
-function deleteUser(){
-    var linha = $(event.target).closest("tr");
+function deleteUser(linha){
     $.ajax({
         type: "DELETE",
         url: base_url + "admin/api/deleteUser",

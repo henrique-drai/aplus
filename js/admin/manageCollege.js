@@ -49,16 +49,12 @@ function deleteCollege(){
         url: base_url + "admin/api/deleteCollege",
         data: {siglas: linha.find("td:eq(2)").text()},
         success: function() {
-            $(".msgSucesso").remove();
-            $(".msgErro").remove();
-            msgSucesso = "<p class='msgSucesso'>Faculdade eliminada com Sucesso.</p>";
-            $("#show_colleges").after(msgSucesso);
+            $("#msgStatusDelete").text("Faculdade eliminada com Sucesso");
+            $("#msgStatusDelete").show().delay(2000).fadeOut();
         },
         error: function() {
-            $(".msgSucesso").remove();
-            $(".msgErro").remove();
-            msgErro = "<p class='msgErro'> Não foi possivel eliminar a faculdade.</p>";
-            $("#show_colleges").after(msgErro);
+            $("#msgStatus").text(" Não foi possivel eliminar a faculdade");
+            $("#msgStatus").show().delay(2000).fadeOut();
         }
     });
 }

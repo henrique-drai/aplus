@@ -18,12 +18,12 @@ function submitRegister(){
         url: base_url + "admin/api/registerCollege",
         data: data,
         success: function(data) {
-            msgSucesso = "<p class='msgSucesso'>Faculdade registada com Sucesso.</p>";
-            $("#register-faculdade-form").after(msgSucesso);
+            $("#msgStatus").text("Faculdade registada com Sucesso");
+            $("#msgStatus").show().delay(2000).fadeOut();
         },
         error: function(data) {
-            msgErro = "<p class='msgErro'> Não foi possivel registar a faculdade.</p>";
-            $("#register-faculdade-form").after(msgErro);
+            $("#msgStatus").text("Não foi possivel registar a faculdade");
+            $("#msgStatus").show().delay(2000).fadeOut();
         }
     });
     

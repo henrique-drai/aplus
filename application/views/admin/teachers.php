@@ -1,6 +1,7 @@
 <title>A+ for Admins</title>
 <script>setPageName("teachers")</script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin-users.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/manageUsers.js"></script>
 </head>
@@ -39,4 +40,16 @@
 
             <input type="submit" id="editUser-form-submit">
         </form><br>
+        <div class="cd-popup" role="alert">
+	        <div class="cd-popup-container">
+		        <p>Tem a certeza que deseja eliminar o professor?</p>
+                <ul class="cd-buttons">
+                    <li><a href="#" id="confirmRemove">Sim</a></li>
+                    <li><a href="#" id="closeButton">Não</a></li>
+                </ul>
+		        <a class="cd-popup-close"></a>
+	        </div>
+        </div>
+        <div id="msgStatus">
+        </div>
     </main>

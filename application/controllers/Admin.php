@@ -311,6 +311,7 @@ class Admin extends REST_Controller {
         $this->load->model('CollegeModel');
         $this->load->model('CourseModel');
         $this->load->model('YearModel');
+        $this->load->model('SubjectModel');
 
         $auth = $this->verify_request();
 
@@ -327,6 +328,7 @@ class Admin extends REST_Controller {
             "num_colleges" => $this->CollegeModel->countColleges(),
             "num_courses" => $this->CourseModel->countCourses(),
             "num_academicYear" => $this->YearModel->countAcademicYear(),
+            "num_subjects" => $this->SubjectModel->countSubjects(),
         );
 
         $this->response($data, parent::HTTP_OK);

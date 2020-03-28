@@ -55,5 +55,15 @@
                 <a href="<?php echo $base_url; ?>app/admin/anoLetivo"><div>Gerir</div></a>
                 </div>
             </div>
+
+            <div class="admin-stats-window" id="subjects-hook">
+                <div class="admin-stats-title">Unidades Curriculares</div>
+                <div class="admin-stats-content">
+                    Unidades Curriculares: <span id="hook-num_subjects"></span>
+                </div>
+                <div class="admin-stats-btn">
+                <a href="<?php echo $base_url; ?>app/admin/subjects"><div>Gerir</div></a>
+                </div>
+            </div>
         </section>
     </main>

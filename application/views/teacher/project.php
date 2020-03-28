@@ -39,6 +39,9 @@
 	        </div>
         </div>
 
+        <div id="etapa-info-extra">
+        </div>
+
         <div class="buttons-container">
             <input id="opennewEtapa" type="button" value="Criar etapa">
         </div>
@@ -60,6 +63,7 @@
 
             <input type="submit" id="newEtapa" value="Criar">
         </form>
+
 
     </div>
     </main>

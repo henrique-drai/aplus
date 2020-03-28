@@ -17,7 +17,8 @@ $(document).ready(() => {
 			event.preventDefault();
 			$(this).removeClass('is-visible');
 		}
-	});
+    });
+    
 	//close popup when clicking the esc keyboard button
 	$(document).keyup(function(event){
     	if(event.which=='27'){
@@ -33,8 +34,7 @@ $(document).ready(() => {
     // chama uma primeira vez
     getEtapas(proj);
 
-    // refresh de segundo em segundo? defini 4 para nao ser demasiado for now
-
+    // refresh de segundo em segundo?
     setInterval(function(){
          getEtapas(proj);
     }, 1000);
@@ -44,18 +44,19 @@ $(document).ready(() => {
     // show etapa form - criar nova etapa
     $("#opennewEtapa").on("click", function(){
         $("#etapa-form").show();
-        // fazer verificação dos inputs como no projectNEW.js
     });
 
-    //confirmed delete 
-    //apagar projeto pelo id
 
     $("body").on('click', "#removeEtapaButton", function(){
-        var id = $(this).parent().parent().find("td:first").text();
-
-        removeEtapa(id);
+        var id = $(this).parent().parent().attr('id');
+        var newid = id.replace("div","");
+        removeEtapa(newid);
+        $('#' + id).hide();
         getEtapas(proj);
     })
+
+    
+    //confirmed delete || apagar projeto pelo id
 
     $("#confirmRemove").on('click', function(){
         const data = {
@@ -99,9 +100,14 @@ $(document).ready(() => {
         }
     })
 
+    $('body').on('click', '.etapa-name', function(){
+        var divid = 'div' + $(this).attr("id");
+        $('.etapas-info').hide();
+        $('#' + divid).show();
+
+    })
 
     $("#newEtapa").click(() => submit_etapa());
-
 
 })
 
@@ -109,13 +115,8 @@ $(document).ready(() => {
 //igual ao verifyDates do projectsNEW.js - faço um ficheiro geral, tento importar? for now vou repetir
 function verifyDates(data){
 
-    console.log(data);
     var dmaior = new Date(data);
     var today = new Date();
-
-    console.log(dmaior);
-
-    console.log(today);
 
     var dParse = Date.parse(dmaior);
     $("#errormsg").text("A data da etapa tem de ser maior que a data atual");
@@ -130,7 +131,6 @@ function verifyDates(data){
 
     return true;
 }
-
 
 
 function submit_etapa(){
@@ -162,10 +162,7 @@ function submit_etapa(){
         $("#errormsg").show().delay(5000).fadeOut();
         return false;
     }
-
-
 }
-
 
 
 function setProj(id){
@@ -178,32 +175,36 @@ function setBackPage(href){
 
 function makeEtapaTable(data){
     etapasSTR = '';
+    var p = '';
     for (i=0; i<data.length; i++){
         json = data[i];
+        var date = new Date(json["deadline"]);
         etapasSTR += '<tr>' +
-            '<td>'+ json["id"] +'</td>' +
-            '<td>'+ json["nome"] +'</td>' +
-            '<td>'+ json["deadline"] +'</td>' +
-            '<td>'+ json["description"] +'</td>' +
-            '<td><input id="editEtapaButton" type="button" value="Editar"></td>' +
-            '<td><input id="feedbackEtapaButton" class="remove" type="button" value="Feedback"></td>' +
-            '<td><input id="removeEtapaButton" class="remove" type="button" value="Eliminar"></td>' +
+            '<td class="etapa-name" id="'+json["id"] +'">'+ json["nome"] +'</td>' +
+            '<td>'+ date.toLocaleString('en-GB') +'</td>' +
             '</tr>'
+
+
+        p += '<div class="etapas-info" id="div'+json["id"]+'">' +   
+            '<label>Descrição:</label>' +
+            '<p>'+ json["description"] +'</p>' +
+            '<div class="wrapper">'+
+            '<input id="editEtapaButton" type="button" value="Editar">' +
+            '<input id="feedbackEtapaButton" type="button" value="Feedback"></input>'+
+            '<input id="removeEtapaButton" class="remove" type="button" value="Eliminar">' +
+            '</div>' +
+            '</div>'
     }
    
     var table = '<table id="etapas_list">' +
-        '<tr><th>ID</th>' +
+        '<tr>' +
         '<th>Nome</th>' + 
         '<th>Data Entrega</th>' +
-        '<th>Descrição</th>' +
-        '<th>Editar</th>' + 
-        '<th>Feedback</th>' + 
-        '<th>Eliminar</th></tr>' +
         etapasSTR + 
         '</table>'
 
-
-    $("#etapas-container").html(table);    
+    $("#etapas-container").html(table);   
+    $("#etapa-info-extra").append(p);
 }
 
 function getEtapas(proj_id){

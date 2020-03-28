@@ -106,8 +106,22 @@
     margin:unset;
     margin-top: 1%;
 }
-.remove{
-     background-color: #fc8982  !important;
+
+.etapas-info{
+    display: none;
+}
+
+.wrapper input[type=button] {
+    display: inline-flex;
+    margin-right: 1%;
+}
+
+input.remove{
+     background-color: #fc8982;
+}
+
+input.remove:hover {
+    background-color: #ff544b;
 }
 
 .container ::-webkit-scrollbar { 
@@ -117,14 +131,11 @@
 .container table {
     table-layout: fixed;
     width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-
+    /* white-space: nowrap; */
 }
 
-.container table td, .container table th {
-    white-space: nowrap;
-    overflow: scroll;
+.container table, .container table td, .container table th {
+    border-collapse: collapse;
 }
 
 #etapa-form{

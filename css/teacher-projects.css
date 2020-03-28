@@ -111,6 +111,16 @@
     display: none;
 }
 
+.etapa-name{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.etapa-name:hover{
+    color:#3e5d4f;
+    
+}
+
 .wrapper input[type=button] {
     display: inline-flex;
     margin-right: 1%;

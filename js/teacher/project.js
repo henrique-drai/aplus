@@ -41,12 +41,27 @@ $(document).ready(() => {
 
 
 
-    // show etapa form - criar nova etapa
+    // show etapa form - criar nova etapa 
     $("#opennewEtapa").on("click", function(){
         $("#etapa-form").show();
+        $("#newEtapa").show();
+        $("#newEtapaEDIT").hide();
+        $("#etapa-label").text("Nova etapa:");
     });
 
 
+    //show editar etapa form - editar etapa - se uma destas é clicada o botão da outra é escondido
+    $('body').on("click", "#editEtapaButton", function(){
+        var id = $(this).parent().parent().attr('id');
+        var newid = id.replace("div","");
+        $("#etapa-form").show();
+        $("#newEtapaEDIT").show();
+        $("#etapa-label").text("Editar etapa " + newid + ":");
+        $("#newEtapa").hide();
+    });
+
+
+    // remover etapa da lista (depois de abrir info)
     $("body").on('click', "#removeEtapaButton", function(){
         var id = $(this).parent().parent().attr('id');
         var newid = id.replace("div","");
@@ -82,7 +97,6 @@ $(document).ready(() => {
     })
 
 
-
     //on change mudar a etapa
     $("#etapa").change(function(){
         var name = $(this).find('input[name="etapaName"]').val();
@@ -100,13 +114,16 @@ $(document).ready(() => {
         }
     })
 
+
+    //mostrar info extra da etapa - tabela
     $('body').on('click', '.etapa-name', function(){
         var divid = 'div' + $(this).attr("id");
         $('.etapas-info').hide();
         $('#' + divid).show();
-
+        $("#etapa-form").hide();
     })
 
+    //criar etapa
     $("#newEtapa").click(() => submit_etapa());
 
 })

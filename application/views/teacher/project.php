@@ -49,7 +49,7 @@
         <form id="etapa-form">
 
             <p id="etapa" class="etapa">
-                <label id="etapa-label" class="form-label-title">Etapa:</label>
+                <label id="etapa-label" class="form-label-title">Nova etapa:</label>
                 <label class="form-label">Nome</label>
                 <input class="form-input-text" type="text" name="etapaName" required>
                 <label class="form-label">Descrição</label>
@@ -62,6 +62,7 @@
             </p>
 
             <input type="submit" id="newEtapa" value="Criar">
+            <input type="submit" id="newEtapaEDIT" value="Confirmar">
         </form>
 
 

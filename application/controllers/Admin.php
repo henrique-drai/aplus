@@ -229,6 +229,11 @@ class Admin extends REST_Controller {
        
         $idCurso = $this->CourseModel-> register_course_standard($data2);
 
+        // TODO:
+        // USAR FUNÇÃO DATE date('Y');
+        // ir buscar à tabela o id do ano letivo que tem o inicio=date('Y') - ano atual
+        // substituir o id de return no 'ano_letivo_id' embaixo 
+
         $data = Array(
             "faculdade_id"      => $this->post('collegeName'),
             "curso_standard_id" => $idCurso,

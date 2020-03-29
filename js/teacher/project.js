@@ -48,8 +48,16 @@ $(document).ready(() => {
         $("#newEtapa").show();
         $("#newEtapaEDIT").hide();
         $("#etapa-label").text("Nova etapa:");
-        formStatus = "new";
-        checkFormStatus();
+
+        if(formStatus != 'new'){
+            formStatus = 'new';
+            checkFormStatus();
+        } else {
+            formStatus = null;
+            checkFormStatus();
+            $("#etapa-form").hide();
+            $("#newEtapa").hide();
+        }
     });
 
 
@@ -61,8 +69,17 @@ $(document).ready(() => {
         $("#newEtapaEDIT").show();
         $("#etapa-label").text("Editar etapa " + newid + ":");
         $("#newEtapa").hide();
-        formStatus = "edit";
-        checkFormStatus();
+
+        if(formStatus != 'edit'){
+            formStatus = 'edit';
+            checkFormStatus();
+        } else {
+            formStatus = null;
+            checkFormStatus();
+            $("#etapa-form").hide();
+            $("#newEtapa").hide();
+        }
+
     });
 
 
@@ -95,7 +112,7 @@ $(document).ready(() => {
                 window.location.assign(back_page);
             },
             error: function(data) {
-                console.log("Erro na API:")
+                console.log("Erro na API - Confirm Remove Projeto")
                 console.log(data)
             }
         });
@@ -126,6 +143,8 @@ $(document).ready(() => {
         $('.etapas-info').hide();
         $('#' + divid).show();
         $("#etapa-form").hide();
+        formStatus = null;
+        checkFormStatus();
     })
 
     //criar etapa
@@ -176,7 +195,7 @@ function submit_etapa(){
                 console.log(data);
             },
             error: function(data) {
-                console.log("Erro na API:");
+                console.log("Erro na API - Submit Etapa");
                 console.log(data);
             }
         });
@@ -211,6 +230,7 @@ function setBackPage(href){
 function makeEtapaTable(data){
     etapasSTR = '';
     var p = '';
+    var lastp;
     for (i=0; i<data.length; i++){
         json = data[i];
         var date = new Date(json["deadline"]);
@@ -230,6 +250,9 @@ function makeEtapaTable(data){
             '<input id="removeEtapaButton" class="remove" type="button" value="Eliminar">' +
             '</div>' +
             '</div>'
+
+        lastp = 'div'+json["id"];
+        
     }
    
     var table = '<table id="etapas_list">' +
@@ -241,7 +264,11 @@ function makeEtapaTable(data){
         '</table>'
 
     $("#etapas-container").html(table);   
-    $("#etapa-info-extra").append(p);
+    
+    if ($("#" + lastp).length == 0){
+        $("#etapa-info-extra").html(p);
+    }
+    
 }
 
 function getEtapas(proj_id){
@@ -261,7 +288,7 @@ function getEtapas(proj_id){
             makeEtapaTable(data);
         },
         error: function(data) {
-            console.log("Erro na API:")
+            console.log("Erro na API - Get Etapa")
             console.log(data)
         }
     });
@@ -300,12 +327,12 @@ function showGroups(proj_id) {
             }
         },
         error: function(data) {
-            console.log("Erro na API:")
+            console.log("Erro na API - Show Groups")
             console.log(data)
         }
     });
 }
-            
+     
 
 function removeEtapa(id){
     const data_etapa = {
@@ -323,7 +350,7 @@ function removeEtapa(id){
             console.log("mensagem de sucesso");
         },
         error: function(data) {
-            console.log("Erro na API:")
+            console.log("Erro na API - Remove Etapa")
             console.log(data)
         }
     });

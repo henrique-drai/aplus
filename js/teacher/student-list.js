@@ -29,8 +29,8 @@ function showCourseStudents() {
 			} else {
 				$("#mens_sem_alunos").remove();
 				$("#show_students").css("display", "none");
-				var mensagem = "<h2 id='mens_sem_alunos'>Não existe nenhum aluno nesta cadeira</h2>";
-				$("body").append(mensagem)
+				var mensagem = "<h4 id='mens_sem_alunos'>Não existe nenhum aluno nesta cadeira</h4>";
+				$("#msg-sem-alunos").append(mensagem)
 			}
 		},
 		error: function (data) {

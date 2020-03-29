@@ -1,6 +1,7 @@
 var proj
 var back_page
 var etapa = {nome:'', desc:'', data:''};
+var formStatus = null;
 
 $(document).ready(() => {
     showGroups(proj);
@@ -47,6 +48,8 @@ $(document).ready(() => {
         $("#newEtapa").show();
         $("#newEtapaEDIT").hide();
         $("#etapa-label").text("Nova etapa:");
+        formStatus = "new";
+        checkFormStatus();
     });
 
 
@@ -58,6 +61,8 @@ $(document).ready(() => {
         $("#newEtapaEDIT").show();
         $("#etapa-label").text("Editar etapa " + newid + ":");
         $("#newEtapa").hide();
+        formStatus = "edit";
+        checkFormStatus();
     });
 
 
@@ -116,7 +121,7 @@ $(document).ready(() => {
 
 
     //mostrar info extra da etapa - tabela
-    $('body').on('click', '.etapa-name', function(){
+    $('body').on('click', '.moreInfoButtons', function(){
         var divid = 'div' + $(this).attr("id");
         $('.etapas-info').hide();
         $('#' + divid).show();
@@ -182,6 +187,19 @@ function submit_etapa(){
 }
 
 
+function checkFormStatus(){
+    if (formStatus == null){
+        $("#opennewEtapa").css('background-color','white');
+        $("#editEtapaButton").css('background-color','white');
+    } else if(formStatus == "edit"){
+        $("#opennewEtapa").css('background-color','white');
+        $("#editEtapaButton").css('background-color','#3e5d4f');
+    } else if(formStatus == "new"){
+        $("#opennewEtapa").css('background-color','#3e5d4f');
+        $("#editEtapaButton").css('background-color','white');
+    }
+}
+
 function setProj(id){
     proj = id;
 }
@@ -197,8 +215,9 @@ function makeEtapaTable(data){
         json = data[i];
         var date = new Date(json["deadline"]);
         etapasSTR += '<tr>' +
-            '<td class="etapa-name" id="'+json["id"] +'">'+ json["nome"] +'</td>' +
+            '<td class="etapa-name">'+ json["nome"] +'</td>' +
             '<td>'+ date.toLocaleString('en-GB') +'</td>' +
+            '<td><input class="moreInfoButtons" id="'+json["id"] +'" type="button" value="Info"></input></td>'
             '</tr>'
 
 
@@ -217,6 +236,7 @@ function makeEtapaTable(data){
         '<tr>' +
         '<th>Nome</th>' + 
         '<th>Data Entrega</th>' +
+        '<th>Mais Informação</th></tr>' +
         etapasSTR + 
         '</table>'
 

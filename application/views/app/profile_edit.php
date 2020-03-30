@@ -9,19 +9,29 @@
     <div id="nav-menu-hook"></div>
 
     <main>
-        <form class="profile-edit-user" action="javascript:void(0)">
-            <label for="name">      Nome
-                <input type="text" name="name" value="Loading..."></label>
-            <label for="surname">   Apelido
-                <input type="text" name="surname" value="Loading..."></label>
-            <label for="password"> Password Nova
-                <input type="password" name="password"></label>
-            <label for="confirm">  Confirmar Password
-                <input type="password" name="confirm">
-                <div class="form-error-message"></div>
-            </label>
+        <form class="profile-edit" action="javascript:void(0)">
+           
+                <div class="left">
+                    <label for="name">      Nome
+                        <input type="text" name="name" value="<?php echo $user->name; ?>"></label>
+                    <label for="surname">   Apelido
+                        <input type="text" name="surname" value="<?php echo $user->surname; ?>"></label>
+                    <label for="password"> Password Nova
+                        <input type="password" name="password"></label>
+                    <label for="confirm">  Confirmar Password
+                        <input type="password" name="confirm">
+                        <div class="form-error-message"></div>
+                    </label>
+                </div>
 
-            <br><input type="submit" value="Update Profile" disabled>
+                <div class="right">
+                    <label for="description">  Descrição
+                        <textarea name="description" rows="4"><?php echo $user->description; ?></textarea>
+                    </label>  
+                </div>
+
+           
+            <input type="submit" value="Update Profile">
         </form>
         <br>
 

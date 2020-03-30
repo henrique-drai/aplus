@@ -1,22 +1,9 @@
 $(document).ready(() => {
-    set_form_values()
 
     $(".profile-edit-user").change(() => validate_form_values())
 
     $(".profile-edit-user input[type='submit']").click(() => submit_form_values());
 })
-
-
-async function set_form_values() {
-    try {
-      await setUserInfo()
-      $(".profile-edit-user input[name='name']").val(user_info.name)
-      $(".profile-edit-user input[name='surname']").val(user_info.surname)
-      $(".profile-edit-user input[type='submit']").prop("disabled", false)
-    } catch(err) {
-      console.log(err);
-    }
-}
 
 function validate_form_values(){
     let password = $(".profile-edit-user input[name='password']")

@@ -1,24 +1,64 @@
+main {
+    margin: -10px;
+}
+
 .form-error-message {
     font-size: 10px;
     color: red;
 }
-
 .picture-form form{
     display: flex;
     
 }
-
 .picture-form input[type=file] {
     border: none;
     background-color: transparent;
     padding-left: 0px;
 }
-
 .picture-form input[type=submit] {
     border: 1px solid #aaa;
     border-radius: 5px;
     background-color: white;
 }
+
+form.profile-edit {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+form.profile-edit > div{
+    box-sizing: border-box;
+}
+form.profile-edit .left input {
+    width: 100%;
+    padding: 5px 3px;
+}
+form.profile-edit textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    padding: 5px 3px;
+}
+form.profile-edit .left {
+    width: 35%;
+    padding: 10px;
+}
+form.profile-edit .right {
+    width: 65%;
+    padding: 10px;
+}
+form.profile-edit input[type=submit]{
+    display: block;
+}
+@media(max-width: 767px) {
+    form.profile-edit .left {
+        min-width: 100%;
+    }
+    form.profile-edit .right {
+        min-width: 100%;
+    }
+}
+
 
 .header {
     display: flex;

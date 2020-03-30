@@ -23,6 +23,7 @@ input, select, textarea {
     background-color: white;
     display: block;
     padding: 5px 10px;
+    font-family: 'Poppins', sans-serif;
 }
 input[type=button],input[type=submit]{
     margin: 20px auto;

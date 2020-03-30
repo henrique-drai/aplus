@@ -27,6 +27,7 @@ function submit_form_values(){
         const name = $(".profile-edit-user input[name='name']").val()
         const surname = $(".profile-edit-user input[name='surname']").val()
         const password = $(".profile-edit-user input[name='password']").val()
+        const description = $(".profile-edit-user textarea").val()
 
         let data = {}
 
@@ -36,6 +37,8 @@ function submit_form_values(){
             data.surname = surname
         if(password != "")
             data.password = password
+
+        data.description = description
 
         console.log("Accepted. Informação que será alterada:")
         console.log(data)
@@ -53,6 +56,7 @@ function submit_form_values(){
             },
             error: function(data) {
                 console.log("Problema na API ao submeter a edição do utilizador.")
+                console.log(data)
             }
         })
     } else {

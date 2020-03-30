@@ -44,18 +44,16 @@ class UserModel extends CI_Model {
     }
 
     public function updateUser($data){
-        $null = true;
         if(isset($data["name"]))
-            {$this->db->set('name', $data["name"]); $null=false;}
+            {$this->db->set('name', $data["name"]);}
         if(isset($data["surname"]))
-            {$this->db->set('surname', $data["surname"]); $null=false;}
+            {$this->db->set('surname', $data["surname"]);}
         if(isset($data["password"]))
-            {$this->db->set('password', md5($data["password"])); $null=false;}
-
-        if(!$null) {
-            $this->db->where('id', $data["id"]);
-            $this->db->update('user');
-        }
+            {$this->db->set('password', md5($data["password"]));}
+        
+        $this->db->set('description', $data["description"]);
+        $this->db->where('id', $data["id"]);
+        $this->db->update('user');
     }
 
     public function getTeachers(){

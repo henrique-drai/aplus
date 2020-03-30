@@ -26,7 +26,7 @@
                 </div>
                 <hr>
                 <div class="bio">
-                    <?php echo $user->description; ?>
+                    <pre><?php echo $user->description; ?></pre>
                 </div>
                 <div class="email">
                 <?php echo $user->email; ?>

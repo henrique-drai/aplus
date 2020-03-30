@@ -6,14 +6,15 @@ main {
     font-size: 10px;
     color: red;
 }
-.picture-form form{
-    display: flex;
-    
+.picture-form{
+    display: block;
+    text-align: center;
 }
 .picture-form input[type=file] {
     border: none;
     background-color: transparent;
     padding-left: 0px;
+    margin: auto;
 }
 .picture-form input[type=submit] {
     border: 1px solid #aaa;
@@ -21,40 +22,47 @@ main {
     background-color: white;
 }
 
-form.profile-edit {
+
+
+.profile-edit h3 {
+    text-align: center;
+    margin-bottom: 0px;
+}
+form.profile-edit-user {
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
+    width: calc(100% + 20px);
+    margin: -10px;
 }
-form.profile-edit > div{
+form.profile-edit-user > div{
     box-sizing: border-box;
 }
-form.profile-edit .left input {
+form.profile-edit-user .left input {
     width: 100%;
     padding: 5px 3px;
 }
-form.profile-edit textarea {
+form.profile-edit-user textarea {
     width: 100%;
     max-width: 100%;
     min-width: 100%;
     padding: 5px 3px;
 }
-form.profile-edit .left {
+form.profile-edit-user .left {
     width: 35%;
     padding: 10px;
 }
-form.profile-edit .right {
+form.profile-edit-user .right {
     width: 65%;
     padding: 10px;
 }
-form.profile-edit input[type=submit]{
+form.profile-edit-user input[type=submit]{
     display: block;
 }
 @media(max-width: 767px) {
-    form.profile-edit .left {
+    form.profile-edit-user .left {
         min-width: 100%;
     }
-    form.profile-edit .right {
+    form.profile-edit-user .right {
         min-width: 100%;
     }
 }
@@ -78,7 +86,9 @@ form.profile-edit input[type=submit]{
     font-weight: bold;
     font-size: 30px;
 }
-.header-info .bio {
+.header-info .bio pre {
     color: #888;
     font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    margin: 0px;
 }

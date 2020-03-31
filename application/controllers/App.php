@@ -142,7 +142,7 @@ class App extends CI_Controller {
     public function uploadProfilePic()
     {
         $user_id = $this->session->userdata('id');
-        $upload['upload_path'] = './uploads/temp/';
+        $upload['upload_path'] = './uploads/profile/';
         $upload['allowed_types'] = 'jpg';
         $upload['file_name'] = $user_id;
         $upload['overwrite'] = true;
@@ -153,27 +153,10 @@ class App extends CI_Controller {
         {
             $error = array('error' => $this->upload->display_errors());
             print_r($error);
-            echo "<br>Provavelmente apagaram a pasta temp :)";
+            echo "<br>Perguntem ao dry lul";
         }
         else
         {
-            // Deslocar os ficheiros para o url files.luzamag.com/profile
-            // mais info https://codeigniter.com/user_guide/libraries/file_uploading.html
-            $this->load->library('ftp');
-            
-            $ftp['hostname'] = 'luzamag.com';
-            $ftp['username'] = 'u349279621';
-            $ftp['password'] = 'weeb1999';
-            $ftp['debug'] = TRUE;
-
-            $this->ftp->connect($ftp);
-            $this->ftp->upload('./uploads/temp/'.$user_id.'.jpg', '/public_html/aplus/profile/'.$user_id.'.jpg');
-            $this->ftp->close();
-
-            // limpar a pasta temp
-            $this->load->helper("file");
-            delete_files('./uploads/temp/');
-
             $this->load->model('UserModel');
             $this->UserModel->updatePic($user_id);
 

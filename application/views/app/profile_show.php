@@ -6,12 +6,14 @@
 </head> 
 
 <?php
-// VERIFICAR SE O UTILIZADOR TEM FOTO
-    $picture = "http://files.luzamag.com/profile/". $user->id . ".jpg?" . time();
-    $file_headers = @get_headers($picture);
-    if(!$file_headers || strpos($file_headers[0], '404') !== false) {
-        $picture = $base_url."uploads/profile/default.jpg";
+
+    $file = "uploads/profile/" . $user->id . ".jpg";
+    // VERIFICAR SE O UTILIZADOR TEM FOTO
+    if(!file_exists($file)) {
+        $file = "uploads/profile/default.jpg";
     }
+    // ACRESCENTAR O TIME() PARA FAZER BYPASS NA CACHE
+    $picture = $base_url . $file . "?" . time();
 ?>
 
 <body>

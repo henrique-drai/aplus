@@ -41,7 +41,7 @@ class Teacher extends REST_Controller {
     public function api_get($f) {
         switch ($f) {
             case "getCourseStudents":   $this->getCourseStudents(); break; //   /teacher/api/getCourseStudents
-
+            case "getProfHome":         $this->getProfHome(); break; //         /teacher/api/getProfHome
 
             default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -248,6 +248,19 @@ class Teacher extends REST_Controller {
                 'grupo_id'      =>      $data["students"][0][$i]["grupo_id"], 
                 'user_name'     =>      $this->UserModel->getUserById($data["students"][0][$i]["user_id"]))
             );
+        }
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getProfHome() {
+        $user_id = $this->get("user_id");
+        $this->load->model("SubjectModel");
+        $data["ids"] = $this->SubjectModel->getCadeiras($user_id);
+
+        $data["info"] = array();
+        for($i = 0; $i <= count($data); $i++) {
+            array_push($data["info"], $this->SubjectModel->getCadeiraInfo($data["ids"][$i]["cadeira_id"]));
         }
 
         $this->response($data, parent::HTTP_OK);

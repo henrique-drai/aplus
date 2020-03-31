@@ -20,6 +20,7 @@
     <div id="nav-menu-hook"></div>
 
     <main>
+        <?php echo TEST; ?>
         <div class="header">
             <img src="<?php echo $picture; ?>" alt="Profile Picture">
             <div class="header-info">

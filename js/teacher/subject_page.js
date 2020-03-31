@@ -7,6 +7,7 @@ $(document).ready(() => {
         $("#save_button").show();
         $(".summary").empty();
         $(".summary").append("<textarea class='textarea'>" + content + "</textarea>");
+        $("#edit_button").hide();
     });
 
     $("#save_button").click(function() {
@@ -15,6 +16,7 @@ $(document).ready(() => {
         $(".summary").empty();
         $(".summary").append("<p>" + text + "</p>");
         $("#save_button").hide();
+        $("#edit_button").show();
     });
 
     $("#edit_button_hours").click(function() {
@@ -23,6 +25,7 @@ $(document).ready(() => {
         $(".hours_buttons").css('display', 'inline-flex');
 
         setHours(localStorage.getItem("cadeira_id"));
+        $("#edit_button_hours").hide();
     })
 
     $(".add_hour").click(function() {
@@ -106,6 +109,7 @@ $(document).ready(() => {
         $(".hours_buttons").hide();
         $(".hours_inputs").hide();
         $(".hours_inputs .element").remove();
+        $("#edit_button_hours").show();
         $("#save_button_hours").hide();
     })
 

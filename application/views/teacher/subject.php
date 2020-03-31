@@ -36,9 +36,11 @@
 
             <div class="hours_header">
                 <h2>Horário de Dúvidas</h2>
-                <input type="button" id="edit_button_hours" value="Editar">
+                <div class="save_edit">
+                    <input type="button" id="edit_button_hours" value="Editar">
+                    <input type="button" id="save_button_hours" value="Guardar">
+                </div>
                 <div class="message" id="message_hour">Editado com sucesso!</div>
-                <input type="button" id="save_button_hours" value="Guardar">
             </div>
             <div class="hours"></div>
 

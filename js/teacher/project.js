@@ -1,6 +1,6 @@
 var proj
 var back_page
-var etapa = {nome:'', desc:'', data:''};
+var etapa = {nome:'', desc:'', enunciado:'', data:''};
 var formStatus = null;
 
 $(document).ready(() => {
@@ -124,10 +124,12 @@ $(document).ready(() => {
         var name = $(this).find('input[name="etapaName"]').val();
         var desc = $(this).find('textarea[name="etapaDescription"]').val();
         var data = $(this).find('input[name="etapaDate"]').val();
+        var enunc = $(this).find('input[name="file"]').val();
         
         etapa['nome'] = name;
         etapa['desc'] = desc;
         etapa['data'] = data;
+        etapa['enunciado'] = enunc;
 
         if (!verifyDates(data)){
             $("#etapa input[name='etapaDate']").css("border-left-color", "red");
@@ -233,6 +235,7 @@ function makeEtapaTable(data){
     var lastp;
     for (i=0; i<data.length; i++){
         json = data[i];
+        var enunciado = json["enunciado_url"];
         var date = new Date(json["deadline"]);
         etapasSTR += '<tr>' +
             '<td class="etapa-name">'+ json["nome"] +'</td>' +
@@ -241,9 +244,16 @@ function makeEtapaTable(data){
             '</tr>'
 
 
+        if (enunciado == ""){
+            enunciado = "Não existe enunciado associado a esta etapa."
+        }
+
+
         p += '<div class="etapas-info" id="div'+json["id"]+'">' +   
             '<label>Descrição:</label>' +
             '<p>'+ json["description"] +'</p>' +
+            '<label>Enunciado da etapa:</label>' +
+            '<p>' + enunciado + '</p>' +
             '<div class="wrapper">'+
             '<input id="editEtapaButton" type="button" value="Editar">' +
             '<input id="feedbackEtapaButton" type="button" value="Feedback"></input>'+

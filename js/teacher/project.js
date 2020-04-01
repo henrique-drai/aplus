@@ -34,10 +34,14 @@ $(document).ready(() => {
     // getEtapas
     // chama uma primeira vez
     getEtapas(proj);
+    var datafinal = $(".data-val").last().text();
+    $("#entrega_h3").text("Entrega final: " + datafinal);
 
     // refresh de segundo em segundo?
     setInterval(function(){
          getEtapas(proj);
+         var datafinal = $(".data-val").last().text();
+         $("#entrega_h3").text("Entrega final: " + datafinal);
     }, 1000);
 
 
@@ -209,15 +213,15 @@ function submit_etapa(){
 
 
 function checkFormStatus(){
-    if (formStatus == null){
+    if(formStatus == 'edit'){
         $("#opennewEtapa").css('background-color','white');
-        $("#editEtapaButton").css('background-color','white');
-    } else if(formStatus == "edit"){
-        $("#opennewEtapa").css('background-color','white');
-        $("#editEtapaButton").css('background-color','#3e5d4f');
-    } else if(formStatus == "new"){
+        $(".editb").css('background-color','#3e5d4f');
+    } else if(formStatus == 'new'){
         $("#opennewEtapa").css('background-color','#3e5d4f');
-        $("#editEtapaButton").css('background-color','white');
+        $(".editb").css('background-color','white');
+    } else {
+        $("#opennewEtapa").css('background-color','white');
+        $(".editb").css('background-color','white');
     }
 }
 
@@ -239,7 +243,7 @@ function makeEtapaTable(data){
         var date = new Date(json["deadline"]);
         etapasSTR += '<tr>' +
             '<td class="etapa-name">'+ json["nome"] +'</td>' +
-            '<td>'+ date.toLocaleString('en-GB') +'</td>' +
+            '<td class="data-val">'+ date.toLocaleString('en-GB') +'</td>' +
             '<td><input class="moreInfoButtons" id="'+json["id"] +'" type="button" value="Info"></input></td>'
             '</tr>'
 
@@ -255,7 +259,7 @@ function makeEtapaTable(data){
             '<label>Enunciado da etapa:</label>' +
             '<p>' + enunciado + '</p>' +
             '<div class="wrapper">'+
-            '<input id="editEtapaButton" type="button" value="Editar">' +
+            '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +
             '<input id="feedbackEtapaButton" type="button" value="Feedback"></input>'+
             '<input id="removeEtapaButton" class="remove" type="button" value="Eliminar">' +
             '</div>' +

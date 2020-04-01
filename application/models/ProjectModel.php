@@ -20,7 +20,7 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
     }
 
     public function getEtapasByProjectID($proj_id){
-        return $this->db->get_where("etapa",array("projeto_id" => $proj_id)) -> result_array();
+        return $this->db->order_by("deadline", "ASC")->get_where("etapa",array("projeto_id" => $proj_id)) -> result_array();
     }
 
     public function removeEtapaByID($id){

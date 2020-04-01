@@ -13,7 +13,7 @@
     <main>
     <div class="container">
         <h1>Projeto: <?php echo $project[0]["nome"]; ?></h1>
-
+        <h3 id="entrega_h3"></h3>
         <div class="container-header">
             <input type="button" id="back" value="Voltar">
             <input id="removeProject" class="remove" type="button" value="Eliminar projeto">

@@ -1,4 +1,5 @@
 var proj
+var enunciado_h3
 var back_page
 var etapa = {nome:'', desc:'', enunciado:'', data:''};
 var formStatus = null;
@@ -31,9 +32,17 @@ $(document).ready(() => {
     $("#back").click(() => window.location.assign(back_page));
 
 
+    //set enunciado h3 value
+    if(enunciado_h3 == ""){
+        $("#enunciado_h3").text("Enunciado: Este projeto não tem enunciado.")
+    } else {
+        $("#enunciado_h3").text("Enunciado: " + enunciado_h3);
+    }
+
     // getEtapas
     // chama uma primeira vez
     getEtapas(proj);
+
     var datafinal = $(".data-val").last().text();
     $("#entrega_h3").text("Entrega final: " + datafinal);
 
@@ -223,6 +232,10 @@ function checkFormStatus(){
         $("#opennewEtapa").css('background-color','white');
         $(".editb").css('background-color','white');
     }
+}
+
+function setEnunciado(url){
+    enunciado_h3 = url;
 }
 
 function setProj(id){

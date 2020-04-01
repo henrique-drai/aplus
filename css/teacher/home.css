@@ -1,6 +1,7 @@
 .prof-stats {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
     align-items: baseline;  
     margin: -10px; 
 }
@@ -46,7 +47,7 @@
 
 .prof-stats-btn{
     width: 100%;
-    margin-top: -5%;
+    margin-top: -2%;
 }
 
 .prof-subjects p {
@@ -55,4 +56,42 @@
 
 .subject {
     margin-bottom: 10%;
+}
+
+#cadeiras-hook {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-start: 1;
+}
+
+#alunos-hook {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 2;
+    grid-row-end: 2;
+}
+
+#horario-hook {
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row: 1 / span 2;
+}
+
+@media only screen and (max-width: 770px) {
+    .prof-stats {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .prof-stats-window {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .prof-stats-window {
+        font-size: 1em;
+        min-width: 80% !important;
+    }
 }

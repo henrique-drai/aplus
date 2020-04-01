@@ -261,6 +261,12 @@ class Teacher extends REST_Controller {
         $data["info"] = array();
         for($i = 0; $i <= count($data); $i++) {
             array_push($data["info"], $this->SubjectModel->getCadeiraInfo($data["ids"][$i]["cadeira_id"]));
+        };
+
+        $data["alunos"] = array();
+        $this->load->model("StudentListModel");
+        for($i = 0; $i < count($data["ids"]); $i++) {
+            array_push($data["alunos"], $this->StudentListModel->getStudentsbyCadeiraID($data["ids"][$i]["cadeira_id"]));
         }
 
         $this->response($data, parent::HTTP_OK);

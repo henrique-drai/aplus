@@ -20,6 +20,14 @@
             <div class="prof-subjects"></div>
         </div>
 
+        <div class="prof-stats-window" id="alunos-hook">
+            <div class="prof-stats-title">Alunos</div>
+            <br>
+            <div class="prof-stats-content">
+                Nº de Alunos: <span id="hook-num-alunos"></span>
+            </div>
+        </div>
+
         <div class="prof-stats-window" id="horario-hook">
             <div class="prof-stats-title">Horário</div>
             TODO 

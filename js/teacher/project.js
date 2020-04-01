@@ -1,6 +1,6 @@
 var proj
 var back_page
-var etapa = {nome:'', desc:'', data:''};
+var etapa = {nome:'', desc:'', enunciado:'', data:''};
 var formStatus = null;
 
 $(document).ready(() => {
@@ -34,10 +34,14 @@ $(document).ready(() => {
     // getEtapas
     // chama uma primeira vez
     getEtapas(proj);
+    var datafinal = $(".data-val").last().text();
+    $("#entrega_h3").text("Entrega final: " + datafinal);
 
     // refresh de segundo em segundo?
     setInterval(function(){
          getEtapas(proj);
+         var datafinal = $(".data-val").last().text();
+         $("#entrega_h3").text("Entrega final: " + datafinal);
     }, 1000);
 
 
@@ -124,10 +128,12 @@ $(document).ready(() => {
         var name = $(this).find('input[name="etapaName"]').val();
         var desc = $(this).find('textarea[name="etapaDescription"]').val();
         var data = $(this).find('input[name="etapaDate"]').val();
+        var enunc = $(this).find('input[name="file"]').val();
         
         etapa['nome'] = name;
         etapa['desc'] = desc;
         etapa['data'] = data;
+        etapa['enunciado'] = enunc;
 
         if (!verifyDates(data)){
             $("#etapa input[name='etapaDate']").css("border-left-color", "red");
@@ -207,15 +213,15 @@ function submit_etapa(){
 
 
 function checkFormStatus(){
-    if (formStatus == null){
+    if(formStatus == 'edit'){
         $("#opennewEtapa").css('background-color','white');
-        $("#editEtapaButton").css('background-color','white');
-    } else if(formStatus == "edit"){
-        $("#opennewEtapa").css('background-color','white');
-        $("#editEtapaButton").css('background-color','#3e5d4f');
-    } else if(formStatus == "new"){
+        $(".editb").css('background-color','#3e5d4f');
+    } else if(formStatus == 'new'){
         $("#opennewEtapa").css('background-color','#3e5d4f');
-        $("#editEtapaButton").css('background-color','white');
+        $(".editb").css('background-color','white');
+    } else {
+        $("#opennewEtapa").css('background-color','white');
+        $(".editb").css('background-color','white');
     }
 }
 
@@ -233,19 +239,27 @@ function makeEtapaTable(data){
     var lastp;
     for (i=0; i<data.length; i++){
         json = data[i];
+        var enunciado = json["enunciado_url"];
         var date = new Date(json["deadline"]);
         etapasSTR += '<tr>' +
             '<td class="etapa-name">'+ json["nome"] +'</td>' +
-            '<td>'+ date.toLocaleString('en-GB') +'</td>' +
+            '<td class="data-val">'+ date.toLocaleString('en-GB') +'</td>' +
             '<td><input class="moreInfoButtons" id="'+json["id"] +'" type="button" value="Info"></input></td>'
             '</tr>'
+
+
+        if (enunciado == ""){
+            enunciado = "Não existe enunciado associado a esta etapa."
+        }
 
 
         p += '<div class="etapas-info" id="div'+json["id"]+'">' +   
             '<label>Descrição:</label>' +
             '<p>'+ json["description"] +'</p>' +
+            '<label>Enunciado da etapa:</label>' +
+            '<p>' + enunciado + '</p>' +
             '<div class="wrapper">'+
-            '<input id="editEtapaButton" type="button" value="Editar">' +
+            '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +
             '<input id="feedbackEtapaButton" type="button" value="Feedback"></input>'+
             '<input id="removeEtapaButton" class="remove" type="button" value="Eliminar">' +
             '</div>' +

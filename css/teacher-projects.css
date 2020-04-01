@@ -79,6 +79,10 @@
     min-width: 48%;
 }
 
+.form-input-file{
+    border-left-color: rgb(124, 124, 124);
+}
+
 @media screen and (max-width: 460px) {
     .form-input-number{
         width: 100%;
@@ -145,6 +149,7 @@ input.remove:hover {
 #etapa-form{
     display: none;
 }
+
 
   /* -------------------------------- 
                                     /

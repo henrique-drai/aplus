@@ -1,4 +1,4 @@
-const etapas = [{id:1, nome:'', desc:'', data:''}];
+const etapas = [{id:1, nome:'', desc:'', enunciado:'', data:''}];
 var subject_id
 var project_page
 var back_page
@@ -19,6 +19,8 @@ $(document).ready(() => {
              '<input class="form-input-text" type="text" name="etapaName" required> ' +
              '<label class="form-label">Descrição</label> ' + 
              '<textarea class="form-text-area" type="text" name="etapaDescription" required></textarea> ' + 
+             '<label for="file">Enunciado:</label>' +
+             '<input class="form-input-file" type="file" id="file_etapa" name="file">' +
              '<label class="form-label">Data de entrega</label> ' + 
              '<input class="form-input-text" type="datetime-local" name="etapaDate" required> ' +
              '</p> '
@@ -31,10 +33,10 @@ $(document).ready(() => {
             var name = $(this).find('input[name="etapaName"]').val();
             var desc = $(this).find('textarea[name="etapaDescription"]').val();
             var data = $(this).find('input[name="etapaDate"]').val();
-
+            var enunc = $(this).find('input[name="file"]').val();
             var newid = parseInt(pid.replace("etapa",""));
 
-            insertIntoEtapas(newid, name, desc, data);
+            insertIntoEtapas(newid, name, desc, enunc, data);
         })
 
 
@@ -65,7 +67,8 @@ $(document).ready(() => {
         var name = $(this).find('input[name="etapaName"]').val();
         var desc = $(this).find('textarea[name="etapaDescription"]').val();
         var data = $(this).find('input[name="etapaDate"]').val();
-        insertIntoEtapas(1, name, desc, data);
+        var enunc = $(this).find('input[name="file"]').val();
+        insertIntoEtapas(1, name, desc, enunc, data);
     })
 
     $("#maxnuminput").keyup(function(){
@@ -103,13 +106,14 @@ function refreshEtapasTitle(){
 }
 
 
-function insertIntoEtapas(id, name, desc, data){
-    console.log(id + " " + name +" " + desc + " " + data);
+function insertIntoEtapas(id, name, desc, enunc, data){
+    console.log(id + " " + name +" " + desc + " " + enunc + " " + data);
     for (i=0; i<etapas.length; i++){
         if(etapas[i].id == id){
             etapas[i].nome = name;
             etapas[i].desc = desc;
             etapas[i].data = data;
+            etapas[i].enunciado = enunc;
         }
     }
 

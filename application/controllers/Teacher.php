@@ -173,6 +173,7 @@ class Teacher extends REST_Controller {
                 "projeto_id"        => $proj_id,
                 "nome"              => $dataEtapa[$i]["nome"],
                 "description"       => $dataEtapa[$i]["desc"],
+                "enunciado_url"     => $dataEtapa[$i]["enunciado"],
                 "deadline"          => $dataEtapa[$i]["data"],
             );
 
@@ -210,6 +211,7 @@ class Teacher extends REST_Controller {
             "projeto_id"        => $this->post('projid'),
             "nome"              => $etapa["nome"],
             "description"       => $etapa["desc"],
+            "enunciado_url"     => $etapa["enunciado"],
             "deadline"          => $etapa["data"],
         );
 

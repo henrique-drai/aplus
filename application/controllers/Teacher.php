@@ -53,7 +53,7 @@ class Teacher extends REST_Controller {
     public function getCadeiras() {
         $user_id = $this->post('id');
         $this->load->model('SubjectModel');
-        $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id);
+        $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id, "teacher");
 
         $data["info"] = array();
         for($i=0; $i < count($data["cadeiras_id"]); $i++) {

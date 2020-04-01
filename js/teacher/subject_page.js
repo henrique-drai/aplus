@@ -330,8 +330,7 @@ function getProj(data) {
                 for(var i=0; i < data.length; i++) {
                     $(".projetos").append("<input type='button' class='project_button' id='" + data[i].id +
                     "' value='Projeto " + (i+1) + "'>");
-                }
-                
+                }  
             }
         },
         error: function(data) {

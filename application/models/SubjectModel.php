@@ -11,10 +11,16 @@ class SubjectModel extends CI_Model { //cadeira
         return $query->row();
     }
 
-    public function getCadeiras($id) {
+    public function getCadeiras($id, $role) {
         $this->db->select("cadeira_id");
         $this->db->where(array('user_id =' => $id));
-        $query = $this->db->get('professor_cadeira');
+        
+        if($role == "teacher") {
+            $query = $this->db->get('professor_cadeira');
+        } else if($role == "student") {
+            $query = $this->db->get('aluno_cadeira');
+        }
+        
         return $query->result_array();
     }
 

@@ -12,7 +12,7 @@ function StudentNavMenu() {
         },
         "subjects": {
             "href": base_url + "app/student/subjects",
-            "name": "Cadeiraas"
+            "name": "Cadeiras"
         }
     }
 

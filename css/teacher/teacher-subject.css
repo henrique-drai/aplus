@@ -184,6 +184,7 @@ select, textarea {
     display: inline-block;
     margin-left: 2%;
     cursor: pointer;
+    margin-bottom: 5%;
 }
 
 .card_info:hover {

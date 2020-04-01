@@ -1,20 +1,20 @@
 $(document).ready(() => {
-    showCadeiras();
+    getCadeiras(localStorage.user_id);
 
     $("body").on("click", "a", function() {
         localStorage.setItem("cadeira_code", $(this).attr("id"));
         window.location = base_url + "subjects/subject/" + $(this).attr("id");
     })
-})
+});
 
-function showCadeiras() {
-    var image_url = base_url + "uploads/pattern.jpg";
+function getCadeiras(user_id) {
     $.ajax({
-        type: "POST",
-        url: base_url + "teacher/api/getCadeiras",
-        data: {id: localStorage.user_id},
+        type: "GET",
+        url: base_url + "student/api/getCadeiras",
+        data: {id: user_id},
         success: function(data) {
-            console.log(data);
+            var image_url = base_url + "uploads/pattern.jpg";
+
             for(var i = 0; i < data.cadeiras_id.length; i++) {
                 var url = base_url + "subjects/subject/" + data.info[i][0].code;
                 $(".cadeiras").append("<a data-sort='" + data.info[i][0].code + "' id='" + data.info[i][0].code + "' href='" + url +
@@ -26,5 +26,5 @@ function showCadeiras() {
         error: function(data) {
             alert("Houve um erro ao ir buscar a informação das cadeiras lecionadas.");
         }
-    });
+    })
 }

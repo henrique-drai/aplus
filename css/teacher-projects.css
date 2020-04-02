@@ -139,11 +139,12 @@ input.remove:hover {
 .container table {
     table-layout: fixed;
     width: 100%;
+    word-wrap:break-word;
     /* white-space: nowrap; */
 }
 
 .container table, .container table td, .container table th {
-    border-collapse: collapse;
+    border-collapse: collapse;   
 }
 
 #etapa-form{

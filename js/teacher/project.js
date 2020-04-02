@@ -1,6 +1,7 @@
 var proj
 var enunciado_h3
 var back_page
+var selected_etapa
 var etapa = {nome:'', desc:'', enunciado:'', data:''};
 var formStatus = null;
 
@@ -101,6 +102,7 @@ $(document).ready(() => {
         var id = $(this).parent().parent().attr('id');
         var newid = id.replace("div","");
         removeEtapa(newid);
+        $("#etapa-form").hide();
         $('#' + id).hide();
         getEtapas(proj);
     })
@@ -154,7 +156,8 @@ $(document).ready(() => {
 
     //mostrar info extra da etapa - tabela
     $('body').on('click', '.moreInfoButtons', function(){
-        var divid = 'div' + $(this).attr("id");
+        selected_etapa = $(this).attr("id");
+        var divid = 'div' + selected_etapa;
         $('.etapas-info').hide();
         $('#' + divid).show();
         $("#etapa-form").hide();
@@ -164,6 +167,10 @@ $(document).ready(() => {
 
     //criar etapa
     $("#newEtapa").click(() => submit_etapa());
+
+
+    //editar etapa 
+    $("#newEtapaEDIT").click(() => submit_edit_etapa());
 
 })
 
@@ -211,6 +218,37 @@ function submit_etapa(){
             },
             error: function(data) {
                 console.log("Erro na API - Submit Etapa");
+                console.log(data);
+            }
+        });
+    } else {
+        $("#errormsg").show().delay(5000).fadeOut();
+        return false;
+    }
+}
+
+
+function submit_edit_etapa(){
+    if (verifyDates(etapa["data"])){
+
+        const data = {
+            projid : parseInt(proj),
+            edited_etapa : etapa,
+            id : selected_etapa,
+        }
+
+        $.ajax({
+            type: "POST",
+            headers: {
+                "Authorization": localStorage.token
+            },
+            url: base_url + "teacher/api/editEtapa",
+            data: data,
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(data) {
+                console.log("Erro na API - Edit Etapa");
                 console.log(data);
             }
         });
@@ -355,6 +393,7 @@ function showGroups(proj_id) {
         },
         error: function(data) {
             console.log("Erro na API - Show Groups")
+            $("#groups_list").append("Não existem grupos para mostrar.")
             console.log(data)
         }
     });

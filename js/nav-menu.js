@@ -41,10 +41,10 @@ function getNavBarLinks(pages)
     for (const key in pages)
     {
         const className = (key == page_name) ? " class='nav-menu-selected-link'" : ""
-        let li = $("<li"+className+"></li>")
-        const link = $("<a href='"+pages[key].href+"'>"+pages[key].name+"</a>")
-        li.append(link)
-        link_list.append(li)
+        let li = $("<li"+className+">"+pages[key].name+"</li>")
+        let link = $("<a href='"+pages[key].href+"'></a>")
+        link.append(li)
+        link_list.append(link)
     }
     return link_list
 }
@@ -73,7 +73,7 @@ function getNavBarUserSection(){
 }
 
 function getLogoutBtn(){
-    let logout_btn = $("<div class='nav-menu-btn-logout nav-menu-btn'>Logout</div>");
+    let logout_btn = $("<div class='nav-menu-btn-logout nav-menu-btn'>Sair</div>");
     logout_btn.click(() => {
         endSession()
     })

@@ -110,8 +110,8 @@
 #nav-menu-hook li:hover {
     background: rgb(255,255,255,0.1);
 }
-#nav-menu-hook li a:visited,
-#nav-menu-hook li a {
+#nav-menu-hook a:visited,
+#nav-menu-hook a {
     text-decoration: none;
     color:white;
 }

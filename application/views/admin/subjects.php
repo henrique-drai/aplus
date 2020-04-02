@@ -15,14 +15,14 @@
 
         <form id="register-cadeiras-form" action="javascript:void(0)">
             <p>
-                <label for="codeCadeira">Código da Unidade Curricular(5 números):</label>
+                <label for="codeCadeira">Código da Unidade Curricular:</label>
                 <input class="form-input-number" type="text" name="codeCadeira" required>
             </p><p>
                 <label for="nomeCadeira">Unidade Curricular:</label>
                 <input class="form-input-text" type="text" name="nomeCadeira" required>
             </p><p>
                 <label for="descCadeira">Descrição da Unidade Curricular:</label>
-                <input class="form-input-text" type="text" name="descCadeira" required>
+                <textarea class="form-text-area" type="text" name="descCadeira" required></textarea>
             </p><p>
                 <select id="faculdades_register_UnidCurricular" name="faculdade">
                 </select>
@@ -30,12 +30,12 @@
                 <select id="cursos_register_UnidCurricular" name="curso">
                 </select>
             </p>
-
+            <div id="msgStatus">
+            </div>
             <input type="submit" id="register-cadeira-submit">
         </form><br>
 
-        <div id="msgStatus">
-        </div>
+        
         
         <h2>Consultar Unidades Curriculares</h2>
 

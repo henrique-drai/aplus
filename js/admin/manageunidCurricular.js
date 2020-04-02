@@ -48,7 +48,7 @@ $(document).ready(() => {
             $(".subject_row").remove();
         }
     });
-    // $("body").on("click", ".deleteCollege",() => deleteCollege());
+    $("body").on("click", ".deleteSubject",() => deleteSubject());
 
     // setInterval(getAllSubjects, 5000);
 })
@@ -198,23 +198,36 @@ function getAllSubjectsByCollege(course){
 
 }
 
-// function deleteCollege(){
-// var linha = $(event.target).closest("tr");
-// $.ajax({
-//     type: "DELETE",
-//     url: base_url + "admin/api/deleteCollege",
-//     data: {siglas: linha.find("td:eq(2)").text()},
-//     success: function() {
-//         $(".msgSucesso").remove();
-//         $(".msgErro").remove();
-//         msgSucesso = "<p class='msgSucesso'>Faculdade eliminada com Sucesso.</p>";
-//         $("#show_colleges").after(msgSucesso);
-//     },
-//     error: function() {
-//         $(".msgSucesso").remove();
-//         $(".msgErro").remove();
-//         msgErro = "<p class='msgErro'> Não foi possivel eliminar a faculdade.</p>";
-//         $("#show_colleges").after(msgErro);
-//     }
-// });
-// }
+function deleteSubject(){
+var linha = $(event.target).closest("tr");
+$.ajax({
+    type: "DELETE",
+    url: base_url + "admin/api/deleteSubject",
+    data: {code: linha.find("td:eq(0)").text()},
+    success: function() {
+        msgSucesso = "<p class='msgSucesso'>Faculdade eliminada com Sucesso.</p>";
+        $("#show_subjects").after(msgSucesso)
+        $(".msgSucesso").delay(2000).fadeOut();
+        if($("#Consultar_Cadeiras").val() == "All"){
+            getAllSubjects();
+        }
+        else if($("#Consultar_Cadeiras_Faculdade").val() != "Selecione uma Faculdade"){
+            getAllCoursesByCollege($("#Consultar_Cadeiras_Faculdade").val());
+        }
+        // else if($("#Consultar_Cadeiras_Faculdade").val() != "Selecione uma Faculdade"){
+        //     getAllCoursesByCollege($("#Consultar_Cadeiras_Faculdade").val());
+        // }
+        // else if($("#Consultar_Cadeiras_Faculdade").val() != "Selecione uma Faculdade"){
+        //     getAllCoursesByCollege($("#Consultar_Cadeiras_Faculdade").val());
+        // }
+
+        //PARA O CURSO E PARA O NO LETIVO
+
+    },
+    error: function() {
+        msgErro = "<p class='msgErro'> Não foi possivel eliminar a faculdade.</p>";
+        $("#show_subjects").after(msgErro)
+        $(".msgErro").delay(2000).fadeOut();
+    }
+});
+}

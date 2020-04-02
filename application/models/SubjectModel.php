@@ -100,4 +100,8 @@ class SubjectModel extends CI_Model { //cadeira
     public function countSubjects(){
         return $this->db->count_all_results('cadeira');
     }
+
+    public function deleteSubject($code){
+        $query = $this->db->delete('cadeira', array('code'=>$code));
+    }
 }

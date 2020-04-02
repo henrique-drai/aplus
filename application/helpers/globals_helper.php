@@ -6,3 +6,4 @@
 //          echo EXEMPLO;
 
 define("EXEMPLO","valor");
+define("TamnhoCodigoUC", "10");

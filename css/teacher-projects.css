@@ -106,7 +106,7 @@
 
 /* Especifico da página project */
 
-.buttons-container input[type=button], .container-header input[type=button] {
+.buttons-container input[type=button], .container-header input {
     margin:unset;
     margin-top: 1%;
 }
@@ -119,9 +119,20 @@
     font-weight: bold;
 }
 
-.wrapper input[type=button] {
-    display: inline-flex;
+.wrapper {
+    margin-bottom: 1%;
+}
+
+.wrapper input {
     margin-right: 1%;
+}
+
+#file_projeto{
+    width: 60%;
+}
+
+#addEnunciado{
+    display: none;
 }
 
 input.remove{

@@ -33,7 +33,8 @@ class Teacher extends REST_Controller {
             case "getAllGroups":        $this->getAllGroups(); break; //   /teacher/api/getAllGroups
             case "removeEtapa":         $this->removeEtapa(); break;//     /teacher/api/removeEtapa
             case "createEtapa":         $this->createEtapa(); break;//     /teacher/api/createEtapa
-            case "editEtapa":           $this->editEtapa(); break;//     /teacher/api/createEtapa
+            case "editEtapa":           $this->editEtapa(); break;//       /teacher/api/createEtapa
+            case "editEnunciado":       $this->editEnunciado(); break;//   /teacher/api/createEtapa
 
             default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -239,6 +240,18 @@ class Teacher extends REST_Controller {
         $this->ProjectModel->updateEtapa($new_etapa, $id);
 
         $this->response($etapa, parent::HTTP_OK);
+    }
+
+
+    public function editEnunciado(){
+        $proj = $this->post('projid');
+        $this->load->model('ProjectModel');
+
+        $enunciado = $this->post('enunciado');
+
+        $this->ProjectModel->updateProjEnunciado($enunciado, $proj);
+
+        $this->response($enunciado, parent::HTTP_OK);
     }
 
     public function getCourseStudents() {

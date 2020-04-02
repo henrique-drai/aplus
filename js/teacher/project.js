@@ -81,7 +81,7 @@ $(document).ready(() => {
         var newid = id.replace("div","");
         $("#etapa-form").show();
         $("#newEtapaEDIT").show();
-        $("#etapa-label").text("Editar etapa " + newid + ":");
+        $("#etapa-label").text("Editar etapa '" + $("#etapaname" + newid).text() + "':");
         $("#newEtapa").hide();
 
         if(formStatus != 'edit'){
@@ -163,6 +163,19 @@ $(document).ready(() => {
         $("#etapa-form").hide();
         formStatus = null;
         checkFormStatus();
+    })
+
+
+    //file enunciado projeto selected
+    $("#file_projeto").on('change', function(){
+        $("#addEnunciado").show();
+    })
+
+
+    //ao confirmar - mudar enunciado projeto
+    $("#addEnunciado").on('click', function(){
+        enunc = $("#file_projeto").val();
+        submit_new_enunciado(enunc);
     })
 
     //criar etapa
@@ -259,6 +272,32 @@ function submit_edit_etapa(){
 }
 
 
+function submit_new_enunciado(enunc){
+    const data = {
+        projid : parseInt(proj),
+        enunciado : enunc,
+    }
+
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "teacher/api/editEnunciado",
+        data: data,
+        success: function(data) {
+            console.log(data);
+            $("#enunciado_h3").text("Enunciado: " + data);
+            $("#addEnunciado").hide();
+        },
+        error: function(data) {
+            console.log("Erro na API - Edit Enunciado");
+            console.log(data);
+        }
+    });
+
+}
+
 function checkFormStatus(){
     if(formStatus == 'edit'){
         $("#opennewEtapa").css('background-color','white');
@@ -293,8 +332,8 @@ function makeEtapaTable(data){
         var enunciado = json["enunciado_url"];
         var date = new Date(json["deadline"]);
         etapasSTR += '<tr>' +
-            '<td class="etapa-name">'+ json["nome"] +'</td>' +
-            '<td class="data-val">'+ date.toLocaleString('en-GB') +'</td>' +
+            '<td id="etapaname'+ json["id"] +'" class="etapa-name">'+ json["nome"] +'</td>' +
+            '<td id="etapadata' + json["id"] + '" class="data-val">'+ date.toLocaleString('en-GB') +'</td>' +
             '<td><input class="moreInfoButtons" id="'+json["id"] +'" type="button" value="Info"></input></td>'
             '</tr>'
 

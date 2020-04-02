@@ -30,6 +30,13 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
     public function removeEtapaByID($id){
         return $this->db->delete("etapa", array("id" => $id));
     }
+
+    public function updateProjEnunciado($enunciado, $proj_id){
+        $this->db->set('enunciado_url', $enunciado);
+        $this->db->where('id', $proj_id);
+        $this->db->update("projeto");
+        return $this->db->affected_rows(); 
+    }
 }
 
 

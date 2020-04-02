@@ -25,6 +25,7 @@
             <div class="header-info">
                 <div class="name">
                     <?php echo $user->name." ". $user->surname; ?>
+                    <span><?php echo $user->gabinete; ?><span>
                 </div>
                 <hr>
                 <div class="bio">

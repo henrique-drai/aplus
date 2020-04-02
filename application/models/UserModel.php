@@ -52,6 +52,7 @@ class UserModel extends CI_Model {
             {$this->db->set('password', md5($data["password"]));}
         
         $this->db->set('description', $data["description"]);
+        $this->db->set('gabinete', $data["gabinete"]);
         $this->db->where('id', $data["id"]);
         $this->db->update('user');
     }

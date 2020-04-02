@@ -23,6 +23,12 @@
                             <input type="password" name="confirm">
                             <div class="form-error-message"></div>
                         </label>
+                        <?php
+                        if($this->session->role == "teacher") {
+                            echo '<label for="gabinete"> Gabinete
+                            <input type="text" name="gabinete" value="'. $user->gabinete . '"></label>';
+                        }
+                        ?>
                     </div>
 
                     <div class="right">

@@ -109,14 +109,11 @@ class App extends CI_Controller {
         
         //verificar se a pessoa fez login
         if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
+            $this->load->view('errors/403', $data); return null;}
         
         //verificar foi dado algum parâmetro
         if(is_null($user_id)) {
-            $this->load->view('errors/404', $data);
-            return null;
-        }
+            $this->load->view('errors/404', $data); return null;}
 
         $this->load->model('UserModel');
         
@@ -124,9 +121,7 @@ class App extends CI_Controller {
         
         //verificar se o user existe
         if(is_null($data["user"])){
-            $this->load->view('errors/404', $data);
-            return null;
-        }
+            $this->load->view('errors/404', $data); return null;}
 
         $this->load->helper('form');
 

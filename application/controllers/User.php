@@ -66,6 +66,7 @@ class User extends REST_Controller {
             "surname" => $this->post('surname'),
             "password" => $this->post('password'),
             "description" => $this->post('description'),
+            "gabinete" => $this->post('gabinete'),
         );
 
         $this->load->model('UserModel');

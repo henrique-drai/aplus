@@ -27,7 +27,6 @@ function submit_form_values(){
         const name = $(".profile-edit-user input[name='name']").val()
         const surname = $(".profile-edit-user input[name='surname']").val()
         const password = $(".profile-edit-user input[name='password']").val()
-        const description = $(".profile-edit-user textarea").val()
 
         let data = {}
 
@@ -38,9 +37,10 @@ function submit_form_values(){
         if(password != "")
             data.password = password
 
-        data.description = description
+        data.description = $(".profile-edit-user textarea").val()
+        data.gabinete = $(".profile-edit-user input[name='gabinete']").val()
 
-        console.log("Accepted. Informação que será alterada:")
+        console.log("Informação que será alterada:")
         console.log(data)
 
         $.ajax({

@@ -292,19 +292,21 @@ class Teacher extends REST_Controller {
     public function getProfHome() {
         $user_id = $this->get("user_id");
         $this->load->model("SubjectModel");
-        $data["ids"] = $this->SubjectModel->getCadeiras($user_id);
+        $data["ids"] = $this->SubjectModel->getCadeiras($user_id, "teacher");
 
-        $data["info"] = array();
-        for($i = 0; $i <= count($data); $i++) {
-            array_push($data["info"], $this->SubjectModel->getCadeiraInfo($data["ids"][$i]["cadeira_id"]));
-        };
-
-        $data["alunos"] = array();
-        $this->load->model("StudentListModel");
-        for($i = 0; $i < count($data["ids"]); $i++) {
-            array_push($data["alunos"], $this->StudentListModel->getStudentsbyCadeiraID($data["ids"][$i]["cadeira_id"]));
+        if(count($data["ids"]) > 0) {
+            $data["info"] = array();
+            for($i = 0; $i < count($data["ids"]); $i++) {
+                array_push($data["info"], $this->SubjectModel->getCadeiraInfo($data["ids"][$i]["cadeira_id"]));
+            };
+    
+            $data["alunos"] = array();
+            $this->load->model("StudentListModel");
+            for($i = 0; $i < count($data["ids"]); $i++) {
+                array_push($data["alunos"], $this->StudentListModel->getStudentsbyCadeiraID($data["ids"][$i]["cadeira_id"]));
+            }
         }
-
+        
         $this->response($data, parent::HTTP_OK);
     }
 

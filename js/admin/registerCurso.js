@@ -4,6 +4,8 @@ $(document).ready(() => {
     getAllSchoolYears();
 
     $("#register-course-submit").click(() => submitRegister());
+    $("body").on("click", ".deleteCourse",() =>deleteCourse());
+
 
     $("#consultar_cursos_faculdade").change(function(){
         if($(this).val()!="Selecione uma Faculdade"){
@@ -66,8 +68,6 @@ function submitRegister(){
         collegeName:   $("#register-cursos-form select[name='faculdade']").val(),
         academicYear:   $("#register-cursos-form select[name='academicYear']").val()
     }
-   
-
     if (data.codCourse != "" && data.nameCourse != "" && data.descCourse != "" && data.collegeName != "Selecione uma Faculdade"){
         $.ajax({
             type: "POST",
@@ -77,15 +77,11 @@ function submitRegister(){
                 $("#msgStatus").text("Curso registado com Sucesso");
                 $("#msgStatus").show().delay(2000).fadeOut();
                 $('#register-cursos-form')[0].reset();
-
             },
             error: function(data) {
-    
                 $("#msgStatus").text("Não foi possível adicionar o curso");
                 $("#msgStatus").show().delay(2000).fadeOut();
             }
-            
-    
         });
     }
     else{
@@ -101,11 +97,11 @@ function submitRegister(){
             url: base_url + "admin/api/getAllCursosFaculdade",
             data: {faculdade},
             success: function(data) {
-                // $(".msg").remove();
+                $(".course_row").remove();
                 $("#semCurso").remove();
                 if(data.courses.length>0){
                     for(i=0; i<data.courses.length; i++){
-                        getCursos_Standard(data.courses[i].curso_standard_id, data.courses[i].id, data.courses[i].description);
+                        getCursos_Standard(data.courses[i].curso_standard_id, data.courses[i].description);
  
                     }
                 }
@@ -120,7 +116,7 @@ function submitRegister(){
         });
     }
 
-    function getCursos_Standard(course_standard_id, curso_id, description){
+    function getCursos_Standard(course_standard_id, description){
         $.ajax({
             type: "GET",
             url: base_url + "admin/api/getCursoStandard",
@@ -133,7 +129,7 @@ function submitRegister(){
                                 "<td>" + data.course.id + "</td>"
                                 +"<td>" + data.course.name + "</td>"
                                 +"<td>" + description + "</td>"
-                                
+                                + "<td><button class='deleteCourse' type='button'>Apagar</button></td>"
                                 + "</tr>"; 
             
                  $("#show_courses").append(linhas);
@@ -143,5 +139,35 @@ function submitRegister(){
             }
         });
     }
+
+
+    
+
+function deleteCourse(){
+    var linha = $(event.target).closest("tr");
+    
+    const data = {
+        code:   linha.find("td:eq(0)").text(),
+        idCollege:    $("select[name='consultarCadeirasporFaculdade']").val(),
+        
+    }
+
+    $.ajax({
+        type: "DELETE",
+        url: base_url + "admin/api/deleteCourse",
+        data: data,
+
+        success: function() {
+            getAllCursosFaculdade(data.idCollege);            
+            $("#msgStatus").text("Curso eliminado com Sucesso");
+            $("#msgStatus").show().delay(2000).fadeOut();
+        },
+        error: function() {
+            $("#msgStatus").text("Erro a eliminar curso");
+            $("#msgStatus").show().delay(2000).fadeOut();
+        }
+    });
+}
+
 
     

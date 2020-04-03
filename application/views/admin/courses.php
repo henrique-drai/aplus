@@ -25,4 +25,7 @@
             
         </table>
 
+        <div id="msgStatus">
+        </div>
+
     </main>

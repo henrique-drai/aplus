@@ -58,6 +58,7 @@ class Admin extends REST_Controller {
             case "deleteCollege": $this->deleteCollege(); break; //  admin/api/deleteCollege
             case "deleteSubject": $this->deleteSubject(); break; //  admin/api/deleteSchoolYear
             case "deleteSchoolYear": $this->deleteSchoolYear(); break; //  admin/api/deleteSchoolYear
+            case "deleteCourse":    $this->deleteCourse(); break;
 
             default: $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -231,6 +232,14 @@ class Admin extends REST_Controller {
         $this -> response($data, parent::HTTP_OK);
     }
 
+    public function deleteCourse(){
+        $this->load->model('CourseModel');
+        $data = Array(
+            "faculdade_id" => $this -> delete('idCollege'),
+            "curso_standard_id"   => $this -> delete('code'),            
+        );
+        $this -> CourseModel -> deleteCollegeCourse($data);
+    }
 
     public function registerCurso(){
         $this -> load -> model('CourseModel');

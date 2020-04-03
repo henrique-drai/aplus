@@ -18,6 +18,14 @@ class CourseModel extends CI_Model { //curso & curso_standard
         return $course_id;
     }
 
+    public function deleteCollegeCourse($data){
+        $this->db->where(array(
+            'faculdade_id ='         => $data['faculdade_id'],
+            'curso_standard_id ='      => $data['curso_standard_id'],
+        ));
+        return $this->db->delete('curso');
+    }
+    
     public function register_course($data){
         $this->db->insert("curso", $data);
     }

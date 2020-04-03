@@ -17,7 +17,7 @@
         <h3 id="entrega_h3"></h3>
         <h3 id="enunciado_h3"></h3>
         <div class="container-header">
-            <div class="wrapper">
+            <div class="wrapper-top">
                 <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado">
                 <input id="addEnunciado" type="button" value="Adicionar enunciado">
             </div>

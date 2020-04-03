@@ -1,12 +1,11 @@
 <title>A+ for Teachers</title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/home.css">
 <script>setPageName("home")</script>
-<script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/home.js"></script>
 </head>
 
 <body>
-    <div id="nav-menu-hook"></div>
+<?php $this->view('templates/nav-menu'); ?>
     <main>
     <h1>Painel de Controlo</h1>
 

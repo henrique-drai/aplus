@@ -30,9 +30,11 @@ class Auth extends REST_Controller {
             $user = $this->UserModel->getUserByEmail($email);
 
             $session_data = array(
-                "id"    => $user->id,
+                "id" => $user->id,
                 "email" => $email,
-                "role"  => $user->role
+                "name" => $user->name,
+                "surname" => $user->surname,
+                "role" => $user->role
             );
 
             $this->session->set_userdata($session_data);

@@ -1,13 +1,12 @@
 <title>A+ for Admins</title>
 <script>setPageName("home")</script>
-<script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/home.js"></script>
 
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/home.css">
 </head>
 
 <body>
-    <div id="nav-menu-hook"></div>
+<?php $this->view('templates/nav-menu'); ?>
     <main>
 
         <h4 class="breadcrumb">Painel de Controlo</h4>

@@ -1,7 +1,6 @@
 <title>A+ for Teachers</title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-projects.css">
 <script>setPageName("subjects")</script>
-<script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/project.js"></script>
 <script>setProj("<?php echo $project[0]["id"]; ?>")</script>
 <script>setEnunciado("<?php echo $project[0]["enunciado_url"]; ?>")</script>
@@ -10,7 +9,7 @@
 </head>
 
 <body>
-    <div id="nav-menu-hook"></div>
+<?php $this->view('templates/nav-menu'); ?>
     <main>
     <div class="container">
         <h1>Projeto: <?php echo $project[0]["nome"]; ?></h1>

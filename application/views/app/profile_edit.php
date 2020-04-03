@@ -1,14 +1,14 @@
 <title>A+ Profile</title>
 <script>setPageName("profile")</script>
-<script src="<?php echo $base_url; ?>js/<?php echo $this->session->role; ?>/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/profile.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/profile.css">
 </head>
 
 <body>
-    <div id="nav-menu-hook"></div>
+    <?php $this->view('templates/nav-menu'); ?>
 
     <main>
+        <h1>Editar Perfil</h1>
         <div class="profile-edit">
             <h3>Editar informação:</h3>
             <form class="profile-edit-user" action="javascript:void(0)">

@@ -1,10 +1,5 @@
 $(document).ready(() => {
-    AdminNavMenu();
-})
-
-function AdminNavMenu() {
-    let container = $("<div id='nav-menu-container'></div>")
-
+    
     const pages = {
         "home": {
             "href": base_url + "app/",
@@ -32,10 +27,5 @@ function AdminNavMenu() {
         },
     }
 
-    container.append(getNavBarUserSection())
-    container.append("<hr>")
-    container.append(getNavBarLinks(pages))
-    $("#nav-menu-hook").append(container)
-
-    loadNavBarUserInfo();
-}
+    printNavBarLinks(pages)
+})

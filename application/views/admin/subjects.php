@@ -1,13 +1,12 @@
 <title>A+ for Admins</title>
 <script>setPageName("subjects")</script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin-subjects.css">
-<script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/registerunidCurricular.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/manageunidCurricular.js"></script>
 </head>
 
 <body>
-    <div id="nav-menu-hook"></div>
+<?php $this->view('templates/nav-menu'); ?>
     <main>
     <div class="container">
 

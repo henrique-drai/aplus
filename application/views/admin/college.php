@@ -1,6 +1,5 @@
 <title>A+ for Admins</title>
 <script>setPageName("college")</script>
-<script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/registerCollege.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/manageCollege.js"></script>
 
@@ -9,7 +8,7 @@
 </head>
 
 <body>
-    <div id="nav-menu-hook"></div>
+<?php $this->view('templates/nav-menu'); ?>
     <main>
         <h1>Registar Faculdade!</h1>
 

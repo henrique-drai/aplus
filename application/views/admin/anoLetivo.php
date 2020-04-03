@@ -1,13 +1,12 @@
 <title>A+ for Admins</title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <script>setPageName("anoLetivo")</script>
-<script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/registerSchoolYear.js"></script>
 
 </head>
 
 <body>
-    <div id="nav-menu-hook"></div>
+    <?php $this->view('templates/nav-menu'); ?>
     <main>
     <div class="container">
 

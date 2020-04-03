@@ -1,12 +1,11 @@
 <title>A+ for Admins</title>
 <script>setPageName("courses")</script>
-<script src="<?php echo $base_url; ?>js/admin/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/registerCurso.js"></script>
 
 </head>
 
 <body>
-    <div id="nav-menu-hook"></div>
+    <?php $this->view('templates/nav-menu'); ?>
     <main>
         <h1>Courses</h1>
 

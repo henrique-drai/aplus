@@ -20,17 +20,25 @@ function loadProfHome() {
             var count = 0;
             $(".prof-subjects").empty();
 
-            $("#hook-num-cadeiras").text(data.ids.length);
+            if(data.ids.length == 0) {
+                $("#hook-num-cadeiras").text("Ainda não tem cadeiras associadas.");
+            } else {
+                $("#hook-num-cadeiras").text(data.ids.length);
 
-            for(var i=0; i < data.info.length; i++) {
-                $(".prof-subjects").append("<div class='subject'><p>" + data.info[i][0].name + "</p><div class='prof-stats-btn'>" +
-                    "<a id='" + data.info[i][0].code +
-                    "'><div>Gerir</div></a></div>");
-
-                count = count + data.alunos[i].length;
+                for(var i=0; i < data.info.length; i++) {
+                    $(".prof-subjects").append("<div class='subject'><p>" + data.info[i][0].name + "</p><div class='prof-stats-btn'>" +
+                        "<a id='" + data.info[i][0].code +
+                        "'><div>Gerir</div></a></div>");
+    
+                    count = count + data.alunos[i].length;
+                }
             }
 
-            $("#hook-num-alunos").text(count);
+            if(count == 0) {
+                $("#hook-num-alunos").text("Ainda não tem alunos.");
+            } else {
+                $("#hook-num-alunos").text(count);
+            }
         },
         error: function(data) {
             console.log("Erro na API:")

@@ -1,5 +1,5 @@
 <title>A+ for Teachers</title>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/students-list.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/students-list.css">
 <script>setPageName("studentsList")</script>
 <script src="<?php echo $base_url; ?>js/teacher/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/student-list.js"></script>
@@ -29,17 +29,11 @@
 
         <h3>Consultar alunos por:</h3>
 
-        <form id="consultar_aluno" action="">
-            <select id="consultar_aluno" name="consultarAluno">
-                <option value="">Selecione uma opção</option>
-                <option value="Curso">Por Curso</option>
-            </select>
-            <input type="submit" id="consultar-btn" value="Consultar">     
-        </form>
-
+        <input type="button" value="Curso" id="curso-btn" onclick="show_curso();">
+    
         <br><br>
 
-        <table id="show_studs">
+        <table id="show-stud-curso">
             <tr>
                 <th>Nome</th>
                 <th>Apelido</th>

@@ -8,8 +8,9 @@
 <body>
     <div id="nav-menu-hook"></div>
     <main>
+    <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Utilizadores</h4>
+
         <h1>Utilizadores</h1>
-        <h4><a href="<?php echo base_url(); ?>app">Painel de Controlo</a></h4>
 
         <section class="flex-section">
             

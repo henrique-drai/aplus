@@ -2,21 +2,15 @@ main > * {
     margin: 10px;
 }
 
-h4 a{
-    color: #78837e;
-    text-decoration: none;
-}
-
 .flex-section {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     align-items: baseline;
-    margin: 0px;
+    margin: -15px;
 }
 
 .admin-users-window {
-    margin: 10px;
+    margin: 30px;
     min-width: 300px;
 }
 

@@ -68,3 +68,7 @@ table, tr, td, th {
     border: 1px solid #aaa;
 }
 
+h4.breadcrumb a, h4.breadcrumb{
+    color: #78837e;
+    text-decoration: none;
+}

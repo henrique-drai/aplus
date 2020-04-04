@@ -3,7 +3,7 @@ class UserModel extends CI_Model {
 
     public function getUserByEmail($email) {
         $query = $this->db->get_where('user', array('email' => $email));
-        return $query->result_array();
+        return $query->row();
     }
 
     public function getUserById($id) {
@@ -77,12 +77,6 @@ class UserModel extends CI_Model {
     public function countTeachers(){
         $this->db->where('role', 'teacher');
         return $this->db->count_all_results('user');
-    }
-
-    public function updatePic($user_id){
-        $this->db->set('has_pic', true);
-        $this->db->where('id', $user_id);
-        $this->db->update('user');
     }
 
     public function getStudentsTeachers(){

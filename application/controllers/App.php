@@ -152,9 +152,6 @@ class App extends CI_Controller {
         }
         else
         {
-            $this->load->model('UserModel');
-            $this->UserModel->updatePic($user_id);
-
             header("Location: ".base_url()."app/profile/".$user_id);
         }
     }

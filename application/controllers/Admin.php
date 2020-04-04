@@ -254,12 +254,14 @@ class Admin extends REST_Controller {
         $this->load->model("CourseModel");
 
         $data = Array(
-            "idCurso"       => $this->post('idCurso'),
+            "code"         => $this->post('code'),
             "name"          => $this->post('name'),
+            "academicYear"  => $this->post('academicYear'),
             "description"   => $this->post('description'),
             "oldCurso"      => $this->post('oldCurso'),
+            "collegeId"      => $this->post('collegeId'),
         );
-        // $this->CourseModel->editCourse($data);
+        $this->CourseModel->editCourse($data);
     }
 
 

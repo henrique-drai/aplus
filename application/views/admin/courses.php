@@ -36,10 +36,15 @@
             <label for="name">Nome</label>
             <input type="text" name="name" required>
         </p>
+        <p>
+            <label for="academicYear">Ano Letivo</label>
+            <input type="text" name="academicYear" required>
+        </p>
         <p>    
             <label for="description">Descrição</label>
             <input type="text" name="description" required>
         </p>
+      
             <input type="submit" id="editCourse-form-submit" required>
         </form>   
         <br>

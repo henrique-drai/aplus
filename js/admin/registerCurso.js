@@ -206,9 +206,11 @@ function displayEditCourse(){
 function editCourse(){
     
     const data = {
-        idCurso:     $("#editCourse-form input[name='codCourse']").val(),
+        code:     $("#editCourse-form input[name='codCourse']").val(),
         name:    $("#editCourse-form input[name='name']").val(),
+        academicYear:    $("#editCourse-form input[name='academicYear']").val(),
         description:      $("#editCourse-form input[name='description']").val(),
+        collegeId:      $('#consultar_cursos_faculdade :selected').val(),
         oldCurso: codCourse
     }
 
@@ -217,10 +219,9 @@ function editCourse(){
         url: base_url + "admin/api/editCourse",
         data: data,   
         success: function() {
-            getAllCursosFaculdade($('#consultar_cursos_faculdade :selected').val());
+            getAllCursosFaculdade(data.collegeId);
             $("#msgStatus").text("Curso editado com sucesso");
             $("#msgStatus").show().delay(2000).fadeOut();
-            alert("FALTA IMPLEMENTAR O EDIT");
             displayEditCourse();
         },
         error: function() {

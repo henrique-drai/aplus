@@ -50,25 +50,17 @@ class CourseModel extends CI_Model { //curso & curso_standard
 
     public function editCourse($data){
 
-        // EDITAR CURSO QUE SÓ PERTENÇA A 1 E SÓ 1 FACULDADE?
-        // $data = Array(
-        //     "idCurso"       => $this->post('idCurso'),
-        //     "name"          => $this->post('name'),
-        //     "description"   => $this->post('description'),
-        //     "oldCurso"      => $this->post('oldCurso'),
-        // );
-
-        // if(countMany(data['idCurso']==1)){
-
-        // }
-        // $this->db->set('name', $data["name"]);
-        // $this->db->set('surname', $data["surname"]);
-        // $this->db->set('email', $data["email"]);
-        // $this->db->set('password', $data["password"]);
-        // $this->db->set("role", $data["role"]);
-        // $this->db->where('email', $email);
-        // $this->db->update('user');
+        $this->db->set('ano_letivo_id', $data["academicYear"]);
+        $this->db->set('code', $data["code"]);
+        $this->db->set('name', $data["name"]);
+        $this->db->set('description', $data["description"]);
+       
+        $this->db->where(array(
+            'faculdade_id ='    => $data['collegeId'],
+            'code ='            => $data['oldCurso'],
+        ));
         
+        $this->db->update('curso');    
     }
 
 }

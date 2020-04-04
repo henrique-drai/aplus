@@ -1,8 +1,16 @@
+var ano
+
 $(document).ready(() => {
     $("#register-anoletivo-submit").click(() => submitRegister())  
     setInterval(getAllSchoolYears, 2000);
-    $("body").on("click", "#removeYearButton",() => popupVisible());
-	
+    
+    //open popup
+	$('body').on('click','#removeYearButton', function(event){
+        event.preventDefault();
+        ano = $(event.target).closest("tr");
+        $('.cd-popup').addClass('is-visible');
+    });
+    
 	//close popup
 	$('.cd-popup').on('click', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
@@ -16,21 +24,11 @@ $(document).ready(() => {
     		$('.cd-popup').removeClass('is-visible');
 	    }
     });
-
-
-})
-
-function popupVisible(){
-    event.preventDefault();
-    var linha = $(event.target).closest("tr");
-    $('.cd-popup').addClass('is-visible');
     $("body").on('click', "#confirmRemove", function(){
         $('.cd-popup').removeClass('is-visible');
-        deleteSchoolYear(linha);
-        event.preventDefault();
-
+        deleteSchoolYear(ano);
     })
-}
+})
 
 function getAllSchoolYears(){
     $.ajax({

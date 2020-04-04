@@ -131,6 +131,8 @@ $(document).ready(() => {
         $("#etapa-label").text("Editar etapa '" + $("#etapaname" + newid).text() + "':");
         $("#newEtapa").hide();
 
+        putEtapaInfoForm(newid);
+
         if(formStatus != 'edit'){
             formStatus = 'edit';
             checkFormStatus();
@@ -214,9 +216,7 @@ function makePopup(butID, msg){
 }
 
 
-
-
-//igual ao verifyDates do projectsNEW.js - faço um ficheiro geral, tento importar? for now vou repetir
+//muito parecido ao verifyDates do projectsNEW.js, só muda o set do errormsg
 function verifyDates(data){
 
     var dmaior = new Date(data);

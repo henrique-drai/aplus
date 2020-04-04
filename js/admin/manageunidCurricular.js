@@ -1,3 +1,5 @@
+var unidCurr
+
 $(document).ready(() => {
     $("#show_subjects").css("display", "none");
     $("#Consultar_Cadeiras_Faculdade").css("display", "none");
@@ -48,9 +50,34 @@ $(document).ready(() => {
             $(".subject_row").remove();
         }
     });
-    $("body").on("click", ".deleteSubject",() => deleteSubject());
 
-    // setInterval(getAllSubjects, 5000);
+    //open popup
+	$('body').on('click','.deleteSubject', function(event){
+        event.preventDefault();
+        unidCurr = $(event.target).closest("tr");
+        $('.cd-popup').addClass('is-visible');
+    });
+    
+	//close popup
+	$('.cd-popup').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+    });
+    
+	//close popup when clicking the esc keyboard button
+	$(document).keyup(function(event){
+    	if(event.which=='27'){
+    		$('.cd-popup').removeClass('is-visible');
+	    }
+    });
+
+    $("body").on('click', "#confirmRemove", function(){
+        $('.cd-popup').removeClass('is-visible');
+        deleteCourse(unidCurr);
+    })
+
 })
 
 
@@ -198,8 +225,7 @@ function getAllSubjectsByCollege(course){
 
 }
 
-function deleteSubject(){
-var linha = $(event.target).closest("tr");
+function deleteSubject(linha){
 $.ajax({
     type: "DELETE",
     url: base_url + "admin/api/deleteSubject",

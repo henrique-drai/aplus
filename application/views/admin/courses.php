@@ -1,6 +1,7 @@
 <title>A+ for Admins</title>
 <script>setPageName("courses")</script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin-users.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <script src="<?php echo $base_url; ?>js/admin/registerCurso.js"></script>
 
 </head>
@@ -43,6 +44,17 @@
         </form>   
         
         <div id="msgStatus">
+        </div>
+
+        <div class="cd-popup" role="alert">
+	        <div class="cd-popup-container">
+		        <p>Tem a certeza que deseja eliminar o ano letivo?</p>
+                <ul class="cd-buttons">
+                    <li><a href="#" id="confirmRemove">Sim</a></li>
+                    <li><a href="#" id="closeButton">Não</a></li>
+                </ul>
+		        <a class="cd-popup-close"></a>
+	        </div>
         </div>
 
     </main>

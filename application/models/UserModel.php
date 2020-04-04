@@ -34,11 +34,18 @@ class UserModel extends CI_Model {
     }
 
     public function editStudent($email, $data){
-        $this->db->set('name', $data["name"]);
-        $this->db->set('surname', $data["surname"]);
-        $this->db->set('email', $data["email"]);
-        $this->db->set('password', $data["password"]);
-        $this->db->set("role", $data["role"]);
+        if(isset($data["name"])){
+            $this->db->set('name', $data["name"]);
+        }
+        if(isset($data["surname"])){
+            $this->db->set('surname', $data["surname"]);
+        }
+        if(isset($data["email"])){
+            $this->db->set('email', $data["email"]);
+        }
+        if(isset($data["password"])){
+            $this->db->set('password', md5($data["password"]));
+        }
         $this->db->where('email', $email);
         $this->db->update('user');
     }

@@ -47,6 +47,7 @@ class Admin extends REST_Controller {
             case "getAllSubjects": $this->getAllSubjects(); break; // admin/api/getAllSubjects
             case "getAllCoursesByCollege": $this->getAllCoursesByCollege(); break; // admin/api/getAllCoursesByCollege
             case "getAllSubjectsByCollege": $this->getAllSubjectsByCollege(); break; // admin/api/getAllSubjectsByCollege
+            case "getUserByEmail": $this->getUserByEmail(); break; // admin/api/getUserByEmail
             case "saveCSV":         $this->export(); break;
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
@@ -212,6 +213,20 @@ class Admin extends REST_Controller {
         $this->UserModel->deleteUser($email);
     }
 
+    public function getUserByEmail(){
+        $email = $this->get('email');
+        $this->load->model('UserModel');
+        $user = $this->UserModel->getUserByEmail($email);
+        $data = Array(
+            "email" => $user->email,
+            "name" => $user->name,
+            "surname" => $user->surname,
+            "password" => $user->password,
+        );
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
     public function editUser(){
         $email = $this->post('oldemail');
         $data = Array(
@@ -219,7 +234,6 @@ class Admin extends REST_Controller {
             "surname"   => $this->post('surname'),
             "email"     => $this->post('email'),
             "password"  => md5($this->post('password')),
-            "role"      => $this->post('role'),
         );
         $this->load->model('UserModel');
         $retrieved = $this->UserModel->editStudent($email, $data);

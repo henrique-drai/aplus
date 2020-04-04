@@ -10,6 +10,8 @@
     <main>
     <div class="container">
 
+        <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Unidades Curriculares</h4>
+
         <h1>Unidades Curriculares</h1>
 
         <form id="register-cadeiras-form" action="javascript:void(0)">

@@ -10,6 +10,8 @@
 <body>
 <?php $this->view('templates/nav-menu'); ?>
     <main>
+        <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Faculdades</h4>
+
         <h1>Registar Faculdade!</h1>
 
         <form id="register-faculdade-form" action="javascript:void(0)">

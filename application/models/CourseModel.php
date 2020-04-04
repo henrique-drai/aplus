@@ -39,6 +39,36 @@ class CourseModel extends CI_Model { //curso & curso_standard
         return $this->db->count_all_results('curso_standard');
     }
 
+    public function countMany($idCurso){
+        $this->db->where('curso_standard_id',$idCurso);
+        $this->db->from("curso");
+        return $this->db->count_all_results();
+    }
+
+
+    public function editCourse($data){
+
+        // EDITAR CURSO QUE SÓ PERTENÇA A 1 E SÓ 1 FACULDADE?
+        // $data = Array(
+        //     "idCurso"       => $this->post('idCurso'),
+        //     "name"          => $this->post('name'),
+        //     "description"   => $this->post('description'),
+        //     "oldCurso"      => $this->post('oldCurso'),
+        // );
+
+        // if(countMany(data['idCurso']==1)){
+
+        // }
+        // $this->db->set('name', $data["name"]);
+        // $this->db->set('surname', $data["surname"]);
+        // $this->db->set('email', $data["email"]);
+        // $this->db->set('password', $data["password"]);
+        // $this->db->set("role", $data["role"]);
+        // $this->db->where('email', $email);
+        // $this->db->update('user');
+        
+    }
+
 }
 
 

@@ -28,6 +28,7 @@ class Admin extends REST_Controller {
             case "importCSV":       $this ->importCSV(); break; //        admin/api/importCSV
             case "registerCurso":   $this -> registerCurso(); break; //     admin/api/registerCurso
             case "registerSchoolYear": $this -> registerSchoolYear(); break;    // admin/api/registerSchoolYear
+            case "editCourse": $this -> editCourse(); break;
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
@@ -240,6 +241,20 @@ class Admin extends REST_Controller {
         );
         $this -> CourseModel -> deleteCollegeCourse($data);
     }
+
+
+    public function editCourse(){
+        $this->load->model("CourseModel");
+
+        $data = Array(
+            "idCurso"       => $this->post('idCurso'),
+            "name"          => $this->post('name'),
+            "description"   => $this->post('description'),
+            "oldCurso"      => $this->post('oldCurso'),
+        );
+        // $this->CourseModel->editCourse($data);
+    }
+
 
     public function registerCurso(){
         $this -> load -> model('CourseModel');

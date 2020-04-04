@@ -5,6 +5,9 @@ $(document).ready(() => {
 
     $("#register-course-submit").click(() => submitRegister());
     $("body").on("click", ".deleteCourse",() =>deleteCourse());
+    $("body").on("click", ".editCourse",() => displayEditCourse());
+    $("body").on("click", ".deleteCourse",() =>deleteCourse());
+    $("body").on("click", "#editCourse-form-submit", () => editCourse());
 
 
     $("#consultar_cursos_faculdade").change(function(){
@@ -129,6 +132,7 @@ function submitRegister(){
                                 "<td>" + data.course.id + "</td>"
                                 +"<td>" + data.course.name + "</td>"
                                 +"<td>" + description + "</td>"
+                                + "<td><button class='editCourse' type='button'>Editar</button></td>"
                                 + "<td><button class='deleteCourse' type='button'>Apagar</button></td>"
                                 + "</tr>"; 
             
@@ -171,3 +175,47 @@ function deleteCourse(){
 
 
     
+codCourse = "";
+function displayEditCourse(){
+    var x = document.getElementById("editCourse-form").style.display;
+    
+    if(x=="block"){
+        $("#editCourse-form").css("display", "none");
+    }
+    else{
+        $("#editCourse-form").css("display", "block");
+
+    }
+
+    var linha = $(event.target).closest("tr");
+    codCourse = linha.find("td:eq(0)").text();    
+}
+
+
+function editCourse(){
+    
+    const data = {
+        idCurso:     $("#editCourse-form input[name='codCourse']").val(),
+        name:    $("#editCourse-form input[name='name']").val(),
+        description:      $("#editCourse-form input[name='description']").val(),
+        oldCurso: codCourse
+    }
+
+    $.ajax({
+        type: "POST",
+        url: base_url + "admin/api/editCourse",
+        data: data,   
+        success: function() {
+            getAllCursosFaculdade($('#consultar_cursos_faculdade :selected').val());
+            $("#msgStatus").text("Curso editado com sucesso");
+            $("#msgStatus").show().delay(2000).fadeOut();
+            alert("FALTA IMPLEMENTAR O EDIT")
+
+        },
+        error: function() {
+            $("#msgStatus").text("Erro a editar curso");
+            $("#msgStatus").show().delay(2000).fadeOut();
+        }
+    });
+
+}

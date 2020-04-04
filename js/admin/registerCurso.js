@@ -235,8 +235,8 @@ function editCourse(){
             getAllCursosFaculdade($('#consultar_cursos_faculdade :selected').val());
             $("#msgStatus").text("Curso editado com sucesso");
             $("#msgStatus").show().delay(2000).fadeOut();
-            alert("FALTA IMPLEMENTAR O EDIT")
-
+            alert("FALTA IMPLEMENTAR O EDIT");
+            displayEditCourse();
         },
         error: function() {
             $("#msgStatus").text("Erro a editar curso");

@@ -104,4 +104,10 @@ class SubjectModel extends CI_Model { //cadeira
     public function deleteSubject($code){
         $query = $this->db->delete('cadeira', array('code'=>$code));
     }
+
+    public function registerStudentSubject($data){
+        $this->db->insert("aluno_cadeira", $data);
+    }
+
+  
 }

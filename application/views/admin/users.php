@@ -65,7 +65,7 @@
 
                 <br>
 
-                <form id="file-form" method="post" action="<?php echo base_url(); ?>admin/api/importCSV" enctype="multipart/form-data">
+                <form id="file-form" method="post" action="<?php echo base_url(); ?>admin/api/importStudentSubjects" enctype="multipart/form-data">
                     <label for="myfile">Importar dados:</label>
                     <input type="file" id="myfile" name="userfile">
                     <input type="submit" id="import-data-submit"  value="Importar">

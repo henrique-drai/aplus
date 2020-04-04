@@ -274,17 +274,10 @@ class Admin extends REST_Controller {
     public function registerCurso(){
         $this -> load -> model('CourseModel');
        
-        $data2 = Array(
-            "code"      => $this->post('codCourse'),
-            "name"   => $this->post('nameCourse'),
-        );
-       
-        $idCurso = $this->CourseModel-> register_course_standard($data2);
-
         $data = Array(
             "faculdade_id"      => $this->post('collegeName'),
-            "curso_standard_id" => $idCurso,
-            "ano_letivo_id"     => $this->post('academicYear'),  //Mudar ano letivo quando der - para o que atual? (ou o que quisermos)
+            "name"              => $this->post('nameCourse'),
+            "ano_letivo_id"     => $this->post('academicYear'),
             "description"       => $this->post('descCourse'),
         );
        
@@ -314,32 +307,32 @@ class Admin extends REST_Controller {
     }
 
     // IMPORTAR AUNOS E AS SUAS CADEIRAS
-    // public function importStudentSubjects(){
-    //     $this->load->helper('url');
-    //     $this -> load -> model('UserModel');
-    //     $this -> load -> model('SubjectModel');
-    //     $count_files = $_FILES["userfile"]['tmp_name'];
-    //     $file  = fopen($count_files, 'r');
+    public function importStudentSubjects(){
+        $this->load->helper('url');
+        $this -> load -> model('UserModel');
+        $this -> load -> model('SubjectModel');
+        $count_files = $_FILES["userfile"]['tmp_name'];
+        $file  = fopen($count_files, 'r');
 
-    //     // Skip first line
-    //     fgetcsv($file, 0, ","); 
-    //     while (($column = fgetcsv($file, 0, ",")) !== FALSE) {
+        // Skip first line
+        fgetcsv($file, 0, ","); 
+        while (($column = fgetcsv($file, 0, ",")) !== FALSE) {
 
-    //         // IR BUSCAR O ID DO MAIL
-    //         $idUser = $this -> UserModel -> getUserByEmail($column[0]);
-    //         // print_r($idUser[0]['id']);
-    //         $data = Array(
-    //             "user_id"      => $idUser[0]['id'],
-    //             "cadeira_id"   => $column[1],
-    //             "is_completed"     => $column[2],
-    //             "image_url"     => "",
-    //         );
-    //         echo "<br>";
-    //         print_r($data);
-    //         $this -> SubjectModel -> registerStudentSubject($data);        
-    //     }
-    //     // header("Location: ". base_url()."app/admin/");
-    // }
+            // IR BUSCAR O ID DO MAIL
+            $idUser = $this -> UserModel -> getUserByEmail($column[0]);
+            // print_r($idUser[0]['id']);
+            $data = Array(
+                "user_id"      => $idUser[0]['id'],
+                "cadeira_id"   => $column[1],
+                "is_completed"     => $column[2],
+                "image_url"     => "",
+            );
+            echo "<br>";
+            print_r($data);
+            $this -> SubjectModel -> registerStudentSubject($data);        
+        }
+        // header("Location: ". base_url()."app/admin/");
+    }
 
     public function export(){
         $this->load->model('UserModel');

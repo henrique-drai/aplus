@@ -93,7 +93,12 @@ function getAllCursosFaculdade(faculdade){
         success: function(data) {
             if(data.courses.length>0){
                 for(i=0; i<data.courses.length; i++){
-                    getCursos_Standard(data.courses[i].curso_standard_id, data.courses[i].id);
+                    $(".course_row").remove();
+                    $("#cursos_register_UnidCurricular").css("display", "block");
+                    var linhas = '';
+                    linhas += '<option class="course_row" value=' + data.courses[i].id +">" + data.courses[i].name + '</option>'; 
+                
+                     $("#cursos_register_UnidCurricular").append(linhas);
                 }
             }
             else{
@@ -113,26 +118,6 @@ function getAllCursosFaculdade(faculdade){
 
 }
 
-
-function getCursos_Standard(course_standard_id, curso_id){
-    $.ajax({
-        type: "GET",
-        url: base_url + "admin/api/getCursoStandard",
-        data: {course_standard_id},
-        success: function(data) {
-            $(".course_row").remove();
-            $("#cursos_register_UnidCurricular").css("display", "block");
-            var linhas = '';
-            linhas += '<option class="course_row" value=' + curso_id +">" + data.course.name + '</option>'; 
-        
-             $("#cursos_register_UnidCurricular").append(linhas);
-            
-        },
-        error: function(data) {
-
-        }
-    });
-}
 
 function submitRegister(){
    

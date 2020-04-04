@@ -43,11 +43,10 @@ class Admin extends REST_Controller {
             case "getAdminHome":    $this->getAdminHome(); break; //        admin/api/getAdminHome
             case "getAllFaculdadesUnidCurricular":  $this->getAllColleges(); break; // admin/api/getAllFaculdadesUnidCurricular
             case "getAllCursosFaculdade": $this->getAllCollegesCourses(); break; // admin/api/getAllCursosFaculdade
-            case "getCursoStandard": $this->getCursoStandard(); break; // admin/api/getCursoStandard
-            case "getCourseStandardId": $this->getCursoStandardId(); break; // admin/api/getCourseStandardId
             case "getAllSubjects": $this->getAllSubjects(); break; // admin/api/getAllSubjects
             case "getAllCoursesByCollege": $this->getAllCoursesByCollege(); break; // admin/api/getAllCoursesByCollege
             case "getAllSubjectsByCollege": $this->getAllSubjectsByCollege(); break; // admin/api/getAllSubjectsByCollege
+            case "getCourseNameById": $this->getCourseNameById(); break; // admin/api/getCourseNameById
             case "getUserByEmail": $this->getUserByEmail(); break; // admin/api/getUserByEmail
             case "saveCSV":         $this->export(); break;
 
@@ -141,17 +140,11 @@ class Admin extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function getCursoStandard(){
-        $coursestandardid = $this->get('course_standard_id');
-        $this->load->model('CourseModel');
-        $data["course"] = $this->CourseModel->getCourse_Standard($coursestandardid);
-        $this->response($data, parent::HTTP_OK);
-    }
+    public function getCourseNameById(){
+        $cursoid = $this->get('curso_id');
 
-    public function getCursoStandardId(){
-        $courseid = $this->get('course_id');
         $this->load->model('CourseModel');
-        $data["course_standard_id"] = $this->CourseModel->getCourse_StandardId($courseid);
+        $data["course"] = $this->CourseModel->getCursobyId($cursoid);
         $this->response($data, parent::HTTP_OK);
     }
 

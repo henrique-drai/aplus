@@ -89,17 +89,17 @@ function getAllSubjects(){
         success: function(data) {
             $(".subject_row").remove();
             $("#mens_sem_cadeiras").remove();
-            // $("#mens_erro_faculdades").remove();
+            $("#mens_erro_faculdades").remove();
 
             if(data.subjects.length>0){
                 for(i=0; i<data.subjects.length;i++){
-                    getCourseStandardId(data.subjects[i].curso_id, data.subjects[i]);
+                    getCourseNameById(data.subjects[i].curso_id, data.subjects[i]);
                 }
             }
             else{
                 $("#mens_sem_cadeiras").remove();
                 $("#show_subjects").css("display", "none");
-                var mensagem = "<h2 id='mens_sem_cadeiras'>Não existe nenhuma faculdade</h2>";
+                var mensagem = "<h2 id='mens_sem_cadeiras'>Não existe nenhuma unidade curricular</h2>";
                 $("body").append(mensagem)
             }
             
@@ -107,20 +107,25 @@ function getAllSubjects(){
         error: function(data) {
             $("#show_colleges").css("display", "none");
             $("#mens_sem_cadeiras").remove();
-            // $("#mens_erro_faculdades").remove();
-            // var mensagem = "<h2 id='mens_erro_faculdades'>Não é possivel apresentar as faculdades.</h2>";
-            // $("body").append(mensagem);
+            $("#mens_erro_faculdades").remove();
+            var mensagem = "<h2 id='mens_erro_faculdades'>Não é possivel apresentar as unidades curriculares.</h2>";
+            $("body").append(mensagem);
         }
     });
 }
 
-function getCourseStandardId(course_id, dataSubject){
+function getCourseNameById(course_id, dataSubject){
     $.ajax({
         type: "GET",
-        url: base_url + "admin/api/getCourseStandardId",
+        url: base_url + "admin/api/getCourseNameById",
         data: {course_id},
         success: function(data) {
-            name = getCourseName(data.course_standard_id, dataSubject);
+            console.log(data.course);
+            // var linhas = '';
+            // linhas += '<tr class="subject_row"><td>' + dataSubject.code + '</td><td>' + data.course.name + 
+            //     '</td><td>' + dataSubject.name + '</td><td>' + dataSubject.description + 
+            //     '</td><td><button class="deleteSubject" type="button">Apagar</button></td></tr>'; 
+            // $('#show_subjects').append(linhas);
         },
         error: function(data) {
             // msgErro = "<p class='msgErro'> Não foi possivel registar a faculdade.</p>";
@@ -129,24 +134,6 @@ function getCourseStandardId(course_id, dataSubject){
     });
 }
 
-function getCourseName(course_standard_id, dataSubject){
-    $.ajax({
-        type: "GET",
-        url: base_url + "admin/api/getCursoStandard",
-        data: {course_standard_id},
-        success: function(data) {
-            var linhas = '';
-            linhas += '<tr class="subject_row"><td>' + dataSubject.code + '</td><td>' + data.course.name + 
-                '</td><td>' + dataSubject.name + '</td><td>' + dataSubject.description + 
-                '</td><td><button class="deleteSubject" type="button">Apagar</button></td></tr>'; 
-            $('#show_subjects').append(linhas);
-        },
-        error: function(data) {
-            // msgErro = "<p class='msgErro'> Não foi possivel registar a faculdade.</p>";
-            // $("#register-faculdade-form").after(msgErro);
-        }
-    });
-};
 
 function getColleges(){
     $.ajax({

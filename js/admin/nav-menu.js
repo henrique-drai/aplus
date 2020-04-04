@@ -9,6 +9,10 @@ $(document).ready(() => {
             "href": base_url + "app/admin/anoLetivo",
             "name": "Ano Letivo"
         },
+        "Faculdades": {
+            "href": base_url + "app/admin/college",
+            "name": "Faculdades"
+        },
         "courses": {
             "href": base_url + "app/admin/courses",
             "name": "Cursos"

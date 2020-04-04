@@ -3,6 +3,8 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin-subjects.css">
 <script src="<?php echo $base_url; ?>js/admin/registerunidCurricular.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/manageunidCurricular.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
+
 </head>
 
 <body>
@@ -56,6 +58,18 @@
 
         <select id="Consultar_Cadeiras_Ano" name="consultarCadeirasporAno">
         </select>
+
+        <div class="cd-popup" role="alert">
+	        <div class="cd-popup-container">
+		        <p>Tem a certeza que deseja eliminar o ano letivo?</p>
+                <ul class="cd-buttons">
+                    <li><a href="#" id="confirmRemove">Sim</a></li>
+                    <li><a href="#" id="closeButton">Não</a></li>
+                </ul>
+		        <a class="cd-popup-close"></a>
+	        </div>
+        </div>
+
 
         <table id="show_subjects">
             <tr>

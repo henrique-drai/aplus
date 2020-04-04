@@ -1,9 +1,39 @@
+var col
+
 $(document).ready(() => {
         getAllColleges();
         
         $("body").on("click", ".deleteCollege",() => deleteCollege());
 
         setInterval(getAllColleges, 3000);
+
+    //open popup
+	$('body').on('click','.deleteCollege', function(event){
+        event.preventDefault();
+        col = $(event.target).closest("tr");
+        $('.cd-popup').addClass('is-visible');
+    });
+    
+	//close popup
+	$('.cd-popup').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+    });
+    
+	//close popup when clicking the esc keyboard button
+	$(document).keyup(function(event){
+    	if(event.which=='27'){
+    		$('.cd-popup').removeClass('is-visible');
+	    }
+    });
+
+    $("body").on('click', "#confirmRemove", function(){
+        $('.cd-popup').removeClass('is-visible');
+        deleteCollege(col);
+    })
+
 })
 
 function getAllColleges(){
@@ -40,8 +70,7 @@ function getAllColleges(){
 }
 
 
-function deleteCollege(){
-    var linha = $(event.target).closest("tr");
+function deleteCollege(linha){
     $.ajax({
         type: "DELETE",
         url: base_url + "admin/api/deleteCollege",

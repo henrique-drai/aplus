@@ -1,12 +1,12 @@
+var cso
+
 $(document).ready(() => {
 
     getAllfaculdades();
     getAllSchoolYears();
 
     $("#register-course-submit").click(() => submitRegister());
-    $("body").on("click", ".deleteCourse",() =>deleteCourse());
     $("body").on("click", ".editCourse",() => displayEditCourse());
-    $("body").on("click", ".deleteCourse",() =>deleteCourse());
     $("body").on("click", "#editCourse-form-submit", () => editCourse());
 
 
@@ -19,6 +19,33 @@ $(document).ready(() => {
             $(".course_row").hide();
         }
     }) ;
+
+        //open popup
+	$('body').on('click','.deleteCourse', function(event){
+        event.preventDefault();
+        cso = $(event.target).closest("tr");
+        $('.cd-popup').addClass('is-visible');
+    });
+    
+	//close popup
+	$('.cd-popup').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+    });
+    
+	//close popup when clicking the esc keyboard button
+	$(document).keyup(function(event){
+    	if(event.which=='27'){
+    		$('.cd-popup').removeClass('is-visible');
+	    }
+    });
+
+    $("body").on('click', "#confirmRemove", function(){
+        $('.cd-popup').removeClass('is-visible');
+        deleteCourse(cso);
+    })
 
 })
 
@@ -147,8 +174,7 @@ function submitRegister(){
 
     
 
-function deleteCourse(){
-    var linha = $(event.target).closest("tr");
+function deleteCourse(linha){
     
     const data = {
         code:   linha.find("td:eq(0)").text(),

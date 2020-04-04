@@ -9,7 +9,7 @@ class CourseModel extends CI_Model { //curso & curso_standard
     public function deleteCollegeCourse($data){
         $this->db->where(array(
             'faculdade_id ='         => $data['faculdade_id'],
-            'curso_standard_id ='      => $data['curso_standard_id'],
+            'code ='      => $data['code'],
         ));
         return $this->db->delete('curso');
     }

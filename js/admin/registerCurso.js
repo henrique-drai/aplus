@@ -95,10 +95,11 @@ function submitRegister(){
         codCourse:   $("#register-cursos-form input[name='codeCurso']").val(),
         nameCourse:    $("#register-cursos-form input[name='nomeCurso']").val(),
         descCourse:    $("#register-cursos-form input[name='descCurso']").val(),
-        collegeName:   $("#register-cursos-form select[name='faculdade']").val(),
+        collegeId:   $("#register-cursos-form select[name='faculdade']").val(),
         academicYear:   $("#register-cursos-form select[name='academicYear']").val()
     }
-    if (data.codCourse != "" && data.nameCourse != "" && data.descCourse != "" && data.collegeName != "Selecione uma Faculdade"){
+
+    if (data.codCourse != "" && data.nameCourse != "" && data.descCourse != "" && data.collegeId != "Selecione uma Faculdade"){
         $.ajax({
             type: "POST",
             url: base_url + "admin/api/registerCurso",
@@ -131,7 +132,19 @@ function submitRegister(){
                 $("#semCurso").remove();
                 if(data.courses.length>0){
                     for(i=0; i<data.courses.length; i++){
-                        getCursos_Standard(data.courses[i].curso_standard_id, data.courses[i].description);
+                      
+                        var linhas = '';
+                        linhas += '<tr class="course_row">' +
+                                  "<td>" + data.courses[i].code + "</td>"
+                                + "<td>" + data.courses[i].name   + "</td>"
+                                + "<td>" + data.courses[i].ano_letivo_id + "</td>"
+                                + "<td>" + data.courses[i].description + "</td>"
+                                
+                                + "<td><button class='editCourse' type='button'>Editar</button></td>"
+                                + "<td><button class='deleteCourse' type='button'>Apagar</button></td>"
+                                + "</tr>"; 
+            
+                    $("#show_courses").append(linhas);
  
                     }
                 }
@@ -145,33 +158,6 @@ function submitRegister(){
             }
         });
     }
-
-    function getCursos_Standard(course_standard_id, description){
-        $.ajax({
-            type: "GET",
-            url: base_url + "admin/api/getCursoStandard",
-            data: {course_standard_id},
-            success: function(data) {
-                $("#cursos_register_UnidCurricular").css("display", "block");
-                $(".msg").remove();
-                var linhas = '';
-                linhas += '<tr class="course_row">' +
-                                "<td>" + data.course.id + "</td>"
-                                +"<td>" + data.course.name + "</td>"
-                                +"<td>" + description + "</td>"
-                                + "<td><button class='editCourse' type='button'>Editar</button></td>"
-                                + "<td><button class='deleteCourse' type='button'>Apagar</button></td>"
-                                + "</tr>"; 
-            
-                 $("#show_courses").append(linhas);
-                
-            },
-            error: function(data) {
-            }
-        });
-    }
-
-
     
 
 function deleteCourse(linha){
@@ -179,7 +165,6 @@ function deleteCourse(linha){
     const data = {
         code:   linha.find("td:eq(0)").text(),
         idCollege:    $("select[name='consultarCadeirasporFaculdade']").val(),
-        
     }
 
     $.ajax({

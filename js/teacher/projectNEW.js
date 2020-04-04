@@ -79,8 +79,6 @@ $(document).ready(() => {
         validateFormNumb();
     })
 
-    $("#back").click(() => window.location.assign(back_page));
-
     $("#createProjectButton").click(() => submitProject());
 
 })

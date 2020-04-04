@@ -10,12 +10,10 @@
 <body>
 <?php $this->view('templates/nav-menu'); ?>
 <main>
+    <h4 class="breadcrumb"><a href="http://localhost/aplus/subjects">Cadeiras</a> &gt; <a href="http://localhost/aplus/subjects/subject/" + <?php echo $subject->code; ?> ><?php echo $subject->name; ?></a> &gt; Criar Projeto </h4>
+    <h1>Novo projeto para a cadeira <?php echo $subject->name; ?></h1>
     <div class="container">
-
-        <h1>Novo projeto para a cadeira <?php echo $subject->name; ?></h1>
-    
         <div class="container-header">
-            <input type="button" id="back" value="Voltar">
             <h3>Preencha todos os campos</h3>
         </div>
 

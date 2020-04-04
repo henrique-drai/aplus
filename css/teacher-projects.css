@@ -23,10 +23,6 @@
     margin-bottom: 2%;
 }
 
-#back{
-    margin:unset;
-}
-
 .form-input-text, .form-input-number, .form-input-file, .form-text-area{
     width:100%;
 }
@@ -103,13 +99,7 @@
     min-width:100%;
 }
 
-
 /* Especifico da página project */
-
-.buttons-container input[type=button], .container-header input {
-    margin:unset;
-    margin-top: 1%;
-}
 
 .etapas-info{
     display: none;
@@ -132,17 +122,9 @@
     margin-right: 1%;
 }
 
-
-.wrapper-top {
-    margin-bottom: 1%;
-}
-
-.wrapper-top input {
-    margin-right: 1%;
-}
-
-#file_projeto{
-    width: 60%;
+.wrapper-top input[type="button"] {
+    margin: unset;
+    margin-top:1%;
 }
 
 #addEnunciado{
@@ -150,7 +132,9 @@
 }
 
 input.remove{
-     background-color: #fc8982;
+    background-color: #fc8982;
+    margin: unset;
+
 }
 
 input.remove:hover {
@@ -165,7 +149,6 @@ input.remove:hover {
     table-layout: fixed;
     width: 100%;
     word-wrap:break-word;
-    /* white-space: nowrap; */
 }
 
 .container table, .container table td, .container table th {

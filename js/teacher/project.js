@@ -29,10 +29,6 @@ $(document).ready(() => {
 	    }
     });
 
-    // back button
-    $("#back").click(() => window.location.assign(back_page));
-
-
     //set enunciado h3 value
     if(enunciado_h3 == ""){
         $("#enunciado_h3").text("Enunciado: Este projeto não tem enunciado.")
@@ -169,6 +165,7 @@ $(document).ready(() => {
     //file enunciado projeto selected
     $("#file_projeto").on('change', function(){
         $("#addEnunciado").show();
+        $("#file_projeto").css("border-left-color", "lawngreen");
     })
 
 

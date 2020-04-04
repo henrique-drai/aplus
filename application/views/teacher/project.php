@@ -3,7 +3,7 @@
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/teacher/project.js"></script>
 <script>setProj("<?php echo $project[0]["id"]; ?>")</script>
-<script>setEnunciado("<?php echo $project[0]["enunciado_url"]; ?>")</script>
+<script>setEnunciado("<?php echo addslashes($project[0]["enunciado_url"]); ?>")</script>
 <script>setBackPage("<?php echo $base_url; ?>" + "subjects/subject/" + "<?php echo $subject->code; ?>")</script>
 
 </head>
@@ -11,17 +11,17 @@
 <body>
 <?php $this->view('templates/nav-menu'); ?>
     <main>
+    <h4 class="breadcrumb"><a href="http://localhost/aplus/subjects">Cadeiras</a> &gt; <a href="http://localhost/aplus/subjects/subject/" + <?php echo $subject->code; ?> ><?php echo $subject->name; ?></a> &gt; Projeto </h4>
+    <h1>Projeto: <?php echo $project[0]["nome"]; ?></h1>
+    <input id="removeProject" class="remove" type="button" value="Eliminar projeto">
     <div class="container">
-        <h1>Projeto: <?php echo $project[0]["nome"]; ?></h1>
         <h3 id="entrega_h3"></h3>
         <h3 id="enunciado_h3"></h3>
+        <div class="wrapper-top">
+            <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado">
+            <input id="addEnunciado" type="button" value="Adicionar enunciado">
+        </div>
         <div class="container-header">
-            <div class="wrapper-top">
-                <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado">
-                <input id="addEnunciado" type="button" value="Adicionar enunciado">
-            </div>
-            <input type="button" id="back" value="Voltar">
-            <input id="removeProject" class="remove" type="button" value="Eliminar projeto">
             <h3>Grupos</h3>
         </div>
 

@@ -50,11 +50,10 @@ function getAllColleges(){
                 $('#show_colleges').append(linhas);
             }
             else{
+                $("#mens_sem_faculdades").remove();
                 $("#show_colleges").css("display", "none");
                 var mensagem = "<h2 id='mens_sem_faculdades'>Não existe nenhuma faculdade</h2>";
                 $("body").append(mensagem);
-                $("#mens_sem_faculdades").delay(2000).fadeOut();
-
             }
             
         },

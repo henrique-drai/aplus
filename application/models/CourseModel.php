@@ -6,19 +6,6 @@ class CourseModel extends CI_Model { //curso & curso_standard
         return $query->result_array();
     }
 
-    //PARA APAGAR
-    public function getCourse_Standard($course){
-        $query = $this->db->get_where("curso_standard", array("id"=>$course));
-        return $query->row();
-    }
-
-    //PARA APAGAR
-    public function register_course_standard($data){
-        $this->db->insert("curso_standard", $data);
-        $course_id = $this->db->insert_id();
-        return $course_id;
-    }
-
     public function deleteCollegeCourse($data){
         $this->db->where(array(
             'faculdade_id ='         => $data['faculdade_id'],
@@ -31,12 +18,6 @@ class CourseModel extends CI_Model { //curso & curso_standard
         $this->db->insert("curso", $data);
     }
     
-    //PARA APAGAR
-    public function getCourse_StandardId($courseid){
-        $query = $this->db->get_where("curso", array("id"=>$courseid));
-        return $query->row("curso_standard_id");
-    }
-
     public function countCourses(){
         return $this->db->count_all_results('curso');
     }
@@ -45,6 +26,11 @@ class CourseModel extends CI_Model { //curso & curso_standard
         $this->db->where('curso_standard_id',$idCurso);
         $this->db->from("curso");
         return $this->db->count_all_results();
+    }
+
+    public function getCursobyId($cursoId){
+        $query = $this->db->get_where("curso", array('id'=>$cursoId));
+        return $query->row();
     }
 
 

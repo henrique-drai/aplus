@@ -28,8 +28,8 @@ class CourseModel extends CI_Model { //curso & curso_standard
         return $this->db->count_all_results();
     }
 
-    public function getCursobyId($cursoId){
-        $query = $this->db->get_where("curso", array('id'=>$cursoId));
+    public function getCursobyId($cursoid){
+        $query = $this->db->get_where("curso", array('id'=>$cursoid));
         return $query->row();
     }
 

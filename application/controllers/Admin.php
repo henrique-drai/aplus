@@ -142,7 +142,6 @@ class Admin extends REST_Controller {
 
     public function getCourseNameById(){
         $cursoid = $this->get('curso_id');
-
         $this->load->model('CourseModel');
         $data["course"] = $this->CourseModel->getCursobyId($cursoid);
         $this->response($data, parent::HTTP_OK);

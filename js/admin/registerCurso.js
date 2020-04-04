@@ -6,7 +6,6 @@ $(document).ready(() => {
     $("#register-course-submit").click(() => submitRegister());
     $("body").on("click", ".deleteCourse",() =>deleteCourse());
     $("body").on("click", ".editCourse",() => displayEditCourse());
-    $("body").on("click", ".deleteCourse",() =>deleteCourse());
     $("body").on("click", "#editCourse-form-submit", () => editCourse());
 
 
@@ -209,8 +208,8 @@ function editCourse(){
             getAllCursosFaculdade($('#consultar_cursos_faculdade :selected').val());
             $("#msgStatus").text("Curso editado com sucesso");
             $("#msgStatus").show().delay(2000).fadeOut();
-            alert("FALTA IMPLEMENTAR O EDIT")
-
+            alert("FALTA IMPLEMENTAR O EDIT");
+            displayEditCourse();
         },
         error: function() {
             $("#msgStatus").text("Erro a editar curso");

@@ -3,8 +3,6 @@ var col
 $(document).ready(() => {
         getAllColleges();
         
-        $("body").on("click", ".deleteCollege",() => deleteCollege());
-
         setInterval(getAllColleges, 3000);
 
     //open popup

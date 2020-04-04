@@ -33,15 +33,8 @@
         <div id="etapas-container" class="container">
         </div>
 
-        <div class="cd-popup" role="alert">
-	        <div class="cd-popup-container">
-		        <p>Tem a certeza que deseja eliminar o projeto?</p>
-                <ul class="cd-buttons">
-                    <li><a href="#" id="confirmRemove">Sim</a></li>
-                    <li><a href="#" id="closeButton">Não</a></li>
-                </ul>
-		        <a class="cd-popup-close"></a>
-	        </div>
+        <div id="popups">
+
         </div>
 
         <div id="etapa-info-extra">

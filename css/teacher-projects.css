@@ -101,6 +101,10 @@
 
 /* Especifico da página project */
 
+.buttons-container input{
+    margin:unset;
+}
+
 .etapas-info{
     display: none;
 }
@@ -159,6 +163,10 @@ input.remove:hover {
     display: none;
 }
 
+#etapas-container{
+    margin-bottom: 1%;
+}
+
 
   /* -------------------------------- 
                                     /
@@ -173,18 +181,18 @@ input.remove:hover {
     height: 100%;
     width: 100%;
     background-color: rgba(94, 110, 141, 0.9);
-    opacity: 0;
-    visibility: hidden;
+    opacity: 1;
+    visibility: visible;
     -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
     transition: opacity 0.3s 0s, visibility 0s 0.3s;
 }
 
-.cd-popup.is-visible {
+/* .cd-popup.is-visible {
     opacity: 1;
     visibility: visible;
     -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
     transition: opacity 0.3s 0s, visibility 0s 0s;
-}
+} */
 
 .cd-popup-container {
     position: relative;
@@ -277,10 +285,10 @@ input.remove:hover {
     right: 8px;
 }
 
-.is-visible .cd-popup-container {
+/* .is-visible .cd-popup-container {
     -webkit-transform: translateY(0);
     transform: translateY(0);
-}
+} */
 
 @media only screen and (min-width: 1170px) {
     .cd-popup-container {

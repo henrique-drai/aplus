@@ -6,107 +6,37 @@ var etapa = {nome:'', desc:'', enunciado:'', data:''};
 var formStatus = null;
 
 $(document).ready(() => {
+
+    //GRUPOS ---
+
+    //tabela dos grupos
     showGroups(proj);
 
-	//open popup
+    //atualizar tabela dos grupos. Não precisa de ser instantaneo
+    setInterval(function(){
+        showGroups(proj);
+    }, 5000);
+
+    // --- GRUPOS
+
+    //REMOVER PROJETO ---
+
+	//open popup - REMOVER PROJETO
 	$('#removeProject').on('click', function(event){
-		event.preventDefault();
-		$('.cd-popup').addClass('is-visible');
+        event.preventDefault();
+        makePopup("confirmRemove", "Tem a certeza que deseja eliminar o projeto?");
 	});
 	
-	//close popup
-	$('.cd-popup').on('click', function(event){
+	//close popup - REMOVER PROJETO
+	$('body').on('click', '.cd-popup', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
-			event.preventDefault();
-			$(this).removeClass('is-visible');
+            event.preventDefault();
+            $(this).remove();
 		}
     });
     
-	//close popup when clicking the esc keyboard button
-	$(document).keyup(function(event){
-    	if(event.which=='27'){
-    		$('.cd-popup').removeClass('is-visible');
-	    }
-    });
-
-    //set enunciado h3 value
-    if(enunciado_h3 == ""){
-        $("#enunciado_h3").text("Enunciado: Este projeto não tem enunciado.")
-    } else {
-        $("#enunciado_h3").text("Enunciado: " + enunciado_h3);
-    }
-
-    // getEtapas
-    // chama uma primeira vez
-    getEtapas(proj);
-
-    var datafinal = $(".data-val").last().text();
-    $("#entrega_h3").text("Entrega final: " + datafinal);
-
-    // refresh de segundo em segundo?
-    setInterval(function(){
-         getEtapas(proj);
-         var datafinal = $(".data-val").last().text();
-         $("#entrega_h3").text("Entrega final: " + datafinal);
-    }, 1000);
-
-
-
-    // show etapa form - criar nova etapa 
-    $("#opennewEtapa").on("click", function(){
-        $("#etapa-form").show();
-        $("#newEtapa").show();
-        $("#newEtapaEDIT").hide();
-        $("#etapa-label").text("Nova etapa:");
-
-        if(formStatus != 'new'){
-            formStatus = 'new';
-            checkFormStatus();
-        } else {
-            formStatus = null;
-            checkFormStatus();
-            $("#etapa-form").hide();
-            $("#newEtapa").hide();
-        }
-    });
-
-
-    //show editar etapa form - editar etapa - se uma destas é clicada o botão da outra é escondido
-    $('body').on("click", "#editEtapaButton", function(){
-        var id = $(this).parent().parent().attr('id');
-        var newid = id.replace("div","");
-        $("#etapa-form").show();
-        $("#newEtapaEDIT").show();
-        $("#etapa-label").text("Editar etapa '" + $("#etapaname" + newid).text() + "':");
-        $("#newEtapa").hide();
-
-        if(formStatus != 'edit'){
-            formStatus = 'edit';
-            checkFormStatus();
-        } else {
-            formStatus = null;
-            checkFormStatus();
-            $("#etapa-form").hide();
-            $("#newEtapa").hide();
-        }
-
-    });
-
-
-    // remover etapa da lista (depois de abrir info)
-    $("body").on('click', "#removeEtapaButton", function(){
-        var id = $(this).parent().parent().attr('id');
-        var newid = id.replace("div","");
-        removeEtapa(newid);
-        $("#etapa-form").hide();
-        $('#' + id).hide();
-        getEtapas(proj);
-    })
-
-    
-    //confirmed delete || apagar projeto pelo id
-
-    $("#confirmRemove").on('click', function(){
+    //confirmed delete do popup - REMOVER PROJETO
+    $("body").on('click', '#confirmRemove', function(){
         const data = {
             projid : proj
         }
@@ -129,8 +59,90 @@ $(document).ready(() => {
         });
     })
 
+    //--- REMOVER PROJETO
 
-    //on change mudar a etapa
+    //ENUNCIADO PROJETO --- 
+
+    //set enunciado h3 value - ENUNCIADO PROJETO
+    if(enunciado_h3 == ""){
+        $("#enunciado_h3").text("Enunciado: Este projeto não tem enunciado.")
+    } else {
+        $("#enunciado_h3").text("Enunciado: " + enunciado_h3);
+    }
+
+    
+    //file enunciado projeto selected - MUDAR ENUNCIADO
+    $("#file_projeto").on('change', function(){
+        $("#addEnunciado").show();
+        $("#file_projeto").css("border-left-color", "lawngreen");
+    })
+
+
+    //ao confirmar - MUDAR ENUNCIADO
+    $("#addEnunciado").on('click', function(){
+        enunc = $("#file_projeto").val();
+        submit_new_enunciado(enunc);
+    })
+
+    //--- ENUNCIADO PROJETO
+
+    //ETAPAS --- 
+
+    // getEtapas - ETAPAS
+    getEtapas(proj);
+
+    // data final = data etapa mais tarde - PROJETO
+    var datafinal = $(".data-val").last().text();
+    $("#entrega_h3").text("Entrega final: " + datafinal);
+
+    // refresh tabela - ETAPAS
+    setInterval(function(){
+         getEtapas(proj);
+         var datafinal = $(".data-val").last().text();
+         $("#entrega_h3").text("Entrega final: " + datafinal);
+    }, 1000);
+
+
+    // show etapa form - CRIAR NOVA ETAPA 
+    $("#opennewEtapa").on("click", function(){
+        $("#etapa-form").show();
+        $("#newEtapa").show();
+        $("#newEtapaEDIT").hide();
+        $("#etapa-label").text("Nova etapa:");
+
+        if(formStatus != 'new'){
+            formStatus = 'new';
+            checkFormStatus();
+        } else {
+            formStatus = null;
+            checkFormStatus();
+            $("#etapa-form").hide();
+            $("#newEtapa").hide();
+        }
+    });
+
+
+    //show editar etapa form - EDITAR ETAPA
+    $('body').on("click", "#editEtapaButton", function(){
+        var id = $(this).parent().parent().attr('id');
+        var newid = id.replace("div","");
+        $("#etapa-form").show();
+        $("#newEtapaEDIT").show();
+        $("#etapa-label").text("Editar etapa '" + $("#etapaname" + newid).text() + "':");
+        $("#newEtapa").hide();
+
+        if(formStatus != 'edit'){
+            formStatus = 'edit';
+            checkFormStatus();
+        } else {
+            formStatus = null;
+            checkFormStatus();
+            $("#etapa-form").hide();
+            $("#newEtapa").hide();
+        }
+    });
+
+    //on change mudar a etapa (variavel) - EDITAR ETAPA
     $("#etapa").change(function(){
         var name = $(this).find('input[name="etapaName"]').val();
         var desc = $(this).find('textarea[name="etapaDescription"]').val();
@@ -149,8 +161,22 @@ $(document).ready(() => {
         }
     })
 
+    // abrir pop up - REMOVER ETAPA
+    $("body").on('click', "#removeEtapaButton", function(){
+        makePopup('confirmRemoveEtapa','Tem a certeza que deseja eliminar esta etapa?');    
+    })
+    
 
-    //mostrar info extra da etapa - tabela
+    // REMOVER ETAPA
+    $("body").on('click', "#confirmRemoveEtapa", function(){
+        $('.cd-popup').remove();
+        removeEtapa(selected_etapa);
+        $("#etapa-form").hide();
+        $('#' + selected_etapa).hide();
+        getEtapas(proj);
+    })
+
+    //mostrar info extra da etapa - TABELA ETAPAS
     $('body').on('click', '.moreInfoButtons', function(){
         selected_etapa = $(this).attr("id");
         var divid = 'div' + selected_etapa;
@@ -161,20 +187,6 @@ $(document).ready(() => {
         checkFormStatus();
     })
 
-
-    //file enunciado projeto selected
-    $("#file_projeto").on('change', function(){
-        $("#addEnunciado").show();
-        $("#file_projeto").css("border-left-color", "lawngreen");
-    })
-
-
-    //ao confirmar - mudar enunciado projeto
-    $("#addEnunciado").on('click', function(){
-        enunc = $("#file_projeto").val();
-        submit_new_enunciado(enunc);
-    })
-
     //criar etapa
     $("#newEtapa").click(() => submit_etapa());
 
@@ -182,7 +194,26 @@ $(document).ready(() => {
     //editar etapa 
     $("#newEtapaEDIT").click(() => submit_edit_etapa());
 
+
+    //--- ETAPAS
 })
+
+
+function makePopup(butID, msg){
+    popup = '<div class="cd-popup" role="alert">' +
+        '<div class="cd-popup-container">' +
+        '<p>'+ msg +'</p>' +
+        '<ul class="cd-buttons">' +
+        '<li><a href="#" id="'+ butID +'">Sim</a></li>' +
+        '<li><a href="#" id="closeButton">Não</a></li>' +
+        '</ul>' +
+        '<a class="cd-popup-close"></a>' +
+        '</div></div>'
+
+    $("#popups").html(popup);
+}
+
+
 
 
 //igual ao verifyDates do projectsNEW.js - faço um ficheiro geral, tento importar? for now vou repetir
@@ -429,7 +460,7 @@ function showGroups(proj_id) {
         },
         error: function(data) {
             console.log("Erro na API - Show Groups")
-            $("#groups_list").append("Não existem grupos para mostrar.")
+            $("#groups_list").html("Não existem grupos para mostrar.")
             console.log(data)
         }
     });

@@ -21,21 +21,14 @@
         </table>
         <form id="editUser-form" action="javascript:void(0)">
             <label for="name">Nome</label>
-            <input type="text" name="name">
+            <input type="text" name="name" required>
             <label for="surname">Apelido</label>
-            <input type="text" name="surname">
+            <input type="text" name="surname" required>
             <label for="email">Email</label>
-            <input type="text" name="email">
+            <input type="text" name="email" required>
             <label for="password">Password</label>
             <input type="password" name="password">
-            <label for="role">Role</label>
-            <select name="role">
-                <option value="admin">Admin</option>
-                <option value="student">Student</option>
-                <option value="teacher">Teacher</option>
-            </select>
             <br>
-
             <input type="submit" id="editUser-form-submit">
         </form><br>
         

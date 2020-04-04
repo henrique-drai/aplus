@@ -8,11 +8,13 @@ class Dev extends CI_Controller {
     public function dataset()
     {
         #$this->db->db_debug = false; //desligar erros da bd
-        echo "Apagando os alunos...<br>";
-        $this->db->delete('user', Array('description'=>"Não alterem"));
 
-        echo "Criando os alunos...<br>";
-        $this->db->insert("user", Array("name"=>"Henrique", "surname"=>"Francisco", "email"=>"1@gmail.com", "role"=>"student","password"=>md5(""),"description"=>"Não alterem"));
+
+        ///////////////////////////////
+        //          ALUNOS
+        ///////////////////////////////
+        $this->db->delete('user', Array('description'=>"Não alterem"));
+        $this->db->insert("user", Array("name"=>"Henrique", "surname"=>"Francisco", "email"=>"1@gmail.com", "role"=>"student","password"=>md5(""),"description"=>"Não alterem")); $aluno1_id = $this->db->insert_id();
         $this->db->insert("user", Array("name"=>"Joana",    "surname"=>"Almeida",   "email"=>"2@gmail.com", "role"=>"student","password"=>md5(""),"description"=>"Não alterem"));
         $this->db->insert("user", Array("name"=>"Rafael",   "surname"=>"Sousa",     "email"=>"3@gmail.com", "role"=>"student","password"=>md5(""),"description"=>"Não alterem"));
         $this->db->insert("user", Array("name"=>"Maria",    "surname"=>"Silva",     "email"=>"4@gmail.com", "role"=>"student","password"=>md5(""),"description"=>"Não alterem"));
@@ -33,16 +35,32 @@ class Dev extends CI_Controller {
         $this->db->insert("user", Array("name"=>"Geraldo",  "surname"=>"Artur",     "email"=>"19@gmail.com","role"=>"teacher","password"=>md5(""),"description"=>"Não alterem"));
         $this->db->insert("user", Array("name"=>"Rodolfo",  "surname"=>"Maia",      "email"=>"20@gmail.com","role"=>"teacher","password"=>md5(""),"description"=>"Não alterem"));
 
-        echo "Apagando as faculdades...<br>";
-        $this->db->delete('faculdade', Array('location'=>"Sam's Town"));
+        ///////////////////////////////
+        //          FACULDADES
+        ///////////////////////////////
+        $this->db->delete('faculdade', Array('location'=>"Não alterem"));
+        $this->db->insert("faculdade", Array("name"=>"Faculdade de Ciências",       "siglas"=>"FCUL", "location"=>"Não alterem")); $faculdade1_id = $this->db->insert_id();
+        $this->db->insert("faculdade", Array("name"=>"Faculdade de Direito",        "siglas"=>"FDUL", "location"=>"Não alterem")); $faculdade2_id = $this->db->insert_id();
+        $this->db->insert("faculdade", Array("name"=>"Faculdade de Letras",         "siglas"=>"FLUL", "location"=>"Não alterem"));
+        $this->db->insert("faculdade", Array("name"=>"Faculdade de Arquitetura",    "siglas"=>"FAUL", "location"=>"Não alterem"));
+        $this->db->insert("faculdade", Array("name"=>"Instituto Superior Técnico",  "siglas"=>"IST",  "location"=>"Não alterem"));
 
-        echo "Criando as faculdades...<br>";
-        $this->db->insert("faculdade", Array("name"=>"Faculdade de Ciências",       "siglas"=>"FCUL", "location"=>"Sam's Town"));
-        $this->db->insert("faculdade", Array("name"=>"Faculdade de Direito",        "siglas"=>"FDUL", "location"=>"Sam's Town"));
-        $this->db->insert("faculdade", Array("name"=>"Faculdade de Letras",         "siglas"=>"FLUL", "location"=>"Sam's Town"));
-        $this->db->insert("faculdade", Array("name"=>"Faculdade de Arquitetura",    "siglas"=>"FAUL", "location"=>"Sam's Town"));
-        $this->db->insert("faculdade", Array("name"=>"Instituto Superior Técnico",  "siglas"=>"IST",  "location"=>"Sam's Town"));
+        ///////////////////////////////
+        //          ANO LETIVO
+        ///////////////////////////////
+        $this->db->delete('ano_letivo', Array('inicio'=>"2022"));
+        $this->db->insert("ano_letivo", Array("inicio"=>"2022", "fim"=>"2023")); $ano1_id = $this->db->insert_id();
 
+        ///////////////////////////////
+        //          CURSOS
+        ///////////////////////////////
+        $this->db->delete('curso', Array('description'=>"Não alterem"));
+        $this->db->insert("curso", Array("faculdade_id"=> $faculdade1_id, "ano_letivo_id"=> $ano1_id, "code"=>"MAT2022", "name"=>"Matemática", "description"=>"Não alterem"));
+        $this->db->insert("curso", Array("faculdade_id"=> $faculdade1_id, "ano_letivo_id"=> $ano1_id, "code"=>"FS2022", "name"=>"Física", "description"=>"Não alterem"));
+        $this->db->insert("curso", Array("faculdade_id"=> $faculdade2_id, "ano_letivo_id"=> $ano1_id, "code"=>"LTI2022", "name"=>"Tecnologias", "description"=>"Não alterem")); $curso1_id = $this->db->insert_id();
+
+
+        echo "Feito :)";
 
         #$this->db->db_debug = ENVIRONMENT !== 'production'; //voltar a ligar erros da BD, se necessário
     }

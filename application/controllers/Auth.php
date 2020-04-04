@@ -41,11 +41,7 @@ class Auth extends REST_Controller {
             
             $token = AUTHORIZATION::generateToken(['id' => strval($user->id)]);
 
-            $response = [
-                'token'         => $token,
-                'role'          => $user->role,
-                'id'            => $user->id,
-            ];
+            $response = ['token' => $token, 'role' => $user->role, 'id' => $user->id];
 
             $this->response($response, parent::HTTP_OK);
         }

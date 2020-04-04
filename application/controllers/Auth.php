@@ -48,7 +48,6 @@ class Auth extends REST_Controller {
                 'token'         => $token,
                 'role'          => $user->role,
                 'id'            => $user->id,
-                'has_pic'       => $user->has_pic,
             ];
 
             $this->response($response, $status);

@@ -18,7 +18,7 @@ main {
 input, select, textarea {
     text-align: left;
     border: none;
-    border-left: 3px solid white;
+    border-left: 3px solid transparent;
     border-radius: 3px;
     background-color: white;
     display: block;

@@ -16,22 +16,33 @@
             <div class="admin-users-window">
                 <div class="title">Registar</div>
                 <form id="register-form" action="javascript:void(0)">
+                    <p>
                     <label for="name">Nome:</label>
                     <input type="text" name="name">
+                    </p>
+                    <p>
                     <label for="surname">Apelido:</label>
                     <input type="text" name="surname">
+                    </p>
+                    <p>
                     <label for="email">Email:</label>
                     <input type="text" name="email">
+                    </p>
+                    <p>
                     <label for="password">Password:</label>
                     <input type="password" name="password">
+                    </p>
+                    <p>
                     <label for="role">Role:</label>
                     <select name="role">
                         <option value="admin">Admin</option>
                         <option value="student">Student</option>
                         <option value="teacher">Teacher</option>
                     </select>
+                    </p>
                     <input type="submit" id="register-form-submit">
                 </form>
+                <br>
                 <div id="msgStatus">
                 </div>
             </div>

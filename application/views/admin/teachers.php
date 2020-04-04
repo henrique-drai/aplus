@@ -21,15 +21,19 @@
             
         </table>
         <form id="editUser-form" action="javascript:void(0)">
+        <p>
             <label for="name">Nome</label>
             <input type="text" name="name" required>
+        </p><p>
             <label for="surname">Apelido</label>
             <input type="text" name="surname" required>
+        </p><p>
             <label for="email">Email</label>
             <input type="text" name="email" required>
+        </p><p>
             <label for="password">Password</label>
             <input type="password" name="password">
-            <br>
+        </p><p>
             <input type="submit" id="editUser-form-submit">
         </form><br>
         <div class="cd-popup" role="alert">

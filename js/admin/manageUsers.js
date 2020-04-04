@@ -1,15 +1,27 @@
+var User
+
 $(document).ready(() => {
     $("body").on("click", ".editUser",() => displayEditUser());
-    $("body").on("click", "#editUser-form-submit", () => editUser());
-    $("body").on("click", ".deleteUser",() => popupVisible());
-    
+    $("body").on("click", "#editUser-form-submit", () => editUser());    
+
+    $('body').on('click','.deleteUser', function(event){
+        event.preventDefault();
+        User = $(event.target).closest("tr");
+        $('.cd-popup').addClass('is-visible');
+    });
+
     //close popup
 	$('.cd-popup').on('click', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
 			event.preventDefault();
 			$(this).removeClass('is-visible');
 		}
-	});
+    });
+    
+    $("body").on('click', "#confirmRemove", function(){
+        $('.cd-popup').removeClass('is-visible');
+        deleteUser(User);
+    });
 
     if (page_name=="students"){
         getAllStudents();
@@ -18,19 +30,7 @@ $(document).ready(() => {
         getAllTeachers();
         setInterval(getAllTeachers, 3000); 
     } 
-})
-
-function popupVisible(){
-    event.preventDefault();
-    var linha = $(event.target).closest("tr");
-    $('.cd-popup').addClass('is-visible');
-    $("body").on('click', "#confirmRemove", function(){
-        $('.cd-popup').removeClass('is-visible');
-        deleteUser(linha);
-        event.preventDefault();
-
     })
-}
 
 var oldEmail = "";
 

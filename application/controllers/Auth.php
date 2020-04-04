@@ -41,16 +41,13 @@ class Auth extends REST_Controller {
             
             $token = AUTHORIZATION::generateToken(['id' => strval($user->id)]);
 
-            $status = parent::HTTP_OK;
-
             $response = [
-                'status'        => $status,
                 'token'         => $token,
                 'role'          => $user->role,
                 'id'            => $user->id,
             ];
 
-            $this->response($response, $status);
+            $this->response($response, parent::HTTP_OK);
         }
         else {
             $this->response(['msg' => 'Invalid username or password!'], parent::HTTP_NOT_FOUND);

@@ -20,6 +20,7 @@
             <tr>
                 <th>Código de Curso</th>  
                 <th>Nome</th>
+                <th>Ano Letivo</th>
                 <th>Descrição</th>
                 
             </tr>

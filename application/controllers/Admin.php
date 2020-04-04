@@ -252,7 +252,7 @@ class Admin extends REST_Controller {
         $this->load->model('CourseModel');
         $data = Array(
             "faculdade_id" => $this -> delete('idCollege'),
-            "curso_standard_id"   => $this -> delete('code'),            
+            "code" => $this -> delete('code'),            
         );
         $this -> CourseModel -> deleteCollegeCourse($data);
     }
@@ -275,10 +275,11 @@ class Admin extends REST_Controller {
         $this -> load -> model('CourseModel');
        
         $data = Array(
-            "faculdade_id"      => $this->post('collegeName'),
-            "name"              => $this->post('nameCourse'),
+            "faculdade_id"      => $this->post('collegeId'),
             "ano_letivo_id"     => $this->post('academicYear'),
-            "description"       => $this->post('descCourse'),
+            "code"              => $this->post('codCourse'),
+            "name"              => $this->post('nameCourse'),
+            "description"       => $this->post('descCourse')
         );
        
         $this->CourseModel->register_course($data);

@@ -162,7 +162,8 @@ function getAllCoursesByCollege(faculdade){
         url: base_url + "admin/api/getAllCoursesByCollege",
         data: {faculdade},
         success: function(data) {
-            
+            $(".subject_row").remove();  
+            $("#show_subjects").css("display", "none");
             if(data.courses.length>0){
                 for(i=0; i<data.courses.length;i++){
                     getAllSubjectsByCollege(data.courses[i].id);
@@ -184,27 +185,24 @@ function getAllCoursesByCollege(faculdade){
     });
 }
 
-
 function getAllSubjectsByCollege(course){
     $.ajax({
         type: "GET",
         url: base_url + "admin/api/getAllSubjectsByCollege",
         data: {course},
         success: function(data) {
-            $(".subject_row").remove();  
             $("#mens_sem_cadeiras").remove();  
             if(data.subjects.length>0){
                 for(i=0; i<data.subjects.length;i++){
                     getCourseNameById(data.subjects[i].curso_id, data.subjects[i]);  
                     $("#show_subjects").css("display", "block");
                 }
-            }
-            else{
-                $("#show_subjects").css("display", "none");
-                var mensagem = "<h2 id='mens_sem_cadeiras'>Não existe nenhuma unidade curricular</h2>";
+            }    
+           
+            if($("#show_subjects").css("display")!="block"){
+                var mensagem = "<h2 id='mens_sem_cadeiras'>Não existe nenhuma unidade curricular nos cursos existentes</h2>";
                 $("body").append(mensagem);
-            }         
-            
+            } 
         },
         error: function(data) {
             $("#show_colleges").css("display", "none");

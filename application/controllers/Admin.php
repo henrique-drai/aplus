@@ -182,6 +182,7 @@ class Admin extends REST_Controller {
 
     public function getAllSubjectsByCollege(){
         $course = $this->get('course');
+        $this->load->model("CourseModel");
         $this->load->model('SubjectModel');
         $data["subjects"] = $this->SubjectModel->getSubjectsByCursoId($course);
         $this->response($data, parent::HTTP_OK);

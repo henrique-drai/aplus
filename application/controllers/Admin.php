@@ -314,20 +314,17 @@ class Admin extends REST_Controller {
         fgetcsv($file, 0, ","); 
         while (($column = fgetcsv($file, 0, ",")) !== FALSE) {
 
-            // IR BUSCAR O ID DO MAIL
-            $idUser = $this -> UserModel -> getUserByEmail($column[0]);
-            // print_r($idUser[0]['id']);
+            $idUser = $this -> UserModel -> getUserByEmailRA($column[0]);
+            
             $data = Array(
                 "user_id"      => $idUser[0]['id'],
                 "cadeira_id"   => $column[1],
                 "is_completed"     => $column[2],
                 "image_url"     => "",
             );
-            echo "<br>";
-            print_r($data);
-            $this -> SubjectModel -> registerStudentSubject($data);        
+            $this -> SubjectModel -> insertUpdate($data);        
         }
-        // header("Location: ". base_url()."app/admin/");
+        header("Location: ". base_url()."app/admin/");
     }
 
     public function export(){

@@ -6,6 +6,11 @@ class UserModel extends CI_Model {
         return $query->row();
     }
 
+    public function getUserByEmailRA($email) {
+        $query = $this->db->get_where('user', array('email' => $email));
+        return $query->result_array();
+    }
+
     public function getUserById($id) {
         $query = $this->db->get_where('user', array('id' => $id));
         return $query->row();

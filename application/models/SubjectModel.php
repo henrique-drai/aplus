@@ -109,5 +109,25 @@ class SubjectModel extends CI_Model { //cadeira
         $this->db->insert("aluno_cadeira", $data);
     }
 
-  
+    public function insertUpdate($data){
+
+        $query = $this->db->get_where('aluno_cadeira', array(
+            'user_id ='         => $data["user_id"], 
+            'cadeira_id ='      => $data["cadeira_id"]
+        ));
+
+        if ($query->num_rows() > 0) {
+            $this->db->where(array(
+                'user_id ='     => $data['user_id'],
+                'cadeira_id ='  => $data["cadeira_id"],
+                'is_completed ='         => $data["is_completed"],
+                'image_url ='         => $data["image_url"]
+            ));
+            return $this->db->update('aluno_cadeira', $data);
+        }
+        else{
+            $this->db->insert('aluno_cadeira', $data);    
+        }
+
+    }
 }

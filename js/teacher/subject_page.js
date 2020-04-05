@@ -114,7 +114,7 @@ $(document).ready(() => {
     })
 
     $("body").on("click", ".studentsList_button", function() {
-        window.location = base_url + "app/students/studentsList";
+        window.location = base_url + "subjects/students/" + localStorage.cadeira_code;
     })
 
     $("body").on("click", ".newProject_button", function() {

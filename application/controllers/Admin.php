@@ -29,7 +29,7 @@ class Admin extends REST_Controller {
             case "registerCurso":   $this -> registerCurso(); break; //     admin/api/registerCurso
             case "registerSchoolYear": $this -> registerSchoolYear(); break;    // admin/api/registerSchoolYear
             case "editCourse": $this -> editCourse(); break;
-            case "importStudentSubjects": $this->importStudentSubjects(); break;
+            case "importX": $this->importX(); break;
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
@@ -278,6 +278,18 @@ class Admin extends REST_Controller {
         );
        
         $this->CourseModel->register_course($data);
+    }
+
+    public function importX(){
+        $role = $this->post('role');
+        print_r($role);
+
+        if($role=="users"){
+            $this -> importCSV();
+        }
+        else{
+            $this -> importStudentSubjects();
+        }
     }
 
     // IMPORTAR USERS

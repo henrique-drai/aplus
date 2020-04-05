@@ -109,6 +109,7 @@ $(document).ready(() => {
         $("#newEtapa").show();
         $("#newEtapaEDIT").hide();
         $("#etapa-label").text("Nova etapa:");
+        emptyEtapa();
 
         if(formStatus != 'new'){
             formStatus = 'new';
@@ -139,6 +140,7 @@ $(document).ready(() => {
         } else {
             formStatus = null;
             checkFormStatus();
+            emptyEtapa();
             $("#etapa-form").hide();
             $("#newEtapa").hide();
         }
@@ -199,6 +201,36 @@ $(document).ready(() => {
 
     //--- ETAPAS
 })
+
+function strToDate(dtStr) {
+    let dateParts = dtStr.split("/");
+    let timeParts = dateParts[2].split(" ")[1].split(":");
+    dateParts[2] = dateParts[2].split(" ")[0];
+    return dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0], timeParts[0], timeParts[1], timeParts[2]); 
+}
+
+//limpar os campos preenchidos
+function emptyEtapa(){
+    $('#etapa-form')[0].reset();
+}
+
+//preencher form da etapa com a info relativa à etapa
+function putEtapaInfoForm(newid){
+    var name = $("#etapaname" + newid).text();
+    var data = $("#etapadata" + newid).text().replace(",","");
+    var desc = $("#div" + newid).find("p").first().text();
+    var newdata = strToDate(data).toISOString();
+    var finaldata = newdata.substring(0,newdata.length-1);
+
+    $('input[name="etapaName"]').val(name);
+    $('input[name="etapaDate"]').val(finaldata);
+    $('textarea[name="etapaDescription"]').val(desc);
+
+    etapa['nome'] = name;
+    etapa['desc'] = desc;
+    etapa['data'] = finaldata;
+
+}
 
 
 function makePopup(butID, msg){

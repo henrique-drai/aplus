@@ -7,7 +7,9 @@
 <body>
 <?php $this->view('templates/nav-menu'); ?>
     <main>
-        
+        <h4 class="breadcrumb">
+            <a href="<?php echo base_url(); ?>subjects">Cadeiras</a>
+        </h4>
         <h1>Cadeiras que leciona</h1>
         <div class="form-container">
             <div class="cadeiras"></div>

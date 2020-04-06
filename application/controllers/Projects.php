@@ -45,7 +45,7 @@ class Projects extends CI_Controller {
         }
     }
 
-    //      projects/project/:project_id
+    //      projects/project/:project_id/:anoletivo - not yet com ano letivo
     public function project($project_id)
     {
         $data["base_url"] = base_url();

@@ -7,7 +7,7 @@
 <body>
 <?php $this->view('templates/nav-menu'); ?>
     <main>
-
+        <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>subjects">Cadeiras</a> > <a href="<?php echo base_url(); ?>subjects/subject/<?php echo $subject->code; ?>"><?php echo $subject->name; ?></a></h4>
         <div class="container">
             <div id="subject_title"></div>
         
@@ -22,10 +22,11 @@
 
             <br>
 
-            <div class="buttons">
-                <input type="button" class ="forum" value="Fórum">
-                <input type="button" class="studentsList_button" value="Lista de Alunos"> 
-            </div>
+            <input type="button" class="studentsList_button" value="Lista de Alunos"> 
+
+            <h2>Fóruns</h2>
+            <input type="button" class ="new_forum" value="Criar Fórum">
+            <div class="foruns"></div>
 
             <br>
             

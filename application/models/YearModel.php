@@ -14,4 +14,8 @@ class YearModel extends CI_Model { //ano_letivo
     public function countAcademicYear(){
         return $this->db->count_all_results('ano_letivo');
     }
+    public function getYearById($data) {
+        $query = $this->db->get_where("ano_letivo", array('id'=>$data));
+        return $query->result_array();
+    }
 }

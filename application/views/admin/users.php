@@ -67,11 +67,18 @@
 
                 <br>
 
-                <form id="file-form" method="post" action="<?php echo base_url(); ?>admin/api/importStudentSubjects" enctype="multipart/form-data">
-                <p>
+                <form id="file-form" method="post" action="<?php echo base_url(); ?>admin/api/importX" enctype="multipart/form-data">
+                    
                     <label for="myfile">Importar dados:</label>
-                    <input type="file" id="myfile" name="userfile">
-                </p>
+                    
+                    <select name="role">
+                        <option value="users">All Users</option>
+                        <option value="studentsSubject">Students + Subjects</option>
+                    </select>
+
+                    <br>
+                
+                    <input type="file" id="myfile" name="userfile" accept=".csv" required>
                     <input type="submit" id="import-data-submit"  value="Importar">
                 </form>
                 <br>

@@ -165,7 +165,7 @@ input.remove:hover {
     border-collapse: collapse;   
 }
 
-#etapa-form{
+#etapa-form, #feedback-form{
     display: none;
 }
 

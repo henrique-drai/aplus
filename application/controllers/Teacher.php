@@ -20,21 +20,22 @@ class Teacher extends REST_Controller {
     //teacher/api/função
     public function api_post($f) {
         switch ($f) {
-            case "getCadeiras":         $this->getCadeiras(); break;//     /teacher/api/getCadeiras
-            case "getDescription":      $this->getDescription(); break;//  /teacher/api/getDescription
-            case "getHours":            $this->getHours(); break;//        /teacher/api/getHours
-            case "insertText":          $this->insertText(); break;//      /teacher/api/insertText
-            case "createProject":       $this->createProject(); break;//   /teacher/api/createProject
-            case "saveHours":           $this->saveHours(); break;//       /teacher/api/saveHours 
-            case "removeHours":         $this->removeHours(); break;//     /teacher/api/removeHours
-            case "getProj":             $this->getProj(); break;//         /teacher/api/getProj
-            case "removeProject":       $this->removeProject(); break; //  /teacher/api/removeProject
-            case "getAllEtapas":        $this->getAllEtapas(); break; //   /teacher/api/getAllEtapas
-            case "getAllGroups":        $this->getAllGroups(); break; //   /teacher/api/getAllGroups
-            case "removeEtapa":         $this->removeEtapa(); break;//     /teacher/api/removeEtapa
-            case "createEtapa":         $this->createEtapa(); break;//     /teacher/api/createEtapa
-            case "editEtapa":           $this->editEtapa(); break;//       /teacher/api/createEtapa
-            case "editEnunciado":       $this->editEnunciado(); break;//   /teacher/api/createEtapa
+            case "getCadeiras":             $this->getCadeiras(); break;//          /teacher/api/getCadeiras
+            case "getDescription":          $this->getDescription(); break;//       /teacher/api/getDescription
+            case "getHours":                $this->getHours(); break;//             /teacher/api/getHours
+            case "insertText":              $this->insertText(); break;//           /teacher/api/insertText
+            case "createProject":           $this->createProject(); break;//        /teacher/api/createProject
+            case "saveHours":               $this->saveHours(); break;//            /teacher/api/saveHours 
+            case "removeHours":             $this->removeHours(); break;//          /teacher/api/removeHours
+            case "getProj":                 $this->getProj(); break;//              /teacher/api/getProj
+            case "removeProject":           $this->removeProject(); break; //       /teacher/api/removeProject
+            case "getAllEtapas":            $this->getAllEtapas(); break; //        /teacher/api/getAllEtapas
+            case "getAllGroups":            $this->getAllGroups(); break; //        /teacher/api/getAllGroups
+            case "removeEtapa":             $this->removeEtapa(); break;//          /teacher/api/removeEtapa
+            case "createEtapa":             $this->createEtapa(); break;//          /teacher/api/createEtapa
+            case "editEtapa":               $this->editEtapa(); break;//            /teacher/api/editEtapa
+            case "editEnunciado":           $this->editEnunciado(); break;//        /teacher/api/editEnunciado
+            case "clearEnunciadoEtapa":     $this->clearEnunciadoEtapa(); break;//  /teacher/api/clearEnunciadoEtapa
 
             default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -229,17 +230,36 @@ class Teacher extends REST_Controller {
 
         $id = $this->post('id');
 
+        $enunciado = '';
+
+        if(empty($etapa["enunciado"])){
+            $this_etapa = $this->ProjectModel->getEtapaByID($id);
+            $enunciado = $this_etapa->row()->enunciado_url;
+            // $enunciado = "asnaaaaavev";
+        } else {
+            $enunciado = $etapa["enunciado"];
+        }
+
         $new_etapa = Array (
             "projeto_id"        => $this->post('projid'),
             "nome"              => $etapa["nome"],
             "description"       => $etapa["desc"],
-            "enunciado_url"     => $etapa["enunciado"],
+            "enunciado_url"     => $enunciado,
             "deadline"          => $etapa["data"],
         );
 
         $this->ProjectModel->updateEtapa($new_etapa, $id);
 
         $this->response($etapa, parent::HTTP_OK);
+    }
+
+
+    public function clearEnunciadoEtapa(){
+        $this->load->model('ProjectModel');
+        $id = $this->post('id');
+        $this->ProjectModel->clearEnuncEtapa($id);
+
+        $this->response($id, parent::HTTP_OK);
     }
 
 

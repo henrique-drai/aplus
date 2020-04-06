@@ -191,6 +191,12 @@ $(document).ready(() => {
         checkFormStatus();
     })
 
+    //remover enunciado etapa
+    $('body').on('click', '#removeEnunciado', function(e) {
+        etapa_clear_enunciado();
+        getEtapas(proj);
+    })
+
     //criar etapa
     $("#newEtapa").click(() => submit_etapa());
 
@@ -229,7 +235,6 @@ function putEtapaInfoForm(newid){
     etapa['nome'] = name;
     etapa['desc'] = desc;
     etapa['data'] = finaldata;
-
 }
 
 
@@ -332,6 +337,32 @@ function submit_edit_etapa(){
 }
 
 
+function etapa_clear_enunciado(){
+    const data = {
+        projid : parseInt(proj),
+        id : selected_etapa,
+    }
+
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "teacher/api/clearEnunciadoEtapa",
+        data: data,
+        success: function(data) {
+            console.log("Enunciado do proj: "+ data + "removido");
+            $("#removeEnunciado").hide();
+            $("#div"+data).find('p').last().text("Não existe enunciado associado a esta etapa.");
+        },
+        error: function(data) {
+            console.log("Erro na API - Remover enunciado Etapa");
+            console.log(data);
+        }
+    });
+}
+
+
 function submit_new_enunciado(enunc){
     const data = {
         projid : parseInt(proj),
@@ -400,6 +431,9 @@ function makeEtapaTable(data){
 
         if (enunciado == ""){
             enunciado = "Não existe enunciado associado a esta etapa."
+            removebut = ''
+        } else {
+            removebut = '<label id="removeEnunciado"><img src="'+base_url+'/images/close.png"></label> '
         }
 
 
@@ -408,6 +442,7 @@ function makeEtapaTable(data){
             '<p>'+ json["description"] +'</p>' +
             '<label>Enunciado da etapa:</label>' +
             '<p>' + enunciado + '</p>' +
+             removebut +
             '<div class="wrapper">'+
             '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +
             '<input id="feedbackEtapaButton" type="button" value="Feedback"></input>'+

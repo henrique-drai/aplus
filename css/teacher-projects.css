@@ -50,12 +50,12 @@
     font-weight: 600;
 }
 
-#removeEtapa, #removeEtapa img, #addEtapa, #addEtapa img{
+#removeEtapa, #removeEtapa img, #addEtapa, #addEtapa img, #removeEnunciado, #removeEnunciado img{
     width:30px;
     border-radius: 15px;
 }
 
-#removeEtapa, #addEtapa{
+#removeEtapa, #addEtapa, #removeEnunciado{
     cursor:pointer;
 }
 
@@ -65,7 +65,7 @@
     margin-top: -42px;
 }
 
-#removeEtapa img:hover, #addEtapa:hover{
+#removeEtapa img:hover, #addEtapa:hover, #removeEnunciado img:hover{
     background-color:rgb(194, 194, 194);
 }
 
@@ -100,6 +100,12 @@
 }
 
 /* Especifico da página project */
+
+#removeEnunciado {
+    margin-left: 170px;
+    position: absolute;
+    margin-top: -83px;
+}
 
 .buttons-container input{
     margin:unset;

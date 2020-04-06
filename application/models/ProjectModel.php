@@ -27,6 +27,10 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
         return $this->db->order_by("deadline", "ASC")->get_where("etapa",array("projeto_id" => $proj_id)) -> result_array();
     }
 
+    public function getEtapaByID($id){
+        return $this->db->get_where("etapa", array("id" => $id));
+    }
+
     public function removeEtapaByID($id){
         return $this->db->delete("etapa", array("id" => $id));
     }
@@ -35,6 +39,13 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
         $this->db->set('enunciado_url', $enunciado);
         $this->db->where('id', $proj_id);
         $this->db->update("projeto");
+        return $this->db->affected_rows(); 
+    }
+
+    public function clearEnuncEtapa($id){
+        $this->db->set('enunciado_url', '');
+        $this->db->where('id', $id);
+        $this->db->update("etapa");
         return $this->db->affected_rows(); 
     }
 }

@@ -44,6 +44,17 @@
             <input id="opennewEtapa" type="button" value="Criar etapa">
         </div>
 
+
+        <form id="feedback-form">
+            <label class="form-label">Selecione o grupo</label>
+            <select id="select_grupo_feedback" name="GrupoSelect">
+            </select>
+            <label for="file">Entrega:</label>
+            <a href="">link da submissao de cada grupo - clicar deveria fazer download</a>
+            <label class="form-label">Descrição</label>
+            <textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>
+        </form>
+
         <form id="etapa-form">
 
             <p id="etapa" class="etapa">

@@ -108,6 +108,7 @@ $(document).ready(() => {
         $("#etapa-form").show();
         $("#newEtapa").show();
         $("#newEtapaEDIT").hide();
+        $("#feedback-form").hide();
         $("#etapa-label").text("Nova etapa:");
         emptyEtapa();
 
@@ -123,6 +124,25 @@ $(document).ready(() => {
     });
 
 
+    //show feedback etapa - FEEDBACK ETAPA
+    $('body').on("click", "#feedbackEtapaButton", function(){
+
+        $("#etapa-form").hide();
+        $("#newEtapa").hide();
+        $("#newEtapaEDIT").hide();
+        $("#feedback-form").show();
+
+        if(formStatus != 'feedback'){
+            formStatus = 'feedback';
+            checkFormStatus();
+        } else {
+            formStatus = null;
+            checkFormStatus();
+            $("#feedback-form").hide();
+        }
+    });
+
+
     //show editar etapa form - EDITAR ETAPA
     $('body').on("click", "#editEtapaButton", function(){
         var id = $(this).parent().parent().attr('id');
@@ -131,6 +151,7 @@ $(document).ready(() => {
         $("#newEtapaEDIT").show();
         $("#etapa-label").text("Editar etapa '" + $("#etapaname" + newid).text() + "':");
         $("#newEtapa").hide();
+        $("#feedback-form").hide();
 
         putEtapaInfoForm(newid);
 
@@ -393,12 +414,19 @@ function checkFormStatus(){
     if(formStatus == 'edit'){
         $("#opennewEtapa").css('background-color','white');
         $(".editb").css('background-color','#3e5d4f');
+        $(".feedbackb").css('background-color','white');
     } else if(formStatus == 'new'){
         $("#opennewEtapa").css('background-color','#3e5d4f');
+        $(".editb").css('background-color','white');
+        $(".feedbackb").css('background-color','white');
+    } else if(formStatus == 'feedback'){
+        $(".feedbackb").css('background-color','#3e5d4f');
+        $("#opennewEtapa").css('background-color','white');
         $(".editb").css('background-color','white');
     } else {
         $("#opennewEtapa").css('background-color','white');
         $(".editb").css('background-color','white');
+        $(".feedbackb").css('background-color','white');
     }
 }
 
@@ -445,7 +473,7 @@ function makeEtapaTable(data){
              removebut +
             '<div class="wrapper">'+
             '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +
-            '<input id="feedbackEtapaButton" type="button" value="Feedback"></input>'+
+            '<input id="feedbackEtapaButton" class="feedbackb" type="button" value="Feedback"></input>'+
             '<input id="removeEtapaButton" class="remove" type="button" value="Eliminar">' +
             '</div>' +
             '</div>'

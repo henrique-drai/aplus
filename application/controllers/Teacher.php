@@ -235,7 +235,7 @@ class Teacher extends REST_Controller {
         if(empty($etapa["enunciado"])){
             $this_etapa = $this->ProjectModel->getEtapaByID($id);
             $enunciado = $this_etapa->row()->enunciado_url;
-            // $enunciado = "asnaaaaavev";
+            
         } else {
             $enunciado = $etapa["enunciado"];
         }

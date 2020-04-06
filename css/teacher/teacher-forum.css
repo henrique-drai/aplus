@@ -1,0 +1,7 @@
+input, textarea, select {
+    width: 100%;
+}
+
+select {
+    border-left: 3px solid #42d542 !important;
+}

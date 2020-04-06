@@ -63,6 +63,11 @@ class Teacher extends REST_Controller {
             array_push($data["info"], $this->SubjectModel->getCadeiraInfo($data["cadeiras_id"][$i]["cadeira_id"]));
         }
 
+        $this->load->model('CourseModel');
+        $this->load->model('YearModel');
+        $tmp = $this->CourseModel->getCursobyId($data["info"][0][0]["curso_id"]);
+        $data["year"] = $this->YearModel->getYearById($tmp->ano_letivo_id);
+
         $this->response($data, parent::HTTP_OK);
     }
 

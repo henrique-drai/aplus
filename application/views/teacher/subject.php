@@ -22,10 +22,11 @@
 
             <br>
 
-            <div class="buttons">
-                <input type="button" class ="forum" value="Fórum">
-                <input type="button" class="studentsList_button" value="Lista de Alunos"> 
-            </div>
+            <input type="button" class="studentsList_button" value="Lista de Alunos"> 
+
+            <h2>Fóruns</h2>
+            <input type="button" class ="new_forum" value="Criar Fórum">
+            <div class="foruns"></div>
 
             <br>
             

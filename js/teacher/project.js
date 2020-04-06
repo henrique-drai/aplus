@@ -67,7 +67,7 @@ $(document).ready(() => {
     if(enunciado_h3 == ""){
         $("#enunciado_h3").text("Enunciado: Este projeto não tem enunciado.")
     } else {
-        $("#enunciado_h3").text("Enunciado: " + enunciado_h3);
+        $("#enunciado_h3").html("Enunciado: <a href=''>" + enunciado_h3 + '</a>');
     }
 
     
@@ -399,7 +399,7 @@ function submit_new_enunciado(enunc){
         data: data,
         success: function(data) {
             console.log(data);
-            $("#enunciado_h3").text("Enunciado: " + data);
+            $("#enunciado_h3").html("Enunciado: <a href=''> " + data + "</a>");
             $("#addEnunciado").hide();
         },
         error: function(data) {
@@ -458,10 +458,11 @@ function makeEtapaTable(data){
 
 
         if (enunciado == ""){
-            enunciado = "Não existe enunciado associado a esta etapa."
+            newenunciado = "Não existe enunciado associado a esta etapa."
             removebut = ''
         } else {
             removebut = '<label id="removeEnunciado"><img src="'+base_url+'/images/close.png"></label> '
+            newenunciado = '<a href="">' + enunciado + '</a>';
         }
 
 
@@ -469,7 +470,7 @@ function makeEtapaTable(data){
             '<label>Descrição:</label>' +
             '<p>'+ json["description"] +'</p>' +
             '<label>Enunciado da etapa:</label>' +
-            '<p>' + enunciado + '</p>' +
+            '<p>' + newenunciado + '</p>' +
              removebut +
             '<div class="wrapper">'+
             '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +

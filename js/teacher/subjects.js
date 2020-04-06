@@ -1,10 +1,5 @@
 $(document).ready(() => {
     showCadeiras();
-
-    $("body").on("click", "a", function() {
-        localStorage.setItem("cadeira_code", $(this).attr("id"));
-        window.location = base_url + "subjects/subject/" + $(this).attr("id");
-    })
 })
 
 function showCadeiras() {
@@ -16,7 +11,7 @@ function showCadeiras() {
         success: function(data) {
             console.log(data);
             for(var i = 0; i < data.cadeiras_id.length; i++) {
-                var url = base_url + "subjects/subject/" + data.info[i][0].code;
+                var url = base_url + "subjects/subject/" + data.info[i][0].code + "/2020";
                 $(".cadeiras").append("<a data-sort='" + data.info[i][0].code + "' id='" + data.info[i][0].code + "' href='" + url +
                 "'><div class='card_info'><img src=" + image_url + "><div class='subject'>" +
                 "<div id='title'>Tecnologias de Informação</div><div>" + data.info[i][0].code + ": " +

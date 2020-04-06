@@ -15,16 +15,16 @@
         <form id="register-cursos-form" action="javascript:void(0)">
         <p>
 
-            <label for="codeCurso">Código de Curso:</label><br>
-            <input type="text" name="codeCurso" required><br>
+            <label for="codeCurso">Código de Curso:</label>
+            <input type="text" name="codeCurso" required>
         </p>
         <p>
-            <label for="nomeCurso">Nome de Curso:</label><br>
-            <input type="text" name="nomeCurso" required><br>
+            <label for="nomeCurso">Nome de Curso:</label>
+            <input type="text" name="nomeCurso" required>
         </p>
         <p>
-            <label for="descCurso">Descrição de Curso:</label><br>
-            <input type="text" name="descCurso" required><br>
+            <label for="descCurso">Descrição de Curso:</label>
+            <input type="text" name="descCurso" required>
         </p>
         <p>
             <label for="academicYear">Ano Letivo:</label>

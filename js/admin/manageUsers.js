@@ -112,29 +112,57 @@ function getAllStudents(){
         type: "GET",
         url: base_url + "admin/api/getAllStudents",
         success: function(data) {
-            $(".student_row").remove();
+            // $(".student_row").remove();
             $("#mens_sem_alunos").remove();
-            var linhas = '';
+            // var linhas = '';
             if(data.students.length>0){
-                for(i=0; i<data.students.length;i++){
-                    linhas += '<tr class="student_row"><td>' + data.students[i].email + '</td><td>' + data.students[i].name +
-                    '</td><td>' +  data.students[i].surname + '</td><td><button class="editUser" type="button">Editar</button></td><td>' +
-                    '<button class="deleteUser" type="button">Apagar</button></td></tr>'; 
-                }
-                $('#show_students').append(linhas);
+                makeStudentTable(data)
+
+                // for(i=0; i<data.students.length;i++){
+                //     linhas += '<tr class="student_row"><td>' + data.students[i].email + '</td><td>' + data.students[i].name +
+                //     '</td><td>' +  data.students[i].surname + '</td><td><button class="editUser" type="button">Editar</button></td><td>' +
+                //     '<button class="deleteUser" type="button">Apagar</button></td></tr>'; 
+                // }
+                // $('#show_students').append(linhas);
             }
             else{
                 $("#mens_sem_alunos").remove();
-                $("#show_students").css("display", "none");
+                // $("#show_students").css("display", "none");
                 var mensagem = "<h2 id='mens_sem_alunos'>Não existe nenhum aluno</h2>";
                 $("body").append(mensagem)
             }
             
         },
         error: function(data) {
-            console.log("Erro a mostrar os alunos!")
-        }
+            var mensagem = "<h2 id='mens_erro_alunos'>Não é possivel apresentar os alunos.</h2>";
+            $("body").append(mensagem);
+            $("#mens_erro_alunos").delay(2000).fadeOut();        }
     });
+}
+
+function makeStudentTable(data){
+    student = '<h1>Alunos</h1>';
+    for (i=0; i<data.students.length; i++){
+        student += '<tr>' +
+            '<td>'+ data.students[i].email +'</td>' +
+            '<td>'+ data.students[i].name +'</td>' +
+            '<td>' + data.students[i].apelido + '</td>' +
+            '<td><button class="editUser" type="button">Editar</button></td>' +
+            '<td><button class="deleteUser" type="button">Apagar</button></td>' +
+            '</tr>'
+    }
+   
+    var table = '<table id="student_list">' +
+        '<tr><th>Email</th>' +
+        '<th>Nome</th>' + 
+        '<th>Apelido</th>' +
+        '<th>Editar</th>' +
+        '<th>Apagar</th></tr>' +
+        student + 
+        '</table>'
+
+
+    $("#student-container").html(table);    
 }
 
 
@@ -143,28 +171,50 @@ function getAllTeachers(){
         type: "GET",
         url: base_url + "admin/api/getAllTeachers",
         success: function(data) {
-            $(".teacher_row").remove();
             $("#mens_sem_teachers").remove();
-            var linhas = '';
             if(data.teachers.length>0){
-                for(i=0; i<data.teachers.length;i++){
-                    linhas += '<tr class="teacher_row"><td>' + data.teachers[i].email + '</td><td>' + data.teachers[i].name +
-                    '</td><td>' +  data.teachers[i].surname + '</td><td><button class="editUser" type="button">Editar</button></td><td>' +
-                    '<button class="deleteUser" type="button">Apagar</button></td></tr>'; 
-                }
-                $('#show_teachers').append(linhas);
+                makeTeacherTable(data)
             }
             else{
                 $("#mens_sem_teachers").remove();
-                $("#show_teachers").css("display", "none");
                 var mensagem = "<h2 id='mens_sem_teachers'>Não existe nenhum aluno</h2>";
                 $("body").append(mensagem)
             }
             
         },
         error: function(data) {
-            console.log("Erro a mostrar os professores!")
+            var mensagem = "<h2 id='mens_erro_professores'>Não é possivel apresentar os professores.</h2>";
+            $("body").append(mensagem);
+            $("#mens_erro_professores").delay(2000).fadeOut();
         }
     });
     
 } 
+
+function makeTeacherTable(data){
+    teacher = '<h1>Professores</h1>';
+    for (i=0; i<data.teachers.length; i++){
+        teacher += '<tr>' +
+            '<td>'+ data.teachers[i].email +'</td>' +
+            '<td>'+ data.teachers[i].name +'</td>' +
+            '<td>' + data.teachers[i].apelido + '</td>' +
+            '<td><button class="editUser" type="button">Editar</button></td>' +
+            '<td><button class="deleteUser" type="button">Apagar</button></td>' +
+            '</tr>'
+    }
+   
+    var table = '<table id="teacher_list">' +
+        '<tr><th>Email</th>' +
+        '<th>Nome</th>' + 
+        '<th>Apelido</th>' +
+        '<th>Editar</th>' +
+        '<th>Apagar</th></tr>' +
+        teacher + 
+        '</table>'
+
+
+    $("#teacher-container").html(table);    
+}
+
+
+

@@ -33,23 +33,16 @@
         <div id="msgStatus">
         </div>
 
-        <h2>Consultar Faculdades</h2>
-        <table id="show_colleges">
-            <tr>
-                <th>Nome</th>
-                <th>Localizacao</th>
-                <th>Siglas</th>
-                <th></th>
-            </tr>
-            
-        </table>
+
+        <div id="college-container" class="container">
+        </div>
 
         <div id="msgStatusDelete">
         </div>
 
         <div class="cd-popup" role="alert">
 	        <div class="cd-popup-container">
-		        <p>Tem a certeza que deseja eliminar o ano letivo?</p>
+		        <p>Tem a certeza que deseja eliminar a faculdade?</p>
                 <ul class="cd-buttons">
                     <li><a href="#" id="confirmRemove">Sim</a></li>
                     <li><a href="#" id="closeButton">Não</a></li>

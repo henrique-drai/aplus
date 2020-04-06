@@ -16,16 +16,8 @@
         </select>
 
         <br><br>
-        <table id="show_courses">
-            <tr>
-                <th>Código de Curso</th>  
-                <th>Nome</th>
-                <th>Ano Letivo</th>
-                <th>Descrição</th>
-                
-            </tr>
-            
-        </table>
+        <div id="course-container" class="container">
+        </div>
 
         <form id="editCourse-form" action="javascript:void(0)">
         <p>

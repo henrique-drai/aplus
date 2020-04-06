@@ -128,36 +128,50 @@ function submitRegister(){
             url: base_url + "admin/api/getAllCursosFaculdade",
             data: {faculdade},
             success: function(data) {
-                $(".course_row").remove();
                 $("#semCurso").remove();
                 if(data.courses.length>0){
-                    for(i=0; i<data.courses.length; i++){
-                      
-                        var linhas = '';
-                        linhas += '<tr class="course_row">' +
-                                  "<td>" + data.courses[i].code + "</td>"
-                                + "<td>" + data.courses[i].name   + "</td>"
-                                + "<td>" + data.courses[i].ano_letivo_id + "</td>"
-                                + "<td>" + data.courses[i].description + "</td>"
-                                
-                                + "<td><button class='editCourse' type='button'>Editar</button></td>"
-                                + "<td><button class='deleteCourse' type='button'>Apagar</button></td>"
-                                + "</tr>"; 
-            
-                    $("#show_courses").append(linhas);
- 
-                    }
+                    makeCoursesTable(data)
                 }
                 else{
-                    $("#show_courses").append("<tr id='semCurso'><td>Não existem cursos disponíveis</td></tr>");
+                    $("#course-container").html("<tr id='semCurso'><td>Não existem cursos disponíveis para a faculdade selecionada.</td></tr>");
                 }
             },
             error: function(data) {
-                // msgErro = "<p class='msgErro'> Não foi possivel registar a faculdade.</p>";
-                // $("#register-faculdade-form").after(msgErro);
+                var mensagem = "<h2 id='mens_erro_cursos'>Não é possivel apresentar os cursos.</h2>";
+                $("body").append(mensagem);
+                $("#mens_erro_cursos").delay(2000).fadeOut();
             }
         });
     }
+
+    function makeCoursesTable(data){
+        course = '<h2>Consultar Cursos</h2>';
+        for (i=0; i<data.courses.length; i++){
+            course += '<tr>' +
+                '<td>'+ data.courses[i].code +'</td>' +
+                '<td>'+ data.courses[i].name +'</td>' +
+                '<td>'+ data.courses[i].ano_letivo_id + '</td>' +
+                "<td>" + data.courses[i].description + "</td>" +
+
+                "<td><button class='editCourse' type='button'>Editar</button></td>"
+                + "<td><button class='deleteCourse' type='button'>Apagar</button></td>"
+                + '</tr>'
+        }
+       
+        var table = '<table id="show_courses">' +
+            '<tr><th>Código de Curso</th>' +
+            '<th>Nome</th>' + 
+            '<th>Ano Letivo</th>' +
+            '<th>Descrição</th>' +
+            '<th>Editar</th>' +
+            '<th>Descrição</th>' +
+            '</tr>' +
+            course + 
+            '</table>'
+    
+        $("#course-container").html(table);    
+    }
+    
     
 
 function deleteCourse(linha){

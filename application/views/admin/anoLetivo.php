@@ -40,15 +40,5 @@
 		        <a class="cd-popup-close"></a>
 	        </div>
         </div>
-
-        <!-- <table id="show_years">
-            <tr>
-                <th>Início</th>  
-                <th>Fim</th>
-                
-            </tr>
-            
-        </table> -->
-
     </div>
     </main>

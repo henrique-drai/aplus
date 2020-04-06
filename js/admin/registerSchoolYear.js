@@ -1,7 +1,8 @@
 var ano
 
 $(document).ready(() => {
-    $("#register-anoletivo-submit").click(() => submitRegister())  
+    $("#register-anoletivo-submit").click(() => submitRegister())
+    getAllSchoolYears()  
     setInterval(getAllSchoolYears, 2000);
     
     //open popup
@@ -30,19 +31,6 @@ $(document).ready(() => {
     })
 })
 
-function getAllSchoolYears(){
-    $.ajax({
-        type: "GET",
-        url: base_url + "admin/api/getAllSchoolYears",
-        success: function(data) {
-            makeYearTable(data["schoolYears"])
-        },
-        error: function(data) {
-            console.log("Erro na API:")
-        }
-    });
-}
-
 function deleteSchoolYear(linha){
     $.ajax({
         type: "DELETE",
@@ -59,8 +47,21 @@ function deleteSchoolYear(linha){
     });
 }
 
+function getAllSchoolYears(){
+    $.ajax({
+        type: "GET",
+        url: base_url + "admin/api/getAllSchoolYears",
+        success: function(data) {
+            makeYearTable(data["schoolYears"])
+        },
+        error: function(data) {
+            console.log("Erro na API:")
+        }
+    });
+}
+
 function makeYearTable(data){
-    years = '';
+    years = '<h2>Consultar Anos Letivos</h2>';
     for (i=0; i<data.length; i++){
         json = data[i];
         years += '<tr>' +

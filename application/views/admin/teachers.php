@@ -7,19 +7,10 @@
 
 <body>
 <?php $this->view('templates/nav-menu'); ?>
-    <main>
-        <h1>Professores</h1>
-    
-        <table id="show_teachers">
-            <tr>
-                <th>Email</th>
-                <th>Nome</th>
-                <th>Apelido</th>
-                <th>Editar</th>
-                <th>Apagar</th>
-            </tr>
-            
-        </table>
+    <main>   
+    <div id="teacher-container" class="container">
+        </div> 
+       
         <form id="editUser-form" action="javascript:void(0)">
         <p>
             <label for="name">Nome</label>

@@ -52,6 +52,7 @@
                 <div class="title">Migrações</div>
                 
                 <form id="exportCsv" action="<?php echo base_url(); ?>admin/api/saveCSV">
+                <p>
                     <label for="data">Exportar dados:</label>
                         
                         <select name="role">
@@ -59,6 +60,7 @@
                             <option value="teacher">Teachers</option>
                             <option value="studentsTeachers">Students + Teachers</option>
                         </select>
+                </p><p>
                     <input type="submit" id="exportInfo" value="Exportar">
                 
                 </form>
@@ -66,10 +68,13 @@
                 <br>
 
                 <form id="file-form" method="post" action="<?php echo base_url(); ?>admin/api/importStudentSubjects" enctype="multipart/form-data">
+                <p>
                     <label for="myfile">Importar dados:</label>
                     <input type="file" id="myfile" name="userfile">
+                </p>
                     <input type="submit" id="import-data-submit"  value="Importar">
                 </form>
+                <br>
             </div>
 
         </section>

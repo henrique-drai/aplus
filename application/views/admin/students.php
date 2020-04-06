@@ -9,7 +9,7 @@
 <?php $this->view('templates/nav-menu'); ?>    <main>
         <h1>Estudantes</h1>
         
-        <table id="show_students">
+        <!-- <table id="show_students">
             <tr>
                 <th>Email</th>
                 <th>Nome</th>
@@ -18,7 +18,11 @@
                 <th>Apagar</th>
             </tr>
             
-        </table>
+        </table> -->
+
+        <div id="student-container" class="container">
+        </div>
+
         <form id="editUser-form" action="javascript:void(0)">
         <p>
             <label for="name">Nome</label>
@@ -43,7 +47,7 @@
         
         <div class="cd-popup" role="alert">
 	        <div class="cd-popup-container">
-		        <p>Tem a certeza que deseja eliminar o ano letivo?</p>
+		        <p>Tem a certeza que deseja eliminar o aluno?</p>
                 <ul class="cd-buttons">
                     <li><a href="#" id="confirmRemove">Sim</a></li>
                     <li><a href="#" id="closeButton">Não</a></li>

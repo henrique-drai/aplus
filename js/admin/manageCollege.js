@@ -39,31 +39,45 @@ function getAllColleges(){
         type: "GET",
         url: base_url + "admin/api/getAllColleges",
         success: function(data) {
-            $("#show_colleges").css("display", "block");
-            $(".college_row").remove();
-            var linhas = '';
+            $("#mens_sem_faculdades").remove();
             if(data.colleges.length>0){
-                for(i=0; i<data.colleges.length;i++){
-                    linhas += '<tr class="college_row"><td>' + data.colleges[i].name + '</td><td>' + data.colleges[i].location + 
-                    '</td><td>' + data.colleges[i].siglas + '</td><td><button class="deleteCollege" type="button">Apagar</button></td></tr>'; 
-                }
-                $('#show_colleges').append(linhas);
+                makeCollegeTable(data)
             }
             else{
                 $("#mens_sem_faculdades").remove();
-                $("#show_colleges").css("display", "none");
                 var mensagem = "<h2 id='mens_sem_faculdades'>Não existe nenhuma faculdade</h2>";
                 $("body").append(mensagem);
             }
             
         },
         error: function(data) {
-            $("#show_colleges").css("display", "none");
             var mensagem = "<h2 id='mens_erro_faculdades'>Não é possivel apresentar as faculdades.</h2>";
             $("body").append(mensagem);
             $("#mens_erro_faculdades").delay(2000).fadeOut();
         }
     });
+}
+
+function makeCollegeTable(data){
+    college = '<h2>Consultar Faculdades</h2>';
+    for (i=0; i<data.colleges.length; i++){
+        college += '<tr>' +
+            '<td>'+ data.colleges[i].name +'</td>' +
+            '<td>'+ data.colleges[i].location +'</td>' +
+            '<td>' + data.colleges[i].siglas + '</td>' +
+            '<td><button class="deleteCollege" type="button">Apagar</button></td>' +
+            '</tr>'
+    }
+   
+    var table = '<table id="show_colleges">' +
+        '<tr><th>Nome</th>' +
+        '<th>Localização</th>' + 
+        '<th>Siglas</th>' +
+        '<th>Eliminar</th></tr>' +
+        college + 
+        '</table>'
+
+    $("#college-container").html(table);    
 }
 
 

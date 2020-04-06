@@ -189,17 +189,28 @@ function deleteCourse(linha){
 codCourse = "";
 function displayEditCourse(){
     var x = document.getElementById("editCourse-form").style.display;
-    
-    if(x=="block"){
-        $("#editCourse-form").css("display", "none");
-    }
-    else{
-        $("#editCourse-form").css("display", "block");
-
-    }
 
     var linha = $(event.target).closest("tr");
-    codCourse = linha.find("td:eq(0)").text();    
+    codCourse = linha.find("td:eq(0)").text();
+    
+    name = linha.find("td:eq(1)").text();   
+    academicYear = linha.find("td:eq(2)").text();   
+    description = linha.find("td:eq(3)").text();   
+
+    // if(x=="block"){
+    //     $("#editCourse-form").css("display", "none");
+    // }
+    // else{
+    $("#editCourse-form").css("display", "block");
+
+    $("#editCourse-form input[name='codCourse']").val(codCourse);
+    $("#editCourse-form input[name='name']").val(name);
+    $("#editCourse-form input[name='academicYear']").val(academicYear) ;
+    $("#editCourse-form input[name='description']").val(description) ;
+      
+    // }
+
+    
 }
 
 

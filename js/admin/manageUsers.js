@@ -54,25 +54,16 @@ function deleteUser(linha){
 
 function displayEditUser(){
     var linha = $(event.target).closest("tr");
-    oldEmail = linha.find("td:eq(0)").text();
-    const data = {
-        email: oldEmail,
-    }
-    $.ajax({
-        type: "GET",
-        url: base_url + "admin/api/getUserByEmail",
-        data: data,   
-        success: function(data) {
-            $("#editUser-form input[name='name']").val(data.name);
-            $("#editUser-form input[name='surname']").val(data.surname);
-            $("#editUser-form input[name='email']").val(data.email);
-            $("#editUser-form").css("display", "block");
-        },
-        error: function() {
-            msgErro = "<p class='msgErro'> Não foi possivel encontrar o utilizador.</p>";
-            $("body").append(msgErro);
-        }
-    });
+    name = linha.find("td:eq(1)").text();
+    surname = linha.find("td:eq(2)").text();
+    email =  linha.find("td:eq(0)").text();
+    
+   
+    $("#editUser-form input[name='name']").val(name);
+    $("#editUser-form input[name='surname']").val(surname);
+    $("#editUser-form input[name='email']").val(email);
+    $("#editUser-form").css("display", "block");
+      
 }
 
 function editUser(){

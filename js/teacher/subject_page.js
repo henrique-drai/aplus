@@ -124,6 +124,10 @@ $(document).ready(() => {
     $("body").on("click", ".project_button", function() {
         window.location = base_url + "projects/project/" + $(this).attr("id");
     })
+
+    $("body").on("click", ".new_forum", function() {
+        window.location = base_url + "foruns/new/" + localStorage.cadeira_code;
+    })
 })
 
 function validateFormNumb(id){

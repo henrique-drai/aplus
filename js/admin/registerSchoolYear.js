@@ -4,7 +4,7 @@ $(document).ready(() => {
     $("#register-anoletivo-submit").click(() => submitRegister())
     
     // FAZER O MÉTODO submitNewDate
-    $("#insertYearButton").click(() => submitNewDate())
+    $("body").on("click", "#insertYearButton", () => submitNewDate());
     
     getAllSchoolYears()  
     // setInterval(getAllSchoolYears, 2000);
@@ -65,8 +65,10 @@ function getAllSchoolYears(){
     });
 }
 
+
 function makeYearTable(data){
     years = '<h2>Consultar Anos Letivos</h2>';
+   
     for (i=0; i<data.length; i++){
         json = data[i];
         years += '<tr>' +
@@ -76,7 +78,6 @@ function makeYearTable(data){
             '</tr>'
     }
 
-   
     var table = '<table class="adminTable" id="year_list">' +
         '<tr><th>Início</th>' +
         '<th>Fim</th>' + 
@@ -89,51 +90,95 @@ function makeYearTable(data){
     lastBeginning = $('#year_list tr:last').find("td:eq(0)").text();
     lastEnd = $('#year_list tr:last').find("td:eq(1)").text();
 
-    var table2 = "<tr id='suggestedDate'>"
-                + "<td>" + lastEnd + "</td>"
-                + "<td>" + (parseInt(lastEnd)+1) + "</td>"
-                + "<td> <input id='insertYearButton' type='button' value='Inserir'></td>"
-                + "</tr>"
+    
+   if (data.length!=0){
+        var table2 = "<tr id='suggestedDate'>"
+        
+        + "<td>" + lastEnd + "</td>"
+        + "<td>" + (parseInt(lastEnd)+1) + "</td>"
+        + "<td> <input id='insertYearButton' type='button' value='Inserir'></td>"
+        + "</tr>"     
+    }
+    else{
+        currentYear = new Date().getFullYear();        
 
-    $(".adminTable").append(table2);    
+        var table2 = "<tr id='suggestedDate'>"
+        + "<td>" + currentYear + "</td>"
+        + "<td>" + (parseInt(currentYear)+1) + "</td>"
+        + "<td> <input id='insertYearButton' type='button' value='Inserir'></td>"
+        + "</tr>"   
+    }
+    $(".adminTable").append(table2); 
+
 }
 
-    function submitRegister(){
-        const data = {
-            inicio:   $("#register-anoletivo-form input[name='anoLetivo']").val(),
-            fim:    parseInt($("#register-anoletivo-form input[name='anoLetivo']").val())+1,
-        }
-        var currentTime = new Date()
-        if (data.inicio != ""){
-            if(data.inicio >= currentTime.getFullYear()){
-                $.ajax({
-                    type: "POST",
-                    url: base_url + "admin/api/registerSchoolYear",
-                    data: data,
-                    success: function(data) {
-                        getAllSchoolYears();
-                        $("#msgStatus").text("Ano Letivo registado com Sucesso");
-                        $("#msgStatus").show().delay(2000).fadeOut();
-                        $('#register-anoletivo-form')[0].reset();
+function submitRegister(){
+    const data = {
+        inicio:   $("#register-anoletivo-form input[name='anoLetivo']").val(),
+        fim:    parseInt($("#register-anoletivo-form input[name='anoLetivo']").val())+1,
+    }
+    var currentTime = new Date()
+    if (data.inicio != ""){
+        if(data.inicio >= currentTime.getFullYear()){
+            $.ajax({
+                type: "POST",
+                url: base_url + "admin/api/registerSchoolYear",
+                data: data,
+                success: function(data) {
+                    getAllSchoolYears();
+                    $("#msgStatus").text("Ano Letivo registado com Sucesso");
+                    $("#msgStatus").show().delay(2000).fadeOut();
+                    $('#register-anoletivo-form')[0].reset();
+    
+                },
+                error: function(data) {
         
-                    },
-                    error: function(data) {
-            
-                        $("#msgStatus").text("Não foi possível adicionar o ano letivo");
-                        $("#msgStatus").show().delay(2000).fadeOut();
-                    }
-                    
-            
-                });
-            }
-            else{
-                $("#msgStatus").text("O ano letivo precisa de ser superior ou igual ao ano atual.");
-                $("#msgStatus").show().delay(2000).fadeOut();
-            }   
+                    $("#msgStatus").text("Não foi possível adicionar o ano letivo");
+                    $("#msgStatus").show().delay(2000).fadeOut();
+                }
+                
+        
+            });
         }
         else{
-            $("#msgStatus").text("É necessário preencher todos os campos");
+            $("#msgStatus").text("O ano letivo precisa de ser superior ou igual ao ano atual.");
+            $("#msgStatus").show().delay(2000).fadeOut();
+        }   
+    }
+    else{
+        $("#msgStatus").text("É necessário preencher todos os campos");
+        $("#msgStatus").show().delay(2000).fadeOut();
+    }
+}
+    
+
+
+function submitNewDate(){
+
+    const data = {
+        inicio:   $('#year_list tr:last').find("td:eq(0)").text(),
+        fim:   $('#year_list tr:last').find("td:eq(1)").text()
+    }
+
+    console.log(data);
+    
+    $.ajax({
+        type: "POST",
+        url: base_url + "admin/api/registerSchoolYear",
+        data: data,
+        success: function(data) {
+            getAllSchoolYears();
+            $("#msgStatus").text("Ano Letivo registado com Sucesso");
+            $("#msgStatus").show().delay(2000).fadeOut();
+            $('#register-anoletivo-form')[0].reset();
+
+        },
+        error: function(data) {
+
+            $("#msgStatus").text("Não foi possível adicionar o ano letivo");
             $("#msgStatus").show().delay(2000).fadeOut();
         }
-    }
-    
+        
+    });
+  
+}

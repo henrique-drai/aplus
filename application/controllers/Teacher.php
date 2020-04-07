@@ -36,6 +36,7 @@ class Teacher extends REST_Controller {
             case "editEtapa":               $this->editEtapa(); break;//            /teacher/api/editEtapa
             case "editEnunciado":           $this->editEnunciado(); break;//        /teacher/api/editEnunciado
             case "clearEnunciadoEtapa":     $this->clearEnunciadoEtapa(); break;//  /teacher/api/clearEnunciadoEtapa
+            case "getSub":                  $this->getSub(); break;//               /teacher/api/getSub
 
             default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -335,6 +336,16 @@ class Teacher extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function getSub(){
+        $grupo_id = $this->post('grupo_id');
+        $etapa_id = $this->post('etapa_id');
+
+        $this->load->model('ProjectModel');
+
+        $url = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
+
+        $this->response($url, parent::HTTP_OK);
+    }
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

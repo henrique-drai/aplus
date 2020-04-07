@@ -17,14 +17,5 @@ class Landing extends CI_Controller {
                 $this->load->view('landing', $data);
                 $this->load->view('templates/footer');
         }
-        
-        public function login()
-        {
-                $data["base_url"] = base_url();
-
-                $this->load->view('templates/head', $data);
-                $this->load->view('auth/login', $data);
-                $this->load->view('templates/footer');
-        }
 }
 ?>

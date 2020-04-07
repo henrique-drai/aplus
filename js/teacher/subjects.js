@@ -1,5 +1,9 @@
 $(document).ready(() => {
     showCadeiras();
+
+    $("body").on("click", "a", function() {
+        localStorage.setItem("cadeira_code", $(this).attr("id"));
+    })
 })
 
 function showCadeiras() {

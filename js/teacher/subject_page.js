@@ -152,15 +152,21 @@ function getInfo($id) {
         url: base_url + "teacher/api/getDescription",
         data: {cadeira_id: $id},
         success: function(data) {
-            $("#subject_title").append("<h1>" + data.info[0].name + "</h1>");
-            if(data.info[0].description == "") {
-                $(".summary").append("<p>Não existe sumário para a cadeira.</p>");
+            if(data.info.length > 0) {
+                if(data.info[0].description == "") {
+                    $(".summary").append("<p>Não existe sumário para a cadeira.</p>");
+                } else {
+                    $(".summary").append("<p>" + data.info[0].description + "</p>");
+                }
+                localStorage.setItem('cadeira_id', data.info[0].id);
+                getHours(data.info[0].id);
+                getProj(localStorage.cadeira_id);
             } else {
-                $(".summary").append("<p>" + data.info[0].description + "</p>");
+                $(".summary").append("<p>Não existe sumário para a cadeira.</p>");
+                $(".hours").append("<p>Ainda não há horários de dúvidas disponíveis.</p>");
+                $(".projetos").append("<p>Ainda não existem projetos para a cadeira.</p>");
             }
-            localStorage.setItem('cadeira_id', data.info[0].id);
-            getHours(data.info[0].id);
-            getProj(localStorage.cadeira_id);
+            
         },
         error: function(data) {
             alert("Houve um erro ao ir buscar a informação da cadeira.");

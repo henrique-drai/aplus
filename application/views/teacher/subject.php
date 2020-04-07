@@ -9,7 +9,9 @@
     <main>
         <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>subjects">Cadeiras</a> > <a href="<?php echo base_url(); ?>subjects/subject/<?php echo $subject->code; ?>"><?php echo $subject->name; ?></a></h4>
         <div class="container">
-            <div id="subject_title"></div>
+            <div id="subject_title">
+                <h1><?php echo $subject->name; ?></h1>
+            </div>
         
             <div class="header">
                 <h2>Sumário da Cadeira</h2>

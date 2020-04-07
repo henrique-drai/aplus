@@ -1,12 +1,24 @@
 .adminTable{
-    width: 100%
+    width: 80%;
+    text-align: center;
+    /* margin: auto; */
 }
 
+/* .container h2 {
+    margin: 5px 10%;
+} */
+
 .adminTable th{
+    background-color: #939393;
     padding: 15px 0px;
 }
 
+.adminTable tr:hover{
+    background-color: #ccc
+}
+
+
 #suggestedDate {
-    background-color: grey;
+    background-color:#3e5d4f38;
     opacity: 0.8;
 }

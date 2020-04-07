@@ -12,10 +12,13 @@ $(document).ready(() => {
     //tabela dos grupos
     showGroups(proj);
 
-    //atualizar tabela dos grupos. Não precisa de ser instantaneo
-    setInterval(function(){
-        showGroups(proj);
-    }, 5000);
+    // se atualizar a tabela dos grupos dinamicamente o select vai estar sempre a tirar 
+    // o elemento selecionado
+    // assim, vou atualizar quando o botao feedback é carregado
+    // //atualizar tabela dos grupos. Não precisa de ser instantaneo
+    // setInterval(function(){
+    //     showGroups(proj);
+    // }, 5000);
 
     // --- GRUPOS
 
@@ -131,6 +134,7 @@ $(document).ready(() => {
         $("#newEtapa").hide();
         $("#newEtapaEDIT").hide();
         $("#feedback-form").show();
+        showGroups(proj);
 
         if(formStatus != 'feedback'){
             formStatus = 'feedback';
@@ -142,6 +146,12 @@ $(document).ready(() => {
         }
     });
 
+
+    // ir buscar submission - FEEDBACK ETAPA
+    $('#select_grupo_feedback').on('change', function(){
+        var grupo_id = $(this).val();
+        getSumbission(grupo_id, selected_etapa);
+    })
 
     //show editar etapa form - EDITAR ETAPA
     $('body').on("click", "#editEtapaButton", function(){
@@ -227,6 +237,7 @@ $(document).ready(() => {
 
 
     //--- ETAPAS
+    
 })
 
 function strToDate(dtStr) {
@@ -529,19 +540,13 @@ function showGroups(proj_id) {
         data: {proj_id: proj_id},
         success: function(data) {
             console.log(data);
-            var linhas = '';
+            var linhas = '<option value="">--- Grupos ---</option>';
             $("#groups_list tr").remove();
-            $("#groups_list").append("<tr><th>Nome</th><th>Número de elementos</th>" +
+            $("#groups_list").append("<tr><th>Nome</th>" +
                 "<th>Elementos</th><th>Chat</th></tr>");
 
             for(var i=0; i < data["grupos"].length; i++) {
-                var count = 0;
                 var names = '';
-                for(var j=0; j < data["students"][0].length; j++) {
-                    if(data["students"][0][j].grupo_id == data["grupos"][i].id) {
-                        count++;
-                    }
-                }
 
                 for(var j=0; j < data["nomes"].length; j++) {
                     if(data["nomes"][j].grupo_id == data["grupos"][i].id) {
@@ -550,13 +555,13 @@ function showGroups(proj_id) {
                 }
 
                 $("#groups_list").append("<tr><td>" + data["grupos"][i].name +"</td>" +
-                    "<td>" + count + "</td><td>" + names.slice(0, -2) + "</td><td>" +
+                    "<td>" + names.slice(0, -2) + "</td><td>" +
                     "<input id='chatButton' type='button' value='Chat'></td></tr>");
 
 
                 linhas += '<option value=' +  data["grupos"][i].id  +">" + data["grupos"][i].name  + '</option>'; 
             }
-
+            
             $("#select_grupo_feedback").html(linhas);
         },
         error: function(data) {
@@ -585,6 +590,31 @@ function removeEtapa(id){
         },
         error: function(data) {
             console.log("Erro na API - Remove Etapa")
+            console.log(data)
+        }
+    });
+}
+
+
+function getSumbission(grupo_id, etapa){
+    const data = {
+        grupo_id : grupo_id,
+        etapa_id : etapa
+    }
+
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "teacher/api/getSub",
+        data: data,
+        success: function(data) {
+            console.log(data)
+            $("#sub_url").text(data[0]["submit_url"]);
+        },
+        error: function(data) {
+            console.log("Erro na API - Get Sumbission from Group in Etapa")
             console.log(data)
         }
     });

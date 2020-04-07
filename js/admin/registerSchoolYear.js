@@ -2,8 +2,12 @@ var ano
 
 $(document).ready(() => {
     $("#register-anoletivo-submit").click(() => submitRegister())
+    
+    // FAZER O MÉTODO submitNewDate
+    $("#insertYearButton").click(() => submitNewDate())
+    
     getAllSchoolYears()  
-    setInterval(getAllSchoolYears, 2000);
+    // setInterval(getAllSchoolYears, 2000);
     
     //open popup
 	$('body').on('click','#removeYearButton', function(event){
@@ -37,6 +41,7 @@ function deleteSchoolYear(linha){
         url: base_url + "admin/api/deleteSchoolYear",
         data: {inicio: linha.find("td:eq(0)").text()},
         success: function() {
+            getAllSchoolYears();
             $("#msgStatus").text("Ano Letivo eliminado com Sucesso");
             $("#msgStatus").show().delay(2000).fadeOut();
         },
@@ -70,6 +75,7 @@ function makeYearTable(data){
             '<td><input id="removeYearButton" type="button" value="Eliminar"></td>' +
             '</tr>'
     }
+
    
     var table = '<table class="adminTable" id="year_list">' +
         '<tr><th>Início</th>' +
@@ -80,6 +86,16 @@ function makeYearTable(data){
 
 
     $("#years-container").html(table);    
+    lastBeginning = $('#year_list tr:last').find("td:eq(0)").text();
+    lastEnd = $('#year_list tr:last').find("td:eq(1)").text();
+
+    var table2 = "<tr id='suggestedDate'>"
+                + "<td>" + lastEnd + "</td>"
+                + "<td>" + (parseInt(lastEnd)+1) + "</td>"
+                + "<td> <input id='insertYearButton' type='button' value='Inserir'></td>"
+                + "</tr>"
+
+    $(".adminTable").append(table2);    
 }
 
     function submitRegister(){
@@ -95,6 +111,7 @@ function makeYearTable(data){
                     url: base_url + "admin/api/registerSchoolYear",
                     data: data,
                     success: function(data) {
+                        getAllSchoolYears();
                         $("#msgStatus").text("Ano Letivo registado com Sucesso");
                         $("#msgStatus").show().delay(2000).fadeOut();
                         $('#register-anoletivo-form')[0].reset();

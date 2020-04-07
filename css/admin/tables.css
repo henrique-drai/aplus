@@ -5,3 +5,8 @@
 .adminTable th{
     padding: 15px 0px;
 }
+
+#suggestedDate {
+    background-color: grey;
+    opacity: 0.8;
+}

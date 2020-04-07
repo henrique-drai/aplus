@@ -22,6 +22,8 @@
             <input id="addEnunciado" type="button" value="Adicionar enunciado">
         </div>
         <div class="container-header">
+            <h3>Descrição</h3>
+            <p> <?php echo $project[0]["description"]; ?></p>
             <h3>Grupos</h3>
         </div>
 

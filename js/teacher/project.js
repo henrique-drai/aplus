@@ -529,7 +529,7 @@ function showGroups(proj_id) {
         data: {proj_id: proj_id},
         success: function(data) {
             console.log(data);
-
+            var linhas = '';
             $("#groups_list tr").remove();
             $("#groups_list").append("<tr><th>Nome</th><th>Número de elementos</th>" +
                 "<th>Elementos</th><th>Chat</th></tr>");
@@ -552,7 +552,12 @@ function showGroups(proj_id) {
                 $("#groups_list").append("<tr><td>" + data["grupos"][i].name +"</td>" +
                     "<td>" + count + "</td><td>" + names.slice(0, -2) + "</td><td>" +
                     "<input id='chatButton' type='button' value='Chat'></td></tr>");
+
+
+                linhas += '<option value=' +  data["grupos"][i].id  +">" + data["grupos"][i].name  + '</option>'; 
             }
+
+            $("#select_grupo_feedback").html(linhas);
         },
         error: function(data) {
             console.log("Erro na API - Show Groups")

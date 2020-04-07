@@ -173,7 +173,6 @@ input.remove:hover {
     margin-bottom: 1%;
 }
 
-
   /* -------------------------------- 
                                     /
                 POPUP               /
@@ -192,13 +191,6 @@ input.remove:hover {
     -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
     transition: opacity 0.3s 0s, visibility 0s 0.3s;
 }
-
-/* .cd-popup.is-visible {
-    opacity: 1;
-    visibility: visible;
-    -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
-    transition: opacity 0.3s 0s, visibility 0s 0s;
-} */
 
 .cd-popup-container {
     position: relative;
@@ -290,11 +282,6 @@ input.remove:hover {
     transform: rotate(-45deg);
     right: 8px;
 }
-
-/* .is-visible .cd-popup-container {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-} */
 
 @media only screen and (min-width: 1170px) {
     .cd-popup-container {

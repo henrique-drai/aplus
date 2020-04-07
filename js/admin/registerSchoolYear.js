@@ -67,11 +67,11 @@ function makeYearTable(data){
         years += '<tr>' +
             '<td>'+ json["inicio"] +'</td>' +
             '<td>'+ json["fim"] +'</td>' +
-            '<td><input id="removeYearButton" class="remove" type="button" value="Eliminar"></td>' +
+            '<td><input id="removeYearButton" type="button" value="Eliminar"></td>' +
             '</tr>'
     }
    
-    var table = '<table id="year_list">' +
+    var table = '<table class="adminTable" id="year_list">' +
         '<tr><th>Início</th>' +
         '<th>Fim</th>' + 
         '<th>Eliminar</th></tr>' +

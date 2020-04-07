@@ -4,6 +4,7 @@
 <script src="<?php echo $base_url; ?>js/admin/registerunidCurricular.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/manageunidCurricular.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
 
 </head>
 
@@ -71,7 +72,7 @@
         </div>
 
 
-        <table id="show_subjects">
+        <table class="adminTable" id="show_subjects">
             <tr>
                 <th>Código da UC</th>
                 <th>Curso</th>  

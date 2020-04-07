@@ -2,6 +2,7 @@
 <script>setPageName("home")</script>
 <script src="<?php echo $base_url; ?>js/admin/users.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/users.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
 </head>
 
 <body>

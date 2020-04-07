@@ -133,7 +133,7 @@ function submitRegister(){
                     makeCoursesTable(data)
                 }
                 else{
-                    $("#course-container").html("<tr id='semCurso'><td>Não existem cursos disponíveis para a faculdade selecionada.</td></tr>");
+                    $("#course-container").html("Não existem cursos disponíveis para a faculdade selecionada.");
                 }
             },
             error: function(data) {
@@ -153,12 +153,12 @@ function submitRegister(){
                 '<td>'+ data.courses[i].ano_letivo_id + '</td>' +
                 "<td>" + data.courses[i].description + "</td>" +
 
-                "<td><button class='editCourse' type='button'>Editar</button></td>"
-                + "<td><button class='deleteCourse' type='button'>Apagar</button></td>"
+                "<td><input class='editCourse' type='button' value='Editar'></td>"
+                + "<td><input class='deleteCourse' type='button' value='Eliminar'></td>"
                 + '</tr>'
         }
        
-        var table = '<table id="show_courses">' +
+        var table = '<table class="adminTable" id="show_courses">' +
             '<tr><th>Código de Curso</th>' +
             '<th>Nome</th>' + 
             '<th>Ano Letivo</th>' +

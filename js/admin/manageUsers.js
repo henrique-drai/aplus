@@ -138,12 +138,12 @@ function makeStudentTable(data){
             '<td>'+ data.students[i].email +'</td>' +
             '<td>'+ data.students[i].name +'</td>' +
             '<td>' + data.students[i].apelido + '</td>' +
-            '<td><button class="editUser" type="button">Editar</button></td>' +
-            '<td><button class="deleteUser" type="button">Apagar</button></td>' +
+            '<td><input id="editUser" type="button" value="Editar"></td>' +
+            '<td><input id="deleteUser" type="button" value="Eliminar"></td>' +
             '</tr>'
     }
    
-    var table = '<table id="student_list">' +
+    var table = '<table class="adminTable" id="student_list">' +
         '<tr><th>Email</th>' +
         '<th>Nome</th>' + 
         '<th>Apelido</th>' +
@@ -189,12 +189,12 @@ function makeTeacherTable(data){
             '<td>'+ data.teachers[i].email +'</td>' +
             '<td>'+ data.teachers[i].name +'</td>' +
             '<td>' + data.teachers[i].apelido + '</td>' +
-            '<td><button class="editUser" type="button">Editar</button></td>' +
-            '<td><button class="deleteUser" type="button">Apagar</button></td>' +
+            '<td><input class="editUser" type="button" value="Editar"></td>' +
+            '<td><input class="deleteUser" type="button" value="Eliminar"></td>' +
             '</tr>'
     }
    
-    var table = '<table id="teacher_list">' +
+    var table = '<table class="adminTable" id="teacher_list">' +
         '<tr><th>Email</th>' +
         '<th>Nome</th>' + 
         '<th>Apelido</th>' +

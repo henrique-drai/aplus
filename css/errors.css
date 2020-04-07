@@ -1,0 +1,28 @@
+
+body{
+    background-image: url("https://images.unsplash.com/photo-1462536943532-57a629f6cc60?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+main{
+    margin: auto;
+    text-align: center;
+}
+.error-code {
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    color: white;
+}
+h1 {
+    color: white;
+    text-shadow: 1px 1px 1px black;
+}
+a {
+    border: 1px solid #3e5d4f;
+    background-color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: black;
+}

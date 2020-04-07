@@ -9,8 +9,8 @@ class Landing extends CI_Controller {
                 $this->load->helper('url');
         }
 
-	public function index()
-	{
+        public function index()
+        {
                 $data["base_url"] = base_url();
 
                 $this->load->view('templates/head', $data);

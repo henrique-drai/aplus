@@ -15,7 +15,7 @@
 
         <h1>Ano Letivo</h1>
 
-        <form id="register-anoletivo-form" action="javascript:void(0)">
+        <!-- <form id="register-anoletivo-form" action="javascript:void(0)">
         <p>
             <label for="anoLetivo">Insira um ano válido:</label>
             <input class="form-input-number" type="number" name="anoLetivo" required>
@@ -24,7 +24,7 @@
         <input type="submit" id="register-anoletivo-submit">
         
     </form>
-    <br>
+    <br> -->
     
     <div id="years-container" class="container">
         </div>

@@ -137,7 +137,7 @@ function makeStudentTable(data){
         student += '<tr>' +
             '<td>'+ data.students[i].email +'</td>' +
             '<td>'+ data.students[i].name +'</td>' +
-            '<td>' + data.students[i].apelido + '</td>' +
+            '<td>' + data.students[i].surname + '</td>' +
             '<td><input id="editUser" type="button" value="Editar"></td>' +
             '<td><input id="deleteUser" type="button" value="Eliminar"></td>' +
             '</tr>'

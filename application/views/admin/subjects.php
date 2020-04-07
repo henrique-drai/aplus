@@ -1,8 +1,9 @@
 <title>A+ for Admins</title>
 <script>setPageName("subjects")</script>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin-subjects.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-subjects.css">
 <script src="<?php echo $base_url; ?>js/admin/registerunidCurricular.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/manageunidCurricular.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
 
@@ -54,6 +55,9 @@
         <select id="Consultar_Cadeiras_Faculdade" name="consultarCadeirasporFaculdade">
         </select>
 
+        <select id="Consultar_Cadeiras_Faculdade_Curso" name="consultarCadeirasporCurso">
+        </select>
+
         <select id="Consultar_Cadeiras_Curso" name="consultarCadeirasporCurso">
         </select>
 
@@ -71,15 +75,19 @@
 	        </div>
         </div>
 
-
-        <table class="adminTable" id="show_subjects">
-            <tr>
-                <th>Código da UC</th>
-                <th>Curso</th>  
-                <th>Nome</th>
-                <th>Descrição</th>
-            </tr>
-            
-        </table>
-        <div>
+        <div id="subject-container" class="container">
+            <table class="adminTable" id="show_subjects">
+                <tr>
+                    <th>Código da UC</th>
+                    <th>Curso</th>  
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+                
+            </table>
+        
+        </div> 
+        
 </main>

@@ -164,7 +164,7 @@ function submitRegister(){
             '<th>Ano Letivo</th>' +
             '<th>Descrição</th>' +
             '<th>Editar</th>' +
-            '<th>Descrição</th>' +
+            '<th>Eliminar</th>' +
             '</tr>' +
             course + 
             '</table>'

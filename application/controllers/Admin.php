@@ -45,7 +45,7 @@ class Admin extends REST_Controller {
             case "getAllCursosFaculdade": $this->getAllCollegesCourses(); break; // admin/api/getAllCursosFaculdade
             case "getAllSubjects": $this->getAllSubjects(); break; // admin/api/getAllSubjects
             case "getAllCoursesByCollege": $this->getAllCoursesByCollege(); break; // admin/api/getAllCoursesByCollege
-            case "getAllSubjectsByCollege": $this->getAllSubjectsByCollege(); break; // admin/api/getAllSubjectsByCollege
+            case "getAllSubjectsByCourse": $this->getAllSubjectsByCourse(); break; // admin/api/getAllSubjectsByCourse
             case "getCourseNameById": $this->getCourseNameById(); break; // admin/api/getCourseNameById
             case "getUserByEmail": $this->getUserByEmail(); break; // admin/api/getUserByEmail
             case "saveCSV":         $this->export(); break;
@@ -180,9 +180,8 @@ class Admin extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function getAllSubjectsByCollege(){
+    public function getAllSubjectsByCourse(){
         $course = $this->get('course');
-        $this->load->model("CourseModel");
         $this->load->model('SubjectModel');
         $data["subjects"] = $this->SubjectModel->getSubjectsByCursoId($course);
         $this->response($data, parent::HTTP_OK);

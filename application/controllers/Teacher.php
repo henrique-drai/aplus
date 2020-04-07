@@ -36,6 +36,7 @@ class Teacher extends REST_Controller {
             case "editEtapa":               $this->editEtapa(); break;//            /teacher/api/editEtapa
             case "editEnunciado":           $this->editEnunciado(); break;//        /teacher/api/editEnunciado
             case "clearEnunciadoEtapa":     $this->clearEnunciadoEtapa(); break;//  /teacher/api/clearEnunciadoEtapa
+            case "insertForum":             $this->insertForum(); break;//          /teacher/api/insertForum
 
             default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -45,6 +46,7 @@ class Teacher extends REST_Controller {
         switch ($f) {
             case "getCourseStudents":   $this->getCourseStudents(); break; //   /teacher/api/getCourseStudents
             case "getProfHome":         $this->getProfHome(); break; //         /teacher/api/getProfHome
+            case "getForumInfo":        $this->getForumInfo(); break;//         /teacher/api/getForumInfo
 
             default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -332,6 +334,32 @@ class Teacher extends REST_Controller {
             }
         }
         
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    //////////////////////////////////////////////////////////////
+    //                         FORUM
+    //////////////////////////////////////////////////////////////
+
+    public function insertForum() {
+        $data = Array (
+            "cadeira_id"        => $this->post('cadeira_id'),
+            "name"              => $this->post("name"),
+            "description"       => $this->post("desc"),
+            "teachers_only"     => $this->post("teachers_only"),
+        );
+
+        $this->load->model("ForumModel");
+        $data = $this->ForumModel->insertForum($data);
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getForumInfo() {
+        $forum_id = $this->get("forum_id");
+        $this->load->model("ForumModel");
+        $data["info"] = $this->ForumModel->getForumByID($forum_id);
+
         $this->response($data, parent::HTTP_OK);
     }
 

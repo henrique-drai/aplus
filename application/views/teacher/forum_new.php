@@ -35,7 +35,7 @@
                 </p>
 
                 <div class="btn-wrap">
-                    <input type="submit" id="createProjectButton" value="Criar">
+                    <input type="submit" id="createForumButton" value="Criar">
                 </div>
             </form>
         </div>

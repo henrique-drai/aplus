@@ -1,6 +1,7 @@
 <?php
 class YearModel extends CI_Model { //ano_letivo
     public function getAllSchoolYears(){
+        $this->db->order_by("inicio", "asc");
         $query = $this->db->get('ano_letivo');
         return $query->result();
     }

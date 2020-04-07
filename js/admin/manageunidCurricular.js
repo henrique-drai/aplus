@@ -1,8 +1,12 @@
 var unidCurr
+var allSubjects = "";
 
 $(document).ready(() => {
 
-    $("#show_subjects").css("display", "none");
+    cleanTable();
+
+
+
     $("#Consultar_Cadeiras_Faculdade").css("display", "none");
     $("#Consultar_Cadeiras_Faculdade_Curso").css("display", "none");
     $("#Consultar_Cadeiras_Curso").css("display", "none");
@@ -10,13 +14,18 @@ $(document).ready(() => {
     
     $("#Consultar_Cadeiras").change(function(){
         if($("#Consultar_Cadeiras").val() == "All"){
+
+            cleanTable();
+            allSubjects = "";
             getAllSubjects();
             $("#Consultar_Cadeiras_Faculdade").css("display", "none");
             $("#Consultar_Cadeiras_Curso").css("display", "none");
             $("#Consultar_Cadeiras_Faculdade_Curso").css("display", "none");
         }
         else if($("#Consultar_Cadeiras").val() == "Faculdade"){
-            $("#show_subjects").css("display", "none");
+
+            cleanTable();
+
             $("#Consultar_Cadeiras_Faculdade_Curso").css("display", "none");
             $("#Consultar_Cadeiras_Curso").css("display", "none");
             $("#Consultar_Cadeiras_Faculdade").css("display", "block");
@@ -25,11 +34,14 @@ $(document).ready(() => {
 
             $("#Consultar_Cadeiras_Faculdade").change(function(){
                 if($("#Consultar_Cadeiras_Faculdade").val() != "Selecione uma Faculdade"){
+                    cleanTable();
+                    //DAR A ESCREVER DUAS VEZES AQUI
                     getAllCoursesByCollege($(this).val(), "faculdade");
                     
                 }
                 else{
-                    $("#show_subjects").css("display", "none");
+                    cleanTable();
+
                     $("#mens_sem_cadeiras").remove();
                     $(".subject_row").remove();
                 }
@@ -38,35 +50,39 @@ $(document).ready(() => {
         }
         else if($("#Consultar_Cadeiras").val() == "Curso"){
             
-            $("#Consultar_Cadeiras_Faculdade_Curso").css("display", "block");
-            $("#show_subjects").css("display", "none");
+            $("#Consultar_Cadeiras_Faculdade_Curso").css("display", "block");;
+            
+            cleanTable();
+
             $("#Consultar_Cadeiras_Faculdade").css("display", "none");
 
             getColleges("curso");
 
             $("#Consultar_Cadeiras_Faculdade_Curso").change(function(){
                 if($("#Consultar_Cadeiras_Faculdade_Curso").val() != "Selecione uma Faculdade"){
+                    cleanTable();
                     getAllCoursesByCollege($(this).val(), "curso");                    
                 }
                 else{
-                    $("#show_subjects").css("display", "none");
+                    cleanTable();
+
                     $("#Consultar_Cadeiras_Curso").css("display", "none");
                     $("#mens_sem_cadeiras").remove();
-                    $(".subject_row").remove();
+                    
                 }
                 
             })  
             $("#Consultar_Cadeiras_Curso").change(function(){
                 if($("#Consultar_Cadeiras_Curso").val() != "Selecione um curso"){
-                    $("#show_subjects").css("display", "none");
-                    $(".subject_row").remove();
+                    cleanTable();
+
                     getAllSubjectsByCourse($(this).val());
                     
                 }
                 else{
-                    $("#show_subjects").css("display", "none");
+                    cleanTable();
                     $("#mens_sem_cadeiras").remove();
-                    $(".subject_row").remove();
+                    
                 }
                 
             })
@@ -80,12 +96,11 @@ $(document).ready(() => {
             console.log("ano");
         }
         else{
-            $("#show_subjects").css("display", "none");
+            cleanTable();
             $("#Consultar_Cadeiras_Faculdade").css("display", "none");
             $("#Consultar_Cadeiras_Faculdade_Curso").css("display", "none");
             $("#Consultar_Cadeiras_Curso").css("display", "none");
             $("#Consultar_Cadeiras_Ano").css("display", "none");
-            $(".subject_row").remove();
         }
     });
 
@@ -118,6 +133,40 @@ $(document).ready(() => {
 
 })
 
+function cleanTable(){
+    allSubjects = "";
+    $("#subject_list").remove();
+    $(".subject_row").remove();
+}
+
+function getCourseNameById(course_id, dataSubject){
+    $.ajax({
+        type: "GET",
+        url: base_url + "admin/api/getCourseNameById",
+        data: {course_id},
+        success: function(data) {
+            allSubjects += '<tr class="subject_row">' +
+                '<td>'+ dataSubject.code +'</td>' +
+                '<td>'+ data.course.name +'</td>' +
+                '<td>'+ dataSubject.name + '</td>' +
+                '<td>'+ dataSubject.description + '</td>' +
+                '<td><input class="editSubject" type="button" value="Editar"></td>' +
+                '<td><input class="deleteSubject" type="button" value="Eliminar"></td>' +
+                '</tr>';
+            makeAllSubjectsTable();
+
+            // var linhas = '';
+            // linhas += '<tr class="subject_row"><td>' + dataSubject.code + '</td><td>' + data.course.name + 
+            //     '</td><td>' + dataSubject.name + '</td><td>' + dataSubject.description + 
+            //     '</td><td><button class="editSubject" type="button">Editar</button></td><td><button class="deleteSubject" type="button">Apagar</button></td></tr>'; 
+            // $('#show_subjects').append(linhas);
+        },
+        error: function(data) {
+            msgErro = "<p class='msgErro'> Não foi possivel encontrar o curso.</p>";
+            $("#register-faculdade-form").after(msgErro);
+        },
+    });
+}
 
 
 function getAllSubjects(){
@@ -125,7 +174,7 @@ function getAllSubjects(){
         type: "GET",
         url: base_url + "admin/api/getAllSubjects",
         success: function(data) {
-            $(".subject_row").remove();
+            cleanTable();
             $("#mens_sem_cadeiras").remove();
             $("#mens_erro_faculdades").remove();
 
@@ -137,15 +186,15 @@ function getAllSubjects(){
             }
             else{
                 $("#mens_sem_cadeiras").remove();
-                $("#show_subjects").css("display", "none");
+                cleanTable();
                 var mensagem = "<h2 id='mens_sem_cadeiras'>Não existe nenhuma unidade curricular</h2>";
                 $("body").append(mensagem)
             }
-            $("#show_subjects").css("display", "block");
+            // $("#show_subjects").css("display", "block");
             
         },
         error: function(data) {
-            $("#show_subjects").css("display", "none");
+            cleanTable();
             $("#mens_sem_cadeiras").remove();
             $("#mens_erro_faculdades").remove();
             var mensagem = "<h2 id='mens_erro_faculdades'>Não é possivel apresentar as unidades curriculares.</h2>";
@@ -154,52 +203,22 @@ function getAllSubjects(){
     });
 }
 
-function getCourseNameById(course_id, dataSubject){
-    $.ajax({
-        type: "GET",
-        url: base_url + "admin/api/getCourseNameById",
-        data: {course_id},
-        success: function(data) {
 
-            // makeAllSubjectsTable(data.course.name, dataSubject)
 
-            var linhas = '';
-            linhas += '<tr class="subject_row"><td>' + dataSubject.code + '</td><td>' + data.course.name + 
-                '</td><td>' + dataSubject.name + '</td><td>' + dataSubject.description + 
-                '</td><td><button class="editSubject" type="button">Editar</button></td><td><button class="deleteSubject" type="button">Apagar</button></td></tr>'; 
-            $('#show_subjects').append(linhas);
-        },
-        error: function(data) {
-            msgErro = "<p class='msgErro'> Não foi possivel encontrar o curso.</p>";
-            $("#register-faculdade-form").after(msgErro);
-        }
-    });
+function makeAllSubjectsTable(){   
+    var table = '<table class="adminTable" id="subject_list">' +
+        '<tr><th>Código da UC</th>' +
+        '<th>Curso</th>' + 
+        '<th>Nome</th>' +
+        '<th>Descrição</th>' + 
+        '<th>Editar</th>' +
+        '<th>Apagar</th></tr>' +
+        allSubjects + 
+        '</table>'
+
+
+    $("#subject-container").html(table);    
 }
-
-// function makeAllSubjectsTable(coursename, dataSubject){
-//     allSubjects = '<h1>Professores</h1>';
-//     allSubjects += '<tr class="subject_row">' +
-//         '<td>'+  dataSubject.code +'</td>' +
-//         '<td>'+ coursename +'</td>' +
-//         '<td>' + dataSubject.name + '</td>' +
-//         '<td>' + dataSubject.description + '</td>' +
-//         '<td><input class="editSubject" type="button" value="Editar"></td>' +
-//         '<td><input class="deleteSubject" type="button" value="Eliminar"></td>' +
-//         '</tr>'
-   
-//     var table = '<table class="adminTable" id="teacher_list">' +
-//         '<tr><th>Código da UC</th>' +
-//         '<th>Curso</th>' + 
-//         '<th>Nome</th>' +
-//         '<th>Descrição</th>' + 
-//         '<th>Editar</th>' +
-//         '<th>Apagar</th></tr>' +
-//         allSubjects + 
-//         '</table>'
-
-
-//     $("#subject-container").html(table);    
-// }
 
 function getColleges(option){
     $.ajax({
@@ -235,13 +254,12 @@ function getAllCoursesByCollege(faculdade, option){
         url: base_url + "admin/api/getAllCoursesByCollege",
         data: {faculdade},
         success: function(data) {
-            $(".subject_row").remove();  
-            $("#show_subjects").css("display", "none");
+            cleanTable();
             if(data.courses.length>0){
 
                 $("#Consultar_Cadeiras_Curso option").remove();
                 var linhas = '<option class="college_row">Selecione um Curso</option>';
-
+                console.log(data.courses)
                 for(i=0; i<data.courses.length;i++){
 
                     if(option == "faculdade"){
@@ -263,7 +281,7 @@ function getAllCoursesByCollege(faculdade, option){
             }
             else{
                 $("#mens_sem_cadeiras").remove();
-                $("#show_subjects").css("display", "none");
+                cleanTable();
                 $("#Consultar_Cadeiras_Curso").css("display", "none");
                 var mensagem = "<h2 id='mens_sem_cadeiras'>Não existe cursos nesta faculdade, logo não existem unidades curriculares.</h2>";
                 $("body").append(mensagem);
@@ -271,7 +289,7 @@ function getAllCoursesByCollege(faculdade, option){
             
         },
         error: function(data) {
-            $("#show_colleges").css("display", "none");
+            cleanTable();
             $("#mens_sem_cadeiras").remove();
         }
     });
@@ -285,15 +303,14 @@ function getAllSubjectsByCourse(course){
         success: function(data) {
             $("#mens_sem_cadeiras").remove();  
             if(data.subjects.length>0){
-                for(i=0; i<data.subjects.length;i++){
-                    $("#show_subjects").css("display", "block");  
+                for(i=0; i<data.subjects.length;i++){  
                     getCourseNameById(data.subjects[i].curso_id, data.subjects[i]);  
                 }
                   
             }    
-            else{
-                console.log("nao ha");
-            }
+            // else{
+                // FALTA AQUI CENAS PARA QUANDO NAO A CADEIRAS
+            // }
             // if($("#show_subjects").css("display")!="block"){
             //     var mensagem = "<h2 id='mens_sem_cadeiras'>Não existe nenhuma unidade curricular nos cursos existentes</h2>";
             //     $("body").append(mensagem);
@@ -320,7 +337,7 @@ $.ajax({
     data: {code: linha.find("td:eq(0)").text()},
     success: function() {
         msgSucesso = "<p class='msgSucesso'>Faculdade eliminada com Sucesso.</p>";
-        $("#show_subjects").after(msgSucesso)
+        $("body").after(msgSucesso)
         $(".msgSucesso").delay(2000).fadeOut();
         if($("#Consultar_Cadeiras").val() == "All"){
             getAllSubjects();
@@ -328,9 +345,9 @@ $.ajax({
         else if($("#Consultar_Cadeiras_Faculdade").val() != "Selecione uma Faculdade"){
             getAllCoursesByCollege($("#Consultar_Cadeiras_Faculdade").val(), "faculdade");
         }
-        // else if($("#Consultar_Cadeiras_Faculdade").val() != "Selecione uma Faculdade"){
-        //     getAllCoursesByCollege($("#Consultar_Cadeiras_Faculdade").val());
-        // }
+        else if($("#Consultar_Cadeiras_Curso").val() != "Selecione um curso"){
+            getAllSubjectsByCourse($("#Consultar_Cadeiras_Curso").val());
+        }
         // else if($("#Consultar_Cadeiras_Faculdade").val() != "Selecione uma Faculdade"){
         //     getAllCoursesByCollege($("#Consultar_Cadeiras_Faculdade").val());
         // }
@@ -340,7 +357,7 @@ $.ajax({
     },
     error: function() {
         msgErro = "<p class='msgErro'> Não foi possivel eliminar a faculdade.</p>";
-        $("#show_subjects").after(msgErro)
+        $("body").after(msgErro)
         $(".msgErro").delay(2000).fadeOut();
     }
 });

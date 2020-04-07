@@ -14,7 +14,3 @@
 > Devem ter ficado com acesso à DB pelo phpMyAdmin
 
 5> Abrir localhost/aplus no browser
-
-## Mais info:
-
-Nunca façam commits para o master sem testarem bem os componentes. Se quiserem partilhar código não testado, criem outro branch...

@@ -1,10 +1,10 @@
 var User
 
 $(document).ready(() => {
-    $("body").on("click", "#editUser",() => displayEditUser());
+    $("body").on("click", ".editUser",() => displayEditUser());
     $("body").on("click", "#editUser-form-submit", () => editUser());    
 
-    $('body').on('click','#deleteUser', function(event){
+    $('body').on('click','.deleteUser', function(event){
         event.preventDefault();
         User = $(event.target).closest("tr");
         $('.cd-popup').addClass('is-visible');
@@ -132,7 +132,7 @@ function getAllStudents(){
 }
 
 function makeStudentTable(data){
-    student = '';
+    student = '<h1>Alunos</h1>';
     for (i=0; i<data.students.length; i++){
         student += '<tr>' +
             '<td>'+ data.students[i].email +'</td>' +
@@ -189,8 +189,8 @@ function makeTeacherTable(data){
             '<td>'+ data.teachers[i].email +'</td>' +
             '<td>'+ data.teachers[i].name +'</td>' +
             '<td>' + data.teachers[i].apelido + '</td>' +
-            '<td><input id="editUser" type="button" value="Editar"></td>' +
-            '<td><input id="deleteUser" type="button" value="Eliminar"></td>' +
+            '<td><input class="editUser" type="button" value="Editar"></td>' +
+            '<td><input class="deleteUser" type="button" value="Eliminar"></td>' +
             '</tr>'
     }
    

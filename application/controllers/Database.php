@@ -4,20 +4,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Database extends CI_Controller {
 
+    public function index() {
+        $this->load->helper('url'); $data["base_url"] = base_url();
+        $this->load->view('templates/head', $data);
+        echo "</head><body><main><h2>Scripts da BD:</h2>";
+        echo "<br><a href='".base_url()."database/s1'>Reset dos dados s1</a>";
+        echo "</main>";$this->load->view('templates/footer'); 
+    }
+
     //      database/s1/
     public function s1()
     {
         /*PONTO DE SITUAÇÂO:
+            aluno_aula
+            aluno_cadeira
+            aluno_curso
+            
+
             user
             faculdade
             ano_letivo
             aula
-            aluno_aula
             projeto
             etapa
             curso
             cadeira
-            aluno_cadeira
+            
             professor_cadeira
             etapa
             grupo
@@ -162,24 +174,35 @@ class Database extends CI_Controller {
             "day_week"=>"terça-feira", "classroom"=>"6.3.10")); $aula5_id = $this->db->insert_id();
 
         ///////////////////////////////
+        //          INSCRIÇÔES EM CURSOS
+        ///////////////////////////////
+        $this->db->insert_batch('aluno_curso', Array(
+            Array("user_id"=> $aluno1_id, "curso_id"=>$curso2_id, "data_entrada"=>""),
+            Array("user_id"=> $aluno2_id, "curso_id"=>$curso2_id, "data_entrada"=>""),
+            Array("user_id"=> $aluno3_id, "curso_id"=>$curso2_id, "data_entrada"=>""),
+            Array("user_id"=> $aluno4_id, "curso_id"=>$curso2_id, "data_entrada"=>""),
+            Array("user_id"=> $aluno5_id, "curso_id"=>$curso2_id, "data_entrada"=>""),
+            Array("user_id"=> $aluno6_id, "curso_id"=>$curso2_id, "data_entrada"=>""),
+        ));
+        ///////////////////////////////
         //          INSCRIÇÔES DE ALUNOS EM CADEIRAS
         ///////////////////////////////
         $this->db->insert_batch('aluno_cadeira', Array(
-            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira1_id, "is_completed"=>False, "image_url"=>"1"),
-            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira2_id, "is_completed"=>False, "image_url"=>"2"),
-            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira3_id, "is_completed"=>False, "image_url"=>"3"),
-            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira4_id, "is_completed"=>False, "image_url"=>"4"),
-            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira5_id, "is_completed"=>True,  "image_url"=>"5"),
-            Array("user_id"=> $aluno2_id, "cadeira_id"=>$cadeira1_id, "is_completed"=>False, "image_url"=>"1"),
-            Array("user_id"=> $aluno2_id, "cadeira_id"=>$cadeira2_id, "is_completed"=>False, "image_url"=>"2"),
-            Array("user_id"=> $aluno3_id, "cadeira_id"=>$cadeira3_id, "is_completed"=>True,  "image_url"=>"3"),
-            Array("user_id"=> $aluno3_id, "cadeira_id"=>$cadeira4_id, "is_completed"=>False, "image_url"=>"4"),
-            Array("user_id"=> $aluno4_id, "cadeira_id"=>$cadeira5_id, "is_completed"=>True,  "image_url"=>"5"),
-            Array("user_id"=> $aluno5_id, "cadeira_id"=>$cadeira1_id, "is_completed"=>False, "image_url"=>"1"),
-            Array("user_id"=> $aluno6_id, "cadeira_id"=>$cadeira2_id, "is_completed"=>False, "image_url"=>"2"),
-            Array("user_id"=> $aluno6_id, "cadeira_id"=>$cadeira3_id, "is_completed"=>False, "image_url"=>"3"),
-            Array("user_id"=> $aluno7_id, "cadeira_id"=>$cadeira4_id, "is_completed"=>False, "image_url"=>"4"),
-            Array("user_id"=> $aluno8_id, "cadeira_id"=>$cadeira5_id, "is_completed"=>True,  "image_url"=>"5")
+            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira1_id, "is_completed"=>False, "image_url"=>"1", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira2_id, "is_completed"=>False, "image_url"=>"2", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira3_id, "is_completed"=>False, "image_url"=>"3", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira4_id, "is_completed"=>False, "image_url"=>"4", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira5_id, "is_completed"=>True,  "image_url"=>"5", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno2_id, "cadeira_id"=>$cadeira1_id, "is_completed"=>False, "image_url"=>"1", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno2_id, "cadeira_id"=>$cadeira2_id, "is_completed"=>False, "image_url"=>"2", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno3_id, "cadeira_id"=>$cadeira3_id, "is_completed"=>True,  "image_url"=>"3", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno3_id, "cadeira_id"=>$cadeira4_id, "is_completed"=>False, "image_url"=>"4", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno4_id, "cadeira_id"=>$cadeira5_id, "is_completed"=>True,  "image_url"=>"5", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno5_id, "cadeira_id"=>$cadeira1_id, "is_completed"=>False, "image_url"=>"1", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno6_id, "cadeira_id"=>$cadeira2_id, "is_completed"=>False, "image_url"=>"2", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno6_id, "cadeira_id"=>$cadeira3_id, "is_completed"=>False, "image_url"=>"3", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno7_id, "cadeira_id"=>$cadeira4_id, "is_completed"=>False, "image_url"=>"4", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno8_id, "cadeira_id"=>$cadeira5_id, "is_completed"=>True,  "image_url"=>"5", "last_visited"=>date('Y-m-d H:i:s')),
         ));       
         ///////////////////////////////
         //          INSCRIÇÔES DE PROFESSORES EM CADEIRAS
@@ -209,6 +232,7 @@ class Database extends CI_Controller {
             Array("user_id"=> $aluno2_id, "aula_id"=>$aula1_id),
             Array("user_id"=> $aluno2_id, "aula_id"=>$aula2_id)
         )); 
+        
         ///////////////////////////////
         //          PROJETOS
         ///////////////////////////////

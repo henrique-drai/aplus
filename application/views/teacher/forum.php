@@ -19,6 +19,30 @@
                 <p><b>Descrição:</b> <span class="forumDesc"></span></p>
             </div>
 
+            <div class="threadTable"></div>
+            <input type="button" id="add_button" value="Criar Tópico">
+
+            <div class="overlay">
+                <div class="popup">
+                    <a class="close" href="#">&times;</a>
+                    <div class="content">
+                        <h2>Criar novo tópico</h2>
+                        <form id="threadForm" class="thread-form"  action="javascript:void(0)">
+                            <p>
+                                <label class="form-label">Nome do Fórum:</label>
+                                <input class="form-input-text" type="text" name="threadName" required>
+                            </p>
+
+                            <p>
+                                <label class="form-label">Descrição:</label>
+                                <textarea class="form-text-area" type="text" name="threadDescription" required></textarea>
+                            </p>
+
+                            <input type="button" id="popup_button" value="Criar">
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </main>

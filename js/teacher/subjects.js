@@ -13,6 +13,7 @@ function showCadeiras() {
         url: base_url + "teacher/api/getCadeiras",
         data: {id: localStorage.user_id},
         success: function(data) {
+            console.log(data)
             $(".cadeiras").empty();
 
             if(data.cadeiras_id.length != 0) {

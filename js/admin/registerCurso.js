@@ -14,9 +14,12 @@ $(document).ready(() => {
         if($(this).val()!="Selecione uma Faculdade"){
             getAllCursosFaculdade($(this).val()); 
             $(".course_row").hide();
+            $("#course-container").show();
         }
         else{
             $(".course_row").hide();
+            $(".adminTable").hide();
+            $("#course-container").hide();
         }
     }) ;
 
@@ -145,7 +148,7 @@ function submitRegister(){
     }
 
     function makeCoursesTable(data){
-        course = '<h2>Consultar Cursos</h2>';
+        course = '';
         for (i=0; i<data.courses.length; i++){
             course += '<tr>' +
                 '<td>'+ data.courses[i].code +'</td>' +
@@ -202,7 +205,7 @@ function deleteCourse(linha){
     
 codCourse = "";
 function displayEditCourse(){
-    var x = document.getElementById("editCourse-form").style.display;
+    // var x = document.getElementById("editCourse-form").style.display;
 
     var linha = $(event.target).closest("tr");
     codCourse = linha.find("td:eq(0)").text();

@@ -76,7 +76,7 @@
         </div>
 
         <div id="subject-container" class="container">
-            <table class="adminTable" id="show_subjects">
+            <!-- <table class="adminTable" id="show_subjects">
                 <tr>
                     <th>Código da UC</th>
                     <th>Curso</th>  
@@ -86,7 +86,7 @@
                     <th>Eliminar</th>
                 </tr>
                 
-            </table>
+            </table> -->
         
         </div> 
         

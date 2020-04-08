@@ -173,6 +173,9 @@ input.remove:hover {
     margin-bottom: 1%;
 }
 
+#confirmFeedback{
+    display: none;
+}
   /* -------------------------------- 
                                     /
                 POPUP               /

@@ -50,7 +50,14 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
     }
 
     public function getSubmission($grupo_id, $etapa_id){
-        return $this->db->get_where("etapa_submit", array("grupo_id" => $grupo_id, "etapa_id" => $etapa_id)) -> result_array();
+        return $this->db->get_where("etapa_submit", array("grupo_id" => $grupo_id, "etapa_id" => $etapa_id));
+    }
+
+    public function insertFeedback($feedback, $id){
+        $this->db->set('feedback', $feedback);
+        $this->db->where('id', $id);
+        $this->db->update("etapa_submit");
+        return $this->db->affected_rows(); 
     }
 }
 

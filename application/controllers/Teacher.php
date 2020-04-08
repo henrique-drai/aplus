@@ -38,6 +38,7 @@ class Teacher extends REST_Controller {
             case "clearEnunciadoEtapa":     $this->clearEnunciadoEtapa(); break;//  /teacher/api/clearEnunciadoEtapa
             case "getSub":                  $this->getSub(); break;//               /teacher/api/getSub
             case "insertForum":             $this->insertForum(); break;//          /teacher/api/insertForum
+            case "insertFeedback":          $this->insertFeedback(); break;//       /teacher/api/insertFeedback
 
             default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -346,7 +347,21 @@ class Teacher extends REST_Controller {
 
         $url = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
 
-        $this->response($url, parent::HTTP_OK);
+        $this->response($url->result_array(), parent::HTTP_OK);
+    }
+
+    public function insertFeedback(){
+        $grupo_id = $this->post('grupo_id');
+        $etapa_id = $this->post('etapa_id');
+        $feedback = $this->post('feedback');
+
+        $this->load->model('ProjectModel');
+
+        $etapa_submit = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
+
+        $data = $this->ProjectModel->insertFeedback($feedback, $etapa_submit->row()->id);
+
+        $this->response($etapa_submit, parent::HTTP_OK);
     }
 
     //////////////////////////////////////////////////////////////

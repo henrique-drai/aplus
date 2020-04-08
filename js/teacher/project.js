@@ -218,6 +218,7 @@ $(document).ready(() => {
         $('.etapas-info').hide();
         $('#' + divid).show();
         $("#etapa-form").hide();
+        $("#feedback-form").hide();
         formStatus = null;
         checkFormStatus();
     })
@@ -235,6 +236,9 @@ $(document).ready(() => {
     //editar etapa 
     $("#newEtapaEDIT").click(() => submit_edit_etapa());
 
+
+    //submit feedback
+    $("#confirmFeedback").click(() => submit_feedback($('textarea[name="feedback-text"]').val(), selected_etapa, $("#select_grupo_feedback :selected").val()));
 
     //--- ETAPAS
     
@@ -611,11 +615,41 @@ function getSumbission(grupo_id, etapa){
         data: data,
         success: function(data) {
             console.log(data)
-            $("#sub_url").text(data[0]["submit_url"]);
+            if (data.length > 0){
+                $("#sub_url").html('<a href="">' + data[0]["submit_url"] + '</a>');
+                $("#confirmFeedback").show();
+            } else {
+                $("#sub_url").text("Entrega ainda não foi submetida");
+                $("#confirmFeedback").hide();
+            }
         },
         error: function(data) {
             console.log("Erro na API - Get Sumbission from Group in Etapa")
             console.log(data)
+        }
+    });
+}
+
+function submit_feedback(feedback, etapa, grupo_id){
+    const data = {
+        grupo_id : grupo_id,
+        etapa_id : etapa,
+        feedback : feedback
+    }
+
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "teacher/api/insertFeedback",
+        data: data,
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(data) {
+            console.log("Erro na API - Dar feedback");
+            console.log(data);
         }
     });
 }

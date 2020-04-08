@@ -53,11 +53,11 @@
                 <select id="select_grupo_feedback" name="GrupoSelect">
                 </select>
                 <label for="file">Entrega:</label>
-                <a id="sub_url" href=""></a>
+                <p id="sub_url"></p>
                 <label class="form-label">Descrição</label>
                 <textarea class="form-text-area" type="text" name="feedback-text" required></textarea>
             </p>
-            <input type="submit" id="confirmFeedback" value="Confirmar">
+            <input type="submit" id="confirmFeedback" onclick="return false" value="Confirmar">
         </form>
 
         <form id="etapa-form">

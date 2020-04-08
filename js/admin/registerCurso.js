@@ -205,7 +205,7 @@ function deleteCourse(linha){
     
 codCourse = "";
 function displayEditCourse(){
-    var x = document.getElementById("editCourse-form").style.display;
+    // var x = document.getElementById("editCourse-form").style.display;
 
     var linha = $(event.target).closest("tr");
     codCourse = linha.find("td:eq(0)").text();

@@ -4,6 +4,7 @@ if(!file_exists($file)) {$file = "uploads/profile/default.jpg";}
 $picture = $base_url . $file . "?" . time();
 ?>
 
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/nav-menu.css">
 <script src="<?php echo $base_url; ?>js/nav-menu.js"></script>
 <script src="<?php echo $base_url; ?>js/<?php echo $this->session->role; ?>/nav-menu.js"></script>
 

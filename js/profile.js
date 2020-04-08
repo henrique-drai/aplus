@@ -30,9 +30,9 @@ function submit_form_values(){
 
         let data = {}
 
-        if(name != "" && name != user_info.name)
+        if(name != "")
             data.name = name
-        if(surname != "" && surname != user_info.surname)
+        if(surname != "")
             data.surname = surname
         if(password != "")
             data.password = password

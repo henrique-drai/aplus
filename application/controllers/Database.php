@@ -12,39 +12,43 @@ class Database extends CI_Controller {
         echo "</main>";$this->load->view('templates/footer'); 
     }
 
-    //      database/s1/
+
     public function s1()
     {
         /*PONTO DE SITUAÇÂO:
             aluno_aula
             aluno_cadeira
             aluno_curso
-            
-
-            user
-            faculdade
             ano_letivo
             aula
-            projeto
-            etapa
             curso
             cadeira
-            
-            professor_cadeira
             etapa
+            faculdade
             grupo
             grupo_aluno
+            professor_aula
+            professor_cadeira
+            projeto
+            user
 
         FALTA:
-            Foruns and stuff
-            Chat and stuff
-            Tarefas
+            etapa_submit
+            evento
+            evento_grupo
+            evento_user
+            forum
+            grupo_msg
+            horario_duvidas
+            member_classification
+            provate_chat
+            private_chat_msg
+            tarefa
+            thread
+            thread_post
         */
 
         $time_start = microtime(true); 
-
-        
-
         #$this->db->db_debug = false; //desligar erros da bd
         #$this->db->db_debug = ENVIRONMENT !== 'production'; //voltar a ligar erros da BD, se necessário
 
@@ -219,11 +223,6 @@ class Database extends CI_Controller {
         //          INSCRIÇÔES EM AULAS
         ///////////////////////////////
         $this->db->insert_batch('aluno_aula', Array(
-            Array("user_id"=> $prof1_id,  "aula_id"=>$aula5_id),
-            Array("user_id"=> $prof1_id,  "aula_id"=>$aula4_id),
-            Array("user_id"=> $prof1_id,  "aula_id"=>$aula3_id),
-            Array("user_id"=> $prof1_id,  "aula_id"=>$aula2_id),
-            Array("user_id"=> $prof1_id,  "aula_id"=>$aula1_id),
             Array("user_id"=> $aluno1_id, "aula_id"=>$aula5_id),
             Array("user_id"=> $aluno1_id, "aula_id"=>$aula4_id),
             Array("user_id"=> $aluno1_id, "aula_id"=>$aula3_id),
@@ -231,6 +230,13 @@ class Database extends CI_Controller {
             Array("user_id"=> $aluno1_id, "aula_id"=>$aula1_id),
             Array("user_id"=> $aluno2_id, "aula_id"=>$aula1_id),
             Array("user_id"=> $aluno2_id, "aula_id"=>$aula2_id)
+        )); 
+        $this->db->insert_batch('professor_aula', Array(
+            Array("user_id"=> $prof1_id,  "aula_id"=>$aula5_id),
+            Array("user_id"=> $prof1_id,  "aula_id"=>$aula4_id),
+            Array("user_id"=> $prof1_id,  "aula_id"=>$aula3_id),
+            Array("user_id"=> $prof1_id,  "aula_id"=>$aula2_id),
+            Array("user_id"=> $prof1_id,  "aula_id"=>$aula1_id)
         )); 
         
         ///////////////////////////////

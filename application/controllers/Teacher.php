@@ -38,6 +38,7 @@ class Teacher extends REST_Controller {
             case "clearEnunciadoEtapa":     $this->clearEnunciadoEtapa(); break;//  /teacher/api/clearEnunciadoEtapa
             case "getSub":                  $this->getSub(); break;//               /teacher/api/getSub
             case "insertForum":             $this->insertForum(); break;//          /teacher/api/insertForum
+            case "insertThread":           $this->insertThread(); break;//          /teacher/api/insertThread
 
             default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -48,6 +49,7 @@ class Teacher extends REST_Controller {
             case "getCourseStudents":   $this->getCourseStudents(); break; //   /teacher/api/getCourseStudents
             case "getProfHome":         $this->getProfHome(); break; //         /teacher/api/getProfHome
             case "getForumInfo":        $this->getForumInfo(); break;//         /teacher/api/getForumInfo
+            case "getThreads":          $this->getThreads(); break;//           /teacher/api/getThreads
 
             default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -66,11 +68,13 @@ class Teacher extends REST_Controller {
             array_push($data["info"], $this->SubjectModel->getCadeiraInfo($data["cadeiras_id"][$i]["cadeira_id"]));
         }
 
-        $this->load->model('CourseModel');
-        $this->load->model('YearModel');
-        $tmp = $this->CourseModel->getCursobyId($data["info"][0][0]["curso_id"]);
-        $data["year"] = $this->YearModel->getYearById($tmp->ano_letivo_id);
-
+        if(count($data["info"]) > 0) {
+            $this->load->model('CourseModel');
+            $this->load->model('YearModel');
+            $tmp = $this->CourseModel->getCursobyId($data["info"][0][0]["curso_id"]);
+            $data["year"] = $this->YearModel->getYearById($tmp->ano_letivo_id);
+        }
+        
         $this->response($data, parent::HTTP_OK);
     }
 
@@ -373,6 +377,34 @@ class Teacher extends REST_Controller {
         $data["info"] = $this->ForumModel->getForumByID($forum_id);
 
         $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getThreads() {
+        $forum_id = $this->get("forum_id");
+        $this->load->model("ForumModel");
+        $data["threads"] = $this->ForumModel->getThreads($forum_id);
+
+        $this->load->model("UserModel");
+        $data["criadores"] = array();
+        for($i=0; $i < count($data["threads"]); $i++) {
+            array_push($data["criadores"], $this->UserModel->getUserById($data["threads"][$i]["user_id"]));
+        }
+        
+        
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function insertThread() {
+        $data = Array (
+            "user_id"           => $this->post("user_id"),
+            "forum_id"          => $this->post("forum_id"),
+            "title"             => $this->post("title"),
+            "content"           => $this->post("title"),
+            "date"              => $this->post("date"),
+        );
+
+        $this->load->model("ForumModel");
+        $this->ForumModel->insertThread($data);
     }
 
     //////////////////////////////////////////////////////////////

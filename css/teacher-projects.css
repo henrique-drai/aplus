@@ -37,11 +37,11 @@
     margin-top: 10px;
 }
 
-#errormsg {
+#errormsg, #errormsgfb {
     background: rgb(255, 72, 72);
 }
 
-#successmsg {
+#successmsg, #successmsgfb {
     background: rgb(167, 255, 80);
 }
 

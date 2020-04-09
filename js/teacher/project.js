@@ -312,7 +312,7 @@ function verifyDates(data){
 
 function submit_etapa(){
 
-    if (verifyDates(etapa["data"])){
+    if (verifyDates(etapa["data"]) && validate_etapa_description()){
 
         const data = {
             projid : parseInt(proj),
@@ -372,6 +372,14 @@ function submit_edit_etapa(){
     }
 }
 
+
+function validate_etapa_description(){
+    if($("textarea[name='etapaDescription']").val() != ''){
+        return true
+    }
+    $("#errormsg").text('Descrição tem de ser preenchida');
+    return false;
+}
 
 function etapa_clear_enunciado(){
     const data = {
@@ -630,26 +638,48 @@ function getSumbission(grupo_id, etapa){
     });
 }
 
-function submit_feedback(feedback, etapa, grupo_id){
-    const data = {
-        grupo_id : grupo_id,
-        etapa_id : etapa,
-        feedback : feedback
+
+function validate_feedback(){
+    if ($("textarea[name='feedback-text']").val() != ''){
+        return true
     }
 
-    $.ajax({
-        type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
-        url: base_url + "teacher/api/insertFeedback",
-        data: data,
-        success: function(data) {
-            console.log(data);
-        },
-        error: function(data) {
-            console.log("Erro na API - Dar feedback");
-            console.log(data);
+    return false;
+}
+
+function submit_feedback(feedback, etapa, grupo_id){
+    if (validate_feedback()){
+        const data = {
+            grupo_id : grupo_id,
+            etapa_id : etapa,
+            feedback : feedback
         }
-    });
+
+        $.ajax({
+            type: "POST",
+            headers: {
+                "Authorization": localStorage.token
+            },
+            url: base_url + "teacher/api/insertFeedback",
+            data: data,
+            success: function(data) {
+                console.log(data);
+                $("#successmsgfb").text("Feedback submetido com sucesso");
+                $('#feedback-form')[0].reset();
+                $("#sub_url").text('Entrega ainda não foi submetida');
+                $("#confirmFeedback").hide();
+                $("#successmsgfb").show().delay(5000).fadeOut();
+            },
+            error: function(data) {
+                console.log("Erro na API - Dar feedback");
+                $("#errormsgfb").text("Erro ao submeter feedback");
+                $("#errormsgfb").show().delay(5000).fadeOut();
+                console.log(data);
+            }
+        });
+    } else {
+        $("#errormsgfb").text("Feedback tem de ser preenchido");
+        $("#errormsgfb").show().delay(5000).fadeOut();
+        return false;
+    }
 }

@@ -22,7 +22,7 @@ $(document).ready(() => {
             $("#Consultar_Cadeiras_Curso").css("display", "none");
             $("#Consultar_Cadeiras_Faculdade_Curso").css("display", "none");
         }
-        else if($("#Consultar_Cadeiras").val() == "Faculdade"){
+        else if($("#Consultar_Cadeiras").val() == "Faculdade"){  // QUER VER POR FACULDADES
 
             cleanTable();
 
@@ -31,24 +31,22 @@ $(document).ready(() => {
             $("#Consultar_Cadeiras_Faculdade").css("display", "block");
 
             getColleges("faculdade");
-
+            $("#Consultar_Cadeiras_Faculdade").unbind("change");
             $("#Consultar_Cadeiras_Faculdade").change(function(){
+                
+                cleanTable();
                 if($("#Consultar_Cadeiras_Faculdade").val() != "Selecione uma Faculdade"){
-                    cleanTable();
-                    //DAR A ESCREVER DUAS VEZES AQUI
                     getAllCoursesByCollege($(this).val(), "faculdade");
                     
                 }
                 else{
-                    cleanTable();
-
                     $("#mens_sem_cadeiras").remove();
                     $(".subject_row").remove();
                 }
                 
             })  
         }
-        else if($("#Consultar_Cadeiras").val() == "Curso"){
+        else if($("#Consultar_Cadeiras").val() == "Curso"){ // QUER VER POR CURSOS
             
             $("#Consultar_Cadeiras_Faculdade_Curso").css("display", "block");;
             
@@ -58,13 +56,16 @@ $(document).ready(() => {
 
             getColleges("curso");
 
+            $("#Consultar_Cadeiras_Faculdade_Curso").unbind("change");
+            $("#Consultar_Cadeiras_Curso").unbind("change");
             $("#Consultar_Cadeiras_Faculdade_Curso").change(function(){
+                cleanTable();
+                
                 if($("#Consultar_Cadeiras_Faculdade_Curso").val() != "Selecione uma Faculdade"){
-                    cleanTable();
+
                     getAllCoursesByCollege($(this).val(), "curso");                    
                 }
                 else{
-                    cleanTable();
 
                     $("#Consultar_Cadeiras_Curso").css("display", "none");
                     $("#mens_sem_cadeiras").remove();
@@ -227,6 +228,7 @@ function getColleges(option){
         success: function(data) {
             
             $("#Consultar_Cadeiras_Faculdade option").remove();
+            $("#Consultar_Cadeiras_Faculdade_Curso option").remove();
             var linhas = '<option class="college_row">Selecione uma Faculdade</option>';
             if(data.colleges.length>0){
                 for(i=0; i<data.colleges.length;i++){
@@ -259,7 +261,7 @@ function getAllCoursesByCollege(faculdade, option){
 
                 $("#Consultar_Cadeiras_Curso option").remove();
                 var linhas = '<option class="college_row">Selecione um Curso</option>';
-                console.log(data.courses)
+
                 for(i=0; i<data.courses.length;i++){
 
                     if(option == "faculdade"){

@@ -1,11 +1,16 @@
 <title>A+ for Admins</title>
 <script>setPageName("subjects")</script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-subjects.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 <script src="<?php echo $base_url; ?>js/admin/registerunidCurricular.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/manageunidCurricular.js"></script>
+
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/progressbar.css">
 
 </head>
 
@@ -73,6 +78,14 @@
                 </ul>
 		        <a class="cd-popup-close"></a>
 	        </div>
+        </div>
+
+        <div class="container">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                <p class="progressbar_percentage">0%</p>
+                </div>
+            </div>
         </div>
 
         <div id="subject-container" class="container">

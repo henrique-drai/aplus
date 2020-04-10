@@ -31,4 +31,9 @@ class ForumModel extends CI_Model { //forum & thread & thread_post
         $this->db->insert("thread", $data);
         $this->db->insert_id();
     }
+
+    public function getThreadPosts($id) {
+        $query = $this->db->get_where("thread_post", array('thread_id' => $id));
+        return $query->result_array();
+    }
 }

@@ -20,6 +20,21 @@
                 <p><b>Descrição:</b> <span class="threadDesc"></span></p>
             </div>
 
+            <div class="threads">
+                <div class="post">
+                    <div class="head">
+                        <p>Autor</p>
+                        <p>Data</p>
+                    </div>
+
+                    <div class="content">
+                        <p>conteúdo</p>
+                    </div>
+                </div>
+            </div>
+
+            <input type="button" id="create_post_button" value="Criar novo post">
+
         </div>
 
     </main>

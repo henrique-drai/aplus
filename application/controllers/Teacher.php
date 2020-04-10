@@ -439,7 +439,9 @@ class Teacher extends REST_Controller {
     public function getThreadInfo() {
         $thread_id = $this->get("thread_id");
         $this->load->model("ForumModel");
-        $data = $this->ForumModel->getThreadByID($thread_id);
+        $data["info"] = $this->ForumModel->getThreadByID($thread_id);
+
+        $data["posts"] = $this->ForumModel->getThreadPosts($thread_id);
 
         $this->response($data, parent::HTTP_OK);
     }

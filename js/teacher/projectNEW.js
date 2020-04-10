@@ -178,18 +178,33 @@ function validateAllDates(){
     return true;
 }
 
+function validate_descriptions(){
+    if($("textarea[name='projDescription']").val() == ''){
+        $("#errormsg").text("Descrição do projeto está vazia");
+        return false;
+    } else if($("textarea[name='etapaDescription']").val() == ''){
+        $("#errormsg").text("Descrição da etapa está vazia");
+        return false;
+    }
+
+    return true;
+}
+
 function verifyallinputs(){
     if (!validateFormNumb()){
         $("#errormsg").text("O número máximo de alunos por grupo tem de ser maior que o mínimo");
         $("#errormsg").show().delay(5000).fadeOut();
         return false;
-    } else if (!validateAllDates()) {
+    } else if (!validateAllDates()){
         $("#errormsg").text("A data de cada etapa tem de ser maior que a data atual");
         $("#errormsg").show().delay(5000).fadeOut();
         return false;
-    } else {
-        return true;
+    } else if (!validate_descriptions()){
+        $("#errormsg").show().delay(5000).fadeOut();
+        return false;
     }
+
+    return true;
 }
 
 function submitProject(){

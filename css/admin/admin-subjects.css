@@ -12,3 +12,12 @@ input[type="submit"]{
 .container {
     width: 100%;
 }
+
+#subject-container{
+    margin-top: 3%
+}
+
+#subject_list{
+    margin-top: 2%;
+    margin: auto;
+}

@@ -1,0 +1,13 @@
+.progress-bar{
+    background-color: #3e5d4f;
+    display: none;
+}
+
+.progressbar_percentage{
+    text-align: center;
+}
+
+.progress{
+    margin-top: 5%;
+    width:100%;
+}

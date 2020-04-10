@@ -53,9 +53,13 @@
                 <select id="select_grupo_feedback" name="GrupoSelect">
                 </select>
                 <label for="file">Entrega:</label>
-                <p id="sub_url"></p>
+                <p id="sub_url">Entrega ainda não foi submetida</p>
                 <label class="form-label">Descrição</label>
                 <textarea class="form-text-area" type="text" name="feedback-text" required></textarea>
+            </p>
+            <p>
+                <div id="successmsgfb" class="submit-msg">Mensagem de sucesso template</div>
+                <div id="errormsgfb" class="submit-msg">Mensagem de erro template</div>
             </p>
             <input type="submit" id="confirmFeedback" onclick="return false" value="Confirmar">
         </form>

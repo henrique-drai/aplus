@@ -18,7 +18,7 @@ class Projects extends CI_Controller {
 
     }
 
-    //      projects/new/:subject_code
+    //      projects/new/:subject_code/:year
     public function new($subject_code)
     {
         $data["base_url"] = base_url();
@@ -45,7 +45,7 @@ class Projects extends CI_Controller {
         }
     }
 
-    //      projects/project/:project_id/:anoletivo - not yet com ano letivo
+    //      projects/project/:project_id/
     public function project($project_id)
     {
         $data["base_url"] = base_url();
@@ -93,5 +93,6 @@ class Projects extends CI_Controller {
     {
         
     }
+    
 
 }

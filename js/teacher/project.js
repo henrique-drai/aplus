@@ -102,7 +102,12 @@ $(document).ready(() => {
     setInterval(function(){
          getEtapas(proj);
          var datafinal = $(".data-val").last().text();
-         $("#entrega_h3").text("Entrega final: " + datafinal);
+         if(datafinal == ''){
+            $("#entrega_h3").text("Entrega final: Ainda não definida");
+         } else {
+            $("#entrega_h3").text("Entrega final: " + datafinal);
+         }
+         
     }, 1000);
 
 
@@ -578,6 +583,7 @@ function showGroups(proj_id) {
         },
         error: function(data) {
             console.log("Erro na API - Show Groups")
+            $("#select_grupo_feedback").html('<option value="">--- Não existem grupos ---</option>');
             $("#groups_list").html("Não existem grupos para mostrar.")
             console.log(data)
         }

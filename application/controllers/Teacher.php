@@ -51,6 +51,8 @@ class Teacher extends REST_Controller {
             case "getProfHome":         $this->getProfHome(); break; //         /teacher/api/getProfHome
             case "getForumInfo":        $this->getForumInfo(); break;//         /teacher/api/getForumInfo
             case "getThreads":          $this->getThreads(); break;//           /teacher/api/getThreads
+            case "getForum":            $this->getForum(); break;//             /teacher/api/getForum
+            case "getThreadInfo":       $this->getThreadInfo(); break;//       /teacher/api/getThreadInfo
 
             default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -414,12 +416,32 @@ class Teacher extends REST_Controller {
             "user_id"           => $this->post("user_id"),
             "forum_id"          => $this->post("forum_id"),
             "title"             => $this->post("title"),
-            "content"           => $this->post("title"),
+            "content"           => $this->post("content"),
             "date"              => $this->post("date"),
         );
 
         $this->load->model("ForumModel");
         $this->ForumModel->insertThread($data);
+    }
+
+    public function getForum() {
+        $cadeira_id = $this->get("cadeira_id");
+        $this->load->model("ForumModel");
+        $data = $this->ForumModel->getForumByCadeiraID($cadeira_id);
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    //////////////////////////////////////////////////////////////
+    //                         THREAD
+    //////////////////////////////////////////////////////////////
+
+    public function getThreadInfo() {
+        $thread_id = $this->get("thread_id");
+        $this->load->model("ForumModel");
+        $data = $this->ForumModel->getThreadByID($thread_id);
+
+        $this->response($data, parent::HTTP_OK);
     }
 
     //////////////////////////////////////////////////////////////

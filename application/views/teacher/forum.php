@@ -19,6 +19,8 @@
                 <p><b>Descrição:</b> <span class="forumDesc"></span></p>
             </div>
 
+            <div class="message">Adicionado com sucesso!</div>
+
             <div class="threadTable"></div>
             <input type="button" id="add_button" value="Criar Tópico">
 

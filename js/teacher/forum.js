@@ -21,6 +21,11 @@ $(document).ready(() => {
         $(".overlay").css('visibility', 'hidden');
         $(".overlay").css('opacity', '0');
     })
+
+    $("body").on("click", ".thread_button", function() {
+        localStorage.setItem("thread_id", $(this).attr("id"));
+        window.location = base_url + "foruns/thread/" + $(this).attr("id");
+    })
 })
 
 function getInfo(id) {
@@ -32,8 +37,10 @@ function getInfo(id) {
         url: base_url + "teacher/api/getForumInfo",
         data: {forum_id: id},
         success: function(data) {
-            $(".forumName").append(data.info[0].name);
-            $(".forumDesc").append(data.info[0].description);
+            $(".forumName").empty();
+            $(".forumDesc").empty();
+            $(".forumName").append(data.info.name);
+            $(".forumDesc").append(data.info.description);
         },
         error: function(data) {
             console.log("Erro na API:")
@@ -56,13 +63,14 @@ function getThreads() {
                 $(".threadTable").append("<p>Ainda não existem tópicos no fórum.</p>");
             } else {
                 $(".threadTable").append("<table class='threadList'><tr>" +
-                    "<th width='50%'>Título</th><th width='25%'>Criador</th>" +
-                    "<th width='25%'>Data</th></tr></table>");
+                    "<th width='35%'>Título</th><th width='25%'>Criador</th>" +
+                    "<th width='25%'>Data</th><th width='15%'>Mais informação</th></tr></table>");
                 
                 for(var i=0; i < data.threads.length; i++) {
                     $(".threadList").append("<tr><td>" + data.threads[i].title +
                         "</td><td>" + data.criadores[i].name + " " +data.criadores[i].surname +
-                        "</td><td>" + data.threads[i].date);
+                        "</td><td>" + data.threads[i].date + "<td><input type='button' class='thread_button' id='" +
+                        data.threads[i].id + "' value='Ver'>");
                 }
             }
         },
@@ -88,8 +96,10 @@ function insertThread(name, desc) {
             date: new Date().toISOString().slice(0, 19).replace('T', ' '),
         },
         success: function(data) {
-            console.log("deu")
-            //mostrar mensagem de sucesso
+            $(".message").fadeTo(2000, 1);
+            setTimeout(function() {
+                $(".message").fadeTo(2000, 0);
+            }, 2000);
         },
         error: function(data) {
             console.log("Erro na API:")

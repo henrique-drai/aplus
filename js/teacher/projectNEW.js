@@ -19,8 +19,6 @@ $(document).ready(() => {
              '<input class="form-input-text" type="text" name="etapaName" required> ' +
              '<label class="form-label">Descrição</label> ' + 
              '<textarea class="form-text-area" type="text" name="etapaDescription" required></textarea> ' + 
-             '<label for="file">Enunciado:</label>' +
-             '<input class="form-input-file" type="file" id="file_etapa" name="file">' +
              '<label class="form-label">Data de entrega</label> ' + 
              '<input class="form-input-text" type="datetime-local" name="etapaDate" required> ' +
              '</p> '
@@ -33,7 +31,7 @@ $(document).ready(() => {
             var name = $(this).find('input[name="etapaName"]').val();
             var desc = $(this).find('textarea[name="etapaDescription"]').val();
             var data = $(this).find('input[name="etapaDate"]').val();
-            var enunc = $(this).find('input[name="file"]').val();
+            var enunc = '';
             var newid = parseInt(pid.replace("etapa",""));
 
             insertIntoEtapas(newid, name, desc, enunc, data);
@@ -67,7 +65,7 @@ $(document).ready(() => {
         var name = $(this).find('input[name="etapaName"]').val();
         var desc = $(this).find('textarea[name="etapaDescription"]').val();
         var data = $(this).find('input[name="etapaDate"]').val();
-        var enunc = $(this).find('input[name="file"]').val();
+        var enunc = '';
         insertIntoEtapas(1, name, desc, enunc, data);
     })
 
@@ -216,15 +214,12 @@ function submitProject(){
             groups_min:      $("#projForm input[name='groups_min']").val(),
             groups_max:      $("#projForm input[name='groups_max']").val(),
             projDescription: $("#projForm textarea[name='projDescription']").val(),
-            file:            $("#projForm input[name='file']").val(),
+            file:            '',
             cadeira_id:      subject_id,
             listetapas:      etapas,
         }
 
         //pedido ajax para o CI
-
-        // console.log(data);
-
         $.ajax({
             type: "POST",
             headers: {

@@ -18,8 +18,10 @@
         <h3 id="entrega_h3"></h3>
         <h3 id="enunciado_h3"></h3>
         <div class="wrapper-top">
-            <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado">
-            <input id="addEnunciado" type="button" value="Adicionar enunciado">
+            <?php echo form_open_multipart('projects/uploadEnunciadoProjeto');?>
+                <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado">
+                <input id="addEnunciado" type="submit" value="Adicionar enunciado">
+            </form>
         </div>
         <div class="container-header">
             <h3>Descrição</h3>
@@ -72,8 +74,8 @@
                 <input class="form-input-text" type="text" name="etapaName" required>
                 <label class="form-label">Descrição</label>
                 <textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>
-                <label for="file">Enunciado:</label>
-                <input class="form-input-file" type="file" id="file_etapa" name="file">
+                <!-- <label for="file">Enunciado:</label>
+                <input class="form-input-file" type="file" id="file_etapa" name="file"> -->
                 <label class="form-label">Data de entrega</label>
                 <input class="form-input-text" type="datetime-local" name="etapaDate" required>
             </p>

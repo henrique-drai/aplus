@@ -36,6 +36,8 @@ class Projects extends CI_Controller {
             $this->load->view('errors/404', $data); return null;
         }
 
+        $this->load->helper('form');
+
         if ($this->session->userdata('role') == 'teacher'){
             $this->load->view('templates/head', $data);
             $this->load->view('teacher/projectsNEW',$data);
@@ -58,6 +60,8 @@ class Projects extends CI_Controller {
         //buscar a info sobre o projeto
         $data["project"] = $this->ProjectModel->getProjectByID($project_id);
 
+        $_SESSION["project_id"] = $project_id;
+
         //verificar se o objeto associado ao projeto existe
         if(is_null($data["project"])){
             $this->load->view('errors/404', $data); return null;
@@ -70,6 +74,8 @@ class Projects extends CI_Controller {
         if(is_null($data["subject"])){
             $this->load->view('errors/404', $data); return null;
         }
+
+        $this->load->helper('form');
 
         if ($this->session->userdata('role') == 'teacher'){
             $this->load->view('templates/head', $data);
@@ -94,5 +100,26 @@ class Projects extends CI_Controller {
         
     }
     
+    public function uploadEnunciadoProjeto()
+    {
+        $project_id = $_SESSION["project_id"];
+        $upload['upload_path'] = './uploads/enunciados_files/';
+        $upload['allowed_types'] = 'pdf';
+        $upload['file_name'] = $project_id;
+        $upload['overwrite'] = true;
+
+        $this->load->library('upload', $upload);
+
+        if ( ! $this->upload->do_upload('file_proj'))
+        {
+            $error = array('error' => $this->upload->display_errors());
+            print_r($error);
+            echo "<br>Erro upload ficheiro";
+        }
+        else
+        {
+            header("Location: ".base_url()."projects/project/".$project_id);
+        }
+    }
 
 }

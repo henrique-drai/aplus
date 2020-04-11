@@ -87,7 +87,22 @@
     .form-input-number:first-of-type{
         margin-bottom: 1%;
     }
+
+    /* p {
+        font-size: 15px;
+    }
+
+    #etapas-container p, input, table {
+        font-size: 14px;
+    }    
+
+    input {
+        padding: 2px 8px;
+    } */
 }
+
+
+
 
 .pminmax{
     display: flex;
@@ -119,10 +134,9 @@
     font-weight: bold;
 }
 
-.wrapper input[type=button] {
+.wrapper input[type="button"] {
     display: inline-flex;
 }
-
 
 .wrapper {
     margin-bottom: 1%;
@@ -132,9 +146,9 @@
     margin-right: 1%;
 }
 
-.wrapper-top input[type="button"] {
+.wrapper-top input[type="submit"] {
     margin: unset;
-    margin-top:1%;
+    margin-top:15px;
 }
 
 #addEnunciado{
@@ -173,9 +187,56 @@ input.remove:hover {
     margin-bottom: 1%;
 }
 
+.etapasDIV {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.etapasDIV p{
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.etapasDIV p:first-child, .etapasDIV p:nth-child(2){
+    width:40%;
+}
+
+.etapasDIV p:nth-child(2){
+    text-align: left;
+}
+
+.etapasDIV p:nth-child(3){
+    width: 20%;
+}
+
+#etapas-container input[type="button"] {
+    margin:unset;
+}
+
+@media screen and (max-width: 400px) {
+    .etapasDIV {
+        display: block;
+        justify-content: unset;
+        flex-wrap: unset;
+    }
+
+    .etapasDIV p:first-child, .etapasDIV p:nth-child(2), .etapasDIV p:nth-child(3){
+        width:100%;
+        text-align: center;
+    }
+
+    #etapas-container input[type="button"]{
+        margin: 20px auto;
+    }
+
+}
+
 #confirmFeedback{
     display: none;
 }
+
+
   /* -------------------------------- 
                                     /
                 POPUP               /

@@ -35,11 +35,6 @@
             </p>
 
             <p>
-                <label for="file">Ficheiro do enunciado:</label>
-                <input class="form-input-file" type="file" id="file" name="file">
-            </p>
-
-            <p>
                 <label class="form-label">Etapas:</label>
                 <label id="addEtapa"><img src="<?php echo $base_url; ?>/images/add.png"></label>
             </p>
@@ -50,8 +45,6 @@
                 <input class="form-input-text" type="text" name="etapaName" required>
                 <label class="form-label">Descrição</label>
                 <textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>
-                <label for="file">Enunciado:</label>
-                <input class="form-input-file" type="file" id="file_etapa" name="file">
                 <label class="form-label">Data de entrega</label>
                 <input class="form-input-text" type="datetime-local" name="etapaDate" required>
             </p>

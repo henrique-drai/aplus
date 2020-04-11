@@ -94,15 +94,25 @@ class User extends REST_Controller {
         }
 
         $events = $this->EventModel->getEventsByUserId($user_id);
+        $group_events = $this->EventModel->getGroupEventsByUserId($user_id);
 
+        //encontrar eventos duplicados
+        $ids_to_remove = Array();
+        foreach ($events as $index => $e)
+            foreach ($group_events as $ge) 
+                if ($ge["evento_id"] == $e["id"])
+                    array_push($ids_to_remove, $index);
 
-        //ir buscar aulas
+        //apagar eventos duplicados
+        foreach ($ids_to_remove as $itr)
+            unset($events[$itr]);
 
         $data = Array(
             "id" => $user_id,
             "user" => $user,
             "classes" => $classes,
             "events" => $events,
+            "group_events" => $group_events,
         );
 
         $this->response($data, parent::HTTP_OK);

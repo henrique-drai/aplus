@@ -27,6 +27,19 @@ class EventModel extends CI_Model { //evento & horario_duvidas
         $result = $this->db->query($query);
         return $result->result_array();
     }
+
+    public function getGroupEventsByUserId($id) {
+        $query = "select * 
+            from grupo, grupo_aluno, evento_grupo, evento
+            where grupo.id = grupo_aluno.grupo_id
+            and evento.id = evento_grupo.evento_id
+            and evento_grupo.grupo_id = grupo.id
+            and grupo_aluno.user_id = ".$id;
+        $result = $this->db->query($query);
+        return $result->result_array();
+    }
+
+    
 }
 
 

@@ -24,6 +24,8 @@ class Database extends CI_Controller {
             curso
             cadeira
             etapa
+            evento
+            evento_grupo
             faculdade
             grupo
             grupo_aluno
@@ -34,8 +36,6 @@ class Database extends CI_Controller {
 
         FALTA:
             etapa_submit
-            evento
-            evento_grupo
             evento_user
             forum
             grupo_msg
@@ -275,9 +275,31 @@ class Database extends CI_Controller {
             Array("user_id"=> $aluno1_id,  "grupo_id"=>$grupo4_id),
             Array("user_id"=> $aluno5_id,  "grupo_id"=>$grupo3_id),
             Array("user_id"=> $aluno3_id,  "grupo_id"=>$grupo4_id),
-        )); 
-        
+        ));
+        ///////////////////////////////
+        //          EVENTOS
+        ///////////////////////////////
+        $this->db->insert("evento", Array("start_date"=>"2020-04-15 11:00:00", "end_date"=>"2020-04-15 12:30:00",
+            "name"=>"Reunião de Grupo", "description"=>"Discutir o modelo da base de dados.", "location"=>"FCUL")); $evento1_id = $this->db->insert_id();
+        $this->db->insert("evento", Array("start_date"=>"2020-04-16 12:10:00", "end_date"=>"2020-04-16 14:30:00",
+            "name"=>"Horário de dúvidas", "description"=>"Horário de dúvidas com o(a) professor(a) José Cecílio", "location"=>"6.3.45")); $evento2_id = $this->db->insert_id(); 
+        ///////////////////////////////
+        //          REUNIÔES DE GRUPO
+        ///////////////////////////////
+        $this->db->insert_batch('evento_grupo', Array(
+            Array("evento_id"=> $evento1_id,  "grupo_id"=>$grupo1_id),
+        ));
+        ///////////////////////////////
+        //          USER VAI A UM EVENTO
+        ///////////////////////////////
+        $this->db->insert_batch('evento_user', Array(
+            Array("evento_id"=> $evento1_id,  "user_id"=>$aluno1_id),
+            Array("evento_id"=> $evento2_id,  "user_id"=>$aluno1_id),
+        ));
 
+            
+
+        
 
         $execution_time = microtime(true) - $time_start;
 

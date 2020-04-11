@@ -1,0 +1,35 @@
+
+#calendario-hook .outter {
+    display: flex;
+    text-align: center;
+    margin: -5px;
+}
+#calendario-hook .col {
+    margin: 5px;
+    border: 1px solid #aaa;
+}
+#calendario-hook .col > a {
+    text-decoration: none;
+    color: black;
+}
+#calendario-hook .col > a:hover .cell {
+    background-color: #ccc;
+}
+
+#calendario-hook .hcell,
+#calendario-hook .cell {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 7px;
+    margin: 2px;
+    max-width: 150px;
+}
+#calendario-hook .hcell {
+    background-color: #ccc;
+}
+#calendario-hook .cell {
+    border-top: 1px solid #aaa; 
+}
+#calendario-hook .cell .time {
+    font-weight: bold;
+}

@@ -20,9 +20,10 @@ class User extends REST_Controller {
     //user/api/função
     public function api_post($f) {
         switch ($f) {
-            case "getInfo":     $this->getUserInfo(); break; //     /user/api/getInfo
-            case "teste":       $this->testeLogin(); break; //      /user/api/teste
-            case "updateInfo":  $this->updateInfo(); break; //      /user/api/updateInfo
+            case "getInfo": $this->getUserInfo(); break; //user/api/getInfo
+            case "teste": $this->testeLogin(); break; //user/api/teste
+            case "updateInfo": $this->updateInfo(); break; //user/api/updateInfo
+            case "getCalendario": $this->getCalendario(); break; //user/api/getCalendario
 
             default:            $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -76,7 +77,36 @@ class User extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function getCalendario() {
+        $user_id = $this->verify_request()->id;
 
+        $this->load->model('UserModel');
+        $this->load->model('EventModel');
+
+        $user = $this->UserModel->getUserById($user_id);
+
+        if ($user->role == "student") {
+            $classes = $this->EventModel->getClassesByStudentId($user_id);
+        } else if ($user->role == "teacher") {
+            $classes = $this->EventModel->getClassesByTeacherId($user_id);
+        } else {
+            $this->response(Array(), parent::HTTP_NOT_FOUND); return null;
+        }
+
+        $events = $this->EventModel->getEventsByUserId($user_id);
+
+
+        //ir buscar aulas
+
+        $data = Array(
+            "id" => $user_id,
+            "user" => $user,
+            "classes" => $classes,
+            "events" => $events,
+        );
+
+        $this->response($data, parent::HTTP_OK);
+    }
 
 
 

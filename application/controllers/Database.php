@@ -144,23 +144,23 @@ class Database extends CI_Controller {
         //          CADEIRAS
         ///////////////////////////////
 
-        $this->db->insert("cadeira", Array("curso_id"=> $curso1_id, "code"=>"SI2387",   "name"=>"Sistemas Interativos",
+        $this->db->insert("cadeira", Array("curso_id"=> $curso1_id, "code"=>"SI2387",   "name"=>"Sistemas Interativos", "sigla"=>"SI",
             "description"=>"Kekerino"));
-        $this->db->insert("cadeira", Array("curso_id"=> $curso1_id, "code"=>"TI298",    "name"=>"Teoria de Imagem",
+        $this->db->insert("cadeira", Array("curso_id"=> $curso1_id, "code"=>"TI298",    "name"=>"Teoria de Imagem", "sigla"=>"TI",
             "description"=>"Não tem descriçao"));
-        $this->db->insert("cadeira", Array("curso_id"=> $curso1_id, "code"=>"EDM24653", "name"=>"Elementos de Matemática",
+        $this->db->insert("cadeira", Array("curso_id"=> $curso1_id, "code"=>"EDM24653", "name"=>"Elementos de Matemática", "sigla"=>"EM",
             "description"=>"Adoro Gelatina"));
-        $this->db->insert("cadeira", Array("curso_id"=> $curso1_id, "code"=>"CIN234",   "name"=>"Cinematografia",
+        $this->db->insert("cadeira", Array("curso_id"=> $curso1_id, "code"=>"CIN234",   "name"=>"Cinematografia", "sigla"=>"Cinema",
             "description"=>"Crocodildo"));
-        $this->db->insert("cadeira", Array("curso_id"=> $curso2_id, "code"=>"TEA84",    "name"=>"Teatro",
+        $this->db->insert("cadeira", Array("curso_id"=> $curso2_id, "code"=>"TEA84",    "name"=>"Teatro", "sigla"=>"Teatro",
             "description"=>"Ewwwww")); $cadeira1_id = $this->db->insert_id();
-        $this->db->insert("cadeira", Array("curso_id"=> $curso2_id, "code"=>"ADC23523", "name"=>"Arquitetura de Computadores",
+        $this->db->insert("cadeira", Array("curso_id"=> $curso2_id, "code"=>"ADC23523", "name"=>"Arquitetura de Computadores", "sigla"=>"AC",
             "description"=>"Espinafres na sopa")); $cadeira2_id = $this->db->insert_id();
-        $this->db->insert("cadeira", Array("curso_id"=> $curso2_id, "code"=>"RED0923",  "name"=>"Redes",
+        $this->db->insert("cadeira", Array("curso_id"=> $curso2_id, "code"=>"RED0923",  "name"=>"Redes", "sigla"=>"Redes",
             "description"=>"Blach blah")); $cadeira3_id = $this->db->insert_id();
-        $this->db->insert("cadeira", Array("curso_id"=> $curso2_id, "code"=>"LE34",     "name"=>"Línguas Estrangeiras",
+        $this->db->insert("cadeira", Array("curso_id"=> $curso2_id, "code"=>"LE34",     "name"=>"Línguas Estrangeiras", "sigla"=>"LingE",
             "description"=>"Nope")); $cadeira4_id = $this->db->insert_id();
-        $this->db->insert("cadeira", Array("curso_id"=> $curso2_id, "code"=>"HO182",    "name"=>"História do Oriente",
+        $this->db->insert("cadeira", Array("curso_id"=> $curso2_id, "code"=>"HO182",    "name"=>"História do Oriente", "sigla"=>"HO",
             "description"=>"Podem escrever mais aqui.")); $cadeira5_id = $this->db->insert_id();
 
         ///////////////////////////////

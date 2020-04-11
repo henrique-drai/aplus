@@ -19,27 +19,39 @@ class EventModel extends CI_Model { //evento & horario_duvidas
         return $result->result_array();
     }
 
-    public function getEventsByUserId($id) {
+    public function getFutureEventsByUserId($id) {
         $query = "select * 
             from evento, evento_user
             where evento.id = evento_user.evento_id
+            and evento.start_date >= CURDATE()
             and evento_user.user_id = ".$id;
         $result = $this->db->query($query);
         return $result->result_array();
     }
 
-    public function getGroupEventsByUserId($id) {
+    public function getFutureGroupEventsByUserId($id) {
         $query = "select * 
             from grupo, grupo_aluno, evento_grupo, evento
             where grupo.id = grupo_aluno.grupo_id
             and evento.id = evento_grupo.evento_id
+            and evento.start_date >= CURDATE()
             and evento_grupo.grupo_id = grupo.id
             and grupo_aluno.user_id = ".$id;
         $result = $this->db->query($query);
         return $result->result_array();
     }
 
-    
+    public function getFutureSubmissionsByUserId($id) {
+        $query = "select * 
+            from grupo, grupo_aluno, projeto, etapa
+            where grupo.id = grupo_aluno.grupo_id
+            and etapa.projeto_id = projeto.id
+            and grupo.projeto_id = projeto.id
+            and etapa.deadline >= CURDATE()
+            and grupo_aluno.user_id = ".$id;
+        $result = $this->db->query($query);
+        return $result->result_array();
+    }
 }
 
 

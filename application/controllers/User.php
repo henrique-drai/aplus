@@ -85,34 +85,29 @@ class User extends REST_Controller {
 
         $user = $this->UserModel->getUserById($user_id);
 
-        if ($user->role == "student") {
+        if ($user->role == "student")
             $classes = $this->EventModel->getClassesByStudentId($user_id);
-        } else if ($user->role == "teacher") {
+        else if ($user->role == "teacher")
             $classes = $this->EventModel->getClassesByTeacherId($user_id);
-        } else {
-            $this->response(Array(), parent::HTTP_NOT_FOUND); return null;
-        }
+        else {$this->response(Array(), parent::HTTP_NOT_FOUND); return null;}
 
-        $events = $this->EventModel->getEventsByUserId($user_id);
-        $group_events = $this->EventModel->getGroupEventsByUserId($user_id);
+        $events = $this->EventModel->getFutureEventsByUserId($user_id);
+        $group_events = $this->EventModel->getFutureGroupEventsByUserId($user_id);
+        $submissions = $this->EventModel->getFutureSubmissionsByUserId($user_id);
 
         //encontrar eventos duplicados
         $ids_to_remove = Array();
-        foreach ($events as $index => $e)
-            foreach ($group_events as $ge) 
-                if ($ge["evento_id"] == $e["id"])
-                    array_push($ids_to_remove, $index);
+        foreach ($events as $index => $e) foreach ($group_events as $ge) 
+            if ($ge["evento_id"] == $e["id"]) array_push($ids_to_remove, $index);
 
         //apagar eventos duplicados
-        foreach ($ids_to_remove as $itr)
-            unset($events[$itr]);
+        foreach ($ids_to_remove as $itr) unset($events[$itr]);
 
         $data = Array(
-            "id" => $user_id,
-            "user" => $user,
             "classes" => $classes,
             "events" => $events,
             "group_events" => $group_events,
+            "submissions" => $submissions,
         );
 
         $this->response($data, parent::HTTP_OK);

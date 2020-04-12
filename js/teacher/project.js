@@ -87,14 +87,12 @@ $(document).ready(() => {
     // getEtapas - ETAPAS
     getEtapas(proj);
 
-    // data final = data etapa mais tarde - PROJETO
-    var datafinal = $(".data-val").last().text();
-    $("#entrega_h3").text("Entrega final: " + datafinal);
+    $("#entrega_h3").text("Entrega final:");
 
-    // refresh tabela - ETAPAS
-    setInterval(function(){
+    // refresh tabela 1 vez para atualizar a data - ETAPAS
+    setTimeout(function(){
          getEtapas(proj);
-         var datafinal = $(".data-val").last().text();
+         var datafinal = $(".etapasDIV").last().find("p:nth-child(2)").text();
          if(datafinal == ''){
             $("#entrega_h3").text("Entrega final: Ainda não definida");
          } else {
@@ -175,6 +173,26 @@ $(document).ready(() => {
         }
     });
 
+
+    //ADICIONAR ENUNCIADO - ETAPA
+    $('body').on('click', "#addEtapaEnunciado", function(){
+        $("#etapa-form").hide();
+        $("#newEtapa").hide();
+        $("#newEtapaEDIT").hide();
+        $("#feedback-form").hide();
+        //show form com enunciado
+
+        if(formStatus != 'addEnunc'){
+            formStatus = 'addEnunc';
+            checkFormStatus();
+        } else {
+            formStatus = null;
+            checkFormStatus();
+            $("#etapa-form").hide();
+            //esconder form do enunciado
+        }
+    })
+
     //on change mudar a etapa (variavel) - EDITAR ETAPA
     $("#etapa").change(function(){
         var name = $(this).find('input[name="etapaName"]').val();
@@ -210,10 +228,22 @@ $(document).ready(() => {
         getEtapas(proj);
     })
 
+
     //mostrar info extra da etapa - TABELA ETAPAS
     $('body').on('click', '.moreInfoButtons', function(){
         selected_etapa = $(this).attr("id");
         var divid = 'div' + selected_etapa;
+
+        $(".moreInfoButtons").css("background-color", "white");
+
+        if ($(this).css('background-color') == "#3e5d4f"){
+            $(this).css("background-color", "white");
+        } else {
+            $(this).css("background-color", "#3e5d4f");
+        }
+        
+
+
         $('.etapas-info').hide();
         $('#' + divid).show();
         $("#etapa-form").hide();
@@ -456,18 +486,27 @@ function checkFormStatus(){
         $("#opennewEtapa").css('background-color','white');
         $(".editb").css('background-color','#3e5d4f');
         $(".feedbackb").css('background-color','white');
+        $(".addE").css('background-color','white');
     } else if(formStatus == 'new'){
         $("#opennewEtapa").css('background-color','#3e5d4f');
         $(".editb").css('background-color','white');
         $(".feedbackb").css('background-color','white');
+        $(".addE").css('background-color','white');
     } else if(formStatus == 'feedback'){
         $(".feedbackb").css('background-color','#3e5d4f');
         $("#opennewEtapa").css('background-color','white');
         $(".editb").css('background-color','white');
+        $(".addE").css('background-color','white');
+    } else if(formStatus == 'addEnunc'){
+        $("#opennewEtapa").css('background-color','white');
+        $(".editb").css('background-color','white');
+        $(".feedbackb").css('background-color','white');
+        $(".addE").css('background-color','#3e5d4f');
     } else {
         $("#opennewEtapa").css('background-color','white');
         $(".editb").css('background-color','white');
         $(".feedbackb").css('background-color','white');
+        $(".addE").css('background-color','white');
     }
 }
 
@@ -566,7 +605,6 @@ function showGroups(proj_id) {
             var linhas = '<option value="">--- Grupos ---</option>';
             var str = ''
             
-
             for(var i=0; i < data["grupos"].length; i++) {
                 var names = '';
 
@@ -590,7 +628,7 @@ function showGroups(proj_id) {
         error: function(data) {
             console.log("Erro na API - Show Groups")
             $("#select_grupo_feedback").html('<option value="">--- Não existem grupos ---</option>');
-            $("#groups_list").html("Não existem grupos para mostrar.")
+            $("#grupos-container").html("<p>Não existem grupos para mostrar.</p><hr>")
             console.log(data)
         }
     });

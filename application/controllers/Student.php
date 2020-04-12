@@ -99,26 +99,49 @@ class Student extends REST_Controller {
 
     public function getMyGroups(){
         $this->load->model('GroupModel');
+        $this->load->model('ProjectModel');
+
         $user_id = $this->get('id');
         $data['grupo'] = $this->GroupModel->getGroups($user_id);
+
+
+        $data["info"] = array();
+
+        for ($i=0; $i < count($data["grupo"]); $i++) {
+            // print_r($data["grupo"][$i]["grupo_id"]);
+            $projId =  $this->GroupModel->getProjectId($data["grupo"][$i]["grupo_id"]);
+            
+            // print_r($this->ProjectModel->getProjectByID($projId[0]['projeto_id']));
+
+
+            array_push($data["info"], $this->ProjectModel->getProjectByID($projId[0]['projeto_id']));
+        }
+          
+        // print_r($data["info"]);
+    
         $this->response($data, parent::HTTP_OK);
     }
-
+    
     public function getStudentsFromGroup(){
         $this->load->model('GroupModel');
+        $this->load->model('UserModel');
+        $this->load->model('ProjectModel');
+
         $grupo_id =  $this->get('id');
+
+        $projId =  $this->GroupModel->getProjectId($grupo_id);
+        $data['proj_name'] = $this->ProjectModel->getProjectByID($projId[0]['projeto_id']);
+
         $data['students'] = $this->GroupModel->getStudents($grupo_id);
+        $data["info"] = array();
+
+        for ($i=0; $i < count($data["students"]); $i++) {
+            array_push($data["info"], $this->UserModel->getUserById($data["students"][$i]['user_id']));
+        }
+
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function getCadeiraGrupo(){
-        $this->load->model('GroupModel');
-        $this->load->model('ProjectModel');
-        $grupo_id =  $this->get('id');
-        $projId =  $this->GroupModel->getProjectId($grupo_id);
-        $data = $this->ProjectModel->getProjectByID($projId[0]['projeto_id']);
-        $this->response($data[0], parent::HTTP_OK);
-    }
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

@@ -12,8 +12,8 @@
         <div class="container">
         
             <div class="header">
-                <!-- <h2 id="SubjectName">Cadeira: </h2> -->
                 <h2 id="groupName">Grupo: </h2>
+                <h2 id="cadeira">Cadeira: </h2>
             </div>
 
             <br>

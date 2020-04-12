@@ -3,10 +3,10 @@ $(document).ready(() => {
 
     $("body").on("click", "a", function() {
         localStorage.setItem("grupo_id", $(this).attr("id"));
+        
         window.location = base_url + "app/student/group/" + $(this).attr("id") ;
     })
     
-   
 });
 
 
@@ -20,7 +20,8 @@ function getGrupos(user_id){
         success: function(data) {
             $(".grupos").empty();
             var grupos = "";
-           if(data.grupo.length != 0){
+           
+            if(data.grupo.length != 0){
                
                 for(var i = 0; i < data.grupo.length; i++) {
                     grupos+="<a id='" + data.grupo[i].grupo_id + "'></a>" + "<br>";

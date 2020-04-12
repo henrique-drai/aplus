@@ -79,6 +79,20 @@ class Student extends REST_Controller {
     }
 
 
+    
+    //////////////////////////////////////////////////////////////
+    //                     Students
+    //////////////////////////////////////////////////////////////
+    
+    public function getAllStudents(){
+        $this->load->model('UserModel');
+        $data["students"] = $this->UserModel->getStudents();
+        
+        $this->response($data, parent::HTTP_OK);
+    }
+
+
+
     //////////////////////////////////////////////////////////////
     //                     GROUPS
     //////////////////////////////////////////////////////////////
@@ -100,22 +114,10 @@ class Student extends REST_Controller {
     public function getCadeiraGrupo(){
         $this->load->model('GroupModel');
         $this->load->model('ProjectModel');
-
         $grupo_id =  $this->get('id');
-
-        // print_r($grupo_id);
-
         $projId =  $this->GroupModel->getProjectId($grupo_id);
-        // echo "<br>";
-        // print_r($projId);
-        // echo "<br>";
         $data = $this->ProjectModel->getProjectByID($projId[0]['projeto_id']);
-        // echo "<br>";
-        // print_r($data[0]);
-
-
         $this->response($data[0], parent::HTTP_OK);
-
     }
 
     //////////////////////////////////////////////////////////////

@@ -34,9 +34,15 @@
                 <label for="descCadeira">Descrição da Unidade Curricular:</label>
                 <textarea class="form-text-area" type="text" name="descCadeira" required></textarea>
             </p><p>
+                <label for="academicYear">Ano Letivo:</label>
+                <select id="anos_register_UnidCurricular" name="academicYear">
+                </select>
+            </p><p>
+                <label for="faculdade">Faculdade:</label>
                 <select id="faculdades_register_UnidCurricular" name="faculdade">
                 </select>
             </p><p>
+                <label for="curso">Curso:</label>
                 <select id="cursos_register_UnidCurricular" name="curso">
                 </select>
             </p>
@@ -54,7 +60,7 @@
             <option value="All">Todas as Cadeiras</option>
             <option value="Faculdade">Por Faculdade</option>
             <option value="Curso">Por Curso</option>
-            <option value="AnoLetivo">Por Ano Letivo (***** AINDA NAO ESTA FEITO *****)</option>
+            <option value="AnoLetivo">Por Ano Letivo</option>
         </select>
 
         <select id="Consultar_Cadeiras_Faculdade" name="consultarCadeirasporFaculdade">

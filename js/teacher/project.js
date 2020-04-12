@@ -276,6 +276,7 @@ function emptyEtapa(){
 function putEtapaInfoForm(newid){
     var name = $("#etapa" + newid).find("p:first").text();
     var data = $("#etapa" + newid).find("p:nth-child(2)").text().replace(",","");
+    data +=":00";
     var desc = $("#div" + newid).find("p").first().text();
     var newdata = strToDate(data).toISOString();
     var finaldata = newdata.substring(0,newdata.length-1);
@@ -513,8 +514,9 @@ function makeEtapaTable(data){
             '<p>' + newenunciado + '</p>' +
              removebut +
             '<div class="wrapper">'+
+            '<input id="addEtapaEnunciado" class="addE" type="button" value="Adicionar Enunciado">' +
             '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +
-            '<input id="feedbackEtapaButton" class="feedbackb" type="button" value="Feedback"></input>'+
+            '<input id="feedbackEtapaButton" class="feedbackb" type="button" value="Feedback">'+
             '<input id="removeEtapaButton" class="remove" type="button" value="Eliminar">' +
             '</div>' +
             '</div>'
@@ -562,9 +564,8 @@ function showGroups(proj_id) {
         success: function(data) {
             console.log(data);
             var linhas = '<option value="">--- Grupos ---</option>';
-            $("#groups_list tr").remove();
-            $("#groups_list").append("<tr><th>Nome</th>" +
-                "<th>Elementos</th><th>Chat</th></tr>");
+            var str = ''
+            
 
             for(var i=0; i < data["grupos"].length; i++) {
                 var names = '';
@@ -574,15 +575,16 @@ function showGroups(proj_id) {
                         names = names + data["nomes"][j].user_name.name + " " + data["nomes"][j].user_name.surname + " | ";
                     }
                 }
-
-                $("#groups_list").append("<tr><td>" + data["grupos"][i].name +"</td>" +
-                    "<td>" + names.slice(0, -2) + "</td><td>" +
-                    "<input id='chatButton' type='button' value='Chat'></td></tr>");
-
+                
+                str += '<div class="gruposDIV" id="grupo' + data["grupos"][i].id + '">' +
+                    '<p><b> Grupo: </b>' + data["grupos"][i].name + '</p>' +
+                    '<p><b>Membros: </b>'+ names.slice(0, -2) +'</p>' +
+                    '<p><input id="chatButton" type="button" value="Chat"></p></div><hr>'
 
                 linhas += '<option value=' +  data["grupos"][i].id  +">" + data["grupos"][i].name  + '</option>'; 
             }
             
+            $("#grupos-container").html(str);
             $("#select_grupo_feedback").html(linhas);
         },
         error: function(data) {

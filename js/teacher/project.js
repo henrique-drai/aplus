@@ -12,14 +12,6 @@ $(document).ready(() => {
     //tabela dos grupos
     showGroups(proj);
 
-    // se atualizar a tabela dos grupos dinamicamente o select vai estar sempre a tirar 
-    // o elemento selecionado
-    // assim, vou atualizar quando o botao feedback é carregado
-    // //atualizar tabela dos grupos. Não precisa de ser instantaneo
-    // setInterval(function(){
-    //     showGroups(proj);
-    // }, 5000);
-
     // --- GRUPOS
 
     //REMOVER PROJETO ---
@@ -66,11 +58,12 @@ $(document).ready(() => {
 
     //ENUNCIADO PROJETO --- 
 
-    //set enunciado h3 value - ENUNCIADO PROJETO
-    if(enunciado_h3 == ""){
-        $("#enunciado_h3").text("Enunciado: Este projeto não tem enunciado.")
-    } else {
-        $("#enunciado_h3").html("Enunciado: <a href=''>" + enunciado_h3 + '</a>');
+    //verificar se o enunciado do projeto existe na diretoria 
+    
+    if(checkEnunciado()){
+        setInterval(function(){
+            checkEnunciado();
+        }, 1000);
     }
 
     
@@ -83,7 +76,7 @@ $(document).ready(() => {
 
     //ao confirmar - MUDAR ENUNCIADO
     $("#addEnunciado").on('click', function(){
-        enunc = $("#file_projeto").val();
+        enunc = $("#file_projeto").val().split('\\').pop();
         submit_new_enunciado(enunc);
     })
 
@@ -102,7 +95,12 @@ $(document).ready(() => {
     setInterval(function(){
          getEtapas(proj);
          var datafinal = $(".data-val").last().text();
-         $("#entrega_h3").text("Entrega final: " + datafinal);
+         if(datafinal == ''){
+            $("#entrega_h3").text("Entrega final: Ainda não definida");
+         } else {
+            $("#entrega_h3").text("Entrega final: " + datafinal);
+         }
+         
     }, 1000);
 
 
@@ -159,7 +157,7 @@ $(document).ready(() => {
         var newid = id.replace("div","");
         $("#etapa-form").show();
         $("#newEtapaEDIT").show();
-        $("#etapa-label").text("Editar etapa '" + $("#etapaname" + newid).text() + "':");
+        $("#etapa-label").text("Editar etapa '" + $("#etapa" + newid).find("p:first").text() + "':");
         $("#newEtapa").hide();
         $("#feedback-form").hide();
 
@@ -182,7 +180,8 @@ $(document).ready(() => {
         var name = $(this).find('input[name="etapaName"]').val();
         var desc = $(this).find('textarea[name="etapaDescription"]').val();
         var data = $(this).find('input[name="etapaDate"]').val();
-        var enunc = $(this).find('input[name="file"]').val();
+        // var enunc = $(this).find('input[name="file"]').val().split('\\').pop();
+        var enunc = '';
         
         etapa['nome'] = name;
         etapa['desc'] = desc;
@@ -244,6 +243,23 @@ $(document).ready(() => {
     
 })
 
+
+function checkEnunciado(){
+    $.get(base_url + "uploads/enunciados_files/"+ proj+".pdf")
+        .done(function() { 
+            if (enunciado_h3 != ""){
+                $("#enunciado_h3").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h3 + "</a>");
+            } else {
+                $("#enunciado_h3").text("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
+            }
+            return true;
+        }).fail(function() { 
+            $("#enunciado_h3").text("Enunciado: Este projeto não tem enunciado.")
+            return false;
+        })
+}
+
+
 function strToDate(dtStr) {
     let dateParts = dtStr.split("/");
     let timeParts = dateParts[2].split(" ")[1].split(":");
@@ -258,8 +274,8 @@ function emptyEtapa(){
 
 //preencher form da etapa com a info relativa à etapa
 function putEtapaInfoForm(newid){
-    var name = $("#etapaname" + newid).text();
-    var data = $("#etapadata" + newid).text().replace(",","");
+    var name = $("#etapa" + newid).find("p:first").text();
+    var data = $("#etapa" + newid).find("p:nth-child(2)").text().replace(",","");
     var desc = $("#div" + newid).find("p").first().text();
     var newdata = strToDate(data).toISOString();
     var finaldata = newdata.substring(0,newdata.length-1);
@@ -422,7 +438,8 @@ function submit_new_enunciado(enunc){
         data: data,
         success: function(data) {
             console.log(data);
-            $("#enunciado_h3").html("Enunciado: <a href=''> " + data + "</a>");
+            console.log(base_url + "uploads/enunciados_files/"+ proj);
+            $("#enunciado_h3").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + data + "</a>");
             $("#addEnunciado").hide();
         },
         error: function(data) {
@@ -473,11 +490,11 @@ function makeEtapaTable(data){
         json = data[i];
         var enunciado = json["enunciado_url"];
         var date = new Date(json["deadline"]);
-        etapasSTR += '<tr>' +
-            '<td id="etapaname'+ json["id"] +'" class="etapa-name">'+ json["nome"] +'</td>' +
-            '<td id="etapadata' + json["id"] + '" class="data-val">'+ date.toLocaleString('en-GB') +'</td>' +
-            '<td><input class="moreInfoButtons" id="'+json["id"] +'" type="button" value="Info"></input></td>'
-            '</tr>'
+        etapasSTR += '<div class="etapasDIV" id="etapa' + json["id"] +'"><p><b>'+json["nome"]+'</b></p>'+
+            '<p>'+ date.toLocaleString('en-GB', {hour: '2-digit', minute:'2-digit', year: 'numeric', month: 'numeric', day: 'numeric'}) +'</p>'+
+            '<p><input class="moreInfoButtons" id="'+json["id"] +'" type="button" value="Opções"></input></p>' +
+            '</div>' +
+            '<hr>'
 
 
         if (enunciado == ""){
@@ -505,16 +522,8 @@ function makeEtapaTable(data){
         lastp = 'div'+json["id"];
         
     }
-   
-    var table = '<table id="etapas_list">' +
-        '<tr>' +
-        '<th>Nome</th>' + 
-        '<th>Data Entrega</th>' +
-        '<th>Mais Informação</th></tr>' +
-        etapasSTR + 
-        '</table>'
 
-    $("#etapas-container").html(table);   
+    $("#etapas-container").html(etapasSTR);   
     
     if ($("#" + lastp).length == 0){
         $("#etapa-info-extra").html(p);
@@ -578,6 +587,7 @@ function showGroups(proj_id) {
         },
         error: function(data) {
             console.log("Erro na API - Show Groups")
+            $("#select_grupo_feedback").html('<option value="">--- Não existem grupos ---</option>');
             $("#groups_list").html("Não existem grupos para mostrar.")
             console.log(data)
         }
@@ -599,6 +609,7 @@ function removeEtapa(id){
         data: data_etapa,
         success: function(data) {
             console.log("mensagem de sucesso");
+            $('.etapas-info').hide();
         },
         error: function(data) {
             console.log("Erro na API - Remove Etapa")

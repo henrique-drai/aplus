@@ -67,18 +67,14 @@ select, textarea {
 }
 
 /* //////////////////////////////////////////////////////////////
-//                         PROJETOS
+//                     PROJETOS E FORUM
 ////////////////////////////////////////////////////////////// */
 
-.projetos {
+.projetos, .foruns {
     display: flex;
     flex-wrap: wrap;
     width: 70%;
     margin-top: 2%;
-}
-
-.projetos a {
-    margin-right: 1%;
 }
 
 /* //////////////////////////////////////////////////////////////

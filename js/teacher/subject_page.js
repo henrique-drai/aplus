@@ -128,6 +128,11 @@ $(document).ready(() => {
     $("body").on("click", ".new_forum", function() {
         window.location = base_url + "foruns/new/" + localStorage.cadeira_code;
     })
+
+    $("body").on("click", ".forum_button", function() {
+        localStorage.setItem("forum_id", $(this).attr("id"));
+        window.location = base_url + "foruns/forum/" + $(this).attr("id");
+    })
 })
 
 function validateFormNumb(id){
@@ -161,6 +166,7 @@ function getInfo($id) {
                 localStorage.setItem('cadeira_id', data.info[0].id);
                 getHours(data.info[0].id);
                 getProj(localStorage.cadeira_id);
+                getForum(localStorage.cadeira_id);
             } else {
                 $(".summary").append("<p>Não existe sumário para a cadeira.</p>");
                 $(".hours").append("<p>Ainda não há horários de dúvidas disponíveis.</p>");
@@ -340,6 +346,29 @@ function getProj(data) {
                 for(var i=0; i < data.length; i++) {
                     $(".projetos").append("<input type='button' class='project_button' id='" + data[i].id +
                     "' value='Projeto " + (i+1) + "'>");
+                }  
+            }
+        },
+        error: function(data) {
+            alert("Houve um erro a remover a data.")
+        }
+    })
+}
+
+function getForum(data) {
+    $.ajax({
+        type: "GET",
+        url: base_url + "teacher/api/getForum",
+        data: {cadeira_id: data},
+        success: function(data) {
+            console.log(data);
+            $(".foruns").empty();
+            if(data.length == 0) {
+                $(".foruns").append("<p>Ainda não existem fóruns para a cadeira</p>");
+            } else {
+                for(var i=0; i < data.length; i++) {
+                    $(".foruns").append("<input type='button' class='forum_button' id='" + data[i].id +
+                    "' value='" + data[i].name + "'>");
                 }  
             }
         },

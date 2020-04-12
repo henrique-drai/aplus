@@ -15,7 +15,44 @@ class Foruns extends CI_Controller {
     //      aplus.com/foruns/thread/:thread_id
     public function thread($thread_id)
     {
+        $data["base_url"] = base_url();
         
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403', $data); return null;
+        }
+
+        //buscar a info sobre a thread
+        $data["thread"] = $this->ForumModel->getThreadByID($thread_id);
+
+        //verificar se o objeto existe
+        if(is_null($data["thread"])){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        //buscar a info sobre o forum
+        $data["forum"] = $this->ForumModel->getForumByID($data["thread"]->forum_id);
+
+        //verificar se o objeto associado ao forum existe
+        if(is_null($data["forum"])){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        //buscar a info sobre o codigo do curso
+        $data["subject"] = $this->SubjectModel->getSubjectByID($data["forum"]->cadeira_id);
+
+        //verificar se o objeto existe
+        if(is_null($data["subject"])){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        if ($this->session->userdata('role') == 'teacher'){
+            $this->load->view('templates/head', $data);
+            $this->load->view('teacher/thread',$data);
+            $this->load->view('templates/footer');  
+        } else {
+            $this->load->view('errors/403', $data); return null;
+        }
     }
 
     //      aplus.com/foruns/new/:subject_code
@@ -64,7 +101,7 @@ class Foruns extends CI_Controller {
         }
 
         //buscar a info sobre o codigo do curso
-        $data["subject"] = $this->SubjectModel->getSubjectByID($data["forum"][0]["cadeira_id"]);
+        $data["subject"] = $this->SubjectModel->getSubjectByID($data["forum"]->cadeira_id);
     
         //verificar se o objeto existe
         if(is_null($data["subject"])){

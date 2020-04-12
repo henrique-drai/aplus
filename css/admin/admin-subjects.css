@@ -21,3 +21,7 @@ input[type="submit"]{
     margin-top: 2%;
     margin: auto;
 }
+
+label[for="curso"]{
+    display: none;
+}

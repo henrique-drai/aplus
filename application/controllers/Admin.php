@@ -42,12 +42,14 @@ class Admin extends REST_Controller {
             case "getAllTeachers":  $this->getAllTeachers(); break; //      admin/api/getAllTeachers
             case "getAdminHome":    $this->getAdminHome(); break; //        admin/api/getAdminHome
             case "getAllFaculdadesUnidCurricular":  $this->getAllColleges(); break; // admin/api/getAllFaculdadesUnidCurricular
-            case "getAllCursosFaculdade": $this->getAllCollegesCourses(); break; // admin/api/getAllCursosFaculdade
+            case "getAllCursosFaculdadeAno": $this->getAllCollegesYearCourses(); break; // admin/api/getAllCursosFaculdadeAno
             case "getAllSubjects": $this->getAllSubjects(); break; // admin/api/getAllSubjects
             case "getAllCoursesByCollege": $this->getAllCoursesByCollege(); break; // admin/api/getAllCoursesByCollege
             case "getAllSubjectsByCourse": $this->getAllSubjectsByCourse(); break; // admin/api/getAllSubjectsByCourse
             case "getCourseNameById": $this->getCourseNameById(); break; // admin/api/getCourseNameById
             case "getUserByEmail": $this->getUserByEmail(); break; // admin/api/getUserByEmail
+            case "getAllYears": $this->getAllYears(); break; // admin/api/getAllYears
+            case "getAllCoursesByYear": $this->getAllCoursesByYear(); break; // admin/api/getAllCoursesByYear
             case "saveCSV":         $this->export(); break;
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
@@ -133,10 +135,11 @@ class Admin extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function getAllCollegesCourses(){
+    public function getAllCollegesYearCourses(){
         $faculdade = $this->get('faculdade');
+        $ano = $this->get('anoletivo');
         $this->load->model('CourseModel');
-        $data["courses"] = $this->CourseModel->getCollegeCourses($faculdade);
+        $data["courses"] = $this->CourseModel->getCollegeYearCourses($faculdade, $ano);
         $this->response($data, parent::HTTP_OK);
     }
 
@@ -164,6 +167,19 @@ class Admin extends REST_Controller {
     public function getAllSubjects(){
         $this->load->model('SubjectModel');
         $data["subjects"] = $this->SubjectModel->getAllSubjects();
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getAllYears(){
+        $this->load->model('YearModel');
+        $data["years"] = $this->YearModel->getAllSchoolYears();
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getAllCoursesByYear(){
+        $ano = $this->get('idyear');
+        $this->load->model('CourseModel');
+        $data["courses"] = $this->CourseModel->getCoursesByYear($ano);
         $this->response($data, parent::HTTP_OK);
     }
 

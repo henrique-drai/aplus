@@ -8,6 +8,10 @@ $(document).ready(() => {
         "subjects": {
             "href": base_url + "app/student/subjects",
             "name": "Cadeiras"
+        },
+        "rating": {
+            "href": base_url + "app/student/rating",
+            "name": "Rating"
         }
     }
 

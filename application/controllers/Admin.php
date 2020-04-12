@@ -46,7 +46,6 @@ class Admin extends REST_Controller {
             case "getAllSubjects": $this->getAllSubjects(); break; // admin/api/getAllSubjects
             case "getAllCoursesByCollege": $this->getAllCoursesByCollege(); break; // admin/api/getAllCoursesByCollege
             case "getAllSubjectsByCourse": $this->getAllSubjectsByCourse(); break; // admin/api/getAllSubjectsByCourse
-            case "getCourseNameById": $this->getCourseNameById(); break; // admin/api/getCourseNameById
             case "getUserByEmail": $this->getUserByEmail(); break; // admin/api/getUserByEmail
             case "getAllYears": $this->getAllYears(); break; // admin/api/getAllYears
             case "getAllCoursesByYear": $this->getAllCoursesByYear(); break; // admin/api/getAllCoursesByYear
@@ -166,7 +165,12 @@ class Admin extends REST_Controller {
 
     public function getAllSubjects(){
         $this->load->model('SubjectModel');
+        $this->load->model('CourseModel');
         $data["subjects"] = $this->SubjectModel->getAllSubjects();
+        $data["courses"] = array();
+        for($i=0; $i<count($data["subjects"]); $i++){
+            array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
+        };
         $this->response($data, parent::HTTP_OK);
     }
 
@@ -197,9 +201,29 @@ class Admin extends REST_Controller {
     }
 
     public function getAllSubjectsByCourse(){
-        $course = $this->get('course');
+        $courses = $this->get('courses');
         $this->load->model('SubjectModel');
-        $data["subjects"] = $this->SubjectModel->getSubjectsByCursoId($course);
+        $this->load->model('CourseModel');
+        $data["courses"] = array(); 
+        if(is_array($courses)){
+            $data["subjects"] = array();
+            
+            for($x=0; $x<count($courses); $x++){
+                $cursos = $this->SubjectModel->getSubjectsByCursoId($courses[$x]["id"]);
+                $data["subjects"]=array_merge($data["subjects"], $cursos);
+            }
+            for($i=0; $i<count($data["subjects"]); $i++){
+                array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
+            };
+        }
+        else{
+            $data["subjects"] = $this->SubjectModel->getSubjectsByCursoId($courses);
+            for($i=0; $i<count($data["subjects"]); $i++){
+                array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
+            };
+        }
+        
+        
         $this->response($data, parent::HTTP_OK);
     }
 

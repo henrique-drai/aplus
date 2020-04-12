@@ -6,6 +6,11 @@ class CourseModel extends CI_Model { //curso & curso_standard
         return $query->result_array();
     }
 
+    public function getCollegeCourses($faculdade){
+        $query = $this->db->get_where("curso", array('faculdade_id'=>$faculdade));
+        return $query->result_array();
+    }
+
     public function deleteCollegeCourse($data){
         $this->db->where(array(
             'faculdade_id ='         => $data['faculdade_id'],

@@ -84,6 +84,11 @@ $(document).ready(() => {
 
     //ETAPAS --- 
 
+    $("#file_etapa").on('change', function(){
+        $("#addEnuncEtapa").show();
+        $("#file_etapa").css("border-left-color", "lawngreen");
+    })
+
     // getEtapas - ETAPAS
     getEtapas(proj);
 
@@ -109,6 +114,7 @@ $(document).ready(() => {
         $("#newEtapaEDIT").hide();
         $("#feedback-form").hide();
         $("#etapa-label").text("Nova etapa:");
+        $("#addEnunciadoForm").hide();
         emptyEtapa();
 
         if(formStatus != 'new'){
@@ -130,6 +136,7 @@ $(document).ready(() => {
         $("#newEtapa").hide();
         $("#newEtapaEDIT").hide();
         $("#feedback-form").show();
+        $("#addEnunciadoForm").hide();
         showGroups(proj);
 
         if(formStatus != 'feedback'){
@@ -158,6 +165,7 @@ $(document).ready(() => {
         $("#etapa-label").text("Editar etapa '" + $("#etapa" + newid).find("p:first").text() + "':");
         $("#newEtapa").hide();
         $("#feedback-form").hide();
+        $("#addEnunciadoForm").hide();
 
         putEtapaInfoForm(newid);
 
@@ -180,7 +188,7 @@ $(document).ready(() => {
         $("#newEtapa").hide();
         $("#newEtapaEDIT").hide();
         $("#feedback-form").hide();
-        //show form com enunciado
+        $("#addEnunciadoForm").show();
 
         if(formStatus != 'addEnunc'){
             formStatus = 'addEnunc';
@@ -189,7 +197,7 @@ $(document).ready(() => {
             formStatus = null;
             checkFormStatus();
             $("#etapa-form").hide();
-            //esconder form do enunciado
+            $("#addEnunciadoForm").hide();
         }
     })
 
@@ -242,12 +250,11 @@ $(document).ready(() => {
             $(this).css("background-color", "#3e5d4f");
         }
         
-
-
         $('.etapas-info').hide();
         $('#' + divid).show();
         $("#etapa-form").hide();
         $("#feedback-form").hide();
+        $("#addEnunciadoForm").hide();
         formStatus = null;
         checkFormStatus();
     })
@@ -376,6 +383,7 @@ function submit_etapa(){
             success: function(data) {
                 console.log(proj);
                 console.log(data);
+                location.reload();
             },
             error: function(data) {
                 console.log("Erro na API - Submit Etapa");
@@ -628,8 +636,8 @@ function showGroups(proj_id) {
         error: function(data) {
             console.log("Erro na API - Show Groups")
             $("#select_grupo_feedback").html('<option value="">--- Não existem grupos ---</option>');
-            $("#grupos-container").html("<p>Não existem grupos para mostrar.</p><hr>")
-            console.log(data)
+            $("#grupos-container").html("<p>Não existem grupos para mostrar.</p><hr>");
+            console.log(data);
         }
     });
 }

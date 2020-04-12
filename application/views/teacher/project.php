@@ -13,6 +13,7 @@
     <main>
     <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>subjects">Cadeiras</a> > <a href="<?php echo base_url(); ?>subjects/subject/<?php echo $subject->code; ?>"><?php echo $subject->name; ?></a> &gt; Projeto </h4>
     <h1>Projeto: <?php echo $project[0]["nome"]; ?></h1>
+    <p> <?php echo $project[0]["description"]; ?></p>
     <input id="removeProject" class="remove" type="button" value="Eliminar projeto">
     <div class="container">
         <h3 id="entrega_h3"></h3>
@@ -24,10 +25,7 @@
             </form>
         </div>
         <div class="container-header">
-            <h3>Descrição</h3>
-            <p> <?php echo $project[0]["description"]; ?></p>
-            <br><br>
-            <h3>Grupos</h3>
+            <h2>Grupos</h2>
         </div>
 
         <div id="grupos-container" class="container">
@@ -35,7 +33,7 @@
 
         <br><br>
 
-        <h3>Etapas</h3>
+        <h2>Etapas</h2>
         <div id="etapas-container" class="container">
         </div>
 
@@ -68,7 +66,14 @@
             <input type="submit" id="confirmFeedback" onclick="return false" value="Confirmar">
         </form>
 
-        <form id="etapa-form">
+
+        <?php echo form_open_multipart('projects/uploadEnunciadoEtapa', 'id="addEnunciadoForm"');?>
+                <label for="file">Enunciado:</label>
+                <input class="form-input-file" type="file" id="file_etapa" name="file">
+                <input id="addEnuncEtapa" type="submit" value="Adicionar enunciado">
+        </form>
+
+        <form id="etapa-form" action="javascript:void(0)">
 
             <p id="etapa" class="etapa">
                 <label id="etapa-label" class="form-label-title">Nova etapa:</label>
@@ -76,8 +81,6 @@
                 <input class="form-input-text" type="text" name="etapaName" required>
                 <label class="form-label">Descrição</label>
                 <textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>
-                <!-- <label for="file">Enunciado:</label>
-                <input class="form-input-file" type="file" id="file_etapa" name="file"> -->
                 <label class="form-label">Data de entrega</label>
                 <input class="form-input-text" type="datetime-local" name="etapaDate" required>
             </p>

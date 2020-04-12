@@ -116,6 +116,10 @@
 
 /* Especifico da página project */
 
+#addEnunciadoForm, #addEnuncEtapa{
+    display: none;
+}
+
 #removeEnunciado {
     margin-left: 170px;
     position: absolute;
@@ -273,16 +277,16 @@ input.remove:hover {
 }
 
 .cd-popup-container {
-    position: relative;
+    position: absolute;
     width: 90%;
+    left: 50%;
+    top: 50%;
     max-width: 400px;
-    margin: 4em auto;
     background: #FFF;
     border-radius: .25em .25em .4em .4em;
     text-align: center;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    -webkit-transform: translateY(-40px);
-    transform: translateY(-40px);
+    transform: translate(-50%, -50%);
     -webkit-transition-property: -webkit-transform;
     transition-property: transform;
     -webkit-transition-duration: 0.3s;
@@ -362,13 +366,6 @@ input.remove:hover {
     transform: rotate(-45deg);
     right: 8px;
 }
-
-@media only screen and (min-width: 1170px) {
-    .cd-popup-container {
-      margin: 10em auto;
-    }
-  }
-
 .cd-buttons a {
     text-decoration: none;
 }

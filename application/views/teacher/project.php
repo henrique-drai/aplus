@@ -26,12 +26,15 @@
         <div class="container-header">
             <h3>Descrição</h3>
             <p> <?php echo $project[0]["description"]; ?></p>
+            <br><br>
             <h3>Grupos</h3>
         </div>
 
-        <div class="container">
-            <table id="groups_list"></table>
+        <div id="grupos-container" class="container">
+            <!-- <table id="groups_list"></table> -->
         </div>
+
+        <br><br>
 
         <h3>Etapas</h3>
         <div id="etapas-container" class="container">

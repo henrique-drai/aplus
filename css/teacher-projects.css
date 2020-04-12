@@ -187,19 +187,19 @@ input.remove:hover {
     margin-bottom: 1%;
 }
 
-.etapasDIV {
+.etapasDIV, .gruposDIV{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 
-.etapasDIV p{
+.etapasDIV p, .gruposDIV p{
     white-space: normal;
     word-wrap: break-word;
 }
 
 .etapasDIV p:first-child, .etapasDIV p:nth-child(2){
-    width:40%;
+    width:45%;
 }
 
 .etapasDIV p:nth-child(2){
@@ -207,26 +207,42 @@ input.remove:hover {
 }
 
 .etapasDIV p:nth-child(3){
+    width: 10%;
+}
+
+/* grupos / etapas */
+
+.gruposDIV p:first-child {
     width: 20%;
 }
 
-#etapas-container input[type="button"] {
+.gruposDIV p:nth-child(2) {
+    width: 70%;
+    text-align: center;
+}
+
+.gruposDIV p:nth-child(3) {
+    width: 10%;
+}
+
+#etapas-container input[type="button"],  #grupos-container input[type="button"] {
     margin:unset;
 }
 
 @media screen and (max-width: 400px) {
-    .etapasDIV {
+    .etapasDIV, .gruposDIV{
         display: block;
         justify-content: unset;
         flex-wrap: unset;
     }
 
-    .etapasDIV p:first-child, .etapasDIV p:nth-child(2), .etapasDIV p:nth-child(3){
+    .etapasDIV p:first-child, .etapasDIV p:nth-child(2), .etapasDIV p:nth-child(3), 
+    .gruposDIV p:first-child, .gruposDIV p:nth-child(2), .gruposDIV p:nth-child(3){
         width:100%;
         text-align: center;
     }
 
-    #etapas-container input[type="button"]{
+    #etapas-container input[type="button"], #grupos-container input[type="button"]{
         margin: 20px auto;
     }
 

@@ -8,5 +8,13 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
     public function getStudents($group_id){
         return $this->db->get_where("grupo_aluno", array("grupo_id" => $group_id)) -> result_array();
     }
+
+    public function getGroups($user_id){
+        return $this->db->get_where("grupo_aluno", array("user_id" => $user_id)) -> result_array();
+    }
+
+    public function getProjectId($group_id){
+        return $this->db->get_where("grupo", array("id" => $group_id)) -> result_array();
+    }
     
 }

@@ -28,8 +28,11 @@ class Student extends REST_Controller {
 
     public function api_get($f) {
         switch ($f) {
-            case "getCadeiras":     $this->getCadeiras(); break;//     /student/api/getCadeiras
-            case "getInfo":         $this->getInfo(); break;//     /student/api/getInfo
+            case "getCadeiras":         $this->getCadeiras(); break;//     /student/api/getCadeiras
+            case "getInfo":             $this->getInfo(); break;//     /student/api/getInfo
+            case "getMyGroups":         $this->getMyGroups(); break;
+            case "getStudentsFromGroup":    $this->getStudentsFromGroup(); break;
+            case "getCadeiraGrupo":         $this->getCadeiraGrupo(); break;
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -75,6 +78,47 @@ class Student extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+
+    
+    //////////////////////////////////////////////////////////////
+    //                     Students
+    //////////////////////////////////////////////////////////////
+    
+    public function getAllStudents(){
+        $this->load->model('UserModel');
+        $data["students"] = $this->UserModel->getStudents();
+        
+        $this->response($data, parent::HTTP_OK);
+    }
+
+
+
+    //////////////////////////////////////////////////////////////
+    //                     GROUPS
+    //////////////////////////////////////////////////////////////
+
+    public function getMyGroups(){
+        $this->load->model('GroupModel');
+        $user_id = $this->get('id');
+        $data['grupo'] = $this->GroupModel->getGroups($user_id);
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getStudentsFromGroup(){
+        $this->load->model('GroupModel');
+        $grupo_id =  $this->get('id');
+        $data['students'] = $this->GroupModel->getStudents($grupo_id);
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getCadeiraGrupo(){
+        $this->load->model('GroupModel');
+        $this->load->model('ProjectModel');
+        $grupo_id =  $this->get('id');
+        $projId =  $this->GroupModel->getProjectId($grupo_id);
+        $data = $this->ProjectModel->getProjectByID($projId[0]['projeto_id']);
+        $this->response($data[0], parent::HTTP_OK);
+    }
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

@@ -233,9 +233,9 @@ class Teacher extends REST_Controller {
             "deadline"          => $etapa["data"],
         );
 
-        $this->ProjectModel->insertEtapa($new_etapa);
+        $data = $this->ProjectModel->insertEtapa($new_etapa);
 
-        $this->response($etapa, parent::HTTP_OK);
+        $this->response($data, parent::HTTP_OK);
     }
 
     public function editEtapa(){

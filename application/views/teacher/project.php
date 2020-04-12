@@ -31,7 +31,6 @@
         </div>
 
         <div id="grupos-container" class="container">
-            <!-- <table id="groups_list"></table> -->
         </div>
 
         <br><br>

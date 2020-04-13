@@ -118,7 +118,9 @@ $(document).ready(() => {
     })
 
     $("body").on("click", ".newProject_button", function() {
-        window.location = base_url + "projects/new/" + localStorage.cadeira_code;
+        var link = location.href.split("aplus")[1];
+        var ano = link.split("/")[4];
+        window.location = base_url + "projects/new/" + localStorage.cadeira_code + "/" + ano;
     })
 
     $("body").on("click", ".project_button", function() {

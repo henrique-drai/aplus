@@ -31,21 +31,21 @@ class Database extends CI_Controller {
             professor_cadeira
             projeto
             user
+            forum
+            thread
+            thread_post
 
         FALTA:
             etapa_submit
             evento
             evento_grupo
             evento_user
-            forum
             grupo_msg
             horario_duvidas
             member_classification
             provate_chat
             private_chat_msg
             tarefa
-            thread
-            thread_post
         */
 
         $time_start = microtime(true); 
@@ -238,6 +238,28 @@ class Database extends CI_Controller {
             Array("user_id"=> $prof1_id,  "aula_id"=>$aula2_id),
             Array("user_id"=> $prof1_id,  "aula_id"=>$aula1_id)
         )); 
+        
+        ///////////////////////////////
+        //          FORUNS
+        ///////////////////////////////
+        $this->db->insert("forum", Array("cadeira_id"=> $cadeira1_id, "nome"=>"Evolução da Ciência",
+            "description"=>"Texto que descreve este projeto científico.",
+            "teachers_only"=>1)); $forum1_id = $this->db->insert_id();
+
+        ///////////////////////////////
+        //          THREADS
+        ///////////////////////////////
+        $this->db->insert("thread", Array("user_id"=> $prof1_id, "forum_id"=> $forum1_id,
+            "title"=>"Avaliação da cadeira",
+            "content"=>"Testes e 3 projetos ao longo do semestre", "date" =>"2020-04-13 11:00:00")); 
+            $thread1_id = $this->db->insert_id();
+
+        ///////////////////////////////
+        //          POSTS
+        ///////////////////////////////
+        $this->db->insert("thread_post", Array("thread_id"=> $thread1_id, "user_id"=> $prof1_id,
+            "content"=>"Avaliação da cadeira", "date" =>"2020-04-13 11:00:00")); 
+            $post1_id = $this->db->insert_id();
         
         ///////////////////////////////
         //          PROJETOS

@@ -19,8 +19,12 @@
 
             <br>
             
-            <h2>Membros:</h2>
-            <div class="membros"></div>
+            <h4>Membros Não-Classificados:</h4>
+            <div class="notClassified"></div>
+
+               
+            <h4>Membros Classificados:</h4>
+            <div class="classified"></div>
 
         </div>
 
@@ -35,7 +39,7 @@
                             
                             <p>
                                 <div class="value">1</div>
-                                <input id="rateUser" type="range" min="1" max="5" step="1" value="0">
+                                <input id="rate" type="range" min="1" max="5" step="1" value="0">
                             </p>
 
                             <input type="button" id="popup_button" value="Submeter Rating">

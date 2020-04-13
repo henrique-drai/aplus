@@ -1,7 +1,8 @@
 <title>A+ for Students</title>
-<!-- <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/teacher-subject.css"> -->
 <script>setPageName("group")</script>
 <script src="<?php echo $base_url; ?>js/student/rating_page.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/student/popup.css">
+
 </head>
 
 <body>
@@ -21,7 +22,27 @@
             <h2>Membros:</h2>
             <div class="membros"></div>
 
-
         </div>
+
+         <div class="overlay">
+                <div class="popup">
+                    <a class="close" href="#">&times;</a>
+                    <div class="content">
+                        
+                    <!-- <h2 id ="labelRating">Rating</h2> -->
+
+                        <form id="threadForm" class="thread-form"  action="javascript:void(0)">
+                            
+                            <p>
+                                <div class="value">1</div>
+                                <input id="rateUser" type="range" min="1" max="5" step="1" value="0">
+                            </p>
+
+                            <input type="button" id="popup_button" value="Submeter Rating">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
 
     </main>

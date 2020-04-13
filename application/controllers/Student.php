@@ -20,6 +20,7 @@ class Student extends REST_Controller {
     //student/api/função
     public function api_post($f) {
         switch ($f) {
+            case "submitRating":         $this->submitRating(); break;//     /student/api/getCadeiras
             // adicionem aqui as vossas funções
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
@@ -36,6 +37,24 @@ class Student extends REST_Controller {
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
+    }
+
+
+       //////////////////////////////////////////////////////////////
+    //                     Classification
+    //////////////////////////////////////////////////////////////
+    
+    public function submitRating(){
+        $this->load->model('GroupModel');
+
+        $data = Array(
+            "classificador_id"      => $this->post('meuUser'),
+            "classificado_id"     => $this->post('himUser'),
+            "grupo_id"              => $this->post('grupoId'),
+            "valor"              => $this->post('rating')
+        );
+       
+        $this->GroupModel->insertClassification($data); 
     }
 
 
@@ -92,7 +111,6 @@ class Student extends REST_Controller {
     }
 
 
-
     //////////////////////////////////////////////////////////////
     //                     GROUPS
     //////////////////////////////////////////////////////////////
@@ -104,21 +122,14 @@ class Student extends REST_Controller {
         $user_id = $this->get('id');
         $data['grupo'] = $this->GroupModel->getGroups($user_id);
 
-
         $data["info"] = array();
 
         for ($i=0; $i < count($data["grupo"]); $i++) {
-            // print_r($data["grupo"][$i]["grupo_id"]);
+           
             $projId =  $this->GroupModel->getProjectId($data["grupo"][$i]["grupo_id"]);
-            
-            // print_r($this->ProjectModel->getProjectByID($projId[0]['projeto_id']));
-
-
             array_push($data["info"], $this->ProjectModel->getProjectByID($projId[0]['projeto_id']));
         }
-          
-        // print_r($data["info"]);
-    
+              
         $this->response($data, parent::HTTP_OK);
     }
     

@@ -1,6 +1,7 @@
 <title>A+ for Teachers</title>
 <script>setPageName("rating")</script>
 <script src="<?php echo $base_url; ?>js/student/rating.js"></script>
+
 </head>
 
 <body>
@@ -13,4 +14,6 @@
         <div class="form-container">
             <div class="grupos"></div>
         </div>
+
+
     </main>

@@ -19,7 +19,7 @@ class Projects extends CI_Controller {
     }
 
     //      projects/new/:subject_code/:year
-    public function new($subject_code)
+    public function new($subject_code, $year)
     {
         $data["base_url"] = base_url();
         
@@ -33,6 +33,30 @@ class Projects extends CI_Controller {
 
         //verificar se o objeto existe
         if(is_null($data["subject"])){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        //verificar se o curso ao qual a cadeira pertence 
+        // ir buscar ano letivo id do ano letivo que começa em year
+        // ir buscar curso cujo id é igual ao subject[curso_id]
+        // verificar se id do ano letivo é igual ao ano letivo do curso
+        $this->load->model('YearModel');
+        $this->load->model('CourseModel');
+
+    
+        $ano_letivo = $this->YearModel->getYearByInicio($year);
+
+        if(is_null($ano_letivo)){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        $course = $this->CourseModel->getCursobyId($data["subject"]->curso_id);
+    
+        if(is_null($course)){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        if ($course->ano_letivo_id != $ano_letivo->id){
             $this->load->view('errors/404', $data); return null;
         }
 

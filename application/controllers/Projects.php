@@ -122,4 +122,26 @@ class Projects extends CI_Controller {
         }
     }
 
+    public function uploadEnunciadoEtapa($etapa_id)
+    {
+        $project_id = $_SESSION["project_id"];
+        $upload['upload_path'] = './uploads/enunciados_files/' + $project_id + '/';
+        $upload['allowed_types'] = 'pdf';
+        $upload['file_name'] = 'idetapa';
+        $upload['overwrite'] = true;
+
+        $this->load->library('upload', $upload);
+
+        if ( ! $this->upload->do_upload('file_etapa'))
+        {
+            $error = array('error' => $this->upload->display_errors());
+            print_r($error);
+            echo "<br>Erro upload ficheiro";
+        }
+        else
+        {
+            header("Location: ".base_url()."projects/project/".$project_id);
+        }
+    }
+
 }

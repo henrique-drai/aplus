@@ -84,17 +84,20 @@ $(document).ready(() => {
 
     //ETAPAS --- 
 
+    $("#file_etapa").on('change', function(){
+        $("#addEnuncEtapa").show();
+        $("#file_etapa").css("border-left-color", "lawngreen");
+    })
+
     // getEtapas - ETAPAS
     getEtapas(proj);
 
-    // data final = data etapa mais tarde - PROJETO
-    var datafinal = $(".data-val").last().text();
-    $("#entrega_h3").text("Entrega final: " + datafinal);
+    $("#entrega_h3").text("Entrega final:");
 
-    // refresh tabela - ETAPAS
-    setInterval(function(){
+    // refresh tabela 1 vez para atualizar a data - ETAPAS
+    setTimeout(function(){
          getEtapas(proj);
-         var datafinal = $(".data-val").last().text();
+         var datafinal = $(".etapasDIV").last().find("p:nth-child(2)").text();
          if(datafinal == ''){
             $("#entrega_h3").text("Entrega final: Ainda não definida");
          } else {
@@ -111,6 +114,7 @@ $(document).ready(() => {
         $("#newEtapaEDIT").hide();
         $("#feedback-form").hide();
         $("#etapa-label").text("Nova etapa:");
+        $("#addEnunciadoForm").hide();
         emptyEtapa();
 
         if(formStatus != 'new'){
@@ -132,6 +136,7 @@ $(document).ready(() => {
         $("#newEtapa").hide();
         $("#newEtapaEDIT").hide();
         $("#feedback-form").show();
+        $("#addEnunciadoForm").hide();
         showGroups(proj);
 
         if(formStatus != 'feedback'){
@@ -160,6 +165,7 @@ $(document).ready(() => {
         $("#etapa-label").text("Editar etapa '" + $("#etapa" + newid).find("p:first").text() + "':");
         $("#newEtapa").hide();
         $("#feedback-form").hide();
+        $("#addEnunciadoForm").hide();
 
         putEtapaInfoForm(newid);
 
@@ -174,6 +180,26 @@ $(document).ready(() => {
             $("#newEtapa").hide();
         }
     });
+
+
+    //ADICIONAR ENUNCIADO - ETAPA
+    $('body').on('click', "#addEtapaEnunciado", function(){
+        $("#etapa-form").hide();
+        $("#newEtapa").hide();
+        $("#newEtapaEDIT").hide();
+        $("#feedback-form").hide();
+        $("#addEnunciadoForm").show();
+
+        if(formStatus != 'addEnunc'){
+            formStatus = 'addEnunc';
+            checkFormStatus();
+        } else {
+            formStatus = null;
+            checkFormStatus();
+            $("#etapa-form").hide();
+            $("#addEnunciadoForm").hide();
+        }
+    })
 
     //on change mudar a etapa (variavel) - EDITAR ETAPA
     $("#etapa").change(function(){
@@ -210,14 +236,25 @@ $(document).ready(() => {
         getEtapas(proj);
     })
 
+
     //mostrar info extra da etapa - TABELA ETAPAS
     $('body').on('click', '.moreInfoButtons', function(){
         selected_etapa = $(this).attr("id");
         var divid = 'div' + selected_etapa;
+
+        $(".moreInfoButtons").css("background-color", "white");
+
+        if ($(this).css('background-color') == "#3e5d4f"){
+            $(this).css("background-color", "white");
+        } else {
+            $(this).css("background-color", "#3e5d4f");
+        }
+        
         $('.etapas-info').hide();
         $('#' + divid).show();
         $("#etapa-form").hide();
         $("#feedback-form").hide();
+        $("#addEnunciadoForm").hide();
         formStatus = null;
         checkFormStatus();
     })
@@ -276,6 +313,7 @@ function emptyEtapa(){
 function putEtapaInfoForm(newid){
     var name = $("#etapa" + newid).find("p:first").text();
     var data = $("#etapa" + newid).find("p:nth-child(2)").text().replace(",","");
+    data +=":00";
     var desc = $("#div" + newid).find("p").first().text();
     var newdata = strToDate(data).toISOString();
     var finaldata = newdata.substring(0,newdata.length-1);
@@ -345,6 +383,7 @@ function submit_etapa(){
             success: function(data) {
                 console.log(proj);
                 console.log(data);
+                location.reload();
             },
             error: function(data) {
                 console.log("Erro na API - Submit Etapa");
@@ -455,18 +494,27 @@ function checkFormStatus(){
         $("#opennewEtapa").css('background-color','white');
         $(".editb").css('background-color','#3e5d4f');
         $(".feedbackb").css('background-color','white');
+        $(".addE").css('background-color','white');
     } else if(formStatus == 'new'){
         $("#opennewEtapa").css('background-color','#3e5d4f');
         $(".editb").css('background-color','white');
         $(".feedbackb").css('background-color','white');
+        $(".addE").css('background-color','white');
     } else if(formStatus == 'feedback'){
         $(".feedbackb").css('background-color','#3e5d4f');
         $("#opennewEtapa").css('background-color','white');
         $(".editb").css('background-color','white');
+        $(".addE").css('background-color','white');
+    } else if(formStatus == 'addEnunc'){
+        $("#opennewEtapa").css('background-color','white');
+        $(".editb").css('background-color','white');
+        $(".feedbackb").css('background-color','white');
+        $(".addE").css('background-color','#3e5d4f');
     } else {
         $("#opennewEtapa").css('background-color','white');
         $(".editb").css('background-color','white');
         $(".feedbackb").css('background-color','white');
+        $(".addE").css('background-color','white');
     }
 }
 
@@ -513,8 +561,9 @@ function makeEtapaTable(data){
             '<p>' + newenunciado + '</p>' +
              removebut +
             '<div class="wrapper">'+
+            '<input id="addEtapaEnunciado" class="addE" type="button" value="Adicionar Enunciado">' +
             '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +
-            '<input id="feedbackEtapaButton" class="feedbackb" type="button" value="Feedback"></input>'+
+            '<input id="feedbackEtapaButton" class="feedbackb" type="button" value="Feedback">'+
             '<input id="removeEtapaButton" class="remove" type="button" value="Eliminar">' +
             '</div>' +
             '</div>'
@@ -562,10 +611,8 @@ function showGroups(proj_id) {
         success: function(data) {
             console.log(data);
             var linhas = '<option value="">--- Grupos ---</option>';
-            $("#groups_list tr").remove();
-            $("#groups_list").append("<tr><th>Nome</th>" +
-                "<th>Elementos</th><th>Chat</th></tr>");
-
+            var str = ''
+            
             for(var i=0; i < data["grupos"].length; i++) {
                 var names = '';
 
@@ -574,22 +621,23 @@ function showGroups(proj_id) {
                         names = names + data["nomes"][j].user_name.name + " " + data["nomes"][j].user_name.surname + " | ";
                     }
                 }
-
-                $("#groups_list").append("<tr><td>" + data["grupos"][i].name +"</td>" +
-                    "<td>" + names.slice(0, -2) + "</td><td>" +
-                    "<input id='chatButton' type='button' value='Chat'></td></tr>");
-
+                
+                str += '<div class="gruposDIV" id="grupo' + data["grupos"][i].id + '">' +
+                    '<p><b> Grupo: </b>' + data["grupos"][i].name + '</p>' +
+                    '<p><b>Membros: </b>'+ names.slice(0, -2) +'</p>' +
+                    '<p><input id="chatButton" type="button" value="Chat"></p></div><hr>'
 
                 linhas += '<option value=' +  data["grupos"][i].id  +">" + data["grupos"][i].name  + '</option>'; 
             }
             
+            $("#grupos-container").html(str);
             $("#select_grupo_feedback").html(linhas);
         },
         error: function(data) {
             console.log("Erro na API - Show Groups")
             $("#select_grupo_feedback").html('<option value="">--- Não existem grupos ---</option>');
-            $("#groups_list").html("Não existem grupos para mostrar.")
-            console.log(data)
+            $("#grupos-container").html("<p>Não existem grupos para mostrar.</p><hr>");
+            console.log(data);
         }
     });
 }

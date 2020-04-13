@@ -28,8 +28,11 @@ class Student extends REST_Controller {
 
     public function api_get($f) {
         switch ($f) {
-            case "getCadeiras":     $this->getCadeiras(); break;//     /student/api/getCadeiras
-            case "getInfo":         $this->getInfo(); break;//     /student/api/getInfo
+            case "getCadeiras":         $this->getCadeiras(); break;//     /student/api/getCadeiras
+            case "getInfo":             $this->getInfo(); break;//     /student/api/getInfo
+            case "getMyGroups":         $this->getMyGroups(); break;
+            case "getStudentsFromGroup":    $this->getStudentsFromGroup(); break;
+            case "getCadeiraGrupo":         $this->getCadeiraGrupo(); break;
 
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -70,6 +73,70 @@ class Student extends REST_Controller {
         $data['user'] = array();
         for ($i=0; $i < count($data["hours"]); $i++) {
             array_push($data["user"], $this->UserModel->getUserById($data["hours"][$i]['id_prof']));
+        }
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+
+    
+    //////////////////////////////////////////////////////////////
+    //                     Students
+    //////////////////////////////////////////////////////////////
+    
+    public function getAllStudents(){
+        $this->load->model('UserModel');
+        $data["students"] = $this->UserModel->getStudents();
+        
+        $this->response($data, parent::HTTP_OK);
+    }
+
+
+
+    //////////////////////////////////////////////////////////////
+    //                     GROUPS
+    //////////////////////////////////////////////////////////////
+
+    public function getMyGroups(){
+        $this->load->model('GroupModel');
+        $this->load->model('ProjectModel');
+
+        $user_id = $this->get('id');
+        $data['grupo'] = $this->GroupModel->getGroups($user_id);
+
+
+        $data["info"] = array();
+
+        for ($i=0; $i < count($data["grupo"]); $i++) {
+            // print_r($data["grupo"][$i]["grupo_id"]);
+            $projId =  $this->GroupModel->getProjectId($data["grupo"][$i]["grupo_id"]);
+            
+            // print_r($this->ProjectModel->getProjectByID($projId[0]['projeto_id']));
+
+
+            array_push($data["info"], $this->ProjectModel->getProjectByID($projId[0]['projeto_id']));
+        }
+          
+        // print_r($data["info"]);
+    
+        $this->response($data, parent::HTTP_OK);
+    }
+    
+    public function getStudentsFromGroup(){
+        $this->load->model('GroupModel');
+        $this->load->model('UserModel');
+        $this->load->model('ProjectModel');
+
+        $grupo_id =  $this->get('id');
+
+        $projId =  $this->GroupModel->getProjectId($grupo_id);
+        $data['proj_name'] = $this->ProjectModel->getProjectByID($projId[0]['projeto_id']);
+
+        $data['students'] = $this->GroupModel->getStudents($grupo_id);
+        $data["info"] = array();
+
+        for ($i=0; $i < count($data["students"]); $i++) {
+            array_push($data["info"], $this->UserModel->getUserById($data["students"][$i]['user_id']));
         }
 
         $this->response($data, parent::HTTP_OK);

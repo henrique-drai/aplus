@@ -86,27 +86,7 @@
 	        </div>
         </div>
 
-        <div class="container">
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                <p class="progressbar_percentage">0%</p>
-                </div>
-            </div>
-        </div>
-
         <div id="subject-container" class="container">
-            <!-- <table class="adminTable" id="show_subjects">
-                <tr>
-                    <th>Código da UC</th>
-                    <th>Curso</th>  
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
-                </tr>
-                
-            </table> -->
-        
         </div> 
         
 </main>

@@ -43,6 +43,7 @@ class Admin extends REST_Controller {
             case "getAdminHome":    $this->getAdminHome(); break; //        admin/api/getAdminHome
             case "getAllFaculdadesUnidCurricular":  $this->getAllColleges(); break; // admin/api/getAllFaculdadesUnidCurricular
             case "getAllCursosFaculdadeAno": $this->getAllCollegesYearCourses(); break; // admin/api/getAllCursosFaculdadeAno
+            case "getAllCursosFaculdade": $this->getAllCollegesCourses(); break; // admin/api/getAllCursosFaculdadeAno
             case "getAllSubjects": $this->getAllSubjects(); break; // admin/api/getAllSubjects
             case "getAllCoursesByCollege": $this->getAllCoursesByCollege(); break; // admin/api/getAllCoursesByCollege
             case "getAllSubjectsByCourse": $this->getAllSubjectsByCourse(); break; // admin/api/getAllSubjectsByCourse
@@ -131,6 +132,13 @@ class Admin extends REST_Controller {
         $this->load->model('CollegeModel');
         $data["colleges"] = $this->CollegeModel->getColleges();
         
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getAllCollegesCourses(){
+        $faculdade = $this->get('faculdade');
+        $this->load->model('CourseModel');
+        $data["courses"] = $this->CourseModel->getCollegeCourses($faculdade);
         $this->response($data, parent::HTTP_OK);
     }
 

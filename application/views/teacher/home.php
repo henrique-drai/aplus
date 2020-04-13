@@ -25,9 +25,6 @@
             <div class="prof-stats-content">
                 Nº de Alunos: <span id="hook-num-alunos"></span>
             </div>
-            <div class='prof-stats-btn'>
-                <a href="<?php echo $base_url; ?>app/students/studentsList"><div>Gerir</div></a>
-            </div>
         </div>
 
         <div class="prof-stats-window" id="horario-hook">

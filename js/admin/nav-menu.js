@@ -29,6 +29,10 @@ $(document).ready(() => {
             "href": base_url + "app/admin/students",
             "name": "Alunos"
         },
+        "chat": {
+            "href": base_url + "app/chat/"+localStorage.user_id,
+            "name": "Chat"
+        },
     }
 
     printNavBarLinks(pages)

@@ -22,6 +22,6 @@ class YearModel extends CI_Model { //ano_letivo
 
     public function getYearByInicio($inicio){
         $query = $this->db->get_where("ano_letivo", array('inicio'=>$inicio));
-        return $query->result_array();
+        return $query->row();
     }
 }

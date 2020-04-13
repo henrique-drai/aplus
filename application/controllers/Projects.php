@@ -45,10 +45,18 @@ class Projects extends CI_Controller {
 
     
         $ano_letivo = $this->YearModel->getYearByInicio($year);
+
+        if(is_null($ano_letivo)){
+            $this->load->view('errors/404', $data); return null;
+        }
+
         $course = $this->CourseModel->getCursobyId($data["subject"]->curso_id);
     
+        if(is_null($course)){
+            $this->load->view('errors/404', $data); return null;
+        }
 
-        if ($course->ano_letivo_id != $ano_letivo[0]["id"]){
+        if ($course->ano_letivo_id != $ano_letivo->id){
             $this->load->view('errors/404', $data); return null;
         }
 

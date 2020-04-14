@@ -240,7 +240,7 @@ class Database extends CI_Controller {
         ///////////////////////////////
         //          FORUNS
         ///////////////////////////////
-        $this->db->insert("forum", Array("cadeira_id"=> $cadeira1_id, "nome"=>"Evolução da Ciência",
+        $this->db->insert("forum", Array("cadeira_id"=> $cadeira1_id, "name"=>"Evolução da Ciência",
             "description"=>"Texto que descreve este projeto científico.",
             "teachers_only"=>1)); $forum1_id = $this->db->insert_id();
 
@@ -333,6 +333,8 @@ class Database extends CI_Controller {
         echo "<p><b>Prof principal</b><br>----- 13@gmail.com</p>";
         echo "<p><b>Cadeira principal</b><br>----- Teatro</p>";
         echo "<p><b>Projeto principal</b><br>----- Evolução da Ciência</p>";
+        echo "<p><b>Forum principal</b><br>----- Evolução da Ciência</p>";
+        echo "<p><b>Thread principal</b><br>----- Avaliação da Cadeira</p>";
         echo "</main>"; $this->load->view('templates/footer');
     }
 

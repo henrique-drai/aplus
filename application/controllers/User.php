@@ -100,8 +100,11 @@ class User extends REST_Controller {
         foreach ($events as $index => $e) foreach ($group_events as $ge) 
             if ($ge["evento_id"] == $e["id"]) array_push($ids_to_remove, $index);
 
-        //apagar eventos duplicados
+        //apagar eventos duplicados (transforma o events em objeto)
         foreach ($ids_to_remove as $itr) unset($events[$itr]);
+
+        //voltar a converter para array
+        $events = array_values($events);
 
         $data = Array(
             "classes" => $classes,

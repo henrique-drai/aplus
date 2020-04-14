@@ -11,7 +11,7 @@ body {
     background-color: #efefef;
 }
 main {
-    width: 100%;
+    width: calc(100% - 220px);
     padding: 3% 5%;
     box-sizing: border-box;
 }

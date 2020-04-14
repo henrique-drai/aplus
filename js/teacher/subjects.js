@@ -9,7 +9,7 @@ $(document).ready(() => {
 function showCadeiras() {
     var image_url = base_url + "uploads/pattern.jpg";
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: base_url + "teacher/api/getCadeiras",
         data: {id: localStorage.user_id},
         success: function(data) {

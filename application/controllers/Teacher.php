@@ -20,14 +20,9 @@ class Teacher extends REST_Controller {
     //teacher/api/função
     public function api_post($f) {
         switch ($f) {
-            case "getCadeiras":             $this->getCadeiras(); break;//          /teacher/api/getCadeiras
-            case "getDescription":          $this->getDescription(); break;//       /teacher/api/getDescription
-            case "getHours":                $this->getHours(); break;//             /teacher/api/getHours
             case "insertText":              $this->insertText(); break;//           /teacher/api/insertText
             case "createProject":           $this->createProject(); break;//        /teacher/api/createProject
             case "saveHours":               $this->saveHours(); break;//            /teacher/api/saveHours 
-            case "removeHours":             $this->removeHours(); break;//          /teacher/api/removeHours
-            case "getProj":                 $this->getProj(); break;//              /teacher/api/getProj
             case "removeProject":           $this->removeProject(); break; //       /teacher/api/removeProject
             case "getAllEtapas":            $this->getAllEtapas(); break; //        /teacher/api/getAllEtapas
             case "getAllGroups":            $this->getAllGroups(); break; //        /teacher/api/getAllGroups
@@ -39,22 +34,36 @@ class Teacher extends REST_Controller {
             case "getSub":                  $this->getSub(); break;//               /teacher/api/getSub
             case "insertForum":             $this->insertForum(); break;//          /teacher/api/insertForum
             case "insertFeedback":          $this->insertFeedback(); break;//       /teacher/api/insertFeedback
-            case "insertThread":           $this->insertThread(); break;//          /teacher/api/insertThread
+            case "insertThread":            $this->insertThread(); break;//          /teacher/api/insertThread
+            case "insertPost":              $this->insertPost(); break;//           /teacher/api/insertPost
 
-            default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+            default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
     public function api_get($f) {
         switch ($f) {
-            case "getCourseStudents":   $this->getCourseStudents(); break; //   /teacher/api/getCourseStudents
-            case "getProfHome":         $this->getProfHome(); break; //         /teacher/api/getProfHome
-            case "getForumInfo":        $this->getForumInfo(); break;//         /teacher/api/getForumInfo
-            case "getThreads":          $this->getThreads(); break;//           /teacher/api/getThreads
-            case "getForum":            $this->getForum(); break;//             /teacher/api/getForum
-            case "getThreadInfo":       $this->getThreadInfo(); break;//       /teacher/api/getThreadInfo
+            case "getCourseStudents":       $this->getCourseStudents(); break; //   /teacher/api/getCourseStudents
+            case "getProfHome":             $this->getProfHome(); break; //         /teacher/api/getProfHome
+            case "getForumInfo":            $this->getForumInfo(); break;//         /teacher/api/getForumInfo
+            case "getThreads":              $this->getThreads(); break;//           /teacher/api/getThreads
+            case "getForum":                $this->getForum(); break;//             /teacher/api/getForum
+            case "getThreadInfo":           $this->getThreadInfo(); break;//        /teacher/api/getThreadInfo
+            case "getDescription":          $this->getDescription(); break;//       /teacher/api/getDescription
+            case "getHours":                $this->getHours(); break;//             /teacher/api/getHours
+            case "getProj":                 $this->getProj(); break;//              /teacher/api/getProj
+            case "getCadeiras":             $this->getCadeiras(); break;//          /teacher/api/getCadeiras
 
-            default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+            default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function api_delete($f) {
+        switch ($f) {
+            case "removePost":              $this->removePost(); break; //          /teacher/api/removePost
+            case "removeHours":             $this->removeHours(); break;//          /teacher/api/removeHours
+        
+            default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
@@ -62,7 +71,7 @@ class Teacher extends REST_Controller {
     //                         SUBJECT
     //////////////////////////////////////////////////////////////
     public function getCadeiras() {
-        $user_id = $this->post('id');
+        $user_id = $this->get('id');
         $this->load->model('SubjectModel');
         $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id, "teacher");
 
@@ -82,7 +91,7 @@ class Teacher extends REST_Controller {
     }
 
     public function getDescription() {
-        $cadeira_id = $this->post('cadeira_id');
+        $cadeira_id = $this->get('cadeira_id');
         $this->load->model('SubjectModel');
         $data["info"] = $this->SubjectModel->getDescription($cadeira_id);
 
@@ -90,7 +99,7 @@ class Teacher extends REST_Controller {
     }
 
     public function getHours() {
-        $cadeira_id = $this->post('cadeira_id');
+        $cadeira_id = $this->get('cadeira_id');
         $this->load->model('SubjectModel');
         $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
 
@@ -131,11 +140,11 @@ class Teacher extends REST_Controller {
 
     public function removeHours() {
         $data = Array (
-            'id_prof'             => $this->post('user_id'),
-            'id_cadeira'          => $this->post('cadeira_id'),
-            'start_time'          => $this->post('start_time'),
-            'end_time'            => $this->post('end_time'),
-            'day'                 => $this->post('day'),
+            'id_prof'             => $this->delete('user_id'),
+            'id_cadeira'          => $this->delete('cadeira_id'),
+            'start_time'          => $this->delete('start_time'),
+            'end_time'            => $this->delete('end_time'),
+            'day'                 => $this->delete('day'),
         );
 
         $this->load->model('SubjectModel');
@@ -151,7 +160,7 @@ class Teacher extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function getProj() {
-        $cadeira_id = $this->post('cadeira_id');
+        $cadeira_id = $this->get('cadeira_id');
         $this->load->model('SubjectModel');
         $data = $this->SubjectModel->getProj($cadeira_id);
 
@@ -443,7 +452,31 @@ class Teacher extends REST_Controller {
 
         $data["posts"] = $this->ForumModel->getThreadPosts($thread_id);
 
+        $this->load->model("UserModel");
+        $data["users"] = array();
+        for($i=0; $i < count($data["posts"]); $i++) {
+            array_push($data["users"], $this->UserModel->getUserById($data["posts"][$i]["user_id"]));
+        }
+
         $this->response($data, parent::HTTP_OK);
+    }
+
+    public function insertPost() {
+        $data = Array (
+            "thread_id"          => $this->post("thread_id"),
+            "user_id"            => $this->post("user_id"),
+            "content"            => $this->post("content"),
+            "date"               => $this->post("date"),
+        );
+
+        $this->load->model("ForumModel");
+        $this->ForumModel->insertPost($data);
+    }
+
+    public function removePost() {
+        $post_id = $this->delete("post_id");
+        $this->load->model("ForumModel");
+        $this->ForumModel->removePost($post_id);
     }
 
     //////////////////////////////////////////////////////////////

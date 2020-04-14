@@ -2,8 +2,6 @@ var userId;
 $(document).ready(() => {
     getInfo(localStorage.grupo_id);
 
-    // setInterval( getInfo(localStorage.grupo_id))
-
     setInterval(function() {
         getInfo(localStorage.grupo_id);
       }, 7000);
@@ -17,7 +15,6 @@ $(document).ready(() => {
     $("body").on("click", ".close", function() {
         disappearRating("close");
     })
-
 
     $(document).keyup(function(event){
     	if(event.which=='27'){

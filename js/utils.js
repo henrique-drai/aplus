@@ -5,6 +5,15 @@ var user_info; //pode demorar algum tempo a chegar.
 //se tiverem pressa, devem usar a seguinte linha no vosso código,
 //para ter a certeza de que a user_info já está disponível:
 //await setUserInfo()
+const week_days = [
+    {id:0, sigla:"dom", name:"Domingo"},
+    {id:1, sigla:"seg", name:"Segunda-Feira"},
+    {id:2, sigla:"ter", name:"Terça-Feira"},
+    {id:3, sigla:"qua", name:"Quarta-Feira"},
+    {id:4, sigla:"qui", name:"Quinta-Feira"},
+    {id:5, sigla:"sex", name:"Sexta-Feira"},
+    {id:6, sigla:"sab", name:"Sábado"},
+]
 
 function setBaseUrl(value) {
     base_url = value;

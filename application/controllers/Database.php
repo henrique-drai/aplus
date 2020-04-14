@@ -165,15 +165,15 @@ class Database extends CI_Controller {
         //          AULAS
         ///////////////////////////////
         $this->db->insert("aula", Array("cadeira_id"=>$cadeira1_id, "type"=>"PL", "start_time"=>"10:30", "end_time"=>"12:00",
-            "day_week"=>"quinta-feira", "classroom"=>"1.3.35")); $aula1_id = $this->db->insert_id();
+            "day_week"=>4, "classroom"=>"1.3.35")); $aula1_id = $this->db->insert_id();
         $this->db->insert("aula", Array("cadeira_id"=>$cadeira1_id, "type"=>"T", "start_time"=>"10:00", "end_time"=>"12:00",
-            "day_week"=>"terça-feira", "classroom"=>"1.3.40")); $aula2_id = $this->db->insert_id();
+            "day_week"=>2, "classroom"=>"1.3.40")); $aula2_id = $this->db->insert_id();
         $this->db->insert("aula", Array("cadeira_id"=>$cadeira1_id, "type"=>"TP", "start_time"=>"15:30", "end_time"=>"17:00",
-            "day_week"=>"segunda-feira", "classroom"=>"1.3.35")); $aula3_id = $this->db->insert_id();
+            "day_week"=>1, "classroom"=>"1.3.35")); $aula3_id = $this->db->insert_id();
         $this->db->insert("aula", Array("cadeira_id"=>$cadeira2_id, "type"=>"PL", "start_time"=>"16:30", "end_time"=>"18:00",
-            "day_week"=>"sexta-feira", "classroom"=>"3.1.35")); $aula4_id = $this->db->insert_id();
+            "day_week"=>5, "classroom"=>"3.1.35")); $aula4_id = $this->db->insert_id();
         $this->db->insert("aula", Array("cadeira_id"=>$cadeira2_id, "type"=>"T", "start_time"=>"08:00", "end_time"=>"9:30",
-            "day_week"=>"terça-feira", "classroom"=>"6.3.10")); $aula5_id = $this->db->insert_id();
+            "day_week"=>2, "classroom"=>"6.3.10")); $aula5_id = $this->db->insert_id();
 
         ///////////////////////////////
         //          INSCRIÇÔES EM CURSOS
@@ -303,9 +303,9 @@ class Database extends CI_Controller {
         //          EVENTOS
         ///////////////////////////////
         $this->db->where_in('name', Array("Reunião de Grupo", "Horário de dúvidas")); $this->db->delete('evento');
-        $this->db->insert("evento", Array("start_date"=>"2020-04-15 11:00:00", "end_date"=>"2020-04-15 12:30:00", "name"=>"Reunião de Grupo",
+        $this->db->insert("evento", Array("start_date"=>"2020-04-15 11:00:00", "end_date"=>"2020-04-18 12:30:00", "name"=>"Reunião de Grupo",
             "description"=>"Discutir o modelo da base de dados.", "location"=>"FCUL")); $evento1_id = $this->db->insert_id();
-        $this->db->insert("evento", Array("start_date"=>"2020-04-16 12:10:00", "end_date"=>"2020-04-16 14:30:00", "name"=>"Horário de dúvidas",
+        $this->db->insert("evento", Array("start_date"=>"2020-04-16 12:10:00", "end_date"=>"2020-04-17 14:30:00", "name"=>"Horário de dúvidas",
             "description"=>"Horário de dúvidas com o(a) professor(a) José Cecílio", "location"=>"6.3.45")); $evento2_id = $this->db->insert_id(); 
         ///////////////////////////////
         //          REUNIÔES DE GRUPO

@@ -63,6 +63,7 @@ class Teacher extends REST_Controller {
             case "removeProject":           $this->removeProject(); break; //       /teacher/api/removeProject
             case "removeEtapa":             $this->removeEtapa(); break;//          /teacher/api/removeEtapa
             case "removeEnunciadoEtapa":    $this->removeEnunciadoEtapa(); break;// /teacher/api/removeEnunciadoEtapa
+            case "removeEnunciadoProj":     $this->removeEnunciadoProj(); break;//  /teacher/api/removeEnunciadoEtapa
 
             default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -282,6 +283,10 @@ class Teacher extends REST_Controller {
     public function removeEnunciadoEtapa(){
         $this->load->model('ProjectModel');
         $id = $this->delete('id');
+        $proj = $this->delete('projid');
+
+        unlink("uploads/enunciados_files/" . $proj . "/" . $id . ".pdf");
+
         $this->ProjectModel->clearEnuncEtapa($id);
 
         $this->response($id, parent::HTTP_OK);
@@ -389,6 +394,17 @@ class Teacher extends REST_Controller {
         $this->ProjectModel->editEtapaEnunciado($enunc, $etapa);
 
         $this->response($enunc, parent::HTTP_OK);
+    }
+
+
+    public function removeEnunciadoProj(){
+        $proj = $this->delete('projid');
+        $this->load->model('ProjectModel');
+        $this->ProjectModel->removeEnunciadoProj($proj);
+
+        unlink("uploads/enunciados_files/" . $proj . ".pdf");
+
+        $this->response($proj, parent::HTTP_OK);
     }
 
     //////////////////////////////////////////////////////////////

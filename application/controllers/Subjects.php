@@ -37,10 +37,12 @@ class Subjects extends CI_Controller {
     }
 
     //      Página de cadeira:
-    //      aplus.com/subject/subject/:subject_code
-    public function subject($subject_code = '')
+    //      aplus.com/subject/subject/:subject_code/:year
+    public function subject($subject_code = '', $year)
     {
         $data["base_url"] = base_url();
+        $this->load->model('YearModel');
+        $this->load->model('CourseModel');
         
         //verificar se a pessoa fez login
         if(is_null($this->session->userdata('role'))){
@@ -49,9 +51,15 @@ class Subjects extends CI_Controller {
 
         //buscar a info sobre o objeto
         $data["subject"] = $this->SubjectModel->getSubjectByCode($subject_code);
+        $data["year"] = $this->YearModel->getYearByInicio($year);
 
         //verificar se o objeto existe
         if(is_null($data["subject"])){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        //verificar se o ano existe
+        if(is_null($data["year"])){
             $this->load->view('errors/404', $data); return null;
         }
 
@@ -67,10 +75,12 @@ class Subjects extends CI_Controller {
         $this->load->view('templates/footer');       
     }
 
-    //      aplus.com/subject/students/:subject_code
-    public function students($subject_code = '')
+    //      aplus.com/subject/students/:subject_code/:year
+    public function students($subject_code = '', $year)
     {
         $data["base_url"] = base_url();
+        $this->load->model('YearModel');
+        $this->load->model('CourseModel');
         
         //verificar se a pessoa fez login
         if(is_null($this->session->userdata('role'))){
@@ -79,9 +89,15 @@ class Subjects extends CI_Controller {
 
         //buscar a info sobre o objeto
         $data["subject"] = $this->SubjectModel->getSubjectByCode($subject_code);
+        $data["year"] = $this->YearModel->getYearByInicio($year);
 
         //verificar se o objeto existe
         if(is_null($data["subject"])){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        //verificar se o ano existe
+        if(is_null($data["year"])){
             $this->load->view('errors/404', $data); return null;
         }
 

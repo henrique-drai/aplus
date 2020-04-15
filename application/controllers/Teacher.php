@@ -62,6 +62,7 @@ class Teacher extends REST_Controller {
         switch ($f) {
             case "removePost":              $this->removePost(); break; //          /teacher/api/removePost
             case "removeHours":             $this->removeHours(); break;//          /teacher/api/removeHours
+            case "removeForum":             $this->removeForum(); break;//          /teacher/api/removeForum
         
             default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -73,16 +74,19 @@ class Teacher extends REST_Controller {
     public function getCadeiras() {
         $user_id = $this->get('id');
         $this->load->model('SubjectModel');
+        $this->load->model('CourseModel');
+        $this->load->model('YearModel');
         $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id, "teacher");
 
         $data["info"] = array();
+        $data["curso"] = array();
         for($i=0; $i < count($data["cadeiras_id"]); $i++) {
-            array_push($data["info"], $this->SubjectModel->getCadeiraInfo($data["cadeiras_id"][$i]["cadeira_id"]));
+            $tmp = $this->SubjectModel->getCadeiraInfo($data["cadeiras_id"][$i]["cadeira_id"]);
+            array_push($data["curso"], $this->CourseModel->getCursobyId($tmp[0]["curso_id"]));
+            array_push($data["info"], $tmp);
         }
 
         if(count($data["info"]) > 0) {
-            $this->load->model('CourseModel');
-            $this->load->model('YearModel');
             $tmp = $this->CourseModel->getCursobyId($data["info"][0][0]["curso_id"]);
             $data["year"] = $this->YearModel->getYearById($tmp->ano_letivo_id);
         }
@@ -343,6 +347,17 @@ class Teacher extends REST_Controller {
             for($i = 0; $i < count($data["ids"]); $i++) {
                 array_push($data["info"], $this->SubjectModel->getCadeiraInfo($data["ids"][$i]["cadeira_id"]));
             };
+
+            if(count($data["info"]) > 0) {
+                $data["year"] = array();
+                $this->load->model('CourseModel');
+                $this->load->model('YearModel');
+
+                for($i = 0; $i < count($data["info"]); $i++) {
+                    $tmp = $this->CourseModel->getCursobyId($data["info"][0][0]["curso_id"]);
+                    array_push($data["year"], $this->YearModel->getYearById($tmp->ano_letivo_id));
+                };
+            }
     
             $data["alunos"] = array();
             $this->load->model("StudentListModel");
@@ -439,6 +454,12 @@ class Teacher extends REST_Controller {
         $data = $this->ForumModel->getForumByCadeiraID($cadeira_id);
 
         $this->response($data, parent::HTTP_OK);
+    }
+
+    public function removeForum() {
+        $forum_id = $this->delete("forum_id");
+        $this->load->model("ForumModel");
+        $this->ForumModel->removeForum($forum_id);
     }
 
     //////////////////////////////////////////////////////////////

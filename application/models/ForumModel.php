@@ -44,4 +44,8 @@ class ForumModel extends CI_Model { //forum & thread & thread_post
     public function removePost($id) {
         $this->db->delete("thread_post", array('id' => $id));
     }
+
+    public function removeForum($id) {
+        $this->db->delete("forum", array('id' => $id));
+    }
 }

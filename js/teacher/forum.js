@@ -1,7 +1,7 @@
 $(document).ready(() => {
     getInfo(localStorage.getItem("forum_id"));
     getThreads();
-    setInterval(getThreads, 3000); 
+    // setInterval(getThreads, 3000); 
 
     $('#add_button').click(function() {
         $(".overlay").css('visibility', 'visible');
@@ -26,7 +26,54 @@ $(document).ready(() => {
         localStorage.setItem("thread_id", $(this).attr("id"));
         window.location = base_url + "foruns/thread/" + $(this).attr("id");
     })
+
+        //open popup - REMOVER POST
+	$('body').on('click', '.remove', function(){
+        makePopup("confirmRemove", "Tem a certeza que deseja eliminar o projeto?");
+	});
+	
+	//close popup - REMOVER POST
+	$('body').on('click', '.cd-popup', function(){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+            event.preventDefault();
+            $(this).remove();
+		}
+    });
+    
+    //confirmed delete do popup - REMOVER POST
+    $("body").on('click', '#confirmRemove', function(){    
+        $.ajax({
+            type: "DELETE",
+            headers: {
+                "Authorization": localStorage.token
+            },
+            url: base_url + "teacher/api/removeForum",
+            data: {forum_id: localStorage.forum_id},
+            success: function(data) {
+                console.log("ok");
+                window.location = base_url + "subjects/subject/" + localStorage.cadeira_code + "/" + localStorage.year;
+            },
+            error: function(data) {
+                console.log("Erro na API - Confirm Remove Projeto")
+                console.log(data)
+            }
+        });
+    })
 })
+
+function makePopup(butID, msg){
+    popup = '<div class="cd-popup" role="alert">' +
+        '<div class="cd-popup-container">' +
+        '<p>'+ msg +'</p>' +
+        '<ul class="cd-buttons">' +
+        '<li><a href="#" id="'+ butID +'">Sim</a></li>' +
+        '<li><a href="#" id="closeButton">Não</a></li>' +
+        '</ul>' +
+        '<a class="cd-popup-close"></a>' +
+        '</div></div>'
+
+    $("#popups").html(popup);
+}
 
 function getInfo(id) {
     $.ajax({

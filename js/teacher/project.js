@@ -12,6 +12,8 @@ $(document).ready(() => {
     //tabela dos grupos
     showGroups(proj);
 
+    $("#form-upload-proj").attr('action', base_url + 'UploadsC/uploadEnunciadoProjeto/' + proj);
+
     // --- GRUPOS
 
     //REMOVER PROJETO ---
@@ -37,7 +39,7 @@ $(document).ready(() => {
         }
     
         $.ajax({
-            type: "POST",
+            type: "DELETE",
             headers: {
                 "Authorization": localStorage.token
             },
@@ -82,12 +84,21 @@ $(document).ready(() => {
 
     //--- ENUNCIADO PROJETO
 
-    //ETAPAS --- 
+    //--- ENUNCIADO ETAPA
 
     $("#file_etapa").on('change', function(){
         $("#addEnuncEtapa").show();
         $("#file_etapa").css("border-left-color", "lawngreen");
     })
+
+    $("#addEnuncEtapa").on('click', function(){
+        enunc = $("#file_etapa").val().split('\\').pop();
+        submit_new_etapa_enunciado(enunc);
+    })
+
+    //ETAPAS --- 
+
+
 
     // getEtapas - ETAPAS
     getEtapas(proj);
@@ -114,7 +125,7 @@ $(document).ready(() => {
         $("#newEtapaEDIT").hide();
         $("#feedback-form").hide();
         $("#etapa-label").text("Nova etapa:");
-        $("#addEnunciadoForm").hide();
+        $("#form-upload-etapa").hide();
         emptyEtapa();
 
         if(formStatus != 'new'){
@@ -136,7 +147,7 @@ $(document).ready(() => {
         $("#newEtapa").hide();
         $("#newEtapaEDIT").hide();
         $("#feedback-form").show();
-        $("#addEnunciadoForm").hide();
+        $("#form-upload-etapa").hide();
         showGroups(proj);
 
         if(formStatus != 'feedback'){
@@ -165,7 +176,7 @@ $(document).ready(() => {
         $("#etapa-label").text("Editar etapa '" + $("#etapa" + newid).find("p:first").text() + "':");
         $("#newEtapa").hide();
         $("#feedback-form").hide();
-        $("#addEnunciadoForm").hide();
+        $("#form-upload-etapa").hide();
 
         putEtapaInfoForm(newid);
 
@@ -188,7 +199,7 @@ $(document).ready(() => {
         $("#newEtapa").hide();
         $("#newEtapaEDIT").hide();
         $("#feedback-form").hide();
-        $("#addEnunciadoForm").show();
+        $("#form-upload-etapa").show();
 
         if(formStatus != 'addEnunc'){
             formStatus = 'addEnunc';
@@ -197,7 +208,7 @@ $(document).ready(() => {
             formStatus = null;
             checkFormStatus();
             $("#etapa-form").hide();
-            $("#addEnunciadoForm").hide();
+            $("#form-upload-etapa").hide();
         }
     })
 
@@ -242,6 +253,8 @@ $(document).ready(() => {
         selected_etapa = $(this).attr("id");
         var divid = 'div' + selected_etapa;
 
+        $("#form-upload-etapa").attr('action', base_url + 'UploadsC/uploadEnunciadoEtapa/' + proj + '/' + selected_etapa);
+
         $(".moreInfoButtons").css("background-color", "white");
 
         if ($(this).css('background-color') == "#3e5d4f"){
@@ -254,14 +267,16 @@ $(document).ready(() => {
         $('#' + divid).show();
         $("#etapa-form").hide();
         $("#feedback-form").hide();
-        $("#addEnunciadoForm").hide();
+        $("#form-upload-etapa").hide();
         formStatus = null;
         checkFormStatus();
+        
     })
 
     //remover enunciado etapa
     $('body').on('click', '#removeEnunciado', function(e) {
         etapa_clear_enunciado();
+        $(this).hide();
         getEtapas(proj);
     })
 
@@ -277,6 +292,7 @@ $(document).ready(() => {
     $("#confirmFeedback").click(() => submit_feedback($('textarea[name="feedback-text"]').val(), selected_etapa, $("#select_grupo_feedback :selected").val()));
 
     //--- ETAPAS
+    
     
 })
 
@@ -443,11 +459,11 @@ function etapa_clear_enunciado(){
     }
 
     $.ajax({
-        type: "POST",
+        type: "DELETE",
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/clearEnunciadoEtapa",
+        url: base_url + "teacher/api/removeEnunciadoEtapa",
         data: data,
         success: function(data) {
             console.log("Enunciado do proj: "+ data + "removido");
@@ -488,6 +504,33 @@ function submit_new_enunciado(enunc){
     });
 
 }
+
+function submit_new_etapa_enunciado(enunc){
+    const data = {
+        etapaid : selected_etapa,
+        enunciado : enunc,
+    }
+
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "teacher/api/editEtapaEnunciado",
+        data: data,
+        success: function(data) {
+            console.log(data);
+            console.log(base_url + "uploads/enunciados_files/"+ proj + "/" + selected_etapa);
+            $("#div"+selected_etapa).find('p:last').html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+ "/" + selected_etapa+".pdf'>" + data + "</a>");
+        },
+        error: function(data) {
+            console.log("Erro na API - Edit Etapa Enunciado");
+            console.log(data);
+        }
+    });
+
+}
+
 
 function checkFormStatus(){
     if(formStatus == 'edit'){
@@ -550,7 +593,7 @@ function makeEtapaTable(data){
             removebut = ''
         } else {
             removebut = '<label id="removeEnunciado"><img src="'+base_url+'/images/close.png"></label> '
-            newenunciado = '<a href="">' + enunciado + '</a>';
+            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + json['id'] +".pdf'>" + enunciado + "</a>"
         }
 
 
@@ -587,7 +630,7 @@ function getEtapas(proj_id){
     }
 
     $.ajax({
-        type: "POST",
+        type: "GET",
         headers: {
             "Authorization": localStorage.token
         },
@@ -605,7 +648,7 @@ function getEtapas(proj_id){
 
 function showGroups(proj_id) {
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: base_url + "teacher/api/getAllGroups",
         data: {proj_id: proj_id},
         success: function(data) {
@@ -649,7 +692,7 @@ function removeEtapa(id){
     }
 
     $.ajax({
-        type: "POST",
+        type: "DELETE",
         headers: {
             "Authorization": localStorage.token
         },
@@ -674,7 +717,7 @@ function getSumbission(grupo_id, etapa){
     }
 
     $.ajax({
-        type: "POST",
+        type: "GET",
         headers: {
             "Authorization": localStorage.token
         },

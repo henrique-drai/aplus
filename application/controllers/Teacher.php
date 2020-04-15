@@ -23,19 +23,14 @@ class Teacher extends REST_Controller {
             case "insertText":              $this->insertText(); break;//           /teacher/api/insertText
             case "createProject":           $this->createProject(); break;//        /teacher/api/createProject
             case "saveHours":               $this->saveHours(); break;//            /teacher/api/saveHours 
-            case "removeProject":           $this->removeProject(); break; //       /teacher/api/removeProject
-            case "getAllEtapas":            $this->getAllEtapas(); break; //        /teacher/api/getAllEtapas
-            case "getAllGroups":            $this->getAllGroups(); break; //        /teacher/api/getAllGroups
-            case "removeEtapa":             $this->removeEtapa(); break;//          /teacher/api/removeEtapa
             case "createEtapa":             $this->createEtapa(); break;//          /teacher/api/createEtapa
             case "editEtapa":               $this->editEtapa(); break;//            /teacher/api/editEtapa
             case "editEnunciado":           $this->editEnunciado(); break;//        /teacher/api/editEnunciado
-            case "clearEnunciadoEtapa":     $this->clearEnunciadoEtapa(); break;//  /teacher/api/clearEnunciadoEtapa
-            case "getSub":                  $this->getSub(); break;//               /teacher/api/getSub
             case "insertForum":             $this->insertForum(); break;//          /teacher/api/insertForum
             case "insertFeedback":          $this->insertFeedback(); break;//       /teacher/api/insertFeedback
-            case "insertThread":            $this->insertThread(); break;//          /teacher/api/insertThread
+            case "insertThread":            $this->insertThread(); break;//         /teacher/api/insertThread
             case "insertPost":              $this->insertPost(); break;//           /teacher/api/insertPost
+            case "editEtapaEnunciado":      $this->editEtapaEnunciado(); break;//   /teacher/api/editEtapaEnunciado
 
             default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -53,6 +48,9 @@ class Teacher extends REST_Controller {
             case "getHours":                $this->getHours(); break;//             /teacher/api/getHours
             case "getProj":                 $this->getProj(); break;//              /teacher/api/getProj
             case "getCadeiras":             $this->getCadeiras(); break;//          /teacher/api/getCadeiras
+            case "getSub":                  $this->getSub(); break;//               /teacher/api/getSub
+            case "getAllEtapas":            $this->getAllEtapas(); break; //        /teacher/api/getAllEtapas
+            case "getAllGroups":            $this->getAllGroups(); break; //        /teacher/api/getAllGroups
 
             default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -62,7 +60,10 @@ class Teacher extends REST_Controller {
         switch ($f) {
             case "removePost":              $this->removePost(); break; //          /teacher/api/removePost
             case "removeHours":             $this->removeHours(); break;//          /teacher/api/removeHours
-        
+            case "removeProject":           $this->removeProject(); break; //       /teacher/api/removeProject
+            case "removeEtapa":             $this->removeEtapa(); break;//          /teacher/api/removeEtapa
+            case "removeEnunciadoEtapa":    $this->removeEnunciadoEtapa(); break;// /teacher/api/removeEnunciadoEtapa
+
             default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
@@ -169,7 +170,7 @@ class Teacher extends REST_Controller {
 
 
     public function removeProject() {
-        $proj_id = $this->post('projid');
+        $proj_id = $this->delete('projid');
         $this->load->model('ProjectModel');
         $data = $this->ProjectModel->removeProjectByID($proj_id);
 
@@ -212,7 +213,7 @@ class Teacher extends REST_Controller {
     }
 
     public function getAllEtapas(){
-        $proj_id = $this->post('projid');
+        $proj_id = $this->get('projid');
         $this->load->model('ProjectModel');
         $data = $this->ProjectModel->getEtapasByProjectID($proj_id);
 
@@ -221,7 +222,7 @@ class Teacher extends REST_Controller {
 
 
     public function removeEtapa(){
-        $id = $this->post('etapa_id');
+        $id = $this->delete('etapa_id');
         $this->load->model('ProjectModel');
         $data = $this->ProjectModel->removeEtapaByID($id);
 
@@ -278,9 +279,9 @@ class Teacher extends REST_Controller {
     }
 
 
-    public function clearEnunciadoEtapa(){
+    public function removeEnunciadoEtapa(){
         $this->load->model('ProjectModel');
-        $id = $this->post('id');
+        $id = $this->delete('id');
         $this->ProjectModel->clearEnuncEtapa($id);
 
         $this->response($id, parent::HTTP_OK);
@@ -312,7 +313,7 @@ class Teacher extends REST_Controller {
     }
 
     public function getAllGroups() {
-        $proj_id = $this->post("proj_id");
+        $proj_id = $this->get("proj_id");
         $this->load->model("GroupModel");
         $data["grupos"] = $this->GroupModel->getAllGroups($proj_id);
 
@@ -355,8 +356,8 @@ class Teacher extends REST_Controller {
     }
 
     public function getSub(){
-        $grupo_id = $this->post('grupo_id');
-        $etapa_id = $this->post('etapa_id');
+        $grupo_id = $this->get('grupo_id');
+        $etapa_id = $this->get('etapa_id');
 
         $this->load->model('ProjectModel');
 
@@ -377,6 +378,17 @@ class Teacher extends REST_Controller {
         $data = $this->ProjectModel->insertFeedback($feedback, $etapa_submit->row()->id);
 
         $this->response($etapa_submit, parent::HTTP_OK);
+    }
+
+    public function editEtapaEnunciado(){
+        $etapa = $this->post('etapaid');
+        $enunc = $this->post('enunciado');
+
+        $this->load->model('ProjectModel');
+
+        $this->ProjectModel->editEtapaEnunciado($enunc, $etapa);
+
+        $this->response($enunc, parent::HTTP_OK);
     }
 
     //////////////////////////////////////////////////////////////

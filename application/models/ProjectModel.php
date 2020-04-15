@@ -59,6 +59,13 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
         $this->db->update("etapa_submit");
         return $this->db->affected_rows(); 
     }
+
+    public function editEtapaEnunciado($enunciado, $etapa){
+        $this->db->set('enunciado_url', $enunciado);
+        $this->db->where('id', $etapa);
+        $this->db->update("etapa");
+        return $this->db->affected_rows();
+    }
 }
 
 

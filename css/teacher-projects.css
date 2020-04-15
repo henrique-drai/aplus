@@ -116,7 +116,7 @@
 
 /* Especifico da página project */
 
-#addEnunciadoForm, #addEnuncEtapa{
+#addEnunciadoForm, #form-upload-etapa{
     display: none;
 }
 
@@ -254,6 +254,10 @@ input.remove:hover {
 
 #confirmFeedback{
     display: none;
+}
+
+#opennewEtapa{
+    margin-bottom: 30px;
 }
 
 

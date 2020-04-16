@@ -155,7 +155,7 @@ function validateFormNumb(id){
 
 function getInfo($id) {
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: base_url + "teacher/api/getDescription",
         data: {cadeira_id: $id},
         success: function(data) {
@@ -184,7 +184,7 @@ function getInfo($id) {
 
 function getHours($id) {
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: base_url + "teacher/api/getHours",
         data: {cadeira_id: $id},
         success: function(data) {
@@ -226,7 +226,7 @@ function insertText($text) {
 
 function setHours($id) {
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: base_url + "teacher/api/getHours",
         data: {cadeira_id: $id},
         success: function(data) {
@@ -323,7 +323,7 @@ function saveHours(data) {
 
 function removeHours(data) {
     $.ajax({
-        type: "POST",
+        type: "DELETE",
         url: base_url + "teacher/api/removeHours",
         data: data,
         success: function(data) {
@@ -337,7 +337,7 @@ function removeHours(data) {
 
 function getProj(data) {
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: base_url + "teacher/api/getProj",
         data: {cadeira_id: data},
         success: function(data) {

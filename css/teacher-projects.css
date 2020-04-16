@@ -50,12 +50,12 @@
     font-weight: 600;
 }
 
-#removeEtapa, #removeEtapa img, #addEtapa, #addEtapa img, #removeEnunciado, #removeEnunciado img{
+#addEtapa, #addEtapa img, .labelRemove, .labelRemove img{
     width:30px;
     border-radius: 15px;
 }
 
-#removeEtapa, #addEtapa, #removeEnunciado{
+#addEtapa, .labelRemove{
     cursor:pointer;
 }
 
@@ -65,7 +65,7 @@
     margin-top: -42px;
 }
 
-#removeEtapa img:hover, #addEtapa:hover, #removeEnunciado img:hover{
+#addEtapa:hover, .labelRemove img:hover{
     background-color:rgb(194, 194, 194);
 }
 
@@ -116,7 +116,7 @@
 
 /* Especifico da página project */
 
-#addEnunciadoForm, #addEnuncEtapa{
+#addEnunciadoForm, #form-upload-etapa{
     display: none;
 }
 
@@ -124,6 +124,12 @@
     margin-left: 170px;
     position: absolute;
     margin-top: -83px;
+}
+
+#removeEnunciadoProj{
+    position: absolute;
+    margin-left: 300px;
+    margin-top: 0px;
 }
 
 .buttons-container input{
@@ -254,6 +260,10 @@ input.remove:hover {
 
 #confirmFeedback{
     display: none;
+}
+
+#opennewEtapa{
+    margin-bottom: 30px;
 }
 
 

@@ -20,41 +20,53 @@ class Teacher extends REST_Controller {
     //teacher/api/função
     public function api_post($f) {
         switch ($f) {
-            case "getCadeiras":             $this->getCadeiras(); break;//          /teacher/api/getCadeiras
-            case "getDescription":          $this->getDescription(); break;//       /teacher/api/getDescription
-            case "getHours":                $this->getHours(); break;//             /teacher/api/getHours
             case "insertText":              $this->insertText(); break;//           /teacher/api/insertText
             case "createProject":           $this->createProject(); break;//        /teacher/api/createProject
             case "saveHours":               $this->saveHours(); break;//            /teacher/api/saveHours 
-            case "removeHours":             $this->removeHours(); break;//          /teacher/api/removeHours
-            case "getProj":                 $this->getProj(); break;//              /teacher/api/getProj
-            case "removeProject":           $this->removeProject(); break; //       /teacher/api/removeProject
-            case "getAllEtapas":            $this->getAllEtapas(); break; //        /teacher/api/getAllEtapas
-            case "getAllGroups":            $this->getAllGroups(); break; //        /teacher/api/getAllGroups
-            case "removeEtapa":             $this->removeEtapa(); break;//          /teacher/api/removeEtapa
             case "createEtapa":             $this->createEtapa(); break;//          /teacher/api/createEtapa
             case "editEtapa":               $this->editEtapa(); break;//            /teacher/api/editEtapa
             case "editEnunciado":           $this->editEnunciado(); break;//        /teacher/api/editEnunciado
-            case "clearEnunciadoEtapa":     $this->clearEnunciadoEtapa(); break;//  /teacher/api/clearEnunciadoEtapa
-            case "getSub":                  $this->getSub(); break;//               /teacher/api/getSub
             case "insertForum":             $this->insertForum(); break;//          /teacher/api/insertForum
             case "insertFeedback":          $this->insertFeedback(); break;//       /teacher/api/insertFeedback
-            case "insertThread":           $this->insertThread(); break;//          /teacher/api/insertThread
+            case "insertThread":            $this->insertThread(); break;//         /teacher/api/insertThread
+            case "insertPost":              $this->insertPost(); break;//           /teacher/api/insertPost
+            case "editEtapaEnunciado":      $this->editEtapaEnunciado(); break;//   /teacher/api/editEtapaEnunciado
 
-            default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+            default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
     public function api_get($f) {
         switch ($f) {
-            case "getCourseStudents":   $this->getCourseStudents(); break; //   /teacher/api/getCourseStudents
-            case "getProfHome":         $this->getProfHome(); break; //         /teacher/api/getProfHome
-            case "getForumInfo":        $this->getForumInfo(); break;//         /teacher/api/getForumInfo
-            case "getThreads":          $this->getThreads(); break;//           /teacher/api/getThreads
-            case "getForum":            $this->getForum(); break;//             /teacher/api/getForum
-            case "getThreadInfo":       $this->getThreadInfo(); break;//       /teacher/api/getThreadInfo
+            case "getCourseStudents":       $this->getCourseStudents(); break; //   /teacher/api/getCourseStudents
+            case "getProfHome":             $this->getProfHome(); break; //         /teacher/api/getProfHome
+            case "getForumInfo":            $this->getForumInfo(); break;//         /teacher/api/getForumInfo
+            case "getThreads":              $this->getThreads(); break;//           /teacher/api/getThreads
+            case "getForum":                $this->getForum(); break;//             /teacher/api/getForum
+            case "getThreadInfo":           $this->getThreadInfo(); break;//        /teacher/api/getThreadInfo
+            case "getDescription":          $this->getDescription(); break;//       /teacher/api/getDescription
+            case "getHours":                $this->getHours(); break;//             /teacher/api/getHours
+            case "getProj":                 $this->getProj(); break;//              /teacher/api/getProj
+            case "getCadeiras":             $this->getCadeiras(); break;//          /teacher/api/getCadeiras
+            case "getSub":                  $this->getSub(); break;//               /teacher/api/getSub
+            case "getAllEtapas":            $this->getAllEtapas(); break; //        /teacher/api/getAllEtapas
+            case "getAllGroups":            $this->getAllGroups(); break; //        /teacher/api/getAllGroups
 
-            default:                    $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+            default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function api_delete($f) {
+        switch ($f) {
+            case "removePost":              $this->removePost(); break; //          /teacher/api/removePost
+            case "removeHours":             $this->removeHours(); break;//          /teacher/api/removeHours
+            case "removeProject":           $this->removeProject(); break; //       /teacher/api/removeProject
+            case "removeEtapa":             $this->removeEtapa(); break;//          /teacher/api/removeEtapa
+            case "removeEnunciadoEtapa":    $this->removeEnunciadoEtapa(); break;// /teacher/api/removeEnunciadoEtapa
+            case "removeEnunciadoProj":     $this->removeEnunciadoProj(); break;//  /teacher/api/removeEnunciadoEtapa
+            case "removeForum":             $this->removeForum(); break;//          /teacher/api/removeForum
+            
+            default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
@@ -62,18 +74,21 @@ class Teacher extends REST_Controller {
     //                         SUBJECT
     //////////////////////////////////////////////////////////////
     public function getCadeiras() {
-        $user_id = $this->post('id');
+        $user_id = $this->get('id');
         $this->load->model('SubjectModel');
+        $this->load->model('CourseModel');
+        $this->load->model('YearModel');
         $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id, "teacher");
 
         $data["info"] = array();
+        $data["curso"] = array();
         for($i=0; $i < count($data["cadeiras_id"]); $i++) {
-            array_push($data["info"], $this->SubjectModel->getCadeiraInfo($data["cadeiras_id"][$i]["cadeira_id"]));
+            $tmp = $this->SubjectModel->getCadeiraInfo($data["cadeiras_id"][$i]["cadeira_id"]);
+            array_push($data["curso"], $this->CourseModel->getCursobyId($tmp[0]["curso_id"]));
+            array_push($data["info"], $tmp);
         }
 
         if(count($data["info"]) > 0) {
-            $this->load->model('CourseModel');
-            $this->load->model('YearModel');
             $tmp = $this->CourseModel->getCursobyId($data["info"][0][0]["curso_id"]);
             $data["year"] = $this->YearModel->getYearById($tmp->ano_letivo_id);
         }
@@ -82,7 +97,7 @@ class Teacher extends REST_Controller {
     }
 
     public function getDescription() {
-        $cadeira_id = $this->post('cadeira_id');
+        $cadeira_id = $this->get('cadeira_id');
         $this->load->model('SubjectModel');
         $data["info"] = $this->SubjectModel->getDescription($cadeira_id);
 
@@ -90,7 +105,7 @@ class Teacher extends REST_Controller {
     }
 
     public function getHours() {
-        $cadeira_id = $this->post('cadeira_id');
+        $cadeira_id = $this->get('cadeira_id');
         $this->load->model('SubjectModel');
         $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
 
@@ -131,11 +146,11 @@ class Teacher extends REST_Controller {
 
     public function removeHours() {
         $data = Array (
-            'id_prof'             => $this->post('user_id'),
-            'id_cadeira'          => $this->post('cadeira_id'),
-            'start_time'          => $this->post('start_time'),
-            'end_time'            => $this->post('end_time'),
-            'day'                 => $this->post('day'),
+            'id_prof'             => $this->delete('user_id'),
+            'id_cadeira'          => $this->delete('cadeira_id'),
+            'start_time'          => $this->delete('start_time'),
+            'end_time'            => $this->delete('end_time'),
+            'day'                 => $this->delete('day'),
         );
 
         $this->load->model('SubjectModel');
@@ -151,7 +166,7 @@ class Teacher extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function getProj() {
-        $cadeira_id = $this->post('cadeira_id');
+        $cadeira_id = $this->get('cadeira_id');
         $this->load->model('SubjectModel');
         $data = $this->SubjectModel->getProj($cadeira_id);
 
@@ -160,7 +175,7 @@ class Teacher extends REST_Controller {
 
 
     public function removeProject() {
-        $proj_id = $this->post('projid');
+        $proj_id = $this->delete('projid');
         $this->load->model('ProjectModel');
         $data = $this->ProjectModel->removeProjectByID($proj_id);
 
@@ -203,7 +218,7 @@ class Teacher extends REST_Controller {
     }
 
     public function getAllEtapas(){
-        $proj_id = $this->post('projid');
+        $proj_id = $this->get('projid');
         $this->load->model('ProjectModel');
         $data = $this->ProjectModel->getEtapasByProjectID($proj_id);
 
@@ -212,7 +227,7 @@ class Teacher extends REST_Controller {
 
 
     public function removeEtapa(){
-        $id = $this->post('etapa_id');
+        $id = $this->delete('etapa_id');
         $this->load->model('ProjectModel');
         $data = $this->ProjectModel->removeEtapaByID($id);
 
@@ -269,9 +284,13 @@ class Teacher extends REST_Controller {
     }
 
 
-    public function clearEnunciadoEtapa(){
+    public function removeEnunciadoEtapa(){
         $this->load->model('ProjectModel');
-        $id = $this->post('id');
+        $id = $this->delete('id');
+        $proj = $this->delete('projid');
+
+        unlink("uploads/enunciados_files/" . $proj . "/" . $id . ".pdf");
+
         $this->ProjectModel->clearEnuncEtapa($id);
 
         $this->response($id, parent::HTTP_OK);
@@ -303,7 +322,7 @@ class Teacher extends REST_Controller {
     }
 
     public function getAllGroups() {
-        $proj_id = $this->post("proj_id");
+        $proj_id = $this->get("proj_id");
         $this->load->model("GroupModel");
         $data["grupos"] = $this->GroupModel->getAllGroups($proj_id);
 
@@ -334,6 +353,17 @@ class Teacher extends REST_Controller {
             for($i = 0; $i < count($data["ids"]); $i++) {
                 array_push($data["info"], $this->SubjectModel->getCadeiraInfo($data["ids"][$i]["cadeira_id"]));
             };
+
+            if(count($data["info"]) > 0) {
+                $data["year"] = array();
+                $this->load->model('CourseModel');
+                $this->load->model('YearModel');
+
+                for($i = 0; $i < count($data["info"]); $i++) {
+                    $tmp = $this->CourseModel->getCursobyId($data["info"][0][0]["curso_id"]);
+                    array_push($data["year"], $this->YearModel->getYearById($tmp->ano_letivo_id));
+                };
+            }
     
             $data["alunos"] = array();
             $this->load->model("StudentListModel");
@@ -346,8 +376,8 @@ class Teacher extends REST_Controller {
     }
 
     public function getSub(){
-        $grupo_id = $this->post('grupo_id');
-        $etapa_id = $this->post('etapa_id');
+        $grupo_id = $this->get('grupo_id');
+        $etapa_id = $this->get('etapa_id');
 
         $this->load->model('ProjectModel');
 
@@ -368,6 +398,28 @@ class Teacher extends REST_Controller {
         $data = $this->ProjectModel->insertFeedback($feedback, $etapa_submit->row()->id);
 
         $this->response($etapa_submit, parent::HTTP_OK);
+    }
+
+    public function editEtapaEnunciado(){
+        $etapa = $this->post('etapaid');
+        $enunc = $this->post('enunciado');
+
+        $this->load->model('ProjectModel');
+
+        $this->ProjectModel->editEtapaEnunciado($enunc, $etapa);
+
+        $this->response($enunc, parent::HTTP_OK);
+    }
+
+
+    public function removeEnunciadoProj(){
+        $proj = $this->delete('projid');
+        $this->load->model('ProjectModel');
+        $this->ProjectModel->removeEnunciadoProj($proj);
+
+        unlink("uploads/enunciados_files/" . $proj . ".pdf");
+
+        $this->response($proj, parent::HTTP_OK);
     }
 
     //////////////////////////////////////////////////////////////
@@ -432,6 +484,12 @@ class Teacher extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function removeForum() {
+        $forum_id = $this->delete("forum_id");
+        $this->load->model("ForumModel");
+        $this->ForumModel->removeForum($forum_id);
+    }
+
     //////////////////////////////////////////////////////////////
     //                         THREAD
     //////////////////////////////////////////////////////////////
@@ -443,7 +501,31 @@ class Teacher extends REST_Controller {
 
         $data["posts"] = $this->ForumModel->getThreadPosts($thread_id);
 
+        $this->load->model("UserModel");
+        $data["users"] = array();
+        for($i=0; $i < count($data["posts"]); $i++) {
+            array_push($data["users"], $this->UserModel->getUserById($data["posts"][$i]["user_id"]));
+        }
+
         $this->response($data, parent::HTTP_OK);
+    }
+
+    public function insertPost() {
+        $data = Array (
+            "thread_id"          => $this->post("thread_id"),
+            "user_id"            => $this->post("user_id"),
+            "content"            => $this->post("content"),
+            "date"               => $this->post("date"),
+        );
+
+        $this->load->model("ForumModel");
+        $this->ForumModel->insertPost($data);
+    }
+
+    public function removePost() {
+        $post_id = $this->delete("post_id");
+        $this->load->model("ForumModel");
+        $this->ForumModel->removePost($post_id);
     }
 
     //////////////////////////////////////////////////////////////

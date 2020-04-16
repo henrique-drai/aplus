@@ -19,12 +19,13 @@
         <h3 id="entrega_h3"></h3>
         <h3 id="enunciado_h3"></h3>
         <div class="wrapper-top">
-            <?php echo form_open_multipart('projects/uploadEnunciadoProjeto');?>
-                <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado">
+            <?php echo form_open_multipart('UploadsC/uploadEnunciadoProjeto', "id='form-upload-proj'");?>
+                <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado" accept=".pdf">
                 <input id="addEnunciado" type="submit" value="Adicionar enunciado">
             </form>
         </div>
         <div class="container-header">
+            <br><br>
             <h2>Grupos</h2>
         </div>
 
@@ -67,9 +68,9 @@
         </form>
 
 
-        <?php echo form_open_multipart('projects/uploadEnunciadoEtapa', 'id="addEnunciadoForm"');?>
-                <label for="file">Enunciado:</label>
-                <input class="form-input-file" type="file" id="file_etapa" name="file">
+        <?php echo form_open_multipart('UploadsC/uploadEnunciadoEtapa', 'id="form-upload-etapa"');?>
+                <label id="letapa" for="file">Enunciado:</label>
+                <input class="form-input-file" type="file" id="file_etapa" name="file_etapa" accept=".pdf">
                 <input id="addEnuncEtapa" type="submit" value="Adicionar enunciado">
         </form>
 

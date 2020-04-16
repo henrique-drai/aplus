@@ -20,20 +20,29 @@
                 <p><b>Descrição:</b> <span class="threadDesc"></span></p>
             </div>
 
-            <div class="threads">
-                <div class="post">
-                    <div class="head">
-                        <p>Autor</p>
-                        <p>Data</p>
-                    </div>
+            <div class="message">Adicionado com sucesso!</div>
+            <div id="popups"></div>
 
+            <div class="threads"></div>
+
+            <input type="button" id="create_post_button" value="Criar novo post">
+
+            <div class="overlay">
+                <div class="popup">
+                    <a class="close" href="#">&times;</a>
                     <div class="content">
-                        <p>conteúdo</p>
+                        <h2>Criar novo post</h2>
+                        <form id="threadForm" class="thread-form"  action="javascript:void(0)">
+                            <p>
+                                <label class="form-label">Conteúdo:</label>
+                                <textarea class="form-text-area" type="text" name="threadDescription" required></textarea>
+                            </p>
+
+                            <input type="button" id="popup_button" value="Criar">
+                        </form>
                     </div>
                 </div>
             </div>
-
-            <input type="button" id="create_post_button" value="Criar novo post">
 
         </div>
 

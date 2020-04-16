@@ -14,7 +14,7 @@ $(document).ready(() => {
 
         const etapa = '<p id='+pid+' class="etapa">' +
              '<label id="etapa-label" class="form-label-title"> </label>' +
-             '<label id="removeEtapa"><img src="'+base_url+'/images/close.png"></label> ' +
+             '<label id="removeEtapa" label="labelRemove"><img src="'+base_url+'/images/close.png"></label> ' +
              '<label class="form-label">Nome</label> ' +
              '<input class="form-input-text" type="text" name="etapaName" required> ' +
              '<label class="form-label">Descrição</label> ' + 

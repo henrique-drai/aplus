@@ -5,11 +5,214 @@
 }
 
 .head {
-    display: flex;
     background-color: #3e5d4f;
     border-radius: 5px 5px 0px 0px;
 }
 
-.post p {
+.head p {
     padding: 1%;
+    margin-bottom: -4%;
+    color: white;
+}
+
+.content2 {
+    padding: 1%;
+    margin-top: 4%;
+    margin-bottom: 6%;
+}
+
+textarea {
+    width: 100%;
+    min-height: 20%;
+}
+
+.message {
+    background-color: rgb(106, 192, 66, 0.7);
+    text-align: center;
+    border-radius: 5px;
+    float: right;
+    width: 25%;
+    margin-top: -6%;
+    margin-left: 16%;
+    padding: 1%;
+    opacity: 0;
+}
+
+.remove {
+    background-color: #fc8982;
+    margin: unset !important;
+}
+
+/* //////////////////////////////////////////////////////////////
+//                      POP UP
+////////////////////////////////////////////////////////////// */
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+    backdrop-filter: blur(2px);
+}
+
+.popup {
+    margin: 100px auto;
+    padding: 20px;
+    background: rgb(255, 255, 255);
+    border-radius: 5px;
+    width: 60%;
+    position: relative;
+    transition: all 5s ease-in-out;
+}
+
+.popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+.popup .close:hover {
+    color: #06D85F;
+}
+.popup .content {
+    overflow: auto;
+}
+
+input[type="text"], textarea {
+    background: #e9e9e9;
+}
+
+#popup_button {
+    width: 40%;
+}
+
+/* -------------------------------- 
+                                    /
+            POPUP CONFIRM           /
+                                    /
+  -------------------------------- */
+
+.cd-popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(94, 110, 141, 0.9);
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+    transition: opacity 0.3s 0s, visibility 0s 0.3s;
+}
+
+.cd-popup-container {
+    position: absolute;
+    width: 90%;
+    left: 50%;
+    top: 50%;
+    max-width: 400px;
+    background: #FFF;
+    border-radius: .25em .25em .4em .4em;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -50%);
+    -webkit-transition-property: -webkit-transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;  
+}
+
+.cd-popup-container p {
+    padding: 3em 1em;
+}
+
+.cd-popup-container .cd-buttons:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.cd-popup-container .cd-buttons li {
+    float: left;
+    width: 50%;
+    list-style: none;
+}
+
+.cd-popup-container .cd-buttons a {
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    text-transform: uppercase;
+    color: #FFF;
+    -webkit-transition: background-color 0.2s;
+    transition: background-color 0.2s;
+}
+
+.cd-popup-container .cd-buttons li:first-child a {
+    background: #fc7169;
+    border-radius: 0 0 0 .25em;
+}
+
+.no-touch .cd-popup-container .cd-buttons li:first-child a:hover {
+    background-color: #fc8982;
+}
+
+.cd-popup-container .cd-buttons li:last-child a {
+    background: #b6bece;
+    border-radius: 0 0 .25em 0;
+}
+
+.no-touch .cd-popup-container .cd-buttons li:last-child a:hover {
+    background-color: #c5ccd8;
+}
+
+.cd-popup-container .cd-popup-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    cursor:pointer;
+}
+
+.cd-popup-container .cd-popup-close::before, .cd-popup-container .cd-popup-close::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    width: 14px;
+    height: 3px;
+    background-color: #8f9cb5;
+}
+
+.cd-popup-container .cd-popup-close::before {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    left: 8px;
+}
+
+.cd-popup-container .cd-popup-close::after {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    right: 8px;
+}
+.cd-buttons a {
+    text-decoration: none;
+}
+
+.cd-popup ul, .cd-popup li {
+    margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }

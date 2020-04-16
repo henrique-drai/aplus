@@ -36,4 +36,16 @@ class ForumModel extends CI_Model { //forum & thread & thread_post
         $query = $this->db->get_where("thread_post", array('thread_id' => $id));
         return $query->result_array();
     }
+
+    public function insertPost($data) {
+        $this->db->insert("thread_post", $data);
+    }
+
+    public function removePost($id) {
+        $this->db->delete("thread_post", array('id' => $id));
+    }
+
+    public function removeForum($id) {
+        $this->db->delete("forum", array('id' => $id));
+    }
 }

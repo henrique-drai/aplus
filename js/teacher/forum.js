@@ -24,7 +24,7 @@ $(document).ready(() => {
 
     $("body").on("click", ".thread_button", function() {
         localStorage.setItem("thread_id", $(this).attr("id"));
-        window.location = base_url + "foruns/thread/" + $(this).attr("id");
+        window.location = base_url + "foruns/thread/" + $(this).attr("id") + "/" + localStorage.year;
     })
 
         //open popup - REMOVER POST
@@ -120,6 +120,13 @@ function getThreads() {
                         data.threads[i].id + "' value='Ver'>");
                 }
             }
+
+            // GÉNERO DE MEDIA QUERY PARA MUDAR O THEAD DA TABELA
+            // if($(window).width() < 430) {
+            //     console.log("entrou")
+            //     $(".threadTable th").remove();
+            //     $(".threadTable tr").first().append("<th width='100%'>Tópicos do Fórum</th>");
+            // }
         },
         error: function(data) {
             console.log("Erro na API:")

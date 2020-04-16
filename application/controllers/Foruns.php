@@ -12,10 +12,12 @@ class Foruns extends CI_Controller {
         $this->load->model('SubjectModel');
     }
 
-    //      aplus.com/foruns/thread/:thread_id
-    public function thread($thread_id)
+    //      aplus.com/foruns/thread/:thread_id/:year
+    public function thread($thread_id, $year)
     {
         $data["base_url"] = base_url();
+        $this->load->model("CourseModel");
+        $this->load->model("YearModel");
         
         //verificar se a pessoa fez login
         if(is_null($this->session->userdata('role'))){
@@ -25,8 +27,16 @@ class Foruns extends CI_Controller {
         //buscar a info sobre a thread
         $data["thread"] = $this->ForumModel->getThreadByID($thread_id);
 
+        //buscar o year
+        $data["year"] = $this->YearModel->getYearByInicio($year);
+
         //verificar se o objeto existe
         if(is_null($data["thread"])){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        //verificar se o ano existe
+        if(is_null($data["year"])){
             $this->load->view('errors/404', $data); return null;
         }
 
@@ -55,10 +65,12 @@ class Foruns extends CI_Controller {
         }
     }
 
-    //      aplus.com/foruns/new/:subject_code
-    public function new($subject_code)
+    //      aplus.com/foruns/new/:subject_code/:year
+    public function new($subject_code, $year)
     {
         $data["base_url"] = base_url();
+        $this->load->model("CourseModel");
+        $this->load->model("YearModel");
         
         //verificar se a pessoa fez login
         if(is_null($this->session->userdata('role'))){
@@ -68,8 +80,16 @@ class Foruns extends CI_Controller {
         //buscar a info sobre o codigo do curso
         $data["subject"] = $this->SubjectModel->getSubjectByCode($subject_code);
 
+        //buscar o year
+        $data["year"] = $this->YearModel->getYearByInicio($year);
+
         //verificar se o objeto existe
         if(is_null($data["subject"])){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        //verificar se o ano existe
+        if(is_null($data["year"])){
             $this->load->view('errors/404', $data); return null;
         }
 
@@ -82,10 +102,12 @@ class Foruns extends CI_Controller {
         }
     }
 
-    //      aplus.com/foruns/forum/:forum_id
-    public function forum($forum_id)
+    //      aplus.com/foruns/forum/:forum_id/:year
+    public function forum($forum_id, $year)
     {
         $data["base_url"] = base_url();
+        $this->load->model("CourseModel");
+        $this->load->model("YearModel");
         
         //verificar se a pessoa fez login
         if(is_null($this->session->userdata('role'))){
@@ -95,8 +117,16 @@ class Foruns extends CI_Controller {
         //buscar a info sobre o forum
         $data["forum"] = $this->ForumModel->getForumByID($forum_id);
 
+        //buscar o year
+        $data["year"] = $this->YearModel->getYearByInicio($year);
+
         //verificar se o objeto associado ao forum existe
         if(is_null($data["forum"])){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        //verificar se o ano existe
+        if(is_null($data["year"])){
             $this->load->view('errors/404', $data); return null;
         }
 

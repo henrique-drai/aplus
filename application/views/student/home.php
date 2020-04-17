@@ -8,5 +8,6 @@
 <?php $this->view('templates/nav-menu'); ?>
 <main>
     <h1>Painel de Controlo</h1>
+    <h3>Calendário</h3>
     <div id="calendario-hook"></div>
 </main>

@@ -139,6 +139,7 @@ class Student extends REST_Controller {
         $this->load->model('ProjectModel');
         
         $grupo_id =  $this->get('id');
+        $classificador = $this->get('classificador');
 
         $projId =  $this->GroupModel->getProjectId($grupo_id);
         $data['proj_name'] = $this->ProjectModel->getProjectByID($projId[0]['projeto_id']);
@@ -146,20 +147,23 @@ class Student extends REST_Controller {
         $data['students'] = $this->GroupModel->getStudents($grupo_id);
         $data["notClass"] = array();
         $data["class"] = array();
+        $data["rate"] = array();
 
         for ($i=0; $i < count($data["students"]); $i++) {
-            $userId = $data["students"][$i]['user_id']; 
-            $data["x"] = $this->GroupModel->getClassVal($grupo_id, $userId); 
+            $userId = $data["students"][$i]['user_id'];
+            
+            if($userId != $classificador){
+                $nota = $this->GroupModel->getClassVal($grupo_id, $userId); 
 
-            if(count($data['x']) !=0) {
-                array_push($data["class"], $this->UserModel->getUserById($data["students"][$i]['user_id']));
+                if(isset($nota)) {
+                    array_push($data["class"], $this->UserModel->getUserById($userId));
+                    array_push($data["rate"], $nota->valor);
+                }
+                else{
+                    array_push($data["notClass"], $this->UserModel->getUserById($userId));
+                }
             }
-            else{
-                array_push($data["notClass"], $this->UserModel->getUserById($data["students"][$i]['user_id']));
-            }
-           
         }
-
         $this->response($data, parent::HTTP_OK);
     }
 

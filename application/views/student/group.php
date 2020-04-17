@@ -32,8 +32,6 @@
                 <div class="popup">
                     <a class="close" href="#">&times;</a>
                     <div class="content">
-                        
-                    <!-- <h2 id ="labelRating">Rating</h2> -->
 
                         <form id="threadForm" class="thread-form"  action="javascript:void(0)">
                             

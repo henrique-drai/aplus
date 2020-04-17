@@ -2,9 +2,9 @@ var userId;
 $(document).ready(() => {
     getInfo(localStorage.grupo_id);
 
-    setInterval(function() {
-        getInfo(localStorage.grupo_id);
-      }, 7000);
+    // setInterval(function() {
+    //     getInfo(localStorage.grupo_id);
+    //   }, 7000);
   
 
     $("body").on("click", ".toClassifyMember", function() {
@@ -39,6 +39,8 @@ function disappearRating(state="open"){
         $(".overlay").css('display', 'none');
         $(".overlay").css('visibility', 'hidden');
         $(".overlay").css('opacity', '0');
+        $("#rate").val("1");
+        $(".value").text("1");
     }
     else{
         $(".overlay").css('display', 'block');
@@ -70,7 +72,7 @@ function getInfo(grupo_id){
     $.ajax({
         type: "GET",
         url: base_url + "student/api/getStudentsFromGroup",
-        data: {id: grupo_id},
+        data: {id: grupo_id, classificador: localStorage.user_id},
         success: function(data) {
             $("#groupName").html("Grupo: " + grupo_id);
             $("#cadeira").html("Cadeira: " + data.proj_name[0]['nome']);
@@ -81,10 +83,12 @@ function getInfo(grupo_id){
             if(data.class.length != 0 ){
                 var info ="";
                 for(var i=0; i < data.class.length; i++) {
-                    console.log(data.class[i].name)
                     if(data.class[i].id != localStorage.user_id){
-                        info+="<p class='notClassiedMember' id=" + data.class[i].id + ">" + data.class[i].id + " - " + data.class[i].name + "</p>";
-                    }
+                        info+="<p class='classifiedMember' id=" + data.class[i].id + ">" + data.class[i].id 
+                                + " - " + data.class[i].name
+                                + " | Rate: " + data.rate[i]
+                                + "</p>";
+                    }   
                 }
                 $(".classified").html(info)
             }
@@ -92,12 +96,12 @@ function getInfo(grupo_id){
                 $(".classified").html("Não existem membros classificados no grupo")
             }
 
-            // -1 para não contar com o nosso user que pertence ao grupo
-            if(data.notClass.length-1 != 0 ){
+            if(data.notClass.length != 0 ){
                 var info2 ="";
                 for(var i=0; i < data.notClass.length; i++) {
                     if(data.notClass[i].id != localStorage.user_id){
-                        info2+="<a class='toClassifyMember' id=" + data.notClass[i].id + ">" + data.notClass[i].id + " - " + data.notClass[i].name + "</a><br>";
+                        info2+="<p class='toClassifyMember' id=" + data.notClass[i].id + ">"
+                                + data.notClass[i].id + " - " + data.notClass[i].name + "</p>";
                     }
                 }
                 $(".notClassified").html(info2)
@@ -105,6 +109,7 @@ function getInfo(grupo_id){
             else{
                 $(".notClassified").html("Não existem membros não classificados no grupo");
             }
+
         },
         error: function(data) {
             console.log("Erro na API:")

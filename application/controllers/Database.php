@@ -274,7 +274,7 @@ class Database extends CI_Controller {
         ///////////////////////////////
         //          ETAPAS
         ///////////////////////////////
-        $this->db->insert("etapa", Array("projeto_id"=> $projeto1_id, "deadline"=>"2020-12-12 11:11:00", "enunciado_url"=>"",
+        $this->db->insert("etapa", Array("projeto_id"=> $projeto1_id, "deadline"=>"2020-05-01 11:11:00", "enunciado_url"=>"",
             "nome"=>"Pesquisa", "description"=>"Façam pesquisa no StackOverflow.")); $etapa1_id = $this->db->insert_id();
         $this->db->insert("etapa", Array("projeto_id"=> $projeto1_id, "deadline"=>"2020-10-11 11:10:00", "enunciado_url"=>"",
             "nome"=>"Implementação", "description"=>"Copiem o código do StackOverflow."));
@@ -303,9 +303,9 @@ class Database extends CI_Controller {
         //          EVENTOS
         ///////////////////////////////
         $this->db->where_in('name', Array("Reunião de Grupo", "Horário de dúvidas")); $this->db->delete('evento');
-        $this->db->insert("evento", Array("start_date"=>"2020-04-15 11:00:00", "end_date"=>"2020-04-18 12:30:00", "name"=>"Reunião de Grupo",
+        $this->db->insert("evento", Array("start_date"=>"2020-04-17 11:00:00", "end_date"=>"2020-04-18 12:30:00", "name"=>"Reunião de Grupo",
             "description"=>"Discutir o modelo da base de dados.", "location"=>"FCUL")); $evento1_id = $this->db->insert_id();
-        $this->db->insert("evento", Array("start_date"=>"2020-04-16 12:10:00", "end_date"=>"2020-04-17 14:30:00", "name"=>"Horário de dúvidas",
+        $this->db->insert("evento", Array("start_date"=>"2020-04-19 12:10:00", "end_date"=>"2020-04-19 14:30:00", "name"=>"Horário de dúvidas",
             "description"=>"Horário de dúvidas com o(a) professor(a) José Cecílio", "location"=>"6.3.45")); $evento2_id = $this->db->insert_id(); 
         ///////////////////////////////
         //          REUNIÔES DE GRUPO

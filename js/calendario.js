@@ -21,6 +21,7 @@ function renderCalendario(){
             if (event.start_time.getDate() == day.getDate())
             {
                 let start, desc, end, time
+                let cell = $('<div class="cell"></div>')
 
                 switch(event.type)
                 {
@@ -30,11 +31,13 @@ function renderCalendario(){
                         desc = $('<div class="desc">'+event.obj.sigla+' ('+event.obj.type+')</div>')
                         time = event.obj.end_time.split(":")
                         end = $('<div class="end">'+time[0]+":"+time[1]+'</div>')
+                        cell.css("background-color",calendario.cores[event.obj.cadeira_id])
                         break
                     
                     case "group":
                         time = getTimeString(new Date(event.obj.start_date))
                         start = $('<div class="start">'+time+'</div>')
+                        desc = $('<div class="desc">'+event.obj.name+'</div>')
                         time = getTimeString(new Date(event.obj.end_date))
                         end = $('<div class="end">'+time+'</div>')
                         break
@@ -46,10 +49,15 @@ function renderCalendario(){
                         time = getTimeString(new Date(event.obj.end_date))
                         end = $('<div class="end">'+time+'</div>')
                         break
+                    
+                    case "submit":
+                        time = getTimeString(new Date(event.obj.deadline))
+                        start = $('<div class="start">'+time+'</div>')
+                        desc = $('<div class="desc">'+event.obj.nome+' (Entrega de '+event.obj.sigla+')</div>')
+                        break
                 }
 
-
-                let cell = $('<div class="cell"></div>').append(start,desc,end)
+                cell.append(start,desc,end)
                 cells.push(cell)
             }
         }
@@ -94,6 +102,9 @@ function setCalendario(data){
                 calendario.events.push({start_time: date, type: "class", obj: c})
             }
         }
+        if (!calendario.cores[c.cadeira_id]){
+            calendario.cores[c.cadeira_id] = getRandomColor()
+        }
     }
     for (const e of data.events)
         calendario.events.push({start_time: new Date(e.start_date), type: "event", obj: e})
@@ -102,7 +113,7 @@ function setCalendario(data){
         calendario.events.push({start_time: new Date(ge.start_date), type: "group", obj: ge})
 
     for (const s of data.submissions)
-        calendario.events.push({start_time: new Date(s.deadline), type: "submission", obj: s})
+        calendario.events.push({start_time: new Date(s.deadline), type: "submit", obj: s})
 
     calendario.events.sort((x,y)=>(x.start_time.getTime() - y.start_time.getTime()))
 }
@@ -130,4 +141,14 @@ function getTimeString(time){
     h = time.getHours()
     m = time.getMinutes()
     return ((h < 10)? "0" + h : h) + ":" + ((m < 10)? "0" + m : m)
+}
+
+function getRandomColor(){
+    let r,g,b
+    do {
+        r = Math.floor((Math.random() * 255) + 1);
+        g = Math.floor((Math.random() * 255) + 1);
+        b = Math.floor((Math.random() * 255) + 1);
+    } while (r + g + b < 340 || 600 < r + g + b)
+    return "rgba("+r+","+g+","+b+",0.5)"
 }

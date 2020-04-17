@@ -1,7 +1,6 @@
 const etapas = [{id:1, nome:'', desc:'', enunciado:'', data:''}];
 var subject_id
 var project_page
-var back_page
 
 $(document).ready(() => {
 
@@ -88,10 +87,6 @@ function setSubjectID(id){
 
 function setProjectPage(url){
     project_page = url;
-}
-
-function setBackPage(url){
-    back_page = url;
 }
 
 function refreshEtapasTitle(){

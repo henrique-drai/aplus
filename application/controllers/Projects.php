@@ -60,6 +60,7 @@ class Projects extends CI_Controller {
             $this->load->view('errors/404', $data); return null;
         }
 
+        $data["year"] = $year;
         $this->load->helper('form');
 
         if ($this->session->userdata('role') == 'teacher'){
@@ -84,7 +85,15 @@ class Projects extends CI_Controller {
         //buscar a info sobre o projeto
         $data["project"] = $this->ProjectModel->getProjectByID($project_id);
 
-        $_SESSION["project_id"] = $project_id;
+
+        $this->load->model('YearModel');
+        $this->load->model('CourseModel');
+        $this->load->model('SubjectModel');
+
+
+        $subject = $this->SubjectModel->getSubjectByID($data["project"][0]["cadeira_id"]);
+        $course = $this->CourseModel->getCursobyId($subject->curso_id);
+        $data["year"] = $this->YearModel->getYearById($course->ano_letivo_id);
 
         //verificar se o objeto associado ao projeto existe
         if(is_null($data["project"])){

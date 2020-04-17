@@ -216,3 +216,9 @@ input[type="text"], textarea {
 	font: inherit;
 	vertical-align: baseline;
 }
+
+@media only screen and (max-width: 430px) {
+    .popup {
+        width: 80%;
+    }
+}

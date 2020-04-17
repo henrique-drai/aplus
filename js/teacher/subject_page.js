@@ -128,12 +128,16 @@ $(document).ready(() => {
     })
 
     $("body").on("click", ".new_forum", function() {
-        window.location = base_url + "foruns/new/" + localStorage.cadeira_code;
+        var link = location.href.split("aplus")[1];
+        var ano = link.split("/")[4];
+        window.location = base_url + "foruns/new/" + localStorage.cadeira_code + "/" + ano;
     })
 
     $("body").on("click", ".forum_button", function() {
+        var link = location.href.split("aplus")[1];
+        var ano = link.split("/")[4];
         localStorage.setItem("forum_id", $(this).attr("id"));
-        window.location = base_url + "foruns/forum/" + $(this).attr("id");
+        window.location = base_url + "foruns/forum/" + $(this).attr("id") + "/" + ano;
     })
 })
 

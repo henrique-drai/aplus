@@ -94,6 +94,14 @@ function getInfo(id) {
                             $(".content2").last().append("<input id='" + data.posts[i].id + "' class='remove' type='button' value='Eliminar post'>");
                         }
                 }
+
+                if(localStorage.teachers_only == 0) {
+                    $(".add").append("<input type='button' id='create_post_button' value='Criar novo post'><div class='overlay'>" +
+                        "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'><h2>Criar novo post</h2>" +
+                        "<form id='threadForm' class='thread-form'  action='javascript:void(0)'><p><label class='form-label'>Conteúdo:</label>" +
+                        "<textarea class='form-text-area' type='text' name='threadDescription' required></textarea></p><input type='button'" +
+                        "id='popup_button' value='Criar'></form></div></div></div>");
+                }
             }
         },
         error: function(data) {

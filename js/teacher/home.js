@@ -1,6 +1,6 @@
 $(document).ready(() => {
     loadProfHome();
-    setInterval(loadProfHome, 3000); 
+    // setInterval(loadProfHome, 3000); 
 
     $("body").on("click", ".subject a", function(){
         localStorage.setItem("cadeira_code", $(this).attr("id"));

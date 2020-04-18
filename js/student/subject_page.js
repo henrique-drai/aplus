@@ -1,5 +1,12 @@
 $(document).ready(() => {
     getInfo(localStorage.cadeira_code, localStorage.cadeira_id);
+
+    $("body").on("click", ".forum_button", function() {
+        var link = location.href.split("aplus")[1];
+        var ano = link.split("/")[4];
+        localStorage.setItem("forum_id", $(this).attr("id"));
+        window.location = base_url + "foruns/forum/" + $(this).attr("id");
+    })
 });
 
 function getInfo(code, id) {
@@ -15,6 +22,16 @@ function getInfo(code, id) {
                 $(".summary").append("<p>Não existe sumário para a cadeira.</p>");
             } else {
                 $(".summary").append("<p>" + data.desc[0].description + "</p>");
+            }
+
+            $(".foruns").empty();
+            if(data.forum.length == 0) {
+                $(".foruns").append("<p>Ainda não existem fóruns para a cadeira</p>");
+            } else {
+                for(var i=0; i < data.forum.length; i++) {
+                    $(".foruns").append("<input type='button' class='forum_button' id='" + data.forum[i].id +
+                    "' value='" + data.forum[i].name + "'>");
+                }  
             }
 
             $(".projetos").empty();

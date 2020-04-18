@@ -137,7 +137,7 @@ $(document).ready(() => {
         var link = location.href.split("aplus")[1];
         var ano = link.split("/")[4];
         localStorage.setItem("forum_id", $(this).attr("id"));
-        window.location = base_url + "foruns/forum/" + $(this).attr("id") + "/" + ano;
+        window.location = base_url + "foruns/forum/" + $(this).attr("id");
     })
 })
 

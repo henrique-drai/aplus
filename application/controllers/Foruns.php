@@ -10,14 +10,14 @@ class Foruns extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('ForumModel');
         $this->load->model('SubjectModel');
-    }
-
-    //      aplus.com/foruns/thread/:thread_id/:year
-    public function thread($thread_id, $year)
-    {
-        $data["base_url"] = base_url();
         $this->load->model("CourseModel");
         $this->load->model("YearModel");
+    }
+
+    //      aplus.com/foruns/thread/:thread_id
+    public function thread($thread_id)
+    {
+        $data["base_url"] = base_url();
         
         //verificar se a pessoa fez login
         if(is_null($this->session->userdata('role'))){
@@ -27,13 +27,15 @@ class Foruns extends CI_Controller {
         //buscar a info sobre a thread
         $data["thread"] = $this->ForumModel->getThreadByID($thread_id);
 
-        //buscar o year
-        $data["year"] = $this->YearModel->getYearByInicio($year);
-
         //verificar se o objeto existe
         if(is_null($data["thread"])){
             $this->load->view('errors/404', $data); return null;
         }
+
+        $forum = $this->ForumModel->getForumByID($data["thread"]->forum_id);
+        $subject = $this->SubjectModel->getSubjectByID($forum->cadeira_id);
+        $course = $this->CourseModel->getCursobyId($subject->curso_id);
+        $data["year"] = $this->YearModel->getYearById($course->ano_letivo_id);
 
         //verificar se o ano existe
         if(is_null($data["year"])){
@@ -56,21 +58,23 @@ class Foruns extends CI_Controller {
             $this->load->view('errors/404', $data); return null;
         }
 
-        if ($this->session->userdata('role') == 'teacher'){
-            $this->load->view('templates/head', $data);
-            $this->load->view('teacher/thread',$data);
-            $this->load->view('templates/footer');  
-        } else {
-            $this->load->view('errors/403', $data); return null;
+        $this->load->view('templates/head', $data);
+
+        //escolher que página deve ser mostrada
+        switch ($this->session->userdata('role')) {
+            case 'student': $this->load->view('forum/thread', $data); break;
+            case 'teacher': $this->load->view('forum/thread', $data); break;
+        
+            default: $this->load->view('errors/403', $data); return null;
         }
+
+        $this->load->view('templates/footer');   
     }
 
     //      aplus.com/foruns/new/:subject_code/:year
     public function new($subject_code, $year)
     {
         $data["base_url"] = base_url();
-        $this->load->model("CourseModel");
-        $this->load->model("YearModel");
         
         //verificar se a pessoa fez login
         if(is_null($this->session->userdata('role'))){
@@ -102,12 +106,10 @@ class Foruns extends CI_Controller {
         }
     }
 
-    //      aplus.com/foruns/forum/:forum_id/:year
-    public function forum($forum_id, $year)
+    //      aplus.com/foruns/forum/:forum_id
+    public function forum($forum_id)
     {
         $data["base_url"] = base_url();
-        $this->load->model("CourseModel");
-        $this->load->model("YearModel");
         
         //verificar se a pessoa fez login
         if(is_null($this->session->userdata('role'))){
@@ -117,13 +119,14 @@ class Foruns extends CI_Controller {
         //buscar a info sobre o forum
         $data["forum"] = $this->ForumModel->getForumByID($forum_id);
 
-        //buscar o year
-        $data["year"] = $this->YearModel->getYearByInicio($year);
-
         //verificar se o objeto associado ao forum existe
         if(is_null($data["forum"])){
             $this->load->view('errors/404', $data); return null;
         }
+
+        $subject = $this->SubjectModel->getSubjectByID($data["forum"]->cadeira_id);
+        $course = $this->CourseModel->getCursobyId($subject->curso_id);
+        $data["year"] = $this->YearModel->getYearById($course->ano_letivo_id);
 
         //verificar se o ano existe
         if(is_null($data["year"])){
@@ -138,13 +141,17 @@ class Foruns extends CI_Controller {
             $this->load->view('errors/404', $data); return null;
         }
 
-        if ($this->session->userdata('role') == 'teacher'){
-            $this->load->view('templates/head', $data);
-            $this->load->view('teacher/forum',$data);
-            $this->load->view('templates/footer');  
-        } else {
-            $this->load->view('errors/403', $data); return null;
+        $this->load->view('templates/head', $data);
+
+        //escolher que página deve ser mostrada
+        switch ($this->session->userdata('role')) {
+            case 'student': $this->load->view('forum/forum', $data); break;
+            case 'teacher': $this->load->view('forum/forum', $data); break;
+        
+            default: $this->load->view('errors/403', $data); return null;
         }
+
+        $this->load->view('templates/footer'); 
     }
 
 }

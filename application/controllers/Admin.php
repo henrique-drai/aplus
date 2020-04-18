@@ -28,6 +28,8 @@ class Admin extends REST_Controller {
             case "importCSV":       $this ->importCSV(); break; //        admin/api/importCSV
             case "registerCurso":   $this -> registerCurso(); break; //     admin/api/registerCurso
             case "registerSchoolYear": $this -> registerSchoolYear(); break;    // admin/api/registerSchoolYear
+            case "getSearchTeacher": $this->getSearchTeacher(); break; // admin/api/getSearchTeacher
+            case "getSearchStudent": $this->getSearchStudent(); break; // admin/api/getSearchStudent
             case "editCourse": $this -> editCourse(); break;
             case "importX": $this->importX(); break;
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
@@ -248,6 +250,41 @@ class Admin extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function getSearchStudent(){
+        $query = '';
+        $this->load->model('UserModel');
+        if($this->post("query")){
+            $query = $this->post("query");
+        }
+        $resultquery = $this->UserModel->getSearchStudent($query);
+        $data["students"] = "";
+        if($resultquery -> num_rows() == 0){
+            $data["students"] = "no data"; 
+        }
+        else{
+            $data["students"] = $resultquery->result();
+        }
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getSearchTeacher(){
+        $query = '';
+        $this->load->model('UserModel');
+        if($this->post("query")){
+            $query = $this->post("query");
+        }
+        $resultquery = $this->UserModel->getSearchTeacher($query);
+        $data["teachers"] = "";
+        if($resultquery -> num_rows() == 0){
+            $data["teachers"] = "no data"; 
+        }
+        else{
+            $data["teachers"] = $resultquery->result();
+        }
+        $this->response($data, parent::HTTP_OK);
+
+    }
+
     public function deleteUser(){
         $email = $this->delete('email');
         $this->load->model('UserModel');
@@ -283,8 +320,8 @@ class Admin extends REST_Controller {
     }
 
     public function getAllTeachers(){
-        $this -> load -> model('UserModel');
-        $data["teachers"] = $this -> UserModel -> getTeachers();
+        $this ->load-> model('UserModel');
+        $data["teachers"] = $this ->UserModel-> getTeachers();
         $this -> response($data, parent::HTTP_OK);
     }
 

@@ -7,19 +7,17 @@
 </head>
 
 <body>
-<?php $this->view('templates/nav-menu'); ?>    <main>
+<?php $this->view('templates/nav-menu'); ?>    
+    <main>
         <h1>Estudantes</h1>
-        
-        <!-- <table id="show_students">
-            <tr>
-                <th>Email</th>
-                <th>Nome</th>
-                <th>Apelido</th>
-                <th>Editar</th>
-                <th>Apagar</th>
-            </tr>
-            
-        </table> -->
+
+        <div class="form-group">
+            <div class="input-group">
+                <h2>Procurar Estudantes</h2>
+                <input type="text" name="search_text" id="search_text_students" placeholder = "Procurar Estudantes" class="form-control"/>
+                <p class="informacaoUsers">Use * para visualizar todos os estudantes</p>
+            </div>
+        </div>
 
         <div id="student-container" class="container">
         </div>

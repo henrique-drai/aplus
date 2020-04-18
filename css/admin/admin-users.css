@@ -5,3 +5,12 @@
 .msgErro {
     background: red;
 }
+
+#search_text_profs, #search_text_students{
+    width: 50%;
+    margin-top: 3%;
+}
+
+.informacaoUsers{
+    margin-bottom: 3%;
+}

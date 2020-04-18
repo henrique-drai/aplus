@@ -35,7 +35,9 @@ class UserModel extends CI_Model {
 
     #Admin ver e dar manage nos Alunos
     public function getStudents(){
-        $query = $this->db->get_where('user', array('role' => "student"));
+        $this->db->where(array('role' => "student"));
+        $this->db->order_by("name","asc");
+        $query = $this->db->get("user");
         return $query->result_array();
     }
 
@@ -75,7 +77,9 @@ class UserModel extends CI_Model {
     }
 
     public function getTeachers(){
-        $query = $this -> db -> get_where('user', array('role' => "teacher"));
+        $this->db->where(array('role' => "teacher"));
+        $this->db->order_by("name","asc");
+        $query = $this->db->get("user");
         return $query->result_array();
     }
 
@@ -98,4 +102,31 @@ class UserModel extends CI_Model {
 
     }
 
+    public function getSearchStudent($query){
+        $this->db->select("*");
+        $this->db->where("role = 'student'");
+        if($query != ''){
+            $this->db->group_start();
+            $this->db->like("email", $query);
+            $this->db->or_like("name", $query);
+            $this->db->or_like("surname", $query);
+            $this->db->group_end();
+        }
+        $this->db->order_by("name","ASC");
+        return $this->db->get('user');
+    }
+
+    public function getSearchTeacher($query){
+        $this->db->select("*");
+        $this->db->where("role = 'teacher'");
+        if($query != ''){
+            $this->db->group_start();
+            $this->db->like("email", $query);
+            $this->db->or_like("name", $query);
+            $this->db->or_like("surname", $query);
+            $this->db->group_end();
+        }
+        $this->db->order_by("name","ASC");
+        return $this->db->get('user');
+    }
 }

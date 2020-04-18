@@ -39,11 +39,12 @@ class User extends REST_Controller {
         
         $user = $this->UserModel->getUserById($user_id);
         $data = Array(
+            "id" => $user_id,
             "email" => $user->email,
             "name" => $user->name,
             "surname" => $user->surname,
             "role" => $user->role,
-            "has_pic" => $user->has_pic,
+            "picture" => $user->picture,
         );
         $this->response(json_encode($data), parent::HTTP_OK);
     }

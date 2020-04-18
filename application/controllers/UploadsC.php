@@ -85,6 +85,7 @@ class UploadsC extends CI_Controller {
             $this->load->model('UserModel');
             $ext = $this->upload->data('file_ext');
             $this->UserModel->updatePicture($user_id, $ext);
+            $this->session->set_userdata('picture', $ext);
             header("Location: ".base_url()."app/profile/".$user_id);
         }
     }

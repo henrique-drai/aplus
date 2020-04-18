@@ -3,6 +3,7 @@ var navbar_is_active = false
 $(document).ready(() => {
     $(".nav-menu-btn-logout").click(() => {endSession()})
     $("#nav-menu-toggle").click(()=>{toggleMenu()})
+    updateNavMenuData()
 })
 
 // assim só precisam de indicar as páginas que vão estar disponíveis
@@ -49,6 +50,27 @@ function endSession(){
         },
         error: function(data) {
             console.log("Problema na API: O logout deu erro.")
+        }
+    })
+}
+
+function updateNavMenuData(){
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        data: {user_id: localStorage.user_id},
+        url: base_url + "user/api/getInfo",
+        success: function(data) {
+            const obj = JSON.parse(data)
+            console.log(obj)
+            $(".nav-menu-user-name").text(obj.name + " " + obj.surname)
+            // const picture = base_url + "uploads/profile/" + obj.id + obj.picture + "?" + Date.now()
+            // $(".nav-menu-profile-picture img").attr("src", picture);
+        },
+        error: function(data) {
+            console.log("Problema na API: user/getInfo.")
         }
     })
 }

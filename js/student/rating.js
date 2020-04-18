@@ -2,13 +2,14 @@ $(document).ready(() => {
   
     getAll(localStorage.user_id);
 
-    $("body").on("click", "a", function() {
+    $("body").on("click", ".groupC", function() {
         localStorage.setItem("grupo_id", $(this).attr("id"));
         window.location = base_url + "app/student/group/" + $(this).attr("id") ;
     })
     
 
 });
+
 
 
 function getAll(user_id){
@@ -21,13 +22,12 @@ function getAll(user_id){
             var grupos = "";
 
             if(data.grupo.length != 0){
-               
                 for(var i = 0; i < data.grupo.length; i++) {
-                    grupos+="<a id='" + data.grupo[i].grupo_id 
-                                + "'>" + "Grupo: " +  data.grupo[i].grupo_id 
-                                +  " | Cadeira: " + data.info[i][0].nome 
-                                + "</a>" + "<br>";
-                    
+                    grupos+="<div class='groupC' id='" + data.grupo[i].grupo_id + "'>"
+                                + "<div id='groupId'> Grupo: " + data.grupo[i].grupo_id  + "</div>" 
+                                + "<div id='subject'>" + data.subjName[i] + "</div>"
+                                + "<div id='project'>" + data.info[i][0].nome   + "</div>"
+                            + "</div>";
                 }
                 $(".grupos").html(grupos);
            }

@@ -98,4 +98,10 @@ class UserModel extends CI_Model {
 
     }
 
+    public function updatePicture($user_id, $value){
+        $this->db->set('picture', $value);
+        $this->db->where('id', $user_id);
+        $this->db->update('user');
+    }
+
 }

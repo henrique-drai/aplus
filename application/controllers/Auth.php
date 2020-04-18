@@ -34,7 +34,8 @@ class Auth extends REST_Controller {
                 "email" => $email,
                 "name" => $user->name,
                 "surname" => $user->surname,
-                "role" => $user->role
+                "role" => $user->role,
+                "picture" => $user->picture,
             );
 
             $this->session->set_userdata($session_data);

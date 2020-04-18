@@ -129,4 +129,10 @@ class UserModel extends CI_Model {
         $this->db->order_by("name","ASC");
         return $this->db->get('user');
     }
+    
+    public function updatePicture($user_id, $value){
+        $this->db->set('picture', $value);
+        $this->db->where('id', $user_id);
+        $this->db->update('user');
+    }
 }

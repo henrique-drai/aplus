@@ -133,27 +133,5 @@ class App extends CI_Controller {
         }
         $this->load->view('templates/footer');
     }
-
-    public function uploadProfilePic()
-    {
-        $user_id = $this->session->userdata('id');
-        $upload['upload_path'] = './uploads/profile/';
-        $upload['allowed_types'] = 'jpg';
-        $upload['file_name'] = $user_id;
-        $upload['overwrite'] = true;
-
-        $this->load->library('upload', $upload);
-
-        if ( ! $this->upload->do_upload('userfile'))
-        {
-            $error = array('error' => $this->upload->display_errors());
-            print_r($error);
-            echo "<br>Perguntem ao dry lul";
-        }
-        else
-        {
-            header("Location: ".base_url()."app/profile/".$user_id);
-        }
-    }
 }
 

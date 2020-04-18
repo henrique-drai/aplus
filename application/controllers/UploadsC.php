@@ -63,4 +63,29 @@ class UploadsC extends CI_Controller {
             header("Location: ".base_url()."projects/project/".$project_id);
         }
     }
+
+    public function uploadProfilePic()
+    {
+        $user_id = $this->session->userdata('id');
+        $upload['upload_path'] = './uploads/profile/';
+        $upload['allowed_types'] = 'jpeg|jpg|png';
+        $upload['file_name'] = $user_id;
+        $upload['overwrite'] = true;
+
+        $this->load->library('upload', $upload);
+
+        if ( ! $this->upload->do_upload('userfile'))
+        {
+            $error = array('error' => $this->upload->display_errors());
+            #print_r($error);
+            header("Location: ".base_url()."app/profile/".$user_id);
+        }
+        else
+        {
+            $this->load->model('UserModel');
+            $ext = $this->upload->data('file_ext');
+            $this->UserModel->updatePicture($user_id, $ext);
+            header("Location: ".base_url()."app/profile/".$user_id);
+        }
+    }
 }

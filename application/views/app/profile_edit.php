@@ -45,8 +45,8 @@
 
         <div class="picture-form">
             <h3>Alterar imagem de perfil:</h3>
-            <?php echo form_open_multipart('app/uploadProfilePic'); ?>
-                <input type="file" name="userfile" size="20">
+            <?php echo form_open_multipart('UploadsC/uploadProfilePic'); ?>
+                <input type="file" name="userfile">
                 <input type="submit" value="Carregar">
             </form>
         </div>

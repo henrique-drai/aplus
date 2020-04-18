@@ -20,22 +20,22 @@ class Student extends REST_Controller {
     //student/api/função
     public function api_post($f) {
         switch ($f) {
-            case "submitRating":         $this->submitRating(); break;//     /student/api/getCadeiras
+            case "submitRating":            $this->submitRating(); break;//     /student/api/getCadeiras
             // adicionem aqui as vossas funções
 
-            default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+            default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
     public function api_get($f) {
         switch ($f) {
-            case "getCadeiras":         $this->getCadeiras(); break;//     /student/api/getCadeiras
-            case "getInfo":             $this->getInfo(); break;//     /student/api/getInfo
-            case "getMyGroups":         $this->getMyGroups(); break;
+            case "getCadeiras":             $this->getCadeiras(); break;//     /student/api/getCadeiras
+            case "getInfo":                 $this->getInfo(); break;//     /student/api/getInfo
+            case "getMyGroups":             $this->getMyGroups(); break;
             case "getStudentsFromGroup":    $this->getStudentsFromGroup(); break;
             case "getCadeiraGrupo":         $this->getCadeiraGrupo(); break;
 
-            default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+            default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
@@ -82,9 +82,11 @@ class Student extends REST_Controller {
     public function getInfo() {
         $cadeira_code = $this->get('cadeira_code');
         $cadeira_id = $this->get('cadeira_id');
+        $this->load->model("ForumModel");
         $this->load->model('SubjectModel');
         $data["desc"] = $this->SubjectModel->getDescription($cadeira_code);
 
+        $data["forum"] = $this->ForumModel->getForumByCadeiraID($cadeira_id);
         $data["proj"] = $this->SubjectModel->getProj($cadeira_id);
         $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
 

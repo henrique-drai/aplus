@@ -61,19 +61,21 @@
 #cadeiras-hook {
     grid-column-start: 1;
     grid-column-end: 1;
-    grid-row-start: 1;
-    grid-row-start: 1;
+    grid-row-start: 2;
+    grid-row-start: 2;
 }
 
 #alunos-hook {
-    grid-column-start: 1;
-    grid-column-end: 1;
+    grid-column-start: 2;
+    grid-column-end: 2;
     grid-row-start: 2;
     grid-row-end: 2;
 }
 
-#calendario-hook {
-    margin-bottom: 50px;
+#calendario {
+    grid-column: 1 / span 2;
+    grid-row-start: 1;
+    grid-row-end: 1;
 }
 
 @media only screen and (max-width: 770px) {

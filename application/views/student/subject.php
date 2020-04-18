@@ -18,11 +18,8 @@
 
             <br>
 
-            <div class="buttons">
-                <input type="button" class ="forum" value="Fórum">
-            </div>
-
-            <br>
+            <h2>Fóruns</h2>
+            <div class="foruns"></div>
             
             <h2>Projetos</h2>
             <div class="projetos"></div>

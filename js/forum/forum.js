@@ -1,7 +1,7 @@
 $(document).ready(() => {
     getInfo(localStorage.getItem("forum_id"));
     getThreads();
-    // setInterval(getThreads, 3000); 
+    setInterval(getThreads, 3000); 
 
     $('#add_button').click(function() {
         $(".overlay").css('visibility', 'visible');
@@ -24,7 +24,7 @@ $(document).ready(() => {
 
     $("body").on("click", ".thread_button", function() {
         localStorage.setItem("thread_id", $(this).attr("id"));
-        window.location = base_url + "foruns/thread/" + $(this).attr("id") + "/" + localStorage.year;
+        window.location = base_url + "foruns/thread/" + $(this).attr("id");
     })
 
         //open popup - REMOVER POST
@@ -88,6 +88,18 @@ function getInfo(id) {
             $(".forumDesc").empty();
             $(".forumName").append(data.info.name);
             $(".forumDesc").append(data.info.description);
+
+            localStorage.setItem("teachers_only", data.info.teachers_only);
+
+            if(data.info.teachers_only == 0) {
+                $(".add").append("<input type='button' id='add_button' value='Criar Tópico'><div class='overlay'>" +
+                    "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'>" +
+                    "<h2>Criar novo tópico</h2><form id='threadForm' class='thread-form'  action='javascript:void(0)'>" +
+                    "<p><label class='form-label'>Nome do Fórum:</label><input class='form-input-text' type='text'" +
+                    "name='threadName' required></p><p><label class='form-label'>Descrição:</label><textarea class='" +
+                    "form-text-area' type='text' name='threadDescription' required></textarea></p><input type='button'" +
+                    "id='popup_button' value='Criar'></form></div></div></div>");
+            }
         },
         error: function(data) {
             console.log("Erro na API:")
@@ -120,13 +132,6 @@ function getThreads() {
                         data.threads[i].id + "' value='Ver'>");
                 }
             }
-
-            // GÉNERO DE MEDIA QUERY PARA MUDAR O THEAD DA TABELA
-            // if($(window).width() < 430) {
-            //     console.log("entrou")
-            //     $(".threadTable th").remove();
-            //     $(".threadTable tr").first().append("<th width='100%'>Tópicos do Fórum</th>");
-            // }
         },
         error: function(data) {
             console.log("Erro na API:")

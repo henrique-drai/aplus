@@ -365,6 +365,15 @@ function getAllCoursesByYear(idyear){
     });
 }
 
+
+
+
+// FALTA O EDITAR UNIDADES CURRICULARES
+
+
+
+
+
 function deleteSubject(linha){
 $.ajax({
     type: "DELETE",
@@ -386,8 +395,6 @@ $.ajax({
         else if($("#Consultar_Cadeiras_Faculdade").val() != "Selecione uma Faculdade"){
             getAllCoursesByYear($("#Consultar_Cadeiras_Ano").val());
         }
-
-        //PARA O CURSO E PARA O NO LETIVO
 
     },
     error: function() {

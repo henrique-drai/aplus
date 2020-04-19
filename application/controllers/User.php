@@ -58,8 +58,6 @@ class User extends REST_Controller {
     }
 
     
-
-
     public function updateInfo(){
 
         $data = Array(

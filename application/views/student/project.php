@@ -1,8 +1,9 @@
 <title>A+ for Teachers</title>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/projects/projects-general.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/student-projects.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/student/project.js"></script>
-
+<script>setProj("<?php echo $project[0]["id"]; ?>")</script>
 </head>
 
 <body>
@@ -14,7 +15,13 @@
     <div class="container">
         <h3 id="entrega_h3"></h3>
         <h3 id="enunciado_h3"></h3>
-        
+        <div class="container-header">
+            <br><br>
+            <h2>Grupos</h2>
+        </div>
+
+        <div id="grupos-container" class="container">
+        </div>
 
     </div>
     </main>

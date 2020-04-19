@@ -3,8 +3,10 @@ class EventModel extends CI_Model { //evento & horario_duvidas
 
     public function getClassesByStudentId($id) {
         $query = "select *
-            from aula, aluno_aula, cadeira
+            from aluno_aula, curso, ano_letivo, cadeira, aula
             where aula.id = aluno_aula.aula_id
+            and cadeira.curso_id = curso.id
+            and curso.ano_letivo_id = ano_letivo.id
             and aula.cadeira_id = cadeira.id
             and aluno_aula.user_id = ".$id;
         $result = $this->db->query($query);
@@ -13,8 +15,10 @@ class EventModel extends CI_Model { //evento & horario_duvidas
 
     public function getClassesByTeacherId($id) {
         $query = "select * 
-            from aula, professor_aula, cadeira
+            from aluno_aula, curso, ano_letivo, cadeira, aula
             where aula.id = professor_aula.aula_id
+            and cadeira.curso_id = curso.id
+            and curso.ano_letivo_id = ano_letivo.id
             and aula.cadeira_id = cadeira.id
             and professor_aula.user_id = ".$id;
         $result = $this->db->query($query);

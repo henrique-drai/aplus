@@ -43,7 +43,6 @@ function endSession(){
         },
         url: base_url + "auth/logout",
         success: function(data) {
-            localStorage.removeItem("profile_pic")
             localStorage.removeItem("token")
             localStorage.removeItem("user_id")
             window.location.href = base_url

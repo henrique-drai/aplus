@@ -3,11 +3,14 @@ var calendario = {}
 $(document).ready(()=>{
     generateDays()
     updateCalendario()
+    eventOnClick()
 })
+
 
 function renderCalendario(){
     
     let cols = []
+    let ctr = 0
 
     for (const day of calendario.days){
         let head_day = $('<div class="day">'+day.getDate()+'</div>')
@@ -15,6 +18,7 @@ function renderCalendario(){
         let head = $('<div class="hcell"></div>').append(head_day,head_week)
 
         let cells = []
+        
 
         for(const event of calendario.events)
         {
@@ -26,39 +30,33 @@ function renderCalendario(){
                 switch(event.type)
                 {
                     case "class":
-                        time = event.obj.start_time.split(":")
-                        start = $('<div class="start">'+time[0]+":"+time[1]+'</div>')
+                        start = $('<div class="start">'+getClassTimeString(event.obj.start_time)+'</div>')
                         desc = $('<div class="desc">'+event.obj.sigla+' ('+event.obj.type+')</div>')
-                        time = event.obj.end_time.split(":")
-                        end = $('<div class="end">'+time[0]+":"+time[1]+'</div>')
+                        end = $('<div class="end">'+getClassTimeString(event.obj.end_time)+'</div>')
                         cell.css("background-color",calendario.cores[event.obj.cadeira_id])
                         break
                     
                     case "group":
-                        time = getTimeString(new Date(event.obj.start_date))
-                        start = $('<div class="start">'+time+'</div>')
+                        start = $('<div class="start">'+getTimeString(new Date(event.obj.start_date))+'</div>')
                         desc = $('<div class="desc">'+event.obj.name+'</div>')
-                        time = getTimeString(new Date(event.obj.end_date))
-                        end = $('<div class="end">'+time+'</div>')
+                        end = $('<div class="end">'+getTimeString(new Date(event.obj.end_date))+'</div>')
                         break
 
                     case "event":
-                        time = getTimeString(new Date(event.obj.start_date))
-                        start = $('<div class="start">'+time+'</div>')
+                        start = $('<div class="start">'+getTimeString(new Date(event.obj.start_date))+'</div>')
                         desc = $('<div class="desc">'+event.obj.name+'</div>')
-                        time = getTimeString(new Date(event.obj.end_date))
-                        end = $('<div class="end">'+time+'</div>')
+                        end = $('<div class="end">'+getTimeString(new Date(event.obj.end_date))+'</div>')
                         break
                     
                     case "submit":
-                        time = getTimeString(new Date(event.obj.deadline))
-                        start = $('<div class="start">'+time+'</div>')
+                        start = $('<div class="start">'+getTimeString(new Date(event.obj.deadline))+'</div>')
                         desc = $('<div class="desc">'+event.obj.nome+' (Entrega de '+event.obj.sigla+')</div>')
                         break
                 }
-
-                cell.append(start,desc,end)
+                const clickable = $("<div class='clickable' id='" + ctr + "'></div>")
+                cell.append(start,desc,end,clickable)
                 cells.push(cell)
+                ctr+=1
             }
         }
 
@@ -142,6 +140,9 @@ function getTimeString(time){
     m = time.getMinutes()
     return ((h < 10)? "0" + h : h) + ":" + ((m < 10)? "0" + m : m)
 }
+function getClassTimeString(time){
+    return time.split(":")[0] + ":" + time.split(":")[1]
+}
 
 function getRandomColor(){
     let r,g,b
@@ -151,4 +152,59 @@ function getRandomColor(){
         b = Math.floor((Math.random() * 255) + 1);
     } while (r + g + b < 340 || 600 < r + g + b)
     return "rgba("+r+","+g+","+b+",0.5)"
+}
+
+
+
+
+function eventOnClick(){
+    $('#calendario-hook').on('click', '.cell .clickable', function(event){
+        event = calendario.events[parseInt(event.target.id)]
+        console.log(event.obj)
+        let message = $('<div class="calendario-msg"></div>')
+
+        switch(event.type)
+        {
+            case "class":
+                message.append("<h3>Aula de "+event.obj.name+" ("+event.obj.type+")</h3>")
+                message.append("<p>" +
+                    getClassTimeString(event.obj.start_time) + " - " +
+                    getClassTimeString(event.obj.end_time) + "</p>")
+                message.append("<p>Sala: " + event.obj.classroom + "</p>")
+                $(".cd-popup #actionButton")
+                    .html("Visitar Cadeira")
+                    .off()
+                    .click(()=>{
+                        window.location.href = base_url + "subjects/subject/" + event.obj.code + "/" + event.obj.inicio
+                    })
+                break
+            
+            case "group":
+
+                break
+
+            case "event":
+                message.append("<h3>"+event.obj.name+"</h3>")
+                message.append("<p>" + event.obj.description + "</p>")
+                message.append("<p>" +
+                    getTimeString(new Date(event.obj.start_date)) + " - " +
+                    getTimeString(new Date(event.obj.end_date)) + "</p>")
+                message.append("<p>Localização: " + event.obj.location + "</p>")
+                $(".cd-popup #actionButton")
+                .html("Apagar Evento")
+                .off()
+                .click(()=>{
+                    //TODO ajax para apagar evento
+                })
+                break
+            
+            case "submit":
+
+                break
+        }
+
+        $(".cd-popup #closeButton").html("Fechar")
+        $('.cd-message').html(message)
+        $('.cd-popup').addClass('is-visible')
+    });
 }

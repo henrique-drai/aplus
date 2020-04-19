@@ -78,6 +78,7 @@ var oldEmail = "";
 function deleteUser(linha){
     $.ajax({
         type: "DELETE",
+        headers: {"Authorization": localStorage.token},
         url: base_url + "admin/api/deleteUser",
         data: {email: linha.find("td:eq(0)").text()},
         success: function() {
@@ -127,6 +128,7 @@ function editUser(){
 
     $.ajax({
         type: "POST",
+        headers: {"Authorization": localStorage.token},
         url: base_url + "admin/api/editUser",
         data: data,   
         success: function() {
@@ -165,6 +167,7 @@ function editUser(){
 function getAllStudents(){
     $.ajax({
         type: "GET",
+        headers: {"Authorization": localStorage.token},
         url: base_url + "admin/api/getAllStudents",
         success: function(data) {
             $("#mens_sem_alunos").remove();
@@ -214,6 +217,7 @@ function makeStudentTable(data){
 function getSearchStudent(query){
     $.ajax({
         type: "POST",
+        headers: {"Authorization": localStorage.token},
         url: base_url + "admin/api/getSearchStudent",
         data: {query: query},
         success: function(data){
@@ -239,6 +243,7 @@ function getSearchStudent(query){
 function getSearchTeacher(query){
     $.ajax({
         type: "POST",
+        headers: {"Authorization": localStorage.token},
         url: base_url + "admin/api/getSearchTeacher",
         data: {query: query},
         success: function(data){
@@ -265,6 +270,7 @@ function getSearchTeacher(query){
 function getAllTeachers(){
     $.ajax({
         type: "GET",
+        headers: {"Authorization": localStorage.token},
         url: base_url + "admin/api/getAllTeachers",
         success: function(data) {
             $("#mens_sem_teachers").remove();

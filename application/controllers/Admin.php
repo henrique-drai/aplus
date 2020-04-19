@@ -174,6 +174,7 @@ class Admin extends REST_Controller {
     }
 
     public function getAllSubjects(){
+        $this->verify_request();
         $this->load->model('SubjectModel');
         $this->load->model('CourseModel');
         $data["subjects"] = $this->SubjectModel->getAllSubjects();
@@ -211,6 +212,7 @@ class Admin extends REST_Controller {
     }
 
     public function getAllSubjectsByCourse(){
+        $this->verify_request();
         $courses = $this->get('courses');
         $this->load->model('SubjectModel');
         $this->load->model('CourseModel');
@@ -244,6 +246,7 @@ class Admin extends REST_Controller {
     }
 
     public function getAllStudents(){
+        $this->verify_request();
         $this->load->model('UserModel');
         $data["students"] = $this->UserModel->getStudents();
         
@@ -251,6 +254,7 @@ class Admin extends REST_Controller {
     }
 
     public function getSearchStudent(){
+        $this->verify_request();
         $query = '';
         $this->load->model('UserModel');
         if($this->post("query")){
@@ -268,6 +272,7 @@ class Admin extends REST_Controller {
     }
 
     public function getSearchTeacher(){
+        $this->verify_request();
         $query = '';
         $this->load->model('UserModel');
         if($this->post("query")){
@@ -286,6 +291,7 @@ class Admin extends REST_Controller {
     }
 
     public function deleteUser(){
+        $this->verify_request();
         $email = $this->delete('email');
         $this->load->model('UserModel');
         $this->UserModel->deleteUser($email);
@@ -306,6 +312,7 @@ class Admin extends REST_Controller {
     }
 
     public function editUser(){
+        $this->verify_request();
         $email = $this->post('oldemail');
         $data = Array(
             "name"      => $this->post('name'),
@@ -320,6 +327,7 @@ class Admin extends REST_Controller {
     }
 
     public function getAllTeachers(){
+        $this->verify_request();
         $this ->load-> model('UserModel');
         $data["teachers"] = $this ->UserModel-> getTeachers();
         $this -> response($data, parent::HTTP_OK);

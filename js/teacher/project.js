@@ -664,6 +664,9 @@ function getEtapas(proj_id){
 function showGroups(proj_id) {
     $.ajax({
         type: "GET",
+        headers: {
+            "Authorization": localStorage.token
+        },
         url: base_url + "teacher/api/getAllGroups",
         data: {proj_id: proj_id},
         success: function(data) {

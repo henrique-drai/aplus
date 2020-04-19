@@ -37,7 +37,7 @@ class Subjects extends CI_Controller {
     }
 
     //      Página de cadeira:
-    //      aplus.com/subject/subject/:subject_code/:year
+    //      aplus.com/subjects/subject/:subject_code/:year
     public function subject($subject_code = '', $year)
     {
         $data["base_url"] = base_url();

@@ -29,8 +29,8 @@ class Student extends REST_Controller {
 
     public function api_get($f) {
         switch ($f) {
-            case "getCadeiras":             $this->getCadeiras(); break;//     /student/api/getCadeiras
-            case "getInfo":                 $this->getInfo(); break;//     /student/api/getInfo
+            case "getCadeiras":             $this->getCadeiras(); break;//          /student/api/getCadeiras
+            case "getInfo":                 $this->getInfo(); break;//              /student/api/getInfo
             case "getMyGroups":             $this->getMyGroups(); break;
             case "getStudentsFromGroup":    $this->getStudentsFromGroup(); break;
             case "getCadeiraGrupo":         $this->getCadeiraGrupo(); break;
@@ -80,12 +80,11 @@ class Student extends REST_Controller {
     }
 
     public function getInfo() {
-        $cadeira_code = $this->get('cadeira_code');
         $cadeira_id = $this->get('cadeira_id');
         $this->load->model("ForumModel");
         $this->load->model('SubjectModel');
-        $data["desc"] = $this->SubjectModel->getDescription($cadeira_code);
 
+        $data["desc"] = $this->SubjectModel->getDescriptionById($cadeira_id);
         $data["forum"] = $this->ForumModel->getForumByCadeiraID($cadeira_id);
         $data["proj"] = $this->SubjectModel->getProj($cadeira_id);
         $data["hours"] = $this->SubjectModel->getHours($cadeira_id);

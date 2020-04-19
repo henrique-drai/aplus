@@ -1,3 +1,6 @@
+var id
+var code
+
 $(document).ready(() => {
     getInfo(localStorage.cadeira_code);    
     $(".hours_inputs").hide();
@@ -113,13 +116,15 @@ $(document).ready(() => {
         $("#save_button_hours").hide();
     })
 
+    var link = location.href.split("aplus")[1];
+    var ano = link.split("/")[4];
+
+
     $("body").on("click", ".studentsList_button", function() {
-        window.location = base_url + "subjects/students/" + localStorage.cadeira_code;
+        window.location = base_url + "subjects/students/" + localStorage.cadeira_code + "/" + ano;
     })
 
     $("body").on("click", ".newProject_button", function() {
-        var link = location.href.split("aplus")[1];
-        var ano = link.split("/")[4];
         window.location = base_url + "projects/new/" + localStorage.cadeira_code + "/" + ano;
     })
 
@@ -128,18 +133,24 @@ $(document).ready(() => {
     })
 
     $("body").on("click", ".new_forum", function() {
-        var link = location.href.split("aplus")[1];
-        var ano = link.split("/")[4];
         window.location = base_url + "foruns/new/" + localStorage.cadeira_code + "/" + ano;
     })
 
     $("body").on("click", ".forum_button", function() {
-        var link = location.href.split("aplus")[1];
-        var ano = link.split("/")[4];
         localStorage.setItem("forum_id", $(this).attr("id"));
         window.location = base_url + "foruns/forum/" + $(this).attr("id");
     })
 })
+
+function setID(newid){
+    id = newid;
+    localStorage.setItem("cadeira_id", id);
+}
+
+function setCode(newcode){
+    code = newcode;
+    localStorage.setItem("cadeira_code", code);
+}
 
 function validateFormNumb(id){
     if($("#" + id + ".minnuminput").val() != '' && $("#" + id +".maxnuminput").val() != ''){

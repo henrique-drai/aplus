@@ -110,15 +110,15 @@ class Projects extends CI_Controller {
 
         $this->load->helper('form');
 
-        if ($this->session->userdata('role') == 'teacher'){
-            $this->load->view('templates/head', $data);
-            $this->load->view('teacher/project',$data);
-            $this->load->view('templates/footer');  
-        } else {
-            $this->load->view('errors/403', $data); return null;
-        }
+        $this->load->view('templates/head', $data);
 
+        switch ($this->session->userdata('role')) {
+            case 'student': $this->load->view('student/project', $data); break;
+            case 'teacher': $this->load->view('teacher/project', $data); break;
+            case 'admin':   $this->load->view('admin/project', $data); break;
+        }
         
+        $this->load->view('templates/footer');  
     }
 
     //      projects/rating/:project_id

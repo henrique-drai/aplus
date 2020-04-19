@@ -2,7 +2,7 @@ $(document).ready(() => {
     getCadeiras(localStorage.user_id);
 
     $("body").on("click", "a", function() {
-        localStorage.setItem("cadeira_code", $(this).attr("id"));
+        // localStorage.setItem("cadeira_code", $(this).attr("id"));
         var link = $(this).attr("href");
         localStorage.setItem("year", link.split("/").pop());
     })

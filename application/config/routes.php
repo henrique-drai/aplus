@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
-|	https://codeigniter.com/user_guide/general/routing.html
+https://codeigniter.com/userguide3/general/routing.html
 */
 
 $route['api/calendario'] = 'Api_Calendario/fullCalendario';

@@ -19,8 +19,9 @@ class Projects extends CI_Controller {
     }
 
     //      projects/new/:subject_code/:year
-    public function new($subject_code, $year)
+    public function new($subject_code, $year = null)
     {
+
         $data["base_url"] = base_url();
         
         //verificar se a pessoa fez login
@@ -28,39 +29,27 @@ class Projects extends CI_Controller {
             $this->load->view('errors/403', $data); return null;
         }
 
-        //buscar a info sobre o codigo do curso
-        $data["subject"] = $this->SubjectModel->getSubjectByCode($subject_code);
-
-        //verificar se o objeto existe
-        if(is_null($data["subject"])){
-            $this->load->view('errors/404', $data); return null;
-        }
-
-        //verificar se o curso ao qual a cadeira pertence 
-        // ir buscar ano letivo id do ano letivo que começa em year
-        // ir buscar curso cujo id é igual ao subject[curso_id]
-        // verificar se id do ano letivo é igual ao ano letivo do curso
         $this->load->model('YearModel');
-        $this->load->model('CourseModel');
 
-    
+        //verificar se o ano letivo existe e é valido
         $ano_letivo = $this->YearModel->getYearByInicio($year);
 
         if(is_null($ano_letivo)){
             $this->load->view('errors/404', $data); return null;
         }
 
-        $course = $this->CourseModel->getCursobyId($data["subject"]->curso_id);
-    
-        if(is_null($course)){
-            $this->load->view('errors/404', $data); return null;
-        }
+        //usar ano letivo na query para ir buscar a cadeira cujo code = subject code
+        //  e cujo o ano_letivo_id = ao get ano_letivo_id do curso respetivo
 
-        if ($course->ano_letivo_id != $ano_letivo->id){
+        $data["subject"] = $this->SubjectModel->getSubjectByCodeAndYear($subject_code, $ano_letivo->id);
+
+        //verificar se o objeto existe
+        if(is_null($data["subject"])){
             $this->load->view('errors/404', $data); return null;
         }
 
         $data["year"] = $year;
+
         $this->load->helper('form');
 
         if ($this->session->userdata('role') == 'teacher'){

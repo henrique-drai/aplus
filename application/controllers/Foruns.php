@@ -72,7 +72,7 @@ class Foruns extends CI_Controller {
     }
 
     //      aplus.com/foruns/new/:subject_code/:year
-    public function new($subject_code, $year)
+    public function new($subject_code, $year=null)
     {
         $data["base_url"] = base_url();
         
@@ -81,21 +81,24 @@ class Foruns extends CI_Controller {
             $this->load->view('errors/403', $data); return null;
         }
 
-        //buscar a info sobre o codigo do curso
-        $data["subject"] = $this->SubjectModel->getSubjectByCode($subject_code);
+        //verificar se o ano letivo existe e é valido
+        $ano_letivo = $this->YearModel->getYearByInicio($year);
 
-        //buscar o year
-        $data["year"] = $this->YearModel->getYearByInicio($year);
+        if(is_null($ano_letivo)){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        //usar ano letivo na query para ir buscar a cadeira cujo code = subject code
+        //  e cujo o ano_letivo_id = ao get ano_letivo_id do curso respetivo
+
+        $data["subject"] = $this->SubjectModel->getSubjectByCodeAndYear($subject_code, $ano_letivo->id);
 
         //verificar se o objeto existe
         if(is_null($data["subject"])){
             $this->load->view('errors/404', $data); return null;
         }
 
-        //verificar se o ano existe
-        if(is_null($data["year"])){
-            $this->load->view('errors/404', $data); return null;
-        }
+        $data["year"] = $year;
 
         if ($this->session->userdata('role') == 'teacher'){
             $this->load->view('templates/head', $data);

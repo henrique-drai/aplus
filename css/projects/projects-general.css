@@ -57,8 +57,12 @@
     word-wrap: break-word;
 }
 
-.etapasDIV p:first-child, .etapasDIV p:nth-child(2){
+.etapasDIV p:first-child{
     width:45%;
+}
+
+.etapasDIV p:nth-child(2){
+    width:40%;
 }
 
 .etapasDIV p:nth-child(2){
@@ -66,7 +70,7 @@
 }
 
 .etapasDIV p:nth-child(3){
-    width: 10%;
+    width: 15%;
 }
 
 /* grupos / etapas */

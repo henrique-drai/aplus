@@ -85,7 +85,7 @@ function makeEtapaDiv(data){
         var date = new Date(json["deadline"]);
         etapasSTR += '<div class="etapasDIV" id="etapa' + json["id"] +'"><p><b>'+json["nome"]+'</b></p>'+
             '<p>'+ date.toLocaleString('en-GB', {hour: '2-digit', minute:'2-digit', year: 'numeric', month: 'numeric', day: 'numeric'}) +'</p>'+
-            '<p><input class="moreInfoButtons" id="'+json["id"] +'" type="button" value="Mais informações"></input></p>' +
+            '<p><input class="moreInfoButtons" id="'+json["id"] +'" type="button" value="Info"></input></p>' +
             '</div>' +
             '<hr>'
 

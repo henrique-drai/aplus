@@ -15,7 +15,7 @@ class EventModel extends CI_Model { //evento & horario_duvidas
 
     public function getClassesByTeacherId($id) {
         $query = "select * 
-            from aluno_aula, curso, ano_letivo, cadeira, aula
+            from professor_aula, curso, ano_letivo, cadeira, aula
             where aula.id = professor_aula.aula_id
             and cadeira.curso_id = curso.id
             and curso.ano_letivo_id = ano_letivo.id

@@ -10,7 +10,6 @@ $(document).ready(function(){
 	$('.cd-popup').on('click', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
       event.preventDefault();
-      console.log("kek")
 			$(this).removeClass('is-visible');
 		}
   });

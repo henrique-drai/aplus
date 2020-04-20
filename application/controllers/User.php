@@ -49,35 +49,6 @@ class User extends REST_Controller {
     }
 
 
-    public function testeLogin() {
-
-        $data = $this->verify_request();
-
-        $this->response($data, parent::HTTP_OK);
-    }
-
-    
-    public function updateInfo(){
-
-        $data = Array(
-            "id" => $this->verify_request()->id,
-            "name" => $this->post('name'),
-            "surname" => $this->post('surname'),
-            "password" => $this->post('password'),
-            "description" => $this->post('description'),
-            "gabinete" => $this->post('gabinete'),
-        );
-
-        $this->load->model('UserModel');
-
-        $this->UserModel->updateUser($data);
-
-        $this->response($data, parent::HTTP_OK);
-    }
-
-
-
-
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

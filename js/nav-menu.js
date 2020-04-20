@@ -54,17 +54,11 @@ function endSession(){
 function updateNavMenuData(){
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
+        headers: {"Authorization": localStorage.token},
         url: base_url + "api/user/"+localStorage.user_id,
         success: function(data) {
-            console.log(data)
             const obj = JSON.parse(data)
-            console.log(obj)
             $(".nav-menu-user-name").text(obj.name + " " + obj.surname)
-            // const picture = base_url + "uploads/profile/" + obj.id + obj.picture + "?" + Date.now()
-            // $(".nav-menu-profile-picture img").attr("src", picture);
         },
         error: function(data) {
             console.log("Problema na API: api/user get.")

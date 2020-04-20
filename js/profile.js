@@ -45,10 +45,8 @@ function submit_form_values(){
 
         $.ajax({
             type: "POST",
-            url: base_url + "user/api/updateInfo",
-            headers: {
-                "Authorization": localStorage.token
-            },
+            url: base_url + "api/user",
+            headers: {"Authorization": localStorage.token},
             data: data,
             success: function(data) {
                 console.log(data)

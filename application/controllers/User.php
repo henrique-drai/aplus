@@ -23,7 +23,6 @@ class User extends REST_Controller {
             case "getInfo": $this->getUserInfo(); break; //user/api/getInfo
             case "teste": $this->testeLogin(); break; //user/api/teste
             case "updateInfo": $this->updateInfo(); break; //user/api/updateInfo
-            case "getCalendario": $this->getCalendario(); break; //user/api/getCalendario
 
             default:            $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -76,44 +75,7 @@ class User extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function getCalendario() {
-        $user_id = $this->verify_request()->id;
 
-        $this->load->model('UserModel');
-        $this->load->model('EventModel');
-
-        $user = $this->UserModel->getUserById($user_id);
-
-        if ($user->role == "student")
-            $classes = $this->EventModel->getClassesByStudentId($user_id);
-        else if ($user->role == "teacher")
-            $classes = $this->EventModel->getClassesByTeacherId($user_id);
-        else {$this->response(Array(), parent::HTTP_NOT_FOUND); return null;}
-
-        $events = $this->EventModel->getFutureEventsByUserId($user_id);
-        $group_events = $this->EventModel->getFutureGroupEventsByUserId($user_id);
-        $submissions = $this->EventModel->getFutureSubmissionsByUserId($user_id);
-
-        //encontrar eventos duplicados
-        $ids_to_remove = Array();
-        foreach ($events as $index => $e) foreach ($group_events as $ge) 
-            if ($ge["evento_id"] == $e["id"]) array_push($ids_to_remove, $index);
-
-        //apagar eventos duplicados (transforma o events em objeto)
-        foreach ($ids_to_remove as $itr) unset($events[$itr]);
-
-        //voltar a converter para array
-        $events = array_values($events);
-
-        $data = Array(
-            "classes" => $classes,
-            "events" => $events,
-            "group_events" => $group_events,
-            "submissions" => $submissions,
-        );
-
-        $this->response($data, parent::HTTP_OK);
-    }
 
 
 

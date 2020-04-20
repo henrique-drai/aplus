@@ -70,9 +70,9 @@ function renderCalendario(){
 
 function updateCalendario(){
     $.ajax({
-        type: "POST",
+        type: "GET",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "user/api/getCalendario",
+        url: base_url + "api/calendario",
         success: function(data) {
             setCalendario(data)
             renderCalendario()
@@ -180,7 +180,7 @@ function eventOnClick(){
                 break
             
             case "group":
-
+                
                 break
 
             case "event":
@@ -194,7 +194,7 @@ function eventOnClick(){
                 .html("Apagar Evento")
                 .off()
                 .click(()=>{
-                    //TODO ajax para apagar evento
+                    ajaxDeleteEventById(parseInt(event.obj.evento_id))
                 })
                 break
             
@@ -207,4 +207,23 @@ function eventOnClick(){
         $('.cd-message').html(message)
         $('.cd-popup').addClass('is-visible')
     });
+}
+
+
+
+function ajaxDeleteEventById(evento_id){
+    $.ajax({
+        type: "GET",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/calendario",
+        success: function(data) {
+            setCalendario(data)
+            renderCalendario()
+            console.log(calendario)
+        },
+        error: function(data) {
+            console.log("Problema na API ao buscar o calendário.")
+            console.log(data)
+        }
+    })
 }

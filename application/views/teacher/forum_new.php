@@ -1,5 +1,5 @@
 <title><?php echo $subject->name; ?></title>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/teacher-forum.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/forum/forum.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/teacher/new_forum.js"></script>
 </head>

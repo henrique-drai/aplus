@@ -35,7 +35,7 @@ function getInfo() {
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "student/api/getInfo",
+        url: base_url + "api/getCadeira/" + id,
         data: {cadeira_id: id},
         success: function(data) {
             console.log(data);

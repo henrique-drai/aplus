@@ -1,17 +1,17 @@
 $(document).ready(() => {
     getInfo(localStorage.getItem("thread_id"));
 
-    $("#create_post_button").click(function() {
+    $('body').on("click", "#create_post_button", function() {
         $(".overlay").css('visibility', 'visible');
         $(".overlay").css('opacity', '1');
     })
 
-    $('.close').click(function() {
+    $('body').on("click", '.close', function() {
         $(".overlay").css('visibility', 'hidden');
         $(".overlay").css('opacity', '0');
     })
 
-    $('#popup_button').click(function() {
+    $('body').on("click", '#popup_button', function() {
         var desc = $("textarea").val();
         insertPost(desc);
         $(".overlay").css('visibility', 'hidden');
@@ -39,10 +39,8 @@ $(document).ready(() => {
             headers: {
                 "Authorization": localStorage.token
             },
-            url: base_url + "teacher/api/removePost",
-            data: {post_id: localStorage.post_id},
+            url: base_url + "api/removePost/" + localStorage.post_id,
             success: function(data) {
-                console.log("data");
                 window.location.reload();
             },
             error: function(data) {
@@ -73,18 +71,24 @@ function getInfo(id) {
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/getThreadInfo",
-        data: {thread_id: id},
+        url: base_url + "api/getThread/" + id,
         success: function(data) {
             console.log(data);
             $(".threadName").empty();
             $(".threadDesc").empty();
             $(".threads .post").remove();
+            $(".threads p").remove();
             $(".threadName").append(data.info.title);
             $(".threadDesc").append(data.info.content);
 
             if(data.posts.length == 0) {
                 $(".threads").append("<p>Não há nenhuma publicação neste tópico.</p>");
+
+                $(".add").append("<input type='button' id='create_post_button' value='Criar novo post'><div class='overlay'>" +
+                    "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'><h2>Criar novo post</h2>" +
+                    "<form id='threadForm' class='thread-form'  action='javascript:void(0)'><p><label class='form-label'>Conteúdo:</label>" +
+                    "<textarea class='form-text-area' type='text' name='threadDescription' required></textarea></p><input type='button'" +
+                    "id='popup_button' value='Criar'></form></div></div></div>");
             } else {
                 for(var i=0; i < data.posts.length; i++) {
                     $(".threads").append("<div class='post' id='" + data.posts[i].id + "'><div class='head'><p>" + data.users[i].name + " " + data.users[i].surname + "</p>" +
@@ -95,7 +99,7 @@ function getInfo(id) {
                         }
                 }
 
-                if(localStorage.teachers_only == 0) {
+                if(localStorage.teachers_only == 0 || data.user.role == "teacher") {
                     $(".add").append("<input type='button' id='create_post_button' value='Criar novo post'><div class='overlay'>" +
                         "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'><h2>Criar novo post</h2>" +
                         "<form id='threadForm' class='thread-form'  action='javascript:void(0)'><p><label class='form-label'>Conteúdo:</label>" +
@@ -117,10 +121,9 @@ function insertPost(desc) {
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/insertPost",
+        url: base_url + "api/insertPost",
         data: {
             thread_id: localStorage.thread_id,
-            user_id: localStorage.user_id,
             content: desc,
             date: new Date().toISOString().slice(0, 19).replace('T', ' '),
         },

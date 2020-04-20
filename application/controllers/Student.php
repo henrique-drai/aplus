@@ -29,8 +29,6 @@ class Student extends REST_Controller {
 
     public function api_get($f) {
         switch ($f) {
-            case "getCadeiras":             $this->getCadeiras(); break;//          /student/api/getCadeiras
-            case "getInfo":                 $this->getInfo(); break;//              /student/api/getInfo
             case "getMyGroups":             $this->getMyGroups(); break;
             case "getStudentsFromGroup":    $this->getStudentsFromGroup(); break;
             case "getCadeiraGrupo":         $this->getCadeiraGrupo(); break;
@@ -59,50 +57,6 @@ class Student extends REST_Controller {
        
         $this->GroupModel->insertClassification($data); 
     }
-
-
-    //////////////////////////////////////////////////////////////
-    //                         SUBJECT
-    //////////////////////////////////////////////////////////////
-    public function getCadeiras() {
-        $user_id = $this->verify_request()->id;
-        $this->load->model('SubjectModel');
-        $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id, "student");
-
-        $data["info"] = array();
-        for($i=0; $i < count($data["cadeiras_id"]); $i++) {
-            array_push($data["info"], $this->SubjectModel->getCadeiraInfo($data["cadeiras_id"][$i]["cadeira_id"]));
-        }
-
-        $this->load->model('CourseModel');
-        $this->load->model('YearModel');
-        $tmp = $this->CourseModel->getCursobyId($data["info"][0][0]["curso_id"]);
-        $data["year"] = $this->YearModel->getYearById($tmp->ano_letivo_id);
-
-        $this->response($data, parent::HTTP_OK);
-    }
-
-    public function getInfo() {
-        $this->verify_request();
-        
-        $cadeira_id = $this->get('cadeira_id');
-        $this->load->model("ForumModel");
-        $this->load->model('SubjectModel');
-
-        $data["desc"] = $this->SubjectModel->getDescriptionById($cadeira_id);
-        $data["forum"] = $this->ForumModel->getForumByCadeiraID($cadeira_id);
-        $data["proj"] = $this->SubjectModel->getProj($cadeira_id);
-        $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
-
-        $this->load->model('UserModel');
-        $data['user'] = array();
-        for ($i=0; $i < count($data["hours"]); $i++) {
-            array_push($data["user"], $this->UserModel->getUserById($data["hours"][$i]['id_prof']));
-        }
-
-        $this->response($data, parent::HTTP_OK);
-    }
-
 
     
     //////////////////////////////////////////////////////////////

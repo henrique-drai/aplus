@@ -22,7 +22,7 @@ class ForumModel extends CI_Model { //forum & thread & thread_post
         return $data;
     }
 
-    public function getThreads($id) {
+    public function getThreadsByForumId($id) {
         $query = $this->db->get_where("thread", array('forum_id' => $id));
         return $query->result_array();
     }

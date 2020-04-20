@@ -14,8 +14,7 @@ function loadProfHome() {
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/getProfHome",
-        data: {user_id: localStorage.user_id},
+        url: base_url + "api/getHome/" + localStorage.user_id,
         success: function(data) {
             console.log(data)
             var count = 0;

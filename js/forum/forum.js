@@ -47,8 +47,7 @@ $(document).ready(() => {
             headers: {
                 "Authorization": localStorage.token
             },
-            url: base_url + "teacher/api/removeForum",
-            data: {forum_id: localStorage.forum_id},
+            url: base_url + "api/removeForum/" + localStorage.forum_id,
             success: function(data) {
                 console.log("ok");
                 window.location = base_url + "subjects/subject/" + localStorage.cadeira_code + "/" + localStorage.year;
@@ -75,14 +74,13 @@ function makePopup(butID, msg){
     $("#popups").html(popup);
 }
 
-function getInfo(id, user_id) {
+function getInfo(id) {
     $.ajax({
         type: "GET",
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/getForumInfo",
-        data: {forum_id: id, user_id: user_id},
+        url: base_url + "api/getForumById/" + id,
         success: function(data) {
             $(".forumName").empty();
             $(".forumDesc").empty();
@@ -114,8 +112,7 @@ function getThreads() {
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/getThreads",
-        data: {forum_id: localStorage.getItem("forum_id")},
+        url: base_url + "api/getAllByForumId/" + localStorage.forum_id,
         success: function(data) {
             $(".threadTable").empty();
             if(data.threads.length == 0) {
@@ -146,9 +143,8 @@ function insertThread(name, desc) {
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/insertThread",
+        url: base_url + "api/insertThread",
         data: {
-            user_id: localStorage.user_id,
             forum_id: localStorage.forum_id,
             title: name,
             content: desc,

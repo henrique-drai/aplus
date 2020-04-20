@@ -32,6 +32,9 @@ function setCode(newcode){
 function getInfo() {
     $.ajax({
         type: "GET",
+        headers: {
+            "Authorization": localStorage.token
+        },
         url: base_url + "student/api/getInfo",
         data: {cadeira_id: id},
         success: function(data) {

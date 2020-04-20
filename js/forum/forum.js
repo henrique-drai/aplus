@@ -1,19 +1,19 @@
 $(document).ready(() => {
-    getInfo(localStorage.getItem("forum_id"));
+    getInfo(localStorage.getItem("forum_id"), localStorage.user_id);
     getThreads();
     setInterval(getThreads, 3000); 
 
-    $('#add_button').click(function() {
+    $('body').on("click", '#add_button', function() {
         $(".overlay").css('visibility', 'visible');
         $(".overlay").css('opacity', '1');
     });
 
-    $('.close').click(function() {
+    $('body').on("click", '.close', function() {
         $(".overlay").css('visibility', 'hidden');
         $(".overlay").css('opacity', '0');
     })
 
-    $('#popup_button').click(function() {
+    $('body').on("click", '#popup_button', function() {
         var name = $("input[type='text']").val();
         var desc = $("textarea").val();
         insertThread(name, desc);
@@ -27,7 +27,7 @@ $(document).ready(() => {
         window.location = base_url + "foruns/thread/" + $(this).attr("id");
     })
 
-        //open popup - REMOVER POST
+    //open popup - REMOVER POST
 	$('body').on('click', '.remove', function(){
         makePopup("confirmRemove", "Tem a certeza que deseja eliminar o projeto?");
 	});
@@ -75,14 +75,14 @@ function makePopup(butID, msg){
     $("#popups").html(popup);
 }
 
-function getInfo(id) {
+function getInfo(id, user_id) {
     $.ajax({
         type: "GET",
         headers: {
             "Authorization": localStorage.token
         },
         url: base_url + "teacher/api/getForumInfo",
-        data: {forum_id: id},
+        data: {forum_id: id, user_id: user_id},
         success: function(data) {
             $(".forumName").empty();
             $(".forumDesc").empty();
@@ -91,7 +91,7 @@ function getInfo(id) {
 
             localStorage.setItem("teachers_only", data.info.teachers_only);
 
-            if(data.info.teachers_only == 0) {
+            if(data.user.role == "teacher") {
                 $(".add").append("<input type='button' id='add_button' value='Criar Tópico'><div class='overlay'>" +
                     "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'>" +
                     "<h2>Criar novo tópico</h2><form id='threadForm' class='thread-form'  action='javascript:void(0)'>" +

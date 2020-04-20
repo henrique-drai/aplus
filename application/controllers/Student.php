@@ -65,7 +65,7 @@ class Student extends REST_Controller {
     //                         SUBJECT
     //////////////////////////////////////////////////////////////
     public function getCadeiras() {
-        $user_id = $this->get('id');
+        $user_id = $this->verify_request()->id;
         $this->load->model('SubjectModel');
         $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id, "student");
 
@@ -83,6 +83,8 @@ class Student extends REST_Controller {
     }
 
     public function getInfo() {
+        $this->verify_request();
+        
         $cadeira_id = $this->get('cadeira_id');
         $this->load->model("ForumModel");
         $this->load->model('SubjectModel');

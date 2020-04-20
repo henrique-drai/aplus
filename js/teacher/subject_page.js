@@ -171,6 +171,9 @@ function validateFormNumb(id){
 function getInfo($id) {
     $.ajax({
         type: "GET",
+        headers: {
+            "Authorization": localStorage.token
+        },
         url: base_url + "teacher/api/getDescription",
         data: {cadeira_id: $id},
         success: function(data) {
@@ -200,6 +203,9 @@ function getInfo($id) {
 function getHours($id) {
     $.ajax({
         type: "GET",
+        headers: {
+            "Authorization": localStorage.token
+        },
         url: base_url + "teacher/api/getHours",
         data: {cadeira_id: $id},
         success: function(data) {
@@ -225,6 +231,9 @@ function getHours($id) {
 function insertText($text) {
     $.ajax({
         type: 'POST',
+        headers: {
+            "Authorization": localStorage.token
+        },
         url: base_url + "teacher/api/insertText",
         data: {text: $text, cadeira_id: localStorage.cadeira_id},
         success: function(data) {
@@ -242,6 +251,9 @@ function insertText($text) {
 function setHours($id) {
     $.ajax({
         type: "GET",
+        headers: {
+            "Authorization": localStorage.token
+        },
         url: base_url + "teacher/api/getHours",
         data: {cadeira_id: $id},
         success: function(data) {
@@ -320,6 +332,9 @@ function setHours($id) {
 function saveHours(data) {
     $.ajax({
         type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
         url: base_url + "teacher/api/saveHours",
         data: data,
         success: function(data) {
@@ -339,6 +354,9 @@ function saveHours(data) {
 function removeHours(data) {
     $.ajax({
         type: "DELETE",
+        headers: {
+            "Authorization": localStorage.token
+        },
         url: base_url + "teacher/api/removeHours",
         data: data,
         success: function(data) {
@@ -353,6 +371,9 @@ function removeHours(data) {
 function getProj(data) {
     $.ajax({
         type: "GET",
+        headers: {
+            "Authorization": localStorage.token
+        },
         url: base_url + "teacher/api/getProj",
         data: {cadeira_id: data},
         success: function(data) {
@@ -375,6 +396,9 @@ function getProj(data) {
 function getForum(data) {
     $.ajax({
         type: "GET",
+        headers: {
+            "Authorization": localStorage.token
+        },
         url: base_url + "teacher/api/getForum",
         data: {cadeira_id: data},
         success: function(data) {

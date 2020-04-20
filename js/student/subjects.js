@@ -15,9 +15,7 @@ function getCadeiras(user_id) {
             "Authorization": localStorage.token
         },
         url: base_url + "student/api/getCadeiras",
-        data: {id: user_id},
         success: function(data) {
-            console.log(data)
             $(".cadeiras").empty();
 
             if(data.cadeiras_id.length != 0) {

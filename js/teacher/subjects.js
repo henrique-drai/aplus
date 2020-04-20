@@ -12,8 +12,10 @@ function showCadeiras() {
     var image_url = base_url + "uploads/pattern.jpg";
     $.ajax({
         type: "GET",
+        headers: {
+            "Authorization": localStorage.token
+        },
         url: base_url + "teacher/api/getCadeiras",
-        data: {id: localStorage.user_id},
         success: function(data) {
             console.log(data)
             $(".cadeiras").empty();

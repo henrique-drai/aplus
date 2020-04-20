@@ -74,7 +74,8 @@ class Teacher extends REST_Controller {
     //                         SUBJECT
     //////////////////////////////////////////////////////////////
     public function getCadeiras() {
-        $user_id = $this->get('id');
+        $user_id = $this->verify_request()->id;
+
         $this->load->model('SubjectModel');
         $this->load->model('CourseModel');
         $this->load->model('YearModel');
@@ -97,6 +98,8 @@ class Teacher extends REST_Controller {
     }
 
     public function getDescription() {
+        $this->verify_request();
+
         $cadeira_id = $this->get('cadeira_id');
         $this->load->model('SubjectModel');
         $data["info"] = $this->SubjectModel->getDescription($cadeira_id);
@@ -105,6 +108,8 @@ class Teacher extends REST_Controller {
     }
 
     public function getHours() {
+        $this->verify_request();
+
         $cadeira_id = $this->get('cadeira_id');
         $this->load->model('SubjectModel');
         $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
@@ -119,6 +124,7 @@ class Teacher extends REST_Controller {
     }
 
     public function insertText() {
+        $this->verify_request();
         $data = Array(
             "id"    => $this->post("cadeira_id"),
             "text"  => $this->post("text"),
@@ -131,7 +137,7 @@ class Teacher extends REST_Controller {
 
     public function saveHours() {
         $data = Array (
-            'id_prof'             => $this->post('user_id'),
+            'id_prof'             => $this->verify_request()->id,
             'id_cadeira'          => $this->post('cadeira_id'),
             'start_time'          => $this->post('start_time'),
             'end_time'            => $this->post('end_time'),
@@ -146,7 +152,7 @@ class Teacher extends REST_Controller {
 
     public function removeHours() {
         $data = Array (
-            'id_prof'             => $this->delete('user_id'),
+            'id_prof'             => $this->verify_request()->id,
             'id_cadeira'          => $this->delete('cadeira_id'),
             'start_time'          => $this->delete('start_time'),
             'end_time'            => $this->delete('end_time'),
@@ -166,6 +172,8 @@ class Teacher extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function getProj() {
+        $this->verify_request();
+
         $cadeira_id = $this->get('cadeira_id');
         $this->load->model('SubjectModel');
         $data = $this->SubjectModel->getProj($cadeira_id);
@@ -175,6 +183,8 @@ class Teacher extends REST_Controller {
 
 
     public function removeProject() {
+        $this->verify_request();
+
         $proj_id = $this->delete('projid');
         $this->load->model('ProjectModel');
         $data = $this->ProjectModel->removeProjectByID($proj_id);
@@ -183,6 +193,8 @@ class Teacher extends REST_Controller {
     }
 
     public function createProject(){
+        $this->verify_request();
+
         $dataProj = Array(
             "cadeira_id"          => $this->post("cadeira_id"),
             "nome"                => $this->post("projName"),
@@ -218,6 +230,8 @@ class Teacher extends REST_Controller {
     }
 
     public function getAllEtapas(){
+        $this->verify_request();
+
         $proj_id = $this->get('projid');
         $this->load->model('ProjectModel');
         $data = $this->ProjectModel->getEtapasByProjectID($proj_id);
@@ -227,6 +241,8 @@ class Teacher extends REST_Controller {
 
 
     public function removeEtapa(){
+        $this->verify_request();
+
         $id = $this->delete('etapa_id');
         $this->load->model('ProjectModel');
         $data = $this->ProjectModel->removeEtapaByID($id);
@@ -236,6 +252,7 @@ class Teacher extends REST_Controller {
 
 
     public function createEtapa(){
+        $this->verify_request();
 
         $etapa = $this->post('new_etapa');
         $this->load->model('ProjectModel');
@@ -254,6 +271,7 @@ class Teacher extends REST_Controller {
     }
 
     public function editEtapa(){
+        $this->verify_request();
 
         $etapa = $this->post('edited_etapa');
         $this->load->model('ProjectModel');
@@ -285,6 +303,8 @@ class Teacher extends REST_Controller {
 
 
     public function removeEnunciadoEtapa(){
+        $this->verify_request();
+
         $this->load->model('ProjectModel');
         $id = $this->delete('id');
         $proj = $this->delete('projid');
@@ -298,6 +318,8 @@ class Teacher extends REST_Controller {
 
 
     public function editEnunciado(){
+        $this->verify_request();
+
         $proj = $this->post('projid');
         $this->load->model('ProjectModel');
 
@@ -309,6 +331,8 @@ class Teacher extends REST_Controller {
     }
 
     public function getCourseStudents() {
+        $this->verify_request();
+
         $cadeira_id = $this->get('id');
         $this->load->model('StudentListModel');
         $data["users_id"] = $this->StudentListModel->getStudentsbyCadeiraID($cadeira_id);
@@ -322,6 +346,8 @@ class Teacher extends REST_Controller {
     }
 
     public function getAllGroups() {
+        $this->verify_request();
+        
         $proj_id = $this->get("proj_id");
         $this->load->model("GroupModel");
         $data["grupos"] = $this->GroupModel->getAllGroups($proj_id);
@@ -344,7 +370,8 @@ class Teacher extends REST_Controller {
     }
 
     public function getProfHome() {
-        $user_id = $this->get("user_id");
+        $user_id = $this->verify_request()->id;
+
         $this->load->model("SubjectModel");
         $data["ids"] = $this->SubjectModel->getCadeiras($user_id, "teacher");
 
@@ -376,6 +403,8 @@ class Teacher extends REST_Controller {
     }
 
     public function getSub(){
+        $this->verify_request();
+
         $grupo_id = $this->get('grupo_id');
         $etapa_id = $this->get('etapa_id');
 
@@ -387,6 +416,8 @@ class Teacher extends REST_Controller {
     }
 
     public function insertFeedback(){
+        $this->verify_request();
+
         $grupo_id = $this->post('grupo_id');
         $etapa_id = $this->post('etapa_id');
         $feedback = $this->post('feedback');
@@ -401,6 +432,8 @@ class Teacher extends REST_Controller {
     }
 
     public function editEtapaEnunciado(){
+        $this->verify_request();
+
         $etapa = $this->post('etapaid');
         $enunc = $this->post('enunciado');
 
@@ -413,6 +446,8 @@ class Teacher extends REST_Controller {
 
 
     public function removeEnunciadoProj(){
+        $this->verify_request();
+
         $proj = $this->delete('projid');
         $this->load->model('ProjectModel');
         $this->ProjectModel->removeEnunciadoProj($proj);
@@ -427,6 +462,8 @@ class Teacher extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function insertForum() {
+        $this->verify_request();
+
         $data = Array (
             "cadeira_id"        => $this->post('cadeira_id'),
             "name"              => $this->post("name"),
@@ -442,13 +479,19 @@ class Teacher extends REST_Controller {
 
     public function getForumInfo() {
         $forum_id = $this->get("forum_id");
+        $user_id = $this->verify_request()->id;
+
+        $this->load->model("UserModel");
         $this->load->model("ForumModel");
         $data["info"] = $this->ForumModel->getForumByID($forum_id);
+        $data["user"] = $this->UserModel->getUserById($user_id);
 
         $this->response($data, parent::HTTP_OK);
     }
 
     public function getThreads() {
+        $this->verify_request();
+
         $forum_id = $this->get("forum_id");
         $this->load->model("ForumModel");
         $data["threads"] = $this->ForumModel->getThreads($forum_id);
@@ -465,7 +508,7 @@ class Teacher extends REST_Controller {
 
     public function insertThread() {
         $data = Array (
-            "user_id"           => $this->post("user_id"),
+            "user_id"           => $this->verify_request()->id,
             "forum_id"          => $this->post("forum_id"),
             "title"             => $this->post("title"),
             "content"           => $this->post("content"),
@@ -477,6 +520,8 @@ class Teacher extends REST_Controller {
     }
 
     public function getForum() {
+        $this->verify_request();
+
         $cadeira_id = $this->get("cadeira_id");
         $this->load->model("ForumModel");
         $data = $this->ForumModel->getForumByCadeiraID($cadeira_id);
@@ -485,6 +530,8 @@ class Teacher extends REST_Controller {
     }
 
     public function removeForum() {
+        $this->verify_request();
+
         $forum_id = $this->delete("forum_id");
         $this->load->model("ForumModel");
         $this->ForumModel->removeForum($forum_id);
@@ -495,6 +542,8 @@ class Teacher extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function getThreadInfo() {
+        $this->verify_request();
+
         $thread_id = $this->get("thread_id");
         $this->load->model("ForumModel");
         $data["info"] = $this->ForumModel->getThreadByID($thread_id);
@@ -513,7 +562,7 @@ class Teacher extends REST_Controller {
     public function insertPost() {
         $data = Array (
             "thread_id"          => $this->post("thread_id"),
-            "user_id"            => $this->post("user_id"),
+            "user_id"            => $this->verify_request()->id,
             "content"            => $this->post("content"),
             "date"               => $this->post("date"),
         );
@@ -523,6 +572,8 @@ class Teacher extends REST_Controller {
     }
 
     public function removePost() {
+        $this->verify_request();
+
         $post_id = $this->delete("post_id");
         $this->load->model("ForumModel");
         $this->ForumModel->removePost($post_id);

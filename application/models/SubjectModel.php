@@ -10,7 +10,7 @@ class SubjectModel extends CI_Model { //cadeira
     public function getSubjectByCodeAndYear($code, $year){
         $query = "select *
             from cadeira
-            where cadeira.code ='".$code."'
+            where cadeira.code =".$this->db->escape($code)."
             and (select ano_letivo_id from curso 
                 where id = cadeira.curso_id) =".$year;
 

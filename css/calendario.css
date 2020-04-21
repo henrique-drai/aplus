@@ -1,35 +1,73 @@
-
-#calendario-hook .outter {
+#calendario-hook .inner {
     display: flex;
+    width: 100%;
     text-align: center;
     margin: -5px;
+    overflow-x: scroll;
+    padding-bottom: 15px;
 }
 #calendario-hook .col {
     margin: 5px;
     border: 1px solid #aaa;
+    height: fit-content;
 }
-#calendario-hook .col > a {
-    text-decoration: none;
-    color: black;
-}
-#calendario-hook .col > a:hover .cell {
-    background-color: #ccc;
-}
-
 #calendario-hook .hcell,
 #calendario-hook .cell {
     display: flex;
     flex-direction: column;
     padding: 5px 7px;
     margin: 2px;
-    max-width: 150px;
+    max-width: 190px;
 }
 #calendario-hook .hcell {
     background-color: #ccc;
 }
+#calendario-hook .hcell .week {
+    text-transform: capitalize;
+    font-size: 10px;
+}
 #calendario-hook .cell {
-    border-top: 1px solid #aaa; 
+    border-top: 1px solid #aaa;
+    position: relative; 
 }
-#calendario-hook .cell .time {
+#calendario-hook .cell .start {
     font-weight: bold;
+    font-size: 13px;
 }
+#calendario-hook .cell .desc {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 5px 0px;
+}
+#calendario-hook .cell .end {
+    font-size: 13px;
+}
+#calendario-hook .cell .clickable {
+    position: absolute;
+    top: 0px;
+    left: -1px;
+    width: 100%;
+    height: 100%;
+}
+
+
+#calendario-hook ::-webkit-scrollbar {
+    height: 7px;
+}
+#calendario-hook ::-webkit-scrollbar-track {
+    background: #ccc;
+    border-radius: 5px;
+}
+#calendario-hook ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px; 
+}
+#calendario-hook ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+/* 
+.calendario-msg h3 {
+    
+} */

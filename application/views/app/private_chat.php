@@ -8,49 +8,7 @@
     <?php $this->view('templates/nav-menu'); ?>
 
     <main>
-        <h1>Editar Perfil</h1>
-        <div class="profile-edit">
-            <h3>Editar informação:</h3>
-            <form class="profile-edit-user" action="javascript:void(0)">
-                    <div class="left">
-                        <label for="name">      Nome
-                            <input type="text" name="name" value="<?php echo $user->name; ?>"></label>
-                        <label for="surname">   Apelido
-                            <input type="text" name="surname" value="<?php echo $user->surname; ?>"></label>
-                        <label for="password"> Password Nova
-                            <input type="password" name="password"></label>
-                        <label for="confirm">  Confirmar Password
-                            <input type="password" name="confirm">
-                            <div class="form-error-message"></div>
-                        </label>
-                        <?php
-                        if($this->session->role == "teacher") {
-                            echo '<label for="gabinete"> Gabinete
-                            <input type="text" name="gabinete" value="'. $user->gabinete . '"></label>';
-                        }
-                        ?>
-                    </div>
-
-                    <div class="right">
-                        <label for="description">  Descrição
-                            <textarea name="description" rows="4"><?php echo $user->description; ?></textarea>
-                        </label>
-                        <input type="submit" value="Guardar Alterações">
-                    </div>
-
-            </form>
-        </div>
-        <br>
-        <hr>
-
-        <div class="picture-form">
-            <h3>Alterar imagem de perfil:</h3>
-            <?php echo form_open_multipart('app/uploadProfilePic'); ?>
-                <input type="file" name="userfile" size="20">
-                <input type="submit" value="Carregar">
-            </form>
-        </div>
-
+        
 
         <!--
 

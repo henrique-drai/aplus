@@ -19,8 +19,9 @@ class Projects extends CI_Controller {
     }
 
     //      projects/new/:subject_code/:year
-    public function new($subject_code, $year)
+    public function new($subject_code, $year = null)
     {
+
         $data["base_url"] = base_url();
         
         //verificar se a pessoa fez login
@@ -28,37 +29,26 @@ class Projects extends CI_Controller {
             $this->load->view('errors/403', $data); return null;
         }
 
-        //buscar a info sobre o codigo do curso
-        $data["subject"] = $this->SubjectModel->getSubjectByCode($subject_code);
-
-        //verificar se o objeto existe
-        if(is_null($data["subject"])){
-            $this->load->view('errors/404', $data); return null;
-        }
-
-        //verificar se o curso ao qual a cadeira pertence 
-        // ir buscar ano letivo id do ano letivo que começa em year
-        // ir buscar curso cujo id é igual ao subject[curso_id]
-        // verificar se id do ano letivo é igual ao ano letivo do curso
         $this->load->model('YearModel');
-        $this->load->model('CourseModel');
 
-    
+        //verificar se o ano letivo existe e é valido
         $ano_letivo = $this->YearModel->getYearByInicio($year);
 
         if(is_null($ano_letivo)){
             $this->load->view('errors/404', $data); return null;
         }
 
-        $course = $this->CourseModel->getCursobyId($data["subject"]->curso_id);
-    
-        if(is_null($course)){
+        //usar ano letivo na query para ir buscar a cadeira cujo code = subject code
+        //  e cujo o ano_letivo_id = ao get ano_letivo_id do curso respetivo
+
+        $data["subject"] = $this->SubjectModel->getSubjectByCodeAndYear($subject_code, $ano_letivo->id);
+
+        //verificar se o objeto existe
+        if(is_null($data["subject"])){
             $this->load->view('errors/404', $data); return null;
         }
 
-        if ($course->ano_letivo_id != $ano_letivo->id){
-            $this->load->view('errors/404', $data); return null;
-        }
+        $data["year"] = $year;
 
         $this->load->helper('form');
 
@@ -84,7 +74,15 @@ class Projects extends CI_Controller {
         //buscar a info sobre o projeto
         $data["project"] = $this->ProjectModel->getProjectByID($project_id);
 
-        $_SESSION["project_id"] = $project_id;
+
+        $this->load->model('YearModel');
+        $this->load->model('CourseModel');
+        $this->load->model('SubjectModel');
+
+
+        $subject = $this->SubjectModel->getSubjectByID($data["project"][0]["cadeira_id"]);
+        $course = $this->CourseModel->getCursobyId($subject->curso_id);
+        $data["year"] = $this->YearModel->getYearById($course->ano_letivo_id);
 
         //verificar se o objeto associado ao projeto existe
         if(is_null($data["project"])){
@@ -101,15 +99,15 @@ class Projects extends CI_Controller {
 
         $this->load->helper('form');
 
-        if ($this->session->userdata('role') == 'teacher'){
-            $this->load->view('templates/head', $data);
-            $this->load->view('teacher/project',$data);
-            $this->load->view('templates/footer');  
-        } else {
-            $this->load->view('errors/403', $data); return null;
-        }
+        $this->load->view('templates/head', $data);
 
+        switch ($this->session->userdata('role')) {
+            case 'student': $this->load->view('student/project', $data); break;
+            case 'teacher': $this->load->view('teacher/project', $data); break;
+            case 'admin':   $this->load->view('admin/project', $data); break;
+        }
         
+        $this->load->view('templates/footer');  
     }
 
     //      projects/rating/:project_id
@@ -123,49 +121,4 @@ class Projects extends CI_Controller {
     {
         
     }
-    
-    public function uploadEnunciadoProjeto()
-    {
-        $project_id = $_SESSION["project_id"];
-        $upload['upload_path'] = './uploads/enunciados_files/';
-        $upload['allowed_types'] = 'pdf';
-        $upload['file_name'] = $project_id;
-        $upload['overwrite'] = true;
-
-        $this->load->library('upload', $upload);
-
-        if ( ! $this->upload->do_upload('file_proj'))
-        {
-            $error = array('error' => $this->upload->display_errors());
-            print_r($error);
-            echo "<br>Erro upload ficheiro";
-        }
-        else
-        {
-            header("Location: ".base_url()."projects/project/".$project_id);
-        }
-    }
-
-    public function uploadEnunciadoEtapa($etapa_id)
-    {
-        $project_id = $_SESSION["project_id"];
-        $upload['upload_path'] = './uploads/enunciados_files/' + $project_id + '/';
-        $upload['allowed_types'] = 'pdf';
-        $upload['file_name'] = 'idetapa';
-        $upload['overwrite'] = true;
-
-        $this->load->library('upload', $upload);
-
-        if ( ! $this->upload->do_upload('file_etapa'))
-        {
-            $error = array('error' => $this->upload->display_errors());
-            print_r($error);
-            echo "<br>Erro upload ficheiro";
-        }
-        else
-        {
-            header("Location: ".base_url()."projects/project/".$project_id);
-        }
-    }
-
 }

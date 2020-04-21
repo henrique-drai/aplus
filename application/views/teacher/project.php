@@ -1,17 +1,18 @@
 <title>A+ for Teachers</title>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/projects/projects-general.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-projects.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/teacher/project.js"></script>
 <script>setProj("<?php echo $project[0]["id"]; ?>")</script>
 <script>setEnunciado("<?php echo addslashes($project[0]["enunciado_url"]); ?>")</script>
-<script>setBackPage("<?php echo $base_url; ?>" + "subjects/subject/" + "<?php echo $subject->code; ?>")</script>
+<script>setBackPage("<?php echo $base_url; ?>" + "subjects/subject/" + "<?php echo $subject->code; ?>/<?php echo $year[0]["inicio"]; ?>")</script>
 
 </head>
 
 <body>
 <?php $this->view('templates/nav-menu'); ?>
     <main>
-    <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>subjects">Cadeiras</a> > <a href="<?php echo base_url(); ?>subjects/subject/<?php echo $subject->code; ?>"><?php echo $subject->name; ?></a> &gt; Projeto </h4>
+    <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>subjects">Cadeiras</a> > <a href="<?php echo base_url(); ?>subjects/subject/<?php echo $subject->code; ?>/<?php echo $year[0]["inicio"]; ?>"><?php echo $subject->name; ?></a> &gt; Projeto </h4>
     <h1>Projeto: <?php echo $project[0]["nome"]; ?></h1>
     <p> <?php echo $project[0]["description"]; ?></p>
     <input id="removeProject" class="remove" type="button" value="Eliminar projeto">
@@ -19,12 +20,13 @@
         <h3 id="entrega_h3"></h3>
         <h3 id="enunciado_h3"></h3>
         <div class="wrapper-top">
-            <?php echo form_open_multipart('projects/uploadEnunciadoProjeto');?>
-                <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado">
+            <?php echo form_open_multipart('UploadsC/uploadEnunciadoProjeto', "id='form-upload-proj'");?>
+                <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado" accept=".pdf">
                 <input id="addEnunciado" type="submit" value="Adicionar enunciado">
             </form>
         </div>
         <div class="container-header">
+            <br><br>
             <h2>Grupos</h2>
         </div>
 
@@ -67,9 +69,9 @@
         </form>
 
 
-        <?php echo form_open_multipart('projects/uploadEnunciadoEtapa', 'id="addEnunciadoForm"');?>
-                <label for="file">Enunciado:</label>
-                <input class="form-input-file" type="file" id="file_etapa" name="file">
+        <?php echo form_open_multipart('UploadsC/uploadEnunciadoEtapa', 'id="form-upload-etapa"');?>
+                <label id="letapa" for="file">Enunciado:</label>
+                <input class="form-input-file" type="file" id="file_etapa" name="file_etapa" accept=".pdf">
                 <input id="addEnuncEtapa" type="submit" value="Adicionar enunciado">
         </form>
 

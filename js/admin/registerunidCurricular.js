@@ -177,7 +177,8 @@ function submitRegister(){
     $("#cursos_register_UnidCurricular option").remove();
     $.ajax({
         type: "POST",
-        url: base_url + "admin/api/registerSubject",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/registerSubject",
         data: data,
         success: function(data) {
             $("input[type='text']").val("");

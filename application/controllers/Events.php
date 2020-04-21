@@ -11,20 +11,8 @@ class Events extends CI_Controller {
         $this->load->model('EventModel');
     }
 
-    //      events/schedule/
-    public function schedule()
-    {
-        
-    }
-
     //      events/new/ 
     public function new()
-    {
-        
-    }
-
-    //      events/event/:event_id
-    public function event($event_id)
     {
         
     }

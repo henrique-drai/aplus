@@ -7,7 +7,7 @@
 <body>
 <?php $this->view('templates/nav-menu'); ?>
     <main>
-    <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>subjects">Cadeiras</a> > <a href="<?php echo base_url(); ?>subjects/students/<?php echo $subject->code; ?>"><?php echo $subject->name; ?></a> &gt; Lista de Alunos </h4>
+    <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>subjects">Cadeiras</a> > <a href="<?php echo base_url(); ?>subjects/subject/<?php echo $subject->code; ?>/<?php echo $year; ?>"><?php echo $subject->name; ?></a> &gt; Lista de Alunos </h4>
 
         <h1>Lista de Alunos</h1>
         
@@ -24,22 +24,5 @@
         <br>
 
         <div id="msg-sem-alunos"></div>
-
-        <br><br>
-
-        <h3>Consultar alunos por:</h3>
-
-        <input type="button" value="Curso" id="curso-btn" onclick="show_curso();">
-    
-        <br><br>
-
-        <table id="show-stud-curso">
-            <tr>
-                <th>Nome</th>
-                <th>Apelido</th>
-                <th>Curso</th> 
-            </tr>
-            
-        </table>
 
     </main>

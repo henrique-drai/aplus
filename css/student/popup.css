@@ -1,4 +1,46 @@
 /* //////////////////////////////////////////////////////////////
+//                      GRUPOS
+////////////////////////////////////////////////////////////// */
+
+#groupId {
+    color: #ff7575;
+    text-transform: uppercase;
+    font-size: 13px;
+    white-space: nowrap;
+    border: 3px solid #afadb3;
+    border-radius: 2rem;
+    padding: .2rem 1.85rem 0.25rem;
+    width: 32%;
+    margin-top: -7%;
+    margin-bottom: 4%;
+}
+
+.avatar{
+    height: 20%;
+    width: 50%;
+}
+
+.groupC:hover{
+   cursor: pointer;
+}
+
+#subject {
+    font-size: 20px;
+}
+
+.groupC {
+    display: inline-block !important;
+    margin: 2% 5% 3% auto;
+    background: #000000;
+    color: #c2c2c2;
+    box-shadow: 0 4px 80px #9226ff;
+    padding: 2rem;
+    border-radius: 16px;
+    width: 20%;
+}
+
+
+/* //////////////////////////////////////////////////////////////
 //                      POP UP
 ////////////////////////////////////////////////////////////// */
 

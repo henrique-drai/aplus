@@ -105,7 +105,8 @@ function submitRegister(){
     if (data.codCourse != "" && data.nameCourse != "" && data.descCourse != "" && data.collegeId != "Selecione uma Faculdade"){
         $.ajax({
             type: "POST",
-            url: base_url + "admin/api/registerCurso",
+            headers: {"Authorization": localStorage.token},
+            url: base_url + "api/registerCurso",
             data: data,
             success: function(data) {
                 $("#msgStatus").text("Curso registado com Sucesso");

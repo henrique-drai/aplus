@@ -1,7 +1,6 @@
 const etapas = [{id:1, nome:'', desc:'', enunciado:'', data:''}];
 var subject_id
 var project_page
-var back_page
 
 $(document).ready(() => {
 
@@ -14,7 +13,7 @@ $(document).ready(() => {
 
         const etapa = '<p id='+pid+' class="etapa">' +
              '<label id="etapa-label" class="form-label-title"> </label>' +
-             '<label id="removeEtapa"><img src="'+base_url+'/images/close.png"></label> ' +
+             '<label id="removeEtapa" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> ' +
              '<label class="form-label">Nome</label> ' +
              '<input class="form-input-text" type="text" name="etapaName" required> ' +
              '<label class="form-label">Descrição</label> ' + 
@@ -88,10 +87,6 @@ function setSubjectID(id){
 
 function setProjectPage(url){
     project_page = url;
-}
-
-function setBackPage(url){
-    back_page = url;
 }
 
 function refreshEtapasTitle(){

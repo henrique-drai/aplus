@@ -22,7 +22,7 @@ class ForumModel extends CI_Model { //forum & thread & thread_post
         return $data;
     }
 
-    public function getThreads($id) {
+    public function getThreadsByForumId($id) {
         $query = $this->db->get_where("thread", array('forum_id' => $id));
         return $query->result_array();
     }
@@ -35,5 +35,17 @@ class ForumModel extends CI_Model { //forum & thread & thread_post
     public function getThreadPosts($id) {
         $query = $this->db->get_where("thread_post", array('thread_id' => $id));
         return $query->result_array();
+    }
+
+    public function insertPost($data) {
+        $this->db->insert("thread_post", $data);
+    }
+
+    public function removePost($id) {
+        $this->db->delete("thread_post", array('id' => $id));
+    }
+
+    public function removeForum($id) {
+        $this->db->delete("forum", array('id' => $id));
     }
 }

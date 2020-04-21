@@ -181,8 +181,8 @@ class App extends CI_Controller {
         $this->load->view('templates/head', $data);
         //escolher que página deve ser mostrada
         switch ($this->session->userdata('id') == $user_id) {
-            case true:  $this->load->view('app/profile_edit', $data); break;
-            case false: $this->load->view('app/profile_show', $data); break;
+            // case true:  $this->load->view('app/profile_edit', $data); break;
+            // case false: $this->load->view('app/profile_show', $data); break;
         }
         $this->load->view('templates/footer');
     }

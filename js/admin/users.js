@@ -16,7 +16,8 @@ function submitRegister(){
     if(data.name!=="" || data.surname!=="" || data.email!=="" || data.password!==""){
         $.ajax({
             type: "POST",
-            url: base_url + "admin/api/register",
+            headers: {"Authorization": localStorage.token},
+            url: base_url + "api/register",
             data: data,
             success: function(data) {
                 $("input[type='text']").val("");

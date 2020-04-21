@@ -1,5 +1,5 @@
 <?php
-$file = "uploads/profile/" . $this->session->id . ".jpg";
+$file = "uploads/profile/" . $this->session->id . $this->session->picture;
 if(!file_exists($file)) {$file = "uploads/profile/default.jpg";}
 $picture = $base_url . $file . "?" . time();
 ?>

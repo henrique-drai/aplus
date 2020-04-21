@@ -37,23 +37,37 @@ class Subjects extends CI_Controller {
     }
 
     //      Página de cadeira:
-    //      aplus.com/subject/subject/:subject_code
-    public function subject($subject_code = '')
+    //      aplus.com/subjects/subject/:subject_code/:year
+    public function subject($subject_code = '', $year = null)
     {
         $data["base_url"] = base_url();
+
+        $this->load->model('YearModel');
+        $this->load->model('CourseModel');
         
         //verificar se a pessoa fez login
         if(is_null($this->session->userdata('role'))){
             $this->load->view('errors/403', $data); return null;
         }
 
-        //buscar a info sobre o objeto
-        $data["subject"] = $this->SubjectModel->getSubjectByCode($subject_code);
+        //verificar se o ano letivo existe e é valido
+        $ano_letivo = $this->YearModel->getYearByInicio($year);
+
+        if(is_null($ano_letivo)){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        //usar ano letivo na query para ir buscar a cadeira cujo code = subject code
+        //  e cujo o ano_letivo_id = ao get ano_letivo_id do curso respetivo
+
+        $data["subject"] = $this->SubjectModel->getSubjectByCodeAndYear($subject_code, $ano_letivo->id);
 
         //verificar se o objeto existe
         if(is_null($data["subject"])){
             $this->load->view('errors/404', $data); return null;
         }
+
+        $data["year"] = $year;
 
         $this->load->view('templates/head', $data);
 
@@ -67,23 +81,36 @@ class Subjects extends CI_Controller {
         $this->load->view('templates/footer');       
     }
 
-    //      aplus.com/subject/students/:subject_code
-    public function students($subject_code = '')
+    //      aplus.com/subject/students/:subject_code/:year
+    public function students($subject_code = '', $year = null)
     {
         $data["base_url"] = base_url();
+        $this->load->model('YearModel');
+        $this->load->model('CourseModel');
         
         //verificar se a pessoa fez login
         if(is_null($this->session->userdata('role'))){
             $this->load->view('errors/403', $data); return null;
         }
 
-        //buscar a info sobre o objeto
-        $data["subject"] = $this->SubjectModel->getSubjectByCode($subject_code);
+        //verificar se o ano letivo existe e é valido
+        $ano_letivo = $this->YearModel->getYearByInicio($year);
 
-        //verificar se o objeto existe
-        if(is_null($data["subject"])){
+        if(is_null($ano_letivo)){
             $this->load->view('errors/404', $data); return null;
         }
+
+        //usar ano letivo na query para ir buscar a cadeira cujo code = subject code
+        //  e cujo o ano_letivo_id = ao get ano_letivo_id do curso respetivo
+
+        $data["subject"] = $this->SubjectModel->getSubjectByCodeAndYear($subject_code, $ano_letivo->id);
+
+        //verificar se o objeto existe
+        if(is_null($data["subject"])){ 
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        $data["year"] = $year;
 
         $this->load->view('templates/head', $data);
 

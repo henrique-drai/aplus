@@ -20,22 +20,23 @@ class Student extends REST_Controller {
     //student/api/função
     public function api_post($f) {
         switch ($f) {
-            case "submitRating":         $this->submitRating(); break;//     /student/api/getCadeiras
+            case "submitRating":            $this->submitRating(); break;//     /student/api/getCadeiras
             // adicionem aqui as vossas funções
 
-            default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+            default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
     public function api_get($f) {
         switch ($f) {
-            case "getCadeiras":         $this->getCadeiras(); break;//     /student/api/getCadeiras
-            case "getInfo":             $this->getInfo(); break;//     /student/api/getInfo
-            case "getMyGroups":         $this->getMyGroups(); break;
+            case "getMyGroups":             $this->getMyGroups(); break;
             case "getStudentsFromGroup":    $this->getStudentsFromGroup(); break;
             case "getCadeiraGrupo":         $this->getCadeiraGrupo(); break;
+            case "getMyGroupInProj":        $this->getMyGroupInProj(); break;//     /student/api/getMyGroupInProj
+            case "getAllEtapas":            $this->getAllEtapas(); break; //        /student/api/getAllEtapas
 
-            default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
+
+            default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
     }
 
@@ -57,47 +58,6 @@ class Student extends REST_Controller {
         $this->GroupModel->insertClassification($data); 
     }
 
-
-    //////////////////////////////////////////////////////////////
-    //                         SUBJECT
-    //////////////////////////////////////////////////////////////
-    public function getCadeiras() {
-        $user_id = $this->get('id');
-        $this->load->model('SubjectModel');
-        $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id, "student");
-
-        $data["info"] = array();
-        for($i=0; $i < count($data["cadeiras_id"]); $i++) {
-            array_push($data["info"], $this->SubjectModel->getCadeiraInfo($data["cadeiras_id"][$i]["cadeira_id"]));
-        }
-
-        $this->load->model('CourseModel');
-        $this->load->model('YearModel');
-        $tmp = $this->CourseModel->getCursobyId($data["info"][0][0]["curso_id"]);
-        $data["year"] = $this->YearModel->getYearById($tmp->ano_letivo_id);
-
-        $this->response($data, parent::HTTP_OK);
-    }
-
-    public function getInfo() {
-        $cadeira_code = $this->get('cadeira_code');
-        $cadeira_id = $this->get('cadeira_id');
-        $this->load->model('SubjectModel');
-        $data["desc"] = $this->SubjectModel->getDescription($cadeira_code);
-
-        $data["proj"] = $this->SubjectModel->getProj($cadeira_id);
-        $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
-
-        $this->load->model('UserModel');
-        $data['user'] = array();
-        for ($i=0; $i < count($data["hours"]); $i++) {
-            array_push($data["user"], $this->UserModel->getUserById($data["hours"][$i]['id_prof']));
-        }
-
-        $this->response($data, parent::HTTP_OK);
-    }
-
-
     
     //////////////////////////////////////////////////////////////
     //                     Students
@@ -118,16 +78,21 @@ class Student extends REST_Controller {
     public function getMyGroups(){
         $this->load->model('GroupModel');
         $this->load->model('ProjectModel');
+        $this->load->model('SubjectModel');
 
         $user_id = $this->get('id');
         $data['grupo'] = $this->GroupModel->getGroups($user_id);
 
         $data["info"] = array();
+        $data["subjName"] = array();
 
         for ($i=0; $i < count($data["grupo"]); $i++) {
            
             $projId =  $this->GroupModel->getProjectId($data["grupo"][$i]["grupo_id"]);
+            $idCadeira = $this->ProjectModel->getProjectByID($projId[0]['projeto_id'])[0]['cadeira_id'];
+            $nomeCadeira = $this->SubjectModel->getSubjectByID($idCadeira)->name;
             array_push($data["info"], $this->ProjectModel->getProjectByID($projId[0]['projeto_id']));
+            array_push($data["subjName"], $nomeCadeira);
         }
               
         $this->response($data, parent::HTTP_OK);
@@ -139,29 +104,48 @@ class Student extends REST_Controller {
         $this->load->model('ProjectModel');
         
         $grupo_id =  $this->get('id');
+        $classificador = $this->get('classificador');
 
         $projId =  $this->GroupModel->getProjectId($grupo_id);
+
         $data['proj_name'] = $this->ProjectModel->getProjectByID($projId[0]['projeto_id']);
 
         $data['students'] = $this->GroupModel->getStudents($grupo_id);
         $data["notClass"] = array();
         $data["class"] = array();
+        $data["rate"] = array();
 
         for ($i=0; $i < count($data["students"]); $i++) {
-            $userId = $data["students"][$i]['user_id']; 
-            $data["x"] = $this->GroupModel->getClassVal($grupo_id, $userId); 
+            $userId = $data["students"][$i]['user_id'];
+            
+            if($userId != $classificador){
+                $nota = $this->GroupModel->getClassVal($grupo_id, $userId); 
 
-            if(count($data['x']) !=0) {
-                array_push($data["class"], $this->UserModel->getUserById($data["students"][$i]['user_id']));
+                if(isset($nota)) {
+                    array_push($data["class"], $this->UserModel->getUserById($userId));
+                    array_push($data["rate"], $nota->valor);
+                }
+                else{
+                    array_push($data["notClass"], $this->UserModel->getUserById($userId));
+                }
             }
-            else{
-                array_push($data["notClass"], $this->UserModel->getUserById($data["students"][$i]['user_id']));
-            }
-           
         }
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    //////////////////////////////////////////////////////////////
+    //                   Projetos e Etapas
+    //////////////////////////////////////////////////////////////
+    public function getAllEtapas(){
+        $proj_id = $this->get('projid');
+        $this->load->model('ProjectModel');
+        $data = $this->ProjectModel->getEtapasByProjectID($proj_id);
 
         $this->response($data, parent::HTTP_OK);
     }
+
+
+
 
 
     //////////////////////////////////////////////////////////////

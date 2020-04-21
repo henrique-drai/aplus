@@ -3,6 +3,7 @@ var navbar_is_active = false
 $(document).ready(() => {
     $(".nav-menu-btn-logout").click(() => {endSession()})
     $("#nav-menu-toggle").click(()=>{toggleMenu()})
+    updateNavMenuData()
 })
 
 // assim só precisam de indicar as páginas que vão estar disponíveis
@@ -37,18 +38,30 @@ function toggleMenu(){
 function endSession(){
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
-        url: base_url + "auth/logout",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/logout",
         success: function(data) {
-            localStorage.removeItem("profile_pic")
             localStorage.removeItem("token")
             localStorage.removeItem("user_id")
             window.location.href = base_url
         },
         error: function(data) {
             console.log("Problema na API: O logout deu erro.")
+        }
+    })
+}
+
+function updateNavMenuData(){
+    $.ajax({
+        type: "GET",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/user/"+localStorage.user_id,
+        success: function(data) {
+            const obj = JSON.parse(data)
+            $(".nav-menu-user-name").text(obj.name + " " + obj.surname)
+        },
+        error: function(data) {
+            console.log("Problema na API: api/user get.")
         }
     })
 }

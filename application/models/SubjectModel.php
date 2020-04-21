@@ -6,6 +6,20 @@ class SubjectModel extends CI_Model { //cadeira
         return $query->row();
     }
 
+    //esta é a unica query que vai buscar o subject certo no ano letivo id certo
+    public function getSubjectByCodeAndYear($code, $year){
+        $query = "select *
+            from cadeira
+            where cadeira.code =".$this->db->escape($code)."
+            and (select ano_letivo_id from curso 
+                where id = cadeira.curso_id) =".$year;
+
+        $result = $this->db->query($query);
+        return $result->row();
+
+    }
+
+
     public function getSubjectByID($id) {
         $query = $this->db->get_where('cadeira', array('id' => $id));
         return $query->row();
@@ -31,6 +45,11 @@ class SubjectModel extends CI_Model { //cadeira
 
     public function getDescription($id) {
         $query = $this->db->get_where('cadeira', array('code =' => $id));
+        return $query->result_array();
+    }
+
+    public function getDescriptionById($id) {
+        $query = $this->db->get_where('cadeira', array('id =' => $id));
         return $query->result_array();
     }
 

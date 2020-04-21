@@ -1,3 +1,6 @@
+var id
+var code
+
 $(document).ready(() => {
     getInfo(localStorage.cadeira_code);    
     $(".hours_inputs").hide();
@@ -53,7 +56,6 @@ $(document).ready(() => {
     $(".remove_hour").click(function() {
         var count = $(".minnuminput").last().attr("id");
         const data = {
-            'user_id': localStorage.getItem('user_id'),
             'cadeira_id': localStorage.getItem('cadeira_id'),
             'start_time': $("#" + count+ ".minnuminput").val(),
             'end_time': $("#" + count + ".maxnuminput").val(),
@@ -113,13 +115,15 @@ $(document).ready(() => {
         $("#save_button_hours").hide();
     })
 
+    var link = location.href.split("aplus")[1];
+    var ano = link.split("/")[4];
+
+
     $("body").on("click", ".studentsList_button", function() {
-        window.location = base_url + "subjects/students/" + localStorage.cadeira_code;
+        window.location = base_url + "subjects/students/" + localStorage.cadeira_code + "/" + ano;
     })
 
     $("body").on("click", ".newProject_button", function() {
-        var link = location.href.split("aplus")[1];
-        var ano = link.split("/")[4];
         window.location = base_url + "projects/new/" + localStorage.cadeira_code + "/" + ano;
     })
 
@@ -128,7 +132,7 @@ $(document).ready(() => {
     })
 
     $("body").on("click", ".new_forum", function() {
-        window.location = base_url + "foruns/new/" + localStorage.cadeira_code;
+        window.location = base_url + "foruns/new/" + localStorage.cadeira_code + "/" + ano;
     })
 
     $("body").on("click", ".forum_button", function() {
@@ -136,6 +140,16 @@ $(document).ready(() => {
         window.location = base_url + "foruns/forum/" + $(this).attr("id");
     })
 })
+
+function setID(newid){
+    id = newid;
+    localStorage.setItem("cadeira_id", id);
+}
+
+function setCode(newcode){
+    code = newcode;
+    localStorage.setItem("cadeira_code", code);
+}
 
 function validateFormNumb(id){
     if($("#" + id + ".minnuminput").val() != '' && $("#" + id +".maxnuminput").val() != ''){
@@ -153,41 +167,44 @@ function validateFormNumb(id){
     }
 }
 
-function getInfo($id) {
+function getInfo() {
     $.ajax({
-        type: "POST",
-        url: base_url + "teacher/api/getDescription",
-        data: {cadeira_id: $id},
-        success: function(data) {
-            if(data.info.length > 0) {
-                if(data.info[0].description == "") {
-                    $(".summary").append("<p>Não existe sumário para a cadeira.</p>");
-                } else {
-                    $(".summary").append("<p>" + data.info[0].description + "</p>");
-                }
-                localStorage.setItem('cadeira_id', data.info[0].id);
-                getHours(data.info[0].id);
-                getProj(localStorage.cadeira_id);
-                getForum(localStorage.cadeira_id);
-            } else {
-                $(".summary").append("<p>Não existe sumário para a cadeira.</p>");
-                $(".hours").append("<p>Ainda não há horários de dúvidas disponíveis.</p>");
-                $(".projetos").append("<p>Ainda não existem projetos para a cadeira.</p>");
-            }
-            
+        type: "GET",
+        headers: {
+            "Authorization": localStorage.token
         },
-        error: function(data) {
-            alert("Houve um erro ao ir buscar a informação da cadeira.");
-        }
-    });
-}
-
-function getHours($id) {
-    $.ajax({
-        type: "POST",
-        url: base_url + "teacher/api/getHours",
-        data: {cadeira_id: $id},
+        url: base_url + "api/getCadeira/" + id,
         success: function(data) {
+            console.log(data);
+
+            $("#subject_title").empty();
+            $("#subject_title").append("<h1>" + data.desc[0].name + "</h1>");
+            if(data.desc[0].description == "") {
+                $(".summary").append("<p>Não existe sumário para a cadeira.</p>");
+            } else {
+                $(".summary").append("<p>" + data.desc[0].description + "</p>");
+            }
+
+            $(".projetos").empty();
+            if(data.proj.length == 0) {
+                $(".projetos").append("<p>Ainda não existem projetos para a cadeira</p>");
+            } else {
+                for(var i=0; i < data.proj.length; i++) {
+                    $(".projetos").append("<input type='button' class='project_button' id='" + data.proj[i].id +
+                    "' value='Projeto " + (i+1) + "'>");
+                }  
+            }
+
+            $(".foruns").empty();
+            if(data.forum.length == 0) {
+                $(".foruns").append("<p>Ainda não existem fóruns para a cadeira</p>");
+            } else {
+                for(var i=0; i < data.forum.length; i++) {
+                    $(".foruns").append("<input type='button' class='forum_button' id='" + data.forum[i].id +
+                    "' value='" + data.forum[i].name + "'>");
+                }  
+            }
+
             $(".hours p").remove();
             if(data['hours'].length != 0) {
                 for(var i=0; i < data['user'].length; i++) {
@@ -199,18 +216,20 @@ function getHours($id) {
             } else {
                 $(".hours").append("<p>Ainda não há horários de dúvidas disponíveis.</p>");
             }
-            
         },
         error: function(data) {
-            alert("Houve um erro a ir buscar os horários de dúvidas.");
+            alert("Houve um erro ao ir buscar a informação da cadeira.");
         }
-    })
+    });
 }
 
 function insertText($text) {
     $.ajax({
         type: 'POST',
-        url: base_url + "teacher/api/insertText",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "api/insertText",
         data: {text: $text, cadeira_id: localStorage.cadeira_id},
         success: function(data) {
             $("#message1").fadeTo(2000, 1);
@@ -224,11 +243,13 @@ function insertText($text) {
     })
 }
 
-function setHours($id) {
+function setHours() {
     $.ajax({
-        type: "POST",
-        url: base_url + "teacher/api/getHours",
-        data: {cadeira_id: $id},
+        type: "GET",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "api/getHours/" + id,
         success: function(data) {
             var count = 0;
             var flag = false;
@@ -302,10 +323,40 @@ function setHours($id) {
     })
 }
 
+function getHours($id) {
+    $.ajax({
+        type: "GET",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "api/getHours/" + id,
+        success: function(data) {
+            $(".hours p").remove();
+            if(data['hours'].length != 0) {
+                for(var i=0; i < data['user'].length; i++) {
+                    $(".hours").append("<p><b>" + 
+                    data.user[i].name + " " + data.user[i].surname + ":</b> " + 
+                    data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
+                    data.hours[i].end_time.substring(0, 5) + "</p>");
+                }
+            } else {
+                $(".hours").append("<p>Ainda não há horários de dúvidas disponíveis.</p>");
+            }
+            
+        },
+        error: function(data) {
+            alert("Houve um erro a ir buscar os horários de dúvidas.");
+        }
+    })
+}
+
 function saveHours(data) {
     $.ajax({
         type: "POST",
-        url: base_url + "teacher/api/saveHours",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "api/insertHours",
         data: data,
         success: function(data) {
             $("#message_hour").fadeTo(2000, 1);
@@ -313,7 +364,7 @@ function saveHours(data) {
                 $("#message_hour").fadeTo(2000, 0);
             }, 2000);
 
-            getHours(localStorage.cadeira_id);
+            getHours(id);
         },
         error: function(data) {
             alert("Houve um erro ao inserir as novas datas.")
@@ -323,8 +374,11 @@ function saveHours(data) {
 
 function removeHours(data) {
     $.ajax({
-        type: "POST",
-        url: base_url + "teacher/api/removeHours",
+        type: "DELETE",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "api/removeHours",
         data: data,
         success: function(data) {
             console.log("apagou");
@@ -333,49 +387,5 @@ function removeHours(data) {
             alert("Houve um erro a remover a data.")
         }
     })
-}
 
-function getProj(data) {
-    $.ajax({
-        type: "POST",
-        url: base_url + "teacher/api/getProj",
-        data: {cadeira_id: data},
-        success: function(data) {
-            $(".projetos").empty();
-            if(data.length == 0) {
-                $(".projetos").append("<p>Ainda não existem projetos para a cadeira</p>");
-            } else {
-                for(var i=0; i < data.length; i++) {
-                    $(".projetos").append("<input type='button' class='project_button' id='" + data[i].id +
-                    "' value='Projeto " + (i+1) + "'>");
-                }  
-            }
-        },
-        error: function(data) {
-            alert("Houve um erro a remover a data.")
-        }
-    })
-}
-
-function getForum(data) {
-    $.ajax({
-        type: "GET",
-        url: base_url + "teacher/api/getForum",
-        data: {cadeira_id: data},
-        success: function(data) {
-            console.log(data);
-            $(".foruns").empty();
-            if(data.length == 0) {
-                $(".foruns").append("<p>Ainda não existem fóruns para a cadeira</p>");
-            } else {
-                for(var i=0; i < data.length; i++) {
-                    $(".foruns").append("<input type='button' class='forum_button' id='" + data[i].id +
-                    "' value='" + data[i].name + "'>");
-                }  
-            }
-        },
-        error: function(data) {
-            alert("Houve um erro a remover a data.")
-        }
-    })
 }

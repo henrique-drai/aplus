@@ -15,7 +15,7 @@ function insertForum(name, desc, teachers_only) {
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/insertForum",
+        url: base_url + "api/insertForum",
         data: {cadeira_id: localStorage.getItem("cadeira_id"),
                name: name, 
                desc: desc,

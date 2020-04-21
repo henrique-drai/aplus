@@ -1,6 +1,5 @@
 $(document).ready(() => {
 	showCourseStudents();
-	show_curso();
 
 })
 
@@ -33,15 +32,6 @@ function showCourseStudents() {
 	});
 }
 
-function show_curso() {
-	if (document.getElementById("show-stud-curso").style.display === "none") {
-		document.getElementById("show-stud-curso").style.display = "block";
-		//document.getElementById("show-stud-curso").style.width = "0%";
-
-	} else {
-		document.getElementById("show-stud-curso").style.display = "none";
-	}
-}
 
 
 

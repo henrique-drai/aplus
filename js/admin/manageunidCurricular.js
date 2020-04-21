@@ -154,6 +154,7 @@ function getAllSubjects(){
 
     $.ajax({
         type: "GET",
+        headers: {"Authorization": localStorage.token},
         url: base_url + "admin/api/getAllSubjects",
         success: function(data) {
 
@@ -295,6 +296,7 @@ function getAllCoursesByCollege(faculdade, option){
 function getAllSubjectsByCourse(courses){
     $.ajax({
         type: "GET",
+        headers: {"Authorization": localStorage.token},
         url: base_url + "admin/api/getAllSubjectsByCourse",
         data: {courses},
         success: function(data) {
@@ -365,6 +367,15 @@ function getAllCoursesByYear(idyear){
     });
 }
 
+
+
+
+// FALTA O EDITAR UNIDADES CURRICULARES
+
+
+
+
+
 function deleteSubject(linha){
 $.ajax({
     type: "DELETE",
@@ -386,8 +397,6 @@ $.ajax({
         else if($("#Consultar_Cadeiras_Faculdade").val() != "Selecione uma Faculdade"){
             getAllCoursesByYear($("#Consultar_Cadeiras_Ano").val());
         }
-
-        //PARA O CURSO E PARA O NO LETIVO
 
     },
     error: function() {

@@ -6,7 +6,9 @@
 
 <body>
 <?php $this->view('templates/nav-menu'); ?>
+<?php $this->view('templates/popup'); ?>
 <main>
     <h1>Painel de Controlo</h1>
+    <h3>Calendário</h3>
     <div id="calendario-hook"></div>
 </main>

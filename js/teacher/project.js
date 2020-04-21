@@ -12,6 +12,8 @@ $(document).ready(() => {
     //tabela dos grupos
     showGroups(proj);
 
+    $("#form-upload-proj").attr('action', base_url + 'UploadsC/uploadEnunciadoProjeto/' + proj);
+
     // --- GRUPOS
 
     //REMOVER PROJETO ---
@@ -37,7 +39,7 @@ $(document).ready(() => {
         }
     
         $.ajax({
-            type: "POST",
+            type: "DELETE",
             headers: {
                 "Authorization": localStorage.token
             },
@@ -82,12 +84,21 @@ $(document).ready(() => {
 
     //--- ENUNCIADO PROJETO
 
-    //ETAPAS --- 
+    //--- ENUNCIADO ETAPA
 
     $("#file_etapa").on('change', function(){
         $("#addEnuncEtapa").show();
         $("#file_etapa").css("border-left-color", "lawngreen");
     })
+
+    $("#addEnuncEtapa").on('click', function(){
+        enunc = $("#file_etapa").val().split('\\').pop();
+        submit_new_etapa_enunciado(enunc);
+    })
+
+    //ETAPAS --- 
+
+
 
     // getEtapas - ETAPAS
     getEtapas(proj);
@@ -95,16 +106,7 @@ $(document).ready(() => {
     $("#entrega_h3").text("Entrega final:");
 
     // refresh tabela 1 vez para atualizar a data - ETAPAS
-    setTimeout(function(){
-         getEtapas(proj);
-         var datafinal = $(".etapasDIV").last().find("p:nth-child(2)").text();
-         if(datafinal == ''){
-            $("#entrega_h3").text("Entrega final: Ainda não definida");
-         } else {
-            $("#entrega_h3").text("Entrega final: " + datafinal);
-         }
-         
-    }, 1000);
+    checkEntrega();
 
 
     // show etapa form - CRIAR NOVA ETAPA 
@@ -114,7 +116,7 @@ $(document).ready(() => {
         $("#newEtapaEDIT").hide();
         $("#feedback-form").hide();
         $("#etapa-label").text("Nova etapa:");
-        $("#addEnunciadoForm").hide();
+        $("#form-upload-etapa").hide();
         emptyEtapa();
 
         if(formStatus != 'new'){
@@ -136,7 +138,7 @@ $(document).ready(() => {
         $("#newEtapa").hide();
         $("#newEtapaEDIT").hide();
         $("#feedback-form").show();
-        $("#addEnunciadoForm").hide();
+        $("#form-upload-etapa").hide();
         showGroups(proj);
 
         if(formStatus != 'feedback'){
@@ -165,7 +167,7 @@ $(document).ready(() => {
         $("#etapa-label").text("Editar etapa '" + $("#etapa" + newid).find("p:first").text() + "':");
         $("#newEtapa").hide();
         $("#feedback-form").hide();
-        $("#addEnunciadoForm").hide();
+        $("#form-upload-etapa").hide();
 
         putEtapaInfoForm(newid);
 
@@ -188,7 +190,7 @@ $(document).ready(() => {
         $("#newEtapa").hide();
         $("#newEtapaEDIT").hide();
         $("#feedback-form").hide();
-        $("#addEnunciadoForm").show();
+        $("#form-upload-etapa").show();
 
         if(formStatus != 'addEnunc'){
             formStatus = 'addEnunc';
@@ -197,7 +199,7 @@ $(document).ready(() => {
             formStatus = null;
             checkFormStatus();
             $("#etapa-form").hide();
-            $("#addEnunciadoForm").hide();
+            $("#form-upload-etapa").hide();
         }
     })
 
@@ -206,7 +208,6 @@ $(document).ready(() => {
         var name = $(this).find('input[name="etapaName"]').val();
         var desc = $(this).find('textarea[name="etapaDescription"]').val();
         var data = $(this).find('input[name="etapaDate"]').val();
-        // var enunc = $(this).find('input[name="file"]').val().split('\\').pop();
         var enunc = '';
         
         etapa['nome'] = name;
@@ -234,6 +235,7 @@ $(document).ready(() => {
         $("#etapa-form").hide();
         $('#' + selected_etapa).hide();
         getEtapas(proj);
+        checkEntrega();
     })
 
 
@@ -241,6 +243,8 @@ $(document).ready(() => {
     $('body').on('click', '.moreInfoButtons', function(){
         selected_etapa = $(this).attr("id");
         var divid = 'div' + selected_etapa;
+
+        $("#form-upload-etapa").attr('action', base_url + 'UploadsC/uploadEnunciadoEtapa/' + proj + '/' + selected_etapa);
 
         $(".moreInfoButtons").css("background-color", "white");
 
@@ -254,15 +258,23 @@ $(document).ready(() => {
         $('#' + divid).show();
         $("#etapa-form").hide();
         $("#feedback-form").hide();
-        $("#addEnunciadoForm").hide();
+        $("#form-upload-etapa").hide();
         formStatus = null;
         checkFormStatus();
+        
     })
 
     //remover enunciado etapa
     $('body').on('click', '#removeEnunciado', function(e) {
         etapa_clear_enunciado();
         getEtapas(proj);
+    })
+
+
+    //remover enunciado projeto
+    $('body').on('click', '#removeEnunciadoProj', function(){
+        $("#enunciado_h3").text('Enunciado: Este projeto não tem enunciado');
+        removeEnunciadoProj();
     })
 
     //criar etapa
@@ -278,16 +290,18 @@ $(document).ready(() => {
 
     //--- ETAPAS
     
+    
 })
 
 
 function checkEnunciado(){
     $.get(base_url + "uploads/enunciados_files/"+ proj+".pdf")
         .done(function() { 
+            var removebut = '<label id="removeEnunciadoProj" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> ';
             if (enunciado_h3 != ""){
-                $("#enunciado_h3").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h3 + "</a>");
+                $("#enunciado_h3").html(removebut + "Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h3 + "</a>");
             } else {
-                $("#enunciado_h3").text("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
+                $("#enunciado_h3").text(removebut + "Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
             }
             return true;
         }).fail(function() { 
@@ -340,6 +354,19 @@ function makePopup(butID, msg){
         '</div></div>'
 
     $("#popups").html(popup);
+}
+
+function checkEntrega(){
+    setTimeout(function(){
+        getEtapas(proj);
+        var datafinal = $(".etapasDIV").last().find("p:nth-child(2)").text();
+        if(datafinal == ''){
+           $("#entrega_h3").text("Entrega final: Ainda não definida");
+        } else {
+           $("#entrega_h3").text("Entrega final: " + datafinal);
+        }
+        
+   }, 1000);
 }
 
 
@@ -443,14 +470,14 @@ function etapa_clear_enunciado(){
     }
 
     $.ajax({
-        type: "POST",
+        type: "DELETE",
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/clearEnunciadoEtapa",
+        url: base_url + "teacher/api/removeEnunciadoEtapa",
         data: data,
         success: function(data) {
-            console.log("Enunciado do proj: "+ data + "removido");
+            console.log("Enunciado da etapa: "+ data + "removido");
             $("#removeEnunciado").hide();
             $("#div"+data).find('p').last().text("Não existe enunciado associado a esta etapa.");
         },
@@ -488,6 +515,33 @@ function submit_new_enunciado(enunc){
     });
 
 }
+
+function submit_new_etapa_enunciado(enunc){
+    const data = {
+        etapaid : selected_etapa,
+        enunciado : enunc,
+    }
+
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "teacher/api/editEtapaEnunciado",
+        data: data,
+        success: function(data) {
+            console.log(data);
+            console.log(base_url + "uploads/enunciados_files/"+ proj + "/" + selected_etapa);
+            $("#div"+selected_etapa).find('p:last').html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+ "/" + selected_etapa+".pdf'>" + data + "</a>");
+        },
+        error: function(data) {
+            console.log("Erro na API - Edit Etapa Enunciado");
+            console.log(data);
+        }
+    });
+
+}
+
 
 function checkFormStatus(){
     if(formStatus == 'edit'){
@@ -549,8 +603,8 @@ function makeEtapaTable(data){
             newenunciado = "Não existe enunciado associado a esta etapa."
             removebut = ''
         } else {
-            removebut = '<label id="removeEnunciado"><img src="'+base_url+'/images/close.png"></label> '
-            newenunciado = '<a href="">' + enunciado + '</a>';
+            removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
+            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + json['id'] +".pdf'>" + enunciado + "</a>"
         }
 
 
@@ -572,6 +626,10 @@ function makeEtapaTable(data){
         
     }
 
+    if (etapasSTR == ''){
+        etapasSTR = '<p>Não existem etapas para mostrar</p><hr>';
+    }
+
     $("#etapas-container").html(etapasSTR);   
     
     if ($("#" + lastp).length == 0){
@@ -587,7 +645,7 @@ function getEtapas(proj_id){
     }
 
     $.ajax({
-        type: "POST",
+        type: "GET",
         headers: {
             "Authorization": localStorage.token
         },
@@ -605,7 +663,10 @@ function getEtapas(proj_id){
 
 function showGroups(proj_id) {
     $.ajax({
-        type: "POST",
+        type: "GET",
+        headers: {
+            "Authorization": localStorage.token
+        },
         url: base_url + "teacher/api/getAllGroups",
         data: {proj_id: proj_id},
         success: function(data) {
@@ -649,7 +710,7 @@ function removeEtapa(id){
     }
 
     $.ajax({
-        type: "POST",
+        type: "DELETE",
         headers: {
             "Authorization": localStorage.token
         },
@@ -674,7 +735,7 @@ function getSumbission(grupo_id, etapa){
     }
 
     $.ajax({
-        type: "POST",
+        type: "GET",
         headers: {
             "Authorization": localStorage.token
         },
@@ -741,4 +802,28 @@ function submit_feedback(feedback, etapa, grupo_id){
         $("#errormsgfb").show().delay(5000).fadeOut();
         return false;
     }
+}
+
+function removeEnunciadoProj(){
+    const data = {
+        projid : parseInt(proj),
+    }
+
+    $.ajax({
+        type: "DELETE",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "teacher/api/removeEnunciadoProj",
+        data: data,
+        success: function(data) {
+            console.log("Enunciado do proj: "+ data + "removido");
+            $("#removeEnunciadoProj").hide();
+            $("#enunciado_h3").text('Enunciado: Este projeto não tem enunciado');
+        },
+        error: function(data) {
+            console.log("Erro na API - Remover enunciado Projeto");
+            console.log(data);
+        }
+    });
 }

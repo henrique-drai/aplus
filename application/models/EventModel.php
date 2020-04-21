@@ -59,10 +59,15 @@ class EventModel extends CI_Model { //evento & horario_duvidas
         $result = $this->db->query($query);
         return $result->result_array();
     }
+
+    
+    public function userRelatedToEvent($user_id, $evento_id){
+        $this->db->where('user_id', $user_id);
+        $this->db->where('evento_id', $evento_id);
+        return $this->db->count_all_results('evento_user') > 0;
+    }
+
+    public function delete($id) {
+        $this->db->delete('evento', array('id' => $id));
+    }
 }
-
-
-// SELECT name, price, photo
-// FROM drinks, drinks_photos
-// WHERE drinks.id = drinks_id 
-// GROUP BY drinks_id

@@ -2,7 +2,6 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/students-list.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/teacher/student-list.js"></script>
-
 </head>
 <body>
 <?php $this->view('templates/nav-menu'); ?>

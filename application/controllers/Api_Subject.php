@@ -21,6 +21,7 @@ class Api_Subject extends REST_Controller {
         $this->load->model('UserModel');
         $this->load->model("ForumModel");
         $this->load->model("EventModel");
+        $this->load->model("StudentListModel");
     }
 
 
@@ -162,6 +163,20 @@ class Api_Subject extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function getCourseStudents_get() {
+        $this->verify_request();
+
+        $cadeira_id = $this->get('id');
+        $this->load->model('StudentListModel');
+        $data["users_id"] = $this->StudentListModel->getStudentsbyCadeiraID($cadeira_id);
+
+        $data["info"] = array();
+        for($i=0; $i < count($data["users_id"]); $i++) {
+            array_push($data["info"], $this->StudentListModel->getStudentsInfo($data["users_id"][$i]["user_id"]));
+        }
+
+        $this->response($data, parent::HTTP_OK);
+    }
 
 
     //////////////////////////////////////////////////////////////

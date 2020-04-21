@@ -1,0 +1,13 @@
+#students_list {
+	width: 80%;
+	text-align: center;
+}
+
+#students_list th {
+	background-color: #939393;
+	padding: 15px 0px;
+}
+
+#students_list tr:hover {
+	background-color: #ccc
+}

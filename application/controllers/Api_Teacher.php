@@ -18,7 +18,6 @@ class Api_Teacher extends REST_Controller {
         $this->load->model("SubjectModel");
         $this->load->model('CourseModel');
         $this->load->model('YearModel');
-        $this->load->model("StudentListModel");
     }
 
 

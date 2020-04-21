@@ -7,10 +7,11 @@ function showCourseStudents() {
 	console.log(localStorage.cadeira_id);
 	$.ajax({
 		type: "GET",
-		url: base_url + "teacher/api/getCourseStudents",
-		data: {
-			id: localStorage.cadeira_id
+		headers: {
+			"Authorization": localStorage.token
 		},
+		url: base_url + "api/getCourseStudents/" + localStorage.cadeira_id,
+		
 		success: function (data) {
 			var linhas = '';
 			if (data.users_id.length > 0) {

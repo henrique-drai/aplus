@@ -57,6 +57,10 @@ $route['api/registerCollege']            = 'Api_College/registerCollege';
 $route['api/editUser']                   = 'Api_User/editUser';
 $route['api/registerSubject']            = 'Api_Subject/registerSubject';
 $route['api/registerCurso']              = 'Api_Course/registerCurso';
+$route['api/registerSchoolYear']         = 'Api_Year/registerSchoolYear';
+$route['api/getSearchTeacher']           = 'Api_Teacher/getSearchTeacher';
+$route['api/getSearchStudent']           = 'Api_Student/getSearchStudent';
+$route['api/editCourse']                 = 'Api_Course/editCourse';
 
 
 $route['default_controller'] = 'landing';

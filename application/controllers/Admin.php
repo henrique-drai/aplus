@@ -26,10 +26,10 @@ class Admin extends REST_Controller {
             // case "editUser":        $this->editUser(); break; //            admin/api/editUser
             // case "registerSubject":  $this->registerSubject(); break; //    admin/api/registerSubject
             // case "registerCurso":   $this -> registerCurso(); break; //     admin/api/registerCurso  
-            case "registerSchoolYear": $this -> registerSchoolYear(); break;    // admin/api/registerSchoolYear
-            case "getSearchTeacher": $this->getSearchTeacher(); break; // admin/api/getSearchTeacher
-            case "getSearchStudent": $this->getSearchStudent(); break; // admin/api/getSearchStudent
-            case "editCourse": $this -> editCourse(); break; 
+            // case "registerSchoolYear": $this -> registerSchoolYear(); break;    // admin/api/registerSchoolYear
+            // case "getSearchTeacher": $this->getSearchTeacher(); break; // admin/api/getSearchTeacher
+            // case "getSearchStudent": $this->getSearchStudent(); break; // admin/api/getSearchStudent
+            // case "editCourse": $this -> editCourse(); break; 
             case "importCSV":       $this ->importCSV(); break; //        admin/api/importCSV   ##!
             case "importX": $this->importX(); break;   ##!
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
@@ -78,15 +78,15 @@ class Admin extends REST_Controller {
     //                          ADMIN
     //////////////////////////////////////////////////////////////
 
-    public function registerSchoolYear(){
-        $data = Array(
-            "inicio"   => $this->post('inicio'),
-            "fim"   => $this->post('fim'),
-        );
-        $this->load->model('YearModel');
-        $retrieved = $this->YearModel->registerSchoolYear($data);
-        $this->response(json_encode($retrieved), parent::HTTP_OK);
-        }
+    // public function registerSchoolYear(){
+    //     $data = Array(
+    //         "inicio"   => $this->post('inicio'),
+    //         "fim"   => $this->post('fim'),
+    //     );
+    //     $this->load->model('YearModel');
+    //     $retrieved = $this->YearModel->registerSchoolYear($data);
+    //     $this->response(json_encode($retrieved), parent::HTTP_OK);
+    //     }
 
     public function getAllSchoolYears(){
         $this->load->model('YearModel');
@@ -253,42 +253,42 @@ class Admin extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function getSearchStudent(){
-        $this->verify_request();
-        $query = '';
-        $this->load->model('UserModel');
-        if($this->post("query")){
-            $query = $this->post("query");
-        }
-        $resultquery = $this->UserModel->getSearchStudent($query);
-        $data["students"] = "";
-        if($resultquery -> num_rows() == 0){
-            $data["students"] = "no data"; 
-        }
-        else{
-            $data["students"] = $resultquery->result();
-        }
-        $this->response($data, parent::HTTP_OK);
-    }
+    // public function getSearchStudent(){
+    //     $this->verify_request();
+    //     $query = '';
+    //     $this->load->model('UserModel');
+    //     if($this->post("query")){
+    //         $query = $this->post("query");
+    //     }
+    //     $resultquery = $this->UserModel->getSearchStudent($query);
+    //     $data["students"] = "";
+    //     if($resultquery -> num_rows() == 0){
+    //         $data["students"] = "no data"; 
+    //     }
+    //     else{
+    //         $data["students"] = $resultquery->result();
+    //     }
+    //     $this->response($data, parent::HTTP_OK);
+    // }
 
-    public function getSearchTeacher(){
-        $this->verify_request();
-        $query = '';
-        $this->load->model('UserModel');
-        if($this->post("query")){
-            $query = $this->post("query");
-        }
-        $resultquery = $this->UserModel->getSearchTeacher($query);
-        $data["teachers"] = "";
-        if($resultquery -> num_rows() == 0){
-            $data["teachers"] = "no data"; 
-        }
-        else{
-            $data["teachers"] = $resultquery->result();
-        }
-        $this->response($data, parent::HTTP_OK);
+    // public function getSearchTeacher(){
+    //     $this->verify_request();
+    //     $query = '';
+    //     $this->load->model('UserModel');
+    //     if($this->post("query")){
+    //         $query = $this->post("query");
+    //     }
+    //     $resultquery = $this->UserModel->getSearchTeacher($query);
+    //     $data["teachers"] = "";
+    //     if($resultquery -> num_rows() == 0){
+    //         $data["teachers"] = "no data"; 
+    //     }
+    //     else{
+    //         $data["teachers"] = $resultquery->result();
+    //     }
+    //     $this->response($data, parent::HTTP_OK);
 
-    }
+    // }
 
     public function deleteUser(){
         $this->verify_request();
@@ -343,19 +343,19 @@ class Admin extends REST_Controller {
     }
 
 
-    public function editCourse(){
-        $this->load->model("CourseModel");
+    // public function editCourse(){
+    //     $this->load->model("CourseModel");
 
-        $data = Array(
-            "code"         => $this->post('code'),
-            "name"          => $this->post('name'),
-            "academicYear"  => $this->post('academicYear'),
-            "description"   => $this->post('description'),
-            "oldCurso"      => $this->post('oldCurso'),
-            "collegeId"      => $this->post('collegeId'),
-        );
-        $this->CourseModel->editCourse($data);
-    }
+    //     $data = Array(
+    //         "code"         => $this->post('code'),
+    //         "name"          => $this->post('name'),
+    //         "academicYear"  => $this->post('academicYear'),
+    //         "description"   => $this->post('description'),
+    //         "oldCurso"      => $this->post('oldCurso'),
+    //         "collegeId"      => $this->post('collegeId'),
+    //     );
+    //     $this->CourseModel->editCourse($data);
+    // }
 
 
     // public function registerCurso(){

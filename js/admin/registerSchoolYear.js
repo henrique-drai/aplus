@@ -159,18 +159,17 @@ function submitNewDate(){
         inicio:   $('#year_list tr:last').find("td:eq(0)").text(),
         fim:   $('#year_list tr:last').find("td:eq(1)").text()
     }
-
-    console.log(data);
     
     $.ajax({
         type: "POST",
-        url: base_url + "admin/api/registerSchoolYear",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/registerSchoolYear",
         data: data,
         success: function(data) {
             getAllSchoolYears();
             $("#msgStatus").text("Ano Letivo registado com Sucesso");
             $("#msgStatus").show().delay(2000).fadeOut();
-            $('#register-anoletivo-form')[0].reset();
+            // $('#register-anoletivo-form')[0].reset();
 
         },
         error: function(data) {

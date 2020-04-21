@@ -17,6 +17,12 @@ class Api_College extends REST_Controller {
         $this->load->helper(['jwt', 'authorization']);
     }
 
+  
+    //////////////////////////////////////////////////////////////
+    //                           POST
+    //////////////////////////////////////////////////////////////
+
+
     public function registerCollege_post(){
         $this->verify_request();
         $data = Array(
@@ -30,6 +36,10 @@ class Api_College extends REST_Controller {
         $this->response(json_encode($retrieved), parent::HTTP_OK);
     }
 
+
+    //////////////////////////////////////////////////////////////
+    //                           GET
+    //////////////////////////////////////////////////////////////
 
 
 

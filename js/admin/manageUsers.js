@@ -216,9 +216,9 @@ function makeStudentTable(data){
 
 function getSearchStudent(query){
     $.ajax({
-        type: "POST",
+        type: "GET",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "admin/api/getSearchStudent",
+        url: base_url + "api/getSearchStudent",
         data: {query: query},
         success: function(data){
             if(data.students != "no data"){
@@ -242,9 +242,9 @@ function getSearchStudent(query){
 
 function getSearchTeacher(query){
     $.ajax({
-        type: "POST",
+        type: "GET",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "admin/api/getSearchTeacher",
+        url: base_url + "api/getSearchTeacher",
         data: {query: query},
         success: function(data){
             if(data.teachers != "no data"){

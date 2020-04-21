@@ -64,7 +64,25 @@ class Api_Teacher extends REST_Controller {
         
         $this->response($data, parent::HTTP_OK);
     }
+    
+    public function getSearchTeacher_get(){
+        $this->verify_request();
+        $query = '';
+        $this->load->model('UserModel');
+        if($this->get("query")){
+            $query = $this->get("query");
+        }
+        $resultquery = $this->UserModel->getSearchTeacher($query);
+        $data["teachers"] = "";
+        if($resultquery -> num_rows() == 0){
+            $data["teachers"] = "no data"; 
+        }
+        else{
+            $data["teachers"] = $resultquery->result();
+        }
+        $this->response($data, parent::HTTP_OK);
 
+    }
 
 
     //////////////////////////////////////////////////////////////

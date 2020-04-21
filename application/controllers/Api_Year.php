@@ -10,18 +10,27 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
 
-class Api_Student extends REST_Controller {
+class Api_Year extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
         $this->load->helper(['jwt', 'authorization']);
+        $this->load->model("YearModel");
     }
 
-    
+
     //////////////////////////////////////////////////////////////
     //                           POST
     //////////////////////////////////////////////////////////////
 
+    public function registerSchoolYear_post(){
+        $data = Array(
+            "inicio"   => $this->post('inicio'),
+            "fim"   => $this->post('fim'),
+        );
+        $retrieved = $this->YearModel->registerSchoolYear($data);
+        $this->response(json_encode($retrieved), parent::HTTP_OK);
+        }
 
 
 
@@ -29,27 +38,11 @@ class Api_Student extends REST_Controller {
     //////////////////////////////////////////////////////////////
     //                           GET
     //////////////////////////////////////////////////////////////
-    
-    public function getSearchStudent_get(){
-        $this->verify_request();
-        $query = '';
-        $this->load->model('UserModel');
-        if($this->get("query")){
-            $query = $this->get("query");
-        }
-        $resultquery = $this->UserModel->getSearchStudent($query);
-        $data["students"] = "";
-        if($resultquery -> num_rows() == 0){
-            $data["students"] = "no data"; 
-        }
-        else{
-            $data["students"] = $resultquery->result();
-        }
-        $this->response($data, parent::HTTP_OK);
-    }
 
 
-
+    //////////////////////////////////////////////////////////////
+    //                         DELETE
+    //////////////////////////////////////////////////////////////
 
 
 

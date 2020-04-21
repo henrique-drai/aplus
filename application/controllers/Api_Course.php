@@ -17,6 +17,32 @@ class Api_Course extends REST_Controller {
         $this->load->helper(['jwt', 'authorization']);
     }
 
+    
+    //////////////////////////////////////////////////////////////
+    //                           POST
+    //////////////////////////////////////////////////////////////
+
+    public function editCourse_post(){
+        $this->verify_request();
+        $this->load->model("CourseModel");
+
+        $data = Array(
+            "code"         => $this->post('code'),
+            "name"          => $this->post('name'),
+            "academicYear"  => $this->post('academicYear'),
+            "description"   => $this->post('description'),
+            "oldCurso"      => $this->post('oldCurso'),
+            "collegeId"      => $this->post('collegeId'),
+        );
+        $this->CourseModel->editCourse($data);
+    }
+
+
+
+    //////////////////////////////////////////////////////////////
+    //                           GET
+    //////////////////////////////////////////////////////////////
+
     public function registerCurso_post(){
         $this->verify_request();
         $this -> load -> model('CourseModel');

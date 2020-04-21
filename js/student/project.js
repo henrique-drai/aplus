@@ -62,7 +62,7 @@ function getEtapas(proj_id){
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "student/api/getAllEtapas",
+        url: base_url + "api/getAllEtapas/" + proj_id,
         data: data_proj,
         success: function(data) {
             makeEtapaDiv(data);

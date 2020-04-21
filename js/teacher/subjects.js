@@ -15,7 +15,7 @@ function showCadeiras() {
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "api/getCadeiras/" + localStorage.user_id,
+        url: base_url + "api/getCadeiras/" + localStorage.user_id + "/" + "teacher",
         success: function(data) {
             $(".cadeiras").empty();
 

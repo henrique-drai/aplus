@@ -62,6 +62,20 @@ class EventModel extends CI_Model { //evento & horario_duvidas
         return $result->result_array();
     }
 
+    public function getHorarioDuvidasById($id) {
+        $query = $this->db->get_where('horario_duvidas', array('id' => $id));
+        return $query->row();
+    }
+
+    public function insertEvent($data) {
+        $this->db->insert('evento', $data);
+        return $this->db->insert_id();
+    }
+
+    public function insertUserEvent($data) {
+        $this->db->insert('evento_user', $data);
+    }
+
     public function userRelatedToEvent($user_id, $evento_id){
         $this->db->where('user_id', $user_id);
         $this->db->where('evento_id', $evento_id);

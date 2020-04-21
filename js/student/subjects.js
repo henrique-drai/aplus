@@ -1,21 +1,21 @@
 $(document).ready(() => {
-    getCadeiras(localStorage.user_id);
+    getCadeiras();
 
     $("body").on("click", "a", function() {
-        // localStorage.setItem("cadeira_code", $(this).attr("id"));
         var link = $(this).attr("href");
         localStorage.setItem("year", link.split("/").pop());
     })
 });
 
-function getCadeiras(user_id) {
+function getCadeiras() {
     $.ajax({
         type: "GET",
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "api/getCadeiras/" + localStorage.user_id,
+        url: base_url + "api/getCadeiras/" + localStorage.user_id + "/student",
         success: function(data) {
+            console.log(data)
             $(".cadeiras").empty();
 
             if(data.cadeiras_id.length != 0) {

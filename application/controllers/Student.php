@@ -32,9 +32,6 @@ class Student extends REST_Controller {
             case "getMyGroups":             $this->getMyGroups(); break;
             case "getStudentsFromGroup":    $this->getStudentsFromGroup(); break;
             case "getCadeiraGrupo":         $this->getCadeiraGrupo(); break;
-            case "getMyGroupInProj":        $this->getMyGroupInProj(); break;//     /student/api/getMyGroupInProj
-            case "getAllEtapas":            $this->getAllEtapas(); break; //        /student/api/getAllEtapas
-
 
             default:                        $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
         }
@@ -136,14 +133,6 @@ class Student extends REST_Controller {
     //////////////////////////////////////////////////////////////
     //                   Projetos e Etapas
     //////////////////////////////////////////////////////////////
-    public function getAllEtapas(){
-        $proj_id = $this->get('projid');
-        $this->load->model('ProjectModel');
-        $data = $this->ProjectModel->getEtapasByProjectID($proj_id);
-
-        $this->response($data, parent::HTTP_OK);
-    }
-
 
 
 

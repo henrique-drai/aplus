@@ -23,6 +23,25 @@ $route['api/insertForum']                = 'Api_Forum/insertForum';
 
 $route['api/getHome/(:num)']            = 'Api_Teacher/getProfHome/$1';
 
+
+$route['api/createProject']                 = 'Api_Project/createProject';
+$route['api/createEtapa']                   = 'Api_Project/createEtapa';
+$route['api/insertFeedback']                = 'Api_Project/insertFeedback';
+$route['api/editEtapa']                     = 'Api_Project/editEtapa';
+$route['api/editEnunciado']                 = 'Api_Project/editEnunciado';
+$route['api/editEtapaEnunciado']            = 'Api_Project/editEtapaEnunciado';
+
+$route['api/getSub']                        = 'Api_Project/getSub';
+$route['api/getAllEtapas/(:num)']           = 'Api_Project/getAllEtapas/$1';
+$route['api/getAllGroups/(:num)']           = 'Api_Project/getAllGroups/$1';
+
+$route['api/removeProject/(:num)']          = 'Api_Project/removeProject/$1';
+$route['api/removeEtapa/(:num)']            = 'Api_Project/removeEtapa/$1';
+$route['api/removeEnunciadoEtapa/(:num)']   = 'Api_Project/removeEnunciadoEtapa/$1';
+$route['api/removeEnunciadoProj/(:num)']    = 'Api_Project/removeEnunciadoProj/$1';
+
+
+
 $route['api/getCadeira/(:num)']         = 'Api_Subject/getInfo/$1';
 $route['api/insertText']                = 'Api_Subject/insertText';
 $route['api/getHours/(:num)']           = 'Api_Subject/getHours/$1';
@@ -38,7 +57,6 @@ $route['api/registerCollege']            = 'Api_College/registerCollege';
 $route['api/editUser']                   = 'Api_User/editUser';
 $route['api/registerSubject']            = 'Api_Subject/registerSubject';
 $route['api/registerCurso']              = 'Api_Course/registerCurso';
-
 
 
 $route['default_controller'] = 'landing';

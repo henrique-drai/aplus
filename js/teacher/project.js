@@ -43,7 +43,7 @@ $(document).ready(() => {
             headers: {
                 "Authorization": localStorage.token
             },
-            url: base_url + "teacher/api/removeProject",
+            url: base_url + "api/removeProject/" + proj,
             data: data,
             success: function(data) {
                 console.log(data);
@@ -405,7 +405,7 @@ function submit_etapa(){
             headers: {
                 "Authorization": localStorage.token
             },
-            url: base_url + "teacher/api/createEtapa",
+            url: base_url + "api/createEtapa",
             data: data,
             success: function(data) {
                 console.log(proj);
@@ -438,10 +438,11 @@ function submit_edit_etapa(){
             headers: {
                 "Authorization": localStorage.token
             },
-            url: base_url + "teacher/api/editEtapa",
+            url: base_url + "api/editEtapa",
             data: data,
             success: function(data) {
                 console.log(data);
+                location.reload();
             },
             error: function(data) {
                 console.log("Erro na API - Edit Etapa");
@@ -474,7 +475,7 @@ function etapa_clear_enunciado(){
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/removeEnunciadoEtapa",
+        url: base_url + "api/removeEnunciadoEtapa/" + selected_etapa,
         data: data,
         success: function(data) {
             console.log("Enunciado da etapa: "+ data + "removido");
@@ -500,7 +501,7 @@ function submit_new_enunciado(enunc){
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/editEnunciado",
+        url: base_url + "api/editEnunciado",
         data: data,
         success: function(data) {
             console.log(data);
@@ -527,7 +528,7 @@ function submit_new_etapa_enunciado(enunc){
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/editEtapaEnunciado",
+        url: base_url + "api/editEtapaEnunciado",
         data: data,
         success: function(data) {
             console.log(data);
@@ -649,7 +650,7 @@ function getEtapas(proj_id){
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/getAllEtapas",
+        url: base_url + "api/getAllEtapas/" + proj_id,
         data: data_proj,
         success: function(data) {
             makeEtapaTable(data);
@@ -667,7 +668,7 @@ function showGroups(proj_id) {
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/getAllGroups",
+        url: base_url + "api/getAllGroups/" + proj_id,
         data: {proj_id: proj_id},
         success: function(data) {
             console.log(data);
@@ -714,7 +715,7 @@ function removeEtapa(id){
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/removeEtapa",
+        url: base_url + "api/removeEtapa/" + id,
         data: data_etapa,
         success: function(data) {
             console.log("mensagem de sucesso");
@@ -739,7 +740,7 @@ function getSumbission(grupo_id, etapa){
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/getSub",
+        url: base_url + "api/getSub",
         data: data,
         success: function(data) {
             console.log(data)
@@ -780,7 +781,7 @@ function submit_feedback(feedback, etapa, grupo_id){
             headers: {
                 "Authorization": localStorage.token
             },
-            url: base_url + "teacher/api/insertFeedback",
+            url: base_url + "api/insertFeedback",
             data: data,
             success: function(data) {
                 console.log(data);
@@ -814,7 +815,7 @@ function removeEnunciadoProj(){
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/removeEnunciadoProj",
+        url: base_url + "api/removeEnunciadoProj/" + proj,
         data: data,
         success: function(data) {
             console.log("Enunciado do proj: "+ data + "removido");

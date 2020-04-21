@@ -30,6 +30,15 @@ class Api_Student extends REST_Controller {
     //                           GET
     //////////////////////////////////////////////////////////////
     
+    public function getAllStudents_get(){
+        $this->verify_request();
+        $this->load->model('UserModel');
+        $data["students"] = $this->UserModel->getStudents();
+        
+        $this->response($data, parent::HTTP_OK);
+    }
+
+
     public function getSearchStudent_get(){
         $this->verify_request();
         $query = '';

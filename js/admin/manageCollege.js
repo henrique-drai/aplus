@@ -39,7 +39,8 @@ $(document).ready(() => {
 function getAllColleges(){
     $.ajax({
         type: "GET",
-        url: base_url + "admin/api/getAllColleges",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/getAllColleges",             // uhh admin/api para unidades curriculares #raul
         success: function(data) {
             $("#mens_sem_faculdades").remove();
             if(data.colleges.length>0){

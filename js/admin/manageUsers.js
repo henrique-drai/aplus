@@ -168,7 +168,7 @@ function getAllStudents(){
     $.ajax({
         type: "GET",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "admin/api/getAllStudents",
+        url: base_url + "api/getAllStudents",
         success: function(data) {
             $("#mens_sem_alunos").remove();
             if(data.students.length>0){
@@ -271,7 +271,7 @@ function getAllTeachers(){
     $.ajax({
         type: "GET",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "admin/api/getAllTeachers",
+        url: base_url + "api/getAllTeachers",
         success: function(data) {
             $("#mens_sem_teachers").remove();
             if(data.teachers.length>0){

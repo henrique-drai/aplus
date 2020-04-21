@@ -15,6 +15,12 @@ class Api_Admin extends REST_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->helper(['jwt', 'authorization']);
+        $this->load->model('UserModel');
+        $this->load->model('CollegeModel');
+        $this->load->model('CourseModel');
+        $this->load->model('YearModel');
+        $this->load->model('SubjectModel');
+
     }
 
     // // IMPORTAR USERS
@@ -52,7 +58,7 @@ class Api_Admin extends REST_Controller {
     //     }
     // }
 
-        //////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////
     //                           POST
     //////////////////////////////////////////////////////////////
 
@@ -64,8 +70,28 @@ class Api_Admin extends REST_Controller {
     //                           GET
     //////////////////////////////////////////////////////////////
 
+    public function getAdminHome_get(){
+        $auth = $this->verify_request();
 
-    
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        $data = Array(
+            "num_students" => $this->UserModel->countStudents(),
+            "num_teachers" => $this->UserModel->countTeachers(),
+            "num_colleges" => $this->CollegeModel->countColleges(),
+            "num_courses" => $this->CourseModel->countCourses(),
+            "num_academicYear" => $this->YearModel->countAcademicYear(),
+            "num_subjects" => $this->SubjectModel->countSubjects(),
+        );
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

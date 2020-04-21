@@ -84,6 +84,13 @@ class Api_Teacher extends REST_Controller {
 
     }
 
+    public function getAllTeachers_get(){
+        $this->verify_request();
+        $this ->load-> model('UserModel');
+        $data["teachers"] = $this ->UserModel-> getTeachers();
+        $this -> response($data, parent::HTTP_OK);
+    }
+
 
     //////////////////////////////////////////////////////////////
     //                         DELETE

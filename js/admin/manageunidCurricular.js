@@ -325,7 +325,8 @@ function getAllSubjectsByCourse(courses){
 function getAllYears(){
     $.ajax({
         type: "GET",
-        url: base_url + "admin/api/getAllYears",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/getAllYears",
         success: function(data) {
             
             $("#Consultar_Cadeiras_Ano option").remove();

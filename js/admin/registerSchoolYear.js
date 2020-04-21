@@ -55,7 +55,8 @@ function deleteSchoolYear(linha){
 function getAllSchoolYears(){
     $.ajax({
         type: "GET",
-        url: base_url + "admin/api/getAllSchoolYears",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/getAllSchoolYears",
         success: function(data) {
             makeYearTable(data["schoolYears"])
         },

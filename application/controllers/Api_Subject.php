@@ -68,7 +68,7 @@ class Api_Subject extends REST_Controller {
         $this->load->model('SubjectModel');
         $retrieved = $this->SubjectModel->registerSubject($data);
         $this->response(json_encode($retrieved), parent::HTTP_OK);
-
+    }
 
     public function insertEvent_post($hour_id) {
         $user_id = $this->verify_request()->id;
@@ -97,11 +97,11 @@ class Api_Subject extends REST_Controller {
             $event_id = $this->EventModel->insertEvent($dataInsert);
 
             $this->EventModel->insertUserEvent(Array ("evento_id" => $event_id, "user_id" => $data["user"]->id));
+            $this->EventModel->insertUserEvent(Array ("evento_id" => $event_id, "user_id" => $user_id));
         }
 
         
         $this->response($data, parent::HTTP_OK);
->>>>>>> iness
     }
 
 

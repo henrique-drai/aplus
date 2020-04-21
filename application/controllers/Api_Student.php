@@ -17,6 +17,45 @@ class Api_Student extends REST_Controller {
         $this->load->helper(['jwt', 'authorization']);
     }
 
+    
+    //////////////////////////////////////////////////////////////
+    //                           POST
+    //////////////////////////////////////////////////////////////
+
+
+
+
+
+    //////////////////////////////////////////////////////////////
+    //                           GET
+    //////////////////////////////////////////////////////////////
+    
+    public function getAllStudents_get(){
+        $this->verify_request();
+        $this->load->model('UserModel');
+        $data["students"] = $this->UserModel->getStudents();
+        
+        $this->response($data, parent::HTTP_OK);
+    }
+
+
+    public function getSearchStudent_get(){
+        $this->verify_request();
+        $query = '';
+        $this->load->model('UserModel');
+        if($this->get("query")){
+            $query = $this->get("query");
+        }
+        $resultquery = $this->UserModel->getSearchStudent($query);
+        $data["students"] = "";
+        if($resultquery -> num_rows() == 0){
+            $data["students"] = "no data"; 
+        }
+        else{
+            $data["students"] = $resultquery->result();
+        }
+        $this->response($data, parent::HTTP_OK);
+    }
 
 
 

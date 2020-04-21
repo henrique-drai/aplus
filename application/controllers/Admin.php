@@ -21,15 +21,6 @@ class Admin extends REST_Controller {
     //admin/api/função
     public function api_post($f) {
         switch ($f) {
-            // case "register":        $this->registerUser(); break; //        admin/api/register
-            // case "registerCollege": $this->registerCollege(); break; //     admin/api/registerCollege
-            // case "editUser":        $this->editUser(); break; //            admin/api/editUser
-            // case "registerSubject":  $this->registerSubject(); break; //    admin/api/registerSubject
-            // case "registerCurso":   $this -> registerCurso(); break; //     admin/api/registerCurso  
-            case "registerSchoolYear": $this -> registerSchoolYear(); break;    // admin/api/registerSchoolYear
-            case "getSearchTeacher": $this->getSearchTeacher(); break; // admin/api/getSearchTeacher
-            case "getSearchStudent": $this->getSearchStudent(); break; // admin/api/getSearchStudent
-            case "editCourse": $this -> editCourse(); break; 
             case "importCSV":       $this ->importCSV(); break; //        admin/api/importCSV   ##!
             case "importX": $this->importX(); break;   ##!
             default:                $this->response("Invalid API call.", parent::HTTP_NOT_FOUND);
@@ -38,11 +29,11 @@ class Admin extends REST_Controller {
 
     public function api_get($f){
         switch($f){
-            case "getAllColleges":  $this->getAllColleges(); break; //      admin/api/getAllColleges
-            case "getAllSchoolYears":  $this->getAllSchoolYears(); break; //      admin/api/getAllSchoolYears
-            case "getAllStudents":  $this->getAllStudents(); break; //      admin/api/getAllStudents
-            case "getAllTeachers":  $this->getAllTeachers(); break; //      admin/api/getAllTeachers
-            case "getAdminHome":    $this->getAdminHome(); break; //        admin/api/getAdminHome
+            // case "getAllColleges":  $this->getAllColleges(); break; //      admin/api/getAllColleges
+            // case "getAllSchoolYears":  $this->getAllSchoolYears(); break; //      admin/api/getAllSchoolYears
+            // case "getAllStudents":  $this->getAllStudents(); break; //      admin/api/getAllStudents
+            // case "getAllTeachers":  $this->getAllTeachers(); break; //      admin/api/getAllTeachers
+            // case "getAdminHome":    $this->getAdminHome(); break; //        admin/api/getAdminHome
             case "getAllFaculdadesUnidCurricular":  $this->getAllColleges(); break; // admin/api/getAllFaculdadesUnidCurricular
             case "getAllCursosFaculdadeAno": $this->getAllCollegesYearCourses(); break; // admin/api/getAllCursosFaculdadeAno
             case "getAllCursosFaculdade": $this->getAllCollegesCourses(); break; // admin/api/getAllCursosFaculdadeAno
@@ -71,64 +62,17 @@ class Admin extends REST_Controller {
     }
 
 
-
-
-
-    //////////////////////////////////////////////////////////////
-    //                          ADMIN
-    //////////////////////////////////////////////////////////////
-
-    public function registerSchoolYear(){
-        $data = Array(
-            "inicio"   => $this->post('inicio'),
-            "fim"   => $this->post('fim'),
-        );
-        $this->load->model('YearModel');
-        $retrieved = $this->YearModel->registerSchoolYear($data);
-        $this->response(json_encode($retrieved), parent::HTTP_OK);
-        }
-
-    public function getAllSchoolYears(){
-        $this->load->model('YearModel');
-        $data["schoolYears"] = $this->YearModel->getAllSchoolYears();
-        $this->response($data, parent::HTTP_OK);
-    }
+    // public function getAllSchoolYears(){
+    //     $this->load->model('YearModel');
+    //     $data["schoolYears"] = $this->YearModel->getAllSchoolYears();
+    //     $this->response($data, parent::HTTP_OK);
+    // }
 
     public function deleteSchoolYear(){
         $inicio = $this->delete('inicio');
         $this->load->model('YearModel');
         $this->YearModel->deleteSchoolYear($inicio);
     }
-
-    // public function registerUser(){
-
-    //     $email = $this->post('email');
-
-    //     $data = Array(
-    //         "name"      => $this->post('name'),
-    //         "surname"   => $this->post('surname'),
-    //         "email"     => $this->post('email'),
-    //         "password"  => md5($this->post('password')),
-    //         "role"      => $this->post('role'),
-    //     );
-
-    //     $this->load->model('UserModel');
-    //     $retrieved = $this->UserModel->registerUser($data);
-
-    //     $this->response(json_encode($retrieved), parent::HTTP_OK);
-    // }
-
-    // public function registerCollege(){
-    //     $data = Array(
-    //         "name" => $this->post('nomefaculdade'),
-    //         "location"   => $this->post('morada'),
-    //         "siglas"   => $this->post('siglas'),
-    //     );
-
-    //     $this->load->model('CollegeModel');
-    //     $retrieved = $this->CollegeModel->registerCollege($data);
-    //     $this->response(json_encode($retrieved), parent::HTTP_OK);
-    // }
 
     public function getAllColleges(){
         $this->load->model('CollegeModel');
@@ -159,19 +103,6 @@ class Admin extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    // public function registerSubject(){
-    //     $data = Array(
-    //         "code" => $this->post('codeCadeira'),
-    //         "curso_id"   => $this->post('curso'),
-    //         "name" => $this->post('nomeCadeira'),
-    //         "description"   => $this->post('descCadeira'),
-    //     );
-
-    //     $this->load->model('SubjectModel');
-    //     $retrieved = $this->SubjectModel->registerSubject($data);
-    //     $this->response(json_encode($retrieved), parent::HTTP_OK);
-
-    // }
 
     public function getAllSubjects(){
         $this->verify_request();
@@ -245,50 +176,13 @@ class Admin extends REST_Controller {
         $this->CollegeModel->deleteCollege($siglas);
     }
 
-    public function getAllStudents(){
-        $this->verify_request();
-        $this->load->model('UserModel');
-        $data["students"] = $this->UserModel->getStudents();
+    // public function getAllStudents(){
+    //     $this->verify_request();
+    //     $this->load->model('UserModel');
+    //     $data["students"] = $this->UserModel->getStudents();
         
-        $this->response($data, parent::HTTP_OK);
-    }
-
-    public function getSearchStudent(){
-        $this->verify_request();
-        $query = '';
-        $this->load->model('UserModel');
-        if($this->post("query")){
-            $query = $this->post("query");
-        }
-        $resultquery = $this->UserModel->getSearchStudent($query);
-        $data["students"] = "";
-        if($resultquery -> num_rows() == 0){
-            $data["students"] = "no data"; 
-        }
-        else{
-            $data["students"] = $resultquery->result();
-        }
-        $this->response($data, parent::HTTP_OK);
-    }
-
-    public function getSearchTeacher(){
-        $this->verify_request();
-        $query = '';
-        $this->load->model('UserModel');
-        if($this->post("query")){
-            $query = $this->post("query");
-        }
-        $resultquery = $this->UserModel->getSearchTeacher($query);
-        $data["teachers"] = "";
-        if($resultquery -> num_rows() == 0){
-            $data["teachers"] = "no data"; 
-        }
-        else{
-            $data["teachers"] = $resultquery->result();
-        }
-        $this->response($data, parent::HTTP_OK);
-
-    }
+    //     $this->response($data, parent::HTTP_OK);
+    // }
 
     public function deleteUser(){
         $this->verify_request();
@@ -311,27 +205,13 @@ class Admin extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    // public function editUser(){
+
+    // public function getAllTeachers(){
     //     $this->verify_request();
-    //     $email = $this->post('oldemail');
-    //     $data = Array(
-    //         "name"      => $this->post('name'),
-    //         "surname"   => $this->post('surname'),
-    //         "email"     => $this->post('email'),
-    //         "password"  => md5($this->post('password')),
-    //     );
-    //     $this->load->model('UserModel');
-    //     $retrieved = $this->UserModel->editStudent($email, $data);
-
-    //     $this->response(json_encode($retrieved), parent::HTTP_OK);
+    //     $this ->load-> model('UserModel');
+    //     $data["teachers"] = $this ->UserModel-> getTeachers();
+    //     $this -> response($data, parent::HTTP_OK);
     // }
-
-    public function getAllTeachers(){
-        $this->verify_request();
-        $this ->load-> model('UserModel');
-        $data["teachers"] = $this ->UserModel-> getTeachers();
-        $this -> response($data, parent::HTTP_OK);
-    }
 
     public function deleteCourse(){
         $this->load->model('CourseModel');
@@ -342,35 +222,6 @@ class Admin extends REST_Controller {
         $this -> CourseModel -> deleteCollegeCourse($data);
     }
 
-
-    public function editCourse(){
-        $this->load->model("CourseModel");
-
-        $data = Array(
-            "code"         => $this->post('code'),
-            "name"          => $this->post('name'),
-            "academicYear"  => $this->post('academicYear'),
-            "description"   => $this->post('description'),
-            "oldCurso"      => $this->post('oldCurso'),
-            "collegeId"      => $this->post('collegeId'),
-        );
-        $this->CourseModel->editCourse($data);
-    }
-
-
-    // public function registerCurso(){
-    //     $this -> load -> model('CourseModel');
-       
-    //     $data = Array(
-    //         "faculdade_id"      => $this->post('collegeId'),
-    //         "ano_letivo_id"     => $this->post('academicYear'),
-    //         "code"              => $this->post('codCourse'),
-    //         "name"              => $this->post('nameCourse'),
-    //         "description"       => $this->post('descCourse')
-    //     );
-       
-    //     $this->CourseModel->register_course($data);
-    // }
 
     public function importX(){
         $role = $this->post('role');

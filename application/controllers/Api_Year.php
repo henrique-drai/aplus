@@ -10,32 +10,29 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
 
-class Api_Course extends REST_Controller {
+class Api_Year extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
         $this->load->helper(['jwt', 'authorization']);
+        $this->load->model("YearModel");
     }
 
-    
+
     //////////////////////////////////////////////////////////////
     //                           POST
     //////////////////////////////////////////////////////////////
 
-    public function editCourse_post(){
+    public function registerSchoolYear_post(){
         $this->verify_request();
-        $this->load->model("CourseModel");
-
         $data = Array(
-            "code"         => $this->post('code'),
-            "name"          => $this->post('name'),
-            "academicYear"  => $this->post('academicYear'),
-            "description"   => $this->post('description'),
-            "oldCurso"      => $this->post('oldCurso'),
-            "collegeId"      => $this->post('collegeId'),
+            "inicio"   => $this->post('inicio'),
+            "fim"   => $this->post('fim'),
         );
-        $this->CourseModel->editCourse($data);
-    }
+        $retrieved = $this->YearModel->registerSchoolYear($data);
+        $this->response(json_encode($retrieved), parent::HTTP_OK);
+        }
+
 
 
 
@@ -43,22 +40,16 @@ class Api_Course extends REST_Controller {
     //                           GET
     //////////////////////////////////////////////////////////////
 
-    public function registerCurso_post(){
+    public function getAllSchoolYears_get(){
         $this->verify_request();
-        $this -> load -> model('CourseModel');
-       
-        $data = Array(
-            "faculdade_id"      => $this->post('collegeId'),
-            "ano_letivo_id"     => $this->post('academicYear'),
-            "code"              => $this->post('codCourse'),
-            "name"              => $this->post('nameCourse'),
-            "description"       => $this->post('descCourse')
-        );
-       
-        $this->CourseModel->register_course($data);
+        $this->load->model('YearModel');
+        $data["schoolYears"] = $this->YearModel->getAllSchoolYears();
+        $this->response($data, parent::HTTP_OK);
     }
 
-
+    //////////////////////////////////////////////////////////////
+    //                         DELETE
+    //////////////////////////////////////////////////////////////
 
 
 

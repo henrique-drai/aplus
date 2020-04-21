@@ -36,6 +36,10 @@ class Api_User extends REST_Controller {
     }
 
 
+    //////////////////////////////////////////////////////////////
+    //                           POST
+    //////////////////////////////////////////////////////////////
+
     
     public function user_post(){
         $data = Array(
@@ -86,6 +90,13 @@ class Api_User extends REST_Controller {
 
         $this->response(json_encode($retrieved), parent::HTTP_OK);
     }
+
+
+    //////////////////////////////////////////////////////////////
+    //                           GET
+    //////////////////////////////////////////////////////////////
+
+
 
 
 

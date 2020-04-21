@@ -55,12 +55,27 @@ $route['api/getCadeiras/(:num)']        = 'Api_Subject/getCadeiras/$1';
 
 ##ADMIN##
 
-$route['api/register']                   = 'Api_User/registerUser';
-$route['api/registerCollege']            = 'Api_College/registerCollege';
-$route['api/editUser']                   = 'Api_User/editUser';
-$route['api/registerSubject']            = 'Api_Subject/registerSubject';
-$route['api/registerCurso']            = 'Api_Course/registerCurso';
+$route['api/register']                          = 'Api_User/registerUser';
+$route['api/registerCollege']                   = 'Api_College/registerCollege';
+$route['api/editUser']                          = 'Api_User/editUser';
+$route['api/registerSubject']                   = 'Api_Subject/registerSubject';
+$route['api/registerCurso']                     = 'Api_Course/registerCurso';
+$route['api/registerSchoolYear']                = 'Api_Year/registerSchoolYear';
+$route['api/getSearchTeacher']                  = 'Api_Teacher/getSearchTeacher';
+$route['api/getSearchStudent']                  = 'Api_Student/getSearchStudent';
+$route['api/editCourse']                        = 'Api_Course/editCourse';
+$route['api/getAllColleges']                    = 'Api_College/getAllColleges';
+$route['api/getAllSchoolYears']                 = 'Api_Year/getAllSchoolYears';
+$route['api/getAllStudents']                    = 'Api_Student/getAllStudents';
+$route['api/getAllTeachers']                    = 'Api_Teacher/getAllTeachers';
+$route['api/getAdminHome']                      = 'Api_Admin/getAdminHome';
+// $route['api/getAllFaculdadesUnidCurricular']    = 'Api_College/getAllColleges';
+// $route['api/getAllYears']                       = 'Api_Year/getAllYears';
 
+
+
+
+#Raul#ja arrumo#dw#
 
 $route['default_controller'] = 'landing';
 $route['404_override'] = '';

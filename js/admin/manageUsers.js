@@ -168,7 +168,7 @@ function getAllStudents(){
     $.ajax({
         type: "GET",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "admin/api/getAllStudents",
+        url: base_url + "api/getAllStudents",
         success: function(data) {
             $("#mens_sem_alunos").remove();
             if(data.students.length>0){
@@ -216,9 +216,9 @@ function makeStudentTable(data){
 
 function getSearchStudent(query){
     $.ajax({
-        type: "POST",
+        type: "GET",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "admin/api/getSearchStudent",
+        url: base_url + "api/getSearchStudent",
         data: {query: query},
         success: function(data){
             if(data.students != "no data"){
@@ -242,9 +242,9 @@ function getSearchStudent(query){
 
 function getSearchTeacher(query){
     $.ajax({
-        type: "POST",
+        type: "GET",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "admin/api/getSearchTeacher",
+        url: base_url + "api/getSearchTeacher",
         data: {query: query},
         success: function(data){
             if(data.teachers != "no data"){
@@ -271,7 +271,7 @@ function getAllTeachers(){
     $.ajax({
         type: "GET",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "admin/api/getAllTeachers",
+        url: base_url + "api/getAllTeachers",
         success: function(data) {
             $("#mens_sem_teachers").remove();
             if(data.teachers.length>0){

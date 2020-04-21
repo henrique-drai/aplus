@@ -245,7 +245,8 @@ function editCourse(){
 
     $.ajax({
         type: "POST",
-        url: base_url + "admin/api/editCourse",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/editCourse",
         data: data,   
         success: function() {
             getAllCursosFaculdade(data.collegeId);

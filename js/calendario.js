@@ -211,15 +211,13 @@ function eventOnClick(){
 
 
 
-function ajaxDeleteEventById(evento_id){
+function ajaxDeleteEventById(event_id){
     $.ajax({
-        type: "GET",
+        type: "DELETE",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "api/calendario",
+        url: base_url + "api/event/" + event_id,
         success: function(data) {
-            setCalendario(data)
-            renderCalendario()
-            console.log(calendario)
+            console.log(data)
         },
         error: function(data) {
             console.log("Problema na API ao buscar o calendário.")

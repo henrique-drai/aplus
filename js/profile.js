@@ -11,7 +11,7 @@ function validate_form_values(){
 
     if (password.val() != "" && password.val() != confirm.val()) {
         if(confirm.val() != "") {
-            $(".profile-edit-user label[for='confirm'] div").text("Passwords don't match.")
+            $(".profile-edit-user label[for='confirm'] div").text("As passwords não coincidem.")
         } else {
             $(".profile-edit-user label[for='confirm'] div").text("")
         }

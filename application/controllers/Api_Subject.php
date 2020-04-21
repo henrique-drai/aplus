@@ -20,6 +20,7 @@ class Api_Subject extends REST_Controller {
         $this->load->model('YearModel');
         $this->load->model('UserModel');
         $this->load->model("ForumModel");
+        $this->load->model("EventModel");
     }
 
 
@@ -40,6 +41,8 @@ class Api_Subject extends REST_Controller {
     }
 
     public function saveHours_post() {
+        $this->verify_request();
+
         $data = Array (
             'id_prof'             => $this->verify_request()->id,
             'id_cadeira'          => $this->post('cadeira_id'),
@@ -53,18 +56,51 @@ class Api_Subject extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function insertEvent_post($hour_id) {
+        $user_id = $this->verify_request()->id;
+
+        $daysOfWeek = array("", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "");
+
+        $data["hour"] = $this->EventModel->getHorarioDuvidasById($hour_id);
+
+        if(count($data["hour"]) > 0) {
+            $data["user"] = $this->UserModel->getUserById($data["hour"]->id_prof);
+
+            $daysToGo = array_search($data["hour"]->day, $daysOfWeek) + 1; //adicionar +1
+            $currentDay = date("Y-m-d");
+            $newDate = date("Y-m-d", strtotime('+' . 8 - $daysToGo . ' days'));
+            $startTime = $newDate . " " . $data["hour"]->start_time;
+            $endTime = $newDate . " " . $data["hour"]->end_time;
+
+            $dataInsert = Array (
+                'start_date'          => date("Y-m-d H:i:s", strtotime($startTime)),
+                'end_date'            => date("Y-m-d H:i:s", strtotime($endTime)),
+                'name'                => "Horário de Dúvidas",
+                'description'         => "Horário de Dúvidas com o(a) professor(a) " . $data["user"]->name . " " . $data["user"]->surname,
+                'location'            => $data["user"]->gabinete,
+            );
+    
+            $event_id = $this->EventModel->insertEvent($dataInsert);
+
+            $this->EventModel->insertUserEvent(Array ("evento_id" => $event_id, "user_id" => $data["user"]->id));
+        }
+
+        
+        $this->response($data, parent::HTTP_OK);
+    }
+
 
 
     //////////////////////////////////////////////////////////////
     //                           GET
     //////////////////////////////////////////////////////////////
 
-    public function getCadeiras_get($user_id = null) {
+    public function getCadeiras_get($user_id = null, $role) {
         if($user_id != $this->verify_request()->id) {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
         }
 
-        $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id, "teacher");
+        $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id, $role);
 
         $data["info"] = array();
         $data["curso"] = array();

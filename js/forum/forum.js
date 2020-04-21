@@ -27,12 +27,12 @@ $(document).ready(() => {
         window.location = base_url + "foruns/thread/" + $(this).attr("id");
     })
 
-    //open popup - REMOVER POST
+    //open popup - REMOVER FORUM
 	$('body').on('click', '.remove', function(){
-        makePopup("confirmRemove", "Tem a certeza que deseja eliminar o projeto?");
+        makePopup("confirmRemove", "Tem a certeza que deseja eliminar o fórum?");
 	});
 	
-	//close popup - REMOVER POST
+	//close popup - REMOVER FORUM
 	$('body').on('click', '.cd-popup', function(){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
             event.preventDefault();
@@ -40,7 +40,7 @@ $(document).ready(() => {
 		}
     });
     
-    //confirmed delete do popup - REMOVER POST
+    //confirmed delete do popup - REMOVER FORUM
     $("body").on('click', '#confirmRemove', function(){    
         $.ajax({
             type: "DELETE",

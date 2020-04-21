@@ -8,6 +8,7 @@ https://codeigniter.com/userguide3/general/routing.html
 $route['api/calendario']                = 'Api_Calendario/fullCalendario';
 
 $route['api/event/(:num)']              = 'Api_Event/event/$1';
+$route['api/event/going/(:num)']        = 'Api_Event/going/$1';
 
 $route['api/login']                     = 'Api_Authentication/login';
 $route['api/logout']                    = 'Api_Authentication/logout';

@@ -29,6 +29,18 @@ class Api_Event extends REST_Controller {
       $this->response(array(), parent::HTTP_OK);
     }
 
+    public function going_delete($event_id) {
+      $user_id = $this->verify_request()->id;
+
+      $this->load->model('EventModel');
+
+      if ($this->EventModel->userRelatedToEvent($user_id, $event_id)){
+        $this->EventModel->notGoing($user_id, $event_id);
+      } 
+
+      $this->response(array(), parent::HTTP_OK);
+    }
+
 
 
     //////////////////////////////////////////////////////////////

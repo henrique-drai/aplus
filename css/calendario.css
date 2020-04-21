@@ -29,6 +29,7 @@
 #calendario-hook .cell {
     border-top: 1px solid #aaa;
     position: relative; 
+    min-width: 50px;
 }
 #calendario-hook .cell .start {
     font-weight: bold;

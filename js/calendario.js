@@ -180,7 +180,15 @@ function eventOnClick(){
                 break
             
             case "group":
-                
+                message.append("<h3>"+event.obj.name+"</h3>")
+                message.append("<p>" + event.obj.description + "</p>")
+                message.append("<p>" +
+                    getTimeString(new Date(event.obj.start_date)) + " - " +
+                    getTimeString(new Date(event.obj.end_date)) + "</p>")
+                message.append("<p>Localização: " + event.obj.location + "</p>")
+                $(".cd-popup #actionButton")
+                .html("Não Vou").off()
+                .click(()=>{ajaxNotGoing(event.obj.evento_id)})
                 break
 
             case "event":
@@ -191,11 +199,8 @@ function eventOnClick(){
                     getTimeString(new Date(event.obj.end_date)) + "</p>")
                 message.append("<p>Localização: " + event.obj.location + "</p>")
                 $(".cd-popup #actionButton")
-                .html("Apagar Evento")
-                .off()
-                .click(()=>{
-                    ajaxDeleteEventById(parseInt(event.obj.evento_id))
-                })
+                .html("Apagar Evento").off()
+                .click(()=>{ajaxDeleteEventById(event.obj.evento_id)})
                 break
             
             case "submit":
@@ -218,9 +223,27 @@ function ajaxDeleteEventById(event_id){
         url: base_url + "api/event/" + event_id,
         success: function(data) {
             console.log(data)
+            updateCalendario()
+            $('.cd-popup').removeClass('is-visible')
         },
         error: function(data) {
-            console.log("Problema na API ao buscar o calendário.")
+            console.log("Couldn't delete the event:")
+            console.log(data)
+        }
+    })
+}
+function ajaxNotGoing(event_id){
+    $.ajax({
+        type: "DELETE",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/event/going/" + event_id,
+        success: function(data) {
+            console.log(data)
+            updateCalendario()
+            $('.cd-popup').removeClass('is-visible')
+        },
+        error: function(data) {
+            console.log("Couldn't cancel event:")
             console.log(data)
         }
     })

@@ -37,8 +37,10 @@ class EventModel extends CI_Model { //evento & horario_duvidas
 
     public function getFutureGroupEventsByUserId($id) {
         $query = "select * 
-            from grupo, grupo_aluno, evento_grupo, evento
+            from grupo, grupo_aluno, evento_grupo, evento, evento_user
             where grupo.id = grupo_aluno.grupo_id
+            and evento_user.user_id = ".$id." 
+            and evento_user.evento_id = evento.id
             and evento.id = evento_grupo.evento_id
             and evento.start_date >= CURDATE()
             and evento_grupo.grupo_id = grupo.id
@@ -60,7 +62,6 @@ class EventModel extends CI_Model { //evento & horario_duvidas
         return $result->result_array();
     }
 
-    
     public function userRelatedToEvent($user_id, $evento_id){
         $this->db->where('user_id', $user_id);
         $this->db->where('evento_id', $evento_id);
@@ -69,5 +70,12 @@ class EventModel extends CI_Model { //evento & horario_duvidas
 
     public function delete($id) {
         $this->db->delete('evento', array('id' => $id));
+    }
+
+    public function notGoing($user_id, $evento_id) {
+        $this->db->delete('evento_user', array(
+            'evento_id' => $evento_id,
+            'user_id' => $user_id,
+        ));
     }
 }

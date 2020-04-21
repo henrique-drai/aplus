@@ -37,7 +37,7 @@ $route['api/register']                   = 'Api_User/registerUser';
 $route['api/registerCollege']            = 'Api_College/registerCollege';
 $route['api/editUser']                   = 'Api_User/editUser';
 $route['api/registerSubject']            = 'Api_Subject/registerSubject';
-$route['api/registerCurso']            = 'Api_Course/registerCurso';
+$route['api/registerCurso']              = 'Api_Course/registerCurso';
 
 
 

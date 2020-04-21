@@ -18,10 +18,8 @@ class Api_User extends REST_Controller {
     }
 
 
-    public function user_get($user_id = null) {
-        if ($user_id != $this->verify_request()->id){
-          $this->response(array(), parent::HTTP_NOT_FOUND); return null;
-        }
+    public function user_get() {
+        $user_id = $this->verify_request()->id;
 
         $this->load->model('UserModel');
         

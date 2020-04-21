@@ -11,9 +11,7 @@ $(document).ready(() => {
 function loadProfHome() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
+        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getHome/" + localStorage.user_id,
         success: function(data) {
             console.log(data)

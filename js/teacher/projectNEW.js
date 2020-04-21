@@ -220,7 +220,7 @@ function submitProject(){
             headers: {
                 "Authorization": localStorage.token
             },
-            url: base_url + "teacher/api/createProject",
+            url: base_url + "api/createProject",
             data: data,
             success: function(data) {
                 console.log(data);

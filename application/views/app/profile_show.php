@@ -6,7 +6,7 @@
 
 <?php
 
-    $file = "uploads/profile/" . $user->id . ".jpg";
+    $file = "uploads/profile/" . $user->id .  $user->picture;
     // VERIFICAR SE O UTILIZADOR TEM FOTO
     if(!file_exists($file)) {
         $file = "uploads/profile/default.jpg";

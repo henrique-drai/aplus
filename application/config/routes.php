@@ -2,53 +2,81 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
-| -------------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------------
-| This file lets you re-map URI requests to specific controller functions.
-|
-| Typically there is a one-to-one relationship between a URL string
-| and its corresponding controller class/method. The segments in a
-| URL normally follow this pattern:
-|
-|	example.com/class/method/id/
-|
-| In some instances, however, you may want to remap this relationship
-| so that a different class/function is called than the one
-| corresponding to the URL.
-|
-| Please see the user guide for complete details:
-|
-|	https://codeigniter.com/user_guide/general/routing.html
-|
-| -------------------------------------------------------------------------
-| RESERVED ROUTES
-| -------------------------------------------------------------------------
-|
-| There are three reserved routes:
-|
-|	$route['default_controller'] = 'welcome';
-|
-| This route indicates which controller class should be loaded if the
-| URI contains no data. In the above example, the "welcome" class
-| would be loaded.
-|
-|	$route['404_override'] = 'errors/page_missing';
-|
-| This route will tell the Router which controller/method to use if those
-| provided in the URL cannot be matched to a valid route.
-|
-|	$route['translate_uri_dashes'] = FALSE;
-|
-| This is not exactly a route, but allows you to automatically route
-| controller and method names that contain dashes. '-' isn't a valid
-| class or method name character, so it requires translation.
-| When you set this option to TRUE, it will replace ALL dashes in the
-| controller and method URI segments.
-|
-| Examples:	my-controller/index	-> my_controller/index
-|		my-controller/my-method	-> my_controller/my_method
+https://codeigniter.com/userguide3/general/routing.html
 */
+
+$route['api/calendario']                        = 'Api_Calendario/calendario';
+$route['api/agenda']                            = 'Api_Calendario/agenda';
+
+$route['api/event/(:num)']                      = 'Api_Event/event/$1';
+$route['api/event/going/(:num)']                = 'Api_Event/going/$1';
+
+$route['api/login']                             = 'Api_Authentication/login';
+$route['api/logout']                            = 'Api_Authentication/logout';
+
+$route['api/user/(:num)']                       = 'Api_User/user/$1';
+
+$route['api/removeForum/(:num)']                = 'Api_Forum/removeForum/$1';
+$route['api/removePost/(:num)']                 = 'Api_Forum/removePost/$1';
+$route['api/getForumById/(:num)']               = 'Api_Forum/getForumById/$1';
+$route['api/getAllByForumId/(:num)']            = 'Api_Forum/getThreadsByForumId/$1';
+$route['api/insertThread']                      = 'Api_Forum/insertThread';
+$route['api/getThread/(:num)']                  = 'Api_Forum/getThreadById/$1';
+$route['api/insertPost']                        = 'Api_Forum/insertPost';
+$route['api/insertForum']                       = 'Api_Forum/insertForum';
+
+$route['api/getHome/(:num)']                    = 'Api_Teacher/getProfHome/$1';
+
+$route['api/createProject']                     = 'Api_Project/createProject';
+$route['api/createEtapa']                       = 'Api_Project/createEtapa';
+$route['api/insertFeedback']                    = 'Api_Project/insertFeedback';
+$route['api/editEtapa']                         = 'Api_Project/editEtapa';
+$route['api/editEnunciado']                     = 'Api_Project/editEnunciado';
+$route['api/editEtapaEnunciado']                = 'Api_Project/editEtapaEnunciado';
+
+$route['api/getSub']                            = 'Api_Project/getSub';
+$route['api/getAllEtapas/(:num)']               = 'Api_Project/getAllEtapas/$1';
+$route['api/getAllGroups/(:num)']               = 'Api_Project/getAllGroups/$1';
+
+$route['api/removeProject/(:num)']              = 'Api_Project/removeProject/$1';
+$route['api/removeEtapa/(:num)']                = 'Api_Project/removeEtapa/$1';
+$route['api/removeEnunciadoEtapa/(:num)']       = 'Api_Project/removeEnunciadoEtapa/$1';
+$route['api/removeEnunciadoProj/(:num)']        = 'Api_Project/removeEnunciadoProj/$1';
+
+$route['api/getCadeira/(:num)']                 = 'Api_Subject/getInfo/$1';
+$route['api/insertText']                        = 'Api_Subject/insertText';
+$route['api/getHours/(:num)']                   = 'Api_Subject/getHours/$1';
+$route['api/insertHours']                       = 'Api_Subject/saveHours';
+$route['api/removeHours']                       = 'Api_Subject/removeHours';
+$route['api/addEvent/(:num)']                   = 'Api_Subject/insertEvent/$1';
+$route['api/getCadeiras/(:num)/(:any)']         = 'Api_Subject/getCadeiras/$1/$2';
+$route['api/getCourseStudents/(:num)']          = 'Api_Subject/getCourseStudents/$1';
+
+##ADMIN##
+
+$route['api/register']                          = 'Api_User/registerUser';
+$route['api/registerCollege']                   = 'Api_College/registerCollege';
+$route['api/editUser']                          = 'Api_User/editUser';
+$route['api/registerSubject']                   = 'Api_Subject/registerSubject';
+$route['api/registerCurso']                     = 'Api_Course/registerCurso';
+$route['api/registerSchoolYear']                = 'Api_Year/registerSchoolYear';
+$route['api/getSearchTeacher']                  = 'Api_Teacher/getSearchTeacher';
+$route['api/getSearchStudent']                  = 'Api_Student/getSearchStudent';
+$route['api/editCourse']                        = 'Api_Course/editCourse';
+$route['api/getAllColleges']                    = 'Api_College/getAllColleges';
+$route['api/getAllSchoolYears']                 = 'Api_Year/getAllSchoolYears';
+$route['api/getAllStudents']                    = 'Api_Student/getAllStudents';
+$route['api/getAllTeachers']                    = 'Api_Teacher/getAllTeachers';
+$route['api/getAdminHome']                      = 'Api_Admin/getAdminHome';
+// $route['api/getAllFaculdadesUnidCurricular']    = 'Api_College/getAllColleges';
+// $route['api/getAllYears']                       = 'Api_Year/getAllYears';
+
+
+
+
+#Raul#ja arrumo#dw#
+
 $route['default_controller'] = 'landing';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+

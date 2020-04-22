@@ -1,6 +1,6 @@
 $(document).ready(() => {
     loadProfHome();
-    setInterval(loadProfHome, 3000); 
+    // setInterval(loadProfHome, 3000); 
 
     $("body").on("click", ".subject a", function(){
         localStorage.setItem("cadeira_code", $(this).attr("id"));
@@ -11,11 +11,8 @@ $(document).ready(() => {
 function loadProfHome() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
-        url: base_url + "teacher/api/getProfHome",
-        data: {user_id: localStorage.user_id},
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/getHome/" + localStorage.user_id,
         success: function(data) {
             console.log(data)
             var count = 0;

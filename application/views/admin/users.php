@@ -68,7 +68,7 @@
 
                 <br>
 
-                <form id="file-form" method="post" action="<?php echo base_url(); ?>admin/api/importX" enctype="multipart/form-data">
+                <form id="file-form" method="post" action="<?php echo base_url(); ?>api/importX" enctype="multipart/form-data">
                     
                     <label for="myfile">Importar dados:</label>
                     

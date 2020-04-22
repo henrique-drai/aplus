@@ -1,12 +1,10 @@
-#calendario-hook {
-    overflow-x: hidden;
-}
 #calendario-hook .inner {
     display: flex;
     width: 100%;
     text-align: center;
     margin: -5px;
     overflow-x: scroll;
+    padding-bottom: 15px;
 }
 #calendario-hook .col {
     margin: 5px;
@@ -29,7 +27,12 @@
     font-size: 10px;
 }
 #calendario-hook .cell {
-    border-top: 1px solid #aaa; 
+    border-top: 1px solid #aaa;
+    position: relative; 
+    min-width: 50px;
+}
+#calendario-hook .cell:hover {
+    background-color: #ccc !important;
 }
 #calendario-hook .cell .start {
     font-weight: bold;
@@ -43,3 +46,32 @@
 #calendario-hook .cell .end {
     font-size: 13px;
 }
+#calendario-hook .cell .clickable {
+    position: absolute;
+    top: 0px;
+    left: -1px;
+    width: 100%;
+    height: 100%;
+}
+
+
+#calendario-hook ::-webkit-scrollbar {
+    height: 7px;
+}
+#calendario-hook ::-webkit-scrollbar-track {
+    background: #ccc;
+    border-radius: 5px;
+}
+#calendario-hook ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px; 
+}
+#calendario-hook ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+/* 
+.calendario-msg {
+    regras do pop up
+} */

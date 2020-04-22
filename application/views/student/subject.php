@@ -2,6 +2,8 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/teacher-subject.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/student/subject_page.js"></script>
+<script>setID(<?php echo $subject->id; ?>)</script>
+<script>setCode("<?php echo $subject->code; ?>")</script>
 </head>
 
 <body>
@@ -18,11 +20,8 @@
 
             <br>
 
-            <div class="buttons">
-                <input type="button" class ="forum" value="Fórum">
-            </div>
-
-            <br>
+            <h2>Fóruns</h2>
+            <div class="foruns"></div>
             
             <h2>Projetos</h2>
             <div class="projetos"></div>

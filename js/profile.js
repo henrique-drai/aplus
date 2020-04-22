@@ -11,7 +11,7 @@ function validate_form_values(){
 
     if (password.val() != "" && password.val() != confirm.val()) {
         if(confirm.val() != "") {
-            $(".profile-edit-user label[for='confirm'] div").text("Passwords don't match.")
+            $(".profile-edit-user label[for='confirm'] div").text("As passwords não coincidem.")
         } else {
             $(".profile-edit-user label[for='confirm'] div").text("")
         }
@@ -45,10 +45,8 @@ function submit_form_values(){
 
         $.ajax({
             type: "POST",
-            url: base_url + "user/api/updateInfo",
-            headers: {
-                "Authorization": localStorage.token
-            },
+            url: base_url + "api/user",
+            headers: {"Authorization": localStorage.token},
             data: data,
             success: function(data) {
                 console.log(data)

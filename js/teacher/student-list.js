@@ -1,17 +1,20 @@
 $(document).ready(() => {
-	showCourseStudents();
+	showCourseStudents(localStorage.cadeira_id);
 
 })
 
-function showCourseStudents() {
+function showCourseStudents($cadeira_id) {
 	console.log(localStorage.cadeira_id);
 	$.ajax({
 		type: "GET",
-		url: base_url + "teacher/api/getCourseStudents",
-		data: {
-			id: localStorage.cadeira_id
+		headers: {
+			"Authorization": localStorage.token
 		},
+		url: base_url + "api/getCourseStudents/" + localStorage.cadeira_id,
+	
 		success: function (data) {
+			console.log(data);
+
 			var linhas = '';
 			if (data.users_id.length > 0) {
 				for (i = 0; i < data.users_id.length; i++) {

@@ -12,10 +12,11 @@ function showCadeiras() {
     var image_url = base_url + "uploads/pattern.jpg";
     $.ajax({
         type: "GET",
-        url: base_url + "teacher/api/getCadeiras",
-        data: {id: localStorage.user_id},
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "api/getCadeiras/" + localStorage.user_id + "/" + "teacher",
         success: function(data) {
-            console.log(data)
             $(".cadeiras").empty();
 
             if(data.cadeiras_id.length != 0) {

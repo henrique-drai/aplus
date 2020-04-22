@@ -32,16 +32,21 @@ function fileExists(url){
 
 function setUserInfo(){
     return $.ajax({
-        type: "POST",
-        url: base_url + "user/api/getInfo",
-        data: {user_id: localStorage.user_id},
+        type: "GET",
+        url: base_url + "api/user",
+        headers: {"Authorization": localStorage.token},
         success: function(data) {
-            console.log(JSON.parse(data))
             user_info = JSON.parse(data)
-            localStorage.setItem("has_pic", JSON.parse(data).has_pic)
+            console.log("Fetched User...")
         },
         error: function(data) {
-            console.log("Problema na API ao procurar o utilizador atual.")
+            console.log("Couldn't fetch current user.")
         }
     })
 } 
+
+function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+}

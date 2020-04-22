@@ -9,7 +9,7 @@ function loadAdminHome() {
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "admin/api/getAdminHome",
+        url: base_url + "api/getAdminHome",
         success: function(data) {
             $("#hook-num_teachers").text(data.num_teachers)
             $("#hook-num_students").text(data.num_students)

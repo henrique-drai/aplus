@@ -11,10 +11,12 @@
     <main>
     <h1>Painel de Controlo</h1>
 
-    <h3>Calendário</h3>
-    <div id="calendario-hook"></div>
-
     <section class="prof-stats">
+        <div class="prof-stats-window" id="calendario">
+            <div class="prof-stats-title">Calendário</div>
+            <div id="calendario-hook"></div>
+        </div>
+
         <div class="prof-stats-window" id="cadeiras-hook">
             <div class="prof-stats-title">Cadeiras</div>
             <br>
@@ -30,11 +32,6 @@
             <div class="prof-stats-content">
                 Nº de Alunos: <span id="hook-num-alunos"></span>
             </div>
-        </div>
-
-        <div class="prof-stats-window" id="horario-hook">
-            <div class="prof-stats-title">Horário</div>
-            TODO 
         </div>
     </section>
     </main>

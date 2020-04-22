@@ -12,7 +12,7 @@ function submitLogin(){
 
     $.ajax({
         type: "POST",
-        url: base_url + "auth/login",
+        url: base_url + "api/login",
         data: data,
         success: function(data) {
             console.log(data)

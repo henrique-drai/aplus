@@ -15,7 +15,7 @@ function insertForum(name, desc, teachers_only) {
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "teacher/api/insertForum",
+        url: base_url + "api/insertForum",
         data: {cadeira_id: localStorage.getItem("cadeira_id"),
                name: name, 
                desc: desc,
@@ -23,7 +23,7 @@ function insertForum(name, desc, teachers_only) {
             },
         success: function(data) {
             localStorage.setItem("forum_id", data.forum_id);
-            window.location = base_url + "foruns/forum/" + data.forum_id + "/" + localStorage.year;
+            window.location = base_url + "foruns/forum/" + data.forum_id;
         },
         error: function(data) {
             console.log("Erro na API:")

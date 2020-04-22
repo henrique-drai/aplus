@@ -24,7 +24,9 @@ function getAll(user_id){
             if(data.grupo.length != 0){
                 for(var i = 0; i < data.grupo.length; i++) {
                     grupos+="<div class='groupC' id='" + data.grupo[i].grupo_id + "'>"
-                                + "<div id='groupId'> Grupo: " + data.grupo[i].grupo_id  + "</div>" 
+                                + "<div id='groupId'> Grupo: " + data.grupo[i].grupo_id 
+                                        // + "<p id='textoG'>Grupo: " + data.grupo[i].grupo_id + "</p>" 
+                                + "</div>" 
                                 + "<div id='subject'>" + data.subjName[i] + "</div>"
                                 + "<div id='project'>" + data.info[i][0].nome   + "</div>"
                             + "</div>";

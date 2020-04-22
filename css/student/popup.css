@@ -13,6 +13,7 @@
     width: 32%;
     margin-top: -7%;
     margin-bottom: 4%;
+    height: 3%;
 }
 
 .avatar{
@@ -26,6 +27,12 @@
 
 #subject {
     font-size: 20px;
+}
+
+#textoG {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: center;
 }
 
 .groupC {

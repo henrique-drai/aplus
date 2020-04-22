@@ -88,12 +88,24 @@ function getInfo(grupo_id){
                                 + " - " + data.class[i].name
                                 + " | Rate: " + data.rate[i]
                                 + "</p>";
+
+                    
+                        //SE DEPOIS QUISER METER AS FOTOS DOS USERS
+                       
+                        // info+= "<img src='http://localhost/aplus/uploads/profile/" + data.class[i].id + ".jpg'" + ">"
+                       
+                        //  info+="<img src='http://localhost/aplus/uploads/profile/" + "default"+ ".jpg'" + ">"
+                        // + "<p class='classifiedMember' id=" + data.class[i].id + ">" + data.class[i].id 
+                        // + " - " + data.class[i].name
+                        // + " | Rate: " + data.rate[i]
+                        // + "</p>";
+
                     }   
                 }
                 $(".classified").html(info)
             }
             else{
-                $(".classified").html("Não existem membros classificados no grupo")
+                $(".classified").html("Ainda nenhum membro do grupo foi classificado")
             }
 
             if(data.notClass.length != 0 ){
@@ -107,7 +119,7 @@ function getInfo(grupo_id){
                 $(".notClassified").html(info2)
             }
             else{
-                $(".notClassified").html("Não existem membros não classificados no grupo");
+                $(".notClassified").html("Todos os membros do grupo já foram classificados");
             }
 
         },

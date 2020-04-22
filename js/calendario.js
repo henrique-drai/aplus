@@ -171,10 +171,7 @@ function eventOnClick(){
                     getClassTimeString(event.obj.start_time) + " - " +
                     getClassTimeString(event.obj.end_time) + "</p>")
                 message.append("<p>Sala: " + event.obj.classroom + "</p>")
-                $(".cd-popup #actionButton")
-                    .html("Visitar Cadeira")
-                    .off()
-                    .click(()=>{
+                $(".cd-popup #actionButton").html("Visitar Cadeira").off().click(()=>{
                         window.location.href = base_url + "subjects/subject/" + event.obj.code + "/" + event.obj.inicio
                     })
                 break
@@ -186,9 +183,8 @@ function eventOnClick(){
                     getTimeString(new Date(event.obj.start_date)) + " - " +
                     getTimeString(new Date(event.obj.end_date)) + "</p>")
                 message.append("<p>Localização: " + event.obj.location + "</p>")
-                $(".cd-popup #actionButton")
-                .html("Não Vou").off()
-                .click(()=>{ajaxNotGoing(event.obj.evento_id)})
+                $(".cd-popup #actionButton").html("Não Vou").off()
+                    .click(()=>{ajaxNotGoing(event.obj.evento_id)})
                 break
 
             case "event":
@@ -198,13 +194,16 @@ function eventOnClick(){
                     getTimeString(new Date(event.obj.start_date)) + " - " +
                     getTimeString(new Date(event.obj.end_date)) + "</p>")
                 message.append("<p>Localização: " + event.obj.location + "</p>")
-                $(".cd-popup #actionButton")
-                .html("Apagar Evento").off()
-                .click(()=>{ajaxDeleteEventById(event.obj.evento_id)})
+                $(".cd-popup #actionButton").html("Apagar Evento").off()
+                    .click(()=>{ajaxDeleteEventById(event.obj.evento_id)})
                 break
             
             case "submit":
-
+                message.append("<h3>"+event.obj.nome+" (entrega de "+event.obj.name+")</h3>")
+                message.append("<p>" + event.obj.description + "</p>")
+                $(".cd-popup #actionButton").html("Visitar Projeto").off().click(()=>{
+                    window.location.href = base_url + "projects/project/" + event.obj.projeto_id
+                })
                 break
         }
 

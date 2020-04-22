@@ -50,7 +50,7 @@ $route['api/insertHours']                       = 'Api_Subject/saveHours';
 $route['api/removeHours']                       = 'Api_Subject/removeHours';
 $route['api/addEvent/(:num)']                   = 'Api_Subject/insertEvent/$1';
 $route['api/getCadeiras/(:num)/(:any)']         = 'Api_Subject/getCadeiras/$1/$2';
-$route['api/getCourseStudents/(:num)']   = 'Api_Subject/getCourseStudents/$1';
+$route['api/getCourseStudents/(:num)']          = 'Api_Subject/getCourseStudents/$1';
 
 ##ADMIN##
 

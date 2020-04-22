@@ -163,10 +163,10 @@ class Api_Subject extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function getCourseStudents_get() {
+    public function getCourseStudents_get($cadeira_id) {
         $this->verify_request();
 
-        $cadeira_id = $this->get('id');
+        $data["cadeira_id"] = $cadeira_id;
         $this->load->model('StudentListModel');
         $data["users_id"] = $this->StudentListModel->getStudentsbyCadeiraID($cadeira_id);
 

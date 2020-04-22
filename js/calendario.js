@@ -1,9 +1,9 @@
 var calendario = {}
 
 $(document).ready(()=>{
-    generateDays()
+    generateCalendarioDays()
     updateCalendario()
-    eventOnClick()
+    eventOnClickCalendario()
 })
 
 
@@ -76,7 +76,7 @@ function updateCalendario(){
         success: function(data) {
             setCalendario(data)
             renderCalendario()
-            console.log(calendario)
+            //console.log(calendario)
         },
         error: function(data) {
             console.log("Problema na API ao buscar o calendário.")
@@ -116,14 +116,8 @@ function setCalendario(data){
     calendario.events.sort((x,y)=>(x.start_time.getTime() - y.start_time.getTime()))
 }
 
-function addDays(date, days) {
-    var result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return result;
-  }
 
-
-function generateDays(){
+function generateCalendarioDays(){
     calendario.days = []
 
     let curr = new Date(); calendario.days.push(curr)
@@ -157,10 +151,10 @@ function getRandomColor(){
 
 
 
-function eventOnClick(){
+function eventOnClickCalendario(){
     $('#calendario-hook').on('click', '.cell .clickable', function(event){
         event = calendario.events[parseInt(event.target.id)]
-        console.log(event.obj)
+        //console.log(event.obj)
         let message = $('<div class="calendario-msg"></div>')
 
         switch(event.type)
@@ -171,10 +165,7 @@ function eventOnClick(){
                     getClassTimeString(event.obj.start_time) + " - " +
                     getClassTimeString(event.obj.end_time) + "</p>")
                 message.append("<p>Sala: " + event.obj.classroom + "</p>")
-                $(".cd-popup #actionButton")
-                    .html("Visitar Cadeira")
-                    .off()
-                    .click(()=>{
+                $(".cd-popup #actionButton").html("Visitar Cadeira").off().click(()=>{
                         window.location.href = base_url + "subjects/subject/" + event.obj.code + "/" + event.obj.inicio
                     })
                 break
@@ -186,9 +177,8 @@ function eventOnClick(){
                     getTimeString(new Date(event.obj.start_date)) + " - " +
                     getTimeString(new Date(event.obj.end_date)) + "</p>")
                 message.append("<p>Localização: " + event.obj.location + "</p>")
-                $(".cd-popup #actionButton")
-                .html("Não Vou").off()
-                .click(()=>{ajaxNotGoing(event.obj.evento_id)})
+                $(".cd-popup #actionButton").html("Não Vou").off()
+                    .click(()=>{ajaxNotGoing(event.obj.evento_id)})
                 break
 
             case "event":
@@ -198,13 +188,16 @@ function eventOnClick(){
                     getTimeString(new Date(event.obj.start_date)) + " - " +
                     getTimeString(new Date(event.obj.end_date)) + "</p>")
                 message.append("<p>Localização: " + event.obj.location + "</p>")
-                $(".cd-popup #actionButton")
-                .html("Apagar Evento").off()
-                .click(()=>{ajaxDeleteEventById(event.obj.evento_id)})
+                $(".cd-popup #actionButton").html("Apagar Evento").off()
+                    .click(()=>{ajaxDeleteEventById(event.obj.evento_id)})
                 break
             
             case "submit":
-
+                message.append("<h3>"+event.obj.nome+" (entrega de "+event.obj.name+")</h3>")
+                message.append("<p>" + event.obj.description + "</p>")
+                $(".cd-popup #actionButton").html("Visitar Projeto").off().click(()=>{
+                    window.location.href = base_url + "projects/project/" + event.obj.projeto_id
+                })
                 break
         }
 
@@ -222,7 +215,7 @@ function ajaxDeleteEventById(event_id){
         headers: {"Authorization": localStorage.token},
         url: base_url + "api/event/" + event_id,
         success: function(data) {
-            console.log(data)
+            //console.log(data)
             updateCalendario()
             $('.cd-popup').removeClass('is-visible')
         },
@@ -232,13 +225,14 @@ function ajaxDeleteEventById(event_id){
         }
     })
 }
+
 function ajaxNotGoing(event_id){
     $.ajax({
         type: "DELETE",
         headers: {"Authorization": localStorage.token},
         url: base_url + "api/event/going/" + event_id,
         success: function(data) {
-            console.log(data)
+            //console.log(data)
             updateCalendario()
             $('.cd-popup').removeClass('is-visible')
         },

@@ -17,7 +17,7 @@ class Api_Calendario extends REST_Controller {
         $this->load->helper(['jwt', 'authorization']);
     }
 
-    public function fullCalendario_get() {
+    public function calendario_get() {
         $user_id = $this->verify_request()->id;
 
         $this->load->model('UserModel');
@@ -48,6 +48,38 @@ class Api_Calendario extends REST_Controller {
 
         $data = Array(
             "classes" => $classes,
+            "events" => $events,
+            "group_events" => $group_events,
+            "submissions" => $submissions,
+        );
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function agenda_get() {
+        $user_id = $this->verify_request()->id;
+
+        $this->load->model('UserModel');
+        $this->load->model('EventModel');
+
+        $user = $this->UserModel->getUserById($user_id);
+
+        $events = $this->EventModel->getFutureEventsByUserId($user_id);
+        $group_events = $this->EventModel->getFutureGroupEventsByUserId($user_id);
+        $submissions = $this->EventModel->getFutureSubmissionsByUserId($user_id);
+
+        //encontrar eventos duplicados
+        $ids_to_remove = Array();
+        foreach ($events as $index => $e) foreach ($group_events as $ge) 
+            if ($ge["evento_id"] == $e["id"]) array_push($ids_to_remove, $index);
+
+        //apagar eventos duplicados (transforma o events em objeto)
+        foreach ($ids_to_remove as $itr) unset($events[$itr]);
+
+        //voltar a converter para array
+        $events = array_values($events);
+
+        $data = Array(
             "events" => $events,
             "group_events" => $group_events,
             "submissions" => $submissions,

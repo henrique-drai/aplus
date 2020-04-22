@@ -13,6 +13,8 @@
     left: 0px;
     width: 220px;
     transition: 0.5s;
+    max-height: 100%;
+    overflow-y: scroll;
 }
 #nav-menu-hook {
     background-color: #3e5d4f;
@@ -138,4 +140,50 @@
 }
 .nav-menu-btn:hover {
     opacity: 0.8;
+}
+
+
+#nav-menu-hook ::-webkit-scrollbar {
+    width: 0px;
+}
+
+
+
+#nav-menu-agenda{
+    color: white;
+    text-align: center;
+}
+#nav-menu-agenda .col {
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 8px 10px;
+}
+#nav-menu-agenda .hcell,
+#nav-menu-agenda .cell {
+    padding: 5px;
+}
+#nav-menu-agenda .hcell {
+    background-color: rgba(255,255,255,0.2);
+    font-size: 10px;
+}
+#nav-menu-agenda .cell {
+    background-color: white;
+    color: black;
+    text-align: left;
+    font-size: 12px;
+    display: flex;
+    border-top: 1px solid #3e5d4f;
+}
+#nav-menu-agenda .cell .time {
+    min-width: 40px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+#nav-menu-agenda .nothing {
+    font-size: 12px;
+}
+#nav-menu-agenda {
+}
+#nav-menu-agenda {
 }

@@ -31,6 +31,9 @@
     position: relative; 
     min-width: 50px;
 }
+#calendario-hook .cell:hover {
+    background-color: #ccc !important;
+}
 #calendario-hook .cell .start {
     font-weight: bold;
     font-size: 13px;
@@ -69,6 +72,6 @@
 
 
 /* 
-.calendario-msg h3 {
-    
+.calendario-msg {
+    regras do pop up
 } */

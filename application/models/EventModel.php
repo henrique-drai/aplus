@@ -51,7 +51,7 @@ class EventModel extends CI_Model { //evento & horario_duvidas
 
     public function getFutureSubmissionsByUserId($id) {
         $query = "select * 
-            from grupo, grupo_aluno, projeto, etapa, cadeira
+            from grupo, grupo_aluno, projeto, cadeira, etapa
             where grupo.id = grupo_aluno.grupo_id
             and etapa.projeto_id = projeto.id
             and projeto.cadeira_id = cadeira.id

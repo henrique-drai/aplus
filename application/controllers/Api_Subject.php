@@ -83,7 +83,7 @@ class Api_Subject extends REST_Controller {
 
             $daysToGo = array_search($data["hour"]->day, $daysOfWeek) + 1; //adicionar +1
             $currentDay = date("Y-m-d");
-            $newDate = date("Y-m-d", strtotime('+' . 8 - $daysToGo . ' days'));
+            $newDate = date("Y-m-d", strtotime('+' . (8 - $daysToGo) . ' days'));
             $startTime = $newDate . " " . $data["hour"]->start_time;
             $endTime = $newDate . " " . $data["hour"]->end_time;
 

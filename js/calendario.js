@@ -1,9 +1,9 @@
 var calendario = {}
 
 $(document).ready(()=>{
-    generateDays()
+    generateCalendarioDays()
     updateCalendario()
-    eventOnClick()
+    eventOnClickCalendario()
 })
 
 
@@ -76,7 +76,7 @@ function updateCalendario(){
         success: function(data) {
             setCalendario(data)
             renderCalendario()
-            console.log(calendario)
+            //console.log(calendario)
         },
         error: function(data) {
             console.log("Problema na API ao buscar o calendário.")
@@ -116,14 +116,8 @@ function setCalendario(data){
     calendario.events.sort((x,y)=>(x.start_time.getTime() - y.start_time.getTime()))
 }
 
-function addDays(date, days) {
-    var result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return result;
-  }
 
-
-function generateDays(){
+function generateCalendarioDays(){
     calendario.days = []
 
     let curr = new Date(); calendario.days.push(curr)
@@ -157,10 +151,10 @@ function getRandomColor(){
 
 
 
-function eventOnClick(){
+function eventOnClickCalendario(){
     $('#calendario-hook').on('click', '.cell .clickable', function(event){
         event = calendario.events[parseInt(event.target.id)]
-        console.log(event.obj)
+        //console.log(event.obj)
         let message = $('<div class="calendario-msg"></div>')
 
         switch(event.type)
@@ -221,7 +215,7 @@ function ajaxDeleteEventById(event_id){
         headers: {"Authorization": localStorage.token},
         url: base_url + "api/event/" + event_id,
         success: function(data) {
-            console.log(data)
+            //console.log(data)
             updateCalendario()
             $('.cd-popup').removeClass('is-visible')
         },
@@ -231,13 +225,14 @@ function ajaxDeleteEventById(event_id){
         }
     })
 }
+
 function ajaxNotGoing(event_id){
     $.ajax({
         type: "DELETE",
         headers: {"Authorization": localStorage.token},
         url: base_url + "api/event/going/" + event_id,
         success: function(data) {
-            console.log(data)
+            //console.log(data)
             updateCalendario()
             $('.cd-popup').removeClass('is-visible')
         },

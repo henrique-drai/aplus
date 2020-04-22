@@ -15,26 +15,7 @@ class Database extends CI_Controller {
 
     public function s1()
     {
-        /*PONTO DE SITUAÇÂO:
-            aluno_aula
-            aluno_cadeira
-            aluno_curso
-            ano_letivo
-            aula
-            curso
-            cadeira
-            etapa
-            faculdade
-            grupo
-            grupo_aluno
-            professor_aula
-            professor_cadeira
-            projeto
-            user
-            forum
-            thread
-            thread_post
-
+        /*
         FALTA:
             etapa_submit
             evento
@@ -102,7 +83,7 @@ class Database extends CI_Controller {
         $this->db->insert("user", Array("name"=>"Carolina", "surname"=>"Sousa", "email"=>"15@gmail.com", "role"=>"teacher",
             "password"=>md5(""), "description"=>"Mesmo sabendo que não gostavas", "gabinete"=>"A234"));
         $this->db->insert("user", Array("name"=>"Catarina", "surname"=>"Ricardo", "email"=>"16@gmail.com", "role"=>"teacher",
-            "password"=>md5(""), "description"=>"EMpenhei o meu anel de rubi", "gabinete"=>"7.23.4"));
+            "password"=>md5(""), "description"=>"Empenhei o meu anel de rubi", "gabinete"=>"7.23.4"));
         $this->db->insert("user", Array("name"=>"Joacine",  "surname"=>"Silva", "email"=>"17@gmail.com", "role"=>"teacher",
             "password"=>md5(""), "description"=>"P'ra te levar ao concerto", "gabinete"=>"3.4.5"));
         $this->db->insert("user", Array("name"=>"Cristina", "surname"=>"Félix", "email"=>"18@gmail.com", "role"=>"teacher",
@@ -302,16 +283,22 @@ class Database extends CI_Controller {
         ///////////////////////////////
         //          EVENTOS
         ///////////////////////////////
-        $this->db->where_in('name', Array("Reunião de Grupo", "Horário de dúvidas")); $this->db->delete('evento');
-        $this->db->insert("evento", Array("start_date"=>"2020-04-23 11:00:00", "end_date"=>"2020-04-18 12:30:00", "name"=>"Reunião de Grupo",
+        $this->db->where_in('name', Array("Reunião de Grupo", "Horário de dúvidas", 
+            "Decidir Framework")); $this->db->delete('evento');
+        $this->db->insert("evento", Array("start_date"=>"2020-04-25 11:00:00", "end_date"=>"2020-04-25 12:30:00", "name"=>"Reunião de Grupo",
             "description"=>"Discutir o modelo da base de dados.", "location"=>"FCUL")); $evento1_id = $this->db->insert_id();
-        $this->db->insert("evento", Array("start_date"=>"2020-04-26 12:10:00", "end_date"=>"2020-04-19 14:30:00", "name"=>"Horário de dúvidas",
+        $this->db->insert("evento", Array("start_date"=>"2020-04-25 12:10:00", "end_date"=>"2020-04-25 14:30:00", "name"=>"Horário de dúvidas",
             "description"=>"Horário de dúvidas com o(a) professor(a) José Cecílio", "location"=>"6.3.45")); $evento2_id = $this->db->insert_id(); 
+        $this->db->insert("evento", Array("start_date"=>"2020-04-27 11:00:00", "end_date"=>"2020-04-27 12:30:00", "name"=>"Decidir Framework",
+            "description"=>"Esta descrição descreve o evento.", "location"=>"Azenhas")); $evento3_id = $this->db->insert_id();
+        $this->db->insert("evento", Array("start_date"=>"2020-04-28 12:10:00", "end_date"=>"2020-04-28 14:30:00", "name"=>"Horário de dúvidas",
+            "description"=>"Horário de dúvidas com o(a) professor(a) José Cecílio", "location"=>"6.3.45")); $evento4_id = $this->db->insert_id(); 
         ///////////////////////////////
         //          REUNIÔES DE GRUPO
         ///////////////////////////////
         $this->db->insert_batch('evento_grupo', Array(
             Array("evento_id"=> $evento1_id,  "grupo_id"=>$grupo1_id),
+            Array("evento_id"=> $evento3_id,  "grupo_id"=>$grupo1_id),
         ));
         ///////////////////////////////
         //          USER VAI A UM EVENTO
@@ -319,6 +306,8 @@ class Database extends CI_Controller {
         $this->db->insert_batch('evento_user', Array(
             Array("evento_id"=> $evento1_id,  "user_id"=>$aluno1_id),
             Array("evento_id"=> $evento2_id,  "user_id"=>$aluno1_id),
+            Array("evento_id"=> $evento3_id,  "user_id"=>$aluno1_id),
+            Array("evento_id"=> $evento4_id,  "user_id"=>$aluno1_id),
         ));
 
             

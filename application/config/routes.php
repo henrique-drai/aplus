@@ -5,8 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 https://codeigniter.com/userguide3/general/routing.html
 */
 
-$route['api/calendario']                        = 'Api_Calendario/fullCalendario';
-
+$route['api/calendario']                        = 'Api_Calendario/calendario';
+$route['api/agenda']                            = 'Api_Calendario/agenda';
 
 $route['api/event/(:num)']                      = 'Api_Event/event/$1';
 $route['api/event/going/(:num)']                = 'Api_Event/going/$1';
@@ -50,7 +50,7 @@ $route['api/insertHours']                       = 'Api_Subject/saveHours';
 $route['api/removeHours']                       = 'Api_Subject/removeHours';
 $route['api/addEvent/(:num)']                   = 'Api_Subject/insertEvent/$1';
 $route['api/getCadeiras/(:num)/(:any)']         = 'Api_Subject/getCadeiras/$1/$2';
-$route['api/getCourseStudents/(:num)']   = 'Api_Subject/getCourseStudents/$1';
+$route['api/getCourseStudents/(:num)']          = 'Api_Subject/getCourseStudents/$1';
 
 ##ADMIN##
 

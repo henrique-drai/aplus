@@ -6,11 +6,7 @@
 
 </head>
 
-<?php
-$file = "uploads/profile/" . $this->session->id . ".jpg";
-if(!file_exists($file)) {$file = "uploads/profile/default.jpg";}
-$picture = $base_url . $file . "?" . time();
-?>
+
 
 
 

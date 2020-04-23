@@ -255,6 +255,9 @@ class Admin extends REST_Controller {
     }
 
     public function export(){
+
+        $this->verify_request();
+
         $this->load->model('UserModel');
         $role = $this -> get("role");
         $file_name = "stInfo".date('Ymd').'.csv';

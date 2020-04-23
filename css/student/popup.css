@@ -1,7 +1,7 @@
 /* //////////////////////////////////////////////////////////////
 //                      GRUPOS
 ////////////////////////////////////////////////////////////// */
-
+/* 
 #groupId {
     color: #ff7575;
     text-transform: uppercase;
@@ -44,7 +44,7 @@
     padding: 2rem;
     border-radius: 16px;
     width: 20%;
-}
+} */
 
 
 /* //////////////////////////////////////////////////////////////
@@ -146,4 +146,19 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 input[type="range"]::-webkit-slider-thumb:active {
     transform: scale(1.6);
+}
+
+
+/* -------------------------------------------------------*/
+
+
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 5px 0 rgba(43,43,43,.1), 0 11px 6px -7px rgba(43,43,43,.1);
+    box-shadow: 0 0 5px 0 rgba(43,43,43,.1), 0 11px 6px -7px rgba(43,43,43,.1);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
 }

@@ -212,7 +212,8 @@ function makeAllSubjectsTable(data){
 function getColleges(option){
     $.ajax({
         type: "GET",
-        url: base_url + "admin/api/getAllFaculdadesUnidCurricular",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/getAllColleges",
         success: function(data) {
             
             $("#Consultar_Cadeiras_Faculdade option").remove();
@@ -326,14 +327,14 @@ function getAllYears(){
     $.ajax({
         type: "GET",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "api/getAllYears",
+        url: base_url + "api/getAllSchoolYears",
         success: function(data) {
             
             $("#Consultar_Cadeiras_Ano option").remove();
             var linhas = '<option class="college_row">Selecione um Ano Letivo</option>';
-            if(data.years.length>0){
-                for(i=0; i<data.years.length;i++){
-                    linhas += '<option class="college_row" value=' + data.years[i].id +">" + data.years[i].inicio + "/" + data.years[i].fim + '</option>'; 
+            if(data.schoolYears.length>0){
+                for(i=0; i<data.schoolYears.length;i++){
+                    linhas += '<option class="college_row" value=' + data.schoolYears[i].id +">" + data.schoolYears[i].inicio + "/" + data.schoolYears[i].fim + '</option>'; 
                 }
                 $("#Consultar_Cadeiras_Ano").append(linhas);             
             }

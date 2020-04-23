@@ -34,14 +34,14 @@ class Admin extends REST_Controller {
             // case "getAllStudents":  $this->getAllStudents(); break; //      admin/api/getAllStudents
             // case "getAllTeachers":  $this->getAllTeachers(); break; //      admin/api/getAllTeachers
             // case "getAdminHome":    $this->getAdminHome(); break; //        admin/api/getAdminHome
-            case "getAllFaculdadesUnidCurricular":  $this->getAllColleges(); break; // admin/api/getAllFaculdadesUnidCurricular
+            // case "getAllYears": $this->getAllYears(); break; // admin/api/getAllYears
+            // case "getAllFaculdadesUnidCurricular":  $this->getAllColleges(); break; // admin/api/getAllFaculdadesUnidCurricular
             case "getAllCursosFaculdadeAno": $this->getAllCollegesYearCourses(); break; // admin/api/getAllCursosFaculdadeAno
             case "getAllCursosFaculdade": $this->getAllCollegesCourses(); break; // admin/api/getAllCursosFaculdadeAno
             case "getAllSubjects": $this->getAllSubjects(); break; // admin/api/getAllSubjects
             case "getAllCoursesByCollege": $this->getAllCoursesByCollege(); break; // admin/api/getAllCoursesByCollege
             case "getAllSubjectsByCourse": $this->getAllSubjectsByCourse(); break; // admin/api/getAllSubjectsByCourse
             case "getUserByEmail": $this->getUserByEmail(); break; // admin/api/getUserByEmail
-            case "getAllYears": $this->getAllYears(); break; // admin/api/getAllYears
             case "getAllCoursesByYear": $this->getAllCoursesByYear(); break; // admin/api/getAllCoursesByYear
             case "saveCSV":         $this->export(); break;
 
@@ -62,24 +62,18 @@ class Admin extends REST_Controller {
     }
 
 
-    // public function getAllSchoolYears(){
-    //     $this->load->model('YearModel');
-    //     $data["schoolYears"] = $this->YearModel->getAllSchoolYears();
-    //     $this->response($data, parent::HTTP_OK);
-    // }
-
     public function deleteSchoolYear(){
         $inicio = $this->delete('inicio');
         $this->load->model('YearModel');
         $this->YearModel->deleteSchoolYear($inicio);
     }
 
-    public function getAllColleges(){
-        $this->load->model('CollegeModel');
-        $data["colleges"] = $this->CollegeModel->getColleges();
+    // public function getAllColleges(){
+    //     $this->load->model('CollegeModel');
+    //     $data["colleges"] = $this->CollegeModel->getColleges();
         
-        $this->response($data, parent::HTTP_OK);
-    }
+    //     $this->response($data, parent::HTTP_OK);
+    // }
 
     public function getAllCollegesCourses(){
         $faculdade = $this->get('faculdade');
@@ -113,12 +107,6 @@ class Admin extends REST_Controller {
         for($i=0; $i<count($data["subjects"]); $i++){
             array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
         };
-        $this->response($data, parent::HTTP_OK);
-    }
-
-    public function getAllYears(){
-        $this->load->model('YearModel');
-        $data["years"] = $this->YearModel->getAllSchoolYears();
         $this->response($data, parent::HTTP_OK);
     }
 
@@ -176,14 +164,6 @@ class Admin extends REST_Controller {
         $this->CollegeModel->deleteCollege($siglas);
     }
 
-    // public function getAllStudents(){
-    //     $this->verify_request();
-    //     $this->load->model('UserModel');
-    //     $data["students"] = $this->UserModel->getStudents();
-        
-    //     $this->response($data, parent::HTTP_OK);
-    // }
-
     public function deleteUser(){
         $this->verify_request();
         $email = $this->delete('email');
@@ -204,14 +184,6 @@ class Admin extends REST_Controller {
 
         $this->response($data, parent::HTTP_OK);
     }
-
-
-    // public function getAllTeachers(){
-    //     $this->verify_request();
-    //     $this ->load-> model('UserModel');
-    //     $data["teachers"] = $this ->UserModel-> getTeachers();
-    //     $this -> response($data, parent::HTTP_OK);
-    // }
 
     public function deleteCourse(){
         $this->load->model('CourseModel');

@@ -68,7 +68,12 @@ $route['api/getAllSchoolYears']                 = 'Api_Year/getAllSchoolYears';
 $route['api/getAllStudents']                    = 'Api_Student/getAllStudents';
 $route['api/getAllTeachers']                    = 'Api_Teacher/getAllTeachers';
 $route['api/getAdminHome']                      = 'Api_Admin/getAdminHome';
-// $route['api/getAllCursosFaculdadeAno']          = 'Api_College/getAllCollegesYearCourses';
+$route['api/getAllCursosFaculdadeAno']          = 'Api_Course/getAllCollegesYearCourses';
+$route['api/getAllCursosFaculdade']             = 'Api_Course/getAllCollegesCourses';
+$route['api/getAllSubjects']                    = 'Api_Subject/getAllSubjects';
+$route['api/getAllSubjectsByCourse']            = 'Api_Subject/getAllSubjectsByCourse';
+$route['api/getAllCoursesByYear']               = 'Api_Course/getAllCoursesByYear';
+$route['api/saveCSV']                           = 'Api_Admin/export';
 
 
 

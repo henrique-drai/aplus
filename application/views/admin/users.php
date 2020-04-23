@@ -52,7 +52,7 @@
             <div class="admin-users-window">
                 <div class="title">Migrações</div>
                 
-                <form id="exportCsv" action="<?php echo base_url(); ?>admin/api/saveCSV">
+                <form id="exportCsv" action="<?php echo base_url(); ?>api/saveCSV">
                 <p>
                     <label for="data">Exportar dados:</label>
                         

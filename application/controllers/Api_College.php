@@ -49,33 +49,6 @@ class Api_College extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function getAllCollegesYearCourses_get(){
-        $this->verify_request();
-        $faculdade = $this->get('faculdade');
-        $ano = $this->get('anoletivo');
-        $this->load->model('CourseModel');
-        $data["courses"] = $this->CourseModel->getCollegeYearCourses($faculdade, $ano);
-        $this->response($data, parent::HTTP_OK);
-    }
-
-    // public function getAllCollegesCourses_get(){
-        // $this->verify_request();
-    //     $faculdade = $this->get('faculdade');
-    //     $this->load->model('CourseModel');
-    //     $data["courses"] = $this->CourseModel->getCollegeCourses($faculdade);
-    //     $this->response($data, parent::HTTP_OK);
-    // }
-
-    // public function getAllCollegesYearCourses_get(){
-        // $this->verify_request();
-    //     $faculdade = $this->get('faculdade');
-    //     $ano = $this->get('anoletivo');
-    //     $this->load->model('CourseModel');
-    //     $data["courses"] = $this->CourseModel->getCollegeYearCourses($faculdade, $ano);
-    //     $this->response($data, parent::HTTP_OK);
-    // }
-
-
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

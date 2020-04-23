@@ -178,6 +178,48 @@ class Api_Subject extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function getAllSubjects_get(){
+        $this->verify_request();
+        $this->load->model('SubjectModel');
+        $this->load->model('CourseModel');
+        $data["subjects"] = $this->SubjectModel->getAllSubjects();
+        $data["courses"] = array();
+        for($i=0; $i<count($data["subjects"]); $i++){
+            array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
+        };
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getAllSubjectsByCourse_get(){
+        $this->verify_request();
+        $courses = $this->get('courses');
+        $this->load->model('SubjectModel');
+        $this->load->model('CourseModel');
+        $data["courses"] = array(); 
+        if(is_array($courses)){
+            $data["subjects"] = array();
+            
+            for($x=0; $x<count($courses); $x++){
+                $cursos = $this->SubjectModel->getSubjectsByCursoId($courses[$x]["id"]);
+                $data["subjects"]=array_merge($data["subjects"], $cursos);
+            }
+            for($i=0; $i<count($data["subjects"]); $i++){
+                array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
+            };
+        }
+        else{
+            $data["subjects"] = $this->SubjectModel->getSubjectsByCursoId($courses);
+            for($i=0; $i<count($data["subjects"]); $i++){
+                array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
+            };
+        }
+        
+        
+        $this->response($data, parent::HTTP_OK);
+    }
+
+
+
 
     //////////////////////////////////////////////////////////////
     //                         DELETE

@@ -93,25 +93,25 @@ class Api_Admin extends REST_Controller {
     }
 
     public function export_get(){
-        // $auth = $this->verify_request();
+        $auth = $this->verify_request();
 
-        // $user = $this->UserModel->getUserById($auth->id);
+        $user = $this->UserModel->getUserById($auth->id);
 
-        // if($user->role != "admin"){
-        //     $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
-        //     return null;
-        // }
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
 
         $this->load->model('UserModel');
         $role = $this -> get("role");
-        $file_name = "stInfo".date('Ymd').'.csv';
+        // $file_name = "stInfo".date('Ymd').'.csv';
         
-        header("Content-Description: File Transfer");
-        header("Content-Disposition: attachment; filename=$file_name");
-        header("Content-Type: application/csv;");
+        // header("Content-Description: File Transfer");
+        // header("Content-Disposition: attachment; filename=$file_name");
+        // header("Content-Type: application/csv;");
         
-        $file = fopen('php://output','w');
-        $header = array("Name", "Surname", "Email","Role", "Password");
+        // $file = fopen('php://output','w');
+        echo "Name,Surname,Email,Role,Password \n";
 
         if($role == "student"){
             $info = $this -> UserModel -> getStudents();
@@ -123,14 +123,14 @@ class Api_Admin extends REST_Controller {
             $info = $this -> UserModel -> getStudentsTeachers();
         }
 
-        fputcsv($file, $header);
-    
+        // fputcsv($file, $header);
         foreach($info as $user){
-            $dados = array($user['name'], $user['surname'],$user['email'],$user['role'],$user['password']);
-            fputcsv($file, $dados);
+            echo $user['name'] .",". $user['surname'] .",". $user['email'] .",". $user['role'] .",". $user['password']."\n";
+
+            // fputcsv($file, $dados);
         }
-        fclose($file);
-        exit;
+        // fclose($file);
+        // exit;
     }
 
     //////////////////////////////////////////////////////////////

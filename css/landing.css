@@ -8,6 +8,8 @@ body{
 main{
     margin: auto;
     text-align: center;
+    width: unset;
+    padding: 5px;
 }
 
 label {

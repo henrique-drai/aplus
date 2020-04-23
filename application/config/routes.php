@@ -68,8 +68,7 @@ $route['api/getAllSchoolYears']                 = 'Api_Year/getAllSchoolYears';
 $route['api/getAllStudents']                    = 'Api_Student/getAllStudents';
 $route['api/getAllTeachers']                    = 'Api_Teacher/getAllTeachers';
 $route['api/getAdminHome']                      = 'Api_Admin/getAdminHome';
-// $route['api/getAllFaculdadesUnidCurricular']    = 'Api_College/getAllColleges';
-// $route['api/getAllYears']                       = 'Api_Year/getAllYears';
+// $route['api/getAllCursosFaculdadeAno']          = 'Api_College/getAllCollegesYearCourses';
 
 
 

@@ -3,7 +3,7 @@ var cso
 $(document).ready(() => {
 
     getAllfaculdades();
-    getAllSchoolYears();
+    getAllSchoolYears(); //////??????/////
 
     $("#register-course-submit").click(() => submitRegister());
     $("body").on("click", ".editCourse",() => displayEditCourse());
@@ -56,7 +56,8 @@ $(document).ready(() => {
 function getAllSchoolYears(){
     $.ajax({
         type: "GET",
-        url: base_url + "admin/api/getAllSchoolYears",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/getAllSchoolYears",
         success: function(data) {
             linhas="";
             if(data.schoolYears.length>0){
@@ -75,7 +76,8 @@ function getAllSchoolYears(){
 function getAllfaculdades(){
     $.ajax({
         type: "GET",
-        url: base_url + "admin/api/getAllFaculdadesUnidCurricular",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/getAllColleges",
         success: function(data) {
             var linhas = '<option class="college_row">Selecione uma Faculdade</option>';
             if(data.colleges.length>0){

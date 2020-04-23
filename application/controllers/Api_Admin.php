@@ -92,6 +92,47 @@ class Api_Admin extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function export_get(){
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        $this->load->model('UserModel');
+        $role = $this -> get("role");
+        $file_name = "stInfo".date('Ymd').'.csv';
+
+        
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=$file_name");
+        header("Content-Type: application/csv;");
+        
+        $file = fopen('php://output','w');
+        $header = array("Name", "Surname", "Email","Role", "Password");
+
+        if($role == "student"){
+            $info = $this -> UserModel -> getStudents();
+        }
+        elseif($role == "teacher"){
+            $info = $this -> UserModel -> getTeachers();
+        }
+        else{
+            $info = $this -> UserModel -> getStudentsTeachers();
+        }
+
+        fputcsv($file, $header);
+        foreach($info as $user){
+            $dados = array($user['name'], $user['surname'],$user['email'],$user['role'],$user['password']);
+            fputcsv($file, $dados);
+        }
+        fclose($file);
+        exit;
+        
+    }
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

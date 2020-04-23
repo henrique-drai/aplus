@@ -37,12 +37,6 @@ class Api_Course extends REST_Controller {
         $this->CourseModel->editCourse($data);
     }
 
-
-
-    //////////////////////////////////////////////////////////////
-    //                           GET
-    //////////////////////////////////////////////////////////////
-
     public function registerCurso_post(){
         $this->verify_request();
         $this -> load -> model('CourseModel');
@@ -59,7 +53,43 @@ class Api_Course extends REST_Controller {
     }
 
 
+    //////////////////////////////////////////////////////////////
+    //                           GET
+    //////////////////////////////////////////////////////////////
 
+
+    public function getAllCollegesYearCourses_get(){
+        $this->verify_request();
+        $faculdade = $this->get('faculdade');
+        $ano = $this->get('anoletivo');
+        $this->load->model('CourseModel');
+        $data["courses"] = $this->CourseModel->getCollegeYearCourses($faculdade, $ano);
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    
+    public function getAllCollegesCourses_get(){
+        $this->verify_request();
+        $faculdade = $this->get('faculdade');
+        $this->load->model('CourseModel');
+        $data["courses"] = $this->CourseModel->getCollegeCourses($faculdade);
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getAllCoursesByYear_get(){
+        $ano = $this->get('idyear');
+        $this->load->model('CourseModel');
+        $data["courses"] = $this->CourseModel->getCoursesByYear($ano);
+        $this->response($data, parent::HTTP_OK);
+    }
+
+
+    // public function getAllCoursesByCollege(){
+    //     $faculdade = $this->get('faculdade');
+    //     $this->load->model('CourseModel');
+    //     $data["courses"] = $this->CourseModel->getCollegeCourses($faculdade);
+    //     $this->response($data, parent::HTTP_OK);
+    // }
 
 
 

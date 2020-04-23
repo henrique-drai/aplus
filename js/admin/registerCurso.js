@@ -3,7 +3,7 @@ var cso
 $(document).ready(() => {
 
     getAllfaculdades();
-    getAllSchoolYears(); //////??????/////
+    getAllSchoolYears(); 
 
     $("#register-course-submit").click(() => submitRegister());
     $("body").on("click", ".editCourse",() => displayEditCourse());
@@ -131,7 +131,8 @@ function submitRegister(){
     function getAllCursosFaculdade(faculdade){
         $.ajax({
             type: "GET",
-            url: base_url + "admin/api/getAllCursosFaculdade",
+            headers: {"Authorization": localStorage.token},
+            url: base_url + "api/getAllCursosFaculdade",
             data: {faculdade},
             success: function(data) {
                 $("#semCurso").remove();

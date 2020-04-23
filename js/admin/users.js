@@ -1,5 +1,49 @@
 $(document).ready(() => {
     $("#register-form-submit").click(() => submitRegister())
+
+    $("#exportCsv").on("submit", function(e) {
+        e.preventDefault()
+        $.ajax({
+            type: "GET",
+            headers: {"Authorization": localStorage.token},
+            url: base_url + "api/saveCSV",
+            data:{role:$("#exportCsv select").val()},
+            success:function(data){
+
+
+            
+            var downloadLink = document.createElement("a");
+            var fileData = ['\ufeff'+data];   
+
+            var blobObject = new Blob(fileData,{
+                type: "text/csv;charset=utf-8;"
+            });
+
+            var url = URL.createObjectURL(blobObject);
+            downloadLink.href = url;
+
+            var role = $("#exportCsv select").val();
+
+            if(role=="student"){
+                downloadLink.download = "students.csv";
+            }
+            else if(role=="teacher"){
+                downloadLink.download = "teachers.csv";
+            }
+            else{
+                downloadLink.download = "studentsTeachers.csv";
+            }
+            
+
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+
+
+            }
+        })
+    })
+
 })
 
 
@@ -36,3 +80,22 @@ function submitRegister(){
         $("#msgStatus").show().delay(2000).fadeOut();
     }
 }
+
+// function exportCSV(csvContent){
+    // var encodedUri = encodeURI(csvContent); 
+    // window.open(encodedUri);
+    // console.log(csvContent);
+    // var hiddenElement = document.createElement('a');
+    // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvContent);
+    // hiddenElement.target = '_blank';
+    // hiddenElement.download = 'export.csv';
+    // hiddenElement.click();
+// }
+
+
+// function exportCSV() {
+//     $.ajax({
+//         type: "GET",
+//         headers: {"Authorization": localStorage.token},
+//         url: base_url + "api/saveCSV"}
+//     )}

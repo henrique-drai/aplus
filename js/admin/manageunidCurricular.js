@@ -155,7 +155,7 @@ function getAllSubjects(){
     $.ajax({
         type: "GET",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "admin/api/getAllSubjects",
+        url: base_url + "api/getAllSubjects",
         success: function(data) {
 
             cleanTable();
@@ -242,7 +242,8 @@ function getColleges(option){
 function getAllCoursesByCollege(faculdade, option){
     $.ajax({
         type: "GET",
-        url: base_url + "admin/api/getAllCoursesByCollege",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/getAllCursosFaculdade",
         data: {faculdade},
         success: function(data) {
             cleanTable();
@@ -298,7 +299,7 @@ function getAllSubjectsByCourse(courses){
     $.ajax({
         type: "GET",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "admin/api/getAllSubjectsByCourse",
+        url: base_url + "api/getAllSubjectsByCourse",
         data: {courses},
         success: function(data) {
             cleanTable();
@@ -349,7 +350,8 @@ function getAllYears(){
 function getAllCoursesByYear(idyear){
     $.ajax({
         type: "GET",
-        url: base_url + "admin/api/getAllCoursesByYear",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/getAllCoursesByYear",
         data: {idyear},
         success: function(data) {
             if(data.courses.length>0){
@@ -358,7 +360,7 @@ function getAllCoursesByYear(idyear){
             else{
                 cleanTable();
                 $("#mens_sem_cadeiras").remove();
-                var mensagem = "<h2 id='mens_sem_cadeiras'>Não existe nenhum curso neste ano letivo</h2>";
+                var mensagem = "<h2 id='mens_sem_cadeiras'>Não existe nenhuma unidade curricular neste ano letivo</h2>";
                 $("body").append(mensagem);
             }
         },

@@ -383,7 +383,8 @@ function getAllCoursesByYear(idyear){
 function deleteSubject(linha){
 $.ajax({
     type: "DELETE",
-    url: base_url + "admin/api/deleteSubject",
+    headers: {"Authorization": localStorage.token},
+    url: base_url + "api/deleteSubject",
     data: {code: linha.find("td:eq(0)").text()},
     success: function() {
         msgSucesso = "<p class='msgSucesso'>Faculdade eliminada com Sucesso.</p>";

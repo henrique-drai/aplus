@@ -15,6 +15,8 @@ class Api_Course extends REST_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->helper(['jwt', 'authorization']);
+        $this->load->model('UserModel');
+
     }
 
     
@@ -59,7 +61,14 @@ class Api_Course extends REST_Controller {
 
 
     public function getAllCollegesYearCourses_get(){
-        $this->verify_request();
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
         $faculdade = $this->get('faculdade');
         $ano = $this->get('anoletivo');
         $this->load->model('CourseModel');
@@ -69,7 +78,15 @@ class Api_Course extends REST_Controller {
 
     
     public function getAllCollegesCourses_get(){
-        $this->verify_request();
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
         $faculdade = $this->get('faculdade');
         $this->load->model('CourseModel');
         $data["courses"] = $this->CourseModel->getCollegeCourses($faculdade);
@@ -77,6 +94,15 @@ class Api_Course extends REST_Controller {
     }
 
     public function getAllCoursesByYear_get(){
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
         $ano = $this->get('idyear');
         $this->load->model('CourseModel');
         $data["courses"] = $this->CourseModel->getCoursesByYear($ano);
@@ -84,13 +110,27 @@ class Api_Course extends REST_Controller {
     }
 
 
-    // public function getAllCoursesByCollege(){
-    //     $faculdade = $this->get('faculdade');
-    //     $this->load->model('CourseModel');
-    //     $data["courses"] = $this->CourseModel->getCollegeCourses($faculdade);
-    //     $this->response($data, parent::HTTP_OK);
-    // }
+    //////////////////////////////////////////////////////////////
+    //                      DELETE
+    //////////////////////////////////////////////////////////////
 
+    public function deleteCourse_delete(){
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        $this->load->model('CourseModel');
+        $data = Array(
+            "faculdade_id" => $this -> delete('idCollege'),
+            "code" => $this -> delete('code'),            
+        );
+        $this -> CourseModel -> deleteCollegeCourse($data);
+    }
 
 
     //////////////////////////////////////////////////////////////

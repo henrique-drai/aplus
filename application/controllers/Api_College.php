@@ -49,6 +49,17 @@ class Api_College extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    //////////////////////////////////////////////////////////////
+    //                           DELETE
+    //////////////////////////////////////////////////////////////
+
+
+    public function deleteCollege_delete(){
+        $this->verify_request();
+        $siglas = $this->delete('siglas');
+        $this->load->model('CollegeModel');
+        $this->CollegeModel->deleteCollege($siglas);
+    }
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

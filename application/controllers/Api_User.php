@@ -15,25 +15,12 @@ class Api_User extends REST_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->helper(['jwt', 'authorization']);
-    }
-
-
-    public function user_get() {
-        $user_id = $this->verify_request()->id;
-
         $this->load->model('UserModel');
-        
-        $user = $this->UserModel->getUserById(intval($user_id));
-        $data = Array(
-            "id" => $user_id,
-            "email" => $user->email,
-            "name" => $user->name,
-            "surname" => $user->surname,
-            "role" => $user->role,
-            "picture" => $user->picture,
-        );
-        $this->response(json_encode($data), parent::HTTP_OK);
+
     }
+
+
+
 
 
     //////////////////////////////////////////////////////////////
@@ -96,8 +83,44 @@ class Api_User extends REST_Controller {
     //                           GET
     //////////////////////////////////////////////////////////////
 
+    public function user_get() {
+        $user_id = $this->verify_request()->id;
+
+        $this->load->model('UserModel');
+        
+        $user = $this->UserModel->getUserById(intval($user_id));
+        $data = Array(
+            "id" => $user_id,
+            "email" => $user->email,
+            "name" => $user->name,
+            "surname" => $user->surname,
+            "role" => $user->role,
+            "picture" => $user->picture,
+        );
+        $this->response(json_encode($data), parent::HTTP_OK);
+    }
+
+    //////////////////////////////////////////////////////////////
+    //                           DELETE
+    //////////////////////////////////////////////////////////////
 
 
+    public function deleteUser_delete(){
+
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        $this->verify_request();
+        $email = $this->delete('email');
+        $this->load->model('UserModel');
+        $this->UserModel->deleteUser($email);
+    }
 
 
     //////////////////////////////////////////////////////////////

@@ -74,12 +74,11 @@ $(document).ready(() => {
     })
 
 var oldEmail = "";
-
 function deleteUser(linha){
     $.ajax({
         type: "DELETE",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "admin/api/deleteUser",
+        url: base_url + "api/deleteUser",
         data: {email: linha.find("td:eq(0)").text()},
         success: function() {
             if (page_name=="students"){

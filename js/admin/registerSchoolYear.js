@@ -38,7 +38,8 @@ $(document).ready(() => {
 function deleteSchoolYear(linha){
     $.ajax({
         type: "DELETE",
-        url: base_url + "admin/api/deleteSchoolYear",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/deleteSchoolYear",
         data: {inicio: linha.find("td:eq(0)").text()},
         success: function() {
             getAllSchoolYears();

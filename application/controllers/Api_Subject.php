@@ -239,6 +239,22 @@ class Api_Subject extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    
+    public function deleteSubject_delete(){
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+        $code = $this->delete('code');
+        $this->load->model('SubjectModel');
+        $this->SubjectModel->deleteSubject($code);
+    }
+
+
 
 
     //////////////////////////////////////////////////////////////

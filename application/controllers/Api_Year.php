@@ -16,6 +16,8 @@ class Api_Year extends REST_Controller {
         parent::__construct();
         $this->load->helper(['jwt', 'authorization']);
         $this->load->model("YearModel");
+        $this->load->model('UserModel');
+
     }
 
 
@@ -41,7 +43,15 @@ class Api_Year extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function getAllSchoolYears_get(){
-        $this->verify_request();
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
         $this->load->model('YearModel');
         $data["schoolYears"] = $this->YearModel->getAllSchoolYears();
         $this->response($data, parent::HTTP_OK);
@@ -51,6 +61,19 @@ class Api_Year extends REST_Controller {
     //                         DELETE
     //////////////////////////////////////////////////////////////
 
+    public function deleteSchoolYear_delete(){
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+        $inicio = $this->delete('inicio');
+        $this->load->model('YearModel');
+        $this->YearModel->deleteSchoolYear($inicio);
+    }
 
 
 

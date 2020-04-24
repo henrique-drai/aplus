@@ -190,7 +190,8 @@ function deleteCourse(linha){
 
     $.ajax({
         type: "DELETE",
-        url: base_url + "admin/api/deleteCourse",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/deleteCourse",
         data: data,
 
         success: function() {

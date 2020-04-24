@@ -33,60 +33,28 @@ class Database extends CI_Controller {
             "7@gmail.com","8@gmail.com","9@gmail.com","10@gmail.com","11@gmail.com","12@gmail.com","13@gmail.com","14@gmail.com",
             "15@gmail.com","16@gmail.com","17@gmail.com","18@gmail.com","19@gmail.com","20@gmail.com",)); $this->db->delete('user');
 
-        $this->db->insert("user", Array("name"=>"Henrique", "surname"=>"Francisco", "email"=>"1@gmail.com", "role"=>"student",
-            "password"=>md5(""), "description"=>"This a great description"));
-            $aluno1_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"Joana", "surname"=>"Almeida", "email"=>"2@gmail.com", "role"=>"student",
-            "password"=>md5(""), "description"=>"Gosto de entrar em salas do Zoom."));
-            $aluno2_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"Rafael", "surname"=>"Sousa", "email"=>"3@gmail.com", "role"=>"student",
-            "password"=>md5(""), "description"=>"Está calor hoje"));
-            $aluno3_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"Maria", "surname"=>"Silva", "email"=>"4@gmail.com", "role"=>"student",
-            "password"=>md5(""), "description"=>"Tue eras aquela"));
-            $aluno4_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"David", "surname"=>"Peixoto", "email"=>"5@gmail.com", "role"=>"student",
-            "password"=>md5(""), "description"=>"Que eu mais queria"));
-            $aluno5_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"Raquel", "surname"=>"Williams", "email"=>"6@gmail.com", "role"=>"student",
-            "password"=>md5(""), "description"=>"P'ra me dar algum conforto e companhia"));
-            $aluno6_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"João", "surname"=>"Smith", "email"=>"7@gmail.com", "role"=>"student",
-            "password"=>md5(""), "description"=>"Era só contigo que eu sonhava andar"));
-            $aluno7_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"Inês", "surname"=>"Pereira", "email"=>"8@gmail.com", "role"=>"student",
-            "password"=>md5(""), "description"=>"P'ra todo lado e até quem sabe"));
-            $aluno8_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"Eduardo", "surname"=>"Ye", "email"=>"9@gmail.com", "role"=>"student",
-            "password"=>md5(""), "description"=>"Talvez casar"));
-            $aluno9_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"Cristina", "surname"=>"White", "email"=>"10@gmail.com", "role"=>"student",
-            "password"=>md5(""), "description"=>"Ai o que eu passei"));
-            $aluno10_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"Joel", "surname"=>"Figueiredo","email"=>"11@gmail.com", "role"=>"student",
-            "password"=>md5(""), "description"=>"Só por te amar"));
-            $aluno11_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"Cecília", "surname"=>"Gomes", "email"=>"12@gmail.com", "role"=>"student",
-            "password"=>md5(""), "description"=>"A saliva que eu gastei para te mudar"));
-            $aluno12_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"Jasmim", "surname"=>"Pereira", "email"=>"13@gmail.com", "role"=>"teacher",
-            "password"=>md5(""), "description"=>"Mas esse teu mundo era mais forte do que eu", "gabinete"=>"3.1.19"));
-            $prof1_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"Pedro", "surname"=>"Cegueira", "email"=>"14@gmail.com", "role"=>"teacher",
-            "password"=>md5(""), "description"=>"E nem com a força da música ele se moveu", "gabinete"=>"3.2.15"));
-            $prof2_id = $this->db->insert_id();
-        $this->db->insert("user", Array("name"=>"Carolina", "surname"=>"Sousa", "email"=>"15@gmail.com", "role"=>"teacher",
-            "password"=>md5(""), "description"=>"Mesmo sabendo que não gostavas", "gabinete"=>"A234"));
-        $this->db->insert("user", Array("name"=>"Catarina", "surname"=>"Ricardo", "email"=>"16@gmail.com", "role"=>"teacher",
-            "password"=>md5(""), "description"=>"Empenhei o meu anel de rubi", "gabinete"=>"7.23.4"));
-        $this->db->insert("user", Array("name"=>"Joacine",  "surname"=>"Silva", "email"=>"17@gmail.com", "role"=>"teacher",
-            "password"=>md5(""), "description"=>"P'ra te levar ao concerto", "gabinete"=>"3.4.5"));
-        $this->db->insert("user", Array("name"=>"Cristina", "surname"=>"Félix", "email"=>"18@gmail.com", "role"=>"teacher",
-            "password"=>md5(""), "description"=>"Que havia no rivolli", "gabinete"=>"Lisboa"));
-        $this->db->insert("user", Array("name"=>"Geraldo",  "surname"=>"Artur", "email"=>"19@gmail.com", "role"=>"teacher",
-            "password"=>md5(""), "description"=>"E era só a ti que eu mais queria", "gabinete"=>"6.2123"));
-        $this->db->insert("user", Array("name"=>"Rodolfo",  "surname"=>"Maia",      "email"=>"20@gmail.com", "role"=>"teacher",
-            "password"=>md5(""), "description"=>"Ao meu lado no concerto nesse dia", "gabinete"=>"1.2.3"));
+        // $prof_id = $this->teacher("name", "surname", "email", "", "description", "gabinete");
+        $aluno1_id  = $this->student("Henrique", "Francisco", "1@gmail.com", "", "This a great description");
+        $aluno2_id  = $this->student("Joana", "Almeida", "2@gmail.com", "", "Gosto de entrar em salas do Zoom.");
+        $aluno3_id  = $this->student("Rafael", "Sousa", "3@gmail.com", "", "Está calor hoje");
+        $aluno4_id  = $this->student("Maria", "Silva", "4@gmail.com", "", "Tu eras aquela");
+        $aluno5_id  = $this->student("David", "Peixoto", "5@gmail.com", "", "Que eu mais queria");
+        $aluno6_id  = $this->student("Raquel", "Williams", "6@gmail.com", "", "P'ra me dar algum conforto e companhia");
+        $aluno7_id  = $this->student("João", "Smith", "7@gmail.com", "", "Era só contigo que eu sonhava andar");
+        $aluno8_id  = $this->student("Inês", "Pereira", "8@gmail.com", "", "P'ra todo lado e até quem sabe");
+        $aluno9_id  = $this->student("Eduardo", "Ye", "9@gmail.com", "", "Talvez casar");
+        $aluno10_id = $this->student("Cristina", "White", "10@gmail.com", "", "Ai o que eu passei");
+        $aluno11_id = $this->student("Joel", "Figueiredo", "11@gmail.com", "", "Só por te amar");
+        $aluno12_id = $this->student("Cecília", "Gomes", "12@gmail.com", "", "A saliva que eu gastei para te mudar");
+
+        $prof1_id = $this->teacher("Jasmim", "Pereira", "13@gmail.com", "", "Mas esse teu mundo era mais forte do que eu", "3.1.19");
+        $prof2_id = $this->teacher("Pedro", "Cegueira", "14@gmail.com", "", "E nem com a força da música ele se moveu", "3.2.15");
+        $prof3_id = $this->teacher("Carolina", "Sousa", "15@gmail.com", "", "Mesmo sabendo que não gostavas", "A234");
+        $prof4_id = $this->teacher("Catarina", "Ricardo", "16@gmail.com", "", "Empenhei o meu anel de rubi", "7.23.4");
+        $prof5_id = $this->teacher("Joacine", "Silva", "17@gmail.com", "", "P'ra te levar ao concerto", "3.4.5");
+        $prof6_id = $this->teacher("Cristina", "Félix", "18@gmail.com", "", "Que havia no rivolli", "Lisboa, Nº20, 2º Esq.");
+        $prof7_id = $this->teacher("Geraldo", "Artur", "19@gmail.com", "", "E era só a ti que eu mais queria", "6.2123");
+        $prof8_id = $this->teacher("Rodolfo", "Maia", "20@gmail.com", "", "Ao meu lado no concerto nesse dia", "1.2.3");
 
         ///////////////////////////////
         //          FACULDADES
@@ -318,6 +286,18 @@ class Database extends CI_Controller {
         echo "<p><b>Projeto principal</b><br>Evolução da Ciência</p>";
         echo "<p><b>Forum principal</b><br>Evolução da Ciência</p>";
         echo "<p><b>Thread principal</b><br>Avaliação da Cadeira</p>";
+    }
+
+
+
+    private function student($name, $surname, $email, $password, $description) {
+        $this->db->insert("user", Array("name"=>$name, "surname"=>$surname, "email"=>$email, "role"=>"student", "password"=>md5($password), "description"=>$description));
+        return $this->db->insert_id();
+    }
+
+    private function teacher($name, $surname, $email, $password, $description, $gabinete) {
+        $this->db->insert("user", Array("name"=>$name, "surname"=>$surname, "email"=>$email, "role"=>"teacher", "password"=>md5($password), "description"=>$description, "gabinete"=>$gabinete));
+        return $this->db->insert_id();
     }
 
 }

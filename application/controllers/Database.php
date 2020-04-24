@@ -6,26 +6,21 @@ class Database extends CI_Controller {
 
     public function index() {
         $this->load->helper('url'); $data["base_url"] = base_url();
+
         $this->load->view('templates/head', $data);
-        echo "</head><body><main><h2>Scripts da BD:</h2>";
-        echo "<br><a href='".base_url()."database/s1'>Reset dos dados s1</a>";
-        echo "</main>";$this->load->view('templates/footer'); 
+        $this->load->view('database', $data);
+        $this->load->view('templates/footer'); 
     }
 
 
-    public function s1()
+    public function reset()
     {
         /*
         FALTA:
             etapa_submit
-            evento
-            evento_grupo
-            evento_user
             grupo_msg
-            horario_duvidas
             member_classification
-            provate_chat
-            private_chat_msg
+            provate_msg
             tarefa
         */
 
@@ -316,15 +311,13 @@ class Database extends CI_Controller {
 
         $execution_time = microtime(true) - $time_start;
 
-        $this->load->helper('url'); $data["base_url"] = base_url(); $this->load->view('templates/head', $data);
-        echo "</head><body><main><h2>Tempo de processamento: ".$execution_time."s </h2>";
-        echo "<p><b>Aluno principal</b><br>----- 1@gmail.com</p>";
-        echo "<p><b>Prof principal</b><br>----- 13@gmail.com</p>";
-        echo "<p><b>Cadeira principal</b><br>----- Teatro</p>";
-        echo "<p><b>Projeto principal</b><br>----- Evolução da Ciência</p>";
-        echo "<p><b>Forum principal</b><br>----- Evolução da Ciência</p>";
-        echo "<p><b>Thread principal</b><br>----- Avaliação da Cadeira</p>";
-        echo "</main>"; $this->load->view('templates/footer');
+        echo "<h2>Tempo de processamento: ".$execution_time."s </h2>";
+        echo "<p><b>Aluno principal</b><br>1@gmail.com</p>";
+        echo "<p><b>Prof principal</b><br>13@gmail.com</p>";
+        echo "<p><b>Cadeira principal</b><br>Teatro</p>";
+        echo "<p><b>Projeto principal</b><br>Evolução da Ciência</p>";
+        echo "<p><b>Forum principal</b><br>Evolução da Ciência</p>";
+        echo "<p><b>Thread principal</b><br>Avaliação da Cadeira</p>";
     }
 
 }

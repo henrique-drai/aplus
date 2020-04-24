@@ -33,6 +33,7 @@
 }
 #calendario-hook .cell:hover {
     background-color: #ccc !important;
+    cursor: pointer;
 }
 #calendario-hook .cell .start {
     font-weight: bold;

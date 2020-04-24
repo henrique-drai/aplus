@@ -27,6 +27,10 @@ $picture = $base_url . $file . "?" . time();
             <div class="nav-menu-btn-logout nav-menu-btn">
                 Sair
             </div>
+            <div class="btn-notifications nav-menu-btn">
+                <img src="<?=$base_url?>images/icons/bell.png" alt="">
+                <div class="alert hidden"></div>
+            </div>
         </div>
         <hr>
         <ul id="nav-menu-links"></ul>

@@ -16,6 +16,9 @@ $route['api/logout']                            = 'Api_Authentication/logout';
 
 $route['api/user/(:num)']                       = 'Api_User/user/$1';
 
+$route['api/notifications/new']                = 'Api_Notification/new';
+$route['api/notifications/all']                 = 'Api_Notification/all';
+
 $route['api/removeForum/(:num)']                = 'Api_Forum/removeForum/$1';
 $route['api/removePost/(:num)']                 = 'Api_Forum/removePost/$1';
 $route['api/getForumById/(:num)']               = 'Api_Forum/getForumById/$1';

@@ -1,24 +1,24 @@
 var navbar_is_active = false
 
+var notifications = []
+
 $(document).ready(() => {
     $(".nav-menu-btn-logout").click(() => {endSession()})
     $("#nav-menu-toggle").click(()=>{toggleMenu()})
     updateNavMenuData()
+    updateNotifications()
 })
 
 // assim só precisam de indicar as páginas que vão estar disponíveis
 // exemplo de utilização: js/teacher/nav-menu.js
-function printNavBarLinks(pages)
-{
-    let link_list = $("#nav-menu-links");
+function printNavBarLinks(pages){
+    let link_list = $("#nav-menu-links")
 
-    for (const key in pages)
-    {
+    for (const key in pages) {
         const className = (key == page_name) ? " class='nav-menu-selected-link'" : ""
         let li = $("<li"+className+">"+pages[key].name+"</li>")
         let link = $("<a href='"+pages[key].href+"'></a>")
-        link.append(li)
-        link_list.append(link)
+        link_list.append(link.append(li))
     }
 }
 
@@ -64,4 +64,29 @@ function updateNavMenuData(){
             console.log("Problema na API: api/user get.")
         }
     })
+}
+
+function updateNotifications(){
+    $.ajax({
+        type: "GET",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/notifications/new",
+        success: function(data) {
+            notifications = data
+            
+            if(data.length)
+                $("#nav-menu-hook .alert").removeClass("hidden").text(data.length)
+            else
+                $("#nav-menu-hook .alert").addClass("hidden")  
+
+            renderNotifications()
+        },
+        error: function(data) {
+            console.log("Problema na API: notifications.")
+        }
+    })
+}
+
+function renderNotifications(){
+    console.log(notifications)
 }

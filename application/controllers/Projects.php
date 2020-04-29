@@ -62,7 +62,7 @@ class Projects extends CI_Controller {
     }
 
     //      projects/project/:project_id/
-    public function project($project_id)
+    public function project($project_id = null)
     {
         $data["base_url"] = base_url();
         
@@ -74,6 +74,10 @@ class Projects extends CI_Controller {
         //buscar a info sobre o projeto
         $data["project"] = $this->ProjectModel->getProjectByID($project_id);
 
+        //verificar se o objeto associado ao projeto existe
+        if(empty($data["project"])){
+            $this->load->view('errors/404', $data); return null;
+        }
 
         $this->load->model('YearModel');
         $this->load->model('CourseModel');
@@ -84,10 +88,6 @@ class Projects extends CI_Controller {
         $course = $this->CourseModel->getCursobyId($subject->curso_id);
         $data["year"] = $this->YearModel->getYearById($course->ano_letivo_id);
 
-        //verificar se o objeto associado ao projeto existe
-        if(is_null($data["project"])){
-            $this->load->view('errors/404', $data); return null;
-        }
 
         //buscar a info sobre o codigo do curso
         $data["subject"] = $this->SubjectModel->getSubjectByID($data["project"][0]["cadeira_id"]);

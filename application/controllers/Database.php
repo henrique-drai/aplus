@@ -240,6 +240,10 @@ class Database extends CI_Controller {
             Array("user_id"=> $aluno3_id,  "grupo_id"=>$grupo4_id),
         ));
         ///////////////////////////////
+        //          SUBMISSÃO_ETAPA
+        ///////////////////////////////
+        $this->db->insert("etapa_submit", Array("grupo_id"=>$grupo3_id, "etapa_id"=>$etapa1_id, "submit_url"=>"URL-FALSO-HEHE-XD"));
+        ///////////////////////////////
         //          EVENTOS
         ///////////////////////////////
         $this->db->where_in('name', Array("Reunião de Grupo", "Horário de dúvidas", 

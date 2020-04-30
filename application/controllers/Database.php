@@ -4,6 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Database extends CI_Controller {
 
+    public function __construct() {
+        parent::__construct();
+        $this->load->model('ScriptModel');
+    }
+
     public function index() {
         $this->load->helper('url'); $data["base_url"] = base_url();
 
@@ -15,52 +20,43 @@ class Database extends CI_Controller {
 
     public function reset()
     {
-        /*
-        FALTA:
-            etapa_submit
-            grupo_msg
-            member_classification
-            provate_msg
-            tarefa
-        */
 
         $time_start = microtime(true); 
 
         ///////////////////////////////
         //          ALUNOS
         ///////////////////////////////
+        $aluno1_id  = $this->ScriptModel->student("Henrique", "Francisco", "1@gmail.com", "", "This a great description");
+        $aluno2_id  = $this->ScriptModel->student("Joana", "Almeida", "2@gmail.com", "", "Gosto de entrar em salas do Zoom.");
+        $aluno3_id  = $this->ScriptModel->student("Rafael", "Sousa", "3@gmail.com", "", "Está calor hoje");
+        $aluno4_id  = $this->ScriptModel->student("Maria", "Silva", "4@gmail.com", "", "Tu eras aquela");
+        $aluno5_id  = $this->ScriptModel->student("David", "Peixoto", "5@gmail.com", "", "Que eu mais queria");
+        $aluno6_id  = $this->ScriptModel->student("Raquel", "Williams", "6@gmail.com", "", "P'ra me dar algum conforto e companhia");
+        $aluno7_id  = $this->ScriptModel->student("João", "Smith", "7@gmail.com", "", "Era só contigo que eu sonhava andar");
+        $aluno8_id  = $this->ScriptModel->student("Inês", "Pereira", "8@gmail.com", "", "P'ra todo lado e até quem sabe");
+        $aluno9_id  = $this->ScriptModel->student("Eduardo", "Ye", "9@gmail.com", "", "Talvez casar");
+        $aluno10_id = $this->ScriptModel->student("Cristina", "White", "10@gmail.com", "", "Ai o que eu passei");
+        $aluno11_id = $this->ScriptModel->student("Joel", "Figueiredo", "11@gmail.com", "", "Só por te amar");
+        $aluno12_id = $this->ScriptModel->student("Cecília", "Gomes", "12@gmail.com", "", "A saliva que eu gastei para te mudar");
 
-        $aluno1_id  = $this->student("Henrique", "Francisco", "1@gmail.com", "", "This a great description");
-        $aluno2_id  = $this->student("Joana", "Almeida", "2@gmail.com", "", "Gosto de entrar em salas do Zoom.");
-        $aluno3_id  = $this->student("Rafael", "Sousa", "3@gmail.com", "", "Está calor hoje");
-        $aluno4_id  = $this->student("Maria", "Silva", "4@gmail.com", "", "Tu eras aquela");
-        $aluno5_id  = $this->student("David", "Peixoto", "5@gmail.com", "", "Que eu mais queria");
-        $aluno6_id  = $this->student("Raquel", "Williams", "6@gmail.com", "", "P'ra me dar algum conforto e companhia");
-        $aluno7_id  = $this->student("João", "Smith", "7@gmail.com", "", "Era só contigo que eu sonhava andar");
-        $aluno8_id  = $this->student("Inês", "Pereira", "8@gmail.com", "", "P'ra todo lado e até quem sabe");
-        $aluno9_id  = $this->student("Eduardo", "Ye", "9@gmail.com", "", "Talvez casar");
-        $aluno10_id = $this->student("Cristina", "White", "10@gmail.com", "", "Ai o que eu passei");
-        $aluno11_id = $this->student("Joel", "Figueiredo", "11@gmail.com", "", "Só por te amar");
-        $aluno12_id = $this->student("Cecília", "Gomes", "12@gmail.com", "", "A saliva que eu gastei para te mudar");
-
-        $prof1_id = $this->teacher("Jasmim", "Pereira", "13@gmail.com", "", "Mas esse teu mundo era mais forte do que eu", "3.1.19");
-        $prof2_id = $this->teacher("Pedro", "Cegueira", "14@gmail.com", "", "E nem com a força da música ele se moveu", "3.2.15");
-        $prof3_id = $this->teacher("Carolina", "Sousa", "15@gmail.com", "", "Mesmo sabendo que não gostavas", "A234");
-        $prof4_id = $this->teacher("Catarina", "Ricardo", "16@gmail.com", "", "Empenhei o meu anel de rubi", "7.23.4");
-        $prof5_id = $this->teacher("Joacine", "Silva", "17@gmail.com", "", "P'ra te levar ao concerto", "3.4.5");
-        $prof6_id = $this->teacher("Cristina", "Félix", "18@gmail.com", "", "Que havia no rivolli", "Lisboa, Nº20, 2º Esq.");
-        $prof7_id = $this->teacher("Geraldo", "Artur", "19@gmail.com", "", "E era só a ti que eu mais queria", "6.2123");
-        $prof8_id = $this->teacher("Rodolfo", "Maia", "20@gmail.com", "", "Ao meu lado no concerto nesse dia", "1.2.3");
+        $prof1_id = $this->ScriptModel->teacher("Jasmim", "Pereira", "13@gmail.com", "", "Mas esse teu mundo era mais forte do que eu", "3.1.19");
+        $prof2_id = $this->ScriptModel->teacher("Pedro", "Cegueira", "14@gmail.com", "", "E nem com a força da música ele se moveu", "3.2.15");
+        $prof3_id = $this->ScriptModel->teacher("Carolina", "Sousa", "15@gmail.com", "", "Mesmo sabendo que não gostavas", "A234");
+        $prof4_id = $this->ScriptModel->teacher("Catarina", "Ricardo", "16@gmail.com", "", "Empenhei o meu anel de rubi", "7.23.4");
+        $prof5_id = $this->ScriptModel->teacher("Joacine", "Silva", "17@gmail.com", "", "P'ra te levar ao concerto", "3.4.5");
+        $prof6_id = $this->ScriptModel->teacher("Cristina", "Félix", "18@gmail.com", "", "Que havia no rivolli", "Lisboa, Nº20, 2º Esq.");
+        $prof7_id = $this->ScriptModel->teacher("Geraldo", "Artur", "19@gmail.com", "", "E era só a ti que eu mais queria", "6.2123");
+        $prof8_id = $this->ScriptModel->teacher("Rodolfo", "Maia", "20@gmail.com", "", "Ao meu lado no concerto nesse dia", "1.2.3");
 
         ///////////////////////////////
         //          FACULDADES
         ///////////////////////////////
         $this->db->where_in('siglas', Array("FCUL","FDUL","FLUL","FAUL","IST")); $this->db->delete('faculdade');
-        $this->db->insert("faculdade", Array("name"=>"Faculdade de Ciências",       "siglas"=>"FCUL", "location"=>"Campo Grande")); $faculdade1_id = $this->db->insert_id();
-        $this->db->insert("faculdade", Array("name"=>"Faculdade de Direito",        "siglas"=>"FDUL", "location"=>"Campus da UL")); $faculdade2_id = $this->db->insert_id();
-        $this->db->insert("faculdade", Array("name"=>"Faculdade de Letras",         "siglas"=>"FLUL", "location"=>"Reitoria da UL"));
-        $this->db->insert("faculdade", Array("name"=>"Faculdade de Arquitetura",    "siglas"=>"FAUL", "location"=>"Ninguém sabe"));
-        $this->db->insert("faculdade", Array("name"=>"Instituto Superior Técnico",  "siglas"=>"IST",  "location"=>"Alameda, Lisboa"));
+        $this->db->insert("faculdade", Array("name"=>"Faculdade de Ciências", "siglas"=>"FCUL", "location"=>"Campo Grande")); $faculdade1_id = $this->db->insert_id();
+        $this->db->insert("faculdade", Array("name"=>"Faculdade de Direito", "siglas"=>"FDUL", "location"=>"Campus da UL")); $faculdade2_id = $this->db->insert_id();
+        $this->db->insert("faculdade", Array("name"=>"Faculdade de Letras", "siglas"=>"FLUL", "location"=>"Reitoria da UL"));
+        $this->db->insert("faculdade", Array("name"=>"Faculdade de Arquitetura", "siglas"=>"FAUL", "location"=>"Ninguém sabe"));
+        $this->db->insert("faculdade", Array("name"=>"Instituto Superior Técnico", "siglas"=>"IST",  "location"=>"Alameda, Lisboa"));
 
         ///////////////////////////////
         //          ANO LETIVO
@@ -81,15 +77,15 @@ class Database extends CI_Controller {
         ///////////////////////////////
         //          CADEIRAS
         ///////////////////////////////
-        $cadeira1_id = $this->cadeira($curso1_id, "TEA84", "Teatro", "Teatro", "Ewwwww", "#ffb3ec");
-        $cadeira2_id = $this->cadeira($curso2_id, "ADC23523", "Arquitetura de Computadores", "AC", "Espinafres na sopa", "#e6b3ff");
-        $cadeira3_id = $this->cadeira($curso2_id, "RED0923", "Redes", "Redes", "Blach blah", "#b3b3ff");
-        $cadeira4_id = $this->cadeira($curso2_id, "LE34", "Línguas Estrangeiras", "LingE", "Nope", "#99ebff");
-        $cadeira5_id = $this->cadeira($curso2_id, "HO182", "História do Oriente", "HO", "Podem escrever mais aqui.", "#80ffdf");
-        $cadeira6_id = $this->cadeira($curso1_id, "SI2387", "Sistemas Interativos", "SI", "Kekerino", "#80ff80");
-        $cadeira7_id = $this->cadeira($curso1_id, "TI298", "Teoria de Imagem", "TI", "Não tem descriçao", "#d5ff80");
-        $cadeira8_id = $this->cadeira($curso1_id, "EDM24653", "Elementos de Matemática", "EM", "Adoro Gelatina", "#ffff80");
-        $cadeira9_id = $this->cadeira($curso1_id, "CIN234", "Cinematografia", "Cinema", "Crocodildo", "#ffd480");
+        $cadeira1_id = $this->ScriptModel->cadeira($curso1_id, "TEA84", "Teatro", "Teatro", "Ewwwww", "#ffb3ec");
+        $cadeira2_id = $this->ScriptModel->cadeira($curso2_id, "ADC23523", "Arquitetura de Computadores", "AC", "Espinafres na sopa", "#e6b3ff");
+        $cadeira3_id = $this->ScriptModel->cadeira($curso2_id, "RED0923", "Redes", "Redes", "Blach blah", "#b3b3ff");
+        $cadeira4_id = $this->ScriptModel->cadeira($curso2_id, "LE34", "Línguas Estrangeiras", "LingE", "Nope", "#99ebff");
+        $cadeira5_id = $this->ScriptModel->cadeira($curso2_id, "HO182", "História do Oriente", "HO", "Podem escrever mais aqui.", "#80ffdf");
+        $cadeira6_id = $this->ScriptModel->cadeira($curso1_id, "SI2387", "Sistemas Interativos", "SI", "Kekerino", "#80ff80");
+        $cadeira7_id = $this->ScriptModel->cadeira($curso1_id, "TI298", "Teoria de Imagem", "TI", "Não tem descriçao", "#d5ff80");
+        $cadeira8_id = $this->ScriptModel->cadeira($curso1_id, "EDM24653", "Elementos de Matemática", "EM", "Adoro Gelatina", "#ffff80");
+        $cadeira9_id = $this->ScriptModel->cadeira($curso1_id, "CIN234", "Cinematografia", "Cinema", "Crocodildo", "#ffd480");
 
         ///////////////////////////////
         //          AULAS
@@ -140,12 +136,12 @@ class Database extends CI_Controller {
         //          INSCRIÇÔES DE PROFESSORES EM CADEIRAS
         ///////////////////////////////
         $this->db->insert_batch('professor_cadeira', Array(
-            Array("user_id"=> $prof1_id, "cadeira_id"=>$cadeira1_id, "image_url"=>"1"),
-            Array("user_id"=> $prof1_id, "cadeira_id"=>$cadeira2_id, "image_url"=>"2"),
-            Array("user_id"=> $prof1_id, "cadeira_id"=>$cadeira3_id, "image_url"=>"3"),
-            Array("user_id"=> $prof1_id, "cadeira_id"=>$cadeira4_id, "image_url"=>"4"),
-            Array("user_id"=> $prof2_id, "cadeira_id"=>$cadeira1_id, "image_url"=>"1"),
-            Array("user_id"=> $prof2_id, "cadeira_id"=>$cadeira2_id, "image_url"=>"2"),
+            Array("user_id"=> $prof1_id, "cadeira_id"=>$cadeira1_id),
+            Array("user_id"=> $prof1_id, "cadeira_id"=>$cadeira2_id),
+            Array("user_id"=> $prof1_id, "cadeira_id"=>$cadeira3_id),
+            Array("user_id"=> $prof1_id, "cadeira_id"=>$cadeira4_id),
+            Array("user_id"=> $prof2_id, "cadeira_id"=>$cadeira1_id),
+            Array("user_id"=> $prof2_id, "cadeira_id"=>$cadeira2_id),
         )); 
         ///////////////////////////////
         //          INSCRIÇÔES EM AULAS
@@ -191,21 +187,21 @@ class Database extends CI_Controller {
         ///////////////////////////////
         //          PROJETOS
         ///////////////////////////////
-        $projeto1_id = $this->projeto($cadeira1_id, "Evolução da Ciência", "Texto que descreve este projeto científico.", 1, 2, "");
-        $projeto2_id = $this->projeto($cadeira1_id, "História das Artes", "Ninguém quer saber quando escolhe artes, mas pronto", 3, 4, "");
-        $projeto3_id = $this->projeto($cadeira2_id, "Inteligência Artificial", "Quando não percebes o código que escreveste...", 2, 6, "");
+        $projeto1_id = $this->ScriptModel->projeto($cadeira1_id, "Evolução da Ciência", "Texto que descreve este projeto científico.", 1, 2, "");
+        $projeto2_id = $this->ScriptModel->projeto($cadeira1_id, "História das Artes", "Ninguém quer saber quando escolhe artes, mas pronto", 3, 4, "");
+        $projeto3_id = $this->ScriptModel->projeto($cadeira2_id, "Inteligência Artificial", "Quando não percebes o código que escreveste...", 2, 6, "");
         ///////////////////////////////
         //          ETAPAS
         ///////////////////////////////
-        $etapa1_id = $this->etapa($projeto1_id, "2020-05-06 23:00:00", "", "Pesquisa", "Façam pesquisa no StackOverflow.");
-        $etapa2_id = $this->etapa($projeto1_id, "2020-05-21 23:55:00", "", "Implementação", "Copiem o código do StackOverflow.");
+        $etapa1_id = $this->ScriptModel->etapa($projeto1_id, "2020-05-06 23:00:00", "", "Pesquisa", "Façam pesquisa no StackOverflow.");
+        $etapa2_id = $this->ScriptModel->etapa($projeto1_id, "2020-05-21 23:55:00", "", "Implementação", "Copiem o código do StackOverflow.");
         ///////////////////////////////
         //          GRUPO
         ///////////////////////////////
-        $grupo1_id = $this->grupo($projeto1_id, "1");
-        $grupo2_id = $this->grupo($projeto1_id, "2");
-        $grupo3_id = $this->grupo($projeto1_id, "Gang");
-        $grupo4_id = $this->grupo($projeto2_id, "3");
+        $grupo1_id = $this->ScriptModel->grupo($projeto1_id, "1");
+        $grupo2_id = $this->ScriptModel->grupo($projeto1_id, "2");
+        $grupo3_id = $this->ScriptModel->grupo($projeto1_id, "Gang");
+        $grupo4_id = $this->ScriptModel->grupo($projeto2_id, "3");
         ///////////////////////////////
         //          INSCRIÇÔES EM GRUPOS
         ///////////////////////////////
@@ -227,10 +223,10 @@ class Database extends CI_Controller {
         ///////////////////////////////
         //          EVENTOS
         ///////////////////////////////
-        $evento1_id = $this->evento("2020-05-05 11:00:00", "2020-05-05 12:30:00", "Reunião de Grupo", "Discutir o modelo da base de dados. 1", "FCUL");
-        $evento2_id = $this->evento("2020-05-04 12:10:00", "2020-05-04 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 1", "6.3.45");
-        $evento3_id = $this->evento("2020-05-27 11:00:00", "2020-05-27 12:30:00", "Decidir Framework", "Esta descrição descreve o evento. 2", "Azenhas");
-        $evento4_id = $this->evento("2020-05-07 12:10:00", "2020-05-07 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 2", "6.3.45");
+        $evento1_id = $this->ScriptModel->evento("2020-05-05 11:00:00", "2020-05-05 12:30:00", "Reunião de Grupo", "Discutir o modelo da base de dados. 1", "FCUL");
+        $evento2_id = $this->ScriptModel->evento("2020-05-04 12:10:00", "2020-05-04 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 1", "6.3.45");
+        $evento3_id = $this->ScriptModel->evento("2020-05-27 11:00:00", "2020-05-27 12:30:00", "Decidir Framework", "Esta descrição descreve o evento. 2", "Azenhas");
+        $evento4_id = $this->ScriptModel->evento("2020-05-07 12:10:00", "2020-05-07 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 2", "6.3.45");
 
         ///////////////////////////////
         //          REUNIÔES DE GRUPO
@@ -251,10 +247,10 @@ class Database extends CI_Controller {
         ///////////////////////////////
         //          USER VAI A UM EVENTO
         ///////////////////////////////
-        $this->notification($aluno1_id, "message", "Mensagem de João Ye", "Atão crlh?", "/", false, "2020-04-23 11:30:31");
-        $this->notification($aluno1_id, "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "/", false, "2020-04-23 11:30:35");
-        $this->notification($aluno1_id, "alert", "Falhaste uma entrega", "Teatro", "/", false, "2020-04-23 11:30:30");
-        $this->notification($aluno1_id, "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "/", true, "2020-04-23 11:30:33");
+        $this->ScriptModel->notification($aluno1_id, "message", "Mensagem de João Ye", "Atão crlh?", "/", false, "2020-04-23 11:30:31");
+        $this->ScriptModel->notification($aluno1_id, "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "/", false, "2020-04-23 11:30:35");
+        $this->ScriptModel->notification($aluno1_id, "alert", "Falhaste uma entrega", "Teatro", "/", false, "2020-04-23 11:30:30");
+        $this->ScriptModel->notification($aluno1_id, "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "/", true, "2020-04-23 11:30:33");
             
 
         
@@ -268,51 +264,6 @@ class Database extends CI_Controller {
         echo "<p><b>Projeto principal</b><br>Evolução da Ciência</p>";
         echo "<p><b>Forum principal</b><br>Evolução da Ciência</p>";
         echo "<p><b>Thread principal</b><br>Avaliação da Cadeira</p>";
-    }
-
-
-
-    private function student($name, $surname, $email, $password, $description) {
-        $this->db->delete("user", ['email' => $email]);
-        $this->db->insert("user", Array("name"=>$name, "surname"=>$surname, "email"=>$email, "role"=>"student", "password"=>md5($password), "description"=>$description));
-        return $this->db->insert_id();
-    }
-
-    private function teacher($name, $surname, $email, $password, $description, $gabinete) {
-        $this->db->delete("user", ['email' => $email]);
-        $this->db->insert("user", Array("name"=>$name, "surname"=>$surname, "email"=>$email, "role"=>"teacher", "password"=>md5($password), "description"=>$description, "gabinete"=>$gabinete));
-        return $this->db->insert_id();
-    }
-
-    private function notification($user_id, $type, $title, $content, $link, $seen, $date) {
-        $this->db->insert("notification", Array("user_id"=>$user_id, "type"=>$type, "title"=>$title, "content"=>$content, "link"=>$link, "seen"=>$seen, "date"=>$date,));
-        return $this->db->insert_id();
-    }
-
-    private function cadeira($curso_id, $code, $name, $sigla, $description, $color) {
-        $this->db->insert("cadeira", Array("curso_id"=> $curso_id, "code"=>$code, "name"=>$name, "sigla"=>$sigla, "description"=>$description, "color"=>$color));
-        return $this->db->insert_id();
-    }
-
-    private function evento($start_date, $end_date, $name, $description, $location) {
-        $this->db->delete("evento", ['description' => $description]);
-        $this->db->insert("evento", Array("start_date"=> $start_date, "end_date"=>$end_date, "name"=>$name, "description"=>$description, "location"=>$location));
-        return $this->db->insert_id();
-    }
-
-    private function projeto($cadeira_id, $nome, $description, $min_elementos, $max_elementos, $enunciado_url) {
-        $this->db->insert("projeto", Array("cadeira_id"=> $cadeira_id, "nome"=>$nome, "description"=>$description, "min_elementos"=>$min_elementos, "max_elementos"=>$max_elementos, "enunciado_url"=>$enunciado_url));
-        return $this->db->insert_id();
-    }
-    
-    private function etapa($projeto_id, $deadline, $enunciado_url, $nome, $description) {
-        $this->db->insert("etapa", Array("projeto_id"=> $projeto_id, "deadline"=>$deadline, "enunciado_url"=>$enunciado_url, "nome"=>$nome, "description"=>$description));
-        return $this->db->insert_id();
-    }
-
-    private function grupo($projeto_id, $name) {
-        $this->db->insert("grupo", Array("projeto_id"=> $projeto_id, "name"=>$name));
-        return $this->db->insert_id();
     }
 
 }

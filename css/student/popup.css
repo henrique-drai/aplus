@@ -189,7 +189,7 @@ input[type="range"]::-webkit-slider-thumb:active {
     width: 50%;
 }
 
-.groupC:hover{
+.groupC:hover, .groupMembros{
    cursor: pointer;
 }
 
@@ -198,7 +198,7 @@ input[type="range"]::-webkit-slider-thumb:active {
 }
 
 
-.groupC {
+.groupC, .groupMembros {
     display: inline-block !important;
     margin: 2% 1% 3% auto;
     background-color: #fff;
@@ -209,6 +209,3 @@ input[type="range"]::-webkit-slider-thumb:active {
     padding: 1.25rem;
     width: 20%;
 }
-
-
-

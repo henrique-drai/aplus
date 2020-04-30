@@ -128,6 +128,11 @@ class SubjectModel extends CI_Model { //cadeira
         $this->db->insert("aluno_cadeira", $data);
     }
 
+    public function getNumSubjectByCourse($course){
+        $query = $this->db->get_where("cadeira", array('curso_id ' => $course));
+        return $query->num_rows();
+    }
+
     public function insertUpdate($data){
 
         $query = $this->db->get_where('aluno_cadeira', array(

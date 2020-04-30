@@ -260,7 +260,7 @@ function getCourses(){
             var linhas = '<option class="course_row" value="">Selecione uma Curso</option>';
             if(data.courses.length>0){
                 for(i=0; i<data.courses.length;i++){
-                    linhas += '<option class="course_row" value=' + data.courses[i].name +">" + data.courses[i].name + '</option>'; 
+                    linhas += '<option class="course_row" value=' + data.courses[i].name +">" + data.courses[i].name + " (" + data.numSubject[data.courses[i].name] + ")" + '</option>'; 
                 }    
                 $("#Consultar_Cadeiras_Curso").append(linhas);         
             }

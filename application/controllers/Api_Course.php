@@ -120,7 +120,15 @@ class Api_Course extends REST_Controller {
         }
 
         $this->load->model('CourseModel');
+        $this->load->model('SubjectModel');
         $data["courses"] = $this->CourseModel->getCourses();
+        $data["numSubject"] = array();
+        for($i=0; $i<count($data["courses"]);$i++){
+            $values = array(
+                $data["courses"][$i]["name"] => $this->SubjectModel->getNumSubjectByCourse($data["courses"][$i]["id"])
+            );
+            $data["numSubject"] = array_merge($data["numSubject"], $values);
+        }
         $this->response($data, parent::HTTP_OK);
 
     }

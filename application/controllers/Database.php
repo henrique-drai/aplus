@@ -120,21 +120,21 @@ class Database extends CI_Controller {
         //          INSCRIÇÔES DE ALUNOS EM CADEIRAS
         ///////////////////////////////
         $this->db->insert_batch('aluno_cadeira', Array(
-            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira1_id, "is_completed"=>False, "image_url"=>"1", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira2_id, "is_completed"=>False, "image_url"=>"2", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira3_id, "is_completed"=>False, "image_url"=>"3", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira4_id, "is_completed"=>False, "image_url"=>"4", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira5_id, "is_completed"=>True,  "image_url"=>"5", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno2_id, "cadeira_id"=>$cadeira1_id, "is_completed"=>False, "image_url"=>"1", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno2_id, "cadeira_id"=>$cadeira2_id, "is_completed"=>False, "image_url"=>"2", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno3_id, "cadeira_id"=>$cadeira3_id, "is_completed"=>True,  "image_url"=>"3", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno3_id, "cadeira_id"=>$cadeira4_id, "is_completed"=>False, "image_url"=>"4", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno4_id, "cadeira_id"=>$cadeira5_id, "is_completed"=>True,  "image_url"=>"5", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno5_id, "cadeira_id"=>$cadeira1_id, "is_completed"=>False, "image_url"=>"1", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno6_id, "cadeira_id"=>$cadeira2_id, "is_completed"=>False, "image_url"=>"2", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno6_id, "cadeira_id"=>$cadeira3_id, "is_completed"=>False, "image_url"=>"3", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno7_id, "cadeira_id"=>$cadeira4_id, "is_completed"=>False, "image_url"=>"4", "last_visited"=>date('Y-m-d H:i:s')),
-            Array("user_id"=> $aluno8_id, "cadeira_id"=>$cadeira5_id, "is_completed"=>True,  "image_url"=>"5", "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira1_id, "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira2_id, "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira3_id, "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira4_id, "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno1_id, "cadeira_id"=>$cadeira5_id, "is_completed"=>True,  "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno2_id, "cadeira_id"=>$cadeira1_id, "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno2_id, "cadeira_id"=>$cadeira2_id, "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno3_id, "cadeira_id"=>$cadeira3_id, "is_completed"=>True,  "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno3_id, "cadeira_id"=>$cadeira4_id, "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno4_id, "cadeira_id"=>$cadeira5_id, "is_completed"=>True,  "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno5_id, "cadeira_id"=>$cadeira1_id, "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno6_id, "cadeira_id"=>$cadeira2_id, "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno6_id, "cadeira_id"=>$cadeira3_id, "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno7_id, "cadeira_id"=>$cadeira4_id, "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+            Array("user_id"=> $aluno8_id, "cadeira_id"=>$cadeira5_id, "is_completed"=>True,  "last_visited"=>date('Y-m-d H:i:s')),
         ));       
         ///////////////////////////////
         //          INSCRIÇÔES DE PROFESSORES EM CADEIRAS
@@ -188,33 +188,24 @@ class Database extends CI_Controller {
         $this->db->insert("thread_post", Array("thread_id"=> $thread1_id, "user_id"=> $prof1_id,
             "content"=>"Avaliação da cadeira", "date" =>"2020-04-13 11:00:00")); 
             $post1_id = $this->db->insert_id();
-        
         ///////////////////////////////
         //          PROJETOS
         ///////////////////////////////
-        $this->db->insert("projeto", Array("cadeira_id"=> $cadeira1_id, "nome"=>"Evolução da Ciência",
-            "description"=>"Texto que descreve este projeto científico.",
-            "min_elementos"=>1, "max_elementos"=>2, "enunciado_url"=>"")); $projeto1_id = $this->db->insert_id();
-        $this->db->insert("projeto", Array("cadeira_id"=> $cadeira1_id, "nome"=>"História das Artes",
-            "description"=>"Ninguém quer saber quando escolhe artes, mas pronto",
-            "min_elementos"=>3, "max_elementos"=>4, "enunciado_url"=>"")); $projeto2_id = $this->db->insert_id();
-        $this->db->insert("projeto", Array("cadeira_id"=> $cadeira2_id, "nome"=>"Inteligência Artificial",
-            "description"=>"Quando não percebes o código que escreveste...",
-            "min_elementos"=>2, "max_elementos"=>6, "enunciado_url"=>""));
+        $projeto1_id = $this->projeto($cadeira1_id, "Evolução da Ciência", "Texto que descreve este projeto científico.", 1, 2, "");
+        $projeto2_id = $this->projeto($cadeira1_id, "História das Artes", "Ninguém quer saber quando escolhe artes, mas pronto", 3, 4, "");
+        $projeto3_id = $this->projeto($cadeira2_id, "Inteligência Artificial", "Quando não percebes o código que escreveste...", 2, 6, "");
         ///////////////////////////////
         //          ETAPAS
         ///////////////////////////////
-        $this->db->insert("etapa", Array("projeto_id"=> $projeto1_id, "deadline"=>"2020-05-01 11:11:00", "enunciado_url"=>"",
-            "nome"=>"Pesquisa", "description"=>"Façam pesquisa no StackOverflow.")); $etapa1_id = $this->db->insert_id();
-        $this->db->insert("etapa", Array("projeto_id"=> $projeto1_id, "deadline"=>"2020-10-11 11:10:00", "enunciado_url"=>"",
-            "nome"=>"Implementação", "description"=>"Copiem o código do StackOverflow."));
+        $etapa1_id = $this->etapa($projeto1_id, "2020-05-06 23:00:00", "", "Pesquisa", "Façam pesquisa no StackOverflow.");
+        $etapa2_id = $this->etapa($projeto1_id, "2020-05-21 23:55:00", "", "Implementação", "Copiem o código do StackOverflow.");
         ///////////////////////////////
         //          GRUPO
         ///////////////////////////////
-        $this->db->insert("grupo", Array("projeto_id"=> $projeto1_id, "name"=>"1")); $grupo1_id = $this->db->insert_id();
-        $this->db->insert("grupo", Array("projeto_id"=> $projeto1_id, "name"=>"2")); $grupo2_id = $this->db->insert_id();
-        $this->db->insert("grupo", Array("projeto_id"=> $projeto1_id, "name"=>"Nome Customizado")); $grupo3_id = $this->db->insert_id();
-        $this->db->insert("grupo", Array("projeto_id"=> $projeto2_id, "name"=>"3")); $grupo4_id = $this->db->insert_id();
+        $grupo1_id = $this->grupo($projeto1_id, "1");
+        $grupo2_id = $this->grupo($projeto1_id, "2");
+        $grupo3_id = $this->grupo($projeto1_id, "Gang");
+        $grupo4_id = $this->grupo($projeto2_id, "3");
         ///////////////////////////////
         //          INSCRIÇÔES EM GRUPOS
         ///////////////////////////////
@@ -236,16 +227,11 @@ class Database extends CI_Controller {
         ///////////////////////////////
         //          EVENTOS
         ///////////////////////////////
-        $this->db->where_in('name', Array("Reunião de Grupo", "Horário de dúvidas", 
-            "Decidir Framework")); $this->db->delete('evento');
-        $this->db->insert("evento", Array("start_date"=>"2020-05-05 11:00:00", "end_date"=>"2020-05-05 12:30:00", "name"=>"Reunião de Grupo",
-            "description"=>"Discutir o modelo da base de dados.", "location"=>"FCUL")); $evento1_id = $this->db->insert_id();
-        $this->db->insert("evento", Array("start_date"=>"2020-05-04 12:10:00", "end_date"=>"2020-05-04 14:30:00", "name"=>"Horário de dúvidas",
-            "description"=>"Horário de dúvidas com o(a) professor(a) José Cecílio", "location"=>"6.3.45")); $evento2_id = $this->db->insert_id(); 
-        $this->db->insert("evento", Array("start_date"=>"2020-05-27 11:00:00", "end_date"=>"2020-05-27 12:30:00", "name"=>"Decidir Framework",
-            "description"=>"Esta descrição descreve o evento.", "location"=>"Azenhas")); $evento3_id = $this->db->insert_id();
-        $this->db->insert("evento", Array("start_date"=>"2020-05-07 12:10:00", "end_date"=>"2020-05-07 14:30:00", "name"=>"Horário de dúvidas",
-            "description"=>"Horário de dúvidas com o(a) professor(a) José Cecílio", "location"=>"6.3.45")); $evento4_id = $this->db->insert_id(); 
+        $evento1_id = $this->evento("2020-05-05 11:00:00", "2020-05-05 12:30:00", "Reunião de Grupo", "Discutir o modelo da base de dados. 1", "FCUL");
+        $evento2_id = $this->evento("2020-05-04 12:10:00", "2020-05-04 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 1", "6.3.45");
+        $evento3_id = $this->evento("2020-05-27 11:00:00", "2020-05-27 12:30:00", "Decidir Framework", "Esta descrição descreve o evento. 2", "Azenhas");
+        $evento4_id = $this->evento("2020-05-07 12:10:00", "2020-05-07 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 2", "6.3.45");
+
         ///////////////////////////////
         //          REUNIÔES DE GRUPO
         ///////////////////////////////
@@ -299,14 +285,34 @@ class Database extends CI_Controller {
     }
 
     private function notification($user_id, $type, $title, $content, $link, $seen, $date) {
-        $this->db->delete("notification", ['title' => $title]);
         $this->db->insert("notification", Array("user_id"=>$user_id, "type"=>$type, "title"=>$title, "content"=>$content, "link"=>$link, "seen"=>$seen, "date"=>$date,));
         return $this->db->insert_id();
     }
 
     private function cadeira($curso_id, $code, $name, $sigla, $description, $color) {
-        $this->db->delete("cadeira", ['code' => $code]);
         $this->db->insert("cadeira", Array("curso_id"=> $curso_id, "code"=>$code, "name"=>$name, "sigla"=>$sigla, "description"=>$description, "color"=>$color));
         return $this->db->insert_id();
     }
+
+    private function evento($start_date, $end_date, $name, $description, $location) {
+        $this->db->delete("evento", ['description' => $description]);
+        $this->db->insert("evento", Array("start_date"=> $start_date, "end_date"=>$end_date, "name"=>$name, "description"=>$description, "location"=>$location));
+        return $this->db->insert_id();
+    }
+
+    private function projeto($cadeira_id, $nome, $description, $min_elementos, $max_elementos, $enunciado_url) {
+        $this->db->insert("projeto", Array("cadeira_id"=> $cadeira_id, "nome"=>$nome, "description"=>$description, "min_elementos"=>$min_elementos, "max_elementos"=>$max_elementos, "enunciado_url"=>$enunciado_url));
+        return $this->db->insert_id();
+    }
+    
+    private function etapa($projeto_id, $deadline, $enunciado_url, $nome, $description) {
+        $this->db->insert("etapa", Array("projeto_id"=> $projeto_id, "deadline"=>$deadline, "enunciado_url"=>$enunciado_url, "nome"=>$nome, "description"=>$description));
+        return $this->db->insert_id();
+    }
+
+    private function grupo($projeto_id, $name) {
+        $this->db->insert("grupo", Array("projeto_id"=> $projeto_id, "name"=>$name));
+        return $this->db->insert_id();
+    }
+
 }

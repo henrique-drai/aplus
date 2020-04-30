@@ -104,12 +104,6 @@ class Api_Admin extends REST_Controller {
 
         $this->load->model('UserModel');
         $role = $this -> get("role");
-        $file_name = "stInfo".date('Ymd').'.csv';
-
-        
-        header("Content-Description: File Transfer");
-        header("Content-Disposition: attachment; filename=$file_name");
-        header("Content-Type: application/csv;");
         
         $file = fopen('php://output','w');
         $header = array("Name", "Surname", "Email","Role", "Password");

@@ -29,11 +29,7 @@ class Database extends CI_Controller {
         ///////////////////////////////
         //          ALUNOS
         ///////////////////////////////
-        $this->db->where_in('email', Array("1@gmail.com","2@gmail.com","3@gmail.com","4@gmail.com","5@gmail.com","6@gmail.com",
-            "7@gmail.com","8@gmail.com","9@gmail.com","10@gmail.com","11@gmail.com","12@gmail.com","13@gmail.com","14@gmail.com",
-            "15@gmail.com","16@gmail.com","17@gmail.com","18@gmail.com","19@gmail.com","20@gmail.com",)); $this->db->delete('user');
 
-        // $prof_id = $this->teacher("name", "surname", "email", "", "description", "gabinete");
         $aluno1_id  = $this->student("Henrique", "Francisco", "1@gmail.com", "", "This a great description");
         $aluno2_id  = $this->student("Joana", "Almeida", "2@gmail.com", "", "Gosto de entrar em salas do Zoom.");
         $aluno3_id  = $this->student("Rafael", "Sousa", "3@gmail.com", "", "Está calor hoje");
@@ -189,7 +185,7 @@ class Database extends CI_Controller {
             "teachers_only"=>1)); $forum1_id = $this->db->insert_id();
 
         ///////////////////////////////
-        //          THREADS
+        //          THREADS DOS FORUNS
         ///////////////////////////////
         $this->db->insert("thread", Array("user_id"=> $prof1_id, "forum_id"=> $forum1_id,
             "title"=>"Avaliação da cadeira",
@@ -197,7 +193,7 @@ class Database extends CI_Controller {
             $thread1_id = $this->db->insert_id();
 
         ///////////////////////////////
-        //          POSTS
+        //          POSTS NAS THREADS
         ///////////////////////////////
         $this->db->insert("thread_post", Array("thread_id"=> $thread1_id, "user_id"=> $prof1_id,
             "content"=>"Avaliação da cadeira", "date" =>"2020-04-13 11:00:00")); 
@@ -244,17 +240,21 @@ class Database extends CI_Controller {
             Array("user_id"=> $aluno3_id,  "grupo_id"=>$grupo4_id),
         ));
         ///////////////////////////////
+        //          SUBMISSÃO_ETAPA
+        ///////////////////////////////
+        $this->db->insert("etapa_submit", Array("grupo_id"=>$grupo3_id, "etapa_id"=>$etapa1_id, "submit_url"=>"URL-FALSO-HEHE-XD"));
+        ///////////////////////////////
         //          EVENTOS
         ///////////////////////////////
         $this->db->where_in('name', Array("Reunião de Grupo", "Horário de dúvidas", 
             "Decidir Framework")); $this->db->delete('evento');
-        $this->db->insert("evento", Array("start_date"=>"2020-04-25 11:00:00", "end_date"=>"2020-04-25 12:30:00", "name"=>"Reunião de Grupo",
+        $this->db->insert("evento", Array("start_date"=>"2020-05-05 11:00:00", "end_date"=>"2020-05-05 12:30:00", "name"=>"Reunião de Grupo",
             "description"=>"Discutir o modelo da base de dados.", "location"=>"FCUL")); $evento1_id = $this->db->insert_id();
-        $this->db->insert("evento", Array("start_date"=>"2020-04-25 12:10:00", "end_date"=>"2020-04-25 14:30:00", "name"=>"Horário de dúvidas",
+        $this->db->insert("evento", Array("start_date"=>"2020-05-04 12:10:00", "end_date"=>"2020-05-04 14:30:00", "name"=>"Horário de dúvidas",
             "description"=>"Horário de dúvidas com o(a) professor(a) José Cecílio", "location"=>"6.3.45")); $evento2_id = $this->db->insert_id(); 
-        $this->db->insert("evento", Array("start_date"=>"2020-04-27 11:00:00", "end_date"=>"2020-04-27 12:30:00", "name"=>"Decidir Framework",
+        $this->db->insert("evento", Array("start_date"=>"2020-05-27 11:00:00", "end_date"=>"2020-05-27 12:30:00", "name"=>"Decidir Framework",
             "description"=>"Esta descrição descreve o evento.", "location"=>"Azenhas")); $evento3_id = $this->db->insert_id();
-        $this->db->insert("evento", Array("start_date"=>"2020-04-28 12:10:00", "end_date"=>"2020-04-28 14:30:00", "name"=>"Horário de dúvidas",
+        $this->db->insert("evento", Array("start_date"=>"2020-05-07 12:10:00", "end_date"=>"2020-05-07 14:30:00", "name"=>"Horário de dúvidas",
             "description"=>"Horário de dúvidas com o(a) professor(a) José Cecílio", "location"=>"6.3.45")); $evento4_id = $this->db->insert_id(); 
         ///////////////////////////////
         //          REUNIÔES DE GRUPO
@@ -272,7 +272,13 @@ class Database extends CI_Controller {
             Array("evento_id"=> $evento3_id,  "user_id"=>$aluno1_id),
             Array("evento_id"=> $evento4_id,  "user_id"=>$aluno1_id),
         ));
-
+        ///////////////////////////////
+        //          USER VAI A UM EVENTO
+        ///////////////////////////////
+        $this->notification($aluno1_id, "message", "Mensagem de João Ye", "Atão crlh?", "/", false, "2020-04-23 11:30:31");
+        $this->notification($aluno1_id, "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "/", false, "2020-04-23 11:30:35");
+        $this->notification($aluno1_id, "alert", "Falhaste uma entrega", "Teatro", "/", false, "2020-04-23 11:30:30");
+        $this->notification($aluno1_id, "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "/", true, "2020-04-23 11:30:33");
             
 
         
@@ -291,13 +297,20 @@ class Database extends CI_Controller {
 
 
     private function student($name, $surname, $email, $password, $description) {
+        $this->db->delete("user", ['email' => $email]);
         $this->db->insert("user", Array("name"=>$name, "surname"=>$surname, "email"=>$email, "role"=>"student", "password"=>md5($password), "description"=>$description));
         return $this->db->insert_id();
     }
 
     private function teacher($name, $surname, $email, $password, $description, $gabinete) {
+        $this->db->delete("user", ['email' => $email]);
         $this->db->insert("user", Array("name"=>$name, "surname"=>$surname, "email"=>$email, "role"=>"teacher", "password"=>md5($password), "description"=>$description, "gabinete"=>$gabinete));
         return $this->db->insert_id();
     }
 
+    private function notification($user_id, $type, $title, $content, $link, $seen, $date) {
+        $this->db->delete("notification", ['title' => $title]);
+        $this->db->insert("notification", Array("user_id"=>$user_id, "type"=>$type, "title"=>$title, "content"=>$content, "link"=>$link, "seen"=>$seen, "date"=>$date,));
+        return $this->db->insert_id();
+    }
 }

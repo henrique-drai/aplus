@@ -15,7 +15,7 @@
         $("#btn-reset").click((event)=>{
           event.preventDefault()
           $("#msg-box").html("A processar o pedido...")
-          $.get( "<?=$base_url?>database/reset", function(data) {$("#msg-box").html(data)});
+          $.get( "<?=$base_url?>database/small_script", function(data) {$("#msg-box").html(data)});
         })
       </script>
     </main>

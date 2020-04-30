@@ -14,18 +14,21 @@
         
             <div class="header">
                 <h2 id="groupName">Grupo: </h2>
-                <h2 id="cadeira">Cadeira: </h2>
+                <h3 id="cadeira">Cadeira: </h2>
             </div>
 
             <br>
             
-            <h4>Membros Não-Classificados:</h4>
-            <div class="notClassified"></div>
+            <div id="container">
+                <h4>Membros Não-Classificados:</h4>
+                <div class="notClassified"></div>
+            </div>
 
-               
-            <h4>Membros Classificados:</h4>
-            <div class="classified"></div>
-
+            <div id="container">  
+                <h4>Membros Classificados:</h4>
+                <div class="classified"></div>
+            </div>
+        
         </div>
 
          <div class="overlay">

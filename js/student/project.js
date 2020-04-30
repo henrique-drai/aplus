@@ -38,7 +38,7 @@ function showMyGroup(proj_id){
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "student/api/getMyGroupInProj",
+        url: base_url + "api/getMyGroupInProj",
         data: {proj_id: proj_id},
         success: function(data) {
         },

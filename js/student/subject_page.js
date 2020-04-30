@@ -8,9 +8,9 @@ $(document).ready(() => {
         window.location = base_url + "projects/project/" + $(this).attr("id");
     })
 
-    $("body").on("click", ".new_forum", function() {
-        window.location = base_url + "foruns/new/" + localStorage.cadeira_code + "/" + ano;
-    })
+    // $("body").on("click", ".new_forum", function() {
+    //     window.location = base_url + "foruns/new/" + localStorage.cadeira_code + "/" + ano;
+    // })
 
     $("body").on("click", ".forum_button", function() {
         localStorage.setItem("forum_id", $(this).attr("id"));

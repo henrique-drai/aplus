@@ -115,8 +115,8 @@ $(document).ready(() => {
         $("#save_button_hours").hide();
     })
 
-    var link = location.href.split("aplus")[1];
-    var ano = link.split("/")[4];
+    var link = location.href.split(localStorage.cadeira_code);
+    var ano = link[1].replace("/","");
 
 
     $("body").on("click", ".studentsList_button", function() {

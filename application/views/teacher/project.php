@@ -2,6 +2,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/projects/projects-general.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-projects.css">
 <script>setPageName("subjects")</script>
+<script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/project.js"></script>
 <script>setProj("<?php echo $project[0]["id"]; ?>")</script>
 <script>setEnunciado("<?php echo addslashes($project[0]["enunciado_url"]); ?>")</script>

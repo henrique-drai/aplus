@@ -109,6 +109,22 @@ class Api_Course extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function getAllCourses_get(){
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        $this->load->model('CourseModel');
+        $data["courses"] = $this->CourseModel->getCourses();
+        $this->response($data, parent::HTTP_OK);
+
+    }
+
 
     //////////////////////////////////////////////////////////////
     //                      DELETE

@@ -38,6 +38,15 @@ class CourseModel extends CI_Model { //curso & curso_standard
         return $query->row();
     }
 
+    public function getCourses(){
+        $query = $this->db->get("curso");
+        return $query->result_array();
+    }
+
+    public function getCursobyName($cursoName){
+        $query = $this->db->get_where("curso", array('name'=>$cursoName));
+        return $query->result_array();
+    }
 
     public function editCourse($data){
 

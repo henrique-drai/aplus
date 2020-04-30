@@ -190,35 +190,144 @@ class Api_Subject extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function getAllSubjectsByCourse_get(){
-        $this->verify_request();
-        $courses = $this->get('courses');
+    // public function getAllSubjectsByCourse_get(){
+    //     $this->verify_request();
+    //     $courses = $this->get('courses');
+    //     $this->load->model('SubjectModel');
+    //     $this->load->model('CourseModel');
+    //     $data["courses"] = array(); 
+    //     if(is_array($courses)){
+    //         $data["subjects"] = array();
+            
+    //         for($x=0; $x<count($courses); $x++){
+    //             $cursos = $this->SubjectModel->getSubjectsByCursoId($courses[$x]["id"]);
+    //             $data["subjects"]=array_merge($data["subjects"], $cursos);
+    //         }
+    //         for($i=0; $i<count($data["subjects"]); $i++){
+    //             array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
+    //         };
+    //     }
+    //     else{
+    //         $data["subjects"] = $this->SubjectModel->getSubjectsByCursoId($courses);
+    //         for($i=0; $i<count($data["subjects"]); $i++){
+    //             array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
+    //         };
+    //     }
+        
+        
+    //     $this->response($data, parent::HTTP_OK);
+    // }
+
+    public function getSubjectsByFilters_get(){
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        $faculdade = $this->get('f'); 
+        $curso = $this->get('c');
+        $ano = $this->get('a');
         $this->load->model('SubjectModel');
         $this->load->model('CourseModel');
         $data["courses"] = array(); 
-        if(is_array($courses)){
-            $data["subjects"] = array();
-            
-            for($x=0; $x<count($courses); $x++){
-                $cursos = $this->SubjectModel->getSubjectsByCursoId($courses[$x]["id"]);
-                $data["subjects"]=array_merge($data["subjects"], $cursos);
+        $data["subjects"] = array();
+
+        if($faculdade != "" && $curso != "" && $ano != ""){
+            $cursos = $this->CourseModel->getCollegeCourses($faculdade);
+            for($i=0; $i<count($cursos);$i++){
+                if($curso == $cursos[$i]["name"] && $ano == $cursos[$i]["ano_letivo_id"]){
+                    $getcursos = $this->SubjectModel->getSubjectsByCursoId($cursos[$i]["id"]);
+                    $data["subjects"]=array_merge($data["subjects"], $getcursos);
+                }
+            }
+            for($i=0; $i<count($data["subjects"]); $i++){
+                array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
+            };
+                
+        }
+        else if($faculdade != "" && $curso != "" && $ano == ""){
+            $cursos = $this->CourseModel->getCollegeCourses($faculdade);
+            for($i=0; $i<count($cursos);$i++){
+                if($curso == $cursos[$i]["name"]){
+                    $getcursos = $this->SubjectModel->getSubjectsByCursoId($cursos[$i]["id"]);
+                    $data["subjects"]=array_merge($data["subjects"], $getcursos);
+                }
             }
             for($i=0; $i<count($data["subjects"]); $i++){
                 array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
             };
         }
-        else{
-            $data["subjects"] = $this->SubjectModel->getSubjectsByCursoId($courses);
+        else if($faculdade != "" && $curso == "" && $ano != ""){
+            $cursos = $this->CourseModel->getCollegeCourses($faculdade);
+            for($i=0; $i<count($cursos);$i++){
+                if($ano == $cursos[$i]["ano_letivo_id"]){
+                    $getcursos = $this->SubjectModel->getSubjectsByCursoId($cursos[$i]["id"]);
+                    $data["subjects"]=array_merge($data["subjects"], $getcursos);
+                }
+            }
             for($i=0; $i<count($data["subjects"]); $i++){
                 array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
             };
         }
+        else if($faculdade == "" && $curso != "" && $ano != ""){
+            $cursos = $this->CourseModel->getCursobyName($curso);
+            for($i=0; $i<count($cursos);$i++){
+                if($ano == $cursos[$i]["ano_letivo_id"]){
+                    $getcursos = $this->SubjectModel->getSubjectsByCursoId($cursos[$i]["id"]);
+                    $data["subjects"]=array_merge($data["subjects"], $getcursos);
+                }
+            }
+            for($i=0; $i<count($data["subjects"]); $i++){
+                array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
+            };
+            
+        }
+        else if($faculdade != "" && $curso == "" && $ano == ""){
+            $cursos = $this->CourseModel->getCollegeCourses($faculdade);
+            for($i=0; $i<count($cursos);$i++){
+                $getcursos = $this->SubjectModel->getSubjectsByCursoId($cursos[$i]["id"]);
+                $data["subjects"]=array_merge($data["subjects"], $getcursos);
+            }
+            for($i=0; $i<count($data["subjects"]); $i++){
+                array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
+            };
+        }
+        else if($faculdade == "" && $curso != "" && $ano == ""){
+            $cursos = $this->CourseModel->getCursobyName($curso);
+            for($i=0; $i<count($cursos);$i++){
+                $getcursos = $this->SubjectModel->getSubjectsByCursoId($cursos[$i]["id"]);
+                $data["subjects"]=array_merge($data["subjects"], $getcursos);
+            }
+            for($i=0; $i<count($data["subjects"]); $i++){
+                array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
+            };
+        }
+        else if($faculdade == "" && $curso == "" && $ano != ""){
+            $cursos = $this->CourseModel->getCoursesByYear($ano);
+            for($i=0; $i<count($cursos);$i++){
+                $getcursos = $this->SubjectModel->getSubjectsByCursoId($cursos[$i]["id"]);
+                $data["subjects"]=array_merge($data["subjects"], $getcursos);
+            }
+            for($i=0; $i<count($data["subjects"]); $i++){
+                array_push($data["courses"], $this->CourseModel->getCursobyId($data["subjects"][$i]["curso_id"]));
+            };
+        }
+
+        else if($faculdade == "" && $curso == "" && $ano = ""){
+            $data["subjects"] = "";
+        }
+
         
-        
+
+
+
         $this->response($data, parent::HTTP_OK);
+
     }
-
-
 
 
     //////////////////////////////////////////////////////////////

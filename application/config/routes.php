@@ -79,12 +79,12 @@ $route['api/getAllSubjects']                    = 'Api_Subject/getAllSubjects';
 // $route['api/getAllCoursesByYear']               = 'Api_Course/getAllCoursesByYear';
 $route['api/getSubjectsByFilters']              = 'Api_Subject/getSubjectsByFilters';
 $route['api/saveCSV']                           = 'Api_Admin/export';
+$route['api/importX']                           = 'Api_Admin/importX';
 $route['api/deleteUser']                        = 'Api_User/deleteUser';
 $route['api/deleteCollege']                     = 'Api_College/deleteCollege';
 $route['api/deleteSubject']                     = 'Api_Subject/deleteSubject';
 $route['api/deleteSchoolYear']                  = 'Api_Year/deleteSchoolYear';
 $route['api/deleteCourse']                      = 'Api_Course/deleteCourse';
-$route['api/importX']                           = 'Api_Admin/importX';
 
 
 #Raul#ja arrumo#dw#

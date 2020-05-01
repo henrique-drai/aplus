@@ -29,6 +29,15 @@ class Api_Admin extends REST_Controller {
 
     public function importX_post(){
 
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
         $role = $this->post('role');
 
         if($role=="users"){
@@ -41,6 +50,16 @@ class Api_Admin extends REST_Controller {
 
     // IMPORTAR USERS
     public function importCSV(){
+        
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
         $this->load->helper('url');
         $this -> load -> model('UserModel');
         $count_files = $_FILES["userfile"]['tmp_name'];
@@ -67,6 +86,16 @@ class Api_Admin extends REST_Controller {
 
     // IMPORTAR AUNOS E AS SUAS CADEIRAS
     public function importStudentSubjects(){
+        
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
         $this->load->helper('url');
         $this -> load -> model('UserModel');
         $this -> load -> model('SubjectModel');

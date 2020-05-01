@@ -159,10 +159,10 @@ function small_script($m) {
       Array("evento_id"=> $evento4_id,  "user_id"=>$aluno1_id),
     ));
 
-    $m->notification($aluno1_id, "message", "Mensagem de João Ye", "Atão crlh?", "/", false, "2020-04-23 11:30:31");
-    $m->notification($aluno1_id, "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "/", false, "2020-04-23 11:30:35");
-    $m->notification($aluno1_id, "alert", "Falhaste uma entrega", "Teatro", "/", false, "2020-04-23 11:30:30");
-    $m->notification($aluno1_id, "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "/", true, "2020-04-23 11:30:33");
+    $m->notification($aluno1_id, "message", "Mensagem de João Ye", "Atão crlh?", "app/profile/2801", false, "2020-04-23 11:30:31");
+    $m->notification($aluno1_id, "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "app/profile/2", false, "2020-04-23 11:30:35");
+    $m->notification($aluno1_id, "alert", "Falhaste uma entrega", "Teatro", "subjects/subject/TEA84/2019", false, "2020-04-23 11:30:30");
+    $m->notification($aluno1_id, "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "app/profile/62", true, "2020-04-23 11:30:33");
         
     $execution_time = microtime(true) - $time_start;
 

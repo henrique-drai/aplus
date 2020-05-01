@@ -5,6 +5,7 @@ var notifications = []
 $(document).ready(() => {
     $(".nav-menu-btn-logout").click(() => {endSession()})
     $("#nav-menu-toggle").click(()=>{toggleMenu()})
+    $(".btn-notifications").click(()=>{toggleNotifications()})
     updateNavMenuData()
     updateNotifications()
 })
@@ -88,5 +89,49 @@ function updateNotifications(){
 }
 
 function renderNotifications(){
-    console.log(notifications)
+
+    function getDate(date){
+        const diff = Date.now() - new Date(date)
+
+        if (diff < 1000*60*60*24)
+            return "Há "+Math.floor(diff/1000/60/60)+" horas"
+
+        return "Há "+Math.floor(diff/1000/60/60/24)+" dias"
+    }
+
+    let divs = []
+    
+    for (const n of notifications) {
+        let img
+
+        switch(n.type){
+            case "message":
+                img = $('<img src="' + base_url + 'images/icons/message.png" alt="Message Notification">')
+                break
+            case "alert":
+                img = $('<img src="' + base_url + 'images/icons/alert.png" alt="Alert Notification">')
+                break
+            default: break
+        }
+        
+        divs.push(
+            $('<div class="notification"></div>').append(
+                $('<div class="icon"></div>').append(img),
+                $('<div class="body"></div>').append(
+                    $('<a href="' + base_url + n.link + '"></a>').append(
+                        $("<div></div>").append(
+                            $('<div class="title">' + n.title + '</div>'),
+                            $('<div class="content">' + n.content + '</div>'),
+                            $('<div class="date">' + getDate(n.date) + '</div>')
+        )))))
+    }
+
+    $(".nav-notifications").html(divs)
+}
+
+function toggleNotifications(){
+    if($(".nav-notifications").hasClass("hidden"))
+        $(".nav-notifications").removeClass("hidden")
+    else
+        $(".nav-notifications").addClass("hidden")
 }

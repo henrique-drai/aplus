@@ -32,6 +32,9 @@ $picture = $base_url . $file . "?" . time();
                 <div class="alert hidden"></div>
             </div>
         </div>
+
+        <div class="nav-notifications hidden"></div>
+
         <hr>
         <ul id="nav-menu-links"></ul>
         <hr>

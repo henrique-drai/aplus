@@ -55,7 +55,7 @@ function updateNavMenuData(){
     $.ajax({
         type: "GET",
         headers: {"Authorization": localStorage.token},
-        url: base_url + "api/user/"+localStorage.user_id,
+        url: base_url + "api/user",
         success: function(data) {
             const obj = JSON.parse(data)
             $(".nav-menu-user-name").text(obj.name + " " + obj.surname)

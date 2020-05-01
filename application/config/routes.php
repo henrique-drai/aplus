@@ -14,9 +14,9 @@ $route['api/event/going/(:num)']                = 'Api_Event/going/$1';
 $route['api/login']                             = 'Api_Authentication/login';
 $route['api/logout']                            = 'Api_Authentication/logout';
 
-$route['api/user/(:num)']                       = 'Api_User/user/$1';
+$route['api/user']                              = 'Api_User/user';
 
-$route['api/notifications/new']                = 'Api_Notification/new';
+$route['api/notifications/new']                 = 'Api_Notification/new';
 $route['api/notifications/all']                 = 'Api_Notification/all';
 
 $route['api/removeForum/(:num)']                = 'Api_Forum/removeForum/$1';

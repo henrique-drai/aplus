@@ -135,4 +135,16 @@ class UserModel extends CI_Model {
         $this->db->where('id', $user_id);
         $this->db->update('user');
     }
+
+    public function insertUpdate($data){
+        #Necessário fazer o else update?
+        $query = $this->db->get_where('user', array(
+            'email ='         => $data["email"], 
+        ));
+
+        if ($query->num_rows() == 0) {
+            $this->db->insert('user', $data);  
+        }
+
+    }
 }

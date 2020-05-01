@@ -82,6 +82,7 @@ $route['api/deleteCollege']                     = 'Api_College/deleteCollege';
 $route['api/deleteSubject']                     = 'Api_Subject/deleteSubject';
 $route['api/deleteSchoolYear']                  = 'Api_Year/deleteSchoolYear';
 $route['api/deleteCourse']                      = 'Api_Course/deleteCourse';
+$route['api/importX']                           = 'Api_Admin/importX';
 
 
 #Raul#ja arrumo#dw#

@@ -10,35 +10,57 @@ $(document).ready(() => {
             data:{role:$("#exportCsv select").val()},
             success:function(data){
             
-            var downloadLink = document.createElement("a");
-            var fileData = ['\ufeff'+data];   
+                    var downloadLink = document.createElement("a");
+                    var fileData = ['\ufeff'+data];   
 
-            var blobObject = new Blob(fileData,{
-                type: "text/csv;charset=utf-8;"
-            });
+                    var blobObject = new Blob(fileData,{
+                        type: "text/csv;charset=utf-8;"
+                    });
 
-            var url = URL.createObjectURL(blobObject);
-            downloadLink.href = url;
-            var role = $("#exportCsv select").val();
+                    var url = URL.createObjectURL(blobObject);
+                    downloadLink.href = url;
+                    var role = $("#exportCsv select").val();
 
-            if(role=="student"){
-                downloadLink.download = "students.csv";
-            }
-            else if(role=="teacher"){
-                downloadLink.download = "teachers.csv";
-            }
-            else{
-                downloadLink.download = "studentsTeachers.csv";
-            }
-            
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
+                    if(role=="student"){
+                        downloadLink.download = "students.csv";
+                    }
+                    else if(role=="teacher"){
+                        downloadLink.download = "teachers.csv";
+                    }
+                    else{
+                        downloadLink.download = "studentsTeachers.csv";
+                    }
+                    
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
 
-
-            }
+                    }
         })
     })
+
+    
+    $("#file-form").submit(function(e) {
+        e.preventDefault();    
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: base_url + "api/importX",
+            type: 'POST',
+            headers: {"Authorization": localStorage.token},
+            data: formData,
+            success: function (data) {
+                $("#importStatus").html("Ficheiro importado com sucesso");
+                $("#importStatus").show().delay(2000).fadeOut();
+                $("#myfile").val("");
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+
+    
 
 })
 

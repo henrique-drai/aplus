@@ -68,7 +68,7 @@
 
                 <br>
 
-                <form id="file-form" method="post" action="<?php echo base_url(); ?>api/importX" enctype="multipart/form-data">
+                <form id="file-form" action="javascript:void(0)" enctype="multipart/form-data">
                     
                     <label for="myfile">Importar dados:</label>
                     
@@ -83,6 +83,9 @@
                     <input type="submit" id="import-data-submit"  value="Importar">
                 </form>
                 <br>
+
+                <div id="importStatus">
+                </div>
             </div>
 
         </section>

@@ -23,40 +23,72 @@ class Api_Admin extends REST_Controller {
 
     }
 
-    // // IMPORTAR USERS
-    // public function importCSV(){
-    //     $this->verify_request();
-    //     $this->load->helper('url');
-    //     $this -> load -> model('UserModel');
-    //     $count_files = $_FILES["userfile"]['tmp_name'];
-    //     $file  = fopen($count_files, 'r');
+    //////////////////////////////////////////////////////////////
+    //                         IMPORTAR USERS
+    //////////////////////////////////////////////////////////////
 
-    //     // Skip first line
-    //     fgetcsv($file, 0, ","); 
-    //     while (($column = fgetcsv($file, 0, ",")) !== FALSE) {
-    //         $data = Array(
-    //             "name"      => $column[0],
-    //             "surname"   => $column[1],
-    //             "email"     => $column[2],
-    //             "role"      => $column[3],
-    //             "password"  => $column[4]
-    //         );
-    //         $this -> UserModel -> registerUser($data);        
-    //     }
-    //     header("Location: ". base_url()."app/admin/");
-    // }
+    public function importX_post(){
 
-    // public function importX_post(){
-    //     $role = $this->post('role');
-    //     print_r($role);
+        $role = $this->post('role');
 
-    //     if($role=="users"){
-    //         $this -> importCSV();
-    //     }
-    //     else{
-    //         $this -> importStudentSubjects();
-    //     }
-    // }
+        if($role=="users"){
+            $this -> importCSV();
+        }
+        else{
+            $this -> importStudentSubjects();
+        }
+    }
+
+    // IMPORTAR USERS
+    public function importCSV(){
+        $this->load->helper('url');
+        $this -> load -> model('UserModel');
+        $count_files = $_FILES["userfile"]['tmp_name'];
+        $file  = fopen($count_files, 'r');
+
+        // Skip first line
+        fgetcsv($file, 0, ","); 
+        while (($column = fgetcsv($file, 0, ",")) !== FALSE) {
+
+            $data = Array(
+                "name"      => $column[0],
+                "surname"   => $column[1],
+                "email"     => $column[2],
+                "role"      => $column[3],
+                "password"  => $column[4]
+            );
+            // print_r($data);
+
+            // $this -> UserModel -> registerUser($data);   
+            $this -> UserModel -> insertUpdate($data);       
+        }
+        // header("Location: ". base_url()."app/admin/");
+    }
+
+    // IMPORTAR AUNOS E AS SUAS CADEIRAS
+    public function importStudentSubjects(){
+        $this->load->helper('url');
+        $this -> load -> model('UserModel');
+        $this -> load -> model('SubjectModel');
+        $count_files = $_FILES["userfile"]['tmp_name'];
+        $file  = fopen($count_files, 'r');
+
+        // Skip first line
+        fgetcsv($file, 0, ","); 
+        while (($column = fgetcsv($file, 0, ",")) !== FALSE) {
+
+            $idUser = $this -> UserModel -> getUserByEmailRA($column[0]);
+            
+            $data = Array(
+                "user_id"      => $idUser[0]['id'],
+                "cadeira_id"   => $column[1],
+                "is_completed"     => $column[2],
+                "image_url"     => "",
+            );
+            $this -> SubjectModel -> insertUpdate($data);        
+        }
+        header("Location: ". base_url()."app/admin/");
+    }
 
     //////////////////////////////////////////////////////////////
     //                           POST

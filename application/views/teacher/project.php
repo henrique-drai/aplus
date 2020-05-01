@@ -1,6 +1,7 @@
 <title>A+ for Teachers</title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/projects/projects-general.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-projects.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/pagination-min.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/project.js"></script>
@@ -32,6 +33,7 @@
         </div>
 
         <div id="grupos-container" class="container">
+            <div id="grupos-container2"></div>
         </div>
 
         <br><br>

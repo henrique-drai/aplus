@@ -673,7 +673,8 @@ function showGroups(proj_id) {
         success: function(data) {
             console.log(data);
             var linhas = '<option value="">--- Grupos ---</option>';
-            var str = ''
+            // var str = ''
+            var array = [];
             
             for(var i=0; i < data["grupos"].length; i++) {
                 var names = '';
@@ -684,16 +685,32 @@ function showGroups(proj_id) {
                     }
                 }
                 
-                str += '<div class="gruposDIV" id="grupo' + data["grupos"][i].id + '">' +
+                // str += '<div class="gruposDIV" id="grupo' + data["grupos"][i].id + '">' +
+                //     '<p><b> Grupo: </b>' + data["grupos"][i].name + '</p>' +
+                //     '<p><b>Membros: </b>'+ names.slice(0, -2) +'</p>' +
+                //     '<p><input id="chatButton" type="button" value="Chat"></p></div><hr>'
+
+                array.push('<div class="gruposDIV" id="grupo' + data["grupos"][i].id + '">' +
                     '<p><b> Grupo: </b>' + data["grupos"][i].name + '</p>' +
                     '<p><b>Membros: </b>'+ names.slice(0, -2) +'</p>' +
-                    '<p><input id="chatButton" type="button" value="Chat"></p></div><hr>'
+                    '<p><input id="chatButton" type="button" value="Chat"></p></div><hr>');
+
 
                 linhas += '<option value=' +  data["grupos"][i].id  +">" + data["grupos"][i].name  + '</option>'; 
             }
             
-            $("#grupos-container").html(str);
+            // $("#grupos-container").html(str);
+
             $("#select_grupo_feedback").html(linhas);
+
+            $('#grupos-container').pagination({
+                dataSource: array,
+                pageSize: 5,
+                pageNumber: 1,
+                callback: function(data, pagination) {
+                    $("#grupos-container2").html(data);
+                }
+            })
         },
         error: function(data) {
             console.log("Erro na API - Show Groups")

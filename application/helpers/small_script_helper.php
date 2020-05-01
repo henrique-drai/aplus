@@ -47,11 +47,11 @@ function small_script($m) {
     $cadeira8_id = $m->cadeira($curso1_id, "EDM24653", "Elementos de Matemática", "EM", "Adoro Gelatina", "#ffff80");
     $cadeira9_id = $m->cadeira($curso1_id, "CIN234", "Cinematografia", "Cinema", "Crocodildo", "#ffd480");
 
-    $aula1_id = $m->aula($cadeira1_id, "PL", "10:30", "12:00");
-    $aula2_id = $m->aula($cadeira1_id, "T", "10:00", "12:00");
-    $aula3_id = $m->aula($cadeira1_id, "TP", "15:30", "17:00");
-    $aula4_id = $m->aula($cadeira2_id, "PL", "16:30", "18:00");
-    $aula5_id = $m->aula($cadeira2_id, "T", "08:00", "9:30");
+    $aula1_id = $m->aula($cadeira1_id, "PL", "10:30", "12:00", 1, "1.3.24");
+    $aula2_id = $m->aula($cadeira1_id, "T", "10:00", "12:00", 2, "6.3.24");
+    $aula3_id = $m->aula($cadeira1_id, "TP", "15:30", "17:00", 3, "3.4.52");
+    $aula4_id = $m->aula($cadeira2_id, "PL", "16:30", "18:00", 2, "3.2.12");
+    $aula5_id = $m->aula($cadeira2_id, "T", "08:00", "9:30", 4, "8.1.12");
 
     $m->batch("aluno_curso", Array(
       Array("user_id"=> $aluno1_id, "curso_id"=>$curso2_id, "data_entrada"=>""),

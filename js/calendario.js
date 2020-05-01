@@ -33,7 +33,8 @@ function renderCalendario(){
                         start = $('<div class="start">'+getClassTimeString(event.obj.start_time)+'</div>')
                         desc = $('<div class="desc">'+event.obj.sigla+' ('+event.obj.type+')</div>')
                         end = $('<div class="end">'+getClassTimeString(event.obj.end_time)+'</div>')
-                        cell.css("background-color",calendario.cores[event.obj.cadeira_id])
+                        //cell.css("background-color",calendario.cores[event.obj.cadeira_id])
+                        cell.css("background-color", event.obj.color)
                         break
                     
                     case "group":
@@ -76,7 +77,7 @@ function updateCalendario(){
         success: function(data) {
             setCalendario(data)
             renderCalendario()
-            //console.log(calendario)
+            //console.log(data)
         },
         error: function(data) {
             console.log("Problema na API ao buscar o calendário.")
@@ -89,7 +90,7 @@ function setCalendario(data){
     //console.log(data)
 
     calendario.events = []
-    calendario.cores = {}
+    //calendario.cores = {}
 
     for (const c of data.classes){
         for (const day of calendario.days){
@@ -100,9 +101,9 @@ function setCalendario(data){
                 calendario.events.push({start_time: date, type: "class", obj: c})
             }
         }
-        if (!calendario.cores[c.cadeira_id]){
-            calendario.cores[c.cadeira_id] = getRandomColor()
-        }
+        // if (!calendario.cores[c.cadeira_id]){
+        //     calendario.cores[c.cadeira_id] = getRandomColor()
+        // }
     }
     for (const e of data.events)
         calendario.events.push({start_time: new Date(e.start_date), type: "event", obj: e})

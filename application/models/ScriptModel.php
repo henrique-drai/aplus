@@ -65,8 +65,8 @@ class ScriptModel extends CI_Model {
     return $this->db->insert_id();
   }
 
-  public function aula($cadeira_id, $type, $start_time, $end_time) {
-    $this->db->insert("aula", Array("cadeira_id"=> $cadeira_id, "type"=>$type, "start_time"=>$start_time, "end_time"=>$end_time));
+  public function aula($cadeira_id, $type, $start_time, $end_time, $day_week, $classroom) {
+    $this->db->insert("aula", Array("cadeira_id"=> $cadeira_id, "type"=>$type, "start_time"=>$start_time, "end_time"=>$end_time, "day_week"=>$day_week, "classroom"=>$classroom));
     return $this->db->insert_id();
   }
 

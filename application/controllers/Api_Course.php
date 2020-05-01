@@ -109,6 +109,30 @@ class Api_Course extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function getAllCourses_get(){
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        $this->load->model('CourseModel');
+        $this->load->model('SubjectModel');
+        $data["courses"] = $this->CourseModel->getCourses();
+        $data["numSubject"] = array();
+        for($i=0; $i<count($data["courses"]);$i++){
+            $values = array(
+                $data["courses"][$i]["name"] => $this->SubjectModel->getNumSubjectByCourse($data["courses"][$i]["id"])
+            );
+            $data["numSubject"] = array_merge($data["numSubject"], $values);
+        }
+        $this->response($data, parent::HTTP_OK);
+
+    }
+
 
     //////////////////////////////////////////////////////////////
     //                      DELETE

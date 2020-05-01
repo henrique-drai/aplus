@@ -9,14 +9,18 @@ $(document).ready(() => {
             "href": base_url + "app/student/subjects",
             "name": "Cadeiras"
         },
+        "grupos": {
+            "href": base_url + "app/student/grupos",
+            "name": "Grupos"
+        },
         "chat": {
             "href": base_url + "app/chat/"+localStorage.user_id,
             "name": "Chat"
         },
-        "rating": {
-            "href": base_url + "app/student/rating",
-            "name": "Rating"
-        }
+        // "rating": {
+        //     "href": base_url + "app/student/rating",
+        //     "name": "Rating"
+        // }
     }
 
     printNavBarLinks(pages)

@@ -32,10 +32,6 @@ $(document).ready(() => {
     
 
     $("#register-cadeira-submit").click(function(){
-        $("#Consultar_Cadeiras_Faculdade").css("display", "none");
-        $("#Consultar_Cadeiras_Faculdade_Curso").css("display", "none");
-        $("#Consultar_Cadeiras_Curso").css("display", "none");
-        $("#Consultar_Cadeiras_Ano").css("display", "none");
         $("#Consultar_Cadeiras").val('');
         $("label[for='curso']").css("display","none");
         var codeCadeira = $("#register-cadeiras-form input[name='codeCadeira']").val();

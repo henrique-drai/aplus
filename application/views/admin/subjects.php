@@ -8,7 +8,6 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/progressbar.css">
 
 </head>
 
@@ -47,30 +46,28 @@
             <div id="msgStatus">
             </div>
             <input type="submit" id="register-cadeira-submit">
-        </form><br>
-
-        
+        </form><br>        
         
         <h2>Consultar Unidades Curriculares</h2>
-
-        <select id="Consultar_Cadeiras" name="consultarcadeiras">
+        <h3>Filtros</h3>
+        <!-- <select id="Consultar_Cadeiras" name="consultarcadeiras">
             <option value="">Selecione uma Opção</option>
             <option value="All">Todas as Cadeiras</option>
             <option value="Faculdade">Por Faculdade</option>
             <option value="Curso">Por Curso</option>
             <option value="AnoLetivo">Por Ano Letivo</option>
+        </select> -->
+
+        <select id="Consultar_Cadeiras_Faculdade" class="SubjectsSelects" name="consultarCadeirasporFaculdade">
         </select>
 
-        <select id="Consultar_Cadeiras_Faculdade" name="consultarCadeirasporFaculdade">
+        <!-- <select id="Consultar_Cadeiras_Faculdade_Curso" name="consultarCadeirasporCurso">
+        </select> -->
+
+        <select id="Consultar_Cadeiras_Curso" class="SubjectsSelects" name="consultarCadeirasporCurso">
         </select>
 
-        <select id="Consultar_Cadeiras_Faculdade_Curso" name="consultarCadeirasporCurso">
-        </select>
-
-        <select id="Consultar_Cadeiras_Curso" name="consultarCadeirasporCurso">
-        </select>
-
-        <select id="Consultar_Cadeiras_Ano" name="consultarCadeirasporAno">
+        <select id="Consultar_Cadeiras_Ano" class="SubjectsSelects" name="consultarCadeirasporAno">
         </select>
 
         <div class="cd-popup" role="alert">

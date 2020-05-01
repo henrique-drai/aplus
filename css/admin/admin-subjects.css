@@ -25,3 +25,14 @@ input[type="submit"]{
 label[for="curso"]{
     display: none;
 }
+
+#Consultar_Cadeiras_Faculdade{
+    margin-right: 1%;
+    margin-bottom: 1%;
+}
+
+
+#Consultar_Cadeiras_Faculdade, #Consultar_Cadeiras_Curso, #Consultar_Cadeiras_Ano {
+    display: inline;
+    width: 48%;
+}

@@ -1,5 +1,5 @@
 <title>A+ for Students</title>
-<script>setPageName("group")</script>
+<script>setPageName("memberRtg")</script>
 <script src="<?php echo $base_url; ?>js/student/rating_page.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/student/popup.css">
 
@@ -8,7 +8,9 @@
 <body>
 <?php $this->view('templates/nav-menu'); ?>
     <main>
-        <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app/student/rating">Rating</a> > <a href="<?php echo base_url(); ?>app/student/group">Grupo</a> </h4>
+        <h4 class="breadcrumb">
+        <a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > <a href="<?php echo base_url(); ?>app/student/grupo">Área de Grupo</a>
+         > <a href="<?php echo base_url(); ?>app/student/memberRtg">Member Rating</a> </h4>
      
         <div class="container">
         

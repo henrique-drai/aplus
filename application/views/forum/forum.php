@@ -19,7 +19,7 @@
                 <p><b>Descrição:</b> <span class="forumDesc"></span></p>
             </div>
 
-            <input class='remove' type='button' value='Eliminar fórum'>
+            <div class="remove_button"></div>
 
             <div class="message">Adicionado com sucesso!</div>
 

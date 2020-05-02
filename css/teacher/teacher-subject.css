@@ -158,9 +158,19 @@ select, textarea {
 //                     PÁGINA CADEIRASSSS
 ////////////////////////////////////////////////////////////// */
 
+.semestre1, .semestre2 {
+    margin-left: 2%;
+}
+
+.cadeiras {
+    margin-left: -2%;
+}
+
+a { color: inherit; } 
+
 .card_info {
-    width: 30%;
-    height: 25%;
+    width: 23%;
+    height: 20%;
     font-size: 20px;
     display: inline-block;
     margin-left: 2%;
@@ -205,6 +215,10 @@ select, textarea {
     }
 }
 @media only screen and (max-width: 770px) {
+    .card_info {
+        width: 48%;
+    }
+
     .minnuminput, .maxnuminput {
         width: 137%;
     }
@@ -219,7 +233,17 @@ select, textarea {
     }
 }
 
+@media only screen and (max-width: 430px) {
+    .card_info {
+        width: 100%;
+    }
+}
+
 @media only screen and (max-width: 375px) {
+    .card_info {
+        width: 100%;
+    }
+
     textarea {
         height: 130px !important;
     }

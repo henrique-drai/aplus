@@ -12,6 +12,9 @@
         </h4>
         <h1>Cadeiras que leciona</h1>
         <div class="form-container">
-            <div class="cadeiras"></div>
+        <div class="cadeiras">
+                <div class="semestre1"></div>
+                <div class="semestre2"></div>
+            </div>
         </div>
     </main>

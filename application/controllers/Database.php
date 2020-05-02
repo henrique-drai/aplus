@@ -21,4 +21,9 @@ class Database extends CI_Controller {
         $this->load->helper('small_script');
         small_script($this->ScriptModel);
     }
+
+    public function large_script() {
+        $this->load->helper('large_script');
+        large_script($this->ScriptModel);
+    }
 }

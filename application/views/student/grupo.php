@@ -45,11 +45,7 @@
 
         <div class="buttons-container">
             <input id="newTarefa" type="button" value="Adicionar tarefa">
-        </div>
-        <div class="buttons-container">
             <input id="editTarefa" type="button" value="Editar tarefa">
-        </div>
-        <div class="buttons-container">
             <input id="deleteTarefa" type="button" value="Eliminar tarefa">
         </div>
 

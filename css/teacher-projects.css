@@ -12,7 +12,7 @@
 .submit-msg {
     display:none;
     text-align: center;
-    width:100%;
+    width:98%;
     padding: 4px;
     border-radius: 4px;
     position: relative;
@@ -89,16 +89,26 @@
 }
 
 #removeEnunciado {
-    margin-left: 170px;
-    position: absolute;
-    margin-top: -83px;
+    float: right;
+    width: 30px;
+    margin-top: -28px;
 }
 
 #removeEnunciadoProj{
-    position: absolute;
-    margin-left: 300px;
+    float: right;
+    width: 30px;
     margin-top: 0px;
 }
+
+
+@media screen and (max-width: 768px) {
+    #removeEnunciadoProj{
+        float:none;
+        margin-top:5px;
+        width:unset;
+    }
+}
+
 
 .buttons-container input{
     margin:unset;
@@ -109,6 +119,7 @@
 }
 
 .wrapper {
+    margin-top: 4%;
     margin-bottom: 1%;
 }
 
@@ -141,5 +152,23 @@ input.remove:hover {
 
 #opennewEtapa{
     margin-bottom: 30px;
+}
+
+
+#enunciado_label{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 95%;
+}
+
+#enunciado_label a{
+    width: 100%;
+    word-wrap: break-word;
+}
+
+#enunciado_h3{
+    width: 95%;
+    word-wrap: break-word;
 }
 

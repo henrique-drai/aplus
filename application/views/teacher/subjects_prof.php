@@ -13,6 +13,14 @@
         <h1>Cadeiras que leciona</h1>
         <div class="form-container">
         <div class="cadeiras">
+                <div class="filter">
+                    <input class="filter_dropdown" type="button" value="Filtrar">
+                    <div class="dropdown-content">
+                        <a class="filter_button" id="abc" href="#">Ordem Alfabética</a>
+                        <a class="filter_button" id="last" href="#">Último Acesso</a>
+                    </div>
+                </div>
+                
                 <div class="semestre1"></div>
                 <div class="semestre2"></div>
             </div>

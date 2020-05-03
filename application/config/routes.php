@@ -53,7 +53,9 @@ $route['api/insertHours']                       = 'Api_Subject/saveHours';
 $route['api/removeHours']                       = 'Api_Subject/removeHours';
 $route['api/addEvent/(:num)']                   = 'Api_Subject/insertEvent/$1';
 $route['api/getCadeiras/(:num)/(:any)']         = 'Api_Subject/getCadeiras/$1/$2';
+$route['api/getCadeirasOrder/(:num)/(:any)']    = 'Api_Subject/getCadeirasOrder/$1/$2';
 $route['api/getCourseStudents/(:num)']          = 'Api_Subject/getCourseStudents/$1';
+$route['api/insertDate/(:num)/(:any)']          = 'Api_Subject/insertDate/$1/$2';
 
 ##ADMIN##
 

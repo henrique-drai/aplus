@@ -27,11 +27,14 @@ class Api_Course extends REST_Controller {
     public function editCourse_post(){
         $this->verify_request();
         $this->load->model("CourseModel");
+        $this->load->model("YearModel");
+
+        $idYear = $this->YearModel->getYearByInicio($this->post('academicYear'))->id;
 
         $data = Array(
             "code"         => $this->post('code'),
             "name"          => $this->post('name'),
-            "academicYear"  => $this->post('academicYear'),
+            "academicYear"  => $idYear,
             "description"   => $this->post('description'),
             "oldCurso"      => $this->post('oldCurso'),
             "collegeId"      => $this->post('collegeId'),
@@ -89,7 +92,22 @@ class Api_Course extends REST_Controller {
 
         $faculdade = $this->get('faculdade');
         $this->load->model('CourseModel');
+        $this->load->model('YearModel');
+
         $data["courses"] = $this->CourseModel->getCollegeCourses($faculdade);
+
+        $data["years"] = array();
+
+        for($i=0; $i<count($data["courses"]);$i++){
+
+            $anoLetivo = $data["courses"][$i]["ano_letivo_id"];
+            $inicio = $this -> YearModel -> getYearById($anoLetivo)[0]["inicio"];
+            // $fim = $this -> YearModel -> getYearById($anoLetivo)[0]["fim"];
+            
+            // array_push($data["years"], $inicio . "|" . $fim);
+            array_push($data["years"], $inicio);
+        }
+
         $this->response($data, parent::HTTP_OK);
     }
 

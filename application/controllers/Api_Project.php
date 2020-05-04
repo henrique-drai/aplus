@@ -79,6 +79,7 @@ class Api_Project extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    
     public function insertFeedback_post(){
         $this->verify_request();
 
@@ -156,6 +157,22 @@ class Api_Project extends REST_Controller {
     //////////////////////////////////////////////////////////////
     //                           GET
     //////////////////////////////////////////////////////////////
+
+    public function getProjectStatus_get(){
+        $this->verify_request();
+        $this->load->model('GroupModel');
+        $this->load->model('ProjectModel');
+
+        $grupo_id =  $this->get('grupo_id');
+
+        $projeto_id = $this->GroupModel->getProjectId($grupo_id)[0]["projeto_id"];
+
+        $data["date"] = $this->ProjectModel->getLastEtapa($projeto_id)[0]["deadline"];
+
+        $this->response($data, parent::HTTP_OK);
+        
+        
+    }
 
     public function getSub_get(){
         $this->verify_request();

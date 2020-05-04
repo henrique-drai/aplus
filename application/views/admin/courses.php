@@ -20,27 +20,9 @@
         <div id="course-container" class="container">
         </div>
 
-        <form id="editCourse-form" action="javascript:void(0)">
-        <p>
-            <label for="codCourse">Código Curso</label>
-            <input type="text" name="codCourse" required>
-        </p>                
-        <p>   
-            <label for="name">Nome</label>
-            <input type="text" name="name" required>
-        </p>
-        <p>
-            <label for="academicYear">Ano Letivo</label>
-            <input type="text" name="academicYear" required>
-        </p>
-        <p>    
-            <label for="description">Descrição</label>
-            <input type="text" name="description" required>
-        </p>
-      
-            <input type="submit" id="editCourse-form-submit" required>
-        </form>   
+          
         <br>
+       
         <div id="msgStatus">
         </div>
 
@@ -53,6 +35,31 @@
                 </ul>
 		        <a class="cd-popup-close"></a>
 	        </div>
+        </div>
+
+        <div class='overlay'>
+            <div class='popup'>
+                <a class='close' href='#'>&times;</a>
+                <div class='content'>
+                    <h2>Editar Curso</h2>
+                    <form id="editCourse-form" action="javascript:void(0)">
+                    <p>
+                        <label for="codCourse">Código Curso</label>
+                        <input type="text" name="codCourse" required>
+                    </p><p>
+                        <label for="name">Nome</label>
+                        <input type="text" name="name" required>
+                    </p><p>
+                        <label for="academicYear">Ano Letivo</label>
+                        <input type="text" name="academicYear" required>
+                    </p><p>
+                        <label for="description">Descrição</label>
+                        <input type="text" name="description" required>
+                    </p><p>
+                        <input type="submit" id="editCourse-form-submit" required>
+                    </form>
+                </div>
+            </div>
         </div>
 
     </main>

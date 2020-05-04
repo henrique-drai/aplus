@@ -27,6 +27,10 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
         return $this->db->order_by("deadline", "ASC")->get_where("etapa",array("projeto_id" => $proj_id)) -> result_array();
     }
 
+    public function getLastEtapa($proj_id){
+        return $this->db->order_by("deadline", "DESC")->get_where("etapa",array("projeto_id" => $proj_id)) -> result_array();
+    }
+
     public function getEtapaByID($id){
         return $this->db->get_where("etapa", array("id" => $id));
     }
@@ -73,6 +77,7 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
         $this->db->update("projeto");
         return $this->db->affected_rows(); 
     }
+
 }
 
 

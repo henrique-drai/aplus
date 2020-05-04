@@ -55,6 +55,9 @@ $route['api/addEvent/(:num)']                   = 'Api_Subject/insertEvent/$1';
 $route['api/getCadeiras/(:num)/(:any)']         = 'Api_Subject/getCadeiras/$1/$2';
 $route['api/getCourseStudents/(:num)']          = 'Api_Subject/getCourseStudents/$1';
 
+$route['api/getProjectStatus']                  = 'Api_Project/getProjectStatus';
+
+
 ##ADMIN##
 
 $route['api/register']                          = 'Api_User/registerUser';

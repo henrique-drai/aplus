@@ -6,7 +6,7 @@ $(document).ready(() => {
     getAllSchoolYears(); 
 
     $("#register-course-submit").click(() => submitRegister());
-    $("body").on("click", ".editCourse",() => displayEditCourse());
+    // $("body").on("click", ".editCourse",() => displayEditCourse());
     $("body").on("click", "#editCourse-form-submit", () => editCourse());
 
 
@@ -50,7 +50,24 @@ $(document).ready(() => {
         deleteCourse(cso);
     })
 
+    // _____________________________________________
+
+    $('body').on("click", ".editCourse",function() {
+        $(".overlay").css('display', 'block');
+        $(".overlay").css('visibility', 'visible');
+        $(".overlay").css('opacity', '1');
+        displayEditCourse();
+    });
+
+    $('.close').click(function() {
+        $(".overlay").css('display', 'none');
+        $(".overlay").css('visibility', 'hidden');
+        $(".overlay").css('opacity', '0');
+        $("#editCourse-form").css("display", "none");
+    })
+
 })
+
 
 
 function getAllSchoolYears(){
@@ -153,11 +170,12 @@ function submitRegister(){
 
     function makeCoursesTable(data){
         course = '';
+
         for (i=0; i<data.courses.length; i++){
             course += '<tr>' +
                 '<td>'+ data.courses[i].code +'</td>' +
                 '<td>'+ data.courses[i].name +'</td>' +
-                '<td>'+ data.courses[i].ano_letivo_id + '</td>' +
+                '<td>'+ data.years[i] + '</td>' +
                 "<td>" + data.courses[i].description + "</td>" +
 
                 "<td><input class='editCourse' type='button' value='Editar'></td>"
@@ -209,8 +227,10 @@ function deleteCourse(linha){
 
     
 codCourse = "";
+
 function displayEditCourse(){
     // var x = document.getElementById("editCourse-form").style.display;
+    $(".popup").css("display", "block");
 
     var linha = $(event.target).closest("tr");
     codCourse = linha.find("td:eq(0)").text();
@@ -219,10 +239,6 @@ function displayEditCourse(){
     academicYear = linha.find("td:eq(2)").text();   
     description = linha.find("td:eq(3)").text();   
 
-    // if(x=="block"){
-    //     $("#editCourse-form").css("display", "none");
-    // }
-    // else{
     $("#editCourse-form").css("display", "block");
 
     $("#editCourse-form input[name='codCourse']").val(codCourse);
@@ -231,8 +247,6 @@ function displayEditCourse(){
     $("#editCourse-form input[name='description']").val(description) ;
       
     // }
-
-    
 }
 
 
@@ -253,12 +267,22 @@ function editCourse(){
         url: base_url + "api/editCourse",
         data: data,   
         success: function() {
+            $(".overlay").css('display', 'none');
+            $(".overlay").css('visibility', 'hidden');
+            $(".overlay").css('opacity', '0');
+            $(".popup").css("display", "none");
+
             getAllCursosFaculdade(data.collegeId);
             $("#msgStatus").text("Curso editado com sucesso");
             $("#msgStatus").show().delay(2000).fadeOut();
             displayEditCourse();
         },
         error: function() {
+            $(".overlay").css('display', 'none');
+            $(".overlay").css('visibility', 'hidden');
+            $(".overlay").css('opacity', '0');
+            $(".popup").css("display", "none");
+
             $("#msgStatus").text("Erro a editar curso");
             $("#msgStatus").show().delay(2000).fadeOut();
         }

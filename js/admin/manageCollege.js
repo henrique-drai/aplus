@@ -9,8 +9,6 @@ $(document).ready(() => {
 	$('body').on('click','.deleteCollege', function(event){
         event.preventDefault();
         col = $(event.target).closest("tr");
-        console.log(col)
-        console.log(col.find("td:eq(2)").text())
         $('.cd-popup').addClass('is-visible');
     });
     

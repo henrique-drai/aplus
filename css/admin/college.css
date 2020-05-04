@@ -4,6 +4,7 @@
 
 #register-faculdade-form input[type=text] {
     width: 100%;
+    background-color: white;
 }
 
 #register-faculdade-form input[type=submit] {

@@ -64,6 +64,8 @@ class Api_Subject extends REST_Controller {
             "curso_id"   => $this->post('curso'),
             "name" => $this->post('nomeCadeira'),
             "description"   => $this->post('descCadeira'),
+            "semestre" => $this->post("semestre"),
+            "color" => $this->post("cor"),
         );
 
         $this->load->model('SubjectModel');

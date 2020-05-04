@@ -18,15 +18,15 @@
         <form id="register-faculdade-form" action="javascript:void(0)">
         <p>
             <label for="nomefaculdade">Nome da Faculdade:</label>
-            <input type="text" name="nomefaculdade">
+            <input type="text" name="nomefaculdade" required>
         </p>
         <p>
             <label for="morada">Morada:</label>
-            <input type="text" name="morada">
+            <input type="text" name="morada" required>
         </p>
         <p>
             <label for="siglas">Siglas da Faculdade:</label>
-            <input type="text" name="siglas">
+            <input type="text" name="siglas" required>
         </p>
             <input type="submit" id="register-college-submit">
         </form><br>

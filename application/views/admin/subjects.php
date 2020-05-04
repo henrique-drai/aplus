@@ -39,6 +39,12 @@
                 <select id="faculdades_register_UnidCurricular" name="faculdade">
                 </select>
             </p><p>
+                <label for="semestre">Semestre:</label>
+                <select id="semestre_register_UnidCurricular" name="semestre">
+                    <option value="1">1º semestre </option>
+                    <option value="2">2º semestre </option>
+                </select>
+            </p><p>
                 <label for="curso">Curso:</label>
                 <select id="cursos_register_UnidCurricular" name="curso">
                 </select>

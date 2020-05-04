@@ -2,6 +2,7 @@ var id
 var code
 
 $(document).ready(() => {
+    insertLoggedDate(localStorage.cadeira_id);
     getInfo(localStorage.cadeira_code);    
     $(".hours_inputs").hide();
 
@@ -387,5 +388,20 @@ function removeHours(data) {
             alert("Houve um erro a remover a data.")
         }
     })
+}
 
+function insertLoggedDate(id) {
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "api/insertDate/" + id + "/teacher",
+        success: function(data) {
+            console.log(data)
+        },
+        error: function(data) {
+            alert("Houve um erro ao ir buscar a informação das cadeiras lecionadas.");
+        }
+    })
 }

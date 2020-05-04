@@ -170,7 +170,7 @@
     visibility: hidden;
 }
 
-
+/*    AGENDA    */
 
 #nav-menu-agenda{
     color: white;
@@ -205,4 +205,56 @@
 }
 #nav-menu-agenda .nothing {
     font-size: 12px;
+}
+
+/*    NOTIFICAÇÕES    */
+.nav-notifications.hidden {
+    display: none;
+}
+.nav-notifications {
+    font-size: 12px;
+    padding-bottom: 10px;
+}
+.nav-notifications .notification {
+    margin: 8px 10px;
+    display: flex;
+    align-items: center;
+}
+.nav-notifications .icon img{
+    width: 100%;
+    height: 100%;    
+}
+.nav-notifications .icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    margin: 0px 7px 0px 0px;
+}
+.nav-notifications .body {
+    background-color: white;
+    border-radius: 3px;
+    
+    width: 100%;
+    /* cursor: pointer; */
+}
+.nav-notifications .body > a > div{
+    padding: 5px 8px;
+}
+.nav-notifications .body > a{
+    color: black !important;
+    text-decoration: none;
+}
+.nav-notifications .body:hover {
+    background-color: rgba(255,255,255,0.85);
+}
+.nav-notifications .title {
+    font-weight: 500;
+}
+.nav-notifications .content {
+    font-size: 10px;
+    color: #3e5d4f;
+}
+.nav-notifications .date {
+    font-size: 10px;
+    text-align: center;
 }

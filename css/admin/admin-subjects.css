@@ -36,3 +36,7 @@ label[for="curso"]{
     display: inline;
     width: 48%;
 }
+
+#register-cadeiras-form input, #register-cadeiras-form textarea {
+    background-color: white;
+}

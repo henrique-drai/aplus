@@ -2,15 +2,12 @@ var id
 var code
 
 $(document).ready(() => {
+    insertLoggedDate(localStorage.cadeira_id);
     getInfo();
 
     $("body").on("click", ".project_button", function() {
         window.location = base_url + "projects/project/" + $(this).attr("id");
     })
-
-    // $("body").on("click", ".new_forum", function() {
-    //     window.location = base_url + "foruns/new/" + localStorage.cadeira_code + "/" + ano;
-    // })
 
     $("body").on("click", ".forum_button", function() {
         localStorage.setItem("forum_id", $(this).attr("id"));
@@ -103,6 +100,22 @@ function addEvent(hours_id) {
         error: function(data) {
             console.log(data)
             console.log("ups")
+        }
+    })
+}
+
+function insertLoggedDate(id) {
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "api/insertDate/" + id + "/student",
+        success: function(data) {
+            console.log(data)
+        },
+        error: function(data) {
+            alert("Houve um erro ao ir buscar a informação das cadeiras lecionadas.");
         }
     })
 }

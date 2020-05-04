@@ -38,6 +38,19 @@ class SubjectModel extends CI_Model { //cadeira
         return $query->result_array();
     }
 
+    public function getCadeirasOrder($id, $role) {
+        $this->db->where(array('user_id =' => $id));
+        $this->db->order_by('last_visited', 'DESC');
+        
+        if($role == "teacher") {
+            $query = $this->db->get('professor_cadeira');
+        } else if($role == "student") {
+            $query = $this->db->get('aluno_cadeira');
+        }
+        
+        return $query->result_array();
+    }
+
     public function getCadeiraInfo($id) {
         $query = $this->db->get_where('cadeira', array('id =' => $id));
         return $query->result_array();
@@ -153,5 +166,22 @@ class SubjectModel extends CI_Model { //cadeira
             $this->db->insert('aluno_cadeira', $data);    
         }
 
+    }
+
+    public function insertDate($cadeira_id, $user_id, $role) {
+        $this->db->set('last_visited', date('Y-m-d H:i:s'));
+        $this->db->where(array("user_id" => $user_id, "cadeira_id" => $cadeira_id));
+
+        if($role == "student") {
+            return $this->db->update("aluno_cadeira");
+        } else {
+            return $this->db->update("professor_cadeira");
+        }
+        
+    }
+
+    public function getLastLogged($user_id, $cadeira_id) {
+        $query = $this->db->get_where("aluno_cadeira", array('cadeira_id ' => $cadeira_id, "user_id" => $user_id));
+        return $query->row();
     }
 }

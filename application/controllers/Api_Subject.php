@@ -64,6 +64,8 @@ class Api_Subject extends REST_Controller {
             "curso_id"   => $this->post('curso'),
             "name" => $this->post('nomeCadeira'),
             "description"   => $this->post('descCadeira'),
+            "semestre" => $this->post("semestre"),
+            "color" => $this->post("cor"),
         );
 
         $this->load->model('SubjectModel');
@@ -81,7 +83,7 @@ class Api_Subject extends REST_Controller {
         if(count($data["hour"]) > 0) {
             $data["user"] = $this->UserModel->getUserById($data["hour"]->id_prof);
 
-            $daysToGo = array_search($data["hour"]->day, $daysOfWeek) + 1; //adicionar +1
+            $daysToGo = array_search($data["hour"]->day, $daysOfWeek) + 1;
             $currentDay = date("Y-m-d");
             $newDate = date("Y-m-d", strtotime('+' . (8 - $daysToGo) . ' days'));
             $startTime = $newDate . " " . $data["hour"]->start_time;
@@ -105,6 +107,12 @@ class Api_Subject extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function insertDate_post($id, $role) {
+        $user_id = $this->verify_request()->id;
+
+        $this->SubjectModel->insertDate($id, $user_id, $role);
+    }
+
 
 
     //////////////////////////////////////////////////////////////
@@ -117,6 +125,29 @@ class Api_Subject extends REST_Controller {
         }
 
         $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id, $role);
+
+        $data["info"] = array();
+        $data["curso"] = array();
+        for($i=0; $i < count($data["cadeiras_id"]); $i++) {
+            $tmp = $this->SubjectModel->getCadeiraInfo($data["cadeiras_id"][$i]["cadeira_id"]);
+            array_push($data["curso"], $this->CourseModel->getCursobyId($tmp[0]["curso_id"]));
+            array_push($data["info"], $tmp);
+        }
+
+        if(count($data["info"]) > 0) {
+            $tmp = $this->CourseModel->getCursobyId($data["info"][0][0]["curso_id"]);
+            $data["year"] = $this->YearModel->getYearById($tmp->ano_letivo_id);
+        }
+        
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getCadeirasOrder_get($user_id = null, $role) {
+        if($user_id != $this->verify_request()->id) {
+            $this->response(array(), parent::HTTP_NOT_FOUND); return null;
+        }
+
+        $data["cadeiras_id"] = $this->SubjectModel->getCadeirasOrder($user_id, $role);
 
         $data["info"] = array();
         $data["curso"] = array();

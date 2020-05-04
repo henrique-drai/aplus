@@ -90,6 +90,8 @@ function getInfo(id) {
             localStorage.setItem("teachers_only", data.info.teachers_only);
 
             if(data.user.role == "teacher") {
+                $(".remove_button").append("<input class='remove' type='button' value='Eliminar fórum'>");
+                
                 $(".add").append("<input type='button' id='add_button' value='Criar Tópico'><div class='overlay'>" +
                     "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'>" +
                     "<h2>Criar novo tópico</h2><form id='threadForm' class='thread-form'  action='javascript:void(0)'>" +

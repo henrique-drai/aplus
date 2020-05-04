@@ -1,5 +1,6 @@
 <title><?php echo $subject->name; ?></title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/forum/forum.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/forum/forum.js"></script>
 </head>
@@ -19,7 +20,7 @@
                 <p><b>Descrição:</b> <span class="forumDesc"></span></p>
             </div>
 
-            <input class='remove' type='button' value='Eliminar fórum'>
+            <div class="remove_button"></div>
 
             <div class="message">Adicionado com sucesso!</div>
 

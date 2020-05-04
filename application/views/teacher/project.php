@@ -1,6 +1,8 @@
 <title>A+ for Teachers</title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/projects/projects-general.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-projects.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/pagination-min.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/project.js"></script>
@@ -19,7 +21,8 @@
     <input id="removeProject" class="remove" type="button" value="Eliminar projeto">
     <div class="container">
         <h3 id="entrega_h3"></h3>
-        <h3 id="enunciado_h3"></h3>
+        <h3 id="enunciado_title">Enunciado:</h3>
+        <h4 id="enunciado_h3"></h4>
         <div class="wrapper-top">
             <?php echo form_open_multipart('UploadsC/uploadEnunciadoProjeto', "id='form-upload-proj'");?>
                 <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado" accept=".pdf">
@@ -32,24 +35,46 @@
         </div>
 
         <div id="grupos-container" class="container">
+            <div id="grupos-container2"></div>
         </div>
 
-        <br><br>
+        <br><br><br>
 
         <h2>Etapas</h2>
         <div id="etapas-container" class="container">
+            <div id="etapas-container2"></div>
         </div>
 
+        <!-- Popups gerados em js -->
         <div id="popups">
-
         </div>
 
-        <div id="etapa-info-extra">
+        <!-- Pop up com form, criado logo à mao -->
+        <div class="overlay" id="etapa-overlay-new">
+            <div class="popup" id="etapa-form-popup">
+            <a class="close" href="#">&times;</a>
+                <div class="content">
+                <form id="etapa-form" action="javascript:void(0)">
+                    <p id="etapa" class="etapa">
+                        <label id="etapa-label" class="form-label-title">Nova etapa:</label>
+                        <label class="form-label">Nome</label>
+                        <input class="form-input-text" type="text" name="etapaName" required>
+                        <label class="form-label">Descrição</label>
+                        <textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>
+                        <label class="form-label">Data de entrega</label>
+                        <input class="form-input-text" type="datetime-local" name="etapaDate" required>
+                    </p>
+                    <p>
+                        <div id="errormsg" class="submit-msg">Mensagem de erro template</div>
+                    </p>
+
+                    <input type="submit" id="newEtapa" value="Criar">
+                    <input type="submit" id="newEtapaEDIT" value="Confirmar">
+                </form>
+                </div>
+            </div>
         </div>
 
-        <div class="buttons-container">
-            <input id="opennewEtapa" type="button" value="Criar etapa">
-        </div>
 
 
         <form id="feedback-form">
@@ -76,24 +101,6 @@
                 <input id="addEnuncEtapa" type="submit" value="Adicionar enunciado">
         </form>
 
-        <form id="etapa-form" action="javascript:void(0)">
-
-            <p id="etapa" class="etapa">
-                <label id="etapa-label" class="form-label-title">Nova etapa:</label>
-                <label class="form-label">Nome</label>
-                <input class="form-input-text" type="text" name="etapaName" required>
-                <label class="form-label">Descrição</label>
-                <textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>
-                <label class="form-label">Data de entrega</label>
-                <input class="form-input-text" type="datetime-local" name="etapaDate" required>
-            </p>
-            <p>
-                <div id="errormsg" class="submit-msg">Mensagem de erro template</div>
-            </p>
-
-            <input type="submit" id="newEtapa" value="Criar">
-            <input type="submit" id="newEtapaEDIT" value="Confirmar">
-        </form>
 
 
     </div>

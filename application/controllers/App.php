@@ -85,6 +85,18 @@ class App extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+
+
+    //app/student/grupos
+
+    //app/student/grupos/:grupoid
+
+    //app/student/memberRtg/:grupoid
+
+    //app/student/grupos/ficheiros/:grupoid
+
+
+
     //app/admin
     public function admin($page = 'home')
     {

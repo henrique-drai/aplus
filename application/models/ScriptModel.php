@@ -22,8 +22,8 @@ class ScriptModel extends CI_Model {
       return $this->db->insert_id();
   }
 
-  public function cadeira($curso_id, $code, $name, $sigla, $description, $color) {
-      $this->db->insert("cadeira", Array("curso_id"=> $curso_id, "code"=>$code, "name"=>$name, "sigla"=>$sigla, "description"=>$description, "color"=>$color));
+  public function cadeira($curso_id, $code, $name, $sigla, $semestre, $description, $color) {
+      $this->db->insert("cadeira", Array("curso_id"=> $curso_id, "code"=>$code, "name"=>$name, "sigla"=>$sigla, "semestre"=>$semestre, "description"=>$description, "color"=>$color));
       return $this->db->insert_id();
   }
 
@@ -65,8 +65,8 @@ class ScriptModel extends CI_Model {
     return $this->db->insert_id();
   }
 
-  public function aula($cadeira_id, $type, $start_time, $end_time) {
-    $this->db->insert("aula", Array("cadeira_id"=> $cadeira_id, "type"=>$type, "start_time"=>$start_time, "end_time"=>$end_time));
+  public function aula($cadeira_id, $type, $start_time, $end_time, $day_week, $classroom) {
+    $this->db->insert("aula", Array("cadeira_id"=> $cadeira_id, "type"=>$type, "start_time"=>$start_time, "end_time"=>$end_time, "day_week"=>$day_week, "classroom"=>$classroom));
     return $this->db->insert_id();
   }
 

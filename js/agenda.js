@@ -64,7 +64,7 @@ function updateAgenda(){
         success: function(data) {
             setAgenda(data)
             renderAgenda()
-            console.log(agenda)
+            //console.log(agenda)
         },
         error: function(data) {
             console.log("Problema na API ao buscar a agenda.")

@@ -1,5 +1,6 @@
 <title><?php echo $subject->name; ?></title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/forum/thread.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/forum/thread.js"></script>
 </head>

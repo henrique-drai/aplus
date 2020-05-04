@@ -14,9 +14,9 @@ $route['api/event/going/(:num)']                = 'Api_Event/going/$1';
 $route['api/login']                             = 'Api_Authentication/login';
 $route['api/logout']                            = 'Api_Authentication/logout';
 
-$route['api/user/(:num)']                       = 'Api_User/user/$1';
+$route['api/user']                              = 'Api_User/user';
 
-$route['api/notifications/new']                = 'Api_Notification/new';
+$route['api/notifications/new']                 = 'Api_Notification/new';
 $route['api/notifications/all']                 = 'Api_Notification/all';
 
 $route['api/removeForum/(:num)']                = 'Api_Forum/removeForum/$1';
@@ -53,7 +53,12 @@ $route['api/insertHours']                       = 'Api_Subject/saveHours';
 $route['api/removeHours']                       = 'Api_Subject/removeHours';
 $route['api/addEvent/(:num)']                   = 'Api_Subject/insertEvent/$1';
 $route['api/getCadeiras/(:num)/(:any)']         = 'Api_Subject/getCadeiras/$1/$2';
+$route['api/getCadeirasOrder/(:num)/(:any)']    = 'Api_Subject/getCadeirasOrder/$1/$2';
 $route['api/getCourseStudents/(:num)']          = 'Api_Subject/getCourseStudents/$1';
+$route['api/insertDate/(:num)/(:any)']          = 'Api_Subject/insertDate/$1/$2';
+
+$route['api/getAllTasks/(:num)']                    = 'Api_Student/getAllTasks/$1';
+
 
 $route['api/getProjectStatus']                  = 'Api_Project/getProjectStatus';
 

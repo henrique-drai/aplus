@@ -15,6 +15,7 @@ class Api_Student extends REST_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->helper(['jwt', 'authorization']);
+        $this->load->model('TasksModel');
     }
 
     
@@ -55,6 +56,24 @@ class Api_Student extends REST_Controller {
             $data["students"] = $resultquery->result();
         }
         $this->response($data, parent::HTTP_OK);
+    }
+
+    // TAREFAS - GRUPO 
+
+    public function getAllTasks_get($grupo_id) {
+        $this->verify_request();
+
+        $this->load->model('TasksModel');
+        $data["tarefas"] = $this->TasksModel->getTarefas($grupo_id);
+        
+        $data["membro_nome"] = array();
+        for($i=0; $i < count($data["tarefas"]); $i++) {
+            array_push($data["membro_nome"], $this->TasksModel->getMembroNome($data["tarefas"][$i]["user_id"]));
+        }
+
+
+        $this->response($data, parent::HTTP_OK);
+
     }
 
 

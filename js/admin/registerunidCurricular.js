@@ -15,7 +15,6 @@ $(document).ready(() => {
     $("#faculdades_register_UnidCurricular").change(function(){
         if($(this).val()!="Selecione uma Faculdade"){
             if($("#anos_register_UnidCurricular").val()!= ""){
-                $("label[for='curso']").css("display","inline");
                 getAllCursosFaculdade($(this).val(), $("#anos_register_UnidCurricular").val()); 
             }
         }
@@ -24,7 +23,6 @@ $(document).ready(() => {
     $("#anos_register_UnidCurricular").change(function(){
         if($(this).val()!="Selecione um Ano Letivo"){
             if($("#faculdades_register_UnidCurricular").val()!= ""){
-                $("label[for='curso']").css("display","inline");
                 getAllCursosFaculdade($("#faculdades_register_UnidCurricular").val(), $(this).val()); 
             }
         }
@@ -135,6 +133,7 @@ function getAllCursosFaculdade(faculdade, anoletivo){
         success: function(data) {
             if(data.courses.length>0){
                 $(".course_row").remove();
+                $("label[for='curso']").css("display","inline");
                 for(i=0; i<data.courses.length; i++){
                     
                     $("#cursos_register_UnidCurricular").css("display", "block");
@@ -163,12 +162,14 @@ function getAllCursosFaculdade(faculdade, anoletivo){
 
 
 function submitRegister(){
-   
+    var randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
     const data = {
         codeCadeira:   $("#register-cadeiras-form input[name='codeCadeira']").val(),
         nomeCadeira:    $("#register-cadeiras-form input[name='nomeCadeira']").val(),
         descCadeira:    $("#register-cadeiras-form textarea[name='descCadeira']").val(),
+        semestre: $("#register-cadeiras-form select[name='semestre']").val(),
         curso:    $("#register-cadeiras-form select[name='curso']").val(),
+        cor:   randomColor,
     }
     $("#faculdades_register_UnidCurricular").val("");
     $("#anos_register_UnidCurricular").val("");

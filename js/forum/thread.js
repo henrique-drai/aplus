@@ -10,7 +10,7 @@ $(document).ready(() => {
         $(".overlay").css('visibility', 'hidden');
         $(".overlay").css('opacity', '0');
     })
-
+    
     $('body').on("click", '#popup_button', function() {
         var desc = $("textarea").val();
         insertPost(desc);

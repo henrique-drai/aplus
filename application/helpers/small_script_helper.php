@@ -37,21 +37,21 @@ function small_script($m) {
     $curso2_id = $m->curso($faculdade2_id, $ano1_id, "LTI2022", "Tecnologias", "Descriçao com erros");
     $curso3_id = $m->curso($faculdade1_id, $ano1_id, "MAT2022", "Matemática", "10/10 IGN");
 
-    $cadeira1_id = $m->cadeira($curso1_id, "TEA84", "Teatro", "Teatro", "Ewwwww", "#ffb3ec");
-    $cadeira2_id = $m->cadeira($curso2_id, "ADC23523", "Arquitetura de Computadores", "AC", "Espinafres na sopa", "#e6b3ff");
-    $cadeira3_id = $m->cadeira($curso2_id, "RED0923", "Redes", "Redes", "Blach blah", "#b3b3ff");
-    $cadeira4_id = $m->cadeira($curso2_id, "LE34", "Línguas Estrangeiras", "LingE", "Nope", "#99ebff");
-    $cadeira5_id = $m->cadeira($curso2_id, "HO182", "História do Oriente", "HO", "Podem escrever mais aqui.", "#80ffdf");
-    $cadeira6_id = $m->cadeira($curso1_id, "SI2387", "Sistemas Interativos", "SI", "Kekerino", "#80ff80");
-    $cadeira7_id = $m->cadeira($curso1_id, "TI298", "Teoria de Imagem", "TI", "Não tem descriçao", "#d5ff80");
-    $cadeira8_id = $m->cadeira($curso1_id, "EDM24653", "Elementos de Matemática", "EM", "Adoro Gelatina", "#ffff80");
-    $cadeira9_id = $m->cadeira($curso1_id, "CIN234", "Cinematografia", "Cinema", "Crocodildo", "#ffd480");
+    $cadeira1_id = $m->cadeira($curso1_id, "TEA84", "Teatro", "Teatro", 1, "Ewwwww", "#ffb3ec");
+    $cadeira2_id = $m->cadeira($curso2_id, "ADC23523", "Arquitetura de Computadores", "AC", 1, "Espinafres na sopa", "#e6b3ff");
+    $cadeira3_id = $m->cadeira($curso2_id, "RED0923", "Redes", "Redes", 0, "Blach blah", "#b3b3ff");
+    $cadeira4_id = $m->cadeira($curso2_id, "LE34", "Línguas Estrangeiras", "LingE", 1, "Nope", "#99ebff");
+    $cadeira5_id = $m->cadeira($curso2_id, "HO182", "História do Oriente", "HO", 0, "Podem escrever mais aqui.", "#80ffdf");
+    $cadeira6_id = $m->cadeira($curso1_id, "SI2387", "Sistemas Interativos", "SI", 1, "Kekerino", "#80ff80");
+    $cadeira7_id = $m->cadeira($curso1_id, "TI298", "Teoria de Imagem", "TI", 1, "Não tem descriçao", "#d5ff80");
+    $cadeira8_id = $m->cadeira($curso1_id, "EDM24653", "Elementos de Matemática", "EM", 0, "Adoro Gelatina", "#ffff80");
+    $cadeira9_id = $m->cadeira($curso1_id, "CIN234", "Cinematografia", "Cinema", 1, "Crocodildo", "#ffd480");
 
-    $aula1_id = $m->aula($cadeira1_id, "PL", "10:30", "12:00");
-    $aula2_id = $m->aula($cadeira1_id, "T", "10:00", "12:00");
-    $aula3_id = $m->aula($cadeira1_id, "TP", "15:30", "17:00");
-    $aula4_id = $m->aula($cadeira2_id, "PL", "16:30", "18:00");
-    $aula5_id = $m->aula($cadeira2_id, "T", "08:00", "9:30");
+    $aula1_id = $m->aula($cadeira1_id, "PL", "10:30", "12:00", 1, "1.3.24");
+    $aula2_id = $m->aula($cadeira1_id, "T", "10:00", "12:00", 2, "6.3.24");
+    $aula3_id = $m->aula($cadeira1_id, "TP", "15:30", "17:00", 3, "3.4.52");
+    $aula4_id = $m->aula($cadeira2_id, "PL", "16:30", "18:00", 2, "3.2.12");
+    $aula5_id = $m->aula($cadeira2_id, "T", "08:00", "9:30", 4, "8.1.12");
 
     $m->batch("aluno_curso", Array(
       Array("user_id"=> $aluno1_id, "curso_id"=>$curso2_id, "data_entrada"=>""),
@@ -159,10 +159,10 @@ function small_script($m) {
       Array("evento_id"=> $evento4_id,  "user_id"=>$aluno1_id),
     ));
 
-    $m->notification($aluno1_id, "message", "Mensagem de João Ye", "Atão crlh?", "/", false, "2020-04-23 11:30:31");
-    $m->notification($aluno1_id, "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "/", false, "2020-04-23 11:30:35");
-    $m->notification($aluno1_id, "alert", "Falhaste uma entrega", "Teatro", "/", false, "2020-04-23 11:30:30");
-    $m->notification($aluno1_id, "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "/", true, "2020-04-23 11:30:33");
+    $m->notification($aluno1_id, "message", "Mensagem de João Ye", "Atão crlh?", "app/profile/2801", false, "2020-04-23 11:30:31");
+    $m->notification($aluno1_id, "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "app/profile/2", false, "2020-04-23 11:30:35");
+    $m->notification($aluno1_id, "alert", "Falhaste uma entrega", "Teatro", "subjects/subject/TEA84/2019", false, "2020-04-23 11:30:30");
+    $m->notification($aluno1_id, "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "app/profile/62", true, "2020-04-23 11:30:33");
         
     $execution_time = microtime(true) - $time_start;
 

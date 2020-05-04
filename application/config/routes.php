@@ -83,6 +83,7 @@ $route['api/getAllSubjects']                    = 'Api_Subject/getAllSubjects';
 // $route['api/getAllSubjectsByCourse']            = 'Api_Subject/getAllSubjectsByCourse';
 // $route['api/getAllCoursesByYear']               = 'Api_Course/getAllCoursesByYear';
 $route['api/getSubjectsByFilters']              = 'Api_Subject/getSubjectsByFilters';
+$route['api/editSubject']                       = 'Api_Subject/editSubject';
 $route['api/saveCSV']                           = 'Api_Admin/export';
 $route['api/importX']                           = 'Api_Admin/importX';
 $route['api/deleteUser']                        = 'Api_User/deleteUser';

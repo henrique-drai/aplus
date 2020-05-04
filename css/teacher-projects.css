@@ -19,11 +19,11 @@
     margin-top: 10px;
 }
 
-#errormsg, #errormsgfb {
+#errormsg, #errormsgfb, #errormsgenunc, #errormsgedit {
     background: rgb(255, 72, 72);
 }
 
-#successmsg, #successmsgfb {
+#successmsg, #successmsgfb, #successmsgenunc {
     background: rgb(167, 255, 80);
 }
 
@@ -89,16 +89,18 @@
 }
 
 #removeEnunciado {
-    float: right;
+    margin-left: 115px;
     width: 30px;
-    margin-top: -28px;
+    margin-top: -73px;
+    position: absolute;
 }
 
-#removeEnunciadoProj{
-    float: right;
+#removeEnunciadoProj {
     width: 30px;
-    margin-top: 0px;
+    margin-top: -48px;
+    margin-left: 115px;
 }
+
 
 
 @media screen and (max-width: 768px) {
@@ -154,21 +156,25 @@ input.remove:hover {
     margin-bottom: 30px;
 }
 
-
-#enunciado_label{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    width: 95%;
-}
-
 #enunciado_label a{
     width: 100%;
     word-wrap: break-word;
 }
 
 #enunciado_h3{
-    width: 95%;
     word-wrap: break-word;
 }
+
+
+
+/* botoes pop up */
+@media screen and (max-width: 660px) {
+    .wrapper input[type="button"] {
+        margin-left: auto;
+        width: 160px;
+        margin-right: auto;
+        display:block;
+    }
+}
+
 

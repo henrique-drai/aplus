@@ -3,7 +3,8 @@ var enunciado_h3
 var back_page
 var selected_etapa
 var etapa = {nome:'', desc:'', enunciado:'', data:''};
-// var formStatus = null;
+var updated_enunc_etapa;
+var formStatus = null;
 var etapas_info_global;
 
 $(document).ready(() => {
@@ -21,6 +22,8 @@ $(document).ready(() => {
 
 	//open popup - REMOVER PROJETO
 	$('#removeProject').on('click', function(event){
+        formStatus = null;
+        checkFormStatus();
         event.preventDefault();
         makePopup("confirmRemove", "Tem a certeza que deseja eliminar o projeto?");
 	});
@@ -92,9 +95,14 @@ $(document).ready(() => {
         $("#file_etapa").css("border-left-color", "lawngreen");
     })
 
-    $("#addEnuncEtapa").on('click', function(){
+    $("#addEnuncEtapa").on('click', function(e){
         enunc = $("#file_etapa").val().split('\\').pop();
-        submit_new_etapa_enunciado(enunc);
+        if (enunc.length == 0){
+            $("#errormsgenunc").text("Tem de selecionar um ficheiro");
+            $("#errormsgenunc").show().delay(5000).fadeOut();
+        } else {
+            submit_new_etapa_enunciado(enunc);
+        }
     })
 
     //ETAPAS --- 
@@ -116,11 +124,21 @@ $(document).ready(() => {
         $("#newEtapa").show();
         $("#etapa-overlay-new").css('visibility', 'visible');
         $("#etapa-overlay-new").css('opacity', '1');
-        $("#newEtapaEDIT").hide();
-        $("#feedback-form").hide();
         $("#etapa-label").text("Nova etapa:");
+
+        $("#etapa-form-edit").hide();
+        $("#feedback-form").hide();
         $("#form-upload-etapa").hide();
         emptyEtapa();
+
+        if(formStatus != 'new'){
+            formStatus = 'new';
+            checkFormStatus();
+        } else {
+            formStatus = null;
+            checkFormStatus();
+            $("#etapa-form").hide();
+        }
 
     });
 
@@ -129,11 +147,21 @@ $(document).ready(() => {
     $('body').on("click", "#feedbackEtapaButton", function(){
 
         $("#etapa-form").hide();
-        $("#newEtapa").hide();
-        $("#newEtapaEDIT").hide();
-        $("#feedback-form").show();
+        $("#etapa-form-edit").hide();
         $("#form-upload-etapa").hide();
+
+        $("#feedback-form").show();
+        $("#confirmFeedback").show();
         showGroups(proj);
+
+        if(formStatus != 'feedback'){
+            formStatus = 'feedback';
+            checkFormStatus();
+        } else {
+            formStatus = null;
+            checkFormStatus();
+            $("#feedback-form").hide();
+        }
 
     });
 
@@ -146,31 +174,50 @@ $(document).ready(() => {
 
     //show editar etapa form - EDITAR ETAPA
     $('body').on("click", "#editEtapaButton", function(){
-        var id = $(this).parent().parent().attr('id');
-        var newid = id.replace("div","");
-        $("#etapa-form").show();
-        $("#newEtapaEDIT").show();
-        $("#etapa-label").text("Editar etapa '" + $("#etapa" + newid).find("p:first").text() + "':");
-        $("#newEtapa").hide();
+        
+        $("#etapa-form").hide();
         $("#feedback-form").hide();
         $("#form-upload-etapa").hide();
 
-        putEtapaInfoForm(newid);
+        $("#etapa-form-edit").show();
+        $("#etapa-label-edit").text("Editar etapa '" + $("#etapa" + selected_etapa).find("p:first").text() + "':");
+        $("#newEtapaEDIT").show();
+
+        putEtapaInfoForm(selected_etapa);
+
+        if(formStatus != 'edit'){
+            formStatus = 'edit';
+            checkFormStatus();
+        } else {
+            formStatus = null;
+            checkFormStatus();
+            emptyEtapa();
+            $("#etapa-form-edit").hide();
+        }
 
     });
 
 
     //ADICIONAR ENUNCIADO - ETAPA
     $('body').on('click', "#addEtapaEnunciado", function(){
+        $("#etapa-form-edit").hide();
         $("#etapa-form").hide();
-        $("#newEtapa").hide();
-        $("#newEtapaEDIT").hide();
         $("#feedback-form").hide();
         $("#form-upload-etapa").show();
 
+        if(formStatus != 'addEnunc'){
+            formStatus = 'addEnunc';
+            checkFormStatus();
+        } else {
+            formStatus = null;
+            checkFormStatus();
+            $("#etapa-form").hide();
+            $("#form-upload-etapa").hide();
+        }
+
     })
 
-    //on change mudar a etapa (variavel) - EDITAR ETAPA
+    //on change mudar a etapa (variavel) - NOVA ETAPA
     $("#etapa").change(function(){
         var name = $(this).find('input[name="etapaName"]').val();
         var desc = $(this).find('textarea[name="etapaDescription"]').val();
@@ -189,8 +236,33 @@ $(document).ready(() => {
         }
     })
 
+    //on change mudar a etapa (variavel) - EDITAR ETAPA
+    $("#etapa-edit").change(function(){
+        var name = $(this).find('input[name="editetapaName"]').val();
+        var desc = $(this).find('textarea[name="editetapaDescription"]').val();
+        var data = $(this).find('input[name="editetapaDate"]').val();
+        var enunc = '';
+        
+        etapa['nome'] = name;
+        etapa['desc'] = desc;
+        etapa['data'] = data;
+        etapa['enunciado'] = enunc;
+
+        if (!verifyDates(data)){
+            $("#etapa-edit input[name='editetapaDate']").css("border-left-color", "red");
+        } else {
+            $("#etapa-edit input[name='editetapaDate']").css("border-left-color", "lawngreen");
+        }
+    })
+
     // abrir pop up - REMOVER ETAPA
     $("body").on('click', "#removeEtapaButton", function(){
+        $("#etapa-form-edit").hide();
+        $("#etapa-form").hide();
+        $("#feedback-form").hide();
+        $("#form-upload-etapa").hide();
+        formStatus = null;
+        checkFormStatus();
         makePopup('confirmRemoveEtapa','Tem a certeza que deseja eliminar esta etapa?');    
     })
     
@@ -199,62 +271,44 @@ $(document).ready(() => {
     $("body").on('click', "#confirmRemoveEtapa", function(){
         $('.cd-popup').remove();
         removeEtapa(selected_etapa);
-        $("#etapa-form").hide();
-        $('#' + selected_etapa).hide();
         getEtapas(proj);
+        $(".overlay").css('visibility', 'hidden');
+        $(".overlay").css('opacity', '0');
         checkEntrega();
     })
 
 
     //mostrar info extra da etapa - TABELA ETAPAS
     $('body').on('click', '.moreInfoButtons', function(){
-        var etapa;
-        selected_etapa = $(this).attr("id");
-        for (i=0; i<etapas_info_global.length; i++){
-            if(selected_etapa == etapas_info_global[i].id){
-                etapa = etapas_info_global[i];
-            }
-        }
-
-        console.log(etapa);
-
+        
         $("#form-upload-etapa").attr('action', base_url + 'UploadsC/uploadEnunciadoEtapa/' + proj + '/' + selected_etapa);
+        
+        selected_etapa = $(this).attr("id");
 
-
-        $("#etapa-popup").html('<a class="close" href="#">&times;</a>'+
-        '<div class="content">'+
-        '<h3>Descrição:</h3>'+
-        '<label>'+ etapa["description"] +'</label>'+
-        '<h3>Enunciado: </h3>'+
-        '<label id="enunciado_label">'+ etapa["enunciado"] + '</label>'+
-        etapa["remove"] + 
-        '<div class="wrapper">'+
-        '<hr>' +
-        '<input id="addEtapaEnunciado" class="addE" type="button" value="Adicionar Enunciado">' +
-        '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +
-        '<input id="feedbackEtapaButton" class="feedbackb" type="button" value="Feedback">'+
-        '<input id="removeEtapaButton" class="remove" type="button" value="Eliminar">' +
-        '</div>' +
-        '</div>');
-
-        $('.etapas-info').hide();
-        $("#etapa-overlay").css('visibility', 'visible');
-        $("#etapa-overlay").css('opacity', '1');
+        updateEtapaPopup(selected_etapa);
 
     })
 
     // fechar popup - etapas
     $('body').on("click", '.close', function() {
+        $("#etapa-form-edit").hide();
+        $("#feedback-form").hide();
+        $("#form-upload-etapa").hide();
+        formStatus = null;
+        checkFormStatus();
+        event.preventDefault();
         $(".overlay").css('visibility', 'hidden');
         $(".overlay").css('opacity', '0');
     })
 
+    //ver se updated_enunc_etapa é true - se for acabou de ser feito um upload e é suposto
+
     //remover enunciado etapa
     $('body').on('click', '#removeEnunciado', function(e) {
+        console.log("asd");
         etapa_clear_enunciado();
         getEtapas(proj);
     })
-
 
     //remover enunciado projeto
     $('body').on('click', '#removeEnunciadoProj', function(){
@@ -283,10 +337,11 @@ function checkEnunciado(){
     $.get(base_url + "uploads/enunciados_files/"+ proj+".pdf")
         .done(function() { 
             var removebut = '<label id="removeEnunciadoProj" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> ';
+            $("#removeDiv").html(removebut);
             if (enunciado_h3 != ""){
-                $("#enunciado_h3").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h3 + "</a>" + removebut);
+                $("#enunciado_h3").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h3 + "</a>");
             } else {
-                $("#enunciado_h3").text("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>" + removebut);
+                $("#enunciado_h3").text("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
             }
 
             return true;
@@ -314,13 +369,13 @@ function putEtapaInfoForm(newid){
     var name = $("#etapa" + newid).find("p:first").text();
     var data = $("#etapa" + newid).find("p:nth-child(2)").text().replace(",","");
     data +=":00";
-    var desc = $("#div" + newid).find("p").first().text();
+    var desc = $("#etapa-popup .content").find("label:first").text();
     var newdata = strToDate(data).toISOString();
     var finaldata = newdata.substring(0,newdata.length-1);
 
-    $('input[name="etapaName"]').val(name);
-    $('input[name="etapaDate"]').val(finaldata);
-    $('textarea[name="etapaDescription"]').val(desc);
+    $('input[name="editetapaName"]').val(name);
+    $('input[name="editetapaDate"]').val(finaldata);
+    $('textarea[name="editetapaDescription"]').val(desc);
 
     etapa['nome'] = name;
     etapa['desc'] = desc;
@@ -360,6 +415,11 @@ function checkEntrega(){
 
 //muito parecido ao verifyDates do projectsNEW.js, só muda o set do errormsg
 function verifyDates(data){
+
+    if (data == ""){
+        $("#errormsg").text("A data deve ser preenchida");
+        return false;
+    }
 
     var dmaior = new Date(data);
     var today = new Date();
@@ -468,7 +528,8 @@ function etapa_clear_enunciado(){
         success: function(data) {
             console.log("Enunciado da etapa: "+ data + "removido");
             $("#removeEnunciado").hide();
-            $("#div"+data).find('p').last().text("Não existe enunciado associado a esta etapa.");
+            $("#enunciado_label").text("Não existe enunciado associado a esta etapa.");
+            // $("#div"+data).find('p').last().text("Não existe enunciado associado a esta etapa.");
         },
         error: function(data) {
             console.log("Erro na API - Remover enunciado Etapa");
@@ -520,11 +581,19 @@ function submit_new_etapa_enunciado(enunc){
         data: data,
         success: function(data) {
             console.log(data);
+            $("#successmsgenunc").text("Enunciado adicionado com sucesso");
+            $('#form-upload-etapa')[0].reset();
+            $('#file_etapa').css("border-left-color", "rgb(124, 124, 124)");
+            $("#successmsgenunc").show().delay(5000).fadeOut();
+            var removebut = removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
+            $("#enunciado_label").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+ "/" + selected_etapa+".pdf'>" + data + "</a>" + removebut);
             console.log(base_url + "uploads/enunciados_files/"+ proj + "/" + selected_etapa);
-            $("#div"+selected_etapa).find('p:last').html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+ "/" + selected_etapa+".pdf'>" + data + "</a>");
+            updateEtapaPopup(selected_etapa);
         },
         error: function(data) {
             console.log("Erro na API - Edit Etapa Enunciado");
+            $("#errormsgenunc").text("Erro a adicionar o enunciado");
+            $("#errormsgenunc").show().delay(5000).fadeOut();
             console.log(data);
         }
     });
@@ -542,6 +611,35 @@ function setProj(id){
 
 function setBackPage(href){
     back_page = href;
+}
+
+function checkFormStatus(){
+    if(formStatus == 'edit'){
+        $("#opennewEtapa").css('background-color','white');
+        $(".editb").css('background-color','#3e5d4f');
+        $(".feedbackb").css('background-color','white');
+        $(".addE").css('background-color','white');
+    } else if(formStatus == 'new'){
+        $("#opennewEtapa").css('background-color','#3e5d4f');
+        $(".editb").css('background-color','white');
+        $(".feedbackb").css('background-color','white');
+        $(".addE").css('background-color','white');
+    } else if(formStatus == 'feedback'){
+        $(".feedbackb").css('background-color','#3e5d4f');
+        $("#opennewEtapa").css('background-color','white');
+        $(".editb").css('background-color','white');
+        $(".addE").css('background-color','white');
+    } else if(formStatus == 'addEnunc'){
+        $("#opennewEtapa").css('background-color','white');
+        $(".editb").css('background-color','white');
+        $(".feedbackb").css('background-color','white');
+        $(".addE").css('background-color','#3e5d4f');
+    } else {
+        $("#opennewEtapa").css('background-color','white');
+        $(".editb").css('background-color','white');
+        $(".feedbackb").css('background-color','white');
+        $(".addE").css('background-color','white');
+    }
 }
 
 function makeEtapaTable(data){
@@ -585,25 +683,6 @@ function makeEtapaTable(data){
         array_etapa.push("<p>Não existem etapas para mostrar</p><hr>");
     }
 
-    popup += '<div class="overlay" id="etapa-overlay">' +
-        '<div class="popup" id="etapa-popup">'+
-        '<a class="close" href="#">&times;</a>'+
-        '<div class="content">'+
-        '<h3>Descrição:</h3>'+
-        '<p>Teste</p>'+
-        '<h3>Enunciado: </h3>'+
-        '<p>Teste</p>'+
-        '<div class="wrapper">'+
-        '<input id="addEtapaEnunciado" class="addE" type="button" value="Adicionar Enunciado">' +
-        '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +
-        '<input id="feedbackEtapaButton" class="feedbackb" type="button" value="Feedback">'+
-        '<input id="removeEtapaButton" class="remove" type="button" value="Eliminar">' +
-        '</div>' +
-        '</div>'+
-        '</div></div>'
-
-    $("#popups").html(popup);
-    
     etapas_info_global = etapas_info;
 
     $('#etapas-container').pagination({
@@ -611,11 +690,29 @@ function makeEtapaTable(data){
         pageSize: 3,
         pageNumber: 1,
         callback: function(data, pagination) {
-            console.log(array_etapa);
             $("#etapas-container2").html('<div class="buttons-container"><input id="opennewEtapa" type="button" value="Criar etapa"></div><hr>');
             $("#etapas-container2").append(data);
         }
     })
+}
+
+
+function updateEtapaPopup(etapa_rec){
+    var etapa;
+    for (i=0; i<etapas_info_global.length; i++){
+        if(etapa_rec == etapas_info_global[i].id){
+            etapa = etapas_info_global[i];
+        }
+    }
+
+    console.log(etapa);
+
+    $("#etapa-popup .content").find("label:first").text(etapa["description"]);
+    $("#enunciado_label").html(etapa["enunciado"]);
+    $("#enunciado_label").append(etapa["remove"]);
+
+    $("#etapa-overlay").css('visibility', 'visible');
+    $("#etapa-overlay").css('opacity', '1');
 }
 
 function getEtapas(proj_id){
@@ -709,7 +806,7 @@ function removeEtapa(id){
         data: data_etapa,
         success: function(data) {
             console.log("mensagem de sucesso");
-            $('.etapas-info').hide();
+
         },
         error: function(data) {
             console.log("Erro na API - Remove Etapa")

@@ -22,6 +22,7 @@
     <div class="container">
         <h3 id="entrega_h3"></h3>
         <h3 id="enunciado_title">Enunciado:</h3>
+        <div id="removeDiv"></div>
         <h4 id="enunciado_h3"></h4>
         <div class="wrapper-top">
             <?php echo form_open_multipart('UploadsC/uploadEnunciadoProjeto', "id='form-upload-proj'");?>
@@ -47,60 +48,99 @@
 
         <!-- Popups gerados em js -->
         <div id="popups">
+
+          <div class="overlay" id="etapa-overlay">
+            <div class="popup" id="etapa-popup">
+            <a class="close" href="#">&times;</a>
+              <div class="content">
+                <h3>Descrição:</h3>
+                <label></label>
+                <h3>Enunciado: </h3>
+                <label id="enunciado_label"></label>
+                <div class="wrapper">
+                    <hr>
+                    <input id="addEtapaEnunciado" class="addE" type="button" value="Adicionar Enunciado">
+                    <input id="editEtapaButton" class="editb" type="button" value="Editar">
+                    <input id="feedbackEtapaButton" class="feedbackb" type="button" value="Feedback">
+                    <input id="removeEtapaButton" class="remove" type="button" value="Eliminar">
+                </div>
+
+                <div id=forms>
+                    <?php echo form_open_multipart('UploadsC/uploadEnunciadoEtapa', 'id="form-upload-etapa"');?>
+                        <label id="letapa" for="file">Enunciado:</label>
+                        <input class="form-input-file" type="file" id="file_etapa" name="file_etapa" accept=".pdf">
+                        <p>
+                            <div id="successmsgenunc" class="submit-msg">Mensagem de sucesso template</div>
+                            <div id="errormsgenunc" class="submit-msg">Mensagem de erro template</div>
+                        </p>
+                        <input id="addEnuncEtapa" type="submit" value="Adicionar enunciado">
+                    </form>
+
+                    <form id="feedback-form">
+                        <p>
+                            <label class="form-label">Selecione o grupo</label>
+                            <select id="select_grupo_feedback" name="GrupoSelect">
+                            </select>
+                            <label for="file">Entrega:</label>
+                            <p id="sub_url">Entrega ainda não foi submetida</p>
+                            <label class="form-label">Descrição</label>
+                            <textarea class="form-text-area" type="text" name="feedback-text" required></textarea>
+                        </p>
+                        <p>
+                            <div id="successmsgfb" class="submit-msg">Mensagem de sucesso template</div>
+                            <div id="errormsgfb" class="submit-msg">Mensagem de erro template</div>
+                        </p>
+                        <input type="submit" id="confirmFeedback" onclick="return false" value="Confirmar">
+                    </form>
+
+                    <form id="etapa-form-edit" action="javascript:void(0)">
+                        <p id="etapa-edit">
+                            <label id="etapa-label-edit" class="form-label-title"></label>
+                            <label class="form-label">Nome</label>
+                            <input class="form-input-text" type="text" name="editetapaName" required>
+                            <label class="form-label">Descrição</label>
+                            <textarea class="form-text-area" type="text" name="editetapaDescription" required></textarea>
+                            <label class="form-label">Data de entrega</label>
+                            <input class="form-input-text" type="datetime-local" name="editetapaDate" required>
+                        </p>
+                        <p>
+                            <div id="errormsgedit" class="submit-msg">Mensagem de erro template</div>
+                        </p>
+
+                        <input type="submit" id="newEtapaEDIT" value="Confirmar">
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <!-- Pop up com form, criado logo à mao -->
+       
         <div class="overlay" id="etapa-overlay-new">
             <div class="popup" id="etapa-form-popup">
             <a class="close" href="#">&times;</a>
                 <div class="content">
-                <form id="etapa-form" action="javascript:void(0)">
-                    <p id="etapa" class="etapa">
-                        <label id="etapa-label" class="form-label-title">Nova etapa:</label>
-                        <label class="form-label">Nome</label>
-                        <input class="form-input-text" type="text" name="etapaName" required>
-                        <label class="form-label">Descrição</label>
-                        <textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>
-                        <label class="form-label">Data de entrega</label>
-                        <input class="form-input-text" type="datetime-local" name="etapaDate" required>
-                    </p>
-                    <p>
-                        <div id="errormsg" class="submit-msg">Mensagem de erro template</div>
-                    </p>
+                    <form id="etapa-form" action="javascript:void(0)">
+                        <p id="etapa">
+                            <label id="etapa-label" class="form-label-title">Nova etapa:</label>
+                            <label class="form-label">Nome</label>
+                            <input class="form-input-text" type="text" name="etapaName" required>
+                            <label class="form-label">Descrição</label>
+                            <textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>
+                            <label class="form-label">Data de entrega</label>
+                            <input class="form-input-text" type="datetime-local" name="etapaDate" required>
+                        </p>
+                        <p>
+                            <div id="errormsg" class="submit-msg">Mensagem de erro template</div>
+                        </p>
 
-                    <input type="submit" id="newEtapa" value="Criar">
-                    <input type="submit" id="newEtapaEDIT" value="Confirmar">
-                </form>
+                        <input type="submit" id="newEtapa" value="Criar">
+                    </form>
                 </div>
             </div>
         </div>
-
-
-
-        <form id="feedback-form">
-            <p>
-                <label class="form-label">Selecione o grupo</label>
-                <select id="select_grupo_feedback" name="GrupoSelect">
-                </select>
-                <label for="file">Entrega:</label>
-                <p id="sub_url">Entrega ainda não foi submetida</p>
-                <label class="form-label">Descrição</label>
-                <textarea class="form-text-area" type="text" name="feedback-text" required></textarea>
-            </p>
-            <p>
-                <div id="successmsgfb" class="submit-msg">Mensagem de sucesso template</div>
-                <div id="errormsgfb" class="submit-msg">Mensagem de erro template</div>
-            </p>
-            <input type="submit" id="confirmFeedback" onclick="return false" value="Confirmar">
-        </form>
-
-
-        <?php echo form_open_multipart('UploadsC/uploadEnunciadoEtapa', 'id="form-upload-etapa"');?>
-                <label id="letapa" for="file">Enunciado:</label>
-                <input class="form-input-file" type="file" id="file_etapa" name="file_etapa" accept=".pdf">
-                <input id="addEnuncEtapa" type="submit" value="Adicionar enunciado">
-        </form>
-
 
 
     </div>

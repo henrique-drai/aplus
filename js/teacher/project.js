@@ -97,6 +97,7 @@ $(document).ready(() => {
 
     $("#addEnuncEtapa").on('click', function(e){
         enunc = $("#file_etapa").val().split('\\').pop();
+        console.log(enunc);
         if (enunc.length == 0){
             $("#errormsgenunc").text("Tem de selecionar um ficheiro");
             $("#errormsgenunc").show().delay(5000).fadeOut();
@@ -281,9 +282,8 @@ $(document).ready(() => {
     //mostrar info extra da etapa - TABELA ETAPAS
     $('body').on('click', '.moreInfoButtons', function(){
         
-        $("#form-upload-etapa").attr('action', base_url + 'UploadsC/uploadEnunciadoEtapa/' + proj + '/' + selected_etapa);
-        
         selected_etapa = $(this).attr("id");
+        $("#form-upload-etapa").attr('action', base_url + 'UploadsC/uploadEnunciadoEtapa/' + proj + '/' + selected_etapa);
 
         updateEtapaPopup(selected_etapa);
 
@@ -567,6 +567,7 @@ function submit_new_enunciado(enunc){
 }
 
 function submit_new_etapa_enunciado(enunc){
+    console.log(enunc);
     const data = {
         etapaid : selected_etapa,
         enunciado : enunc,
@@ -581,14 +582,13 @@ function submit_new_etapa_enunciado(enunc){
         data: data,
         success: function(data) {
             console.log(data);
+            console.log(selected_etapa);
             $("#successmsgenunc").text("Enunciado adicionado com sucesso");
-            $('#form-upload-etapa')[0].reset();
             $('#file_etapa').css("border-left-color", "rgb(124, 124, 124)");
             $("#successmsgenunc").show().delay(5000).fadeOut();
             var removebut = removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
             $("#enunciado_label").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+ "/" + selected_etapa+".pdf'>" + data + "</a>" + removebut);
             console.log(base_url + "uploads/enunciados_files/"+ proj + "/" + selected_etapa);
-            updateEtapaPopup(selected_etapa);
         },
         error: function(data) {
             console.log("Erro na API - Edit Etapa Enunciado");

@@ -7,4 +7,9 @@ class TasksModel extends CI_Model {
         return $query->result_array();
     }
 
+    public function getMembroNome($id) {
+        $query = $this->db->get_where('user', array('id =' => $id));
+        return $query->result_array();
+    }
+
 }

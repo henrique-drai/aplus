@@ -66,6 +66,12 @@ class Api_Student extends REST_Controller {
         $this->load->model('TasksModel');
         $data["tarefas"] = $this->TasksModel->getTarefas($grupo_id);
         
+        $data["membro_nome"] = array();
+        for($i=0; $i < count($data["tarefas"]); $i++) {
+            array_push($data["membro_nome"], $this->TasksModel->getMembroNome($data["tarefas"][$i]["user_id"]));
+        }
+
+
         $this->response($data, parent::HTTP_OK);
 
     }

@@ -35,10 +35,13 @@ function getAllTasks($grupo_id) {
         	var linhas = '';
         	if (data.tarefas.length > 0) {
         		for (i = 0; i < data.tarefas.length; i++) {
+                    for (i = 0; i < data.membro_nome.length; i++) {
 
-        			linhas += '<tr class="tarefa_row"><td>' + data.tarefas[i].name + '</td><td>' + data.tarefas[i].description +
-                        '</td><td>' + data.tarefas[i].user_id + '</td><td>' + data.tarefas[i].start_date + '</td><td>' + data.tarefas[i].done_date;
-        	}
+        			    linhas += '<tr class="tarefa_row"><td>' + data.tarefas[i].name + '</td><td>' + data.tarefas[i].description +
+                            '</td><td>' + data.membro_nome[i][0].name + '</td><td>' + data.tarefas[i].start_date + '</td><td>' + data.tarefas[i].done_date;
+            
+                    }
+                }
         	$('#tab-gerir-tarefas').append(linhas);
         	} else {
         		$("#tab-gerir-tarefas").css("display", "none");

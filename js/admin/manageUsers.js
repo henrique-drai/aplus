@@ -24,12 +24,14 @@ $(document).ready(() => {
 
     // POPUP Edit
     $('body').on("click", "#editUser",function() {
+        $(".overlay").css('display', 'block');
         $(".overlay").css('visibility', 'visible');
         $(".overlay").css('opacity', '1');
         displayEditUser();
     });
 
     $('.close').click(function() {
+        $(".overlay").css('display', 'none');
         $(".overlay").css('visibility', 'hidden');
         $(".overlay").css('opacity', '0');
     })
@@ -114,6 +116,7 @@ function displayEditUser(){
     $("#editUser-form input[name='surname']").val(surname);
     $("#editUser-form input[name='email']").val(oldEmail);
     $(".popup").css("display", "block");
+
 }
 
 function editUser(){
@@ -138,9 +141,11 @@ function editUser(){
                 else{
                     getSearchStudent($("#search_text_students").val());
                 }   
+                $(".overlay").css('display', 'none');
                 $(".overlay").css('visibility', 'hidden');
                 $(".overlay").css('opacity', '0');
                 $(".popup").css("display", "none");
+                
             } else if (page_name=="teachers") {
                 if($("#search_text_profs").val()=="*"){
                     getAllTeachers();

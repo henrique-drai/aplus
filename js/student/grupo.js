@@ -15,42 +15,39 @@ $(document).ready(() => {
         window.location = base_url + "app/student/grupos/ficheiros/" + localStorage.grupo_id;
     })
 
-    getAllTasks(localStorage.grupo_id);
-
+    checkClosedProject();
 
 });
 
-function getAllTasks($grupo_id) {
-    console.log(localStorage.grupo_id);
+
+
+function checkClosedProject(){
     $.ajax({
         type: "GET",
         headers: {
-        	"Authorization": localStorage.token
+            "Authorization": localStorage.token
         },
-        url: base_url + "api/getAllTasks/" + localStorage.grupo_id,
-
-        success: function (data) {
-        	console.log(data);
-
-        	var linhas = '';
-        	if (data.tarefas.length > 0) {
-        		for (i = 0; i < data.tarefas.length; i++) {
-                    for (i = 0; i < data.membro_nome.length; i++) {
-
-        			    linhas += '<tr class="tarefa_row"><td>' + data.tarefas[i].name + '</td><td>' + data.tarefas[i].description +
-                            '</td><td>' + data.membro_nome[i][0].name + '</td><td>' + data.tarefas[i].start_date + '</td><td>' + data.tarefas[i].done_date;
+        url: base_url + "api/getProjectStatus",
+        data: {grupo_id: localStorage.grupo_id},
+        success: function(data) {
             
-                    }
-                }
-        	$('#tab-gerir-tarefas').append(linhas);
-        	} else {
-        		$("#tab-gerir-tarefas").css("display", "none");
-        		var mensagem = "<h4 id='mens_sem_alunos'>Não existem tarefas atribuidas</h4>";
-        		$("#msg-sem-tarefas").append(mensagem)
-        	}
+            // PARA TESTAR - SE QUISEREM
+            // var ano = new Date(data.date)
+            // var ano = new Date("03/05/2020")
+            // var dataAtual = Date.now();
+
+            // if(ano < Date.now()){
+            //     $("#btnArea").append("<input id='ratingmembros' type='button' value='Rating Membros'>")
+            // }
+
+            if(new Date(data.date)<Date.now()){
+                $("#btnArea").append("<input id='ratingmembros' type='button' value='Rating Membros'>")
+            }
+
         },
-        error: function (data) {
-        	console.log("Houve um erro ao ir buscar as tarefas.");
+        error: function(data) {
+            console.log("Erro na API:")
         }
     });
+    // console.log(localStorage.grupo_id)
 }

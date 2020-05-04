@@ -13,6 +13,9 @@ $(document).ready(() => {
 function getAll(user_id){
     $.ajax({
         type: "GET",
+        headers: {
+            "Authorization": localStorage.token
+        },
         url: base_url + "student/api/getMyGroups",
         data: {id: user_id},
         success: function(data) {

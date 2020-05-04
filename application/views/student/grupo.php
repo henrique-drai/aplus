@@ -14,8 +14,10 @@
             <a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > <a href="<?php echo base_url(); ?>app/student/grupo">Área de Grupo</a>
         </h4>
         <h1>Área de Grupo</h1>
-        <input id="ficheiros" type="button" value="Ficheiros">
-        <input id="ratingmembros" type="button" value="Rating Membros">
+        <div id="btnArea">
+            <input id="ficheiros" type="button" value="Ficheiros">    
+        </div>
+        
         
         <h2>Gestão de Tarefas</h2>
         

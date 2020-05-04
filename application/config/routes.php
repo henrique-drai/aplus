@@ -60,6 +60,9 @@ $route['api/insertDate/(:num)/(:any)']          = 'Api_Subject/insertDate/$1/$2'
 $route['api/getAllTasks/(:num)']                    = 'Api_Student/getAllTasks/$1';
 
 
+$route['api/getProjectStatus']                  = 'Api_Project/getProjectStatus';
+
+
 ##ADMIN##
 
 $route['api/register']                          = 'Api_User/registerUser';

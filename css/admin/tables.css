@@ -1,7 +1,11 @@
 .adminTable{
     width: 80%;
     text-align: center;
-    /* margin: auto; */
+    margin: auto;
+}
+
+.adminTable td {
+    padding: 0px 13px;
 }
 
 /* .container h2 {

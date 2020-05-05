@@ -13,6 +13,15 @@
             <a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a>
         </h4>
         <h1>Grupos</h1>
+
+        <label for="groupStatus"></label>
+        
+        <select id="status" name="groupStatus">
+            <option value="allGroups">Todos os Grupos</option>
+            <option value="ongoing">Em curso</option>
+            <option value="terminated">Terminados</option>
+        </select>
+
         <div class="form-container">
             <div class="grupos"></div>
         </div>

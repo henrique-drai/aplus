@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/projects/projects-general.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-projects.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/pagination-min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/project.js"></script>
@@ -116,7 +116,7 @@
 
         </div>
 
-        <!-- Pop up com form, criado logo à mao -->
+        <!-- Pop up com form do criar nova etapa, criado logo à mao -->
        
         <div class="overlay" id="etapa-overlay-new">
             <div class="popup" id="etapa-form-popup">

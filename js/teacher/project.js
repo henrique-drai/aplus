@@ -643,8 +643,6 @@ function checkFormStatus(){
 }
 
 function makeEtapaTable(data){
-    etapasSTR = '';
-    var popup = '';
     var etapas_info = [];
     var array_etapa = [];
     for (i=0; i<data.length; i++){
@@ -753,6 +751,7 @@ function showGroups(proj_id) {
             
             for(var i=0; i < data["grupos"].length; i++) {
                 var names = '';
+                console.log(data["nomes"]);
 
                 for(var j=0; j < data["nomes"].length; j++) {
                     if(data["nomes"][j].grupo_id == data["grupos"][i].id) {

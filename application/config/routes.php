@@ -40,6 +40,7 @@ $route['api/editEtapaEnunciado']                = 'Api_Project/editEtapaEnunciad
 $route['api/getSub']                            = 'Api_Project/getSub';
 $route['api/getAllEtapas/(:num)']               = 'Api_Project/getAllEtapas/$1';
 $route['api/getAllGroups/(:num)']               = 'Api_Project/getAllGroups/$1';
+$route['api/getMyGroupInProj/(:num)']           = 'Api_Project/getMyGroupInProj/$1';
 
 $route['api/removeProject/(:num)']              = 'Api_Project/removeProject/$1';
 $route['api/removeEtapa/(:num)']                = 'Api_Project/removeEtapa/$1';

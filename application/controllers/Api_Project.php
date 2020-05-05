@@ -164,9 +164,7 @@ class Api_Project extends REST_Controller {
         $this->load->model('ProjectModel');
 
         $grupo_id =  $this->get('grupo_id');
-
         $projeto_id = $this->GroupModel->getProjectId($grupo_id)[0]["projeto_id"];
-
         $data["date"] = $this->ProjectModel->getLastEtapa($projeto_id)[0]["deadline"];
 
         $this->response($data, parent::HTTP_OK);

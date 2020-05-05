@@ -33,15 +33,23 @@ function checkClosedProject(){
             
             // PARA TESTAR - SE QUISEREM
             // var ano = new Date(data.date)
-            // var ano = new Date("03/05/2020")
+            // var ano = new Date("05/05/2020")
             // var dataAtual = Date.now();
 
             // if(ano < Date.now()){
             //     $("#btnArea").append("<input id='ratingmembros' type='button' value='Rating Membros'>")
             // }
+            // else{
+            //     $("#ratingmembros").remove()
+            // }
 
             if(new Date(data.date)<Date.now()){
                 $("#btnArea").append("<input id='ratingmembros' type='button' value='Rating Membros'>")
+            }
+            // Acho que este remove é opcional visto que volta a carregar o html normal sem o botáo para o rating
+            // Ou seja, é como se voltasse ao início
+            else{ 
+                $("#ratingmembros").remove()
             }
 
         },

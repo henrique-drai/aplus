@@ -72,28 +72,7 @@ class Student extends REST_Controller {
     //                     GROUPS
     //////////////////////////////////////////////////////////////
 
-    public function getMyGroups(){
-        $this->load->model('GroupModel');
-        $this->load->model('ProjectModel');
-        $this->load->model('SubjectModel');
-
-        $user_id = $this->get('id');
-        $data['grupo'] = $this->GroupModel->getGroups($user_id);
-
-        $data["info"] = array();
-        $data["subjName"] = array();
-
-        for ($i=0; $i < count($data["grupo"]); $i++) {
-           
-            $projId =  $this->GroupModel->getProjectId($data["grupo"][$i]["grupo_id"]);
-            $idCadeira = $this->ProjectModel->getProjectByID($projId[0]['projeto_id'])[0]['cadeira_id'];
-            $nomeCadeira = $this->SubjectModel->getSubjectByID($idCadeira)->name;
-            array_push($data["info"], $this->ProjectModel->getProjectByID($projId[0]['projeto_id']));
-            array_push($data["subjName"], $nomeCadeira);
-        }
-              
-        $this->response($data, parent::HTTP_OK);
-    }
+    
     
     public function getStudentsFromGroup(){
         $this->load->model('GroupModel');

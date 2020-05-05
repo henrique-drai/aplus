@@ -63,6 +63,7 @@ class Api_Subject extends REST_Controller {
             "code" => $this->post('codeCadeira'),
             "curso_id"   => $this->post('curso'),
             "name" => $this->post('nomeCadeira'),
+            "sigla" => $this->post('sigla'),
             "description"   => $this->post('descCadeira'),
             "semestre" => $this->post("semestre"),
             "color" => $this->post("cor"),
@@ -113,6 +114,31 @@ class Api_Subject extends REST_Controller {
         $this->SubjectModel->insertDate($id, $user_id, $role);
     }
 
+    public function editSubject_post(){
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        $id = $this->post('id');
+
+        $data = Array(
+            "code"      => $this->post('codigo'),
+            "name"     => $this->post('nome'),
+            "sigla"  => $this->post('sigla'),
+            "semestre"  => $this->post('semestre'),
+            "description"  => $this->post('desc'),
+        );
+
+        $this->load->model('SubjectModel');
+        $retrieved = $this->SubjectModel->editSubject($id, $data);
+
+        $this->response(json_encode($retrieved), parent::HTTP_OK);
+    }
 
 
     //////////////////////////////////////////////////////////////
@@ -352,14 +378,11 @@ class Api_Subject extends REST_Controller {
             $data["subjects"] = "";
         }
 
-        
-
-
-
         $this->response($data, parent::HTTP_OK);
 
     }
 
+   
 
     //////////////////////////////////////////////////////////////
     //                         DELETE

@@ -28,6 +28,9 @@
                 <label for="nomeCadeira">Unidade Curricular:</label>
                 <input class="form-input-text" type="text" name="nomeCadeira" required>
             </p><p>
+                <label for="siglaCadeira">Sigla da Unidade Curricular:</label>
+                <input class="form-input-text" type="text" name="siglaCadeira" required>
+            </p><p>
                 <label for="descCadeira">Descrição da Unidade Curricular:</label>
                 <textarea class="form-text-area" type="text" name="descCadeira" required></textarea>
             </p><p>
@@ -75,6 +78,36 @@
 
         <select id="Consultar_Cadeiras_Ano" class="SubjectsSelects" name="consultarCadeirasporAno">
         </select>
+
+        <div id="subject-container" class="container">
+        </div> 
+        <div class='overlay'>
+            <div class='popup'>
+                <a class='close' href='#'>&times;</a>
+                <div class='content'>
+                    <h2>Editar Unidade Curricular</h2>
+                    <form id="editSubject-form" action="javascript:void(0)">
+                    <p>
+                        <label for="codigo" class='form-label'>Código da UC</label>
+                        <input class="form-input-text" type="text" name="codigo" required>
+                    </p><p>
+                        <label for="nome" class='form-label'>Nome da UC</label>
+                        <input class="form-input-text" type="text" name="nome" required>
+                    </p><p>
+                        <label for="sigla" class='form-label'>Sigla da UC</label>
+                        <input class="form-input-text" type="text" name="sigla" required>
+                    </p><p>
+                        <label for="semestre" class='form-label'>Semestre (1 ou 2)</label>
+                        <input class="form-input-text" type="text" name="semestre" required>
+                    </p><p>
+                        <label for="descCadeira">Descrição da Unidade Curricular:</label>
+                        <textarea class="form-text-area" type="text" name="descCadeira" required></textarea>
+                    </p><p>
+                        <input type="submit" id="editSubject-form-submit">
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <div class="cd-popup" role="alert">
 	        <div class="cd-popup-container">

@@ -1,7 +1,10 @@
 <title>A+ for Teachers</title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/projects/projects-general.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/student/student-projects.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 <script>setPageName("subjects")</script>
+<script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 <script src="<?php echo $base_url; ?>js/student/project.js"></script>
 <script>setProj("<?php echo $project[0]["id"]; ?>")</script>
 </head>
@@ -19,7 +22,7 @@
             <br><br>
             <!-- Mostramos em baixo o grupo se já tiver grupo ou a criação dos grupos no caso de não ter
                 ficando a criação ao criterio do ye -->
-            <h2>Grupo</h2>
+            <h2 id="grupo-name">Grupo</h2>
         </div>
 
         <div id="grupos-container" class="container">
@@ -31,6 +34,7 @@
 
         <h2>Etapas</h2>
         <div id="etapas-container" class="container">
+            <div id="etapas-container2"></div>
         </div>
 
         <!-- Nesta etapa info mostramos só as infos e o feedback de cada etapa se houver ou botao de submit-->

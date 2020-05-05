@@ -184,4 +184,26 @@ class SubjectModel extends CI_Model { //cadeira
         $query = $this->db->get_where("aluno_cadeira", array('cadeira_id ' => $cadeira_id, "user_id" => $user_id));
         return $query->row();
     }
+
+
+    public function editSubject($id, $data){
+        if(isset($data["code"])){
+            $this->db->set('code', $data["code"]);
+        }
+        if(isset($data["name"])){
+            $this->db->set('name', $data["name"]);
+        }
+        if(isset($data["sigla"])){
+            $this->db->set('sigla', $data["sigla"]);
+        }
+        if(isset($data["semestre"])){
+            $this->db->set('semestre', $data["semestre"]);
+        }
+        if(isset($data["description"])){
+            $this->db->set('description', $data["description"]);
+        }
+        $this->db->where('id', $id);
+        $this->db->update('cadeira');
+    }
+
 }

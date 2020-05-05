@@ -37,7 +37,8 @@ $(document).ready(() => {
         var descCadeira = $("#register-cadeiras-form textarea[name='descCadeira']").val();
         var faculdade = $("#register-cadeiras-form select[name='faculdade']").val();
         var curso = $("#register-cadeiras-form select[name='curso']").val();
-        var form = confirmForm(codeCadeira, nomeCadeira, descCadeira, faculdade, curso);
+        var sigla = $("#register-cadeiras-form input[name='siglaCadeira']").val();
+        var form = confirmForm(codeCadeira, nomeCadeira, descCadeira, faculdade, curso, sigla);
         if(form == true){
             $("#msgStatus").text("Necessário preencher todos os campos.");
             $("#msgStatus").show().delay(2000).fadeOut();
@@ -49,7 +50,7 @@ $(document).ready(() => {
     })
 })
 
-function confirmForm(codeCadeira, nomeCadeira, descCadeira, faculdade, curso){
+function confirmForm(codeCadeira, nomeCadeira, descCadeira, faculdade, curso, sigla){
     if(codeCadeira.length == 0){
         return true;
     }
@@ -63,6 +64,9 @@ function confirmForm(codeCadeira, nomeCadeira, descCadeira, faculdade, curso){
         return true;
     }
     else if(curso.length == 0){
+        return true;
+    }
+    else if(sigla.length == 0){
         return true;
     }
 }
@@ -132,13 +136,13 @@ function getAllCursosFaculdade(faculdade, anoletivo){
                 anoletivo},
         success: function(data) {
             if(data.courses.length>0){
-                $(".course_row").remove();
+                $(".course_row_register").remove();
                 $("label[for='curso']").css("display","inline");
                 for(i=0; i<data.courses.length; i++){
                     
                     $("#cursos_register_UnidCurricular").css("display", "block");
                     var linhas = '';
-                    linhas += '<option class="course_row" value=' + data.courses[i].id +">" + data.courses[i].name + '</option>'; 
+                    linhas += '<option class="course_row_register" value=' + data.courses[i].id +">" + data.courses[i].name + '</option>'; 
                 
                      $("#cursos_register_UnidCurricular").append(linhas);
                 }
@@ -169,6 +173,7 @@ function submitRegister(){
         descCadeira:    $("#register-cadeiras-form textarea[name='descCadeira']").val(),
         semestre: $("#register-cadeiras-form select[name='semestre']").val(),
         curso:    $("#register-cadeiras-form select[name='curso']").val(),
+        sigla:    $("#register-cadeiras-form input[name='siglaCadeira']").val(),
         cor:   randomColor,
     }
     $("#faculdades_register_UnidCurricular").val("");

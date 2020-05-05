@@ -38,7 +38,7 @@
     border-collapse: collapse;   
 }
 
-#etapa-form, #feedback-form{
+#etapa-form, #feedback-form, #etapa-form-edit{
     display: none;
 }
 
@@ -76,13 +76,11 @@
 /* grupos / etapas */
 
 .gruposDIV p:first-child {
-    width: 20%;
+    width: 30%;
 }
 
 .gruposDIV p:nth-child(2) {
-    /* width: 70%; */
-    width: 80%;
-    text-align: center;
+    width: 70%;
 }
 
 /* .gruposDIV p:nth-child(3) {
@@ -93,7 +91,7 @@
     margin:unset;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 440px) {
     .etapasDIV, .gruposDIV{
         display: block;
         justify-content: unset;

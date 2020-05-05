@@ -211,16 +211,41 @@ class Api_Project extends REST_Controller {
 
         $this->load->model("UserModel");
         $data["nomes"] = array();
-        for($i=0; $i  < count($data["students"][0]); $i++) {
-            array_push($data["nomes"], array(
-                'grupo_id'      =>      $data["students"][0][$i]["grupo_id"], 
-                'user_name'     =>      $this->UserModel->getUserById($data["students"][0][$i]["user_id"]))
-            );
+        for($i=0; $i  < count($data["students"]); $i++) {
+            for($j=0; $j < count($data["students"][$i]); $j++){
+                array_push($data["nomes"], array(
+                    'grupo_id'      =>      $data["students"][$i][$j]["grupo_id"], 
+                    'user_name'     =>      $this->UserModel->getUserById($data["students"][$i][$j]["user_id"]))
+                );
+            }
         }
 
         $this->response($data, parent::HTTP_OK);
     }
 
+
+    public function getMyGroupInProj_get(){
+        $user_id = $this->verify_request()->id;
+
+        $proj_id = $this->get("proj_id");
+        $this->load->model("GroupModel");
+
+        $data["grupos"] = $this->GroupModel->getGroups($user_id);
+
+        $group_to_return = '';
+
+        for ($i=0; $i < count($data["grupos"]); $i++) {
+            $grupo = $this->GroupModel->getGroupById($data["grupos"][$i]["grupo_id"]);
+            $proj = $grupo[0]["projeto_id"];
+
+            if ($proj_id == $proj){
+                $group_to_return = $grupo[0];
+            }
+        }
+
+        $this->response($group_to_return, parent::HTTP_OK);
+
+    }
 
     //////////////////////////////////////////////////////////////
     //                         DELETE

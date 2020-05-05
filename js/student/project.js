@@ -5,6 +5,8 @@ $(document).ready(() => {
     getEtapas(proj);
 
 
+    showMyGroup(proj);
+
     //mostrar info extra da etapa - Etapas
     $('body').on('click', '.moreInfoButtons', function(){
         selected_etapa = $(this).attr("id");
@@ -38,11 +40,20 @@ function showMyGroup(proj_id){
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "api/getMyGroupInProj",
+        url: base_url + "api/getMyGroupInProj/" + proj_id,
         data: {proj_id: proj_id},
         success: function(data) {
+            console.log(data);
+            if (data == ""){
+                $("#grupo-name").text('Cria um grupo ou entra num grupo existente');
+                $("#grupos-container").html("cena de criar grupos - ye");
+            } else {
+                $("#grupo-name").text('Grupo ' + data["name"]);
+                $("#grupos-container").html("mostrar aqui os membros do grupo, outras opções");
+            }
         },
         error: function(data) {
+            console.log(data);
         }
     });
 }
@@ -76,18 +87,17 @@ function getEtapas(proj_id){
 
 
 function makeEtapaDiv(data){
-    etapasSTR = '';
-    var p = '';
-    var lastp;
+    var etapas_info = [];
+    var array_etapa = [];
     for (i=0; i<data.length; i++){
         json = data[i];
         var enunciado = json["enunciado_url"];
         var date = new Date(json["deadline"]);
-        etapasSTR += '<div class="etapasDIV" id="etapa' + json["id"] +'"><p><b>'+json["nome"]+'</b></p>'+
-            '<p>'+ date.toLocaleString('en-GB', {hour: '2-digit', minute:'2-digit', year: 'numeric', month: 'numeric', day: 'numeric'}) +'</p>'+
-            '<p><input class="moreInfoButtons" id="'+json["id"] +'" type="button" value="Info"></input></p>' +
-            '</div>' +
-            '<hr>'
+
+        array_etapa.push('<div class="etapasDIV" id="etapa' + json["id"] +'"><p><b>'+json["nome"]+'</b></p>'+
+        '<p>'+ date.toLocaleString('en-GB', {hour: '2-digit', minute:'2-digit', year: 'numeric', month: 'numeric', day: 'numeric'}) +'</p>'+
+        '<p><input id=sub"'+json["id"] +'" type="button" value="Ver Mais"></input></p>' +
+        '</div><hr>');
 
 
         if (enunciado == ""){
@@ -97,29 +107,30 @@ function makeEtapaDiv(data){
         }
 
 
-        p += '<div class="etapas-info" id="div'+json["id"]+'">' +   
-            '<label>Descrição:</label>' +
-            '<p>'+ json["description"] +'</p>' +
-            '<label>Enunciado da etapa:</label>' +
-            '<p>' + newenunciado + '</p>' +
-            '<label>Feedback:</label>' +
-            '<p> O professor ainda não atribuiu feedback a esta etapa.</p>' +
-            '<div class="wrapper">'+
-            '<input id="submissionProjButton" class="subButton" type="button" value="Submeter Entrega">'+
-            '</div>' +
-            '</div>'
+        var obj = {
+            id: json["id"],
+            description: json["description"],
+            enunciado:  newenunciado
+        };
 
-        lastp = 'div'+json["id"];
-    
+        etapas_info.push(obj);
+        
     }
 
-    if (etapasSTR == ''){
-        etapasSTR = '<p>Não existem etapas para mostrar</p><hr>';
+    console.log(etapas_info);
+   
+    if (array_etapa.length == 0){
+        array_etapa.push("<p>Não existem etapas para mostrar</p><hr>");
     }
 
-    $("#etapas-container").html(etapasSTR);   
+    etapas_info_global = etapas_info;
 
-    if ($("#" + lastp).length == 0){
-        $("#etapa-info-extra").html(p);
-    }
+    $('#etapas-container').pagination({
+        dataSource: array_etapa,
+        pageSize: 3,
+        pageNumber: 1,
+        callback: function(data, pagination) {
+            $("#etapas-container2").html(data);
+        }
+    })
 }

@@ -1,5 +1,6 @@
 var unidCurr
 var allSubjects = "";
+var selectedUC = "";
 
 $(document).ready(() => {
 
@@ -17,11 +18,21 @@ $(document).ready(() => {
     $(".SubjectsSelects").change(function(){
         cleanTable();
         var faculdade = $("#Consultar_Cadeiras_Faculdade").val();
-        var curso = $("#Consultar_Cadeiras_Curso").val();
+        var curso = document.getElementById("Consultar_Cadeiras_Curso").options[document.getElementById("Consultar_Cadeiras_Curso").selectedIndex].text;
+        var cursonome = curso.split("(")[0];
+        
+        if(cursonome == "Selecione uma Curso"){
+            cursonome = "";
+        }
+        else{
+            cursonome = cursonome.split(" ")[0]; 
+        }
+        
         var ano = $("#Consultar_Cadeiras_Ano").val();
-        getSubjectsByFilters(faculdade,curso,ano);
+        getSubjectsByFilters(faculdade,cursonome,ano);
 
     })
+
     // $("#Consultar_Cadeiras").change(function(){
     //     if($("#Consultar_Cadeiras").val() == "All"){
 
@@ -125,6 +136,8 @@ $(document).ready(() => {
     //     }
     // });
 
+    $("body").on("click", "#editSubject-form-submit", () => editSubject());
+
     //open popup
 	$('body').on('click','.deleteSubject', function(event){
         event.preventDefault();
@@ -152,7 +165,19 @@ $(document).ready(() => {
         deleteSubject(unidCurr);
     })
 
+    // POPUP Edit
+    $('body').on("click", ".editSubject",function() {
+        $(".overlay").css('visibility', 'visible');
+        $(".overlay").css('opacity', '1');
+        displayEditSubject();
+    });
+    
+    $('.close').click(function() {
+        $(".overlay").css('visibility', 'hidden');
+        $(".overlay").css('opacity', '0');
+    })
 })
+
 
 function cleanTable(){
     allSubjects = "";
@@ -200,18 +225,24 @@ function makeAllSubjectsTable(data){
     var allSubjects="";
     for(i=0; i<data.subjects.length;i++){
         allSubjects += '<tr class="subject_row">' +
+                    '<td>'+ data.subjects[i].id +'</td>' +
                     '<td>'+ data.subjects[i].code +'</td>' +
                     '<td>'+ data.courses[i].name +'</td>' +
                     '<td>'+ data.subjects[i].name + '</td>' +
+                    '<td>'+ data.subjects[i].sigla + '</td>' +
+                    '<td>'+ data.subjects[i].semestre + '</td>' +
                     '<td>'+ data.subjects[i].description + '</td>' +
                     '<td><input class="editSubject" type="button" value="Editar"></td>' +
                     '<td><input class="deleteSubject" type="button" value="Eliminar"></td>' +
                     '</tr>';
     }
     var table = '<table class="adminTable" id="subject_list">' +
-    '<tr><th>Código da UC</th>' +
+    '<tr><th>ID</th>' +
+    '<th>Código da UC</th>' +
     '<th>Curso</th>' + 
     '<th>Nome</th>' +
+    '<th>Sigla</th>' +
+    '<th>Semestre</th>' +
     '<th>Descrição</th>' + 
     '<th>Editar</th>' +
     '<th>Apagar</th></tr>' +
@@ -260,7 +291,7 @@ function getCourses(){
             var linhas = '<option class="course_row" value="">Selecione uma Curso</option>';
             if(data.courses.length>0){
                 for(i=0; i<data.courses.length;i++){
-                    linhas += '<option class="course_row" value=' + data.courses[i].name +">" + data.courses[i].name + " (" + data.numSubject[data.courses[i].name] + ")" + '</option>'; 
+                    linhas += '<option class="course_row" value=' + data.courses[i].id +">" + data.courses[i].name + " (" + data.numSubject[data.courses[i].name] + ")" + '</option>'; 
                 }    
                 $("#Consultar_Cadeiras_Curso").append(linhas);         
             }
@@ -432,13 +463,54 @@ function getSubjectsByFilters(faculdade, curso, ano){
 // }
 
 
+function displayEditSubject(){
+    var linha = $(event.target).closest("tr");
+    selectedUC = linha.find("td:eq(0)").text();
+    codigo = linha.find("td:eq(1)").text();
+    nome =  linha.find("td:eq(3)").text();
+    sigla =  linha.find("td:eq(4)").text();
+    semestre =  linha.find("td:eq(5)").text();
+    desc =  linha.find("td:eq(6)").text();
+   
+    $("#editSubject-form input[name='codigo']").val(codigo);
+    $("#editSubject-form input[name='nome']").val(nome);
+    $("#editSubject-form input[name='semestre']").val(semestre);
+    $("#editSubject-form textarea[name='descCadeira']").val(desc);
+    $("#editSubject-form input[name='sigla']").val(sigla);
+    $(".popup").css("display", "block");
+}
 
 
+function  editSubject(){
+    const data = {
+    id: selectedUC,
+    codigo:    $("#editSubject-form input[name='codigo']").val(),
+    nome:    $("#editSubject-form input[name='nome']").val(),
+    sigla:    $("#editSubject-form input[name='sigla']").val(),
+    semestre:    $("#editSubject-form input[name='semestre']").val(),
+    desc:    $("#editSubject-form textarea[name='descCadeira']").val(),
+    }
 
+    $.ajax({
+        type: "POST",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/editSubject",
+        data: data,   
+        success: function() {    
+            // getSearchTeacher($("#search_text_profs").val());
 
+            $(".overlay").css('visibility', 'hidden');
+            $(".overlay").css('opacity', '0');
+            $(".popup").css("display", "none");
 
-// FALTA O EDITAR UNIDADES CURRICULARES
-
+        },
+        error: function() {
+            msgErro = "<p class='msgErro'> Não foi possivel editar o utilizador.</p>";
+            $("#msgStatus").append(msgErro);
+            $(".msgErro").delay(2000).fadeOut();
+        }
+    });
+}
 
 
 

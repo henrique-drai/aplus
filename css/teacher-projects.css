@@ -9,15 +9,6 @@
     width:100%;
 }
 
-.submit-msg {
-    display:none;
-    text-align: center;
-    width:98%;
-    padding: 4px;
-    border-radius: 4px;
-    position: relative;
-    margin-top: 10px;
-}
 
 #errormsg, #errormsgfb, #errormsgenunc, #errormsgedit {
     background: rgb(255, 72, 72);
@@ -103,11 +94,16 @@
 
 
 
-@media screen and (max-width: 768px) {
-    #removeEnunciadoProj{
-        float:none;
-        margin-top:5px;
-        width:unset;
+@media screen and (max-width: 660px) {
+    #removeEnunciado img {
+        width: 25px;
+    }
+
+    #removeEnunciado {
+        margin-left: 96px;
+        margin-top: -62px;
+        width: 30px;
+        position: absolute;
     }
 }
 
@@ -116,23 +112,7 @@
     margin:unset;
 }
 
-.wrapper input[type="button"] {
-    display: inline-flex;
-}
 
-.wrapper {
-    margin-top: 4%;
-    margin-bottom: 1%;
-}
-
-.wrapper input {
-    margin-right: 1%;
-}
-
-.wrapper-top input[type="submit"] {
-    margin: unset;
-    margin-top:15px;
-}
 
 #addEnunciado{
     display: none;
@@ -154,27 +134,6 @@ input.remove:hover {
 
 #opennewEtapa{
     margin-bottom: 30px;
-}
-
-#enunciado_label a{
-    width: 100%;
-    word-wrap: break-word;
-}
-
-#enunciado_h3{
-    word-wrap: break-word;
-}
-
-
-
-/* botoes pop up */
-@media screen and (max-width: 660px) {
-    .wrapper input[type="button"] {
-        margin-left: auto;
-        width: 160px;
-        margin-right: auto;
-        display:block;
-    }
 }
 
 

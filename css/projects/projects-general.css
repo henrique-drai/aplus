@@ -4,6 +4,16 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.submit-msg {
+    display:none;
+    text-align: center;
+    width:98%;
+    padding: 4px;
+    border-radius: 4px;
+    position: relative;
+    margin-top: 10px;
+}
+
 .container{
     width: 100%;
 }
@@ -87,9 +97,59 @@
     width: 10%;
 } */
 
+
+.wrapper input[type="button"] {
+    display: inline-flex;
+}
+
+.wrapper {
+    margin-top: 4%;
+    margin-bottom: 1%;
+}
+
+.wrapper input {
+    margin-right: 1%;
+}
+
+.wrapper-top input[type="submit"] {
+    margin: unset;
+    margin-top:15px;
+}
+
+#enunciado_h4{
+    word-wrap: break-word;
+}
+
+#enunciado_label a{
+    width: 100%;
+    word-wrap: break-word;
+}
+
+
+
 #etapas-container input[type="button"],  #grupos-container input[type="button"] {
     margin:unset;
 }
+
+/* botoes pop up */
+@media screen and (max-width: 660px) {
+    .wrapper input[type="button"] {
+        margin-left: auto;
+        width: 160px;
+        margin-right: auto;
+        display:block;
+    }
+
+    .content h3{
+        font-size: 16px;
+    }
+
+    .content label {
+        font-size: 14px;
+    }
+}
+
+
 
 @media screen and (max-width: 440px) {
     .etapasDIV, .gruposDIV{

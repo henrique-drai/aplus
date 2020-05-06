@@ -23,7 +23,7 @@
         <h3 id="entrega_h3"></h3>
         <h3 id="enunciado_title">Enunciado:</h3>
         <div id="removeDiv"></div>
-        <h4 id="enunciado_h3"></h4>
+        <h4 id="enunciado_h4"></h4>
         <div class="wrapper-top">
             <?php echo form_open_multipart('UploadsC/uploadEnunciadoProjeto', "id='form-upload-proj'");?>
                 <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado" accept=".pdf">

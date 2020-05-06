@@ -1,5 +1,5 @@
 <title><?php echo $subject->name; ?></title>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/teacher-subject.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/subjects.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/student/subject_page.js"></script>
 <script>setID(<?php echo $subject->id; ?>)</script>

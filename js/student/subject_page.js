@@ -60,7 +60,7 @@ function getInfo() {
                     $(".projetos").append("<a class='project_button' id='" + data.proj[i].id + "' href='#" +
                     "'><div class='card_info_project'><div class='color_project' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
                     "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +
-                    "<div>Projeto " + (i+1) + "</div></div></div></a>");
+                    "<div id='title'>" + data.desc[0].name + "</div><div>Projeto " + (i+1) + "</div></div></div></a>");
                 }  
             }
 
@@ -72,9 +72,9 @@ function getInfo() {
                 for(var i=0; i < data.forum.length; i++) {
                     //adicionar href
                     $(".foruns").append("<a class='forum_button' id='" + data.forum[i].id + "' href='#" +
-                    "'><div class='card_info_project'><div class='color_project' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
+                    "'><div class='card_info_forum'><div class='color_forum' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
                     "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +
-                    "<div>" + data.forum[i].name + "</div></div></div></a>");
+                    "<div id='title'>" + data.desc[0].name + "</div><div>" + data.forum[i].name + "</div></div></div></a>");
                 }  
             }
 
@@ -85,10 +85,10 @@ function getInfo() {
                     data.user[i].name + " " + data.user[i].surname + ":</b> " + 
                     data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
                     data.hours[i].end_time.substring(0, 5) + "</p>" +
-                    "<td><input type='button' class='add_event' id='" + data.hours[i].id + "' value='Adicionar ao Calendário'></div>");
+                    "<input type='button' class='add_event' id='" + data.hours[i].id + "' value='Adicionar ao Calendário'></div>");
                 }
             } else {
-                $(".hours").append("<tr><p>Ainda não há horários de dúvidas disponíveis.</p><tr>");
+                $(".hours").append("<p>Ainda não há horários de dúvidas disponíveis.</p>");
             }
         },
         error: function(data) {

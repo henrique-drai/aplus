@@ -14,6 +14,14 @@
 //                         GLOBAL
 ////////////////////////////////////////////////////////////// */
 
+h2 {
+    margin-bottom: 1%;
+}
+
+p {
+    margin-top: 0;
+}
+
 .button {
     margin: 20px auto;
     background-color: #ffffff;
@@ -97,12 +105,12 @@ select, textarea {
     margin-top: 2%;
 }
 
-.color_project {
+.color_project, .color_forum {
     background-repeat: no-repeat;
     background-size: 350px;
 }
 
-.card_info_project {
+.card_info_project, .card_info_forum {
     width: 280px;
     height: 130px;
     font-size: 20px;
@@ -112,13 +120,22 @@ select, textarea {
     margin-bottom: 5%;
 }
 
+.card_info_project:hover, .card_info_forum:hover {
+    background-color:grey;
+}
+
 .projetos a, .foruns a {
     margin-right: 2%;
 }
 
+
 /* //////////////////////////////////////////////////////////////
 //                     HORÁRIO DE DÚVIDAS
 ////////////////////////////////////////////////////////////// */
+
+.add_event {
+    margin-top: -3% !important;
+}
 
 .item4 {
     grid-row: 2;
@@ -240,6 +257,7 @@ select, textarea {
 }
 
 .semestre1, .semestre2 {
+    position: relative;
     margin-left: 2%;
 }
 
@@ -251,7 +269,7 @@ a { color: inherit; }
 
 .card_info {
     width: 23%;
-    height: 20%;
+    height: 150px;
     font-size: 20px;
     display: inline-block;
     margin-left: 2%;
@@ -296,8 +314,16 @@ a { color: inherit; }
     }
 }
 @media only screen and (max-width: 770px) {
-    .card_info {
-        width: 48%;
+    h2 {
+        margin-top: 1%;
+    }
+
+    .grid {
+        display: block;
+    }
+
+    .card_info_project, .card_info_forum, .card_info {
+        width: 46%;
     }
 
     .minnuminput, .maxnuminput {
@@ -315,13 +341,13 @@ a { color: inherit; }
 }
 
 @media only screen and (max-width: 430px) {
-    .card_info {
+    .card_info_project, .card_info_forum, .card_info {
         width: 100%;
     }
 }
 
 @media only screen and (max-width: 375px) {
-    .card_info {
+    .card_info_project, .card_info_forum, .card_info {
         width: 100%;
     }
 

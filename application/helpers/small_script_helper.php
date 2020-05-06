@@ -142,10 +142,10 @@ function small_script($m) {
 
     $m->etapa_submit($grupo3_id, $etapa1_id, "URL-FALSO-HEHE-XD");
 
-    $evento1_id = $m->evento("2020-05-05 11:00:00", "2020-05-05 12:30:00", "Reunião de Grupo", "Discutir o modelo da base de dados. 1", "FCUL");
-    $evento2_id = $m->evento("2020-05-04 12:10:00", "2020-05-04 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 1", "6.3.45");
+    $evento1_id = $m->evento("2020-05-05 11:00:00", "2020-05-10 12:30:00", "Reunião de Grupo", "Discutir o modelo da base de dados. 1", "FCUL");
+    $evento2_id = $m->evento("2020-05-04 12:10:00", "2020-05-08 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 1", "6.3.45");
     $evento3_id = $m->evento("2020-05-27 11:00:00", "2020-05-27 12:30:00", "Decidir Framework", "Esta descrição descreve o evento. 2", "Azenhas");
-    $evento4_id = $m->evento("2020-05-07 12:10:00", "2020-05-07 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 2", "6.3.45");
+    $evento4_id = $m->evento("2020-05-07 12:10:00", "2020-05-17 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 2", "6.3.45");
 
     $m->batch("evento_grupo", Array(
       Array("evento_id"=> $evento1_id,  "grupo_id"=>$grupo1_id),
@@ -158,6 +158,9 @@ function small_script($m) {
       Array("evento_id"=> $evento3_id,  "user_id"=>$aluno1_id),
       Array("evento_id"=> $evento4_id,  "user_id"=>$aluno1_id),
     ));
+
+    $m->horario_duvidas($aluno1_id, $prof1_id, "11:30:00", "13:00:00", "Segunda-feira");
+    $m->horario_duvidas($cadeira1_id, $prof1_id, "12:00:00", "13:00:00", "Quinta-feira");
 
     $m->notification($aluno1_id, "message", "Mensagem de João Ye", "Atão crlh?", "app/profile/2801", false, "2020-04-23 11:30:31");
     $m->notification($aluno1_id, "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "app/profile/2", false, "2020-04-23 11:30:35");

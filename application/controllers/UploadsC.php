@@ -64,6 +64,32 @@ class UploadsC extends CI_Controller {
         }
     }
 
+    // submit de alunos para etapa
+    public function uploadSubmitEtapa($project_id, $etapa_id)
+    {
+        // if(!is_dir('./uploads/enunciados_files/' . strval($project_id) . '/')){
+        //     mkdir('./uploads/enunciados_files/' . strval($project_id) . '/', 0777, TRUE);
+        // }
+
+        // $upload['upload_path'] = './uploads/enunciados_files/' . strval($project_id) . '/';
+        // $upload['allowed_types'] = 'pdf';
+        // $upload['file_name'] = $etapa_id;
+        // $upload['overwrite'] = true;
+
+        // $this->load->library('upload', $upload);
+
+        // if ( ! $this->upload->do_upload('file_etapa'))
+        // {
+        //     $error = array('error' => $this->upload->display_errors());
+        //     print_r($error);
+        //     echo "<br>Erro upload ficheiro";
+        // }
+        // else
+        // {
+        //     header("Location: ".base_url()."projects/project/".$project_id);
+        // }
+    }
+
     public function uploadProfilePic()
     {
         $user_id = $this->session->userdata('id');

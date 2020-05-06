@@ -25,11 +25,16 @@ class Api_Calendario extends REST_Controller {
 
         $user = $this->UserModel->getUserById($user_id);
 
-        if ($user->role == "student")
+        $duvidas = array();
+
+        if ($user->role == "student") {
             $classes = $this->EventModel->getClassesByStudentId($user_id);
-        else if ($user->role == "teacher")
+        } else if ($user->role == "teacher") {
             $classes = $this->EventModel->getClassesByTeacherId($user_id);
-        else {$this->response(Array(), parent::HTTP_NOT_FOUND); return null;}
+            $duvidas = $this->EventModel->getHorarioDuvidasByTeacherId($user_id);
+        } else {
+            $this->response(Array(), parent::HTTP_NOT_FOUND); return null;
+        }
 
         $events = $this->EventModel->getFutureEventsByUserId($user_id);
         $group_events = $this->EventModel->getFutureGroupEventsByUserId($user_id);
@@ -51,6 +56,7 @@ class Api_Calendario extends REST_Controller {
             "events" => $events,
             "group_events" => $group_events,
             "submissions" => $submissions,
+            "duvidas" => $duvidas,
         );
 
         $this->response($data, parent::HTTP_OK);

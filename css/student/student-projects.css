@@ -1,3 +1,7 @@
 #submissionProjButton{
     margin:unset;
 }
+
+#form-submit-etapa{
+    display: none;
+}

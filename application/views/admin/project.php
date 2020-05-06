@@ -11,6 +11,6 @@
     <p> <?php echo $project[0]["description"]; ?></p>
     <div class="container">
         <h3 id="entrega_h3"></h3>
-        <h3 id="enunciado_h3"></h3>
+        <h3 id="enunciado_h4"></h3>
     </div>
     </main>

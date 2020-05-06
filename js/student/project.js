@@ -1,28 +1,59 @@
-var proj
-var selected_etapa
+var proj;
+var selected_etapa;
+var etapas_info_global;
+var formStatus;
+
 
 $(document).ready(() => {
     getEtapas(proj);
 
 
+    $("#entrega_h3").text("Entrega final:");
+
+    checkEntrega();
+
+    //ENUNCIADO PROJETO --- 
+
+    //verificar se o enunciado do projeto existe na diretoria 
+    
+    if(checkEnunciado()){
+        setInterval(function(){
+            checkEnunciado();
+        }, 1000);
+    }
+
+
     showMyGroup(proj);
 
     //mostrar info extra da etapa - Etapas
-    $('body').on('click', '.moreInfoButtons', function(){
+    $('body').on('click', '.moreButton', function(){
         selected_etapa = $(this).attr("id");
-        var divid = 'div' + selected_etapa;
+        console.log(selected_etapa);
 
-        $(".moreInfoButtons").css("background-color", "white");
+        $("#form-upload-etapa").attr('action', base_url + 'UploadsC/uploadSubmitEtapa/' + proj + '/' + selected_etapa);
 
-        if ($(this).css('background-color') == "#3e5d4f"){
+        updateEtapaPopup(selected_etapa);
+
+        if ($(this).css("background-color") == "#3e5d4f"){
             $(this).css("background-color", "white");
         } else {
             $(this).css("background-color", "#3e5d4f");
         }
 
-        $('.etapas-info').hide();
-        $('#' + divid).show();
+    })
 
+
+    // fechar popup - etapas
+    $('body').on("click", '.close', function() {
+        $("#etapa-form-edit").hide();
+        $("#feedback-form").hide();
+        $("#form-upload-etapa").hide();
+        formStatus = null;
+        // checkFormStatus();
+        $(".moreButton").css("background-color", "white");
+        event.preventDefault();
+        $(".overlay").css('visibility', 'hidden');
+        $(".overlay").css('opacity', '0');
     })
 
 });
@@ -96,7 +127,7 @@ function makeEtapaDiv(data){
 
         array_etapa.push('<div class="etapasDIV" id="etapa' + json["id"] +'"><p><b>'+json["nome"]+'</b></p>'+
         '<p>'+ date.toLocaleString('en-GB', {hour: '2-digit', minute:'2-digit', year: 'numeric', month: 'numeric', day: 'numeric'}) +'</p>'+
-        '<p><input id=sub"'+json["id"] +'" type="button" value="Ver Mais"></input></p>' +
+        '<p><input class="moreButton" id='+json["id"] +' type="button" value="Ver Mais"></input></p>' +
         '</div><hr>');
 
 
@@ -133,4 +164,64 @@ function makeEtapaDiv(data){
             $("#etapas-container2").html(data);
         }
     })
+}
+
+// /////////////////////////////////////////////////////////
+// 
+// 
+//     Possiveis funcoes repetidas do project.js dos profs
+// 
+// 
+// ////////////////////////////////////////////////////////
+
+function checkEntrega(){
+    setTimeout(function(){
+        getEtapas(proj);
+        var datafinal = $(".etapasDIV").last().find("p:nth-child(2)").text();
+        if(datafinal == ''){
+           $("#entrega_h3").text("Entrega final: Ainda não definida");
+        } else {
+           $("#entrega_h3").text("Entrega final: " + datafinal);
+        }
+        
+   }, 1000);
+}
+
+// Este tem uma pequena alteração porque nao usa o button
+function checkEnunciado(){
+    $.get(base_url + "uploads/enunciados_files/"+ proj+".pdf")
+        .done(function() { 
+            if (enunciado_h4 != ""){
+                $("#enunciado_h4").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h4 + "</a>");
+            } else {
+                $("#enunciado_h4").text("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
+            }
+
+            return true;
+        }).fail(function() { 
+            $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")
+            return false;
+        })
+}
+
+
+function setEnunciado(url){
+    enunciado_h4 = url;
+}
+
+function updateEtapaPopup(etapa_rec){
+    var etapa;
+    for (i=0; i<etapas_info_global.length; i++){
+        if(etapa_rec == etapas_info_global[i].id){
+            etapa = etapas_info_global[i];
+        }
+    }
+
+    console.log(etapa);
+
+    $("#etapa-popup .content").find("label:first").text(etapa["description"]);
+    $("#enunciado_label").html(etapa["enunciado"]);
+
+    $("#etapa-overlay").css('visibility', 'visible');
+    $("#etapa-overlay").css('opacity', '1');
 }

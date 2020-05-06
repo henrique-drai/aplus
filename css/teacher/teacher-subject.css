@@ -45,6 +45,12 @@ select, textarea {
     border-left: 3px solid #42d542;
 }
 
+.grid {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto auto;
+}
+
 /* //////////////////////////////////////////////////////////////
 //                         SUMÁRIO
 ////////////////////////////////////////////////////////////// */
@@ -66,20 +72,58 @@ select, textarea {
     margin-left: 108% !important;
 }
 
+.item1 {
+    grid-row: 1;
+    grid-column: 1;
+}
+
 /* //////////////////////////////////////////////////////////////
 //                     PROJETOS E FORUM
 ////////////////////////////////////////////////////////////// */
 
+.item2 {
+    grid-row: 1;
+    grid-column: 2;
+}
+
+.item3 {
+    grid-row: 2;
+    grid-column: 2;
+}
+
 .projetos, .foruns {
-    display: flex;
-    flex-wrap: wrap;
+    display: inline;
     width: 70%;
     margin-top: 2%;
+}
+
+.color_project {
+    background-repeat: no-repeat;
+    background-size: 350px;
+}
+
+.card_info_project {
+    width: 280px;
+    height: 130px;
+    font-size: 20px;
+    display: inline-block;
+    margin-left: 2%;
+    cursor: pointer;
+    margin-bottom: 5%;
+}
+
+.projetos a, .foruns a {
+    margin-right: 2%;
 }
 
 /* //////////////////////////////////////////////////////////////
 //                     HORÁRIO DE DÚVIDAS
 ////////////////////////////////////////////////////////////// */
+
+.item4 {
+    grid-row: 2;
+    grid-column: 1;
+}
 
 .hours_header {
     display: inline-block;

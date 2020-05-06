@@ -39,6 +39,9 @@ function getInfo() {
         },
         url: base_url + "api/getCadeira/" + id,
         success: function(data) {
+            console.log(data)
+
+            var color = convertHex(data.desc[0].color, 52);
 
             $("#subject_title").append("<h1>" + data.desc[0].name + "</h1>");
             if(data.desc[0].description == "") {
@@ -47,23 +50,31 @@ function getInfo() {
                 $(".summary").append("<p>" + data.desc[0].description + "</p>");
             }
 
+            var image_url = base_url + "images/subjects/project_pattern.jpg";
             $(".projetos").empty();
             if(data.proj.length == 0) {
                 $(".projetos").append("<p>Ainda não existem projetos para a cadeira</p>");
             } else {
                 for(var i=0; i < data.proj.length; i++) {
-                    $(".projetos").append("<input type='button' class='project_button' id='" + data.proj[i].id +
-                    "' value='Projeto " + (i+1) + "'>");
+                    //adicionar href
+                    $(".projetos").append("<a class='project_button' id='" + data.proj[i].id + "' href='#" +
+                    "'><div class='card_info_project'><div class='color_project' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
+                    "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +
+                    "<div>Projeto " + (i+1) + "</div></div></div></a>");
                 }  
             }
 
+            var image_url = base_url + "images/subjects/forum_pattern.png";
             $(".foruns").empty();
             if(data.forum.length == 0) {
                 $(".foruns").append("<p>Ainda não existem fóruns para a cadeira</p>");
             } else {
                 for(var i=0; i < data.forum.length; i++) {
-                    $(".foruns").append("<input type='button' class='forum_button' id='" + data.forum[i].id +
-                    "' value='" + data.forum[i].name + "'>");
+                    //adicionar href
+                    $(".foruns").append("<a class='forum_button' id='" + data.forum[i].id + "' href='#" +
+                    "'><div class='card_info_project'><div class='color_project' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
+                    "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +
+                    "<div>" + data.forum[i].name + "</div></div></div></a>");
                 }  
             }
 
@@ -118,4 +129,16 @@ function insertLoggedDate(id) {
             alert("Houve um erro ao ir buscar a informação das cadeiras lecionadas.");
         }
     })
+}
+
+function convertHex(hex,opacity){
+
+    hex = hex.replace('#','');
+    r = parseInt(hex.substring(0,2), 16);
+    g = parseInt(hex.substring(2,4), 16);
+    b = parseInt(hex.substring(4,6), 16);
+
+    result = 'rgba('+r+','+g+','+b+','+opacity/100+')';
+    return result;
+
 }

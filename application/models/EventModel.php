@@ -62,6 +62,17 @@ class EventModel extends CI_Model { //evento & horario_duvidas
         return $result->result_array();
     }
 
+    public function getHorarioDuvidasByTeacherId($prof_id) {
+        $query = "select * 
+            from ano_letivo, faculdade, curso, cadeira, horario_duvidas
+            where horario_duvidas.id_cadeira = cadeira.id
+            and faculdade.id = curso.faculdade_id
+            and cadeira.curso_id = curso.id
+            and curso.ano_letivo_id = ano_letivo.id
+            and horario_duvidas.id_prof = ".$prof_id;
+        return $this->db->query($query)->result_array();
+    }
+
     public function getHorarioDuvidasById($id) {
         $query = $this->db->get_where('horario_duvidas', array('id' => $id));
         return $query->row();

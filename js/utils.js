@@ -7,11 +7,11 @@ var user_info; //pode demorar algum tempo a chegar.
 //await setUserInfo()
 const week_days = [
     {id:0, sigla:"dom", name:"Domingo"},
-    {id:1, sigla:"seg", name:"Segunda-Feira"},
-    {id:2, sigla:"ter", name:"Terça-Feira"},
-    {id:3, sigla:"qua", name:"Quarta-Feira"},
-    {id:4, sigla:"qui", name:"Quinta-Feira"},
-    {id:5, sigla:"sex", name:"Sexta-Feira"},
+    {id:1, sigla:"seg", name:"Segunda-feira"},
+    {id:2, sigla:"ter", name:"Terça-feira"},
+    {id:3, sigla:"qua", name:"Quarta-feira"},
+    {id:4, sigla:"qui", name:"Quinta-feira"},
+    {id:5, sigla:"sex", name:"Sexta-feira"},
     {id:6, sigla:"sab", name:"Sábado"},
 ]
 

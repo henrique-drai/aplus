@@ -8,7 +8,7 @@ $(document).ready(()=>{
 
 
 function renderCalendario(){
-    
+    // console.log(calendario)
     let cols = []
     let ctr = 0
 
@@ -18,7 +18,6 @@ function renderCalendario(){
         let head = $('<div class="hcell"></div>').append(head_day,head_week)
 
         let cells = []
-        
 
         for(const event of calendario.events)
         {
@@ -34,6 +33,13 @@ function renderCalendario(){
                         desc = $('<div class="desc">'+event.obj.sigla+' ('+event.obj.type+')</div>')
                         end = $('<div class="end">'+getClassTimeString(event.obj.end_time)+'</div>')
                         //cell.css("background-color",calendario.cores[event.obj.cadeira_id])
+                        cell.css("background-color", event.obj.color)
+                        break
+
+                    case "duvidas":
+                        start = $('<div class="start">'+getClassTimeString(event.obj.start_time)+'</div>')
+                        desc = $('<div class="desc">'+event.obj.sigla+' (Dúvidas)</div>')
+                        end = $('<div class="end">'+getClassTimeString(event.obj.end_time)+'</div>')
                         cell.css("background-color", event.obj.color)
                         break
                     
@@ -54,11 +60,16 @@ function renderCalendario(){
                         desc = $('<div class="desc">'+event.obj.nome+' (Entrega de '+event.obj.sigla+')</div>')
                         break
                 }
+
                 const clickable = $("<div class='clickable' id='" + ctr + "'></div>")
                 cell.append(start,desc,end,clickable)
                 cells.push(cell)
                 ctr+=1
             }
+        }
+
+        if (day.getDay() == 1) {
+            cols.push($("<div class='whitespace'></div>"))
         }
 
         let col = $('<div class="col"></div>').append(head, cells)
@@ -87,10 +98,16 @@ function updateCalendario(){
 }
 
 function setCalendario(data){
-    //console.log(data)
+
+    function translateWeekDay(name){
+        for (const day of week_days){
+            if (day.name == name){
+                return day.id
+            } 
+        }
+    }
 
     calendario.events = []
-    //calendario.cores = {}
 
     for (const c of data.classes){
         for (const day of calendario.days){
@@ -101,9 +118,16 @@ function setCalendario(data){
                 calendario.events.push({start_time: date, type: "class", obj: c})
             }
         }
-        // if (!calendario.cores[c.cadeira_id]){
-        //     calendario.cores[c.cadeira_id] = getRandomColor()
-        // }
+    }
+    for (const d of data.duvidas){
+        for (const day of calendario.days){
+            if (day.getDay() == translateWeekDay(d.day)){
+                let date = new Date(day)
+                let time = d.start_time.split(":")
+                date.setHours(parseInt(time[0]),parseInt(time[1]),0)
+                calendario.events.push({start_time: date, type: "duvidas", obj: d})
+            }
+        }
     }
     for (const e of data.events)
         calendario.events.push({start_time: new Date(e.start_date), type: "event", obj: e})
@@ -155,7 +179,7 @@ function getRandomColor(){
 function eventOnClickCalendario(){
     $('#calendario-hook').on('click', '.cell .clickable', function(event){
         event = calendario.events[parseInt(event.target.id)]
-        //console.log(event.obj)
+        
         let message = $('<div class="calendario-msg"></div>')
 
         switch(event.type)
@@ -166,6 +190,18 @@ function eventOnClickCalendario(){
                     getClassTimeString(event.obj.start_time) + " - " +
                     getClassTimeString(event.obj.end_time) + "</p>")
                 message.append("<p>Sala: " + event.obj.classroom + "</p>")
+                $(".cd-popup #actionButton").html("Visitar Cadeira").off().click(()=>{
+                        window.location.href = base_url + "subjects/subject/" + event.obj.code + "/" + event.obj.inicio
+                    })
+                break
+            
+            case "duvidas":
+                console.log(event)
+                message.append("<h3>Horário de dúvidas de "+event.obj.name+"</h3>")
+                message.append("<p>" +
+                    getClassTimeString(event.obj.start_time) + " - " +
+                    getClassTimeString(event.obj.end_time) + "</p>")
+                message.append("<p>Faculdade: " + event.obj.siglas + "</p>")
                 $(".cd-popup #actionButton").html("Visitar Cadeira").off().click(()=>{
                         window.location.href = base_url + "subjects/subject/" + event.obj.code + "/" + event.obj.inicio
                     })

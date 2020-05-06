@@ -1,10 +1,11 @@
 // podem usar esta variável para se referirem a um URL no javascript
 var base_url;
 var page_name;
+var role;
 var user_info; //pode demorar algum tempo a chegar.
 //se tiverem pressa, devem usar a seguinte linha no vosso código,
 //para ter a certeza de que a user_info já está disponível:
-//await setUserInfo()
+// await setUserInfo()
 const week_days = [
     {id:0, sigla:"dom", name:"Domingo"},
     {id:1, sigla:"seg", name:"Segunda-Feira"},
@@ -21,6 +22,10 @@ function setBaseUrl(value) {
 
 function setPageName(name) {
     page_name = name;
+}
+
+function setRole(role) {
+    user_role = role;
 }
 
 function fileExists(url){

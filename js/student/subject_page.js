@@ -56,7 +56,6 @@ function getInfo() {
                 $(".projetos").append("<p>Ainda não existem projetos para a cadeira</p>");
             } else {
                 for(var i=0; i < data.proj.length; i++) {
-                    //adicionar href
                     $(".projetos").append("<a class='project_button' id='" + data.proj[i].id + "' href='#" +
                     "'><div class='card_info_project'><div class='color_project' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
                     "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +
@@ -70,7 +69,6 @@ function getInfo() {
                 $(".foruns").append("<p>Ainda não existem fóruns para a cadeira</p>");
             } else {
                 for(var i=0; i < data.forum.length; i++) {
-                    //adicionar href
                     $(".foruns").append("<a class='forum_button' id='" + data.forum[i].id + "' href='#" +
                     "'><div class='card_info_forum'><div class='color_forum' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
                     "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +

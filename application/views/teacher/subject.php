@@ -15,46 +15,52 @@
                 <h1><?php echo $subject->name; ?></h1>
             </div>
         
-            <div class="header">
-                <h2>Sumário da Cadeira</h2>
-                <input type="button" id="edit_button" value="Editar">
-                <div class="message" id="message1">Editado com sucesso!</div>
-            </div>
-            <div class="summary"></div>
+            <div class="grid">
+                <div class="item1">
+                    <div class="header">
+                        <h2>Sumário da Cadeira</h2>
+                        <input type="button" id="edit_button" value="Editar">
+                        <div class="message" id="message1">Editado com sucesso!</div>
+                    </div>
+                    <div class="summary"></div>
 
-            <input type="button" id="save_button" value="Guardar">
+                    <input type="button" id="save_button" value="Guardar">
 
-            <br>
-
-            <input type="button" class="studentsList_button" value="Lista de Alunos"> 
-
-            <h2>Fóruns</h2>
-            <input type="button" class ="new_forum" value="Criar Fórum">
-            <div class="foruns"></div>
-
-            <br>
-            
-            <h2>Projetos</h2>
-            <input type="button" class="newProject_button" value="Criar Projeto">
-            <div class="projetos"></div>
-
-            <div class="hours_header">
-                <h2>Horário de Dúvidas</h2>
-                <div class="save_edit">
-                    <input type="button" id="edit_button_hours" value="Editar">
-                    <input type="button" id="save_button_hours" value="Guardar">
+                    <input type="button" class="studentsList_button" value="Lista de Alunos"> 
                 </div>
-                <div class="message" id="message_hour">Editado com sucesso!</div>
-            </div>
-            <div class="hours"></div>
 
-            <div class="hours_buttons">
-                <label class="add_hour"><img src="<?php echo $base_url; ?>/images/add.png"></label>
-                <label class="remove_hour"><img src="<?php echo $base_url; ?>/images/close.png"></label>
-                <br>
-            </div>
+                <div class="item2">
+                    <h2>Fóruns</h2>
+                    <input type="button" class ="new_forum" value="Criar Fórum">
+                    <div class="foruns"></div>
+                </div>
 
-            <div class="hours_inputs"></div>
+                <div class="item3">
+                    <h2>Projetos</h2>
+                    <input type="button" class="newProject_button" value="Criar Projeto">
+                    <div class="projetos"></div>
+                </div>
+                
+                <div class="item4">
+                    <div class="hours_header">
+                        <h2>Horário de Dúvidas</h2>
+                        <div class="save_edit">
+                            <input type="button" id="edit_button_hours" value="Editar">
+                            <input type="button" id="save_button_hours" value="Guardar">
+                        </div>
+                        <div class="message" id="message_hour">Editado com sucesso!</div>
+                    </div>
+                    <div class="hours"></div>
+
+                    <div class="hours_buttons">
+                        <label class="add_hour"><img src="<?php echo $base_url; ?>/images/add.png"></label>
+                        <label class="remove_hour"><img src="<?php echo $base_url; ?>/images/close.png"></label>
+                        <br>
+                    </div>
+
+                    <div class="hours_inputs"></div>
+                </div>
+            </div>
 
         </div>
 

@@ -1,7 +1,8 @@
 <title>A+ for Teachers</title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/subjects.css">
 <script>setPageName("subjects")</script>
-<script src="<?php echo $base_url; ?>js/student/subjects.js"></script>
+<script>setRole("student")</script>
+<script src="<?php echo $base_url; ?>js/subjects.js"></script>
 </head>
 
 <body>

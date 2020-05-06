@@ -308,7 +308,17 @@ a { color: inherit; }
 /* //////////////////////////////////////////////////////////////
 //                            MEDIA
 ////////////////////////////////////////////////////////////// */
+@media only screen and (max-width: 1350px) {
+    .card_info_project, .card_info_forum {
+        width: 75%;
+    }
+}
+
 @media only screen and (max-width: 1024px) {
+    .card_info_project, .card_info_forum {
+        width: 94%;
+    }
+
     .element {
         width: 31%;
     }

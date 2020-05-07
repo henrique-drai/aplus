@@ -73,7 +73,7 @@ class SubjectModel extends CI_Model { //cadeira
 
     public function insertText($data) {
         $this->db->set('description', $data["text"]);
-        $this->db->where('code', $data["id"]);
+        $this->db->where('id', $data["id"]);
         $data = $this->db->update('cadeira');
     }
 

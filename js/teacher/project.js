@@ -350,6 +350,7 @@ $(document).ready(() => {
 
 
 function checkEnunciado(){
+    //pensar em mudar isto para chamada ajax mesmo.
     $.get(base_url + "uploads/enunciados_files/"+ proj+".pdf")
         .done(function() { 
             var removebut = '<label id="removeEnunciadoProj" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> ';
@@ -361,7 +362,8 @@ function checkEnunciado(){
             }
 
             return true;
-        }).fail(function() { 
+        })
+        .fail(function() { 
             $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")
             return false;
         })
@@ -852,7 +854,7 @@ function getSumbission(grupo_id, etapa){
         success: function(data) {
             console.log(data)
             if (data.length > 0){
-                $("#sub_url").html('<a href="">' + data[0]["submit_url"] + '</a>');
+                $("#sub_url").html('<a href="">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
                 $("#confirmFeedback").show();
             } else {
                 $("#sub_url").text("Entrega ainda não foi submetida");

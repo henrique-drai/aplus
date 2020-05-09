@@ -47,6 +47,10 @@
                 <label></label>
                 <h3>Enunciado: </h3>
                 <label id="enunciado_label"></label>
+                <h3>Submissão: </h3>
+                <label id="sub_label"></label>
+                <h3>Feedback: </h3>
+                <label id="feedback_label"></label>
                 <div class="wrapper">
                     <hr>
                     <input id="submitEtapa" type="button" value="Submeter etapa">

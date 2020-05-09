@@ -34,6 +34,8 @@ $(document).ready(() => {
 
         updateEtapaPopup(selected_etapa);
 
+        checkSubmission(grupo, selected_etapa);
+
         if ($(this).css("background-color") == "#3e5d4f"){
             $(this).css("background-color", "white");
         } else {
@@ -63,9 +65,10 @@ $(document).ready(() => {
     })
 
 
-    // fazer evento para dar insert na submissao ou update se ja existir na db
+    $("body").on("click","#addSubmission", function(e){
+        submit_etapa($("#file_submit").val().split('\\').pop());
+    })
     
-    // checkSubmission() // função que vai verificar se existe upload e mostrar o upload feito
 
 });
 
@@ -101,7 +104,7 @@ function showMyGroup(proj_id){
 
                 $("#grupos-container").html('<div class="myGroupDiv" id="grupo'+grupo+'">' +
                 '<p><b>Membros do seu grupo: </b>'+ names.slice(0, -2) +'</p>' + 
-                '<p><input class="quitGroupButton" id=quit"'+json["id"] +'" type="button" value="Sair"></input></p>' + 
+                '<p><input class="quitGroupButton" id=quit"'+grupo +'" type="button" value="Sair"></input></p>' + 
                 '</div><hr>');
             }
         },
@@ -248,10 +251,54 @@ function updateEtapaPopup(etapa_rec){
     $("#etapa-overlay").css('opacity', '1');
 }
 
-// function submit_etapa(file){
+function submit_etapa(file_name){
+    const data = {
+        grupo : grupo,
+        etapa : selected_etapa,
+        ficheiro : file_name
+    }
 
-// }
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "api/submitEtapa",
+        data: data,
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(data) {
+            console.log("Erro na API - Submit etapa");
+            console.log(data);
+        }
+    });
+}
 
-// function checkSubmission(){
+function checkSubmission(grupo, etapa){
+    const data = {
+        grupo_id : grupo,
+        etapa_id : etapa
+    }
 
-// }
+
+    $.ajax({
+        type: "GET",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "api/getSub",
+        data: data,
+        success: function(data) {
+            if (data.length > 0){
+                $("#sub_label").html('<a href="">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
+            } else {
+                $("#sub_label").text("Entrega ainda não foi submetida");
+            }
+        },
+        error: function(data) {
+            console.log("Erro na API - get Submission");
+            console.log(data);
+        }
+    });
+}

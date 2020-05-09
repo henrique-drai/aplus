@@ -78,6 +78,19 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
         return $this->db->affected_rows(); 
     }
 
+    public function submitEtapa($data){
+        $this->db->insert("etapa_submit", $data);
+        return $this->db->insert_id();
+    }
+
+    public function updateSubmission($grupo, $etapa, $ficheiro){
+        $this->db->set('submit_url', $ficheiro);
+        $this->db->where('grupo_id', $grupo);
+        $this->db->where('etapa_id', $etapa);
+        $this->db->update("etapa_submit");
+        return $this->db->affected_rows(); 
+    }
+
 }
 
 

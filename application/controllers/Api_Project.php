@@ -160,6 +160,44 @@ class Api_Project extends REST_Controller {
     }
 
 
+    public function submitEtapa_post(){
+        $this->verify_request();
+        //Verificar se o id do aluno guardado no token está associado à cadeira e ao grupo.
+
+        //verificar se a submissão existe associada à etapa, projeto e grupo
+        //se existir, update, se nao existir, insert
+
+        $grupo = $this->post('grupo');
+        $etapa = $this->post('etapa');
+        $fich  = $this->post('ficheiro');
+
+        $this->load->model('ProjectModel');
+
+        $data_send = Array(
+            "grupo_id"            => $grupo,
+            "etapa_id"            => $etapa,
+            "submit_url"          => $fich,
+            "feedback"            => "",
+        );
+
+        $data["sub"] = $this->ProjectModel->getSubmission($grupo, $etapa);
+
+        if(empty($data["sub"]->row())){
+            //submit
+            $returned = $this->ProjectModel->submitEtapa($data_send);
+        } else {
+            //update
+            $returned = $this->ProjectModel->updateSubmission($grupo, $etapa, $fich);
+        }
+
+        $data["fich"] = $fich;
+        $data["result"] = $returned;
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    
+
     //////////////////////////////////////////////////////////////
     //                           GET
     //////////////////////////////////////////////////////////////
@@ -186,9 +224,9 @@ class Api_Project extends REST_Controller {
 
         $this->load->model('ProjectModel');
 
-        $url = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
+        $result = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
 
-        $this->response($url->result_array(), parent::HTTP_OK);
+        $this->response($result->result_array(), parent::HTTP_OK);
     }
 
 
@@ -264,6 +302,7 @@ class Api_Project extends REST_Controller {
         $this->response($group_to_return, parent::HTTP_OK);
 
     }
+
 
     //////////////////////////////////////////////////////////////
     //                         DELETE

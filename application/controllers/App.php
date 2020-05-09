@@ -159,8 +159,8 @@ class App extends CI_Controller {
         if ( ! $this->upload->do_upload('userfile'))
         {
             $error = array('error' => $this->upload->display_errors());
-            print_r($error);
-            echo "<br>Perguntem ao dry lul";
+            //print_r($error);
+            header("Location: ".base_url()."app/profile/".$user_id);
         }
         else
         {

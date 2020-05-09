@@ -18,6 +18,7 @@ $route['api/user']                              = 'Api_User/user';
 
 $route['api/notifications/new']                 = 'Api_Notification/new';
 $route['api/notifications/all']                 = 'Api_Notification/all';
+$route['api/notification/(:num)']               = 'Api_Notification/notification/$1';
 
 $route['api/removeForum/(:num)']                = 'Api_Forum/removeForum/$1';
 $route['api/removePost/(:num)']                 = 'Api_Forum/removePost/$1';

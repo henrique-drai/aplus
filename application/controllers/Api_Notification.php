@@ -30,6 +30,18 @@ class Api_Notification extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function notification_post($notification_id){
+        $user_id = $this->verify_request()->id;
+        $data = $this->NotificationModel->updateSeen($user_id, $notification_id);
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function notification_delete($notification_id){
+        $user_id = $this->verify_request()->id;
+        $data = $this->NotificationModel->delete($user_id, $notification_id);
+        $this->response($data, parent::HTTP_OK);
+    }
+
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION
     //////////////////////////////////////////////////////////////

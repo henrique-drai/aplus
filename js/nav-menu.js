@@ -6,6 +6,7 @@ $(document).ready(() => {
     $(".btn-notifications").click(()=>{toggleNotifications()})
     updateNavMenuData()
     updateNotifications()
+    setInterval(updateNotifications, 4000)
 })
 
 // assim só precisam de indicar as páginas que vão estar disponíveis
@@ -86,6 +87,22 @@ function updateNotifications(){
 
 function renderNotifications(notifications){
 
+    async function notificationSeen(id, callback=null){
+        $.ajax({
+          type: "POST",
+          headers: {"Authorization": localStorage.token},
+          url: base_url + "api/notification/" + id,
+          success: function(data) {
+            console.log(data)
+            if(callback)
+              callback()
+          },
+          error: function(data) {
+            console.log("Problema em api/notification/seen POST")
+          }
+        })
+      }
+
     function getDate(date){
         const diff = Date.now() - new Date(date)
 
@@ -123,7 +140,14 @@ function renderNotifications(notifications){
                                 $('<div class="title">' + n.title + '</div>'),
                                 $('<div class="content">' + n.content + '</div>'),
                                 $('<div class="date">' + getDate(n.date) + '</div>')
-            )))))
+                            )
+                        ).click((e)=>{
+                            // e.preventDefault()
+                            notificationSeen(n.id)
+                        })
+                    )  
+                )
+            )
         }
 
         $(".nav-notifications").html(divs)
@@ -144,3 +168,4 @@ function toggleNotifications(){
     else
         $(".nav-notifications").addClass("hidden")
 }
+

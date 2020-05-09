@@ -9,10 +9,13 @@
   margin: 8px 0px;
   display: flex;
   align-items: center;
-  background-color: #aaa;
+  background-color: #3e5d4f;
   border-radius: 3px;
   overflow: hidden;
   border: 1px solid #aaa;
+}
+#all_noti-inner .notification.seen{
+  background-color: #aaa;
 }
 #all_noti-inner .icon img{
   width: 100%;
@@ -25,11 +28,26 @@
   margin: 0px 5px;
 }
 #all_noti-inner .options {
-  width: 20px;
-  min-width: 20px;
+  width: 30px;
+  min-width: 30px;
   background-color: white;
   display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-self: stretch;
+  
+}
+#all_noti-inner .options div {
+  width: 20px;
+  margin: 0px auto;
+  cursor: pointer;
+}
+#all_noti-inner .options img{
+  width: 100%;
+  opacity: 0.6;
+}
+#all_noti-inner .options img:hover{
+  opacity: 1;
 }
 #all_noti-inner .body {
   background-color: white;
@@ -42,7 +60,7 @@
   color: black !important;
   text-decoration: none;
 }
-#all_noti-inner .body:hover {
+#all_noti-inner .body:hover{
   background-color: rgba(255,255,255,0.85);
 }
 #all_noti-inner .title {

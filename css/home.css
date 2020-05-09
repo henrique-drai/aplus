@@ -1,0 +1,67 @@
+a { color: inherit; } 
+
+.card_info {
+    width: 30%;
+    height: 150px;
+    font-size: 20px;
+    display: inline-block;
+    margin-left: 2%;
+    cursor: pointer;
+    margin-bottom: 5%;
+}
+
+.card_info:hover {
+    background-color:grey;
+}
+
+.card_info img {
+    position: relative;
+    width: 100%;
+    height: 69%;
+}
+
+#title {
+    font-size: 0.7em;
+    color: grey;
+    padding-top: 6px;
+}
+
+.subject {
+    background-color: white;
+    position: relative;
+    font-size: 0.8em;
+    min-height: 30%;
+    height: auto;
+}
+
+.subject div {
+    margin-left: 5%;
+    display: flex;
+}
+
+.subject div:last-child {
+    padding-bottom: 6px;
+}
+
+#subjects-hook {
+    margin-top: 2%;
+}
+
+.cadeiras {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media only screen and (max-width: 770px) {
+    .card_info {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .student-stats-window {
+        font-size: 1em;
+        min-width: 80% !important;
+    }
+}

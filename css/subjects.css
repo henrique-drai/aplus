@@ -121,7 +121,7 @@ select, textarea {
 }
 
 .card_info_project, .card_info_forum {
-    width: 45%;
+    width: 350px;
     height: 130px;
     font-size: 20px;
     display: inline-block;
@@ -316,6 +316,7 @@ a { color: inherit; }
 #title {
     font-size: 0.7em;
     color: grey;
+    padding-top: 6px;
 }
 
 .subject {
@@ -331,14 +332,13 @@ a { color: inherit; }
     display: flex;
 }
 
+.subject div:last-child {
+    padding-bottom: 6px;
+}
+
 /* //////////////////////////////////////////////////////////////
 //                            MEDIA
 ////////////////////////////////////////////////////////////// */
-/* @media only screen and (max-width: 1350px) {
-    .card_info_project, .card_info_forum {
-        width: 75%;
-    }
-} */
 
 @media only screen and (max-width: 1250px) {
     .card_info_project, .card_info_forum {
@@ -384,7 +384,19 @@ a { color: inherit; }
 
 @media only screen and (max-width: 430px) {
     .card_info_project, .card_info_forum, .card_info {
-        width: 100%;
+        width: 90%;
+    }
+
+    .card_info {
+        margin-left: 0px;
+    }
+
+    .foruns a, .projetos a {
+        margin-left: 3%;
+    }
+
+    .semestre1 a, .semestre2 a {
+        margin-left: 5%;
     }
 }
 
@@ -401,6 +413,14 @@ a { color: inherit; }
         position: absolute;
         margin-top: -14% !important;
         margin-left: 65% !important;
+    }
+
+    .foruns a, .projetos a {
+        margin-left: -2%;
+    }
+
+    .semestre1 a, .semestre2 a {
+        margin-left: 0;
     }
 }
 

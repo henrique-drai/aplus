@@ -204,10 +204,6 @@ class App extends CI_Controller {
     {
         $data["base_url"] = base_url();
 
-        $this->load->model('NotificationModel');
-        
-        $data["notifications"] = $this->NotificationModel->getAll($this->session->userdata('id'));
-
         $this->load->view('templates/head', $data);
         $this->load->view('app/notifications', $data); 
         $this->load->view('templates/footer');

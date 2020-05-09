@@ -19,15 +19,15 @@ class Api_Notification extends REST_Controller {
     }
 
     public function all_get(){
-      //TODO
+        $user_id = $this->verify_request()->id;
+        $data = $this->NotificationModel->getAll($user_id);
+        $this->response($data, parent::HTTP_OK);
     }
 
     public function new_get(){
-      $user_id = $this->verify_request()->id;
-
-      $data = $this->NotificationModel->getNew($user_id);
-
-      $this->response($data, parent::HTTP_OK);
+        $user_id = $this->verify_request()->id;
+        $data = $this->NotificationModel->getNew($user_id);
+        $this->response($data, parent::HTTP_OK);
     }
 
     //////////////////////////////////////////////////////////////

@@ -1,7 +1,5 @@
 var navbar_is_active = false
 
-var notifications = []
-
 $(document).ready(() => {
     $(".nav-menu-btn-logout").click(() => {endSession()})
     $("#nav-menu-toggle").click(()=>{toggleMenu()})
@@ -73,14 +71,12 @@ function updateNotifications(){
         headers: {"Authorization": localStorage.token},
         url: base_url + "api/notifications/new",
         success: function(data) {
-            notifications = data
-            
             if(data.length)
                 $("#nav-menu-hook .alert").removeClass("hidden").text(data.length)
             else
                 $("#nav-menu-hook .alert").addClass("hidden")  
 
-            renderNotifications()
+            renderNotifications(data)
         },
         error: function(data) {
             console.log("Problema na API: notifications.")
@@ -88,7 +84,7 @@ function updateNotifications(){
     })
 }
 
-function renderNotifications(){
+function renderNotifications(notifications){
 
     function getDate(date){
         const diff = Date.now() - new Date(date)

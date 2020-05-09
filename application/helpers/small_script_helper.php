@@ -113,8 +113,7 @@ function small_script($m) {
 
     $thread1_id = $m->thread($prof1_id, $forum1_id, "Avaliação da cadeira", "Testes e 3 projetos ao longo do semestre", "2020-04-13 11:00:00");
 
-    $m->thread_post($thread1_id, $prof1_id, "Avaliação da cadeira", "Testes e 3 projetos ao longo do semestre", "2020-04-13 11:00:00");
-    
+    $m->thread_post($thread1_id, $prof1_id, "Não concordo com esse post", "2020-04-13 11:00:00");
 
     $projeto1_id = $m->projeto($cadeira1_id, "Evolução da Ciência", "Texto que descreve este projeto científico.", 1, 2, "");
     $projeto2_id = $m->projeto($cadeira1_id, "História das Artes", "Ninguém quer saber quando escolhe artes, mas pronto", 3, 4, "");
@@ -162,10 +161,10 @@ function small_script($m) {
     $m->horario_duvidas($cadeira1_id, $prof1_id, "11:30:00", "13:00:00", "Segunda-feira");
     $m->horario_duvidas($cadeira1_id, $prof1_id, "12:00:00", "13:00:00", "Quinta-feira");
 
-    $m->notification($aluno1_id, "message", "Mensagem de João Ye", "Atão crlh?", "app/profile/2801", false, "2020-04-23 11:30:31");
-    $m->notification($aluno1_id, "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "app/profile/2", false, "2020-04-23 11:30:35");
-    $m->notification($aluno1_id, "alert", "Falhaste uma entrega", "Teatro", "subjects/subject/TEA84/2019", false, "2020-04-23 11:30:30");
-    $m->notification($aluno1_id, "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "app/profile/62", true, "2020-04-23 11:30:33");
+    $m->notification($aluno1_id, "message", "Mensagem de João Ye", "Atão crlh?", "app/profile/2801", false, "2020-04-09 11:30:31");
+    $m->notification($aluno1_id, "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "app/profile/2", false, "2020-04-09 11:30:35");
+    $m->notification($aluno1_id, "alert", "Falhaste uma entrega", "Teatro", "subjects/subject/TEA84/2019", false, "2020-04-09 11:30:30");
+    $m->notification($aluno1_id, "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "app/profile/62", true, "2020-04-09 11:30:33");
         
     $execution_time = microtime(true) - $time_start;
 

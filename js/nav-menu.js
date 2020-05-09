@@ -99,34 +99,47 @@ function renderNotifications(){
         return "Há "+Math.floor(diff/1000/60/60/24)+" dias"
     }
 
-    let divs = []
-    
-    for (const n of notifications) {
-        let img
-
-        switch(n.type){
-            case "message":
-                img = $('<img src="' + base_url + 'images/icons/message.png" alt="Message Notification">')
-                break
-            case "alert":
-                img = $('<img src="' + base_url + 'images/icons/alert.png" alt="Alert Notification">')
-                break
-            default: break
-        }
+    if(!notifications.length){
+        $(".nav-notifications").html($('<div class="nothing">Não tem notificações novas.</div>'))
+    }
+    else {
+        let divs = []
         
-        divs.push(
-            $('<div class="notification"></div>').append(
-                $('<div class="icon"></div>').append(img),
-                $('<div class="body"></div>').append(
-                    $('<a href="' + base_url + n.link + '"></a>').append(
-                        $("<div></div>").append(
-                            $('<div class="title">' + n.title + '</div>'),
-                            $('<div class="content">' + n.content + '</div>'),
-                            $('<div class="date">' + getDate(n.date) + '</div>')
-        )))))
+        for (const n of notifications) {
+            let img
+
+            switch(n.type){
+                case "message":
+                    img = $('<img src="' + base_url + 'images/icons/message.png" alt="Message Notification">')
+                    break
+                case "alert":
+                    img = $('<img src="' + base_url + 'images/icons/alert.png" alt="Alert Notification">')
+                    break
+                default: break
+            }
+            
+            divs.push(
+                $('<div class="notification"></div>').append(
+                    $('<div class="icon"></div>').append(img),
+                    $('<div class="body"></div>').append(
+                        $('<a href="' + base_url + n.link + '"></a>').append(
+                            $("<div></div>").append(
+                                $('<div class="title">' + n.title + '</div>'),
+                                $('<div class="content">' + n.content + '</div>'),
+                                $('<div class="date">' + getDate(n.date) + '</div>')
+            )))))
+        }
+
+        $(".nav-notifications").html(divs)
     }
 
-    $(".nav-notifications").html(divs)
+    $(".nav-notifications").append(
+        $('<div class="see-more"></div>').append(
+            $('<a href="' + base_url + 'app/notifications"></a>').append(
+                $('<div>VER TODAS</div>')
+            )
+        )
+    )
 }
 
 function toggleNotifications(){

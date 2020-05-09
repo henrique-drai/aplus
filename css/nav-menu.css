@@ -219,6 +219,9 @@
     margin: 8px 10px;
     display: flex;
     align-items: center;
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 3px;
+    overflow: hidden;
 }
 .nav-notifications .icon img{
     width: 100%;
@@ -228,14 +231,11 @@
     width: 20px;
     height: 20px;
     min-width: 20px;
-    margin: 0px 7px 0px 0px;
+    margin: 0px 5px;
 }
 .nav-notifications .body {
     background-color: white;
-    border-radius: 3px;
-    
     width: 100%;
-    /* cursor: pointer; */
 }
 .nav-notifications .body > a > div{
     padding: 5px 8px;
@@ -257,4 +257,19 @@
 .nav-notifications .date {
     font-size: 10px;
     text-align: center;
+}
+.nav-notifications .nothing {
+    font-size: 12px;
+    color: white;
+    text-align: center;
+}
+.nav-notifications .see-more {
+    margin: 8px 10px;
+}
+.nav-notifications .see-more a div{
+    background-color: rgba(255,255,255,0.2);
+    padding: 5px;
+    text-align: center;
+    border-radius: 3px;
+    font-size: 10px;
 }

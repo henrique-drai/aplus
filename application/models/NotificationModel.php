@@ -7,4 +7,11 @@ class NotificationModel extends CI_Model {
     $result = $query->get_where("notification", array("user_id" => $user_id, "seen" => false));
     return $result->result_array();
   }
+
+  public function getAll($user_id){
+    $query = $this->db->select('*');
+    $query->order_by('date', 'DESC');
+    $result = $query->get_where("notification", array("user_id" => $user_id));
+    return $result->result_array();
+  }
 }

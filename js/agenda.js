@@ -9,8 +9,6 @@ $(document).ready(()=>{
 function renderAgenda(){
   $("#nav-menu-agenda").html("<p>Agenda</p>")
 
-  if (!agenda.events.length)
-    $("#nav-menu-agenda").append("<div class='nothing'>Não tem eventos próximos.</div>")
   
   let cols = []
   let ctr = 0
@@ -25,23 +23,22 @@ function renderAgenda(){
     {
       if (event.start_time.getDate() == day.getDate())
       {
-        let time, desc
         let cell = $('<div class="cell"></div>')
 
         switch(event.type)
         {
           case "group":
           case "event":
-            time = $('<div class="time">'+getTimeString(new Date(event.obj.start_date))+'</div>')
-            desc = $('<div class="desc">'+event.obj.name+'</div>')
+            cell.append($('<div class="time">'+getTimeString(new Date(event.obj.start_date))+'</div>'))
+            cell.append($('<div class="desc">'+event.obj.name+'</div>'))
             break
           
           case "submit":
-            time = $('<div class="time">'+getTimeString(new Date(event.obj.deadline))+'</div>')
-            desc = $('<div class="desc">'+event.obj.nome+' (Entrega de '+event.obj.sigla+')</div>')
+            cell.append($('<div class="time">'+getTimeString(new Date(event.obj.deadline))+'</div>'))
+            cell.append($('<div class="desc">'+event.obj.nome+' (Entrega de '+event.obj.sigla+')</div>'))
             break
         }
-        cells.push(cell.append(time,desc))
+        cells.push(cell)
         ctr+=1
       }
     }
@@ -52,8 +49,12 @@ function renderAgenda(){
     }
   }
 
-  let inner = $('<div class="inner"></div>').append(cols)
-  $("#nav-menu-agenda").append(inner)
+  if (!cols.length) {
+    $("#nav-menu-agenda").append("<div class='nothing'>Não tem eventos próximos.</div>")
+  } else {
+    let inner = $('<div class="inner"></div>').append(cols)
+    $("#nav-menu-agenda").append(inner)
+  }
 }
 
 function updateAgenda(){

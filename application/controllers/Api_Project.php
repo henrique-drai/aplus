@@ -244,7 +244,6 @@ class Api_Project extends REST_Controller {
         }
 
         $this->response($group_to_return, parent::HTTP_OK);
-
     }
 
     //////////////////////////////////////////////////////////////

@@ -25,6 +25,7 @@ class Api_Project extends REST_Controller {
 
     public function createProject_post(){
         $this->verify_request();
+        //Verificar se o id do professor guardado no token está associado à cadeira
 
         $dataProj = Array(
             "cadeira_id"          => $this->post("cadeira_id"),
@@ -62,6 +63,7 @@ class Api_Project extends REST_Controller {
 
     public function createEtapa_post(){
         $this->verify_request();
+        //Verificar se o id do professor guardado no token está associado à cadeira
 
         $etapa = $this->post('new_etapa');
         $this->load->model('ProjectModel');
@@ -82,6 +84,7 @@ class Api_Project extends REST_Controller {
     
     public function insertFeedback_post(){
         $this->verify_request();
+        //Verificar se o id do professor guardado no token está associado à cadeira
 
         $grupo_id = $this->post('grupo_id');
         $etapa_id = $this->post('etapa_id');
@@ -98,6 +101,7 @@ class Api_Project extends REST_Controller {
 
     public function editEtapa_post(){
         $this->verify_request();
+        //Verificar se o id do professor guardado no token está associado à cadeira
 
         $etapa = $this->post('edited_etapa');
         $this->load->model('ProjectModel');
@@ -129,6 +133,7 @@ class Api_Project extends REST_Controller {
 
     public function editEnunciado_post(){
         $this->verify_request();
+        //Verificar se o id do professor guardado no token está associado à cadeira
 
         $proj = $this->post('projid');
         $this->load->model('ProjectModel');
@@ -142,6 +147,7 @@ class Api_Project extends REST_Controller {
 
     public function editEtapaEnunciado_post(){
         $this->verify_request();
+        //Verificar se o id do professor guardado no token está associado à cadeira
 
         $etapa = $this->post('etapaid');
         $enunc = $this->post('enunciado');
@@ -213,9 +219,10 @@ class Api_Project extends REST_Controller {
         $data["nomes"] = array();
         for($i=0; $i  < count($data["students"]); $i++) {
             for($j=0; $j < count($data["students"][$i]); $j++){
+                $query = $this->UserModel->getUserById($data["students"][$i][$j]["user_id"]);
                 array_push($data["nomes"], array(
                     'grupo_id'      =>      $data["students"][$i][$j]["grupo_id"], 
-                    'user_name'     =>      $this->UserModel->getUserById($data["students"][$i][$j]["user_id"]))
+                    'user_name'     =>      array($query->name, $query->surname))
                 );
             }
         }
@@ -229,21 +236,33 @@ class Api_Project extends REST_Controller {
 
         $proj_id = $this->get("proj_id");
         $this->load->model("GroupModel");
+        $this->load->model("UserModel");
 
         $data["grupos"] = $this->GroupModel->getGroups($user_id);
 
-        $group_to_return = '';
+        $group_to_return = array();
 
         for ($i=0; $i < count($data["grupos"]); $i++) {
             $grupo = $this->GroupModel->getGroupById($data["grupos"][$i]["grupo_id"]);
             $proj = $grupo[0]["projeto_id"];
 
             if ($proj_id == $proj){
-                $group_to_return = $grupo[0];
+                $group_to_return["grupo"] = $grupo[0];
             }
         }
 
+        // ir buscar os membros do grupo
+        $group_to_return["membros"] = $this->GroupModel->getStudents($group_to_return["grupo"]["id"]);
+
+        // ir buscar nomes dos membros
+        $group_to_return["nomes"] = array();
+        for($i=0; $i< count($group_to_return["membros"]); $i++) {
+            $query = $this->UserModel->getUserById($group_to_return["membros"][$i]["user_id"]);
+            array_push($group_to_return["nomes"], array($query->name, $query->surname));
+        }
+
         $this->response($group_to_return, parent::HTTP_OK);
+
     }
 
     //////////////////////////////////////////////////////////////
@@ -252,6 +271,7 @@ class Api_Project extends REST_Controller {
 
     public function removeProject_delete(){
         $this->verify_request();
+        //Verificar se o id do professor guardado no token está associado à cadeira
 
         $proj_id = $this->delete('projid');
         $this->load->model('ProjectModel');
@@ -262,6 +282,7 @@ class Api_Project extends REST_Controller {
 
     public function removeEtapa_delete(){
         $this->verify_request();
+        //Verificar se o id do professor guardado no token está associado à cadeira
 
         $id = $this->delete('etapa_id');
         $this->load->model('ProjectModel');
@@ -272,6 +293,7 @@ class Api_Project extends REST_Controller {
 
     public function removeEnunciadoEtapa_delete(){
         $this->verify_request();
+        //Verificar se o id do professor guardado no token está associado à cadeira
 
         $this->load->model('ProjectModel');
         $id = $this->delete('id');
@@ -286,6 +308,7 @@ class Api_Project extends REST_Controller {
 
     public function removeEnunciadoProj_delete(){
         $this->verify_request();
+        //Verificar se o id do professor guardado no token está associado à cadeira
 
         $proj = $this->delete('projid');
         $this->load->model('ProjectModel');

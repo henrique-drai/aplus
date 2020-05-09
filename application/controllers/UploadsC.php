@@ -19,7 +19,8 @@ class UploadsC extends CI_Controller {
     //      uploadsc/uploadEnunciadoProjeto/:projeto_id
     public function uploadEnunciadoProjeto($project_id)
     {
-        // $project_id = $_SESSION["project_id"];
+        // query para verificar se user na session está associado ao projeto
+        
         $upload['upload_path'] = './uploads/enunciados_files/';
         $upload['allowed_types'] = 'pdf';
         $upload['file_name'] = $project_id;
@@ -41,6 +42,8 @@ class UploadsC extends CI_Controller {
 
     public function uploadEnunciadoEtapa($project_id, $etapa_id)
     {
+        // query para verificar se user na session está associado ao projeto
+
         if(!is_dir('./uploads/enunciados_files/' . strval($project_id) . '/')){
             mkdir('./uploads/enunciados_files/' . strval($project_id) . '/', 0777, TRUE);
         }
@@ -65,29 +68,31 @@ class UploadsC extends CI_Controller {
     }
 
     // submit de alunos para etapa
-    public function uploadSubmitEtapa($project_id, $etapa_id)
+    public function uploadSubmissao($project_id, $etapa_id, $grupo_id)
     {
-        // if(!is_dir('./uploads/enunciados_files/' . strval($project_id) . '/')){
-        //     mkdir('./uploads/enunciados_files/' . strval($project_id) . '/', 0777, TRUE);
-        // }
+        // query para verificar se user na session está associado ao grupo
 
-        // $upload['upload_path'] = './uploads/enunciados_files/' . strval($project_id) . '/';
-        // $upload['allowed_types'] = 'pdf';
-        // $upload['file_name'] = $etapa_id;
-        // $upload['overwrite'] = true;
+        if(!is_dir('./uploads/submissions/' . strval($project_id) . '/' . strval($etapa_id) . '/')){
+            mkdir('./uploads/submissions/' . strval($project_id) . '/' . strval($etapa_id) . '/', 0777, TRUE);
+        }
 
-        // $this->load->library('upload', $upload);
+        $upload['upload_path'] = './uploads/submissions/' . strval($project_id) . '/' . strval($etapa_id) . '/';
+        $upload['allowed_types'] = 'zip|rar';
+        $upload['file_name'] = $grupo_id;
+        $upload['overwrite'] = true;
 
-        // if ( ! $this->upload->do_upload('file_etapa'))
-        // {
-        //     $error = array('error' => $this->upload->display_errors());
-        //     print_r($error);
-        //     echo "<br>Erro upload ficheiro";
-        // }
-        // else
-        // {
-        //     header("Location: ".base_url()."projects/project/".$project_id);
-        // }
+        $this->load->library('upload', $upload);
+
+        if ( ! $this->upload->do_upload('file_submit'))
+        {
+            $error = array('error' => $this->upload->display_errors());
+            print_r($error);
+            echo "<br>Erro upload ficheiro";
+        }
+        else
+        {
+            header("Location: ".base_url()."projects/project/".$project_id);
+        }
     }
 
     public function uploadProfilePic()
@@ -103,7 +108,6 @@ class UploadsC extends CI_Controller {
         if ( ! $this->upload->do_upload('userfile'))
         {
             $error = array('error' => $this->upload->display_errors());
-            #print_r($error);
             header("Location: ".base_url()."app/profile/".$user_id);
         }
         else

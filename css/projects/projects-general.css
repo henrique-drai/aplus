@@ -53,7 +53,12 @@
 }
 
 #etapas-container{
-    margin-bottom: 1%;
+    /* margin-bottom: 1%; */
+    margin-bottom: 30px;
+}
+
+.form-input-file{
+    border-left-color: rgb(124, 124, 124);
 }
 
 .etapasDIV, .gruposDIV{
@@ -103,12 +108,12 @@
 }
 
 .wrapper {
-    margin-top: 4%;
-    margin-bottom: 1%;
+    margin-top: 50px;
+    margin-bottom: 30px;
 }
 
 .wrapper input {
-    margin-right: 1%;
+    margin-right: 10px;
 }
 
 .wrapper-top input[type="submit"] {

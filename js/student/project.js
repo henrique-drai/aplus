@@ -2,6 +2,7 @@ var proj;
 var selected_etapa;
 var etapas_info_global;
 var formStatus;
+var grupo;
 
 
 $(document).ready(() => {
@@ -29,8 +30,7 @@ $(document).ready(() => {
     $('body').on('click', '.moreButton', function(){
         selected_etapa = $(this).attr("id");
         console.log(selected_etapa);
-
-        $("#form-upload-etapa").attr('action', base_url + 'UploadsC/uploadSubmitEtapa/' + proj + '/' + selected_etapa);
+        $("#form-submit-etapa").attr('action', base_url + 'UploadsC/uploadSubmissao/' + proj + '/' + selected_etapa + '/' + grupo);
 
         updateEtapaPopup(selected_etapa);
 
@@ -56,6 +56,17 @@ $(document).ready(() => {
         $(".overlay").css('opacity', '0');
     })
 
+
+
+    $("body").on("click", "#submitEtapa", function(){
+        $("#form-submit-etapa").show();
+    })
+
+
+    // fazer evento para dar insert na submissao ou update se ja existir na db
+    
+    // checkSubmission() // função que vai verificar se existe upload e mostrar o upload feito
+
 });
 
 function setProj(id){
@@ -78,9 +89,20 @@ function showMyGroup(proj_id){
             if (data == ""){
                 $("#grupo-name").text('Cria um grupo ou entra num grupo existente');
                 $("#grupos-container").html("cena de criar grupos - ye");
+                $("#submitEtapa").prop('disabled', true);
             } else {
-                $("#grupo-name").text('Grupo ' + data["name"]);
-                $("#grupos-container").html("mostrar aqui os membros do grupo, outras opções");
+                $("#grupo-name").text('Grupo ' + data["grupo"]["name"]);
+                $("#submitEtapa").prop('disabled', false);
+                grupo = data["grupo"]["id"];
+                var names = '';
+                for(var j=0; j < data["nomes"].length; j++) {
+                    names = names + data["nomes"][j][0] + " " + data["nomes"][j][1] + " | ";
+                }
+
+                $("#grupos-container").html('<div class="myGroupDiv" id="grupo'+grupo+'">' +
+                '<p><b>Membros do seu grupo: </b>'+ names.slice(0, -2) +'</p>' + 
+                '<p><input class="quitGroupButton" id=quit"'+json["id"] +'" type="button" value="Sair"></input></p>' + 
+                '</div><hr>');
             }
         },
         error: function(data) {
@@ -225,3 +247,11 @@ function updateEtapaPopup(etapa_rec){
     $("#etapa-overlay").css('visibility', 'visible');
     $("#etapa-overlay").css('opacity', '1');
 }
+
+// function submit_etapa(file){
+
+// }
+
+// function checkSubmission(){
+
+// }

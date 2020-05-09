@@ -5,3 +5,23 @@
 #form-submit-etapa{
     display: none;
 }
+
+.myGroupDiv {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.myGroupDiv p{
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.myGroupDiv p:first-child {
+    width: 75%;
+}
+
+.myGroupDiv p:nth-child(2) {
+    width: 15%;
+}

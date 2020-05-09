@@ -433,7 +433,7 @@ function checkEntrega(){
 function verifyDates(data){
 
     if (data == ""){
-        $("#errormsg").text("A data deve ser preenchida");
+        $("#errormsg").text("Todos os campos devem ser preenchidos");
         return false;
     }
 
@@ -457,7 +457,7 @@ function verifyDates(data){
 
 function submit_etapa(){
 
-    if (verifyDates(etapa["data"]) && validate_etapa_description()){
+    if (validate_etapa_description() && verifyDates(etapa["data"])){
 
         const data = {
             projid : parseInt(proj),
@@ -524,7 +524,8 @@ function validate_etapa_description(){
     if($("textarea[name='etapaDescription']").val() != ''){
         return true
     }
-    $("#errormsg").text('Descrição tem de ser preenchida');
+
+    $("#errormsg").text('Todos os campos devem ser preenchidos');
     return false;
 }
 
@@ -771,7 +772,7 @@ function showGroups(proj_id) {
 
                 for(var j=0; j < data["nomes"].length; j++) {
                     if(data["nomes"][j].grupo_id == data["grupos"][i].id) {
-                        names = names + data["nomes"][j].user_name.name + " " + data["nomes"][j].user_name.surname + " | ";
+                        names = names + data["nomes"][j].user_name[0] + " " + data["nomes"][j].user_name[1] + " | ";
                     }
                 }
                 
@@ -784,6 +785,10 @@ function showGroups(proj_id) {
 
 
                 linhas += '<option value=' +  data["grupos"][i].id  +">" + data["grupos"][i].name  + '</option>'; 
+            }
+
+            if (array.length == 0){
+                array.push("<p>Não existem grupos</p><hr>");
             }
             
             $("#select_grupo_feedback").html(linhas);

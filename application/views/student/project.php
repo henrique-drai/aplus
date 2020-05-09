@@ -55,12 +55,12 @@
                 <div id=forms>
                     <?php echo form_open_multipart('UploadsC/uploadSubmissao', 'id="form-submit-etapa"');?>
                         <label id="letapa" for="file">Entrega:</label>
-                        <input class="form-input-file" type="file" id="file_submit" name="file_submit" accept=".pdf">
+                        <input class="form-input-file" type="file" id="file_submit" name="file_submit" accept=".zip,.rar">
                         <p>
                             <div class="submit-msg">Mensagem de sucesso template</div>
                             <div class="submit-msg">Mensagem de erro template</div>
                         </p>
-                        <input id="addEnuncEtapa" type="submit" value="Adicionar enunciado">
+                        <input id="addSubmission" type="submit" value="Enviar submissão">
                     </form>
                 </div>
                </div>

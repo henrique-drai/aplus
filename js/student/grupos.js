@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  
+
     getAll(localStorage.user_id, "allGroups");
 
     $("body").on("click", ".groupMembros", function() {
@@ -87,6 +87,7 @@ function getAll(user_id, status){
         },
         error: function(data) {
             console.log("Erro na API:")
+            console.log(data)
         }
     });
 }

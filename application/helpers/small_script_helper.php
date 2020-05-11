@@ -121,6 +121,10 @@ function small_script($m) {
 
     $etapa1_id = $m->etapa($projeto1_id, "2020-05-14 23:00:00", "", "Pesquisa", "Façam pesquisa no StackOverflow.");
     $etapa2_id = $m->etapa($projeto1_id, "2020-05-21 23:55:00", "", "Implementação", "Copiem o código do StackOverflow.");
+    $etapa1_id = $m->etapa($projeto2_id, "2020-05-14 23:00:00", "", "Pesquisa2", "Façam pesquisa no StackOverflow.");
+    $etapa2_id = $m->etapa($projeto2_id, "2020-05-21 23:55:00", "", "Implementação2", "Copiem o código do StackOverflow.");
+    $etapa1_id = $m->etapa($projeto3_id, "2020-05-14 23:00:00", "", "Pesquisa3", "Façam pesquisa no StackOverflow.");
+    $etapa2_id = $m->etapa($projeto3_id, "2020-05-21 23:55:00", "", "Implementação3", "Copiem o código do StackOverflow.");
 
     $grupo1_id = $m->grupo($projeto1_id, "1");
     $grupo2_id = $m->grupo($projeto1_id, "2");

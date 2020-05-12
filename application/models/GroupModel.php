@@ -29,4 +29,9 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
         return $this->db->get_where("grupo", array("id" => $group_id)) -> result_array();
     }
     
+    public function leaveGroup($user_id, $group_id){
+        $this->db->where("user_id", $user_id);
+        $this->db->where("grupo_id", $group_id);
+        $this->db->delete('grupo_aluno');
+    }
 }

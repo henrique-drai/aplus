@@ -280,23 +280,29 @@ class Api_Project extends REST_Controller {
 
         $group_to_return = array();
 
+        $flag_exists = false;
+
         for ($i=0; $i < count($data["grupos"]); $i++) {
             $grupo = $this->GroupModel->getGroupById($data["grupos"][$i]["grupo_id"]);
             $proj = $grupo[0]["projeto_id"];
 
             if ($proj_id == $proj){
                 $group_to_return["grupo"] = $grupo[0];
+                $flag_exists = true;
             }
         }
 
-        // ir buscar os membros do grupo
-        $group_to_return["membros"] = $this->GroupModel->getStudents($group_to_return["grupo"]["id"]);
 
-        // ir buscar nomes dos membros
-        $group_to_return["nomes"] = array();
-        for($i=0; $i< count($group_to_return["membros"]); $i++) {
-            $query = $this->UserModel->getUserById($group_to_return["membros"][$i]["user_id"]);
-            array_push($group_to_return["nomes"], array($query->name, $query->surname));
+        if($flag_exists == true){
+            // ir buscar os membros do grupo
+            $group_to_return["membros"] = $this->GroupModel->getStudents($group_to_return["grupo"]["id"]);
+
+            // ir buscar nomes dos membros
+            $group_to_return["nomes"] = array();
+            for($i=0; $i< count($group_to_return["membros"]); $i++) {
+                $query = $this->UserModel->getUserById($group_to_return["membros"][$i]["user_id"]);
+                array_push($group_to_return["nomes"], array($query->name, $query->surname));
+            }
         }
 
         $this->response($group_to_return, parent::HTTP_OK);
@@ -358,6 +364,16 @@ class Api_Project extends REST_Controller {
         $this->response($proj, parent::HTTP_OK);
     }
 
+    public function leaveMyGroup_delete(){
+        $user_id = $this->verify_request()->id;
+        $group_id = $this->delete("grupo_id");
+        $proj_id = $this->get("proj_id");
+
+        $this->load->model("GroupModel");
+
+        $this->GroupModel->leaveGroup($user_id, $group_id);
+
+    }
 
 
     //////////////////////////////////////////////////////////////

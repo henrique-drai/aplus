@@ -8,7 +8,6 @@ var grupo;
 $(document).ready(() => {
     getEtapas(proj);
 
-
     $("#entrega_h3").text("Entrega final:");
 
     checkEntrega();

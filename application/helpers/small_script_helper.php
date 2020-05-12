@@ -3,7 +3,7 @@
 function small_script($m) {
     $time_start = microtime(true); 
 
-    $aluno1_id  = $m->student("Henrique", "Francisco", "1@gmail.com", "", "This a great description");
+    $aluno1_id  = $m->student("X Æ", "A-12", "1@gmail.com", "", "This a great description");
     $aluno2_id  = $m->student("Joana", "Almeida", "2@gmail.com", "", "Gosto de entrar em salas do Zoom.");
     $aluno3_id  = $m->student("Rafael", "Sousa", "3@gmail.com", "", "Está calor hoje");
     $aluno4_id  = $m->student("Maria", "Silva", "4@gmail.com", "", "Tu eras aquela");

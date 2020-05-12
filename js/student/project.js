@@ -33,7 +33,7 @@ $(document).ready(() => {
 
         updateEtapaPopup(selected_etapa);
 
-        checkSubmission(grupo, selected_etapa);
+        checkSubmission(grupo, selected_etapa, proj);
 
         if ($(this).css("background-color") == "#3e5d4f"){
             $(this).css("background-color", "white");
@@ -274,7 +274,7 @@ function submit_etapa(file_name){
     });
 }
 
-function checkSubmission(grupo, etapa){
+function checkSubmission(grupo, etapa, proj){
     const data = {
         grupo_id : grupo,
         etapa_id : etapa
@@ -290,7 +290,10 @@ function checkSubmission(grupo, etapa){
         data: data,
         success: function(data) {
             if (data.length > 0){
-                $("#sub_label").html('<a href="">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
+                console.log(data);
+                var base_link = base_url + "uploads/submissions/" + proj + "/" + etapa + "/";
+                var extension = data[0]["submit_url"].split(".").pop();
+                $("#sub_label").html('<a href="'+base_link+grupo+'.'+extension+'">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
             } else {
                 $("#sub_label").text("Entrega ainda não foi submetida");
             }

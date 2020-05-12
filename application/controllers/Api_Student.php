@@ -97,7 +97,7 @@ class Api_Student extends REST_Controller {
            
             $projId =  $this->GroupModel->getProjectId($data["grupo"][$i]["grupo_id"]);
             
-            array_push($data["deadline"], $this->ProjectModel->getLastEtapa($projId[0]['projeto_id'])[0]['deadline']);
+            // array_push($data["deadline"], $this->ProjectModel->getLastEtapa($projId[0]['projeto_id'])[0]['deadline']);
 
             $idCadeira = $this->ProjectModel->getProjectByID($projId[0]['projeto_id'])[0]['cadeira_id'];
             $nomeCadeira = $this->SubjectModel->getSubjectByID($idCadeira)->name;

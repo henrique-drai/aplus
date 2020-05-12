@@ -170,7 +170,7 @@ $(document).ready(() => {
     // ir buscar submission - FEEDBACK ETAPA
     $('#select_grupo_feedback').on('change', function(){
         var grupo_id = $(this).val();
-        getSumbission(grupo_id, selected_etapa);
+        getSumbission(grupo_id, selected_etapa, proj);
     })
 
     //show editar etapa form - EDITAR ETAPA
@@ -838,7 +838,7 @@ function removeEtapa(id){
 }
 
 
-function getSumbission(grupo_id, etapa){
+function getSumbission(grupo_id, etapa, proj){
     const data = {
         grupo_id : grupo_id,
         etapa_id : etapa
@@ -854,7 +854,9 @@ function getSumbission(grupo_id, etapa){
         success: function(data) {
             console.log(data)
             if (data.length > 0){
-                $("#sub_url").html('<a href="">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
+                var base_link = base_url + "uploads/submissions/" + proj + "/" + etapa + "/";
+                var extension = data[0]["submit_url"].split(".").pop();
+                $("#sub_url").html('<a href="'+base_link+grupo_id+'.'+extension+'">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
                 $("#confirmFeedback").show();
             } else {
                 $("#sub_url").text("Entrega ainda não foi submetida");

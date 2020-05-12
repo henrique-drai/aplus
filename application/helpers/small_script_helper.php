@@ -136,11 +136,7 @@ function small_script($m) {
       Array("user_id"=> $aluno4_id,  "grupo_id"=>$grupo2_id),
       Array("user_id"=> $aluno2_id,  "grupo_id"=>$grupo1_id),
       Array("user_id"=> $aluno3_id,  "grupo_id"=>$grupo1_id),
-      Array("user_id"=> $aluno2_id,  "grupo_id"=>$grupo2_id),
-      Array("user_id"=> $aluno3_id,  "grupo_id"=>$grupo3_id),
-      Array("user_id"=> $aluno1_id,  "grupo_id"=>$grupo4_id),
       Array("user_id"=> $aluno5_id,  "grupo_id"=>$grupo3_id),
-      Array("user_id"=> $aluno3_id,  "grupo_id"=>$grupo4_id),
     ));
 
     $m->etapa_submit($grupo3_id, $etapa1_id, "URL-FALSO-HEHE-XD");

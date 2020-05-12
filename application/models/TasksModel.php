@@ -12,4 +12,9 @@ class TasksModel extends CI_Model {
         return $query->result_array();
     }
 
+    public function insertTask($data) {
+        $this->db->insert("tarefa", $data);
+        return $this->db->insert_id();
+    }
+
 }

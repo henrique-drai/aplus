@@ -196,6 +196,22 @@ class Api_Project extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function insertTask_post() {
+        $data_send = Array (
+            "grupo_id"          => $this->post("grupo_id"),
+            "user_id"           => $this->post("user_id"),
+            "name"              => $this->post("name"),
+            "description"       => $this->post("description"),
+            "start_date"        => $this->post("start_date"),
+            "done_date"         => $this->post("done_date"),
+        );
+
+        $this->load->model("TasksModel");
+        $data = $this->TasksModel->insertTask($data_send);
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
     
 
     //////////////////////////////////////////////////////////////
@@ -307,6 +323,32 @@ class Api_Project extends REST_Controller {
 
         $this->response($group_to_return, parent::HTTP_OK);
 
+    }
+
+    public function getGroupMembers_get($group_id) {
+        $this->load->model("GroupModel");
+
+        $data["user_ids"] = $this->GroupModel->getStudents($group_id);
+
+        $this->load->model("UserModel");
+        $data["users"] = array();
+        for($i=0; $i < count($data["user_ids"]); $i++) {
+            array_push($data["users"], $this->UserModel->getUserById($data["user_ids"][$i]["user_id"]));
+        }
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getTasks_get($group_id) {
+        $this->load->model("TasksModel");
+
+        $data["tasks"] = $this->TasksModel->getTarefas($group_id);
+
+        $data["members"] = array();
+        for($i=0; $i < count($data["tasks"]); $i++) {
+            array_push($data["members"], $this->TasksModel->getMembroNome($data["tasks"][$i]["user_id"]));
+        }
+        $this->response($data, parent::HTTP_OK);
     }
 
 

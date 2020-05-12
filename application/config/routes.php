@@ -51,6 +51,10 @@ $route['api/removeEtapa/(:num)']                = 'Api_Project/removeEtapa/$1';
 $route['api/removeEnunciadoEtapa/(:num)']       = 'Api_Project/removeEnunciadoEtapa/$1';
 $route['api/removeEnunciadoProj/(:num)']        = 'Api_Project/removeEnunciadoProj/$1';
 
+$route['api/getGroupMembers/(:num)']            = 'Api_Project/getGroupMembers/$1';
+$route['api/insertTask']                        = 'Api_Project/insertTask';
+$route['api/getTasks/(:num)']                   = 'Api_Project/getTasks/$1';
+
 $route['api/getCadeira/(:num)']                 = 'Api_Subject/getInfo/$1';
 $route['api/insertText']                        = 'Api_Subject/insertText';
 $route['api/getHours/(:num)']                   = 'Api_Subject/getHours/$1';

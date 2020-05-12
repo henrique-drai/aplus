@@ -114,10 +114,10 @@ th, td {
     Label the data
 You could also use a data-* attribute and content for this. That way "bloats" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.
     */
-    td:nth-of-type(1):before { content: "Título"; }
-    td:nth-of-type(2):before { content: "Criador"; }
-    td:nth-of-type(3):before { content: "Data"; }
-    td:nth-of-type(4):before { content: "Mais informação"; }
+    td:nth-of-type(1):before { content: "Título"; font-weight: bold;}
+    td:nth-of-type(2):before { content: "Criador"; font-weight: bold;}
+    td:nth-of-type(3):before { content: "Data"; font-weight: bold;}
+    td:nth-of-type(4):before { content: "Mais informação"; font-weight: bold;}
 }
 
 @media only screen and (max-width: 375px) {

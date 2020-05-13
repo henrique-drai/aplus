@@ -858,8 +858,14 @@ function getSumbission(grupo_id, etapa, proj){
                 var extension = data[0]["submit_url"].split(".").pop();
                 $("#sub_url").html('<a href="'+base_link+grupo_id+'.'+extension+'">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
                 $("#confirmFeedback").show();
+                if (data[0]["feedback"] == ""){
+                    $("#fb_content").text("Ainda não foi atribuido feedback a esta etapa.");
+                } else {
+                    $("#fb_content").text(data[0]["feedback"]);
+                }
             } else {
                 $("#sub_url").text("Entrega ainda não foi submetida");
+                $("#fb_content").text("Ainda não foi atribuido feedback a esta etapa.");
                 $("#confirmFeedback").hide();
             }
         },
@@ -900,6 +906,7 @@ function submit_feedback(feedback, etapa, grupo_id){
                 $('#feedback-form')[0].reset();
                 $("#sub_url").text('Entrega ainda não foi submetida');
                 $("#confirmFeedback").hide();
+                $("#fb_content").text("Ainda não foi atribuido feedback a esta etapa.");
                 $("#successmsgfb").show().delay(5000).fadeOut();
             },
             error: function(data) {

@@ -47,7 +47,6 @@ $(document).ready(() => {
     // fechar popup - etapas
     $('body').on("click", '.close', function() {
         $("#etapa-form-edit").hide();
-        $("#feedback-form").hide();
         $("#form-upload-etapa").hide();
         formStatus = null;
         // checkFormStatus();
@@ -293,9 +292,16 @@ function checkSubmission(grupo, etapa, proj){
                 console.log(data);
                 var base_link = base_url + "uploads/submissions/" + proj + "/" + etapa + "/";
                 var extension = data[0]["submit_url"].split(".").pop();
-                $("#sub_label").html('<a href="'+base_link+grupo+'.'+extension+'">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
+                $("#sub_label").html('<a href="'+base_link+grupo+'.'+extension+'">' + data[0]["submit_url"] + '</a>');
+                if (data[0]["feedback"] == ""){
+                    $("#feedback_label").text("Ainda não foi atribuido feedback a esta etapa.");
+                } else {
+                    $("#feedback_label").text(data[0]["feedback"]);
+                }
+                
             } else {
-                $("#sub_label").text("Entrega ainda não foi submetida");
+                $("#sub_label").text("O seu grupo ainda não submeteu uma entrega.");
+                $("#feedback_label").text("Ainda não foi atribuido feedback a esta etapa.");
             }
         },
         error: function(data) {

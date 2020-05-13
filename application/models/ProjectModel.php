@@ -90,7 +90,6 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
         $this->db->update("etapa_submit");
         return $this->db->affected_rows(); 
     }
-
 }
 
 

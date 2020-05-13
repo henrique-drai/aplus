@@ -87,13 +87,13 @@ class App extends CI_Controller {
 
 
 
-    //app/student/grupos
+    //app/student/grupos -> function grupos()
 
-    //app/student/grupos/:grupoid
+    //app/student/grupos/:grupoid -> function grupos($grupoid)
 
-    //app/student/memberRtg/:grupoid
+    //app/student/memberRtg/:grupoid -> function memberRtg($grupoid)
 
-    //app/student/grupos/ficheiros/:grupoid
+    //app/student/grupos/ficheiros/:grupoid -> mudar para student/ficheiros/:grupoid -> function ficheiros($grupo_id)
 
 
 

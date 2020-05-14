@@ -6,6 +6,10 @@
     display: none;
 }
 
+#erro-entrega{
+    background: rgb(255, 72, 72);
+}
+
 .myGroupDiv {
     margin-bottom: 30px;
     display: flex;

@@ -24,45 +24,65 @@ class Api_Project extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function createProject_post(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
         //Verificar se o id do professor guardado no token está associado à cadeira
 
-        $dataProj = Array(
-            "cadeira_id"          => $this->post("cadeira_id"),
-            "nome"                => $this->post("projName"),
-            "min_elementos"       => $this->post("groups_min"),
-            "max_elementos"       => $this->post("groups_max"),
-            "description"         => $this->post("projDescription"),
-            "enunciado_url"       => $this->post("file"),
-        );
-        
-        $dataEtapa = $this->post("listetapas");
+        //tabela que liga cadeira a user
+        $this->load->model('SubjectModel');
 
+        $cadeiras = $this->SubjectModel->getCadeiras($user_id, "teacher");
 
-        $this->load->model('ProjectModel');
-        $proj_id = $this->ProjectModel->insertProject($dataProj);
+        $flag_found = false;
 
-        $this->load->model('ProjectModel');
-
-        for($i=0; $i < count($dataEtapa); $i++) {
-
-            $newEtapa = Array (
-                "projeto_id"        => $proj_id,
-                "nome"              => $dataEtapa[$i]["nome"],
-                "description"       => $dataEtapa[$i]["desc"],
-                "enunciado_url"     => $dataEtapa[$i]["enunciado"],
-                "deadline"          => $dataEtapa[$i]["data"],
-            );
-
-            $this->ProjectModel->insertEtapa($newEtapa);
+        for($i=0; $i < count($cadeiras); $i++) {
+            if($this->post("cadeira_id") == $cadeiras[$i]["cadeira_id"]){
+                $flag_found = true;
+            }
         }
 
+        if ($flag_found){
 
-        $this->response($proj_id, parent::HTTP_OK);
+            $dataProj = Array(
+                "cadeira_id"          => $this->post("cadeira_id"),
+                "nome"                => $this->post("projName"),
+                "min_elementos"       => $this->post("groups_min"),
+                "max_elementos"       => $this->post("groups_max"),
+                "description"         => $this->post("projDescription"),
+                "enunciado_url"       => $this->post("file"),
+            );
+            
+            $dataEtapa = $this->post("listetapas");
+    
+    
+            $this->load->model('ProjectModel');
+            $proj_id = $this->ProjectModel->insertProject($dataProj);
+    
+            $this->load->model('ProjectModel');
+    
+            for($i=0; $i < count($dataEtapa); $i++) {
+    
+                $newEtapa = Array (
+                    "projeto_id"        => $proj_id,
+                    "nome"              => $dataEtapa[$i]["nome"],
+                    "description"       => $dataEtapa[$i]["desc"],
+                    "enunciado_url"     => $dataEtapa[$i]["enunciado"],
+                    "deadline"          => $dataEtapa[$i]["data"],
+                );
+    
+                $this->ProjectModel->insertEtapa($newEtapa);
+            }
+    
+    
+            $this->response($proj_id, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
     public function createEtapa_post(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
         //Verificar se o id do professor guardado no token está associado à cadeira
 
         $etapa = $this->post('new_etapa');
@@ -356,14 +376,38 @@ class Api_Project extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function removeProject_delete(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
         //Verificar se o id do professor guardado no token está associado à cadeira
 
-        $proj_id = $this->delete('projid');
-        $this->load->model('ProjectModel');
-        $data = $this->ProjectModel->removeProjectByID($proj_id);
+        //tabela que liga cadeira a user
+        $this->load->model('SubjectModel');
 
-        $this->response($data, parent::HTTP_OK);
+        $cadeiras = $this->SubjectModel->getCadeiras($user_id, "teacher");
+
+        $this->load->model('ProjectModel');
+
+        $proj = $this->ProjectModel->getProjectByID($this->delete('projid'));
+
+
+        $flag_found = false;
+
+        for($i=0; $i < count($cadeiras); $i++) {
+            if($proj[0]["cadeira_id"] == $cadeiras[$i]["cadeira_id"]){
+                $flag_found = true;
+            }
+        }
+
+        if ($flag_found){
+            $proj_id = $this->delete('projid');
+            $this->load->model('ProjectModel');
+            $data = $this->ProjectModel->removeProjectByID($proj_id);
+
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
     public function removeEtapa_delete(){

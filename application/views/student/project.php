@@ -55,6 +55,7 @@
                 <div class="wrapper">
                     <hr>
                     <input id="submitEtapa" type="button" value="Submeter etapa">
+                    <div id="erro-entrega" class="submit-msg">A data de entrega foi ultrapassada.</div>
                 </div>
 
                 <div id=forms>

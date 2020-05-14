@@ -29,6 +29,32 @@ $(document).ready(() => {
     $('body').on('click', '.moreButton', function(){
         selected_etapa = $(this).attr("id");
         console.log(selected_etapa);
+
+        // verificação de data - se a data de entrega da etapa ja tiver sido passada esconder o botao
+        // data entrega
+        var data_entrega = $(this).parent().parent().find("p:nth-child(2)").text().split(",")
+        var dsplit = data_entrega[0].split("/");
+        var time_entrega = data_entrega[1].split(":");
+
+        //mês -1 porque o js é parvo e tem os meses 0-indexed
+        //yyyy-mm-dd-hh-mm
+        var data_entrega_final = new Date(dsplit[2], dsplit[1]-1, dsplit[0], time_entrega[0], time_entrega[1]);
+
+        // data atual 
+        var today = new Date();
+
+        $("#erro-entrega").hide();
+
+
+        if (today > data_entrega_final){
+            $('#submitEtapa').prop('disabled', true);
+            $("#erro-entrega").show();
+        } else {
+            $('#submitEtapa').prop('disabled', false);
+            $("#erro-entrega").hide();
+        }
+
+
         $("#form-submit-etapa").attr('action', base_url + 'UploadsC/uploadSubmissao/' + proj + '/' + selected_etapa + '/' + grupo);
 
         updateEtapaPopup(selected_etapa);
@@ -48,8 +74,8 @@ $(document).ready(() => {
     $('body').on("click", '.close', function() {
         $("#etapa-form-edit").hide();
         $("#form-upload-etapa").hide();
+        $("#erro-entrega").hide();
         formStatus = null;
-        // checkFormStatus();
         $(".moreButton").css("background-color", "white");
         event.preventDefault();
         $(".overlay").css('visibility', 'hidden');

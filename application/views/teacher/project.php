@@ -1,6 +1,6 @@
 <title>A+ for Teachers</title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/projects/projects-general.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-projects.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/teacher-projects.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 <script>setPageName("subjects")</script>

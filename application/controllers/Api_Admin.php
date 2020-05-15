@@ -119,6 +119,14 @@ class Api_Admin extends REST_Controller {
         header("Location: ". base_url()."app/admin/");
     }
 
+
+    public function exportRip(){
+        // Exportar alunos de uma faculdade de um ano de um curso de uma cadeira
+        
+        
+    
+    }
+
     //////////////////////////////////////////////////////////////
     //                           POST
     //////////////////////////////////////////////////////////////

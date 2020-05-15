@@ -15,7 +15,7 @@ $(document).ready(() => {
             getAll(localStorage.user_id, "ongoing")   
         }
         else if ($(this).val()=="terminated"){
-            getAll(localStorage.user_id, "terminated")
+            getAll(localStorage.user_id, "terminated")<
         }
         else{
             getAll(localStorage.user_id, "allGroups")
@@ -49,8 +49,6 @@ function getAll(user_id, status){
                         + "<div id='subject'>" + data.subjName[i] + "</div>"
                         + "<div id='project'>" + data.info[i][0].nome   + "</div>"
                         + "<div id='statusOff'>Terminado</div>"         
-                                                
-                        
                     }
 
                     else if(status == "ongoing" && new Date(data.deadline[i])>=Date.now()){

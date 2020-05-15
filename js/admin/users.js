@@ -1,6 +1,29 @@
 $(document).ready(() => {
     $("#register-form-submit").click(() => submitRegister())
 
+
+    $("body").on("click", "#exportInfo2", function() {
+        exportStudentsCollegeYear()
+    })
+
+
+    getYears();
+    getColleges();
+
+    $("#collegesDisplay").change(function(){
+        if($(this).val()!="Selecione uma Faculdade"){
+
+            $("#yearsDisplay").change(function(){
+                if($("#yearsDisplay").val()!="Selecione um Ano Letivo" && $("#yearsDisplay").val()!="Selecione uma Faculdade"){
+                    $("#coursesDisplay").remove()
+                    $("#exportInfo2").remove()
+                    getCursosFaculdade($("#yearsDisplay").val(), $("#collegesDisplay").val());
+                }
+            }) ; 
+        }
+    }) ;
+
+
     $("#exportCsv").on("submit", function(e) {
         e.preventDefault()
         $.ajax({
@@ -60,11 +83,95 @@ $(document).ready(() => {
         });
     });
 
-    
 
 })
 
+// TODO
+function exportStudentsCollegeYear(){
+    console.log("TESte")
+}
 
+
+function getCursosFaculdade(ano, faculdade){
+
+    const data = {
+        faculdade:          faculdade,
+        anoletivo:          ano,
+    }
+
+    $.ajax({
+        type: "GET",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/getAllCursosFaculdadeAno",
+        data: data,
+        success: function(data) {
+            var option = "Selecione um Curso";
+            console.log(data)
+
+            if(data.courses.length > 0){
+                for (i=0; i<data.courses.length; i++){
+                    option+= "<option value='" + data.courses[i].id + "'>"+ data.courses[i].name  + "</option>"
+                }
+               
+                $("#export2Csv").append("<select id='coursesDisplay' name='courses'></select>")
+                $("#coursesDisplay").html(option)
+                $("#export2Csv").append("<input type='submit' id='exportInfo2' value='Exportar'>")
+
+            }
+            else{
+                $("#coursesDisplay").remove()
+                $("#exportInfo2").remove()
+                $("#collegeStatus").html("Não existem cursos");
+                $("#collegeStatus").show().delay(2000).fadeOut();
+            }
+            
+        },
+        error: function(data) {
+            console.log("Erro na API:")
+        }
+    });
+}
+
+function getColleges(){
+    $.ajax({
+        type: "GET",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/getAllColleges",            
+        success: function(data) {
+            var option = "<option class='college_row'>Selecione uma Faculdade</option>";
+ 
+            for (i=0; i<data.colleges.length; i++){
+                option+= "<option value='" + data.colleges[i].id + "'>"+ data.colleges[i].name  + "</option>"
+            }
+            $("#collegesDisplay").html(option)
+           
+        },
+        error: function(data) {
+            console.log("Erro na API:")
+        }
+    });
+}
+
+
+function getYears(){
+
+    $.ajax({
+        type: "GET",
+        headers: {"Authorization": localStorage.token},
+        url: base_url + "api/getAllSchoolYears",
+        success: function(data) {
+            var option = "<option class='years'>Selecione um Ano Letivo</option>";
+
+            for (i=0; i<data.schoolYears.length; i++){
+                option+= "<option value='" + data.schoolYears[i].id + "'>"+ data.schoolYears[i].inicio  + "</option>"
+            }
+            $("#yearsDisplay").html(option)
+        },
+        error: function(data) {
+            console.log("Erro na API:")
+        }
+    });
+}
 
 function submitRegister(){
 

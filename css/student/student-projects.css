@@ -23,9 +23,32 @@
 }
 
 .myGroupDiv p:first-child {
-    width: 75%;
+    width: 30%;
 }
 
 .myGroupDiv p:nth-child(2) {
-    width: 15%;
+    width: 60%;
+}
+
+.myGroupDiv p:nth-child(3) {
+    width: 10%;
+}
+
+
+@media screen and (max-width: 440px) {
+    .myGroupDiv{
+        display: block;
+        justify-content: unset;
+        flex-wrap: unset;
+    }
+
+    .myGroupDiv p:first-child, .myGroupDiv p:nth-child(2), .myGroupDiv p:nth-child(3){
+        width:100%;
+        text-align: center;
+    }
+
+    #grupos-container input[type="button"]{
+        margin: 20px auto;
+    }
+
 }

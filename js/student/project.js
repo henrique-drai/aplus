@@ -123,11 +123,11 @@ function showMyGroup(proj_id){
                 grupo = data["grupo"]["id"];
                 var names = '';
                 for(var j=0; j < data["nomes"].length; j++) {
-                    names = names + data["nomes"][j][0] + " " + data["nomes"][j][1] + " | ";
+                    names = names + '<a href="'+ base_url +'/app/profile/'+ data["nomes"][j][2] + '">' + data["nomes"][j][0] + " " + data["nomes"][j][1] + "</a> | ";
                 }
 
                 $("#grupos-container").html('<div class="myGroupDiv" id="grupo'+grupo+'">' +
-                '<p><b>Membros do seu grupo: </b>'+ names.slice(0, -2) +'</p>' + 
+                '<p><b>Membros do seu grupo: </b></p><p>'+ names.slice(0, -2) +'</p>' + 
                 '<p><input class="quitGroupButton" id=quit"'+grupo +'" type="button" value="Sair"></input></p>' + 
                 '</div><hr>');
             }

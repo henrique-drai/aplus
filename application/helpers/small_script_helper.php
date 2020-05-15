@@ -25,7 +25,7 @@ function small_script($m) {
     $prof7_id = $m->teacher("Geraldo", "Artur", "19@gmail.com", "", "E era só a ti que eu mais queria", "6.2123");
     $prof8_id = $m->teacher("Rodolfo", "Maia", "20@gmail.com", "", "Ao meu lado no concerto nesse dia", "1.2.3");
 
-    $faculdade1_id = $m->faculdade("Faculdade de Ciências", "FCUL", "Campo Grande");
+    $faculdade1_id = $m->faculdade("Faculdade de Ciências da Universidade de Lisboa", "FCUL", "Campo Grande");
     $faculdade2_id = $m->faculdade("Faculdade de Direito", "FDUL", "Campus da UL");
     $faculdade3_id = $m->faculdade("Faculdade de Letras", "FLUL", "Reitoria da UL");
     $faculdade4_id = $m->faculdade("Faculdade de Arquitetura", "FAUL", "Ninguém sabe");

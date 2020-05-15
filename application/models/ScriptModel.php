@@ -5,10 +5,6 @@ class ScriptModel extends CI_Model {
     $this->db->insert_batch($table, $array);
   }
 
-  public function drop($table) {
-    $this->db->drop_table($table, TRUE);  //drop table if exists
-  }
-
   public function student($name, $surname, $email, $password, $description) {
     $this->db->delete("user", ['email' => $email]);
     $this->db->insert("user", Array("name"=>$name, "surname"=>$surname, "email"=>$email, "role"=>"student", "password"=>md5($password), "description"=>$description));

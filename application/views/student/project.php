@@ -56,6 +56,7 @@
                     <hr>
                     <input id="submitEtapa" type="button" value="Submeter etapa">
                     <div id="erro-entrega" class="submit-msg">A data de entrega foi ultrapassada.</div>
+                    <div id="no-group-erro" class="submit-msg">Para fazer submissões é necessário estar inscrito num grupo.</div>
                 </div>
 
                 <div id=forms>

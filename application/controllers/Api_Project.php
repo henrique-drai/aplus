@@ -193,7 +193,7 @@ class Api_Project extends REST_Controller {
 
 
     public function submitEtapa_post(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
         //Verificar se o id do aluno guardado no token está associado à cadeira e ao grupo.  - VERIFY ALUNO
 
         //verificar se a submissão existe associada à etapa, projeto e grupo
@@ -202,30 +202,37 @@ class Api_Project extends REST_Controller {
         $grupo = $this->post('grupo');
         $etapa = $this->post('etapa');
         $fich  = $this->post('ficheiro');
-
         $this->load->model('ProjectModel');
 
-        $data_send = Array(
-            "grupo_id"            => $grupo,
-            "etapa_id"            => $etapa,
-            "submit_url"          => $fich,
-            "feedback"            => "",
-        );
 
-        $data["sub"] = $this->ProjectModel->getSubmission($grupo, $etapa);
-
-        if(empty($data["sub"]->row())){
-            //submit
-            $returned = $this->ProjectModel->submitEtapa($data_send);
+        if($this->verify_student($user_id, $grupo)==true){
+            $data_send = Array(
+                "grupo_id"            => $grupo,
+                "etapa_id"            => $etapa,
+                "submit_url"          => $fich,
+                "feedback"            => "",
+            );
+    
+            $data["sub"] = $this->ProjectModel->getSubmission($grupo, $etapa);
+    
+            if(empty($data["sub"]->row())){
+                //submit
+                $returned = $this->ProjectModel->submitEtapa($data_send);
+            } else {
+                //update
+                $returned = $this->ProjectModel->updateSubmission($grupo, $etapa, $fich);
+            }
+    
+            $data["fich"] = $fich;
+            $data["result"] = $returned;
+    
+            $this->response($data, parent::HTTP_OK);
         } else {
-            //update
-            $returned = $this->ProjectModel->updateSubmission($grupo, $etapa, $fich);
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
         }
 
-        $data["fich"] = $fich;
-        $data["result"] = $returned;
-
-        $this->response($data, parent::HTTP_OK);
     }
 
     public function insertTask_post() {
@@ -552,6 +559,21 @@ class Api_Project extends REST_Controller {
         } else {
             return false;
         }
+    }
+
+    private function verify_student($user_id, $group_id){
+        $this->load->model('GroupModel');
+        $membros_grupo = $this->GroupModel->getStudents($group_id);
+
+        $flag_found = false;
+
+        for ($i=0; $i < count($membros_grupo); $i++){
+            if($user_id == $membros_grupo[$i]["user_id"]){
+                $flag_found = true;
+            }    
+        }
+
+        return $flag_found;
     }
 
 }

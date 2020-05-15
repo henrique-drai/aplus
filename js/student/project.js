@@ -3,7 +3,7 @@ var selected_etapa;
 var etapas_info_global;
 var formStatus;
 var grupo;
-
+var have_group;
 
 $(document).ready(() => {
     getEtapas(proj);
@@ -50,7 +50,11 @@ $(document).ready(() => {
             $('#submitEtapa').prop('disabled', true);
             $("#erro-entrega").show();
         } else {
-            $('#submitEtapa').prop('disabled', false);
+            if(have_group){
+                $('#submitEtapa').prop('disabled', false);
+            } else {
+                $("#no-group-erro").show().delay(5000).fadeOut();
+            }
             $("#erro-entrega").hide();
         }
 
@@ -75,6 +79,8 @@ $(document).ready(() => {
         $("#etapa-form-edit").hide();
         $("#form-upload-etapa").hide();
         $("#erro-entrega").hide();
+        $("#form-submit-etapa").hide();
+        $("#no-group-erro").hide();
         formStatus = null;
         $(".moreButton").css("background-color", "white");
         event.preventDefault();
@@ -114,12 +120,16 @@ function showMyGroup(proj_id){
         success: function(data) {
             console.log(data);
             if (data == ""){
+
                 $("#grupo-name").text('Cria um grupo ou entra num grupo existente');
                 $("#grupos-container").html("cena de criar grupos - ye");
                 $("#submitEtapa").prop('disabled', true);
+                have_group = false;
+                $("#form-submit-etapa").hide();
             } else {
                 $("#grupo-name").text('Grupo ' + data["grupo"]["name"]);
                 $("#submitEtapa").prop('disabled', false);
+                have_group = true;
                 grupo = data["grupo"]["id"];
                 var names = '';
                 for(var j=0; j < data["nomes"].length; j++) {

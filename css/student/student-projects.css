@@ -6,7 +6,7 @@
     display: none;
 }
 
-#erro-entrega{
+#erro-entrega, #no-group-erro{
     background: rgb(255, 72, 72);
 }
 

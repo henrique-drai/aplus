@@ -774,7 +774,7 @@ function showGroups(proj_id) {
 
                 for(var j=0; j < data["nomes"].length; j++) {
                     if(data["nomes"][j].grupo_id == data["grupos"][i].id) {
-                        names = names + data["nomes"][j].user_name[0] + " " + data["nomes"][j].user_name[1] + " | ";
+                        names = names + '<a href="'+ base_url +'/app/profile/' + data["nomes"][j].user_name[2] + '">' + data["nomes"][j].user_name[0] + " " + data["nomes"][j].user_name[1] + "</a> | ";
                     }
                 }
                 

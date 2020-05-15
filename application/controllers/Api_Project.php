@@ -83,22 +83,43 @@ class Api_Project extends REST_Controller {
 
     public function createEtapa_post(){
         $user_id = $this->verify_request()->id;
-        //Verificar se o id do professor guardado no token está associado à cadeira
-
+        //Verificar se o id do professor guardado no token está associado à cadeira atraves da etapa
+        
         $etapa = $this->post('new_etapa');
+
         $this->load->model('ProjectModel');
+        $this->load->model('SubjectModel');
 
-        $new_etapa = Array (
-            "projeto_id"        => $this->post('projid'),
-            "nome"              => $etapa["nome"],
-            "description"       => $etapa["desc"],
-            "enunciado_url"     => $etapa["enunciado"],
-            "deadline"          => $etapa["data"],
-        );
+        //ir buscar o projeto pelo id enviado para verificar o campo cadeira_id e ver se é igual a alguma na lista de cadeiras do professor
+        $project = $this->ProjectModel->getProjectByID($this->post('projid'));
 
-        $data = $this->ProjectModel->insertEtapa($new_etapa);
+        $cadeiras = $this->SubjectModel->getCadeiras($user_id, "teacher");
 
-        $this->response($data, parent::HTTP_OK);
+        $flag_found = false;
+
+        for($i=0; $i < count($cadeiras); $i++) {
+            if($project[0]["cadeira_id"] == $cadeiras[$i]["cadeira_id"]){
+                $flag_found = true;
+            }
+        }
+
+        if ($flag_found == true){
+            $new_etapa = Array (
+                "projeto_id"        => $this->post('projid'),
+                "nome"              => $etapa["nome"],
+                "description"       => $etapa["desc"],
+                "enunciado_url"     => $etapa["enunciado"],
+                "deadline"          => $etapa["data"],
+            );
+    
+            $data = $this->ProjectModel->insertEtapa($new_etapa);
+    
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
     
@@ -296,7 +317,7 @@ class Api_Project extends REST_Controller {
                 $query = $this->UserModel->getUserById($data["students"][$i][$j]["user_id"]);
                 array_push($data["nomes"], array(
                     'grupo_id'      =>      $data["students"][$i][$j]["grupo_id"], 
-                    'user_name'     =>      array($query->name, $query->surname))
+                    'user_name'     =>      array($query->name, $query->surname, $data["students"][$i][$j]["user_id"]))
                 );
             }
         }
@@ -337,7 +358,7 @@ class Api_Project extends REST_Controller {
             $group_to_return["nomes"] = array();
             for($i=0; $i< count($group_to_return["membros"]); $i++) {
                 $query = $this->UserModel->getUserById($group_to_return["membros"][$i]["user_id"]);
-                array_push($group_to_return["nomes"], array($query->name, $query->surname));
+                array_push($group_to_return["nomes"], array($query->name, $query->surname, $group_to_return["membros"][$i]["user_id"]));
             }
         }
 
@@ -411,14 +432,37 @@ class Api_Project extends REST_Controller {
     }
 
     public function removeEtapa_delete(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
+
         //Verificar se o id do professor guardado no token está associado à cadeira
 
         $id = $this->delete('etapa_id');
         $this->load->model('ProjectModel');
-        $data = $this->ProjectModel->removeEtapaByID($id);
+        $this->load->model('SubjectModel');
 
-        $this->response($data, parent::HTTP_OK);
+        //ir buscar etapa para ver o projeto e depois repetir o processo do criar etapa - ir buscar o projeto para ir ver a cadeira
+        $etapa = $this->ProjectModel->getEtapaByID($id)->result_array();
+
+        $projeto = $this->ProjectModel->getProjectByID($etapa[0]["projeto_id"]);
+
+        $cadeiras = $this->SubjectModel->getCadeiras($user_id, "teacher");
+
+        $flag_found = false;
+
+        for($i=0; $i < count($cadeiras); $i++) {
+            if($projeto[0]["cadeira_id"] == $cadeiras[$i]["cadeira_id"]){
+                $flag_found = true;
+            }
+        }
+
+        if ($flag_found == true){
+            $data = $this->ProjectModel->removeEtapaByID($id);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
     public function removeEnunciadoEtapa_delete(){

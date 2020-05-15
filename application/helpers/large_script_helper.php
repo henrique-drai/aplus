@@ -1068,7 +1068,7 @@ function large_script($m) {
     $projeto = array();
     $projeto["1"] = $m->projeto($cadeira["1"], "Evolução da Ciência", "Relatório sobre a seleção natural.", 1, 2, "");
     $projeto["2"] = $m->projeto($cadeira["63"], "Cadastro Predial do Município", "Fazer um relatório onde exploram o cadastro predial do vosso município.", 1, 2, "");
-    $projeto["3"] = $m->projeto($cadeira["87"], "Spotipy em Haskell", "Implementem o Spotipy em Haskell.", 1, 2, "");
+    $projeto["3"] = $m->projeto($cadeira["83"], "Spotipy em Haskell", "Implementem o Spotipy em Haskell.", 1, 2, "");
 
 
     $etapa = array();

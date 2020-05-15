@@ -83,6 +83,9 @@ class UploadsC extends CI_Controller {
 
         $this->load->library('upload', $upload);
 
+        // embora esteja a ser feito overwrite, apagar à mao os ficheiros pertencentes ao grupo de 
+        // modo a evitar que existam ficheiros com diferentes extensoes na pasta a ocupar espaço.
+
         if ( ! $this->upload->do_upload('file_submit'))
         {
             $error = array('error' => $this->upload->display_errors());

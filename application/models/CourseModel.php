@@ -67,7 +67,6 @@ class CourseModel extends CI_Model { //curso & curso_standard
         $query = $this->db->get_where("curso", array('ano_letivo_id'=>$yearid));
         return $query->result_array();
     }
-
 }
 
 

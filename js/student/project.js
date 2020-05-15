@@ -8,7 +8,6 @@ var grupo;
 $(document).ready(() => {
     getEtapas(proj);
 
-
     $("#entrega_h3").text("Entrega final:");
 
     checkEntrega();
@@ -30,11 +29,37 @@ $(document).ready(() => {
     $('body').on('click', '.moreButton', function(){
         selected_etapa = $(this).attr("id");
         console.log(selected_etapa);
+
+        // verificação de data - se a data de entrega da etapa ja tiver sido passada esconder o botao
+        // data entrega
+        var data_entrega = $(this).parent().parent().find("p:nth-child(2)").text().split(",")
+        var dsplit = data_entrega[0].split("/");
+        var time_entrega = data_entrega[1].split(":");
+
+        //mês -1 porque o js é parvo e tem os meses 0-indexed
+        //yyyy-mm-dd-hh-mm
+        var data_entrega_final = new Date(dsplit[2], dsplit[1]-1, dsplit[0], time_entrega[0], time_entrega[1]);
+
+        // data atual 
+        var today = new Date();
+
+        $("#erro-entrega").hide();
+
+
+        if (today > data_entrega_final){
+            $('#submitEtapa').prop('disabled', true);
+            $("#erro-entrega").show();
+        } else {
+            $('#submitEtapa').prop('disabled', false);
+            $("#erro-entrega").hide();
+        }
+
+
         $("#form-submit-etapa").attr('action', base_url + 'UploadsC/uploadSubmissao/' + proj + '/' + selected_etapa + '/' + grupo);
 
         updateEtapaPopup(selected_etapa);
 
-        checkSubmission(grupo, selected_etapa);
+        checkSubmission(grupo, selected_etapa, proj);
 
         if ($(this).css("background-color") == "#3e5d4f"){
             $(this).css("background-color", "white");
@@ -48,10 +73,9 @@ $(document).ready(() => {
     // fechar popup - etapas
     $('body').on("click", '.close', function() {
         $("#etapa-form-edit").hide();
-        $("#feedback-form").hide();
         $("#form-upload-etapa").hide();
+        $("#erro-entrega").hide();
         formStatus = null;
-        // checkFormStatus();
         $(".moreButton").css("background-color", "white");
         event.preventDefault();
         $(".overlay").css('visibility', 'hidden');
@@ -99,11 +123,11 @@ function showMyGroup(proj_id){
                 grupo = data["grupo"]["id"];
                 var names = '';
                 for(var j=0; j < data["nomes"].length; j++) {
-                    names = names + data["nomes"][j][0] + " " + data["nomes"][j][1] + " | ";
+                    names = names + '<a href="'+ base_url +'/app/profile/'+ data["nomes"][j][2] + '">' + data["nomes"][j][0] + " " + data["nomes"][j][1] + "</a> | ";
                 }
 
                 $("#grupos-container").html('<div class="myGroupDiv" id="grupo'+grupo+'">' +
-                '<p><b>Membros do seu grupo: </b>'+ names.slice(0, -2) +'</p>' + 
+                '<p><b>Membros do seu grupo: </b></p><p>'+ names.slice(0, -2) +'</p>' + 
                 '<p><input class="quitGroupButton" id=quit"'+grupo +'" type="button" value="Sair"></input></p>' + 
                 '</div><hr>');
             }
@@ -275,7 +299,7 @@ function submit_etapa(file_name){
     });
 }
 
-function checkSubmission(grupo, etapa){
+function checkSubmission(grupo, etapa, proj){
     const data = {
         grupo_id : grupo,
         etapa_id : etapa
@@ -291,9 +315,19 @@ function checkSubmission(grupo, etapa){
         data: data,
         success: function(data) {
             if (data.length > 0){
-                $("#sub_label").html('<a href="">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
+                console.log(data);
+                var base_link = base_url + "uploads/submissions/" + proj + "/" + etapa + "/";
+                var extension = data[0]["submit_url"].split(".").pop();
+                $("#sub_label").html('<a href="'+base_link+grupo+'.'+extension+'">' + data[0]["submit_url"] + '</a>');
+                if (data[0]["feedback"] == ""){
+                    $("#feedback_label").text("Ainda não foi atribuido feedback a esta etapa.");
+                } else {
+                    $("#feedback_label").text(data[0]["feedback"]);
+                }
+                
             } else {
-                $("#sub_label").text("Entrega ainda não foi submetida");
+                $("#sub_label").text("O seu grupo ainda não submeteu uma entrega.");
+                $("#feedback_label").text("Ainda não foi atribuido feedback a esta etapa.");
             }
         },
         error: function(data) {

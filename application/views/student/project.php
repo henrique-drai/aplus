@@ -6,6 +6,7 @@
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 <script src="<?php echo $base_url; ?>js/student/project.js"></script>
+<script src="<?php echo $base_url; ?>js/student/criarGrupos.js"></script>
 <script>setEnunciado("<?php echo addslashes($project[0]["enunciado_url"]); ?>")</script>
 <script>setProj("<?php echo $project[0]["id"]; ?>")</script>
 </head>
@@ -54,6 +55,7 @@
                 <div class="wrapper">
                     <hr>
                     <input id="submitEtapa" type="button" value="Submeter etapa">
+                    <div id="erro-entrega" class="submit-msg">A data de entrega foi ultrapassada.</div>
                 </div>
 
                 <div id=forms>

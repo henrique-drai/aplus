@@ -1,6 +1,6 @@
 <title>A+ for Teachers</title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/projects/projects-general.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher-projects.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/teacher-projects.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 <script>setPageName("subjects")</script>
@@ -67,7 +67,7 @@
 
                 <div id=forms>
                     <?php echo form_open_multipart('UploadsC/uploadEnunciadoEtapa', 'id="form-upload-etapa"');?>
-                        <label id="letapa" for="file">Enunciado:</label>
+                        <label id="letapa" for="file" class="form-label-title">Enunciado:</label>
                         <input class="form-input-file" type="file" id="file_etapa" name="file_etapa" accept=".pdf">
                         <p>
                             <div id="successmsgenunc" class="submit-msg">Mensagem de sucesso template</div>
@@ -78,12 +78,15 @@
 
                     <form id="feedback-form">
                         <p>
-                            <label class="form-label">Selecione o grupo</label>
+                            <label class="form-label-title">Selecione o grupo</label>
                             <select id="select_grupo_feedback" name="GrupoSelect">
                             </select>
-                            <label for="file">Entrega:</label>
+                            <label for="file" class="form-label-title">Entrega:</label>
                             <p id="sub_url">Entrega ainda não foi submetida</p>
-                            <label class="form-label">Descrição</label>
+                            <label class="form-label-title">Feedback dado:</label>
+                            <p id="fb_content">Ainda não atribuiu feedback a esta etapa</p>
+                            <br>
+                            <label class="form-label-title">Dar feedback:</label>
                             <textarea class="form-text-area" type="text" name="feedback-text" required></textarea>
                         </p>
                         <p>

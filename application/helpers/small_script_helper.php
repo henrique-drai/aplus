@@ -3,7 +3,7 @@
 function small_script($m) {
     $time_start = microtime(true); 
 
-    $aluno1_id  = $m->student("Henrique", "Francisco", "1@gmail.com", "", "This a great description");
+    $aluno1_id  = $m->student("X Æ", "A-12", "1@gmail.com", "", "This a great description");
     $aluno2_id  = $m->student("Joana", "Almeida", "2@gmail.com", "", "Gosto de entrar em salas do Zoom.");
     $aluno3_id  = $m->student("Rafael", "Sousa", "3@gmail.com", "", "Está calor hoje");
     $aluno4_id  = $m->student("Maria", "Silva", "4@gmail.com", "", "Tu eras aquela");
@@ -25,7 +25,7 @@ function small_script($m) {
     $prof7_id = $m->teacher("Geraldo", "Artur", "19@gmail.com", "", "E era só a ti que eu mais queria", "6.2123");
     $prof8_id = $m->teacher("Rodolfo", "Maia", "20@gmail.com", "", "Ao meu lado no concerto nesse dia", "1.2.3");
 
-    $faculdade1_id = $m->faculdade("Faculdade de Ciências", "FCUL", "Campo Grande");
+    $faculdade1_id = $m->faculdade("Faculdade de Ciências da Universidade de Lisboa", "FCUL", "Campo Grande");
     $faculdade2_id = $m->faculdade("Faculdade de Direito", "FDUL", "Campus da UL");
     $faculdade3_id = $m->faculdade("Faculdade de Letras", "FLUL", "Reitoria da UL");
     $faculdade4_id = $m->faculdade("Faculdade de Arquitetura", "FAUL", "Ninguém sabe");
@@ -121,6 +121,10 @@ function small_script($m) {
 
     $etapa1_id = $m->etapa($projeto1_id, "2020-05-14 23:00:00", "", "Pesquisa", "Façam pesquisa no StackOverflow.");
     $etapa2_id = $m->etapa($projeto1_id, "2020-05-21 23:55:00", "", "Implementação", "Copiem o código do StackOverflow.");
+    $etapa1_id = $m->etapa($projeto2_id, "2020-05-14 23:00:00", "", "Pesquisa2", "Façam pesquisa no StackOverflow.");
+    $etapa2_id = $m->etapa($projeto2_id, "2020-05-21 23:55:00", "", "Implementação2", "Copiem o código do StackOverflow.");
+    $etapa1_id = $m->etapa($projeto3_id, "2020-05-14 23:00:00", "", "Pesquisa3", "Façam pesquisa no StackOverflow.");
+    $etapa2_id = $m->etapa($projeto3_id, "2020-05-21 23:55:00", "", "Implementação3", "Copiem o código do StackOverflow.");
 
     $grupo1_id = $m->grupo($projeto1_id, "1");
     $grupo2_id = $m->grupo($projeto1_id, "2");
@@ -132,11 +136,7 @@ function small_script($m) {
       Array("user_id"=> $aluno4_id,  "grupo_id"=>$grupo2_id),
       Array("user_id"=> $aluno2_id,  "grupo_id"=>$grupo1_id),
       Array("user_id"=> $aluno3_id,  "grupo_id"=>$grupo1_id),
-      Array("user_id"=> $aluno2_id,  "grupo_id"=>$grupo2_id),
-      Array("user_id"=> $aluno3_id,  "grupo_id"=>$grupo3_id),
-      Array("user_id"=> $aluno1_id,  "grupo_id"=>$grupo4_id),
       Array("user_id"=> $aluno5_id,  "grupo_id"=>$grupo3_id),
-      Array("user_id"=> $aluno3_id,  "grupo_id"=>$grupo4_id),
     ));
 
     $m->etapa_submit($grupo3_id, $etapa1_id, "URL-FALSO-HEHE-XD");

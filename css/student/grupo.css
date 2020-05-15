@@ -1,4 +1,4 @@
-#tab-gerir-tarefas {
+/* #tab-gerir-tarefas {
 	width: 100%;
 	text-align: center;
 }
@@ -10,7 +10,128 @@
 
 #tab-gerir-tarefas tr:hover {
 	background-color: #ccc
+} */
+
+input[type="text"], textarea, input[type="datetime-local"], select {
+	width: 100%;
 }
 
+input[type="datetime-local"], select {
+	background-color: #e9e9e9;
+}
 
+.createTask {
+	display: none;
+	width: 40%;
+}
 
+select {
+    border-left: 3px solid #42d542;
+}
+
+.message {
+	background-color: rgb(106, 192, 66, 0.7);
+    text-align: center;
+    border-radius: 5px;
+    width: 15%;
+    margin-bottom: 1%;
+	padding: 0.5%;
+	opacity: 0;
+}
+
+table, tr, td, th {
+    border: none !important;
+    background-color: #efefef;
+}
+
+table {
+    border: none !important;
+    border-collapse: collapse !important;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1.5px solid #a5a5a5 !important;
+}
+
+@media only screen and (max-width: 770px) {
+	.message {
+		width: 50%;
+	}
+}
+
+@media only screen and (max-width: 430px) {
+    .popup {
+        width: 80%;
+    }
+
+    .message {
+		margin-top: -4%;
+        padding: 1.5%;
+    }
+    
+    tr:first-child {
+        display: none;
+    }
+
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, td, tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+      margin: 0 0 1rem 0;
+      border-bottom: 1px solid #a5a5a5 !important;
+    }
+    
+    td {
+        /* Behave  like a "row" */
+        border: none !important;
+        position: relative;
+        padding-left: 50% !important;
+        height: auto;
+    }
+
+    td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 4px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    /*
+    Label the data
+You could also use a data-* attribute and content for this. That way "bloats" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.
+    */
+    td:nth-of-type(1):before { content: "Tarefa"; font-weight: bold;}
+    td:nth-of-type(2):before { content: "Descrição"; font-weight: bold;}
+    td:nth-of-type(3):before { content: "Membro"; font-weight: bold;}
+	td:nth-of-type(4):before { content: "Começo"; font-weight: bold;}
+	td:nth-of-type(5):before { content: "Fim"; font-weight: bold;}
+}
+
+@media only screen and (max-width: 375px) {
+    .message {
+        width: 97%;
+        margin-top: 2%;
+    }
+
+    tr:first-child {
+        display: block;
+        visibility: hidden;
+        margin-bottom: -20%;
+    }
+}

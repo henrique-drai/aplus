@@ -43,12 +43,16 @@ $route['api/getSub']                            = 'Api_Project/getSub';
 $route['api/getAllEtapas/(:num)']               = 'Api_Project/getAllEtapas/$1';
 $route['api/getAllGroups/(:num)']               = 'Api_Project/getAllGroups/$1';
 $route['api/getMyGroupInProj/(:num)']           = 'Api_Project/getMyGroupInProj/$1';
-$route['api/getSubmission/(:num)']              = 'Api_Project/getSubmission/$1';
+$route['api/leaveMyGroup/(:num)']               = 'Api_Project/leaveMyGroup/$1';
 
 $route['api/removeProject/(:num)']              = 'Api_Project/removeProject/$1';
 $route['api/removeEtapa/(:num)']                = 'Api_Project/removeEtapa/$1';
 $route['api/removeEnunciadoEtapa/(:num)']       = 'Api_Project/removeEnunciadoEtapa/$1';
 $route['api/removeEnunciadoProj/(:num)']        = 'Api_Project/removeEnunciadoProj/$1';
+
+$route['api/getGroupMembers/(:num)']            = 'Api_Project/getGroupMembers/$1';
+$route['api/insertTask']                        = 'Api_Project/insertTask';
+$route['api/getTasks/(:num)']                   = 'Api_Project/getTasks/$1';
 
 $route['api/getCadeira/(:num)']                 = 'Api_Subject/getInfo/$1';
 $route['api/insertText']                        = 'Api_Subject/insertText';

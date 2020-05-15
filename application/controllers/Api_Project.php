@@ -24,66 +24,78 @@ class Api_Project extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function createProject_post(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
         //Verificar se o id do professor guardado no token está associado à cadeira
-
-        $dataProj = Array(
-            "cadeira_id"          => $this->post("cadeira_id"),
-            "nome"                => $this->post("projName"),
-            "min_elementos"       => $this->post("groups_min"),
-            "max_elementos"       => $this->post("groups_max"),
-            "description"         => $this->post("projDescription"),
-            "enunciado_url"       => $this->post("file"),
-        );
-        
-        $dataEtapa = $this->post("listetapas");
+        //tabela que liga cadeira a user
 
 
-        $this->load->model('ProjectModel');
-        $proj_id = $this->ProjectModel->insertProject($dataProj);
+        if ($this->verify_teacher($user_id,$this->post("cadeira_id"),"cadeira") == true){
 
-        $this->load->model('ProjectModel');
-
-        for($i=0; $i < count($dataEtapa); $i++) {
-
-            $newEtapa = Array (
-                "projeto_id"        => $proj_id,
-                "nome"              => $dataEtapa[$i]["nome"],
-                "description"       => $dataEtapa[$i]["desc"],
-                "enunciado_url"     => $dataEtapa[$i]["enunciado"],
-                "deadline"          => $dataEtapa[$i]["data"],
+            $dataProj = Array(
+                "cadeira_id"          => $this->post("cadeira_id"),
+                "nome"                => $this->post("projName"),
+                "min_elementos"       => $this->post("groups_min"),
+                "max_elementos"       => $this->post("groups_max"),
+                "description"         => $this->post("projDescription"),
+                "enunciado_url"       => $this->post("file"),
             );
+            
+            $dataEtapa = $this->post("listetapas");
+            $this->load->model('ProjectModel');
 
-            $this->ProjectModel->insertEtapa($newEtapa);
+            $proj_id = $this->ProjectModel->insertProject($dataProj);    
+            for($i=0; $i < count($dataEtapa); $i++) {
+    
+                $newEtapa = Array (
+                    "projeto_id"        => $proj_id,
+                    "nome"              => $dataEtapa[$i]["nome"],
+                    "description"       => $dataEtapa[$i]["desc"],
+                    "enunciado_url"     => $dataEtapa[$i]["enunciado"],
+                    "deadline"          => $dataEtapa[$i]["data"],
+                );
+    
+                $this->ProjectModel->insertEtapa($newEtapa);
+            }
+    
+    
+            $this->response($proj_id, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
         }
-
-
-        $this->response($proj_id, parent::HTTP_OK);
     }
 
     public function createEtapa_post(){
-        $this->verify_request();
-        //Verificar se o id do professor guardado no token está associado à cadeira
+        $user_id = $this->verify_request()->id;
 
+        //Verificar se o id do professor guardado no token está associado à cadeira atraves da etapa - verify teacher
+        
         $etapa = $this->post('new_etapa');
         $this->load->model('ProjectModel');
 
-        $new_etapa = Array (
-            "projeto_id"        => $this->post('projid'),
-            "nome"              => $etapa["nome"],
-            "description"       => $etapa["desc"],
-            "enunciado_url"     => $etapa["enunciado"],
-            "deadline"          => $etapa["data"],
-        );
 
-        $data = $this->ProjectModel->insertEtapa($new_etapa);
-
-        $this->response($data, parent::HTTP_OK);
+        if ($this->verify_teacher($user_id,$this->post('projid'),"projeto") == true){
+            $new_etapa = Array (
+                "projeto_id"        => $this->post('projid'),
+                "nome"              => $etapa["nome"],
+                "description"       => $etapa["desc"],
+                "enunciado_url"     => $etapa["enunciado"],
+                "deadline"          => $etapa["data"],
+            );
+    
+            $data = $this->ProjectModel->insertEtapa($new_etapa);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
     
     public function insertFeedback_post(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
         //Verificar se o id do professor guardado no token está associado à cadeira
 
         $grupo_id = $this->post('grupo_id');
@@ -92,77 +104,97 @@ class Api_Project extends REST_Controller {
 
         $this->load->model('ProjectModel');
 
-        $etapa_submit = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
-
-        $data = $this->ProjectModel->insertFeedback($feedback, $etapa_submit->row()->id);
-
-        $this->response($etapa_submit, parent::HTTP_OK);
+        if($this->verify_teacher($user_id, $etapa_id, "etapa") == true){
+            $etapa_submit = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
+            $data = $this->ProjectModel->insertFeedback($feedback, $etapa_submit->row()->id);
+            $this->response($etapa_submit, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
     public function editEtapa_post(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
         //Verificar se o id do professor guardado no token está associado à cadeira
 
-        $etapa = $this->post('edited_etapa');
         $this->load->model('ProjectModel');
 
-        $id = $this->post('id');
 
-        $enunciado = '';
-
-        if(empty($etapa["enunciado"])){
-            $this_etapa = $this->ProjectModel->getEtapaByID($id);
-            $enunciado = $this_etapa->row()->enunciado_url;
-            
+        if ($this->verify_teacher($user_id,$this->post('projid'), "projeto") == true){
+            $etapa = $this->post('edited_etapa');
+            $id = $this->post('id');
+    
+            $enunciado = '';
+    
+            if(empty($etapa["enunciado"])){
+                $this_etapa = $this->ProjectModel->getEtapaByID($id);
+                $enunciado = $this_etapa->row()->enunciado_url;
+                
+            } else {
+                $enunciado = $etapa["enunciado"];
+            }
+    
+            $new_etapa = Array (
+                "projeto_id"        => $this->post('projid'),
+                "nome"              => $etapa["nome"],
+                "description"       => $etapa["desc"],
+                "enunciado_url"     => $enunciado,
+                "deadline"          => $etapa["data"],
+            );
+    
+            $this->ProjectModel->updateEtapa($new_etapa, $id);
+            $this->response($etapa, parent::HTTP_OK);
         } else {
-            $enunciado = $etapa["enunciado"];
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
         }
-
-        $new_etapa = Array (
-            "projeto_id"        => $this->post('projid'),
-            "nome"              => $etapa["nome"],
-            "description"       => $etapa["desc"],
-            "enunciado_url"     => $enunciado,
-            "deadline"          => $etapa["data"],
-        );
-
-        $this->ProjectModel->updateEtapa($new_etapa, $id);
-
-        $this->response($etapa, parent::HTTP_OK);
     }
 
     public function editEnunciado_post(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
         //Verificar se o id do professor guardado no token está associado à cadeira
 
         $proj = $this->post('projid');
-        $this->load->model('ProjectModel');
-
         $enunciado = $this->post('enunciado');
 
-        $this->ProjectModel->updateProjEnunciado($enunciado, $proj);
+        $this->load->model('ProjectModel');
 
-        $this->response($enunciado, parent::HTTP_OK);
+        if ($this->verify_teacher($user_id,$proj,"projeto") == true){
+            $this->ProjectModel->updateProjEnunciado($enunciado, $proj);
+            $this->response($enunciado, parent::HTTP_OK);            
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+
     }
 
     public function editEtapaEnunciado_post(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
         //Verificar se o id do professor guardado no token está associado à cadeira
 
         $etapa = $this->post('etapaid');
         $enunc = $this->post('enunciado');
-
         $this->load->model('ProjectModel');
 
-        $this->ProjectModel->editEtapaEnunciado($enunc, $etapa);
-
-        $this->response($enunc, parent::HTTP_OK);
+        if($this->verify_teacher($user_id, $etapa, "etapa") == true){
+            $this->ProjectModel->editEtapaEnunciado($enunc, $etapa);
+            $this->response($enunc, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
 
     public function submitEtapa_post(){
         $this->verify_request();
-        //Verificar se o id do aluno guardado no token está associado à cadeira e ao grupo.
+        //Verificar se o id do aluno guardado no token está associado à cadeira e ao grupo.  - VERIFY ALUNO
 
         //verificar se a submissão existe associada à etapa, projeto e grupo
         //se existir, update, se nao existir, insert
@@ -192,6 +224,22 @@ class Api_Project extends REST_Controller {
 
         $data["fich"] = $fich;
         $data["result"] = $returned;
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function insertTask_post() {
+        $data_send = Array (
+            "grupo_id"          => $this->post("grupo_id"),
+            "user_id"           => $this->post("user_id"),
+            "name"              => $this->post("name"),
+            "description"       => $this->post("description"),
+            "start_date"        => $this->post("start_date"),
+            "done_date"         => $this->post("done_date"),
+        );
+
+        $this->load->model("TasksModel");
+        $data = $this->TasksModel->insertTask($data_send);
 
         $this->response($data, parent::HTTP_OK);
     }
@@ -260,7 +308,7 @@ class Api_Project extends REST_Controller {
                 $query = $this->UserModel->getUserById($data["students"][$i][$j]["user_id"]);
                 array_push($data["nomes"], array(
                     'grupo_id'      =>      $data["students"][$i][$j]["grupo_id"], 
-                    'user_name'     =>      array($query->name, $query->surname))
+                    'user_name'     =>      array($query->name, $query->surname, $data["students"][$i][$j]["user_id"]))
                 );
             }
         }
@@ -280,84 +328,151 @@ class Api_Project extends REST_Controller {
 
         $group_to_return = array();
 
+        $flag_exists = false;
+
         for ($i=0; $i < count($data["grupos"]); $i++) {
             $grupo = $this->GroupModel->getGroupById($data["grupos"][$i]["grupo_id"]);
             $proj = $grupo[0]["projeto_id"];
 
             if ($proj_id == $proj){
                 $group_to_return["grupo"] = $grupo[0];
+                $flag_exists = true;
             }
         }
 
-        // ir buscar os membros do grupo
-        $group_to_return["membros"] = $this->GroupModel->getStudents($group_to_return["grupo"]["id"]);
 
-        // ir buscar nomes dos membros
-        $group_to_return["nomes"] = array();
-        for($i=0; $i< count($group_to_return["membros"]); $i++) {
-            $query = $this->UserModel->getUserById($group_to_return["membros"][$i]["user_id"]);
-            array_push($group_to_return["nomes"], array($query->name, $query->surname));
+        if($flag_exists == true){
+            // ir buscar os membros do grupo
+            $group_to_return["membros"] = $this->GroupModel->getStudents($group_to_return["grupo"]["id"]);
+
+            // ir buscar nomes dos membros
+            $group_to_return["nomes"] = array();
+            for($i=0; $i< count($group_to_return["membros"]); $i++) {
+                $query = $this->UserModel->getUserById($group_to_return["membros"][$i]["user_id"]);
+                array_push($group_to_return["nomes"], array($query->name, $query->surname, $group_to_return["membros"][$i]["user_id"]));
+            }
         }
 
         $this->response($group_to_return, parent::HTTP_OK);
 
     }
 
+    public function getGroupMembers_get($group_id) {
+        $this->verify_request();
+        $this->load->model("GroupModel");
+
+        $data["user_ids"] = $this->GroupModel->getStudents($group_id);
+
+        $this->load->model("UserModel");
+        $data["users"] = array();
+        for($i=0; $i < count($data["user_ids"]); $i++) {
+            array_push($data["users"], $this->UserModel->getUserById($data["user_ids"][$i]["user_id"]));
+        }
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getTasks_get($group_id) {
+        $this->verify_request();
+        $this->load->model("TasksModel");
+
+        $data["tasks"] = $this->TasksModel->getTarefas($group_id);
+
+        $data["members"] = array();
+        for($i=0; $i < count($data["tasks"]); $i++) {
+            array_push($data["members"], $this->TasksModel->getMembroNome($data["tasks"][$i]["user_id"]));
+        }
+        $this->response($data, parent::HTTP_OK);
+    }
 
     //////////////////////////////////////////////////////////////
     //                         DELETE
     //////////////////////////////////////////////////////////////
 
     public function removeProject_delete(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
         //Verificar se o id do professor guardado no token está associado à cadeira
 
-        $proj_id = $this->delete('projid');
         $this->load->model('ProjectModel');
-        $data = $this->ProjectModel->removeProjectByID($proj_id);
 
-        $this->response($data, parent::HTTP_OK);
+        if ($this->verify_teacher($user_id,$this->delete('projid'),"projeto") == true){
+            $proj_id = $this->delete('projid');
+            $this->load->model('ProjectModel');
+            $data = $this->ProjectModel->removeProjectByID($proj_id);
+
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
     public function removeEtapa_delete(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
+
         //Verificar se o id do professor guardado no token está associado à cadeira
 
         $id = $this->delete('etapa_id');
         $this->load->model('ProjectModel');
-        $data = $this->ProjectModel->removeEtapaByID($id);
 
-        $this->response($data, parent::HTTP_OK);
+        if ($this->verify_teacher($user_id,$id,"etapa") == true){
+            $data = $this->ProjectModel->removeEtapaByID($id);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
     public function removeEnunciadoEtapa_delete(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
         //Verificar se o id do professor guardado no token está associado à cadeira
-
         $this->load->model('ProjectModel');
+
         $id = $this->delete('id');
         $proj = $this->delete('projid');
 
-        unlink("uploads/enunciados_files/" . $proj . "/" . $id . ".pdf");
-
-        $this->ProjectModel->clearEnuncEtapa($id);
-
-        $this->response($id, parent::HTTP_OK);
+        if($this->verify_teacher($user_id, $proj, "projeto") == true){
+            unlink("uploads/enunciados_files/" . $proj . "/" . $id . ".pdf");
+            $this->ProjectModel->clearEnuncEtapa($id);
+            $this->response($id, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
     public function removeEnunciadoProj_delete(){
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
         //Verificar se o id do professor guardado no token está associado à cadeira
 
         $proj = $this->delete('projid');
         $this->load->model('ProjectModel');
-        $this->ProjectModel->removeEnunciadoProj($proj);
 
-        unlink("uploads/enunciados_files/" . $proj . ".pdf");
-
-        $this->response($proj, parent::HTTP_OK);
+        if($this->verify_teacher($user_id, $proj, "projeto") == true){
+            $this->ProjectModel->removeEnunciadoProj($proj);
+            unlink("uploads/enunciados_files/" . $proj . ".pdf");
+            $this->response($proj, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
+    public function leaveMyGroup_delete(){
+        $user_id = $this->verify_request()->id;
+        $group_id = $this->delete("grupo_id");
+        $proj_id = $this->get("proj_id");
+
+        $this->load->model("GroupModel");
+
+        $this->GroupModel->leaveGroup($user_id, $group_id);
+
+    }
 
 
     //////////////////////////////////////////////////////////////
@@ -388,4 +503,55 @@ class Api_Project extends REST_Controller {
             $this->response($response, $status);
         }
     }
+
+    //variavel pode ser o id do projeto, id da cadeira, etc
+    //mode vai nos dizer o que é a variavel, assim podemos diferenciar os casos
+    private function verify_teacher($user_id, $variable, $mode){
+        $this->load->model('ProjectModel');
+        $this->load->model('SubjectModel');
+
+        if ($mode == "projeto"){
+            $projeto = $this->ProjectModel->getProjectByID($variable);
+            $cadeiras = $this->SubjectModel->getCadeiras($user_id, "teacher");
+            $flag_found = false;
+
+            for($i=0; $i < count($cadeiras); $i++) {
+                if($projeto[0]["cadeira_id"] == $cadeiras[$i]["cadeira_id"]){
+                    $flag_found = true;
+                }
+            }
+
+            return $flag_found;
+
+        } elseif ($mode == "etapa") {
+            $etapa = $this->ProjectModel->getEtapaByID($variable)->result_array();
+            $projeto = $this->ProjectModel->getProjectByID($etapa[0]["projeto_id"]);
+            $cadeiras = $this->SubjectModel->getCadeiras($user_id, "teacher");
+            $flag_found = false;
+
+            for($i=0; $i < count($cadeiras); $i++) {
+                if($projeto[0]["cadeira_id"] == $cadeiras[$i]["cadeira_id"]){
+                    $flag_found = true;
+                }
+            }
+
+            return $flag_found;
+
+        } elseif ($mode == "cadeira"){
+            $cadeiras = $this->SubjectModel->getCadeiras($user_id, "teacher");
+            $flag_found = false;
+
+            for($i=0; $i < count($cadeiras); $i++) {
+                if($variable == $cadeiras[$i]["cadeira_id"]){
+                    $flag_found = true;
+                }
+            }
+
+            return $flag_found;
+    
+        } else {
+            return false;
+        }
+    }
+
 }

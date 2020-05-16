@@ -16,7 +16,7 @@
     background: rgb(255, 72, 72);
 }
 
-#successmsg, #successmsgfb, #successmsgenunc {
+#successmsg, #successmsgfb, #successmsgenunc, #successmsg_editar, #successmsg_criar{
     background: rgb(167, 255, 80);
 }
 

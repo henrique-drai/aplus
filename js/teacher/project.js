@@ -474,9 +474,12 @@ function submit_etapa(){
             url: base_url + "api/createEtapa",
             data: data,
             success: function(data) {
+                $("#successmsg_criar").show();
                 console.log(proj);
                 console.log(data);
-                location.reload();
+                setTimeout(function(){ 
+                    location.reload();
+                }, 500); 
             },
             error: function(data) {
                 console.log("Erro na API - Submit Etapa");
@@ -507,8 +510,12 @@ function submit_edit_etapa(){
             url: base_url + "api/editEtapa",
             data: data,
             success: function(data) {
+                $("#successmsg_editar").show();
+                setTimeout(function(){ 
+                    location.reload();
+                }, 500); 
                 console.log(data);
-                location.reload();
+           
             },
             error: function(data) {
                 console.log("Erro na API - Edit Etapa");
@@ -783,7 +790,7 @@ function showGroups(proj_id) {
 
                 for(var j=0; j < data["nomes"].length; j++) {
                     if(data["nomes"][j].grupo_id == data["grupos"][i].id) {
-                        names = names + '<a href="'+ base_url +'/app/profile/' + data["nomes"][j].user_name[2] + '">' + data["nomes"][j].user_name[0] + " " + data["nomes"][j].user_name[1] + "</a> | ";
+                        names = names + '<a href="'+ base_url +'app/profile/' + data["nomes"][j].user_name[2] + '">' + data["nomes"][j].user_name[0] + " " + data["nomes"][j].user_name[1] + "</a> | ";
                     }
                 }
                 

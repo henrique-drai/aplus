@@ -73,7 +73,7 @@
                             <div id="successmsgenunc" class="submit-msg">Mensagem de sucesso template</div>
                             <div id="errormsgenunc" class="submit-msg">Mensagem de erro template</div>
                         </p>
-                        <input id="addEnuncEtapa" type="submit" value="Adicionar enunciado">
+                        <input id="addEnuncEtapa" type="submit" value="Confirmar">
                     </form>
 
                     <form id="feedback-form">

@@ -94,6 +94,9 @@ $(document).ready(() => {
         $("#form-submit-etapa").show();
     })
 
+    $("#file_submit").on("change", function(){
+        $("#file_submit").css("border-left-color", "lawngreen");
+    })
 
     $("body").on("click","#addSubmission", function(e){
         submit_etapa($("#file_submit").val().split('\\').pop());
@@ -309,6 +312,7 @@ function submit_etapa(file_name){
         url: base_url + "api/submitEtapa",
         data: data,
         success: function(data) {
+            $("#enviado-sucesso").show(); //resolver a questao do refresh primeiro.
             console.log(data);
         },
         error: function(data) {

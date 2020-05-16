@@ -67,7 +67,8 @@
                             <div class="submit-msg">Mensagem de sucesso template</div>
                             <div class="submit-msg">Mensagem de erro template</div>
                         </p>
-                        <input id="addSubmission" type="submit" value="Enviar submissão">
+                        <input id="addSubmission" type="submit" value="Confirmar">
+                        <div id="enviado-sucesso" class="submit-msg">Etapa submetida com sucesso.</div>
                     </form>
                 </div>
                </div>

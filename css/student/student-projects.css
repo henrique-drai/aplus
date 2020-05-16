@@ -10,6 +10,11 @@
     background: rgb(255, 72, 72);
 }
 
+#enviado-sucesso{
+    background: rgb(167, 255, 80);
+}
+
+
 .myGroupDiv {
     margin-bottom: 30px;
     display: flex;

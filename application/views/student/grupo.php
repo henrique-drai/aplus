@@ -10,11 +10,11 @@
 <?php $this->view('templates/nav-menu'); ?>
     <main>
         <h4 class="breadcrumb">
-            <a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > <a href="<?php echo base_url(); ?>app/student/grupo">Área de Grupo</a>
+            <a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > Área de Grupo
         </h4>
         <h1>Área de Grupo</h1>
         <div id="btnArea">
-            <input id="ficheiros" type="button" value="Ficheiros">    
+            <input id="ficheiros" type="button" value="Ficheiros">  
         </div>
         
         

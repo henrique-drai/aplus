@@ -15,7 +15,7 @@ $(document).ready(() => {
 function getAll(user_id){
     $.ajax({
         type: "GET",
-        url: base_url + "student/api/getMyGroups",
+        url: base_url + "api/getMyGroups",
         data: {id: user_id},
         success: function(data) {
             $(".grupos").empty();
@@ -38,6 +38,7 @@ function getAll(user_id){
            }
         },
         error: function(data) {
+            console.log(data);
             console.log("Erro na API:")
         }
     });

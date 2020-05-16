@@ -4,7 +4,7 @@ $(document).ready(() => {
 
     $("body").on("click", ".groupMembros", function() {
         localStorage.setItem("grupo_id", $(this).attr("id"));
-        window.location = base_url + "app/student/grupo/" + $(this).attr("id") ;
+        window.location = base_url + "app/grupo/" + $(this).attr("id");
     })
     
     $("#status").change(function(){

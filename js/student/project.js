@@ -183,9 +183,18 @@ function makeEtapaDiv(data){
         json = data[i];
         var enunciado = json["enunciado_url"];
         var date = new Date(json["deadline"]);
+        var today = new Date();
+
+        var pClass = "p_up"
+
+        if (today > date){
+            pClass = "p_expired"
+        } else {
+            pClass = "p_up"
+        }
 
         array_etapa.push('<div class="etapasDIV" id="etapa' + json["id"] +'"><p><b>'+json["nome"]+'</b></p>'+
-        '<p>'+ date.toLocaleString('en-GB', {hour: '2-digit', minute:'2-digit', year: 'numeric', month: 'numeric', day: 'numeric'}) +'</p>'+
+        '<p class="'+pClass+'">'+ date.toLocaleString('en-GB', {hour: '2-digit', minute:'2-digit', year: 'numeric', month: 'numeric', day: 'numeric'}) +'</p>'+
         '<p><input class="moreButton" id='+json["id"] +' type="button" value="Ver Mais"></input></p>' +
         '</div><hr>');
 

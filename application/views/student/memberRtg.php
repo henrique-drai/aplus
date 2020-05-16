@@ -9,8 +9,8 @@
 <?php $this->view('templates/nav-menu'); ?>
     <main>
         <h4 class="breadcrumb">
-        <a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > <a href="<?php echo base_url(); ?>app/student/grupo">Área de Grupo</a>
-         > <a href="<?php echo base_url(); ?>app/student/memberRtg">Member Rating</a> </h4>
+        <a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > <a href="<?php echo base_url(); ?>app/grupo/<?php echo $grupo[0]["id"]; ?>">Área de Grupo</a>
+         > Rating </h4>
      
         <div class="container">
         

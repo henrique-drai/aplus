@@ -85,16 +85,84 @@ class App extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    //app/grupo/:grupoid - done
+    public function grupo($grupo_id = null){
+        $data["base_url"] = base_url();
 
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403', $data); return null;
+        }
+        
+        //verificar se o grupo id está vazio ou se o grupo nao existe - usar get grupo by id
+        $this->load->model('GroupModel');
 
-    //app/student/grupos -> function grupos()
+        $grupo = $this->GroupModel->getGroupById($grupo_id);
 
-    //app/student/grupos/:grupoid -> function grupos($grupoid)
+        if(empty($grupo)){
+            $this->load->view('errors/404', $data); return null;
+        }
 
-    //app/student/memberRtg/:grupoid -> function memberRtg($grupoid)
+        $this->load->view('templates/head', $data);
+        //escolher que página deve ser mostrada
+        switch ($this->session->userdata('role')) {
+            case 'student': $this->load->view('student/grupo', $data); break;
+        }
+        $this->load->view('templates/footer');
+    }
 
-    //app/student/grupos/ficheiros/:grupoid -> mudar para student/ficheiros/:grupoid -> function ficheiros($grupo_id)
+    //app/rating/:grupoid
+    public function rating($grupo_id = null){
+        $data["base_url"] = base_url();
 
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403', $data); return null;
+        }
+
+        $this->load->model('GroupModel');
+        //verificar se o grupo id é null - usar get grupo by id
+
+        $data["grupo"] = $this->GroupModel->getGroupById($grupo_id);
+
+        if(empty($data["grupo"])){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        $this->load->view('templates/head', $data);
+        //escolher que página deve ser mostrada
+        switch ($this->session->userdata('role')) {
+            case 'student': $this->load->view('student/memberRtg', $data); break;
+        }
+        $this->load->view('templates/footer');
+    }
+
+    
+    //app/ficheiros/:grupoid
+    public function ficheiros($grupo_id = null){
+        $data["base_url"] = base_url();
+
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403', $data); return null;
+        }
+
+        $this->load->model('GroupModel');
+        //verificar se o grupo id é null - usar get grupo by id
+
+        $grupo = $this->GroupModel->getGroupById($grupo_id);
+
+        if(empty($grupo)){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        $this->load->view('templates/head', $data);
+        //escolher que página deve ser mostrada
+        switch ($this->session->userdata('role')) {
+            case 'student': $this->load->view('student/ficheiros', $data); break;
+        }
+        $this->load->view('templates/footer');
+    }
 
 
     //app/admin

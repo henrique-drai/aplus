@@ -15,6 +15,6 @@
     <h3 style="text-align: center">Calendário</h3>
     <div id="calendario-hook"></div>
     <br>
-    <h3 style="text-align: center">Cadeiras acedidas recentemente</h3>
+    <h3 style="text-align: center">Unidades curriculares acedidas recentemente</h3>
     <div id="subjects-hook"></div>
 </main>

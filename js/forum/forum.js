@@ -91,12 +91,14 @@ function getInfo(id) {
 
             if(data.user.role == "teacher") {
                 $(".remove_button").append("<input class='remove' type='button' value='Eliminar fórum'>");
-                
+            }
+
+            if(data.user.role == "teacher" || localStorage.teachers_only == 0) {
                 $(".add").append("<input type='button' id='add_button' value='Criar Tópico'><div class='overlay'>" +
                     "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'>" +
                     "<h2>Criar novo tópico</h2><form id='threadForm' class='thread-form'  action='javascript:void(0)'>" +
-                    "<p><label class='form-label'>Nome do Fórum:</label><input class='form-input-text' type='text'" +
-                    "name='threadName' required></p><p><label class='form-label'>Descrição:</label><textarea class='" +
+                    "<p><label class='form-label'>Assunto do Tópico:</label><input class='form-input-text' type='text'" +
+                    "name='threadName' required></p><p><label class='form-label'>Discussão:</label><textarea class='" +
                     "form-text-area' type='text' name='threadDescription' required></textarea></p><input type='button'" +
                     "id='popup_button' value='Criar'></form></div></div></div>");
             }
@@ -121,14 +123,14 @@ function getThreads() {
                 $(".threadTable").append("<p>Ainda não existem tópicos no fórum.</p>");
             } else {
                 $(".threadTable").append("<table class='threadList'><tr>" +
-                    "<th width='35%'>Título</th><th width='25%'>Criador</th>" +
+                    "<th width='35%'>Assunto</th><th width='25%'>Criador</th>" +
                     "<th width='25%'>Data</th><th width='15%'>Mais informação</th></tr></table>");
                 
                 for(var i=0; i < data.threads.length; i++) {
                     $(".threadList").append("<tr><td>" + data.threads[i].title +
                         "</td><td>" + data.criadores[i].name + " " +data.criadores[i].surname +
                         "</td><td>" + data.threads[i].date + "<td><input type='button' class='thread_button' id='" +
-                        data.threads[i].id + "' value='Ver'>");
+                        data.threads[i].id + "' value='Ver publicações'>");
                 }
             }
         },

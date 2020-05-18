@@ -95,6 +95,7 @@ function convertHex(hex,opacity){
 }
 
 function semester(n, data) {
+    console.log(data)
     for(var i = 0; i < data.cadeiras_id.length; i++) {
         var url = base_url + "subjects/subject/" + data.info[i][0].code + "/" + data.year[0].inicio;
         var color = convertHex(data.info[i][0].color, 52);
@@ -105,13 +106,13 @@ function semester(n, data) {
                 $(".semestre1").append("<a id='" + data.info[i][0].code + "' href='" + url +
                 "'><div class='card_info'><div class='color' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
                 "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +
-                "<div id='title'>Tecnologias de Informação</div><div>" + data.info[i][0].code + ": " +
+                "<div id='title'>" + data.curso[i].name + "</div><div>" + data.info[i][0].code + ": " +
                 data.info[i][0].name + "</div></div></div></a>");
             } else {
                 $(".semestre2").append("<a id='" + data.info[i][0].code + "' href='" + url + 
                 "'><div class='card_info'><div class='color' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
                 "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +
-                "<div id='title'>Tecnologias de Informação</div><div>" + data.info[i][0].code + ": " +
+                "<div id='title'>" + data.curso[i].name + "</div><div>" + data.info[i][0].code + ": " +
                 data.info[i][0].name + "</div></div></div></a>");
             }   
         } else {
@@ -119,13 +120,13 @@ function semester(n, data) {
                 $(".semestre1").append("<a id='" + data.info[i][0].code + "' href='" + url +
                 "'><div class='card_info'><div class='color' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
                 "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +
-                "<div id='title'>Tecnologias de Informação</div><div>" + data.info[i][0].code + ": " +
+                "<div id='title'>" + data.curso[i].name + "</div><div>" + data.info[i][0].code + ": " +
                 data.info[i][0].name + "</div></div></div></a>");
             } else {
                 $(".semestre2").append("<a id='" + data.info[i][0].code + "' href='" + url + 
                 "'><div class='card_info'><div class='color' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
                 "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +
-                "<div id='title'>Tecnologias de Informação</div><div>" + data.info[i][0].code + ": " +
+                "<div id='title'>" + data.curso[i].name + "</div><div>" + data.info[i][0].code + ": " +
                 data.info[i][0].name + "</div></div></div></a>");
             }   
         }

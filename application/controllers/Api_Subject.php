@@ -418,7 +418,10 @@ class Api_Subject extends REST_Controller {
     }
 
 
-
+    public function deleteHourById_delete() {
+        $id = $this->delete("id");
+        $this->SubjectModel->deleteHourById($id);
+    }
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

@@ -75,6 +75,7 @@ function getInfo(id) {
         success: function(data) {
             console.log(data);
             $(".threadName").empty();
+            $(".add").empty();
             $(".threadDesc").empty();
             $(".threads .post").remove();
             $(".threads p").remove();
@@ -84,8 +85,8 @@ function getInfo(id) {
             if(data.posts.length == 0) {
                 $(".threads").append("<p>Não há nenhuma publicação neste tópico.</p>");
 
-                $(".add").append("<input type='button' id='create_post_button' value='Criar novo post'><div class='overlay'>" +
-                    "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'><h2>Criar novo post</h2>" +
+                $(".add").append("<input type='button' id='create_post_button' value='Criar nova publicação'><div class='overlay'>" +
+                    "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'><h2>Criar nova publicação</h2>" +
                     "<form id='threadForm' class='thread-form'  action='javascript:void(0)'><p><label class='form-label'>Conteúdo:</label>" +
                     "<textarea class='form-text-area' type='text' name='threadDescription' required></textarea></p><input type='button'" +
                     "id='popup_button' value='Criar'></form></div></div></div>");
@@ -95,13 +96,14 @@ function getInfo(id) {
                         "<p>Data: " + data.posts[i].date + "</p></div><div class='content2'><p>" + data.posts[i].content + "</p></div></div>");
 
                         if(localStorage.user_id == data.users[i].id) {
-                            $(".content2").last().append("<input id='" + data.posts[i].id + "' class='remove' type='button' value='Eliminar post'>");
+                            var image_url = base_url + "images/icons/trash.png";
+                            $(".content2").last().append("<input id='" + data.posts[i].id + "' class='remove' type='button' value='Eliminar publicação'>");
                         }
                 }
 
                 if(localStorage.teachers_only == 0 || data.user.role == "teacher") {
-                    $(".add").append("<input type='button' id='create_post_button' value='Criar novo post'><div class='overlay'>" +
-                        "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'><h2>Criar novo post</h2>" +
+                    $(".add").append("<input type='button' id='create_post_button' value='Criar nova publicação'><div class='overlay'>" +
+                        "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'><h2>Criar nova publicação</h2>" +
                         "<form id='threadForm' class='thread-form'  action='javascript:void(0)'><p><label class='form-label'>Conteúdo:</label>" +
                         "<textarea class='form-text-area' type='text' name='threadDescription' required></textarea></p><input type='button'" +
                         "id='popup_button' value='Criar'></form></div></div></div>");

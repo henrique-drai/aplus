@@ -16,6 +16,7 @@ $(document).ready(() => {
 
     $("body").on("click", ".add_event", function() {
         var hour_id = $(this).attr("id");
+        $("#" + hour_id + ".add_event").hide();
         addEvent(hour_id);
     })
     
@@ -76,6 +77,7 @@ function getInfo() {
                 }  
             }
 
+            var image_url = base_url + "images/icons/add_event.png";
             $(".hours").empty();
             if(data['hours'].length != 0) {
                 for(var i=0; i < data['user'].length; i++) {
@@ -83,7 +85,7 @@ function getInfo() {
                     data.user[i].name + " " + data.user[i].surname + ":</b> " + 
                     data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
                     data.hours[i].end_time.substring(0, 5) + "</p>" +
-                    "<input type='button' class='add_event' id='" + data.hours[i].id + "' value='Adicionar ao Calendário'></div>");
+                    "<img src='" + image_url + "' class='add_event' id='" + data.hours[i].id + "'></div>");
                 }
             } else {
                 $(".hours").append("<p>Ainda não há horários de dúvidas disponíveis.</p>");
@@ -103,8 +105,10 @@ function addEvent(hours_id) {
         },
         url: base_url + "api/addEvent/" + hours_id,
         success: function(data) {
-            console.log(data)
-            console.log("bacano")
+            $("#message_hour_s").fadeTo(2000, 1);
+            setTimeout(function() {
+                $("#message_hour_s").fadeTo(2000, 0);
+            }, 2000);
         },
         error: function(data) {
             console.log(data)

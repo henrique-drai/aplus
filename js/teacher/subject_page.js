@@ -86,6 +86,11 @@ $(document).ready(() => {
         }
     })
 
+    $("body").on("click", ".delete_img", function(){
+        var id = $(this).attr("id");
+        deleteHourById(id);
+    })
+
     $("body").on("keyup", ".maxnuminput", function(){
         var id = $(this).attr("id");
         validateFormNumb(id);
@@ -214,10 +219,11 @@ function getInfo() {
                 }  
             }
 
+            var image_url = base_url + "images/icons/trash.png";
             $(".hours p").remove();
             if(data['hours'].length != 0) {
                 for(var i=0; i < data['user'].length; i++) {
-                    $(".hours").append("<p><b>" + 
+                    $(".hours").append("<p><span><img src='" + image_url + "' class='delete_img' id='" + data.hours[i].id + "'></span><b>" + 
                     data.user[i].name + " " + data.user[i].surname + ":</b> " + 
                     data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
                     data.hours[i].end_time.substring(0, 5) + "</p>");
@@ -340,10 +346,12 @@ function getHours($id) {
         },
         url: base_url + "api/getHours/" + id,
         success: function(data) {
+            var image_url = base_url + "images/icons/trash.png";
+
             $(".hours p").remove();
             if(data['hours'].length != 0) {
                 for(var i=0; i < data['user'].length; i++) {
-                    $(".hours").append("<p><b>" + 
+                    $(".hours").append("<p><span><img src='" + image_url + "' class='delete_img' id='" + data.hours[i].id + "'></span><b>" + 
                     data.user[i].name + " " + data.user[i].surname + ":</b> " + 
                     data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
                     data.hours[i].end_time.substring(0, 5) + "</p>");
@@ -391,6 +399,23 @@ function removeHours(data) {
         data: data,
         success: function(data) {
             console.log("apagou");
+        },
+        error: function(data) {
+            alert("Houve um erro a remover a data.")
+        }
+    })
+}
+
+function deleteHourById(id) {
+    $.ajax({
+        type: "DELETE",
+        headers: {
+            "Authorization": localStorage.token
+        },
+        url: base_url + "api/deleteHourById",
+        data: {id: id},
+        success: function(data) {
+            getHours(id);
         },
         error: function(data) {
             alert("Houve um erro a remover a data.")

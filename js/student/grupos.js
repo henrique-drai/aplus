@@ -15,7 +15,7 @@ $(document).ready(() => {
             getAll(localStorage.user_id, "ongoing")   
         }
         else if ($(this).val()=="terminated"){
-            getAll(localStorage.user_id, "terminated")<
+            getAll(localStorage.user_id, "terminated")
         }
         else{
             getAll(localStorage.user_id, "allGroups")
@@ -72,6 +72,9 @@ function getAll(user_id, status){
                         else{
                             grupos+= "<div id='statusOn'>Em Curso</div>"                            
                         }
+                    }
+                    else{
+                        grupos+="<div class='noGroups'> Não existem grupos"
                     }
                    
                     grupos+= "</div>";

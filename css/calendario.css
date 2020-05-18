@@ -10,6 +10,9 @@
     margin: 5px;
     border: 1px solid #aaa;
     height: fit-content;
+    height: -moz-max-content;
+    height: -webkit-max-content;
+    height: -o-max-content;
 }
 #calendario-hook .hcell,
 #calendario-hook .cell {

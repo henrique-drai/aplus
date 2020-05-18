@@ -60,10 +60,10 @@ label {
     display: none;
 }
 
-#etapas-container{
-    /* margin-bottom: 1%; */
+/* #etapas-container{
+    margin-bottom: 1%;
     margin-bottom: 30px;
-}
+} */
 
 .form-input-file{
     border-left-color: rgb(124, 124, 124);
@@ -112,7 +112,7 @@ label {
 
 
 .wrapper input[type="button"] {
-    display: inline-flex;
+    display: inline;
 }
 
 .wrapper {
@@ -150,7 +150,7 @@ label {
 }
 
 /* botoes pop up */
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 750px) {
     .wrapper input[type="button"] {
         margin-left: auto;
         width: 160px;

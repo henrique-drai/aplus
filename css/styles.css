@@ -1,4 +1,11 @@
 
+* {
+    /* Cross browser compatibility things */
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+
 html, body {
     width: 100%;
     margin: 0px;
@@ -9,11 +16,13 @@ body {
     display: flex;
     font-family: 'Poppins', sans-serif;
     background-color: #efefef;
+    height:100%;
 }
 main {
     width: calc(100% - 220px);
     padding: 3% 5%;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 input, select, textarea {
     text-align: left;
@@ -78,3 +87,4 @@ h4.breadcrumb a, h4.breadcrumb{
     color: #78837e;
     text-decoration: none;
 }
+

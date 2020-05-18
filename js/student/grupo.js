@@ -9,12 +9,12 @@ $(document).ready(() => {
     localStorage.setItem("grupo_id", id);
 
     $("body").on("click", "#ratingmembros", function() {
-        window.location = base_url + "app/student/memberRtg/" + localStorage.grupo_id;
+        window.location = base_url + "app/rating/" + localStorage.grupo_id;
     })
     
     $("body").on("click", "#ficheiros", function() {
      
-        window.location = base_url + "app/student/grupos/ficheiros/" + localStorage.grupo_id;
+        window.location = base_url + "app/ficheiros/" + localStorage.grupo_id;
     })
 
     $("#newTarefa").click(function() {

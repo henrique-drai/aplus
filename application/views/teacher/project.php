@@ -73,7 +73,7 @@
                             <div id="successmsgenunc" class="submit-msg">Mensagem de sucesso template</div>
                             <div id="errormsgenunc" class="submit-msg">Mensagem de erro template</div>
                         </p>
-                        <input id="addEnuncEtapa" type="submit" value="Adicionar enunciado">
+                        <input id="addEnuncEtapa" type="submit" value="Confirmar">
                     </form>
 
                     <form id="feedback-form">
@@ -107,6 +107,7 @@
                             <input class="form-input-text" type="datetime-local" name="editetapaDate" required>
                         </p>
                         <p>
+                            <div id="successmsg_editar" class="submit-msg">Etapa editada com sucesso</div>
                             <div id="errormsgedit" class="submit-msg">Mensagem de erro template</div>
                         </p>
 
@@ -136,6 +137,7 @@
                             <input class="form-input-text" type="datetime-local" name="etapaDate" required>
                         </p>
                         <p>
+                            <div id="successmsg_criar" class="submit-msg">Etapa criada com sucesso</div>
                             <div id="errormsg" class="submit-msg">Mensagem de erro template</div>
                         </p>
 

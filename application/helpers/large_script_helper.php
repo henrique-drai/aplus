@@ -428,7 +428,7 @@ function large_script($m) {
     $aula["59"] = $m->aula($cadeira["69"], "PL", "15:30", "17:00", 2, "3.2.27");
     $aula["60"] = $m->aula($cadeira["67"], "T", "09:00", "11:30", 4, "4.1.21");
 
-    $aula["61"] = $m->aula($cadeira["81"], "PL", "10:30", "12:00", 1, "1.3.24");
+    $aula["61"] = $m->aula($cadeira["81"], "PL", "12:00", "13:30", 1, "1.3.24");
     $aula["62"] = $m->aula($cadeira["84"], "T", "10:00", "12:00", 2, "6.3.24");
     $aula["63"] = $m->aula($cadeira["83"], "TP", "15:30", "17:00", 3, "3.4.52");
     $aula["64"] = $m->aula($cadeira["85"], "PL", "16:30", "18:00", 2, "3.2.12");
@@ -436,7 +436,7 @@ function large_script($m) {
     $aula["66"] = $m->aula($cadeira["84"], "PL", "12:00", "13:00", 1, "1.3.27");
     $aula["67"] = $m->aula($cadeira["86"], "T", "09:00", "12:00", 2, "6.4.24");
     $aula["68"] = $m->aula($cadeira["87"], "TP", "17:30", "19:00", 3, "2.4.53");
-    $aula["69"] = $m->aula($cadeira["86"], "PL", "17:30", "19:00", 2, "3.4.12");
+    $aula["69"] = $m->aula($cadeira["86"], "PL", "18:00", "19:30", 2, "3.4.12");
     $aula["70"] = $m->aula($cadeira["87"], "T", "09:00", "11:30", 4, "8.1.14");
     $aula["71"] = $m->aula($cadeira["81"], "PL", "13:30", "16:00", 1, "1.3.24");
     $aula["72"] = $m->aula($cadeira["89"], "T", "08:00", "09:00", 2, "6.3.44");
@@ -1056,13 +1056,14 @@ function large_script($m) {
     $thread["2"] = $m->thread($prof["1"], $forum["3"], "Avaliação da cadeira", "Testes ao longo do semestre", "2020-04-13 11:00:00");
     $thread["3"] = $m->thread($prof["7"], $forum["5"], "Avaliação da cadeira", "3 projetos ao longo do semestre", "2020-04-13 11:00:00");
     $thread["4"] = $m->thread($prof["7"], $forum["7"], "Avaliação da cadeira", "Exame final e 5 projetos ao longo do semestre", "2020-04-13 11:00:00");
+    $thread["5"] = $m->thread($prof["7"], $forum["8"], "Dúvidas", "Dúvidas expostas pelos alunos", "2020-04-13 11:00:00");
 
 
     $thread_post = array();
-    $thread_post["1"] = $m->thread_post($thread["1"], $prof["1"], "Avaliação da cadeira", "Testes e 3 projetos ao longo do semestre", "2020-04-13 11:00:00");
-    $thread_post["2"] = $m->thread_post($thread["2"], $prof["1"], "Avaliação da cadeira", "Testes ao longo do semestre", "2020-04-13 11:00:00");
-    $thread_post["3"] = $m->thread_post($thread["3"], $prof["7"], "Avaliação da cadeira", "3 projetos ao longo do semestre", "2020-04-13 11:00:00");
-    $thread_post["4"] = $m->thread_post($thread["4"], $prof["7"], "Avaliação da cadeira", "Exame final e 5 projetos ao longo do semestre", "2020-04-13 11:00:00");
+    $thread_post["1"] = $m->thread_post($thread["1"], $prof["1"], "Testes e 3 projetos ao longo do semestre", "2020-04-13 11:00:00");
+    $thread_post["2"] = $m->thread_post($thread["2"], $prof["1"], "Testes ao longo do semestre", "2020-04-13 11:00:00");
+    $thread_post["3"] = $m->thread_post($thread["3"], $prof["7"], "3 projetos ao longo do semestre", "2020-04-13 11:00:00");
+    $thread_post["4"] = $m->thread_post($thread["4"], $prof["7"], "Exame final e 5 projetos ao longo do semestre", "2020-04-13 11:00:00");
 
     
     $projeto = array();

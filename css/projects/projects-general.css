@@ -18,6 +18,10 @@ label {
     word-break: break-all;
 }
 
+.p_expired{
+    color:rgb(255, 72, 72);
+}
+
 .container{
     width: 100%;
 }

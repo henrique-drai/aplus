@@ -282,6 +282,10 @@ select, textarea {
     display: block;
 }
 
+.semestre2 {
+    margin-top: 6%;
+}
+
 .semestre1, .semestre2 {
     position: relative;
     margin-left: 2%;
@@ -379,6 +383,10 @@ a { color: inherit; }
 
     select {
         width: 136%;
+    }
+
+    .semestre2 {
+        margin-top: 10%;
     }
 }
 

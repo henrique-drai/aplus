@@ -75,7 +75,7 @@
                 <form id="export2Csv" action="javascript:void(0)">
 
                     <p>
-                        <label for="data">Exportar dados 222:</label>
+                        <label for="data">Exportar alunos:</label>
                         
                             <select id="collegesDisplay" name="colleges">
                             </select>

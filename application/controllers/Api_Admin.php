@@ -120,12 +120,7 @@ class Api_Admin extends REST_Controller {
     }
 
 
-    public function exportRip(){
-        // Exportar alunos de uma faculdade de um ano de um curso de uma cadeira
-        
-        
-    
-    }
+
 
     //////////////////////////////////////////////////////////////
     //                           POST
@@ -195,6 +190,41 @@ class Api_Admin extends REST_Controller {
         fclose($file);
         exit;
         
+    }
+
+    public function exportSpecific_get(){
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+          
+        $file = fopen('php://output','w');
+        $header = array("Name", "Surname", "Email","Role", "Password");
+
+        // $college = $this -> get('college');        
+        // $year = $this -> get('year');           
+        $course = $this -> get('course');         
+        
+        $this->load->model('UserModel');
+        $this->load->model('CourseModel');
+
+        $data["students"] = $this -> CourseModel -> getStudentsByCourse($course);
+
+        fputcsv($file, $header);
+        for($i=0; $i<count($data["students"]);$i++){
+
+            $path = $this -> UserModel -> getUserById($data["students"][$i]['user_id']);
+            $dados = array($path -> name, $path -> surname,$path -> email, $path -> role, $path -> password);
+            fputcsv($file, $dados);
+        }
+        fclose($file);
+        exit;
+    
     }
 
     //////////////////////////////////////////////////////////////

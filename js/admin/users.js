@@ -2,11 +2,6 @@ $(document).ready(() => {
     $("#register-form-submit").click(() => submitRegister())
 
 
-    $("body").on("click", "#exportInfo2", function() {
-        exportStudentsCollegeYear()
-    })
-
-
     getYears();
     getColleges();
 
@@ -84,12 +79,52 @@ $(document).ready(() => {
     });
 
 
+    $("body").on("click", "#exportInfo2", function() {
+
+        const data = {
+            college:        $("#collegesDisplay").val(),
+            year:           $("#yearsDisplay").val(),
+            course:         $("#coursesDisplay").val(),
+
+        }
+
+        $.ajax({
+            type: "GET",
+            headers: {"Authorization": localStorage.token},
+            url: base_url + "api/exportSpecific",
+            data: data,
+            success:function(data){
+
+                var downloadLink = document.createElement("a");
+                var fileData = ['\ufeff'+data];   
+
+                var blobObject = new Blob(fileData,{
+                    type: "text/csv;charset=utf-8;"
+                });
+
+                var url = URL.createObjectURL(blobObject);
+                downloadLink.href = url;
+                
+                downloadLink.download =  $("#coursesDisplay option:selected").text() + ".csv";
+
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+
+                
+            
+            }
+        })
+       
+    })
+
+
+
+
+
 })
 
-// TODO
-function exportStudentsCollegeYear(){
-    console.log("TESte")
-}
+
 
 
 function getCursosFaculdade(ano, faculdade){

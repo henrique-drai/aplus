@@ -374,7 +374,7 @@ function strToDate(dtStr) {
     let dateParts = dtStr.split("/");
     let timeParts = dateParts[2].split(" ")[1].split(":");
     dateParts[2] = dateParts[2].split(" ")[0];
-    return dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0], timeParts[0], timeParts[1], timeParts[2]); 
+    return dateObject = new Date(dateParts[2], dateParts[1] - 1, +dateParts[0], timeParts[0], timeParts[1], timeParts[2]); 
 }
 
 //limpar os campos preenchidos
@@ -674,9 +674,14 @@ function makeEtapaTable(data){
     for (i=0; i<data.length; i++){
         json = data[i];
         var enunciado = json["enunciado_url"];
-        var date = new Date(json["deadline"]);
-        var today = new Date();
+
+        var d1 = json["deadline"].split(" ");
+        var date_full = d1[0].split("-");
+        var hours_full = d1[1].split(":");
+        var date = new Date(date_full[0], date_full[1]-1, date_full[2], hours_full[0], hours_full[1], hours_full[2]);
         
+        var today = new Date();
+
         var pClass = "p_up"
 
         if (today > date){

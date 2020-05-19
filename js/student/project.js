@@ -185,7 +185,13 @@ function makeEtapaDiv(data){
     for (i=0; i<data.length; i++){
         json = data[i];
         var enunciado = json["enunciado_url"];
-        var date = new Date(json["deadline"]);
+
+
+        var d1 = json["deadline"].split(" ");
+        var date_full = d1[0].split("-");
+        var hours_full = d1[1].split(":");
+        var date = new Date(date_full[0], date_full[1]-1, date_full[2], hours_full[0], hours_full[1], hours_full[2]);
+        
         var today = new Date();
 
         var pClass = "p_up"

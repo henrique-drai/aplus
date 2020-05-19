@@ -35,7 +35,7 @@ textarea {
 }
 
 .message {
-    background-color: rgb(106, 192, 66, 0.7);
+    background-color: rgba(106, 192, 66, 0.7);
     text-align: center;
     border-radius: 5px;
     float: right;

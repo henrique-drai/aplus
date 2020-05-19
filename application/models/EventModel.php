@@ -103,4 +103,14 @@ class EventModel extends CI_Model { //evento & horario_duvidas
             'user_id' => $user_id,
         ));
     }
+
+    public function getStudentEvents($user_id) {
+        $query = $this->db->get_where('evento_user', array('user_id' => $user_id));
+        return $query->result_array();
+    }
+
+    public function getEventById($id) {
+        $query = $this->db->get_where('evento', array('id' => $id));
+        return $query->result_array();
+    }
 }

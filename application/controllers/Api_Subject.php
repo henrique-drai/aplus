@@ -96,6 +96,7 @@ class Api_Subject extends REST_Controller {
                 'name'                => "Horário de Dúvidas",
                 'description'         => "Horário de Dúvidas com o(a) professor(a) " . $data["user"]->name . " " . $data["user"]->surname,
                 'location'            => $data["user"]->gabinete,
+                'horario_id'          => $hour_id,
             );
     
             $event_id = $this->EventModel->insertEvent($dataInsert);
@@ -205,16 +206,25 @@ class Api_Subject extends REST_Controller {
     }
 
     public function getInfo_get($cadeira_id) {
-        $this->verify_request();
+        // $user_id = $this->verify_request()->id;
+
 
         $data["desc"] = $this->SubjectModel->getDescriptionById($cadeira_id);
         $data["forum"] = $this->ForumModel->getForumByCadeiraID($cadeira_id);
         $data["proj"] = $this->SubjectModel->getProj($cadeira_id);
         $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
-
+        $eventos = $this->EventModel->getStudentEvents($this->get("user_id"));
+        
         $data['user'] = array();
         for ($i=0; $i < count($data["hours"]); $i++) {
             array_push($data["user"], $this->UserModel->getUserById($data["hours"][$i]['id_prof']));
+        }
+
+        if(count($eventos) > 0) {
+            $data["evento"] = array();
+            for($i=0; $i < count($eventos); $i++) {
+                array_push($data["evento"], $this->EventModel->getEventById($eventos[$i]["evento_id"]));
+            }
         }
 
         $this->response($data, parent::HTTP_OK);

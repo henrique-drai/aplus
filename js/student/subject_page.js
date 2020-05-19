@@ -16,6 +16,7 @@ $(document).ready(() => {
 
     $("body").on("click", ".add_event", function() {
         var hour_id = $(this).attr("id");
+        localStorage.setItem("hour_" + hour_id, hour_id);
         $("#" + hour_id + ".add_event").hide();
         addEvent(hour_id);
     })
@@ -39,6 +40,7 @@ function getInfo() {
             "Authorization": localStorage.token
         },
         url: base_url + "api/getCadeira/" + id,
+        data: {user_id: localStorage.user_id},
         success: function(data) {
             console.log(data)
 
@@ -81,11 +83,30 @@ function getInfo() {
             $(".hours").empty();
             if(data['hours'].length != 0) {
                 for(var i=0; i < data['user'].length; i++) {
-                    $(".hours").append("<div><p><b>" + 
-                    data.user[i].name + " " + data.user[i].surname + ":</b> " + 
-                    data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
-                    data.hours[i].end_time.substring(0, 5) + "</p>" +
-                    "<img src='" + image_url + "' class='add_event' id='" + data.hours[i].id + "'></div>");
+                    for(var j=0; j < data['evento'].length; j++) {
+                        if(data['evento'][j][0].horario_id != localStorage.getItem("hour_" + data.hours[i].id)) {
+                            if(localStorage.getItem("hour_" + data.hours[i].id) == undefined) {
+                                $(".hours").append("<div><p><b>" + 
+                                data.user[i].name + " " + data.user[i].surname + ":</b> " + 
+                                data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
+                                data.hours[i].end_time.substring(0, 5) + "<span>" +
+                                "<img src='" + image_url + "' class='add_event' id='" + data.hours[i].id + "'></span></p></div>");
+                            } else {
+                                $(".hours").append("<div><p><b>" + 
+                                data.user[i].name + " " + data.user[i].surname + ":</b> " + 
+                                data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
+                                data.hours[i].end_time.substring(0, 5) + "</p></div>");
+                            }
+                        } else {
+                            $(".hours").append("<div><p><b>" + 
+                            data.user[i].name + " " + data.user[i].surname + ":</b> " + 
+                            data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
+                            data.hours[i].end_time.substring(0, 5) + "</p></div>");
+                        }
+                        break;                        
+                    }
+                    
+                    
                 }
             } else {
                 $(".hours").append("<p>Ainda não há horários de dúvidas disponíveis.</p>");

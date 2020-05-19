@@ -30,7 +30,7 @@ p {
 }
 
 .message {
-    background-color: rgb(106, 192, 66, 0.7);
+    background-color: rgba(106, 192, 66, 0.7);
     text-align: center;
     border-radius: 5px;
     float: left;
@@ -151,10 +151,9 @@ select, textarea {
 }
 
 .add_event {
-    margin-top: -3% !important;
     width: 30px;
     margin-left: 310px;
-    margin-top: -45px !important;
+    margin-top: -30px !important;
 }
 
 .add_event:hover {
@@ -162,7 +161,7 @@ select, textarea {
 }
 
 #message_hour_s {
-    width: 45%;
+    width: 50%;
     margin-top: 0;
 }
 
@@ -371,6 +370,10 @@ a { color: inherit; }
 
     .add_event {
         margin-left: 55px;
+    }
+
+    #message_hour_s {
+        width: 100%;
     }
 }
 

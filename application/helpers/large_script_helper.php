@@ -1098,11 +1098,15 @@ function large_script($m) {
 
     $m->etapa_submit($grupo["1"], $etapa["1"], "URL-FALSO-HEHE-XD");
 
+    $horario = array();
+    $horario["1"] = $m->horario_duvidas($cadeira["83"], $prof["7"], "11:30:00", "13:00:00", "Segunda-feira");
+    $horario["2"] = $m->horario_duvidas($cadeira["83"], $prof["7"], "12:00:00", "13:00:00", "Quinta-feira");
+
     $evento = array();
-    $evento["1"] = $m->evento("2020-05-05 11:00:00", "2020-05-05 12:30:00", "Reunião de Grupo", "Discutir distribuição do trabalho.", "FCUL");
-    $evento["2"] = $m->evento("2020-05-16 12:10:00", "2020-05-16 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 1", "6.3.45");
+    $evento["1"] = $m->evento("2020-05-25 11:00:00", "2020-05-25 12:30:00", "Reunião de Grupo", "Discutir distribuição do trabalho.", "FCUL");
+    $evento["2"] = $m->evento("2020-05-26 11:30:00", "2020-05-26 13:00:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) Maria José 1", "6.1.29", $horario["1"]);
     $evento["3"] = $m->evento("2020-05-27 11:00:00", "2020-05-27 12:30:00", "Decidir Framework", "Esta descrição descreve o evento. 2", "Azenhas");
-    $evento["4"] = $m->evento("2020-05-13 12:10:00", "2020-05-13 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 2", "6.3.45");
+    $evento["4"] = $m->evento("2020-05-23 12:00:00", "2020-05-23 13:00:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) Maria José 2", "6.1.29", $horario["2"]);
 
     $m->batch("evento_grupo", Array(
       Array("evento_id"=> $evento["1"],  "grupo_id"=>$grupo["1"]),
@@ -1115,9 +1119,6 @@ function large_script($m) {
       Array("evento_id"=> $evento["3"],  "user_id"=>$aluno["4"]),
       Array("evento_id"=> $evento["4"],  "user_id"=>$aluno["4"]),
     ));
-
-    $m->horario_duvidas($cadeira["83"], $prof["7"], "11:30:00", "13:00:00", "Segunda-feira");
-    $m->horario_duvidas($cadeira["83"], $prof["7"], "12:00:00", "13:00:00", "Quinta-feira");
 
     $m->notification($aluno["4"], "message", "Mensagem de João Ye", "Então?", "app/profile/2801", false, "2020-04-09 11:30:31");
     $m->notification($aluno["4"], "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "app/profile/2", false, "2020-04-09 11:30:35");

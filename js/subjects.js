@@ -52,8 +52,9 @@ function getCadeirasLastLogged() {
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "api/getCadeirasOrder/" + localStorage.user_id + "/student",
+        url: base_url + "api/getCadeirasOrder/" + localStorage.user_id + "/" + user_role,
         success: function(data) {
+            console.log(data)
             $(".semestre1").empty();
             $(".semestre2").empty();
 
@@ -95,7 +96,6 @@ function convertHex(hex,opacity){
 }
 
 function semester(n, data) {
-    console.log(data)
     for(var i = 0; i < data.cadeiras_id.length; i++) {
         var url = base_url + "subjects/subject/" + data.info[i][0].code + "/" + data.year[0].inicio;
         var color = convertHex(data.info[i][0].color, 52);

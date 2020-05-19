@@ -5,16 +5,23 @@
     -webkit-appearance: none;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@font-face {
+    font-family: 'Poppins', sans-serif !important;
+    src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+}
 
 html, body {
     width: 100%;
     margin: 0px;
     padding: 0px;
     overflow-x: hidden;
+    /* font-size-adjust:0.5; */
 }
 body {
     display: flex;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
     background-color: #efefef;
     height:100%;
 }
@@ -88,3 +95,8 @@ h4.breadcrumb a, h4.breadcrumb{
     text-decoration: none;
 }
 
+@-moz-document url-prefix() {
+    html {
+        font-size: 1em;
+    }
+}

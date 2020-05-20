@@ -1096,7 +1096,7 @@ function large_script($m) {
       Array("user_id"=> $aluno["206"],  "grupo_id"=>$grupo["3"]),
     ));
 
-    $m->etapa_submit($grupo["1"], $etapa["1"], "URL-FALSO-HEHE-XD");
+    $m->etapa_submit($grupo["1"], $etapa["1"], "URL-FALSO-HEHE-XD.pdf");
 
     $horario = array();
     $horario["1"] = $m->horario_duvidas($cadeira["83"], $prof["7"], "11:30:00", "13:00:00", "Segunda-feira");

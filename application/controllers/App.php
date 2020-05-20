@@ -8,6 +8,7 @@ class App extends CI_Controller {
     {
         parent::__construct();
         $this->load->helper('url');
+        $this->load->helper('form');
     }
 
     //app/
@@ -150,9 +151,9 @@ class App extends CI_Controller {
         $this->load->model('GroupModel');
         //verificar se o grupo id é null - usar get grupo by id
 
-        $grupo = $this->GroupModel->getGroupById($grupo_id);
+        $data["grupo"] = $this->GroupModel->getGroupById($grupo_id);
 
-        if(empty($grupo)){
+        if(empty($data["grupo"])){
             $this->load->view('errors/404', $data); return null;
         }
 

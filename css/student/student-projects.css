@@ -28,15 +28,15 @@
 }
 
 .myGroupDiv p:first-child {
-    width: 30%;
+    width: 36%;
 }
 
 .myGroupDiv p:nth-child(2) {
-    width: 60%;
+    width: 50%;
 }
 
 .myGroupDiv p:nth-child(3) {
-    width: 10%;
+    width: 14%;
 }
 
 

@@ -83,30 +83,28 @@ function getInfo() {
             $(".hours").empty();
             if(data['hours'].length != 0) {
                 for(var i=0; i < data['user'].length; i++) {
+                    var flag = false;
                     for(var j=0; j < data['evento'].length; j++) {
-                        if(data['evento'][j][0].horario_id != localStorage.getItem("hour_" + data.hours[i].id)) {
-                            if(localStorage.getItem("hour_" + data.hours[i].id) == undefined) {
-                                $(".hours").append("<div><p><b>" + 
-                                data.user[i].name + " " + data.user[i].surname + ":</b> " + 
-                                data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
-                                data.hours[i].end_time.substring(0, 5) + "<span>" +
-                                "<img src='" + image_url + "' class='add_event' id='" + data.hours[i].id + "'></span></p></div>");
-                            } else {
-                                $(".hours").append("<div><p><b>" + 
-                                data.user[i].name + " " + data.user[i].surname + ":</b> " + 
-                                data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
-                                data.hours[i].end_time.substring(0, 5) + "</p></div>");
-                            }
+                        if(data['evento'][j][0].horario_id != data.hours[i].id) {
+                            flag = false;
                         } else {
-                            $(".hours").append("<div><p><b>" + 
-                            data.user[i].name + " " + data.user[i].surname + ":</b> " + 
-                            data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
-                            data.hours[i].end_time.substring(0, 5) + "</p></div>");
+                            flag = true;
+                            break;
                         }
-                        break;                        
                     }
-                    
-                    
+
+                    if(flag) {
+                        $(".hours").append("<div><p><b>" + 
+                        data.user[i].name + " " + data.user[i].surname + ":</b> " + 
+                        data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
+                        data.hours[i].end_time.substring(0, 5) + "</p></div>");
+                    } else {
+                        $(".hours").append("<div><p><b>" + 
+                        data.user[i].name + " " + data.user[i].surname + ":</b> " + 
+                        data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
+                        data.hours[i].end_time.substring(0, 5) + "<span>" +
+                        "<img src='" + image_url + "' class='add_event' id='" + data.hours[i].id + "'></span></p></div>");
+                    }                  
                 }
             } else {
                 $(".hours").append("<p>Ainda não há horários de dúvidas disponíveis.</p>");
@@ -126,6 +124,7 @@ function addEvent(hours_id) {
         },
         url: base_url + "api/addEvent/" + hours_id,
         success: function(data) {
+            console.log(data)
             $("#message_hour_s").fadeTo(2000, 1);
             setTimeout(function() {
                 $("#message_hour_s").fadeTo(2000, 0);

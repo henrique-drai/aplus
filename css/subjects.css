@@ -147,7 +147,8 @@ select, textarea {
 ////////////////////////////////////////////////////////////// */
 
 .hours div {
-    display:inline-block;
+    display: inline-block;
+    margin-right: 5%;
 }
 
 .add_event {

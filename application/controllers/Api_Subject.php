@@ -77,16 +77,17 @@ class Api_Subject extends REST_Controller {
     public function insertEvent_post($hour_id) {
         $user_id = $this->verify_request()->id;
 
-        $daysOfWeek = array("", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "");
+        $daysOfWeek = array("", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "");
+        $days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
 
         $data["hour"] = $this->EventModel->getHorarioDuvidasById($hour_id);
 
         if(count($data["hour"]) > 0) {
             $data["user"] = $this->UserModel->getUserById($data["hour"]->id_prof);
 
-            $daysToGo = array_search($data["hour"]->day, $daysOfWeek) + 1;
+            $daysToGo = array_search($data["hour"]->day, $daysOfWeek);
             $currentDay = date("Y-m-d");
-            $newDate = date("Y-m-d", strtotime('+' . (8 - $daysToGo) . ' days'));
+            $newDate = date("Y-m-d", strtotime('next ' . $days[$daysToGo]));
             $startTime = $newDate . " " . $data["hour"]->start_time;
             $endTime = $newDate . " " . $data["hour"]->end_time;
 

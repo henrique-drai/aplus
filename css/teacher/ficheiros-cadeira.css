@@ -1,0 +1,9 @@
+#file-row-teacher p:first-child {
+    width: 95%;
+    
+}
+
+#file-row-teacher p:nth-child(2) {
+    width: 5%;
+}
+

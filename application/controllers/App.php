@@ -160,7 +160,7 @@ class App extends CI_Controller {
         $this->load->view('templates/head', $data);
         //escolher que página deve ser mostrada
         switch ($this->session->userdata('role')) {
-            case 'student': $this->load->view('student/ficheiros', $data); break;
+            case 'student': $this->load->view('student/ficheiros-grupo', $data); break;
         }
         $this->load->view('templates/footer');
     }

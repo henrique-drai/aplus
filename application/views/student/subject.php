@@ -18,7 +18,8 @@
                     <div class="header">
                         <h2>Sumário da Unidade Curricular</h2>
                     </div>
-                    <div class="summary"></div>~
+                    <div class="summary"></div>
+                    <input type="button" class="filearea-button" value="Área de ficheiros">
                 </div>
 
                 <br>

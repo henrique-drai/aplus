@@ -129,6 +129,10 @@ $(document).ready(() => {
         window.location = base_url + "subjects/students/" + localStorage.cadeira_code + "/" + ano;
     })
 
+    $("body").on("click", ".filearea-button", function() {
+        window.location = base_url + "subjects/ficheiros/" + localStorage.cadeira_code + "/" + ano;
+    })
+
     $("body").on("click", ".newProject_button", function() {
         window.location = base_url + "projects/new/" + localStorage.cadeira_code + "/" + ano;
     })

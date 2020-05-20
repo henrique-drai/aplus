@@ -203,7 +203,7 @@ function makeEtapaDiv(data){
         }
 
         array_etapa.push('<div class="etapasDIV" id="etapa' + json["id"] +'"><p><b>'+json["nome"]+'</b></p>'+
-        '<p class="'+pClass+'">'+ date.toLocaleString('en-GB', {hour: '2-digit', minute:'2-digit', year: 'numeric', month: 'numeric', day: 'numeric'}) +'</p>'+
+        '<p class="'+pClass+'">'+ dateFormatter(date) +'</p>'+
         '<p><input class="moreButton" id='+json["id"] +' type="button" value="Ver Mais"></input></p>' +
         '</div><hr>');
 
@@ -243,13 +243,6 @@ function makeEtapaDiv(data){
     })
 }
 
-// /////////////////////////////////////////////////////////
-// 
-// 
-//     Possiveis funcoes repetidas do project.js dos profs
-// 
-// 
-// ////////////////////////////////////////////////////////
 
 function checkEntrega(){
     setTimeout(function(){

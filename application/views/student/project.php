@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
+<script src="<?php echo $base_url; ?>js/project/project-global.js"></script>
 <script src="<?php echo $base_url; ?>js/student/project.js"></script>
 <script src="<?php echo $base_url; ?>js/student/criarGrupos.js"></script>
 <script>setEnunciado("<?php echo addslashes($project[0]["enunciado_url"]); ?>")</script>

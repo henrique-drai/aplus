@@ -691,7 +691,7 @@ function makeEtapaTable(data){
         }
 
         array_etapa.push('<div class="etapasDIV" id="etapa' + json["id"] +'"><p><b>'+json["nome"]+'</b></p>'+
-        '<p class="'+pClass+'">'+ date.toLocaleString('en-GB', {hour: '2-digit', minute:'2-digit', year: 'numeric', month: 'numeric', day: 'numeric'}) +'</p>'+
+        '<p class="'+pClass+'">'+ dateFormatter(date) +'</p>'+
         '<p><input class="moreInfoButtons" id="'+json["id"] +'" type="button" value="Opções"></input></p>' +
         '</div><hr>');
 

@@ -6,6 +6,9 @@ $(document).ready(() => {
     getColleges();
 
     $("#collegesDisplay").change(function(){
+        $("#coursesDisplay").remove()
+        $("#exportInfo2").remove()
+
         if($(this).val()!="Selecione uma Faculdade"){
 
             $("#yearsDisplay").change(function(){
@@ -14,8 +17,13 @@ $(document).ready(() => {
                     $("#exportInfo2").remove()
                     getCursosFaculdade($("#yearsDisplay").val(), $("#collegesDisplay").val());
                 }
-            }) ; 
+            }) ;
+            
+            if($("#yearsDisplay").val()!="Selecione um Ano Letivo"){
+                getCursosFaculdade($("#yearsDisplay").val(), $("#collegesDisplay").val());
+            }  
         }
+
     }) ;
 
 
@@ -117,9 +125,6 @@ $(document).ready(() => {
         })
        
     })
-
-
-
 
 
 })

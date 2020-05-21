@@ -27,6 +27,7 @@
                     <div class="message" id="message1">Editado com sucesso!</div>
 
                     <input type="button" class="studentsList_button" value="Lista de Alunos"> 
+                    <input type="button" class="filearea-button" value="Área de ficheiros">
                 </div>
 
                 <div class="item2">

@@ -32,7 +32,7 @@ $(document).ready(() => {
 
         // verificação de data - se a data de entrega da etapa ja tiver sido passada esconder o botao
         // data entrega
-        var data_entrega = $(this).parent().parent().find("p:nth-child(2)").text().split(",")
+        var data_entrega = $(this).parent().parent().find("p:nth-child(2)").text().split(" ")
         var dsplit = data_entrega[0].split("/");
         var time_entrega = data_entrega[1].split(":");
 

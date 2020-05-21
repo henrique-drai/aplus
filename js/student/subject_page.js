@@ -5,6 +5,9 @@ $(document).ready(() => {
     insertLoggedDate(localStorage.cadeira_id);
     getInfo();
 
+    var link = location.href.split(localStorage.cadeira_code);
+    var ano = link[1].replace("/","");
+
     $("body").on("click", ".project_button", function() {
         window.location = base_url + "projects/project/" + $(this).attr("id");
     })
@@ -20,6 +23,11 @@ $(document).ready(() => {
         $("#" + hour_id + ".add_event").hide();
         addEvent(hour_id);
     })
+
+    $("body").on("click", ".filearea-button", function() {
+        window.location = base_url + "subjects/ficheiros/" + localStorage.cadeira_code + "/" + ano;
+    })
+
     
 });
 

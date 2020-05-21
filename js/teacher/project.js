@@ -321,9 +321,9 @@ $(document).ready(() => {
 
     //remover enunciado etapa
     $('body').on('click', '#removeEnunciado', function(e) {
-        console.log("asd");
         etapa_clear_enunciado();
         getEtapas(proj);
+        $("#"+selected_etapa).css("background-color", "#3e5d4f");
     })
 
     //remover enunciado projeto

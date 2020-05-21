@@ -216,3 +216,7 @@ input[type="range"]::-webkit-slider-thumb:active {
     padding: 1.25rem;
     width: 20%;
 }
+
+.noGroups {
+    margin-top: 3%;
+}

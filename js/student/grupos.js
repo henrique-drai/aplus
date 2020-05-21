@@ -49,8 +49,6 @@ function getAll(user_id, status){
                         + "<div id='subject'>" + data.subjName[i] + "</div>"
                         + "<div id='project'>" + data.info[i][0].nome   + "</div>"
                         + "<div id='statusOff'>Terminado</div>"         
-                                                
-                        
                     }
 
                     else if(status == "ongoing" && new Date(data.deadline[i])>=Date.now()){
@@ -74,6 +72,9 @@ function getAll(user_id, status){
                         else{
                             grupos+= "<div id='statusOn'>Em Curso</div>"                            
                         }
+                    }
+                    else{
+                        grupos+="<div class='noGroups'> Não existem grupos"
                     }
                    
                     grupos+= "</div>";

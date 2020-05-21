@@ -89,6 +89,7 @@ class Api_User extends REST_Controller {
         $this->load->model('UserModel');
         
         $user = $this->UserModel->getUserById(intval($user_id));
+        
         $data = Array(
             "id" => $user_id,
             "email" => $user->email,

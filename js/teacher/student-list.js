@@ -18,9 +18,6 @@ $(document).ready(() => {
 function showCourseStudents() {
 	$.ajax({
 		type: "GET",
-		headers: {
-			"Authorization": localStorage.token
-		},
 		url: base_url + "api/getCourseStudents/" + localStorage.cadeira_id,
 		success: function (data) {
 			var linhas = [];
@@ -56,7 +53,6 @@ function showCourseStudents() {
 function getSearchStudent(query){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getSearchStudentCourse",
         data: {query: query, cadeira_id: localStorage.cadeira_id},
         success: function(data){

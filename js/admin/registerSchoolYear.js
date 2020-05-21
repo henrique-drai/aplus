@@ -38,7 +38,6 @@ $(document).ready(() => {
 function deleteSchoolYear(linha){
     $.ajax({
         type: "DELETE",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/deleteSchoolYear",
         data: {inicio: linha.find("td:eq(0)").text()},
         success: function() {
@@ -56,7 +55,6 @@ function deleteSchoolYear(linha){
 function getAllSchoolYears(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllSchoolYears",
         success: function(data) {
             makeYearTable(data["schoolYears"])
@@ -164,7 +162,6 @@ function submitNewDate(){
     
     $.ajax({
         type: "POST",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/registerSchoolYear",
         data: data,
         success: function(data) {

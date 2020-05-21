@@ -115,9 +115,6 @@ function showMyGroup(proj_id){
     // é depois necessário verificar com o token
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getMyGroupInProj/" + proj_id,
         data: {proj_id: proj_id},
         success: function(data) {
@@ -154,9 +151,6 @@ function showMyGroup(proj_id){
 function showNotFullGroups(proj_id){
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/showNotFullGroup/" + proj_id,
         data: {proj_id: proj_id},
         success: function(data) {
@@ -206,9 +200,6 @@ function getEtapas(proj_id){
 
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getAllEtapas/" + proj_id,
         data: data_proj,
         success: function(data) {
@@ -348,9 +339,6 @@ function submit_etapa(file_name){
 
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/submitEtapa",
         data: data,
         success: function(data) {
@@ -373,9 +361,6 @@ function checkSubmission(grupo, etapa, proj){
 
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getSub",
         data: data,
         success: function(data) {

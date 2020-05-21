@@ -14,6 +14,7 @@ class Api_College extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->verify_request();
     }
 
   
@@ -22,8 +23,7 @@ class Api_College extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
 
-    public function registerCollege_post(){
-        $this->verify_request();
+    public function registerCollege_post(){ 
         $data = Array(
             "name" => $this->post('nomefaculdade'),
             "location"   => $this->post('morada'),
@@ -40,8 +40,7 @@ class Api_College extends REST_Controller {
     //                           GET
     //////////////////////////////////////////////////////////////
 
-    public function getAllColleges_get(){
-        $this->verify_request();
+    public function getAllColleges_get(){ 
         $this->load->model('CollegeModel');
         $data["colleges"] = $this->CollegeModel->getColleges();
         
@@ -54,7 +53,6 @@ class Api_College extends REST_Controller {
 
 
     public function deleteCollege_delete(){
-        $this->verify_request();
         $siglas = $this->delete('siglas');
         $this->load->model('CollegeModel');
         $this->CollegeModel->deleteCollege($siglas);
@@ -68,7 +66,7 @@ class Api_College extends REST_Controller {
     {
         if(is_null($this->session->userdata('role'))){
             $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
-            return null;
+            exit();
         }
     }
 }

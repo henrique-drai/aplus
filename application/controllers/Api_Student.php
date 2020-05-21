@@ -14,6 +14,7 @@ class Api_Student extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->verify_request();
         $this->load->model('TasksModel');
     }
 
@@ -38,9 +39,7 @@ class Api_Student extends REST_Controller {
     }
 
 
-    public function getSearchStudent_get(){
-        $this->verify_request();
-
+    public function getSearchStudent_get(){ 
         $query = '';
         $this->load->model('UserModel');
         if($this->get("query")){
@@ -59,9 +58,7 @@ class Api_Student extends REST_Controller {
 
     // TAREFAS - GRUPO 
 
-    public function getAllTasks_get($grupo_id) {
-        $this->verify_request();
-
+    public function getAllTasks_get($grupo_id) { 
         $this->load->model('TasksModel');
         $data["tarefas"] = $this->TasksModel->getTarefas($grupo_id);
         
@@ -80,9 +77,7 @@ class Api_Student extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
 
-    public function getMyGroups_get(){
-        $this->verify_request();
-
+    public function getMyGroups_get(){ 
         $this->load->model('GroupModel');
         $this->load->model('ProjectModel');
         $this->load->model('SubjectModel');
@@ -123,7 +118,7 @@ class Api_Student extends REST_Controller {
     {
         if(is_null($this->session->userdata('role'))){
             $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
-            return null;
+            exit();
         }
     }
 }

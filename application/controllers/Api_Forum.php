@@ -14,6 +14,7 @@ class Api_Forum extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->verify_request();
         $this->load->model('ForumModel');
         $this->load->model("UserModel");
     }
@@ -65,7 +66,7 @@ class Api_Forum extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function getForumById_get($forum_id) {
-        $user_id = $this->verify_request()->id;
+        $user_id = $this->session->userdata('id');
         $data["info"] = $this->ForumModel->getForumByID($forum_id);
         $data["user"] = $this->UserModel->getUserById($user_id);
 
@@ -73,7 +74,6 @@ class Api_Forum extends REST_Controller {
     }
 
     public function getThreadsByForumId_get($forum_id) {
-        $this->verify_request();
         $data["threads"] = $this->ForumModel->getThreadsByForumId($forum_id);
         $data["criadores"] = array();
         for($i=0; $i < count($data["threads"]); $i++) {
@@ -84,7 +84,6 @@ class Api_Forum extends REST_Controller {
     }
 
     public function getForum_get() {
-        $this->verify_request();
         $cadeira_id = $this->get("cadeira_id");
         $data = $this->ForumModel->getForumByCadeiraID($cadeira_id);
 
@@ -92,7 +91,7 @@ class Api_Forum extends REST_Controller {
     }
 
     public function getThreadById_get($thread_id) {
-        $user_id = $this->verify_request()->id;
+        $user_id = $this->session->userdata('id');
         $data["info"] = $this->ForumModel->getThreadByID($thread_id);
         $data["posts"] = $this->ForumModel->getThreadPosts($thread_id);
         $data["user"] = $this->UserModel->getUserById($user_id);
@@ -109,13 +108,11 @@ class Api_Forum extends REST_Controller {
     //                         DELETE
     //////////////////////////////////////////////////////////////
 
-    public function removeForum_delete($forum_id) {
-        $this->verify_request();
+    public function removeForum_delete($forum_id) { 
         $this->ForumModel->removeForum($forum_id);
     }
 
-    public function removePost_delete($post_id) {
-        $this->verify_request();
+    public function removePost_delete($post_id) { 
         $this->ForumModel->removePost($post_id);
     }
 
@@ -128,7 +125,7 @@ class Api_Forum extends REST_Controller {
     {
         if(is_null($this->session->userdata('role'))){
             $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
-            return null;
+            exit();
         }
     }
 }

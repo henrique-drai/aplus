@@ -9,7 +9,6 @@ $(document).ready(()=>{
 function updateNotificationPage(){
   $.ajax({
     type: "GET",
-    headers: {"Authorization": localStorage.token},
     url: base_url + "api/notifications/all",
     success: function(data) {
       $('#all_noti-outter').pagination({
@@ -41,7 +40,6 @@ function renderNotificationPage(notifications){
   async function notificationDelete(id, callback=null){
     $.ajax({
       type: "DELETE",
-      headers: {"Authorization": localStorage.token},
       url: base_url + "api/notification/" + id,
       success: function(data) {
         console.log(data)
@@ -57,7 +55,6 @@ function renderNotificationPage(notifications){
   async function notificationSeen(id, callback=null){
     $.ajax({
       type: "POST",
-      headers: {"Authorization": localStorage.token},
       url: base_url + "api/notification/" + id,
       success: function(data) {
         console.log(data)

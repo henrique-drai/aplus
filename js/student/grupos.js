@@ -27,9 +27,6 @@ $(document).ready(() => {
 function getAll(user_id, status){
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getMyGroups",
         data: {id: user_id},
         success: function(data) {

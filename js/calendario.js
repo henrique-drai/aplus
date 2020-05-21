@@ -83,7 +83,6 @@ function renderCalendario(){
 function updateCalendario(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/calendario",
         success: function(data) {
             setCalendario(data)
@@ -249,7 +248,6 @@ function eventOnClickCalendario(){
 function ajaxDeleteEventById(event_id){
     $.ajax({
         type: "DELETE",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/event/" + event_id,
         success: function(data) {
             //console.log(data)
@@ -266,7 +264,6 @@ function ajaxDeleteEventById(event_id){
 function ajaxNotGoing(event_id){
     $.ajax({
         type: "DELETE",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/event/going/" + event_id,
         success: function(data) {
             //console.log(data)

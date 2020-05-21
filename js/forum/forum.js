@@ -44,9 +44,6 @@ $(document).ready(() => {
     $("body").on('click', '#confirmRemove', function(){    
         $.ajax({
             type: "DELETE",
-            headers: {
-                "Authorization": localStorage.token
-            },
             url: base_url + "api/removeForum/" + localStorage.forum_id,
             success: function(data) {
                 console.log("ok");
@@ -77,9 +74,6 @@ function makePopup(butID, msg){
 function getInfo(id) {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getForumById/" + id,
         success: function(data) {
             $(".forumName").empty();
@@ -113,9 +107,6 @@ function getInfo(id) {
 function getThreads() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getAllByForumId/" + localStorage.forum_id,
         success: function(data) {
             $(".threadTable").empty();
@@ -144,9 +135,6 @@ function getThreads() {
 function insertThread(name, desc) {
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/insertThread",
         data: {
             forum_id: localStorage.forum_id,

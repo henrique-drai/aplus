@@ -60,7 +60,6 @@ function renderAgenda(){
 function updateAgenda(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/agenda",
         success: function(data) {
             setAgenda(data)

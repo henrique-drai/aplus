@@ -16,7 +16,7 @@ class Api_Year extends REST_Controller {
         parent::__construct();
         $this->load->model("YearModel");
         $this->load->model('UserModel');
-
+        $this->verify_request();
     }
 
 
@@ -24,8 +24,7 @@ class Api_Year extends REST_Controller {
     //                           POST
     //////////////////////////////////////////////////////////////
 
-    public function registerSchoolYear_post(){
-        $this->verify_request();
+    public function registerSchoolYear_post(){ 
         $data = Array(
             "inicio"   => $this->post('inicio'),
             "fim"   => $this->post('fim'),
@@ -41,8 +40,7 @@ class Api_Year extends REST_Controller {
     //                           GET
     //////////////////////////////////////////////////////////////
 
-    public function getAllSchoolYears_get(){
-        $this->verify_request();
+    public function getAllSchoolYears_get(){ 
         $auth = $this->session->userdata('id');
 
         $user = $this->UserModel->getUserById($auth);
@@ -61,8 +59,7 @@ class Api_Year extends REST_Controller {
     //                         DELETE
     //////////////////////////////////////////////////////////////
 
-    public function deleteSchoolYear_delete(){
-        $this->verify_request();
+    public function deleteSchoolYear_delete(){ 
         $auth = $this->session->userdata('id');
 
         $user = $this->UserModel->getUserById($auth);

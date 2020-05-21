@@ -15,7 +15,7 @@ class Api_Course extends REST_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('UserModel');
-
+        $this->verify_request();
     }
 
     
@@ -23,8 +23,7 @@ class Api_Course extends REST_Controller {
     //                           POST
     //////////////////////////////////////////////////////////////
 
-    public function editCourse_post(){
-        $this->verify_request();
+    public function editCourse_post(){ 
         // FALTA REVEREM A PRIVACIDADE
         $this->load->model("CourseModel");
         $this->load->model("YearModel");
@@ -42,8 +41,7 @@ class Api_Course extends REST_Controller {
         $this->CourseModel->editCourse($data);
     }
 
-    public function registerCurso_post(){
-        $this->verify_request();
+    public function registerCurso_post(){ 
         // FALTA REVEREM A PRIVACIDADE
         $this -> load -> model('CourseModel');
        
@@ -64,8 +62,7 @@ class Api_Course extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
 
-    public function getAllCollegesYearCourses_get(){
-        $this->verify_request();
+    public function getAllCollegesYearCourses_get(){ 
         $auth = $this->session->userdata('id');
 
         $user = $this->UserModel->getUserById($auth);
@@ -82,8 +79,7 @@ class Api_Course extends REST_Controller {
     }
 
     
-    public function getAllCollegesCourses_get(){
-        $this->verify_request();
+    public function getAllCollegesCourses_get(){ 
         $auth = $this->session->userdata('id');
 
         $user = $this->UserModel->getUserById($auth);
@@ -114,8 +110,7 @@ class Api_Course extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function getAllCoursesByYear_get(){
-        $this->verify_request();
+    public function getAllCoursesByYear_get(){ 
         $auth = $this->session->userdata('id');
 
         $user = $this->UserModel->getUserById($auth);
@@ -131,8 +126,7 @@ class Api_Course extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function getAllCourses_get(){
-        $this->verify_request();
+    public function getAllCourses_get(){ 
         $auth = $this->session->userdata('id');
 
         $user = $this->UserModel->getUserById($auth);
@@ -161,8 +155,7 @@ class Api_Course extends REST_Controller {
     //                      DELETE
     //////////////////////////////////////////////////////////////
 
-    public function deleteCourse_delete(){
-        $this->verify_request();
+    public function deleteCourse_delete(){ 
         $auth = $this->session->userdata('id');
 
         $user = $this->UserModel->getUserById($auth);
@@ -189,7 +182,7 @@ class Api_Course extends REST_Controller {
     {
         if(is_null($this->session->userdata('role'))){
             $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
-            return null;
+            exit();
         }
     }
 }

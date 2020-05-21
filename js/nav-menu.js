@@ -38,7 +38,6 @@ function toggleMenu(){
 function endSession(){
     $.ajax({
         type: "POST",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/logout",
         success: function(data) {
             localStorage.removeItem("token")
@@ -54,7 +53,6 @@ function endSession(){
 function updateNavMenuData(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/user",
         success: function(data) {
             const obj = JSON.parse(data)
@@ -69,7 +67,6 @@ function updateNavMenuData(){
 function updateNotifications(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/notifications/new",
         success: function(data) {
             if(data.length)
@@ -90,7 +87,6 @@ function renderNotifications(notifications){
     async function notificationSeen(id, callback=null){
         $.ajax({
           type: "POST",
-          headers: {"Authorization": localStorage.token},
           url: base_url + "api/notification/" + id,
           success: function(data) {
             console.log(data)

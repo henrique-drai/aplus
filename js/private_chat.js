@@ -17,7 +17,6 @@ function getSearchTeaStu(query){
     console.log(query)
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getSearchTeaStu",
         data: {query: query},
         success: function(data){

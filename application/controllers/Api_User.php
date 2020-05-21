@@ -15,7 +15,7 @@ class Api_User extends REST_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('UserModel');
-
+        $this->verify_request();
     }
 
 
@@ -27,8 +27,7 @@ class Api_User extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     
-    public function user_post(){
-        $this->verify_request();
+    public function user_post(){ 
         $data = Array(
             "id" => $this->session->userdata('id'),
             "name" => $this->post('name'),
@@ -45,8 +44,7 @@ class Api_User extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function registerUser_post(){
-        $this->verify_request();
+    public function registerUser_post(){ 
         $email = $this->post('email');
 
         $data = Array(
@@ -63,8 +61,7 @@ class Api_User extends REST_Controller {
         $this->response(json_encode($retrieved), parent::HTTP_OK);
     }
 
-    public function editUser_post(){
-        $this->verify_request();
+    public function editUser_post(){ 
         $email = $this->post('oldemail');
         $data = Array(
             "name"      => $this->post('name'),
@@ -83,8 +80,7 @@ class Api_User extends REST_Controller {
     //                           GET
     //////////////////////////////////////////////////////////////
 
-    public function user_get() {
-        $this->verify_request();
+    public function user_get() { 
         $user_id = $this->session->userdata('id');
 
         $this->load->model('UserModel');
@@ -103,8 +99,7 @@ class Api_User extends REST_Controller {
     }
 
     
-    public function getSearchStudentTeachers_get(){
-        $this->verify_request();
+    public function getSearchStudentTeachers_get(){ 
         $query = '';
         $this->load->model('UserModel');
         if($this->get("query")){
@@ -128,9 +123,7 @@ class Api_User extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
 
-    public function deleteUser_delete(){
-        $this->verify_request();
-
+    public function deleteUser_delete(){ 
         $auth = $this->session->userdata('id');
 
         $user = $this->UserModel->getUserById($auth->id);

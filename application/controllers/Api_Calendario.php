@@ -14,10 +14,10 @@ class Api_Calendario extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->verify_request();
     }
 
     public function calendario_get() {
-        $this->verify_request();
         $user_id = $this->session->userdata('id');
 
         $this->load->model('UserModel');
@@ -63,8 +63,6 @@ class Api_Calendario extends REST_Controller {
     }
 
     public function agenda_get() {
-        $this->verify_request();
-
         $user_id = $this->session->userdata('id');
 
         $this->load->model('UserModel');
@@ -106,7 +104,7 @@ class Api_Calendario extends REST_Controller {
     {
         if(is_null($this->session->userdata('role'))){
             $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
-            return null;
+            exit();
         }
     }
 }

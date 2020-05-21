@@ -11,9 +11,6 @@ $(document).ready(() => {
 function leaveGroup(proj_id, groupid){
     $.ajax({
         type: "DELETE",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/leaveMyGroup/" + proj_id,
         data: {grupo_id: groupid},
         success: function(data) {

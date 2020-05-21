@@ -14,6 +14,7 @@ class Api_Teacher extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->verify_request();
         $this->load->model("SubjectModel");
         $this->load->model('CourseModel');
         $this->load->model('YearModel');
@@ -33,8 +34,7 @@ class Api_Teacher extends REST_Controller {
     //                           GET
     //////////////////////////////////////////////////////////////
 
-    public function getProfHome_get($user_id = null) {
-        $this->verify_request();
+    public function getProfHome_get($user_id = null) { 
         if($user_id != $this->session->userdata('id')) {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
         }
@@ -65,8 +65,7 @@ class Api_Teacher extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
     
-    public function getSearchTeacher_get(){
-        $this->verify_request();
+    public function getSearchTeacher_get(){ 
         $query = '';
         $this->load->model('UserModel');
         if($this->get("query")){
@@ -84,8 +83,7 @@ class Api_Teacher extends REST_Controller {
 
     }
 
-    public function getAllTeachers_get(){
-        $this->verify_request();
+    public function getAllTeachers_get(){ 
         $this ->load-> model('UserModel');
         $data["teachers"] = $this ->UserModel-> getTeachers();
         $this -> response($data, parent::HTTP_OK);
@@ -107,7 +105,7 @@ class Api_Teacher extends REST_Controller {
     {
         if(is_null($this->session->userdata('role'))){
             $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
-            return null;
+            exit();
         }
     }
 }

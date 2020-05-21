@@ -11,9 +11,6 @@ $(document).ready(() => {
 function loadHome() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getCadeirasOrder/" + localStorage.user_id + "/" + user_role,
         success: function(data) {
             console.log(data)

@@ -6,9 +6,6 @@ $(document).ready(() => {
 function loadAdminHome() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getAdminHome",
         success: function(data) {
             $("#hook-num_teachers").text(data.num_teachers)

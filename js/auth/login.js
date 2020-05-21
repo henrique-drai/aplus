@@ -16,7 +16,6 @@ function submitLogin(){
         data: data,
         success: function(data) {
             console.log(data)
-            localStorage.setItem("token", data.token)
             localStorage.setItem("user_id", data.id)
             window.location.href = base_url + "app/"
         },

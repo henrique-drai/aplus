@@ -13,12 +13,11 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 class Api_Event extends REST_Controller {
 
     public function __construct() {
-      
+      $this->verify_request();
       parent::__construct();
     }
 
-    public function event_delete($event_id) {
-      $this->verify_request();
+    public function event_delete($event_id) { 
       $user_id = $this->session->userdata('id');
 
       $this->load->model('EventModel');
@@ -30,8 +29,7 @@ class Api_Event extends REST_Controller {
       $this->response(array(), parent::HTTP_OK);
     }
 
-    public function going_delete($event_id) {
-      $this->verify_request();
+    public function going_delete($event_id) { 
       $user_id = $this->session->userdata('id');
 
       $this->load->model('EventModel');
@@ -54,7 +52,7 @@ class Api_Event extends REST_Controller {
     {
         if(is_null($this->session->userdata('role'))){
             $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
-            return null;
+            exit();
         }
     }
 }

@@ -5,6 +5,9 @@ $(document).ready(() => {
     insertLoggedDate(localStorage.cadeira_id);
     getInfo();
 
+    var link = location.href.split(localStorage.cadeira_code);
+    var ano = link[1].replace("/","");
+
     $("body").on("click", ".project_button", function() {
         window.location = base_url + "projects/project/" + $(this).attr("id");
     })
@@ -16,8 +19,15 @@ $(document).ready(() => {
 
     $("body").on("click", ".add_event", function() {
         var hour_id = $(this).attr("id");
+        localStorage.setItem("hour_" + hour_id, hour_id);
+        $("#" + hour_id + ".add_event").hide();
         addEvent(hour_id);
     })
+
+    $("body").on("click", ".filearea-button", function() {
+        window.location = base_url + "subjects/ficheiros/" + localStorage.cadeira_code + "/" + ano;
+    })
+
     
 });
 
@@ -38,6 +48,7 @@ function getInfo() {
             "Authorization": localStorage.token
         },
         url: base_url + "api/getCadeira/" + id,
+        data: {user_id: localStorage.user_id},
         success: function(data) {
             console.log(data)
 
@@ -76,14 +87,32 @@ function getInfo() {
                 }  
             }
 
+            var image_url = base_url + "images/icons/add_event.png";
             $(".hours").empty();
             if(data['hours'].length != 0) {
                 for(var i=0; i < data['user'].length; i++) {
-                    $(".hours").append("<div><p><b>" + 
-                    data.user[i].name + " " + data.user[i].surname + ":</b> " + 
-                    data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
-                    data.hours[i].end_time.substring(0, 5) + "</p>" +
-                    "<input type='button' class='add_event' id='" + data.hours[i].id + "' value='Adicionar ao Calendário'></div>");
+                    var flag = false;
+                    for(var j=0; j < data['evento'].length; j++) {
+                        if(data['evento'][j][0].horario_id != data.hours[i].id) {
+                            flag = false;
+                        } else {
+                            flag = true;
+                            break;
+                        }
+                    }
+
+                    if(flag) {
+                        $(".hours").append("<div><p><b>" + 
+                        data.user[i].name + " " + data.user[i].surname + ":</b> " + 
+                        data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
+                        data.hours[i].end_time.substring(0, 5) + "</p></div>");
+                    } else {
+                        $(".hours").append("<div><p><b>" + 
+                        data.user[i].name + " " + data.user[i].surname + ":</b> " + 
+                        data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
+                        data.hours[i].end_time.substring(0, 5) + "<span>" +
+                        "<img src='" + image_url + "' class='add_event' id='" + data.hours[i].id + "'></span></p></div>");
+                    }                  
                 }
             } else {
                 $(".hours").append("<p>Ainda não há horários de dúvidas disponíveis.</p>");
@@ -104,7 +133,10 @@ function addEvent(hours_id) {
         url: base_url + "api/addEvent/" + hours_id,
         success: function(data) {
             console.log(data)
-            console.log("bacano")
+            $("#message_hour_s").fadeTo(2000, 1);
+            setTimeout(function() {
+                $("#message_hour_s").fadeTo(2000, 0);
+            }, 2000);
         },
         error: function(data) {
             console.log(data)

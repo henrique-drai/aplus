@@ -52,8 +52,9 @@ function getCadeirasLastLogged() {
         headers: {
             "Authorization": localStorage.token
         },
-        url: base_url + "api/getCadeirasOrder/" + localStorage.user_id + "/student",
+        url: base_url + "api/getCadeirasOrder/" + localStorage.user_id + "/" + user_role,
         success: function(data) {
+            console.log(data)
             $(".semestre1").empty();
             $(".semestre2").empty();
 
@@ -105,13 +106,13 @@ function semester(n, data) {
                 $(".semestre1").append("<a id='" + data.info[i][0].code + "' href='" + url +
                 "'><div class='card_info'><div class='color' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
                 "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +
-                "<div id='title'>Tecnologias de Informação</div><div>" + data.info[i][0].code + ": " +
+                "<div id='title'>" + data.curso[i].name + "</div><div>" + data.info[i][0].code + ": " +
                 data.info[i][0].name + "</div></div></div></a>");
             } else {
                 $(".semestre2").append("<a id='" + data.info[i][0].code + "' href='" + url + 
                 "'><div class='card_info'><div class='color' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
                 "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +
-                "<div id='title'>Tecnologias de Informação</div><div>" + data.info[i][0].code + ": " +
+                "<div id='title'>" + data.curso[i].name + "</div><div>" + data.info[i][0].code + ": " +
                 data.info[i][0].name + "</div></div></div></a>");
             }   
         } else {
@@ -119,13 +120,13 @@ function semester(n, data) {
                 $(".semestre1").append("<a id='" + data.info[i][0].code + "' href='" + url +
                 "'><div class='card_info'><div class='color' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
                 "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +
-                "<div id='title'>Tecnologias de Informação</div><div>" + data.info[i][0].code + ": " +
+                "<div id='title'>" + data.curso[i].name + "</div><div>" + data.info[i][0].code + ": " +
                 data.info[i][0].name + "</div></div></div></a>");
             } else {
                 $(".semestre2").append("<a id='" + data.info[i][0].code + "' href='" + url + 
                 "'><div class='card_info'><div class='color' style='background-image: linear-gradient(to bottom, " + color + ", " + color + ")," +
                 "url(" + image_url + "); height: 69%;'></div><div class='subject'>" +
-                "<div id='title'>Tecnologias de Informação</div><div>" + data.info[i][0].code + ": " +
+                "<div id='title'>" + data.curso[i].name + "</div><div>" + data.info[i][0].code + ": " +
                 data.info[i][0].name + "</div></div></div></a>");
             }   
         }

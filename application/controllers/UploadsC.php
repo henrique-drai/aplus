@@ -98,6 +98,19 @@ class UploadsC extends CI_Controller {
         }
     }
 
+
+    // submit de alunos para etapa
+    public function uploadFicheirosGrupo()
+    {
+        // query para verificar se user na session está associado ao grupo
+        if ( ! $this->upload->do_upload('file_submit'))
+        {
+        $error = array('error' => $this->upload->display_errors());
+        print_r($error);
+        echo "<br>Erro upload ficheiro";
+        }
+    }
+
     public function uploadProfilePic()
     {
         $user_id = $this->session->userdata('id');

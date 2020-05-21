@@ -77,16 +77,17 @@ class Api_Subject extends REST_Controller {
     public function insertEvent_post($hour_id) {
         $user_id = $this->verify_request()->id;
 
-        $daysOfWeek = array("", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "");
+        $daysOfWeek = array("", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "");
+        $days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
 
         $data["hour"] = $this->EventModel->getHorarioDuvidasById($hour_id);
 
         if(count($data["hour"]) > 0) {
             $data["user"] = $this->UserModel->getUserById($data["hour"]->id_prof);
 
-            $daysToGo = array_search($data["hour"]->day, $daysOfWeek) + 1;
+            $daysToGo = array_search($data["hour"]->day, $daysOfWeek);
             $currentDay = date("Y-m-d");
-            $newDate = date("Y-m-d", strtotime('+' . (8 - $daysToGo) . ' days'));
+            $newDate = date("Y-m-d", strtotime('next ' . $days[$daysToGo]));
             $startTime = $newDate . " " . $data["hour"]->start_time;
             $endTime = $newDate . " " . $data["hour"]->end_time;
 
@@ -96,6 +97,7 @@ class Api_Subject extends REST_Controller {
                 'name'                => "Horário de Dúvidas",
                 'description'         => "Horário de Dúvidas com o(a) professor(a) " . $data["user"]->name . " " . $data["user"]->surname,
                 'location'            => $data["user"]->gabinete,
+                'horario_id'          => $hour_id,
             );
     
             $event_id = $this->EventModel->insertEvent($dataInsert);
@@ -205,16 +207,25 @@ class Api_Subject extends REST_Controller {
     }
 
     public function getInfo_get($cadeira_id) {
-        $this->verify_request();
+        // $user_id = $this->verify_request()->id;
+
 
         $data["desc"] = $this->SubjectModel->getDescriptionById($cadeira_id);
         $data["forum"] = $this->ForumModel->getForumByCadeiraID($cadeira_id);
         $data["proj"] = $this->SubjectModel->getProj($cadeira_id);
         $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
-
+        $eventos = $this->EventModel->getStudentEvents($this->get("user_id"));
+        
         $data['user'] = array();
         for ($i=0; $i < count($data["hours"]); $i++) {
             array_push($data["user"], $this->UserModel->getUserById($data["hours"][$i]['id_prof']));
+        }
+
+        if(count($eventos) > 0) {
+            $data["evento"] = array();
+            for($i=0; $i < count($eventos); $i++) {
+                array_push($data["evento"], $this->EventModel->getEventById($eventos[$i]["evento_id"]));
+            }
         }
 
         $this->response($data, parent::HTTP_OK);
@@ -418,7 +429,10 @@ class Api_Subject extends REST_Controller {
     }
 
 
-
+    public function deleteHourById_delete() {
+        $id = $this->delete("id");
+        $this->SubjectModel->deleteHourById($id);
+    }
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

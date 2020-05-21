@@ -32,7 +32,7 @@ $(document).ready(() => {
 
         // verificação de data - se a data de entrega da etapa ja tiver sido passada esconder o botao
         // data entrega
-        var data_entrega = $(this).parent().parent().find("p:nth-child(2)").text().split(",")
+        var data_entrega = $(this).parent().parent().find("p:nth-child(2)").text().split(" ")
         var dsplit = data_entrega[0].split("/");
         var time_entrega = data_entrega[1].split(":");
 
@@ -185,7 +185,13 @@ function makeEtapaDiv(data){
     for (i=0; i<data.length; i++){
         json = data[i];
         var enunciado = json["enunciado_url"];
-        var date = new Date(json["deadline"]);
+
+
+        var d1 = json["deadline"].split(" ");
+        var date_full = d1[0].split("-");
+        var hours_full = d1[1].split(":");
+        var date = new Date(date_full[0], date_full[1]-1, date_full[2], hours_full[0], hours_full[1], hours_full[2]);
+        
         var today = new Date();
 
         var pClass = "p_up"
@@ -197,7 +203,7 @@ function makeEtapaDiv(data){
         }
 
         array_etapa.push('<div class="etapasDIV" id="etapa' + json["id"] +'"><p><b>'+json["nome"]+'</b></p>'+
-        '<p class="'+pClass+'">'+ date.toLocaleString('en-GB', {hour: '2-digit', minute:'2-digit', year: 'numeric', month: 'numeric', day: 'numeric'}) +'</p>'+
+        '<p class="'+pClass+'">'+ dateFormatter(date) +'</p>'+
         '<p><input class="moreButton" id='+json["id"] +' type="button" value="Ver Mais"></input></p>' +
         '</div><hr>');
 
@@ -237,13 +243,6 @@ function makeEtapaDiv(data){
     })
 }
 
-// /////////////////////////////////////////////////////////
-// 
-// 
-//     Possiveis funcoes repetidas do project.js dos profs
-// 
-// 
-// ////////////////////////////////////////////////////////
 
 function checkEntrega(){
     setTimeout(function(){

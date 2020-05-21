@@ -206,4 +206,9 @@ class SubjectModel extends CI_Model { //cadeira
         $this->db->update('cadeira');
     }
 
+    public function deleteHourById($id) {
+        $this->db->where('id', $id);
+        $this->db->delete('horario_duvidas');
+    }
+
 }

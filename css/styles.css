@@ -1,19 +1,35 @@
 
+* {
+    /* Cross browser compatibility things */
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@font-face {
+    font-family: 'Poppins', sans-serif !important;
+    src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+}
+
 html, body {
     width: 100%;
     margin: 0px;
     padding: 0px;
     overflow-x: hidden;
+    /* font-size-adjust:0.5; */
 }
 body {
     display: flex;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
     background-color: #efefef;
+    height:100%;
 }
 main {
     width: calc(100% - 220px);
     padding: 3% 5%;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 input, select, textarea {
     text-align: left;
@@ -77,4 +93,10 @@ table, tr, td, th {
 h4.breadcrumb a, h4.breadcrumb{
     color: #78837e;
     text-decoration: none;
+}
+
+@-moz-document url-prefix() {
+    html {
+        font-size: 1em;
+    }
 }

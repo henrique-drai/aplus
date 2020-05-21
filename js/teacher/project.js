@@ -321,9 +321,9 @@ $(document).ready(() => {
 
     //remover enunciado etapa
     $('body').on('click', '#removeEnunciado', function(e) {
-        console.log("asd");
         etapa_clear_enunciado();
         getEtapas(proj);
+        $("#"+selected_etapa).css("background-color", "#3e5d4f");
     })
 
     //remover enunciado projeto
@@ -374,7 +374,7 @@ function strToDate(dtStr) {
     let dateParts = dtStr.split("/");
     let timeParts = dateParts[2].split(" ")[1].split(":");
     dateParts[2] = dateParts[2].split(" ")[0];
-    return dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0], timeParts[0], timeParts[1], timeParts[2]); 
+    return dateObject = new Date(dateParts[2], dateParts[1] - 1, +dateParts[0], timeParts[0], timeParts[1], timeParts[2]); 
 }
 
 //limpar os campos preenchidos
@@ -674,9 +674,14 @@ function makeEtapaTable(data){
     for (i=0; i<data.length; i++){
         json = data[i];
         var enunciado = json["enunciado_url"];
-        var date = new Date(json["deadline"]);
-        var today = new Date();
+
+        var d1 = json["deadline"].split(" ");
+        var date_full = d1[0].split("-");
+        var hours_full = d1[1].split(":");
+        var date = new Date(date_full[0], date_full[1]-1, date_full[2], hours_full[0], hours_full[1], hours_full[2]);
         
+        var today = new Date();
+
         var pClass = "p_up"
 
         if (today > date){
@@ -686,7 +691,7 @@ function makeEtapaTable(data){
         }
 
         array_etapa.push('<div class="etapasDIV" id="etapa' + json["id"] +'"><p><b>'+json["nome"]+'</b></p>'+
-        '<p class="'+pClass+'">'+ date.toLocaleString('en-GB', {hour: '2-digit', minute:'2-digit', year: 'numeric', month: 'numeric', day: 'numeric'}) +'</p>'+
+        '<p class="'+pClass+'">'+ dateFormatter(date) +'</p>'+
         '<p><input class="moreInfoButtons" id="'+json["id"] +'" type="button" value="Opções"></input></p>' +
         '</div><hr>');
 

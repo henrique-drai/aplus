@@ -9,7 +9,7 @@
 <?php $this->view('templates/nav-menu'); ?>
     <main>
         <h4 class="breadcrumb">
-            <a href="<?php echo base_url(); ?>subjects">Cadeiras</a> > 
+            <a href="<?php echo base_url(); ?>subjects">Unidades Curriculares</a> > 
             <a href="<?php echo base_url(); ?>subjects/subject/<?php echo $subject->code; ?>/<?php echo $year[0]["inicio"]; ?>"><?php echo $subject->name; ?></a> >
             <a href="<?php echo base_url(); ?>foruns/forum/<?php echo $forum->id; ?>"><?php echo $forum->name; ?></a> >
             <a href="<?php echo base_url(); ?>foruns/thread/<?php echo $thread->id; ?>"><?php echo $thread->title; ?></a>
@@ -18,8 +18,11 @@
             <h2>Tópico: <span class="threadName"></span></h2>
 
             <div>
-                <p><b>Descrição:</b> <span class="threadDesc"></span></p>
+                <p><b>Discussão:</b> <span class="threadDesc"></span></p>
             </div>
+
+            <br>
+            <h3>Publicações:</h3>
 
             <div class="message">Adicionado com sucesso!</div>
             <div id="popups"></div>

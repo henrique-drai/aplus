@@ -32,9 +32,9 @@ class ScriptModel extends CI_Model {
     return $this->db->insert_id();
   }
 
-  public function evento($start_date, $end_date, $name, $description, $location) {
+  public function evento($start_date, $end_date, $name, $description, $location, $horario = null) {
       $this->db->delete("evento", ['description' => $description]);
-      $this->db->insert("evento", Array("start_date"=> $start_date, "end_date"=>$end_date, "name"=>$name, "description"=>$description, "location"=>$location));
+      $this->db->insert("evento", Array("start_date"=> $start_date, "end_date"=>$end_date, "name"=>$name, "description"=>$description, "location"=>$location, "horario_id" => $horario));
       return $this->db->insert_id();
   }
 

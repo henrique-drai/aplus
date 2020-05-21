@@ -19,6 +19,19 @@ class SubjectModel extends CI_Model { //cadeira
 
     }
 
+    public function getSearchStudentCourse($string, $cadeira_id) {
+        $query = "select *
+                  from user
+                  left join aluno_cadeira on id = user_id
+                  where cadeira_id = ".$cadeira_id ."
+                  and (name like '" . $string . "%'
+                  or email like '" . $string . "%'
+                  or surname like '" . $string . "%')";
+        
+        $data = $this->db->query($query);
+        return $data->result_array();
+    }
+
 
     public function getSubjectByID($id) {
         $query = $this->db->get_where('cadeira', array('id' => $id));

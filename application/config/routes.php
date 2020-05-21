@@ -72,6 +72,8 @@ $route['api/getAllTasks/(:num)']                = 'Api_Student/getAllTasks/$1';
 $route['api/getProjectStatus']                  = 'Api_Project/getProjectStatus';
 $route['api/getMyGroups']                       = 'Api_Student/getMyGroups';
 
+$route['api/getSearchStudentCourse']           = 'Api_Subject/getSearchStudentCourse';
+
 
 ##ADMIN##
 

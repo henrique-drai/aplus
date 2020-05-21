@@ -1,5 +1,5 @@
 <?php
-class CourseModel extends CI_Model { //curso & curso_standard
+class CourseModel extends CI_Model { //curso & curso_standard & aluno_curso
 
     public function getCollegeYearCourses($faculdade, $ano){
         $query = $this->db->get_where("curso", array('faculdade_id'=>$faculdade, "ano_letivo_id"=>$ano));
@@ -65,6 +65,11 @@ class CourseModel extends CI_Model { //curso & curso_standard
 
     public function getCoursesByYear($yearid){
         $query = $this->db->get_where("curso", array('ano_letivo_id'=>$yearid));
+        return $query->result_array();
+    }
+
+    public function getStudentsByCourse($cursoid){
+        $query = $this->db->get_where("aluno_curso", array('curso_id'=>$cursoid));
         return $query->result_array();
     }
 }

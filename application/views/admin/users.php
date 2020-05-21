@@ -49,8 +49,10 @@
             </div>
 
 
+<!-- ################################################################################################# -->
+
             <div class="admin-users-window">
-                <div class="title">Migrações</div>
+                <div class="title">Exportar</div>
                 
                 <form id="exportCsv">
                 <p>
@@ -67,6 +69,41 @@
                 </form>
 
                 <br>
+                <br>
+
+                
+                <form id="export2Csv" action="javascript:void(0)">
+
+                    <p>
+                        <label for="data">Exportar alunos:</label>
+                        
+                            <select id="collegesDisplay" name="colleges">
+                            </select>
+
+                            <br>
+
+                            <select id="yearsDisplay" name="years">
+                            </select>
+
+
+                            <div id="collegeStatus">
+                            </div>
+                    </p>
+                    
+    
+                </form>
+
+                <br>
+
+                
+            </div>
+
+
+<!-- ################################################################################################# -->
+
+            <div class="admin-users-window">
+                <div class="title">Importar</div>
+                
 
                 <form id="file-form" action="javascript:void(0)" enctype="multipart/form-data">
                     
@@ -87,6 +124,8 @@
                 <div id="importStatus">
                 </div>
             </div>
+
+            
 
         </section>
 

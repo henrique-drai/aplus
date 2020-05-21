@@ -73,9 +73,12 @@ $route['api/getAllTasks/(:num)']                = 'Api_Student/getAllTasks/$1';
 $route['api/getProjectStatus']                  = 'Api_Project/getProjectStatus';
 $route['api/getMyGroups']                       = 'Api_Student/getMyGroups';
 
+$route['api/getSearchStudentCourse']           = 'Api_Subject/getSearchStudentCourse';
+
 
 ##ADMIN##
 
+$route['api/getSearchTeaStu']                   = 'Api_User/getSearchStudentTeachers';
 $route['api/register']                          = 'Api_User/registerUser';
 $route['api/registerCollege']                   = 'Api_College/registerCollege';
 $route['api/editUser']                          = 'Api_User/editUser';
@@ -105,6 +108,7 @@ $route['api/deleteCollege']                     = 'Api_College/deleteCollege';
 $route['api/deleteSubject']                     = 'Api_Subject/deleteSubject';
 $route['api/deleteSchoolYear']                  = 'Api_Year/deleteSchoolYear';
 $route['api/deleteCourse']                      = 'Api_Course/deleteCourse';
+$route['api/exportSpecific']                    = 'Api_Admin/exportSpecific';
 
 
 #Raul#ja arrumo#dw#

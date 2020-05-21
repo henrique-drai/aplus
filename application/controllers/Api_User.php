@@ -89,6 +89,7 @@ class Api_User extends REST_Controller {
         $this->load->model('UserModel');
         
         $user = $this->UserModel->getUserById(intval($user_id));
+        
         $data = Array(
             "id" => $user_id,
             "email" => $user->email,
@@ -99,6 +100,27 @@ class Api_User extends REST_Controller {
         );
         $this->response(json_encode($data), parent::HTTP_OK);
     }
+
+    
+    public function getSearchStudentTeachers_get(){
+        $this->verify_request();
+        $query = '';
+        $this->load->model('UserModel');
+        if($this->get("query")){
+            $query = $this->get("query");
+        }
+        $resultquery = $this->UserModel->getSearchStudentTeachers($query);
+        $data["users"] = "";
+        if($resultquery -> num_rows() == 0){
+            $data["users"] = "no data"; 
+        }
+        else{
+            $data["users"] = $resultquery->result();
+        }
+        $this->response($data, parent::HTTP_OK);
+
+    }
+    
 
     //////////////////////////////////////////////////////////////
     //                           DELETE

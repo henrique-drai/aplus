@@ -41,6 +41,31 @@ class UserModel extends CI_Model {
         return $query->result_array();
     }
 
+    public function getSearchStudentTeachers($query){
+        // // // $this->db->select("*");
+        // $this->db->where('role', 'student');
+        // $this->db->or_where('role', 'teacher');
+        // if($query != ''){
+        //     $this->db->group_start();
+        //     $this->db->like("name", $query);
+        //     $this->db->or_like("surname", $query);
+        //     $this->db->group_end();
+        // }
+        // $this->db->order_by("name","ASC");
+        // return $this->db->get('user');
+        $this->db->where('role', 'student');
+        $this->db->or_where('role', 'teacher');
+        $this->db->like("name", $query);
+        return $query = $this->db->get('user');
+
+        // $qry = $this->db->select('*')
+        //             ->from('user')
+        //             ->where("column name LIKE '%$query%'")
+        //             ->get()->result(); // select data like rearch value.
+        // return $qry;
+    
+    }
+
     public function deleteUser($email){
         $query = $this->db->delete('user', array('email'=>$email));
     }

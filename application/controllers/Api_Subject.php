@@ -392,6 +392,20 @@ class Api_Subject extends REST_Controller {
 
     }
 
+    public function getSearchStudentCourse_get() {
+        $this->verify_request();
+
+        if($this->get("query")){
+            $query = $this->get("query");
+        }
+
+        $cadeira_id = $this->get("cadeira_id");
+
+        $data = $this->SubjectModel->getSearchStudentCourse($query, $cadeira_id);
+
+        $this->response($data, parent::HTTP_OK);
+    }
+
    
 
     //////////////////////////////////////////////////////////////

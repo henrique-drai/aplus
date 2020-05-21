@@ -1,13 +1,95 @@
-#students_list {
-	width: 80%;
-	text-align: center;
+#search_text_students{
+    width: 50%;
+    margin-top: 3%;
+    background-color: white;
 }
 
-#students_list th {
-	background-color: #939393;
-	padding: 15px 0px;
+.informacaoUsers{
+    margin-bottom: 3%;
 }
 
-#students_list tr:hover {
-	background-color: #ccc
+table, tr, td, th {
+    border: none !important;
+    background-color: #efefef;
+}
+
+table {
+    border: none !important;
+    border-collapse: collapse !important;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1.5px solid #a5a5a5 !important;
+}
+
+@media only screen and (max-width: 430px) {
+    .popup {
+        width: 80%;
+    }
+
+    .message {
+        width: 60%;
+        margin-top: -9%;
+        margin-left: 16%;
+        padding: 1.5%;
+    }
+
+    .threadList {
+        margin-top: 5%;
+    }
+
+    .thread_button {
+        margin-top: -4% !important;
+    }
+    
+    tr:first-child {
+        display: none;
+    }
+
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, td, tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+      margin: 0 0 1rem 0;
+      border-bottom: 1px solid #a5a5a5 !important;
+    }
+    
+    td {
+        /* Behave  like a "row" */
+        border: none !important;
+        position: relative;
+        padding-left: 50% !important;
+        height: auto;
+    }
+
+    td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 4px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    /*
+    Label the data
+You could also use a data-* attribute and content for this. That way "bloats" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.
+    */
+    td:nth-of-type(1):before { content: "Email"; font-weight: bold;}
+    td:nth-of-type(2):before { content: "Nome"; font-weight: bold;}
+    td:nth-of-type(3):before { content: "Apelido"; font-weight: bold;}
 }

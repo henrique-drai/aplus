@@ -23,15 +23,24 @@ function showCourseStudents() {
 		},
 		url: base_url + "api/getCourseStudents/" + localStorage.cadeira_id,
 		success: function (data) {
+			var linhas = [];
 			$("#students_list").empty();
-			var linhas = '<tr><th>Email</th><th>Nome</th><th>Apelido</th></tr>';
+			linhas.push('<tr><th>Email</th><th>Nome</th><th>Apelido</th></tr>');
 			if (data.users_id.length > 0) {
 				for (i = 0; i < data.users_id.length; i++) {
 		
-					linhas += '<tr class="student_row"><td>' + data.info[i][0].email + '</td><td>' + data.info[i][0].name +
-						'</td><td>' + data.info[i][0].surname;
+					linhas.push('<tr class="student_row"><td>' + data.info[i][0].email + '</td><td>' + data.info[i][0].name +
+						'</td><td>' + data.info[i][0].surname);
 				}
-				$('#students_list').append(linhas);
+
+				$('.container2').pagination({
+					dataSource: linhas,
+					pageSize: 10,
+					pageNumber: 1,
+					callback: function(data, pagination) {
+						$("#students_list").html(data);
+					}
+				})
 			} else {
 				$("#students_list").css("display", "none");
 				var mensagem = "<h4 id='mens_sem_alunos'>Não existe nenhum aluno nesta cadeira</h4>";
@@ -62,14 +71,23 @@ function getSearchStudent(query){
 }
 
 function makeStudentTable(data){
+	var linhas = [];
 	$("#students_list").empty();
-	var linhas = '<tr><th>Email</th><th>Nome</th><th>Apelido</th></tr>';
+	linhas.push('<tr><th>Email</th><th>Nome</th><th>Apelido</th></tr>');
 	if (data.length > 0) {
 		for (i = 0; i < data.length; i++) {
-			linhas += '<tr class="student_row"><td>' + data[i].email + '</td><td>' + data[i].name +
-				'</td><td>' + data[i].surname;
+			linhas.push('<tr class="student_row"><td>' + data[i].email + '</td><td>' + data[i].name +
+				'</td><td>' + data[i].surname);
 		}
-		$('#students_list').append(linhas);
+
+		$('.container2').pagination({
+			dataSource: linhas,
+			pageSize: 10,
+			pageNumber: 1,
+			callback: function(data, pagination) {
+				$("#students_list").html(data);
+			}
+		})
 	} else {
 		$("#students_list").css("display", "none");
 		var mensagem = "<h4 id='mens_sem_alunos'>Não existe nenhum aluno nesta cadeira</h4>";

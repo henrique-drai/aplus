@@ -44,9 +44,6 @@ $(document).ready(() => {
     
         $.ajax({
             type: "DELETE",
-            headers: {
-                "Authorization": localStorage.token
-            },
             url: base_url + "api/removeProject/" + proj,
             data: data,
             success: function(data) {
@@ -468,9 +465,6 @@ function submit_etapa(){
 
         $.ajax({
             type: "POST",
-            headers: {
-                "Authorization": localStorage.token
-            },
             url: base_url + "api/createEtapa",
             data: data,
             success: function(data) {
@@ -504,9 +498,6 @@ function submit_edit_etapa(){
 
         $.ajax({
             type: "POST",
-            headers: {
-                "Authorization": localStorage.token
-            },
             url: base_url + "api/editEtapa",
             data: data,
             success: function(data) {
@@ -546,9 +537,6 @@ function etapa_clear_enunciado(){
 
     $.ajax({
         type: "DELETE",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/removeEnunciadoEtapa/" + selected_etapa,
         data: data,
         success: function(data) {
@@ -573,9 +561,6 @@ function submit_new_enunciado(enunc){
 
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/editEnunciado",
         data: data,
         success: function(data) {
@@ -601,9 +586,6 @@ function submit_new_etapa_enunciado(enunc){
 
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/editEtapaEnunciado",
         data: data,
         success: function(data) {
@@ -761,9 +743,6 @@ function getEtapas(proj_id){
 
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getAllEtapas/" + proj_id,
         data: data_proj,
         success: function(data) {
@@ -779,9 +758,6 @@ function getEtapas(proj_id){
 function showGroups(proj_id) {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getAllGroups/" + proj_id,
         data: {proj_id: proj_id},
         success: function(data) {
@@ -842,9 +818,6 @@ function removeEtapa(id){
 
     $.ajax({
         type: "DELETE",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/removeEtapa/" + id,
         data: data_etapa,
         success: function(data) {
@@ -867,9 +840,6 @@ function getSumbission(grupo_id, etapa, proj){
 
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getSub",
         data: data,
         success: function(data) {
@@ -916,9 +886,6 @@ function submit_feedback(feedback, etapa, grupo_id){
 
         $.ajax({
             type: "POST",
-            headers: {
-                "Authorization": localStorage.token
-            },
             url: base_url + "api/insertFeedback",
             data: data,
             success: function(data) {
@@ -951,9 +918,6 @@ function removeEnunciadoProj(){
 
     $.ajax({
         type: "DELETE",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/removeEnunciadoProj/" + proj,
         data: data,
         success: function(data) {

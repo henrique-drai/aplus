@@ -69,9 +69,6 @@ function validateFormNumb(id){
 function checkClosedProject(){
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getProjectStatus",
         data: {grupo_id: localStorage.grupo_id},
         success: function(data) {
@@ -107,9 +104,6 @@ function checkClosedProject(){
 function createPopUpAdd() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getGroupMembers/" + localStorage.grupo_id,
         success: function(data) {
             console.log(data)
@@ -147,9 +141,6 @@ function createPopUpAdd() {
 function insertTask(taskName, taskDesc, taskMember, beginDate, endDate) {
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/insertTask",
         data: {grupo_id: localStorage.grupo_id,
                user_id: taskMember,
@@ -177,9 +168,6 @@ function insertTask(taskName, taskDesc, taskMember, beginDate, endDate) {
 function getTasks() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getTasks/" + localStorage.grupo_id,
         success: function(data) {
             console.log(data)

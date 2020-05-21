@@ -217,9 +217,6 @@ function submitProject(){
         //pedido ajax para o CI
         $.ajax({
             type: "POST",
-            headers: {
-                "Authorization": localStorage.token
-            },
             url: base_url + "api/createProject",
             data: data,
             success: function(data) {

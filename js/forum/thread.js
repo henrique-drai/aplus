@@ -36,9 +36,6 @@ $(document).ready(() => {
     $("body").on('click', '#confirmRemove', function(){    
         $.ajax({
             type: "DELETE",
-            headers: {
-                "Authorization": localStorage.token
-            },
             url: base_url + "api/removePost/" + localStorage.post_id,
             success: function(data) {
                 window.location.reload();
@@ -68,9 +65,6 @@ function makePopup(butID, msg){
 function getInfo(id) {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getThread/" + id,
         success: function(data) {
             console.log(data);
@@ -120,9 +114,6 @@ function getInfo(id) {
 function insertPost(desc) {
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/insertPost",
         data: {
             thread_id: localStorage.thread_id,

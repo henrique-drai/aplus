@@ -12,9 +12,6 @@ $(document).ready(() => {
 function insertForum(name, desc, teachers_only) {
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/insertForum",
         data: {cadeira_id: localStorage.getItem("cadeira_id"),
                name: name, 

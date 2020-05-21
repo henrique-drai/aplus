@@ -30,8 +30,7 @@ $(document).ready(() => {
     $("#exportCsv").on("submit", function(e) {
         e.preventDefault()
         $.ajax({
-            type: "GET",
-            headers: {"Authorization": localStorage.token},
+            type: "GET", 
             url: base_url + "api/saveCSV",
             data:{role:$("#exportCsv select").val()},
             success:function(data){
@@ -73,7 +72,6 @@ $(document).ready(() => {
         $.ajax({
             url: base_url + "api/importX",
             type: 'POST',
-            headers: {"Authorization": localStorage.token},
             data: formData,
             success: function (data) {
                 $("#importStatus").html("Ficheiro importado com sucesso");
@@ -98,7 +96,6 @@ $(document).ready(() => {
 
         $.ajax({
             type: "GET",
-            headers: {"Authorization": localStorage.token},
             url: base_url + "api/exportSpecific",
             data: data,
             success:function(data){
@@ -141,7 +138,6 @@ function getCursosFaculdade(ano, faculdade){
 
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllCursosFaculdadeAno",
         data: data,
         success: function(data) {
@@ -175,7 +171,6 @@ function getCursosFaculdade(ano, faculdade){
 function getColleges(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllColleges",            
         success: function(data) {
             var option = "<option class='college_row'>Selecione uma Faculdade</option>";
@@ -197,7 +192,6 @@ function getYears(){
 
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllSchoolYears",
         success: function(data) {
             var option = "<option class='years'>Selecione um Ano Letivo</option>";
@@ -225,7 +219,6 @@ function submitRegister(){
     if(data.name!=="" || data.surname!=="" || data.email!=="" || data.password!==""){
         $.ajax({
             type: "POST",
-            headers: {"Authorization": localStorage.token},
             url: base_url + "api/register",
             data: data,
             success: function(data) {

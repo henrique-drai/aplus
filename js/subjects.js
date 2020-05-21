@@ -18,9 +18,6 @@ $(document).ready(() => {
 function getCadeiras() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getCadeiras/" + localStorage.user_id + "/" + user_role,
         success: function(data) {
             $(".semestre1").empty();
@@ -49,9 +46,6 @@ function getCadeiras() {
 function getCadeirasLastLogged() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getCadeirasOrder/" + localStorage.user_id + "/" + user_role,
         success: function(data) {
             console.log(data)

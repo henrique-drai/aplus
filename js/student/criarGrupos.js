@@ -11,16 +11,17 @@ $(document).ready(() => {
 function leaveGroup(proj_id, groupid){
     $.ajax({
         type: "DELETE",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/leaveMyGroup/" + proj_id,
         data: {grupo_id: groupid},
         success: function(data) {
-            showMyGroup(proj_id);
+            // showMyGroup(proj_id);
+            location.reload();
         },
         error: function(data) {
-            console.log(data);
+            var mensagem = "<h4 id='errogrupo'>Não foi possivel sair do grupo.</h2>";
+            $(".myGroupDiv").append(mensagem);
+            $("#errogrupo").delay(2000).fadeOut();
         }
     });
 }
+

@@ -37,7 +37,6 @@ $(document).ready(() => {
 function getAllColleges(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllColleges",            
         success: function(data) {
             $("#mens_sem_faculdades").remove();
@@ -85,7 +84,6 @@ function makeCollegeTable(data){
 function deleteCollege(linha){
     $.ajax({
         type: "DELETE",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/deleteCollege",
         data: {siglas: linha.find("td:eq(2)").text()},
         success: function() {

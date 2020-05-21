@@ -90,6 +90,10 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
         $this->db->update("etapa_submit");
         return $this->db->affected_rows(); 
     }
+
+    public function getMaxElementsGroup($proj_id){
+        return $this->db->get_where("projeto", array("id" => $proj_id)) -> result_array(); 
+    }
 }
 
 

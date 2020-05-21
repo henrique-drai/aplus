@@ -180,9 +180,6 @@ function validateFormNumb(id){
 function getInfo() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getCadeira/" + id,
         success: function(data) {
             console.log(data);
@@ -245,9 +242,6 @@ function getInfo() {
 function insertText($text) {
     $.ajax({
         type: 'POST',
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/insertText",
         data: {text: $text, cadeira_id: localStorage.cadeira_id},
         success: function(data) {
@@ -265,9 +259,6 @@ function insertText($text) {
 function setHours() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getHours/" + id,
         success: function(data) {
             var count = 0;
@@ -345,9 +336,6 @@ function setHours() {
 function getHours($id) {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getHours/" + id,
         success: function(data) {
             var image_url = base_url + "images/icons/trash.png";
@@ -374,9 +362,6 @@ function getHours($id) {
 function saveHours(data) {
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/insertHours",
         data: data,
         success: function(data) {
@@ -396,9 +381,6 @@ function saveHours(data) {
 function removeHours(data) {
     $.ajax({
         type: "DELETE",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/removeHours",
         data: data,
         success: function(data) {
@@ -413,9 +395,6 @@ function removeHours(data) {
 function deleteHourById(id) {
     $.ajax({
         type: "DELETE",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/deleteHourById",
         data: {id: id},
         success: function(data) {
@@ -430,9 +409,6 @@ function deleteHourById(id) {
 function insertLoggedDate(id) {
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/insertDate/" + id + "/teacher",
         success: function(data) {
             console.log(data)

@@ -39,7 +39,6 @@ function setUserInfo(){
     return $.ajax({
         type: "GET",
         url: base_url + "api/user",
-        headers: {"Authorization": localStorage.token},
         success: function(data) {
             user_info = JSON.parse(data)
             console.log("Fetched User...")

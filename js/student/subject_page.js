@@ -44,9 +44,6 @@ function setCode(newcode){
 function getInfo() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getCadeira/" + id,
         data: {user_id: localStorage.user_id},
         success: function(data) {
@@ -131,9 +128,6 @@ function getInfo() {
 function addEvent(hours_id) {
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/addEvent/" + hours_id,
         data: {cadeira_id: localStorage.cadeira_id},
         success: function(data) {
@@ -153,9 +147,6 @@ function addEvent(hours_id) {
 function insertLoggedDate(id) {
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/insertDate/" + id + "/student",
         success: function(data) {
             console.log(data)

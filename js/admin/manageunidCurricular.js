@@ -191,7 +191,6 @@ function getAllSubjects(){
 
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllSubjects",
         success: function(data) {
 
@@ -255,7 +254,6 @@ function makeAllSubjectsTable(data){
 function getColleges(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllColleges",
         success: function(data) {
             
@@ -284,7 +282,6 @@ function getColleges(){
 function getCourses(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllCourses",
         success: function(data) {
             $("#Consultar_Cadeiras_Curso option").remove();
@@ -306,7 +303,6 @@ function getCourses(){
 function getAllYears(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllSchoolYears",
         success: function(data) {
             
@@ -329,7 +325,6 @@ function getAllYears(){
 function getSubjectsByFilters(faculdade, curso, ano){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getSubjectsByFilters",
         data: {f: faculdade,c: curso, a: ano},
         success: function(data) {
@@ -492,8 +487,7 @@ function  editSubject(){
     }
 
     $.ajax({
-        type: "POST",
-        headers: {"Authorization": localStorage.token},
+        type: "POST", 
         url: base_url + "api/editSubject",
         data: data,   
         success: function() {    
@@ -517,8 +511,7 @@ function  editSubject(){
 
 function deleteSubject(linha){
 $.ajax({
-    type: "DELETE",
-    headers: {"Authorization": localStorage.token},
+    type: "DELETE", 
     url: base_url + "api/deleteSubject",
     data: {code: linha.find("td:eq(0)").text()},
     success: function() {

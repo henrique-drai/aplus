@@ -30,15 +30,21 @@ class Api_Subject extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function insertText_post() {
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
+
         $data = Array(
             "id"    => $this->post("cadeira_id"),
             "text"  => $this->post("text"),
         );
 
-        $this->SubjectModel->insertText($data);
-
-        $this->response($data, parent::HTTP_OK);
+        if($this->verify_teacher($user_id, $data["id"], "cadeira")) {
+            $this->SubjectModel->insertText($data);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
     public function saveHours_post() {
@@ -52,9 +58,14 @@ class Api_Subject extends REST_Controller {
             'day'                 => $this->post('day'),
         );
 
-        $this->SubjectModel->saveHours($data);
-
-        $this->response($data, parent::HTTP_OK);
+        if($this->verify_teacher($user_id, $data["id_cadeira"], "cadeira")) {
+            $this->SubjectModel->saveHours($data);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
     public function registerSubject_post(){
@@ -77,43 +88,58 @@ class Api_Subject extends REST_Controller {
     public function insertEvent_post($hour_id) {
         $user_id = $this->verify_request()->id;
 
-        $daysOfWeek = array("", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "");
-        $days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-
-        $data["hour"] = $this->EventModel->getHorarioDuvidasById($hour_id);
-
-        if(count($data["hour"]) > 0) {
-            $data["user"] = $this->UserModel->getUserById($data["hour"]->id_prof);
-
-            $daysToGo = array_search($data["hour"]->day, $daysOfWeek);
-            $currentDay = date("Y-m-d");
-            $newDate = date("Y-m-d", strtotime('next ' . $days[$daysToGo]));
-            $startTime = $newDate . " " . $data["hour"]->start_time;
-            $endTime = $newDate . " " . $data["hour"]->end_time;
-
-            $dataInsert = Array (
-                'start_date'          => date("Y-m-d H:i:s", strtotime($startTime)),
-                'end_date'            => date("Y-m-d H:i:s", strtotime($endTime)),
-                'name'                => "Horário de Dúvidas",
-                'description'         => "Horário de Dúvidas com o(a) professor(a) " . $data["user"]->name . " " . $data["user"]->surname,
-                'location'            => $data["user"]->gabinete,
-                'horario_id'          => $hour_id,
-            );
+        if($this->verify_student($user_id, $this->post("cadeira_id"))) {
+            $daysOfWeek = array("", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "");
+            $days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
     
-            $event_id = $this->EventModel->insertEvent($dataInsert);
-
-            $this->EventModel->insertUserEvent(Array ("evento_id" => $event_id, "user_id" => $data["user"]->id));
-            $this->EventModel->insertUserEvent(Array ("evento_id" => $event_id, "user_id" => $user_id));
+            $data["hour"] = $this->EventModel->getHorarioDuvidasById($hour_id);
+    
+            if(count($data["hour"]) > 0) {
+                $data["user"] = $this->UserModel->getUserById($data["hour"]->id_prof);
+    
+                $daysToGo = array_search($data["hour"]->day, $daysOfWeek);
+                $currentDay = date("Y-m-d");
+                $newDate = date("Y-m-d", strtotime('next ' . $days[$daysToGo]));
+                $startTime = $newDate . " " . $data["hour"]->start_time;
+                $endTime = $newDate . " " . $data["hour"]->end_time;
+    
+                $dataInsert = Array (
+                    'start_date'          => date("Y-m-d H:i:s", strtotime($startTime)),
+                    'end_date'            => date("Y-m-d H:i:s", strtotime($endTime)),
+                    'name'                => "Horário de Dúvidas",
+                    'description'         => "Horário de Dúvidas com o(a) professor(a) " . $data["user"]->name . " " . $data["user"]->surname,
+                    'location'            => $data["user"]->gabinete,
+                    'horario_id'          => $hour_id,
+                );
+        
+                $event_id = $this->EventModel->insertEvent($dataInsert);
+    
+                $this->EventModel->insertUserEvent(Array ("evento_id" => $event_id, "user_id" => $data["user"]->id));
+                $this->EventModel->insertUserEvent(Array ("evento_id" => $event_id, "user_id" => $user_id));
+            }
+    
+            
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
         }
 
         
-        $this->response($data, parent::HTTP_OK);
     }
 
     public function insertDate_post($id, $role) {
         $user_id = $this->verify_request()->id;
 
-        $this->SubjectModel->insertDate($id, $user_id, $role);
+        if($this->verify_student($user_id, $id)) {
+            $this->SubjectModel->insertDate($id, $user_id, $role);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+        
     }
 
     public function editSubject_post(){
@@ -475,5 +501,65 @@ class Api_Subject extends REST_Controller {
             $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
             $this->response($response, $status);
         }
+    }
+
+    private function verify_teacher($user_id, $variable, $mode){
+
+        if ($mode == "projeto"){
+            $projeto = $this->ProjectModel->getProjectByID($variable);
+            $cadeiras = $this->SubjectModel->getCadeiras($user_id, "teacher");
+            $flag_found = false;
+
+            for($i=0; $i < count($cadeiras); $i++) {
+                if($projeto[0]["cadeira_id"] == $cadeiras[$i]["cadeira_id"]){
+                    $flag_found = true;
+                }
+            }
+
+            return $flag_found;
+
+        } elseif ($mode == "etapa") {
+            $etapa = $this->ProjectModel->getEtapaByID($variable)->result_array();
+            $projeto = $this->ProjectModel->getProjectByID($etapa[0]["projeto_id"]);
+            $cadeiras = $this->SubjectModel->getCadeiras($user_id, "teacher");
+            $flag_found = false;
+
+            for($i=0; $i < count($cadeiras); $i++) {
+                if($projeto[0]["cadeira_id"] == $cadeiras[$i]["cadeira_id"]){
+                    $flag_found = true;
+                }
+            }
+
+            return $flag_found;
+
+        } elseif ($mode == "cadeira"){
+            $cadeiras = $this->SubjectModel->getCadeiras($user_id, "teacher");
+            $flag_found = false;
+
+            for($i=0; $i < count($cadeiras); $i++) {
+                if($variable == $cadeiras[$i]["cadeira_id"]){
+                    $flag_found = true;
+                }
+            }
+
+            return $flag_found;
+    
+        } else {
+            return false;
+        }
+    }
+
+    private function verify_student($user_id, $cadeira_id){
+        $membros = $this->StudentListModel->getStudentsByCadeiraID($cadeira_id);
+
+        $flag_found = false;
+
+        for ($i=0; $i < count($membros); $i++){
+            if($user_id == $membros[$i]["user_id"]){
+                $flag_found = true;
+            }    
+        }
+
+        return $flag_found;
     }
 }

@@ -75,6 +75,7 @@ $route['api/getMyGroups']                       = 'Api_Student/getMyGroups';
 
 ##ADMIN##
 
+$route['api/getSearchTeaStu']                   = 'Api_User/getSearchStudentTeachers';
 $route['api/register']                          = 'Api_User/registerUser';
 $route['api/registerCollege']                   = 'Api_College/registerCollege';
 $route['api/editUser']                          = 'Api_User/editUser';

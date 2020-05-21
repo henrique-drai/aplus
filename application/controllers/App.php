@@ -239,33 +239,32 @@ class App extends CI_Controller {
 
     //app/chat/:chat_id
     public function chat($user_id = null){
-        $data["base_url"] = base_url();
-        
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;}
-        
-        //verificar foi dado algum parâmetro
-        if(is_null($user_id)) {
-            $this->load->view('errors/404', $data); return null;}
+    $data["base_url"] = base_url();
+    
+    //verificar se a pessoa fez login
+    if(is_null($this->session->userdata('role'))){
+        $this->load->view('errors/403', $data); return null;}
+    
+    //verificar foi dado algum parâmetro
+    if(is_null($user_id)) {
+        $this->load->view('errors/404', $data); return null;}
 
-        $this->load->model('UserModel');
-        
-        $data["user"] = $this->UserModel->getUserById($user_id);
-        
-        //verificar se o user existe
-        if(is_null($data["user"])){
-            $this->load->view('errors/404', $data); return null;}
+    $this->load->model('UserModel');
+    
+    $data["user"] = $this->UserModel->getUserById($user_id);
+    
+    //verificar se o user existe
+    if(is_null($data["user"])){
+        $this->load->view('errors/404', $data); return null;}
 
-        $this->load->helper('form');
+    $this->load->helper('form');
 
-        $this->load->view('templates/head', $data);
-        //escolher que página deve ser mostrada
-        switch ($this->session->userdata('id') == $user_id) {
-            // case true:  $this->load->view('app/profile_edit', $data); break;
-            // case false: $this->load->view('app/profile_show', $data); break;
-        }
-        $this->load->view('templates/footer');
+    $this->load->view('templates/head', $data);
+    //escolher que página deve ser mostrada
+    switch ($this->session->userdata('id') == $user_id) {
+        case true:  $this->load->view('app/private_chat', $data); break;
+    }
+    $this->load->view('templates/footer');
     }
 
     //app/notifications

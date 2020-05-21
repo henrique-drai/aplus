@@ -323,6 +323,44 @@ class Api_Project extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function showNotFullGroup_get(){
+        $this->verify_request();
+        $proj_id = $this->get("proj_id");
+
+        $this->load->model('ProjectModel');
+        $this->load->model('GroupModel');
+        $this->load->model("UserModel");
+
+        $maxelementos = $this->ProjectModel->getMaxElementsGroup($proj_id);
+        $grupos = $this->GroupModel->getAllGroups($proj_id);
+        $data["gruposdisponiveis"] = array();
+        $data["alunosnogrupo"] = array();
+        array_push($data["alunosnogrupo"], array("maxElementos"=>$maxelementos[0]["max_elementos"]));
+        for($i=0; $i<count($grupos); $i++) {
+            $numElegroup = $this->GroupModel->countElements($grupos[$i]["id"]);
+            if ($numElegroup < $maxelementos[0]["max_elementos"]){
+                $data["students"] = array();
+                array_push($data["gruposdisponiveis"], array(
+                    "grupo_nome" => $grupos[$i]["name"],
+                    "grupo_id" => $grupos[$i]["id"],
+                ));
+                array_push($data["students"], $this->GroupModel->getStudents($grupos[$i]["id"]));
+                for($v=0; $v  < count($data["students"]); $v++) {
+                    for($j=0; $j < count($data["students"][$v]); $j++){
+                        $query = $this->UserModel->getUserById($data["students"][$v][$j]["user_id"]);
+                        array_push($data["alunosnogrupo"], array(
+                            'user_name'     =>      array($query->name, $query->surname, $data["students"][$v][$j]["user_id"]),
+                            'grupo_id'      =>      $grupos[$i]["id"]),
+                        );
+
+                    }
+                }
+            }
+        }
+        $this->response($data, parent::HTTP_OK);
+        
+    }
+
 
     public function getMyGroupInProj_get(){
         $user_id = $this->verify_request()->id;

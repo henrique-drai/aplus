@@ -54,12 +54,9 @@ class Api_Authentication extends REST_Controller {
 
     //auth/logout
     public function logout_post() {
-
-        $data = $this->verify_request();
-
         $this->session->sess_destroy();
 
-        $this->response($data, parent::HTTP_OK);
+        $this->response(array(), parent::HTTP_OK);
     }
 
 

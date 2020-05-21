@@ -14,7 +14,6 @@ class Api_Subject extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->helper(['jwt', 'authorization']);
         $this->load->model('SubjectModel');
         $this->load->model('CourseModel');
         $this->load->model('YearModel');
@@ -75,7 +74,8 @@ class Api_Subject extends REST_Controller {
     }
 
     public function insertEvent_post($hour_id) {
-        $user_id = $this->verify_request()->id;
+        $this->verify_request();
+        $user_id = $this->session->userdata('id');
 
         $daysOfWeek = array("", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "");
         $days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
@@ -111,12 +111,14 @@ class Api_Subject extends REST_Controller {
     }
 
     public function insertDate_post($id, $role) {
-        $user_id = $this->verify_request()->id;
+        $this->verify_request();
+        $user_id = $this->session->userdata('id');
 
         $this->SubjectModel->insertDate($id, $user_id, $role);
     }
 
     public function editSubject_post(){
+        $this->verify_request();
         $auth = $this->verify_request();
 
         $user = $this->UserModel->getUserById($auth->id);
@@ -148,7 +150,8 @@ class Api_Subject extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function getCadeiras_get($user_id = null, $role) {
-        if($user_id != $this->verify_request()->id) {
+        $this->verify_request();
+        if($user_id != $this->session->userdata('id')) {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
         }
 
@@ -171,7 +174,8 @@ class Api_Subject extends REST_Controller {
     }
 
     public function getCadeirasOrder_get($user_id = null, $role) {
-        if($user_id != $this->verify_request()->id) {
+        $this->verify_request();
+        if($user_id != $this->session->userdata('id')) {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
         }
 
@@ -208,7 +212,7 @@ class Api_Subject extends REST_Controller {
 
     public function getInfo_get($cadeira_id) {
         // $user_id = $this->verify_request()->id;
-
+        $this->verify_request();
 
         $data["desc"] = $this->SubjectModel->getDescriptionById($cadeira_id);
         $data["forum"] = $this->ForumModel->getForumByCadeiraID($cadeira_id);
@@ -287,7 +291,7 @@ class Api_Subject extends REST_Controller {
     // }
 
     public function getSubjectsByFilters_get(){
-        $auth = $this->verify_request();
+        $this->verify_request();
 
         $user = $this->UserModel->getUserById($auth->id);
 
@@ -414,6 +418,7 @@ class Api_Subject extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function removeHours_delete() {
+        $this->verify_request();
         $data = Array (
             'id_prof'             => $this->verify_request()->id,
             'id_cadeira'          => $this->delete('cadeira_id'),
@@ -429,7 +434,7 @@ class Api_Subject extends REST_Controller {
 
     
     public function deleteSubject_delete(){
-        $auth = $this->verify_request();
+        $this->verify_request();
 
         $user = $this->UserModel->getUserById($auth->id);
 
@@ -444,6 +449,7 @@ class Api_Subject extends REST_Controller {
 
 
     public function deleteHourById_delete() {
+        $this->verify_request();
         $id = $this->delete("id");
         $this->SubjectModel->deleteHourById($id);
     }
@@ -454,26 +460,9 @@ class Api_Subject extends REST_Controller {
 
     private function verify_request()
     {
-        $headers = $this->input->request_headers();
-        $token = $headers['Authorization'];
-        // JWT library throws exception if the token is not valid
-        try {
-            // Successfull validation will return the decoded user data else returns false
-            $data = AUTHORIZATION::validateToken($token);
-            if ($data === false) {
-                $status = parent::HTTP_UNAUTHORIZED;
-                $response = ['status' => $status, 'msg' => 'Unauthorized Access!'];
-                $this->response($response, $status);
-                exit();
-            } else {
-                return $data;
-            }
-        } catch (Exception $e) {
-            // Token is invalid
-            // Send the unathorized access message
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
-            $this->response($response, $status);
+        if(is_null($this->session->userdata('role'))){
+            $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
+            return null;
         }
     }
 }

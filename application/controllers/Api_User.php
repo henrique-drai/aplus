@@ -14,7 +14,6 @@ class Api_User extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->helper(['jwt', 'authorization']);
         $this->load->model('UserModel');
 
     }
@@ -29,8 +28,9 @@ class Api_User extends REST_Controller {
 
     
     public function user_post(){
+        $this->verify_request();
         $data = Array(
-            "id" => $this->verify_request()->id,
+            "id" => $this->session->userdata('id'),
             "name" => $this->post('name'),
             "surname" => $this->post('surname'),
             "password" => $this->post('password'),
@@ -84,7 +84,8 @@ class Api_User extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function user_get() {
-        $user_id = $this->verify_request()->id;
+        $this->verify_request();
+        $user_id = $this->session->userdata('id');
 
         $this->load->model('UserModel');
         
@@ -128,8 +129,9 @@ class Api_User extends REST_Controller {
 
 
     public function deleteUser_delete(){
+        $this->verify_request();
 
-        $auth = $this->verify_request();
+        $auth = $this->session->userdata('id');
 
         $user = $this->UserModel->getUserById($auth->id);
 
@@ -138,7 +140,6 @@ class Api_User extends REST_Controller {
             return null;
         }
 
-        $this->verify_request();
         $email = $this->delete('email');
         $this->load->model('UserModel');
         $this->UserModel->deleteUser($email);
@@ -152,26 +153,9 @@ class Api_User extends REST_Controller {
 
     private function verify_request()
     {
-        $headers = $this->input->request_headers();
-        $token = $headers['Authorization'];
-        // JWT library throws exception if the token is not valid
-        try {
-            // Successfull validation will return the decoded user data else returns false
-            $data = AUTHORIZATION::validateToken($token);
-            if ($data === false) {
-                $status = parent::HTTP_UNAUTHORIZED;
-                $response = ['status' => $status, 'msg' => 'Unauthorized Access!'];
-                $this->response($response, $status);
-                exit();
-            } else {
-                return $data;
-            }
-        } catch (Exception $e) {
-            // Token is invalid
-            // Send the unathorized access message
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
-            $this->response($response, $status);
+        if(is_null($this->session->userdata('role'))){
+            $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
+            return null;
         }
     }
 }

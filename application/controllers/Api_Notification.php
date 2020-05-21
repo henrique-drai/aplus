@@ -19,25 +19,25 @@ class Api_Notification extends REST_Controller {
     }
 
     public function all_get(){
-        $user_id = $this->verify_request()->id;
+        $user_id = $this->session->userdata('id');
         $data = $this->NotificationModel->getAll($user_id);
         $this->response($data, parent::HTTP_OK);
     }
 
     public function new_get(){
-        $user_id = $this->verify_request()->id;
+        $user_id = $this->session->userdata('id');
         $data = $this->NotificationModel->getNew($user_id);
         $this->response($data, parent::HTTP_OK);
     }
 
     public function notification_post($notification_id){
-        $user_id = $this->verify_request()->id;
+        $user_id = $this->session->userdata('id');
         $data = $this->NotificationModel->updateSeen($user_id, $notification_id);
         $this->response($data, parent::HTTP_OK);
     }
 
     public function notification_delete($notification_id){
-        $user_id = $this->verify_request()->id;
+        $user_id = $this->session->userdata('id');
         $data = $this->NotificationModel->delete($user_id, $notification_id);
         $this->response($data, parent::HTTP_OK);
     }

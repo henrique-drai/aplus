@@ -20,6 +20,7 @@ function getCadeiras() {
         type: "GET",
         url: base_url + "api/getCadeiras/" + localStorage.user_id + "/" + user_role,
         success: function(data) {
+            console.log(data)
             $(".semestre1").empty();
             $(".semestre2").empty();
             var semestre = new Date();

@@ -45,7 +45,7 @@ function getInfo() {
     $.ajax({
         type: "GET",
         url: base_url + "api/getCadeira/" + id,
-        data: {user_id: localStorage.user_id},
+        data: {user_id: localStorage.user_id, role: "student"},
         success: function(data) {
             console.log(data)
 

@@ -19,6 +19,7 @@ function showCourseStudents() {
 	$.ajax({
 		type: "GET",
 		url: base_url + "api/getCourseStudents/" + localStorage.cadeira_id,
+		data: {user_id: localStorage.user_id},
 		success: function (data) {
 			var linhas = [];
 			$("#students_list").empty();
@@ -54,7 +55,7 @@ function getSearchStudent(query){
     $.ajax({
         type: "GET",
         url: base_url + "api/getSearchStudentCourse",
-        data: {query: query, cadeira_id: localStorage.cadeira_id},
+        data: {query: query, cadeira_id: localStorage.cadeira_id, user_id: localStorage.user_id},
         success: function(data){
             makeStudentTable(data)
         },

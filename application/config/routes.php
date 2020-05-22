@@ -44,6 +44,7 @@ $route['api/getMyGroupInProj/(:num)']           = 'Api_Project/getMyGroupInProj/
 $route['api/leaveMyGroup/(:num)']               = 'Api_Project/leaveMyGroup/$1';
 $route['api/showNotFullGroup/(:num)']           = 'Api_Project/showNotFullGroup/$1';
 $route['api/criarGrupo/(:num)']                 = 'Api_Project/criarGrupo/$1';
+$route['api/entrarGrupo/(:num)']                 = 'Api_Project/entrarGrupo/$1';
 
 
 $route['api/removeProject/(:num)']              = 'Api_Project/removeProject/$1';
@@ -74,41 +75,40 @@ $route['api/getAllTasks/(:num)']                = 'Api_Student/getAllTasks/$1';
 $route['api/getProjectStatus']                  = 'Api_Project/getProjectStatus';
 $route['api/getMyGroups']                       = 'Api_Student/getMyGroups';
 
-$route['api/getSearchStudentCourse']           = 'Api_Subject/getSearchStudentCourse';
+$route['api/getSearchStudentCourse']            = 'Api_Subject/getSearchStudentCourse';
 
 
 ##ADMIN##
-
 $route['api/getSearchTeaStu']                   = 'Api_User/getSearchStudentTeachers';
 $route['api/register']                          = 'Api_User/registerUser';
-$route['api/registerCollege']                   = 'Api_College/registerCollege';
 $route['api/editUser']                          = 'Api_User/editUser';
-$route['api/registerSubject']                   = 'Api_Subject/registerSubject';
-$route['api/registerCurso']                     = 'Api_Course/registerCurso';
-$route['api/registerSchoolYear']                = 'Api_Year/registerSchoolYear';
-$route['api/getSearchTeacher']                  = 'Api_Teacher/getSearchTeacher';
-$route['api/getSearchStudent']                  = 'Api_Student/getSearchStudent';
-$route['api/editCourse']                        = 'Api_Course/editCourse';
+$route['api/deleteUser']                        = 'Api_User/deleteUser';
+$route['api/registerCollege']                   = 'Api_College/registerCollege';
 $route['api/getAllColleges']                    = 'Api_College/getAllColleges';
-$route['api/getAllCourses']                     = 'Api_Course/getAllCourses';
+$route['api/deleteCollege']                     = 'Api_College/deleteCollege';
+$route['api/deleteSchoolYear']                  = 'Api_Year/deleteSchoolYear';
+$route['api/registerSchoolYear']                = 'Api_Year/registerSchoolYear';
 $route['api/getAllSchoolYears']                 = 'Api_Year/getAllSchoolYears';
-$route['api/getAllStudents']                    = 'Api_Student/getAllStudents';
+$route['api/getSearchTeacher']                  = 'Api_Teacher/getSearchTeacher';
 $route['api/getAllTeachers']                    = 'Api_Teacher/getAllTeachers';
-$route['api/getAdminHome']                      = 'Api_Admin/getAdminHome';
+$route['api/editCourse']                        = 'Api_Course/editCourse';
+$route['api/getAllCourses']                     = 'Api_Course/getAllCourses';
+$route['api/registerCurso']                     = 'Api_Course/registerCurso';
 $route['api/getAllCursosFaculdadeAno']          = 'Api_Course/getAllCollegesYearCourses';
 $route['api/getAllCursosFaculdade']             = 'Api_Course/getAllCollegesCourses';
-$route['api/getAllSubjects']                    = 'Api_Subject/getAllSubjects';
+$route['api/deleteCourse']                      = 'Api_Course/deleteCourse';
+$route['api/getSearchStudent']                  = 'Api_Student/getSearchStudent';
+$route['api/getAllStudents']                    = 'Api_Student/getAllStudents';
 // $route['api/getAllSubjectsByCourse']            = 'Api_Subject/getAllSubjectsByCourse';
 // $route['api/getAllCoursesByYear']               = 'Api_Course/getAllCoursesByYear';
+$route['api/registerSubject']                   = 'Api_Subject/registerSubject';
+$route['api/getAllSubjects']                    = 'Api_Subject/getAllSubjects';
 $route['api/getSubjectsByFilters']              = 'Api_Subject/getSubjectsByFilters';
 $route['api/editSubject']                       = 'Api_Subject/editSubject';
+$route['api/deleteSubject']                     = 'Api_Subject/deleteSubject';
 $route['api/saveCSV']                           = 'Api_Admin/export';
 $route['api/importX']                           = 'Api_Admin/importX';
-$route['api/deleteUser']                        = 'Api_User/deleteUser';
-$route['api/deleteCollege']                     = 'Api_College/deleteCollege';
-$route['api/deleteSubject']                     = 'Api_Subject/deleteSubject';
-$route['api/deleteSchoolYear']                  = 'Api_Year/deleteSchoolYear';
-$route['api/deleteCourse']                      = 'Api_Course/deleteCourse';
+$route['api/getAdminHome']                      = 'Api_Admin/getAdminHome';
 $route['api/exportSpecific']                    = 'Api_Admin/exportSpecific';
 $route['api/importStudentsCourse']              = 'Api_Admin/importStudentsCourse';
 

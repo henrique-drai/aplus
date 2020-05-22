@@ -118,10 +118,11 @@ function showMyGroup(proj_id){
         url: base_url + "api/getMyGroupInProj/" + proj_id,
         data: {proj_id: proj_id},
         success: function(data) {
-            console.log(data);
             if (data == ""){
                 $("#grupo-name").text("Grupos");
                 showNotFullGroups(proj_id);
+                var timeout = setInterval(function(){showNotFullGroups(proj_id);}, 10000);
+
                 $("#submitEtapa").prop('disabled', true);
                 have_group = false;
                 $("#form-submit-etapa").hide();

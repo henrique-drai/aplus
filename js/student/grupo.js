@@ -167,6 +167,7 @@ function insertTask(taskName, taskDesc, taskMember, beginDate, endDate) {
             }, 2000);
         },
         error: function(data) {
+            console.log("Erro na API:")
             console.log(data)
         }
     });
@@ -195,6 +196,7 @@ function getTasks() {
             }
         },
         error: function(data) {
+            console.log("Erro na API:")
             console.log(data)
         }
     });

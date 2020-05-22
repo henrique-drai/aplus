@@ -272,6 +272,29 @@ class Api_Project extends REST_Controller {
         $this->response(json_encode($retrieved), parent::HTTP_OK);
     }
 
+    public function entrarGrupo_post(){
+        $user_id = $this->session->userdata('id');
+        $proj_id = $this->post("projid");
+        $grupoid = $this->post("grupoid");
+        $datagrupo = Array(
+            "grupo_id" => $grupoid,
+            "user_id" => $user_id,
+        );
+
+        $this->load->model("ProjectModel");
+        $this->load->model("GroupModel");
+
+        $maxelementos = $this->ProjectModel->getMaxElementsGroup($proj_id);
+        $numElegroup = $this->GroupModel->countElements($grupoid);
+        if($numElegroup < $maxelementos[0]["max_elementos"]){
+            $data["grupo_aluno"] = $this->GroupModel->addElementGroup($datagrupo);
+        }
+        else{
+            $data["grupo_aluno"] = "";
+        }
+        $this->response($data, parent::HTTP_OK);
+    }
+
     
 
     //////////////////////////////////////////////////////////////
@@ -530,6 +553,12 @@ class Api_Project extends REST_Controller {
         $this->load->model("GroupModel");
 
         $this->GroupModel->leaveGroup($user_id, $group_id);
+
+        $numElegroup = $this->GroupModel->countElements($grupos[$i]["id"]);
+
+        if($numElegroup == 0){
+            $this->GroupModel->deleteGroup($group_id);
+        }
 
     }
 

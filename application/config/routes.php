@@ -29,8 +29,6 @@ $route['api/getThread/(:num)']                  = 'Api_Forum/getThreadById/$1';
 $route['api/insertPost']                        = 'Api_Forum/insertPost';
 $route['api/insertForum']                       = 'Api_Forum/insertForum';
 
-$route['api/getHome/(:num)']                    = 'Api_Teacher/getProfHome/$1';
-
 $route['api/createProject']                     = 'Api_Project/createProject';
 $route['api/createEtapa']                       = 'Api_Project/createEtapa';
 $route['api/insertFeedback']                    = 'Api_Project/insertFeedback';

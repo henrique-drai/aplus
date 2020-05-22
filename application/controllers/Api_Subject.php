@@ -30,7 +30,7 @@ class Api_Subject extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function insertText_post() {
-        $user_id = $this->verify_request()->id;
+        $user_id = $this->session->userdata('id');
 
         $data = Array(
             "id"    => $this->post("cadeira_id"),
@@ -49,7 +49,7 @@ class Api_Subject extends REST_Controller {
 
     public function saveHours_post() { 
         $data = Array (
-            'id_prof'             => $this->verify_request()->id,
+            'id_prof'             => $this->session->userdata('id'),
             'id_cadeira'          => $this->post('cadeira_id'),
             'start_time'          => $this->post('start_time'),
             'end_time'            => $this->post('end_time'),
@@ -237,11 +237,16 @@ class Api_Subject extends REST_Controller {
     }
 
     public function getInfo_get($cadeira_id) {
+        $user_id = $this->get("user_id");
+        if($user_id != $this->session->userdata('id')) {
+            $this->response(array(), parent::HTTP_NOT_FOUND); return null;
+        }
+
         $flag = false;
         if($this->get("role") == "student") {
-            $flag = $this->verify_student($this->get("user_id"), $cadeira_id);
+            $flag = $this->verify_student($user_id, $cadeira_id);
         } else if ($this->get("role") == "teacher") {
-            $flag = $this->verify_teacher($this->get("user_id"), $cadeira_id, "cadeira");
+            $flag = $this->verify_teacher($user_id, $cadeira_id, "cadeira");
         }
 
         if ($flag) {
@@ -274,6 +279,9 @@ class Api_Subject extends REST_Controller {
 
     public function getCourseStudents_get($cadeira_id) { 
         $user_id = $this->get("user_id");
+        if($user_id != $this->session->userdata('id')) {
+            $this->response(array(), parent::HTTP_NOT_FOUND); return null;
+        }
 
         if($this->verify_teacher($user_id, $cadeira_id, "cadeira")) {
             $data["cadeira_id"] = $cadeira_id;
@@ -462,16 +470,22 @@ class Api_Subject extends REST_Controller {
 
     public function removeHours_delete() { 
         $data = Array (
-            'id_prof'             => $this->verify_request()->id,
+            'id_prof'             => $this->session->userdata('id'),
             'id_cadeira'          => $this->delete('cadeira_id'),
             'start_time'          => $this->delete('start_time'),
             'end_time'            => $this->delete('end_time'),
             'day'                 => $this->delete('day'),
         );
 
-        $this->SubjectModel->removeHours($data);
+        if($this->verify_teacher($data["id_prof"], $data["id_cadeira"], "cadeira")) {
+            $this->SubjectModel->removeHours($data);
 
-        $this->response($data, parent::HTTP_OK);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }        
     }
 
     
@@ -489,8 +503,21 @@ class Api_Subject extends REST_Controller {
 
 
     public function deleteHourById_delete() { 
+        $user_id = $this->delete("user_id");
+        $cadeira_id = $this->delete("cadeira_id");
         $id = $this->delete("id");
-        $this->SubjectModel->deleteHourById($id);
+
+        if($user_id != $this->session->userdata('id')) {
+            $this->response(array(), parent::HTTP_NOT_FOUND); return null;
+        }
+
+        if($this->verify_teacher($user_id, $cadeira_id, "cadeira")) {
+            $this->SubjectModel->deleteHourById($id);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }        
     }
 
     //////////////////////////////////////////////////////////////

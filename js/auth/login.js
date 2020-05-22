@@ -5,6 +5,8 @@ $(document).ready(() => {
 
 function submitLogin(){
 
+    $("form .error-msg").css("visibility", "hidden")
+
     const data = {
         email: $("#login-form input[name='email']").val(),
         password: $("#login-form input[name='password']").val(),
@@ -20,7 +22,7 @@ function submitLogin(){
             window.location.href = base_url + "app/"
         },
         error: function(data) {
-            alert("Dados inválidos.")
+            $("form .error-msg").css("visibility", "visible")
             console.log(data)
         }
     });

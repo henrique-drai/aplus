@@ -189,15 +189,13 @@ class Api_Subject extends REST_Controller {
 
             //ver se o ficheiro ja consta
 
-            $data["ficheiro_db"] = $this->SubjectModel->getFicheiroAreaByURL($this->post("ficheiro_url"));
+            $data["ficheiro_db"] = $this->SubjectModel->getFicheiroAreaByURLSub($this->post("ficheiro_url"), $this->post("cadeira_id"));
 
             if(empty($data["ficheiro_db"])){
                 $toReturn = $this->SubjectModel->submitFicheiroArea($data_send);
             } else {
                 $toReturn = "Exists";
             }
-
-            
 
             $data["result"] = $toReturn;
 
@@ -575,6 +573,10 @@ class Api_Subject extends REST_Controller {
             $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
             exit();
         }
+    }
+
+    private function verify_admin($user_id){
+        
     }
 
     private function verify_teacher($user_id, $variable, $mode){

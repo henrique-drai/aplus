@@ -17,7 +17,7 @@
     <div class="container" id="container-upload">
         <?php echo form_open_multipart('UploadsC/uploadFicheirosCadeira', 'id="form-submit-cadeira"');?>
             <div class="file-div" id="upload-file-div">
-            <input type="file" id="file_submit" name="file_submit[]" multiple accept=".zip,.rar,.pdf,.docx">
+            <input type="file" id="file_submit" name="file_submit" accept=".zip,.rar,.pdf,.docx">
             <div class="file-text">
                 <div class="success-file">Nome do ficheiro</div>
                 <div class="default-file">Selecione o ficheiro ou ficheiros a enviar</div>

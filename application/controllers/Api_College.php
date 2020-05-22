@@ -69,4 +69,9 @@ class Api_College extends REST_Controller {
             exit();
         }
     }
+
+    private function verify_admin($user_id){
+        
+    }
+
 }

@@ -3,7 +3,7 @@
 <script src="<?php echo $base_url; ?>js/student/grupo.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/student/grupo.css">
-
+<script src="<?=$base_url?>js/student/calendario-grupo.js"></script>
 </head>
 
 <body>
@@ -12,7 +12,11 @@
         <h4 class="breadcrumb">
             <a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > Área de Grupo
         </h4>
+
         <h1>Área de Grupo</h1>
+
+        <div id="calendario-hook"></div>
+
         <div id="btnArea">
             <input id="ficheiros" type="button" value="Ficheiros">  
         </div>

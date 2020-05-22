@@ -225,8 +225,8 @@ class SubjectModel extends CI_Model { //cadeira
     }
 
 
-    public function getFicheiroAreaByURL($url){
-        return $this->db->get_where("ficheiros_cadeira", array('url' => $url))->row();
+    public function getFicheiroAreaByURLSub($url, $cadeira_id){
+        return $this->db->get_where("ficheiros_cadeira", array('url' => $url, "cadeira_id" => $cadeira_id))->row();
     }
 
     public function submitFicheiroArea($data){

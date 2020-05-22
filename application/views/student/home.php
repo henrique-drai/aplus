@@ -1,8 +1,8 @@
 <title>A+ for Students</title>
 <script>setPageName("home")</script>
+<script>setRole("student")</script>
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/calendario.css">
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/home.css">
-<script>setRole("student")</script>
 <script src="<?=$base_url?>js/calendario.js"></script>
 <script src="<?=$base_url?>js/home.js"></script>
 </head>

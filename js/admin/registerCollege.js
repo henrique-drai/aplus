@@ -10,9 +10,6 @@ function submitRegister(){
         morada:    $("#register-faculdade-form input[name='morada']").val(),
         siglas:    $("#register-faculdade-form input[name='siglas']").val(),
     }
-    $("input[type='text']").val("");
-    $(".msgSucesso").remove();
-    $(".msgErro").remove();
     $.ajax({
         type: "POST",
         url: base_url + "api/registerCollege",
@@ -20,6 +17,9 @@ function submitRegister(){
         success: function(data) {
             $("#msgStatus").text("Faculdade registada com Sucesso");
             $("#msgStatus").show().delay(2000).fadeOut();
+            $("input[type='text']").val("");
+            $(".msgSucesso").remove();
+            $(".msgErro").remove();
         },
         error: function(data) {
             $("#msgStatus").text("Não foi possivel registar a faculdade");

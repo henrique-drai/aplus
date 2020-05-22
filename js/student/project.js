@@ -165,7 +165,7 @@ function showNotFullGroups(proj_id){
                         names = names + '<a href="'+ base_url +'app/profile/' + data["alunosnogrupo"][j].user_name[2] + '">' + data["alunosnogrupo"][j].user_name[0] + " " + data["alunosnogrupo"][j].user_name[1] + "</a> | ";
                     } 
                 }
-                array.push('<div class="myGroupDiv" id="grupo' + data["gruposdisponiveis"][i].grupo_id + '">' +
+                array.push('<div class="availableGroupsDiv" id="grupo' + data["gruposdisponiveis"][i].grupo_id + '">' +
                     '<p><b> Grupo: </b>' + data["gruposdisponiveis"][i].grupo_nome + '</p>' +
                     '<p><b>Membros: </b>'+ names.slice(0, -2) + " ("+ countEle + "/" + data["alunosnogrupo"][0]["maxElementos"] +")" + '</p>' +
                     '<p><input class="entrarGroupButton" id=entrar"'+ data["gruposdisponiveis"][i].grupo_id +'" type="button" value="Entrar"></input></p></div><hr>');

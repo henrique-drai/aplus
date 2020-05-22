@@ -189,15 +189,13 @@ class Api_Subject extends REST_Controller {
 
             //ver se o ficheiro ja consta
 
-            $data["ficheiro_db"] = $this->SubjectModel->getFicheiroAreaByURL($this->post("ficheiro_url"));
+            $data["ficheiro_db"] = $this->SubjectModel->getFicheiroAreaByURLSub($this->post("ficheiro_url"), $this->post("cadeira_id"));
 
             if(empty($data["ficheiro_db"])){
                 $toReturn = $this->SubjectModel->submitFicheiroArea($data_send);
             } else {
                 $toReturn = "Exists";
             }
-
-            
 
             $data["result"] = $toReturn;
 

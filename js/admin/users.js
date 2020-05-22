@@ -5,26 +5,69 @@ $(document).ready(() => {
     getYears();
     getColleges();
 
+
+    // ############################ EXPORT ###########################################
+
+    // 1 ou 2 como parâmetro, para não repetir código e para saber se é do primeiro form ou do segundo
+
     $("#collegesDisplay").change(function(){
-        $("#coursesDisplay").remove()
-        $("#exportInfo2").remove()
-
-        if($(this).val()!="Selecione uma Faculdade"){
-
-            $("#yearsDisplay").change(function(){
-                if($("#yearsDisplay").val()!="Selecione um Ano Letivo" && $("#yearsDisplay").val()!="Selecione uma Faculdade"){
-                    $("#coursesDisplay").remove()
-                    $("#exportInfo2").remove()
-                    getCursosFaculdade($("#yearsDisplay").val(), $("#collegesDisplay").val());
-                }
-            }) ;
-            
-            if($("#yearsDisplay").val()!="Selecione um Ano Letivo"){
-                getCursosFaculdade($("#yearsDisplay").val(), $("#collegesDisplay").val());
-            }  
+        
+        if($("#yearsDisplay").val()!="Selecione um Ano Letivo" && $("#collegesDisplay").val()!="Selecione uma Faculdade"){
+            getCursosFaculdade($("#yearsDisplay").val(), $("#collegesDisplay").val(), 1);
         }
 
     }) ;
+    $("#yearsDisplay").change(function(){
+        if($("#yearsDisplay").val()!="Selecione um Ano Letivo" && $("#collegesDisplay").val()!="Selecione uma Faculdade"){
+            getCursosFaculdade($("#yearsDisplay").val(), $("#collegesDisplay").val(), 1);
+        }
+    }) ;
+
+
+    // ############################ IMPORT ###########################################
+
+    
+    $("#collegesDisplay1").change(function(){
+        
+        if($("#yearsDisplay1").val()!="Selecione um Ano Letivo" && $("#collegesDisplay1").val()!="Selecione uma Faculdade"){
+            getCursosFaculdade($("#yearsDisplay1").val(), $("#collegesDisplay1").val(),2);
+        }
+
+    }) ;
+    $("#yearsDisplay1").change(function(){
+        if($("#yearsDisplay1").val()!="Selecione um Ano Letivo" && $("#collegesDisplay1").val()!="Selecione uma Faculdade"){
+            getCursosFaculdade($("#yearsDisplay1").val(), $("#collegesDisplay1").val(),2);
+        }
+    }) ;
+
+
+    $("#importFromCsv").submit(function(e) {
+
+        const info = {
+            college:        $("#collegesDisplay").val(),
+            year:           $("#yearsDisplay").val(),
+            course:         $("#coursesDisplay").val(),
+        }
+
+        e.preventDefault();    
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: base_url + "api/importStudentsCourse",
+            type: 'POST',
+            headers: {"Authorization": localStorage.token},
+            data: formData,
+            success: function (data) {
+                $("#importStatus").html("Ficheiro importado com sucesso");
+                $("#importStatus").show().delay(2000).fadeOut();
+                $("#myfile").val("");
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+    
 
 
     $("#exportCsv").on("submit", function(e) {
@@ -132,7 +175,7 @@ $(document).ready(() => {
 
 
 
-function getCursosFaculdade(ano, faculdade){
+function getCursosFaculdade(ano, faculdade, form){
 
     const data = {
         faculdade:          faculdade,
@@ -146,23 +189,45 @@ function getCursosFaculdade(ano, faculdade){
         data: data,
         success: function(data) {
             var option = "Selecione um Curso";
-            console.log(data)
 
             if(data.courses.length > 0){
                 for (i=0; i<data.courses.length; i++){
                     option+= "<option value='" + data.courses[i].id + "'>"+ data.courses[i].name  + "</option>"
                 }
-               
-                $("#export2Csv").append("<select id='coursesDisplay' name='courses'></select>")
-                $("#coursesDisplay").html(option)
-                $("#export2Csv").append("<input type='submit' id='exportInfo2' value='Exportar'>")
-
+                console.log(form)
+                
+                if(form==1){
+                    $("#export2Csv").append("<select id='coursesDisplay' name='courses'></select>")
+                    $("#coursesDisplay").html(option)
+                    $("#export2Csv").append("<input type='submit' id='exportInfo2' value='Exportar'>")
+    
+                }
+                else if (form==2){
+                    $("#importFromCsv").append("<select id='coursesDisplay' name='courses'></select>")
+                    $("#coursesDisplay").html(option)
+                    $("#importFromCsv").append("<input type='file' id='myfile' name='userfile' accept='.csv' required>")
+                    $("#importFromCsv").append("<input type='submit' id='importToCourse'  value='Importar'></input>")
+                    
+                }               
             }
             else{
+                if(form==1){
+                    $("#exportInfo2").remove()
+                    $("#collegeStatus").html("Não existem cursos");
+                    $("#collegeStatus").show().delay(2000).fadeOut();
+                    
+                }
+                else if(form==2){
+                    $("#exportInfo2").remove()
+                    $("#collegeStatus1").html("Não existem cursos");
+                    $("#collegeStatus1").show().delay(2000).fadeOut();
+                    $("#myfile").remove()
+                    $("#importToCourse").remove()
+                    
+                }
                 $("#coursesDisplay").remove()
-                $("#exportInfo2").remove()
-                $("#collegeStatus").html("Não existem cursos");
-                $("#collegeStatus").show().delay(2000).fadeOut();
+                
+                
             }
             
         },
@@ -184,6 +249,7 @@ function getColleges(){
                 option+= "<option value='" + data.colleges[i].id + "'>"+ data.colleges[i].name  + "</option>"
             }
             $("#collegesDisplay").html(option)
+            $("#collegesDisplay1").html(option)
            
         },
         error: function(data) {
@@ -206,6 +272,8 @@ function getYears(){
                 option+= "<option value='" + data.schoolYears[i].id + "'>"+ data.schoolYears[i].inicio  + "</option>"
             }
             $("#yearsDisplay").html(option)
+            $("#yearsDisplay1").html(option)
+            
         },
         error: function(data) {
             console.log("Erro na API:")

@@ -25,6 +25,10 @@ input[type="datetime-local"], select {
 	width: 40%;
 }
 
+#btnArea p {
+    text-align: center;
+}
+
 select {
     border-left: 3px solid #42d542;
 }

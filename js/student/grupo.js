@@ -88,8 +88,15 @@ function checkClosedProject(){
             //     $("#ratingmembros").remove()
             // }
 
+                
             if(new Date(data.date)<Date.now()){
-                $("#btnArea").append("<input id='ratingmembros' type='button' value='Rating Membros'>")
+                if(new Date(data.date).addDays(5)<Date.now()){
+                    $("#btnArea").append("<p>Ultrapassado o tempo máximo (5 dias) p/ classificação dos membros<p>")
+                }
+                else{
+                    $("#btnArea").append("<input id='ratingmembros' type='button' value='Rating Membros'>")
+                }
+                // $("#btnArea").append("<input id='ratingmembros' type='button' value='Rating Membros'>")
             }
             // Acho que este remove é opcional visto que volta a carregar o html normal sem o botáo para o rating
             // Ou seja, é como se voltasse ao início
@@ -203,4 +210,11 @@ function getTasks() {
             console.log(data)
         }
     });
+}
+
+
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
 }

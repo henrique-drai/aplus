@@ -72,6 +72,18 @@ class CourseModel extends CI_Model { //curso & curso_standard & aluno_curso
         $query = $this->db->get_where("aluno_curso", array('curso_id'=>$cursoid));
         return $query->result_array();
     }
+
+    public function insertAlunoCurso($data){
+        $this->db->insert("aluno_curso", $data);
+    }
+
+    public function userInCourse($userId, $courseId){
+        $this->db->where('user_id',$userId);
+        $this->db->where('curso_id',$courseId);
+        $this->db->from("aluno_curso");
+        return $this->db->count_all_results();
+    }
+
 }
 
 

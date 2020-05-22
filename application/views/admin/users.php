@@ -102,7 +102,7 @@
 <!-- ################################################################################################# -->
 
             <div class="admin-users-window">
-                <div class="title">Importar</div>
+                <!-- <div class="title">Importar</div>
                 
 
                 <form id="file-form" action="javascript:void(0)" enctype="multipart/form-data">
@@ -122,8 +122,43 @@
                 <br>
 
                 <div id="importStatus">
+                </div> -->
+           
+
+           
+                <div class="title">Importar</div>
+                
+
+                <form id="importFromCsv" action="javascript:void(0)" enctype="multipart/form-data">
+                    
+                    <label for="myfile">Importar dados:</label>
+                    
+                            <select id="collegesDisplay1" name="colleges">
+                            </select>
+
+                            <br>
+
+                            <select id="yearsDisplay1" name="years">
+                            </select>
+
+                            <br>
+                            
+                            <div id="collegeStatus1">
+                            </div>
+
+                    <br>
+                
+                    <!-- <input type="file" id="myfile" name="userfile" accept=".csv" required>
+                    <input type="submit" id="import-data-submit"  value="Importar"> -->
+                </form>
+                <br>
+
+                <div id="importStatus">
                 </div>
+            
             </div>
+
+            
 
             
 

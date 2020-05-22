@@ -48,7 +48,48 @@ class Api_Admin extends REST_Controller {
         }
     }
 
-    // IMPORTAR USERS
+    // ######################## IMPORTAR USERS ####################################################
+
+    public function importStudentsCourse_post(){
+
+        $auth = $this->verify_request();
+
+        $user = $this->UserModel->getUserById($auth->id);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        $this->load->helper('url');
+        $this -> load -> model('UserModel');
+        $this -> load -> model('CourseModel');
+
+        $count_files = $_FILES["userfile"]['tmp_name'];
+        $file  = fopen($count_files, 'r');
+
+        $courseId = $this -> post("courses");
+        
+;
+        // Skip first line
+        fgetcsv($file, 0, ","); 
+        while (($column = fgetcsv($file, 0, ",")) !== FALSE) {
+
+            $email = $column[2];
+            $idUser = $this -> UserModel -> getUserByEmailRA($column[2])[0]['id'];
+
+            $data = Array(
+                "user_id"      => $idUser,
+                "curso_id"   => $courseId,               
+            );
+
+            if($this -> CourseModel -> userInCourse($idUser, $courseId) == 0){
+                $this -> CourseModel -> insertAlunoCurso($data);
+            }
+        }
+    }
+
+
     public function importCSV(){
         
         $auth = $this->verify_request();

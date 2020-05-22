@@ -146,6 +146,7 @@ $(document).ready(() => {
     })
 
     $("body").on("click", ".forum_button", function() {
+        localStorage.setItem("role", "teacher");
         localStorage.setItem("forum_id", $(this).attr("id"));
         window.location = base_url + "foruns/forum/" + $(this).attr("id");
     })
@@ -397,7 +398,7 @@ function deleteHourById(id) {
     $.ajax({
         type: "DELETE",
         url: base_url + "api/deleteHourById",
-        data: {id: id},
+        data: {id: id, user_id: localStorage.user_id, cadeira_id: localStorage.cadeira_id},
         success: function(data) {
             getHours(id);
         },

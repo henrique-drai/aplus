@@ -45,6 +45,7 @@ $(document).ready(() => {
         $.ajax({
             type: "DELETE",
             url: base_url + "api/removeForum/" + localStorage.forum_id,
+            data: {cadeira_id: localStorage.cadeira_id, user_id: localStorage.user_id},
             success: function(data) {
                 console.log("ok");
                 window.location = base_url + "subjects/subject/" + localStorage.cadeira_code + "/" + localStorage.year;
@@ -75,6 +76,7 @@ function getInfo(id) {
     $.ajax({
         type: "GET",
         url: base_url + "api/getForumById/" + id,
+        data: {cadeira_id: localStorage.cadeira_id, role: localStorage.role},
         success: function(data) {
             $(".forumName").empty();
             $(".forumDesc").empty();
@@ -137,6 +139,8 @@ function insertThread(name, desc) {
         type: "POST",
         url: base_url + "api/insertThread",
         data: {
+            role: localStorage.role,
+            cadeira_id: localStorage.cadeira_id,
             forum_id: localStorage.forum_id,
             title: name,
             content: desc,

@@ -13,6 +13,7 @@ $(document).ready(() => {
     })
 
     $("body").on("click", ".forum_button", function() {
+        localStorage.setItem("role", "student");
         localStorage.setItem("forum_id", $(this).attr("id"));
         window.location = base_url + "foruns/forum/" + $(this).attr("id");
     })

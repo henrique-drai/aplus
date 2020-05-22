@@ -37,6 +37,7 @@ $(document).ready(() => {
         $.ajax({
             type: "DELETE",
             url: base_url + "api/removePost/" + localStorage.post_id,
+            data: {user_id: localStorage.user_id, cadeira_id: localStorage.cadeira_id, role: localStorage.role},
             success: function(data) {
                 window.location.reload();
             },
@@ -90,7 +91,6 @@ function getInfo(id) {
                         "<p>Data: " + data.posts[i].date + "</p></div><div class='content2'><p>" + data.posts[i].content + "</p></div></div>");
 
                         if(localStorage.user_id == data.users[i].id) {
-                            var image_url = base_url + "images/icons/trash.png";
                             $(".content2").last().append("<input id='" + data.posts[i].id + "' class='remove' type='button' value='Eliminar publicação'>");
                         }
                 }
@@ -117,6 +117,8 @@ function insertPost(desc) {
         url: base_url + "api/insertPost",
         data: {
             thread_id: localStorage.thread_id,
+            cadeira_id: localStorage.cadeira_id,
+            role: localStorage.role,
             content: desc,
             date: new Date().toISOString().slice(0, 19).replace('T', ' '),
         },

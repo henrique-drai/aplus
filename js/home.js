@@ -1,6 +1,6 @@
 $(document).ready(() => {
     loadHome();
-    // setInterval(loadProfHome, 3000); 
+    setInterval(loadHome, 3000); 
 
     $("body").on("click", "a", function() {
         var link = $(this).attr("href");

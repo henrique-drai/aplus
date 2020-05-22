@@ -2,6 +2,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/ficheiros.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/student/ficheiros-cadeira.css">
 <script>setPageName("subjects")</script>
+<script src="<?php echo $base_url; ?>js/student/ficheiros-cadeira.js"></script>
 </head>
 
 <body>

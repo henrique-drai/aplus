@@ -2,7 +2,7 @@ $(document).ready(() => {
     $("#file_submit").on("change", function(){
 
         if ($("#file_submit")[0].files.length != 0){
-            var str_files = '';
+            var str_files = 'Ficheiro(s) selecionados: ';
             for (i=0; i<$("#file_submit")[0].files.length; i++){
                 str_files = str_files + $("#file_submit")[0].files[i].name
 
@@ -12,7 +12,7 @@ $(document).ready(() => {
                 }
             }
 
-            $(".success-file").text("Ficheiro(s) selecionados: " + str_files)
+            $(".success-file").html(str_files)
             $(".success-file").show();
             $(".default-file").hide();
             $(".error-file").hide();

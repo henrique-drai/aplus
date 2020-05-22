@@ -224,4 +224,19 @@ class SubjectModel extends CI_Model { //cadeira
         $this->db->delete('horario_duvidas');
     }
 
+
+    public function getFicheiroAreaByURL($url){
+        return $this->db->get_where("ficheiros_cadeira", array('url' => $url))->row();
+    }
+
+    public function submitFicheiroArea($data){
+        return $this->db->insert("ficheiros_cadeira", $data);
+    }
+
+    public function updateFicheiroArea($id, $url){
+        $this->db->set("url", $url);
+        $this->db->where("id", $id);
+        $this->db->update("ficheiros_cadeira");
+        return $this->db->affected_rows();
+    }
 }

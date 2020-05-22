@@ -166,6 +166,40 @@ class Api_Subject extends REST_Controller {
     }
 
 
+    public function submitFileAreaCadeira_post(){
+        $user_id = $this->session->userdata('id');
+
+        if ($this->verify_teacher($user_id,$this->post("cadeira_id"),"cadeira")){
+            $data_send = Array(
+               "user_id"        =>  $user_id,
+               "cadeira_id"     =>  $this->post("cadeira_id"),
+               "url"            =>  $this->post("ficheiro_url"),     
+            );
+
+            //ver se o ficheiro ja consta
+
+            $data["ficheiro_db"] = $this->SubjectModel->getFicheiroAreaByURL($this->post("ficheiro_url"));
+
+            if(empty($data["ficheiro_db"])){
+                $toReturn = $this->SubjectModel->submitFicheiroArea($data_send);
+            } else {
+                $toReturn = "Exists";
+            }
+
+            
+
+            $data["result"] = $toReturn;
+
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+    }
+
+
+
     //////////////////////////////////////////////////////////////
     //                           GET
     //////////////////////////////////////////////////////////////

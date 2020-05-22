@@ -44,6 +44,7 @@ $route['api/getAllEtapas/(:num)']               = 'Api_Project/getAllEtapas/$1';
 $route['api/getAllGroups/(:num)']               = 'Api_Project/getAllGroups/$1';
 $route['api/getMyGroupInProj/(:num)']           = 'Api_Project/getMyGroupInProj/$1';
 $route['api/leaveMyGroup/(:num)']               = 'Api_Project/leaveMyGroup/$1';
+$route['api/showNotFullGroup/(:num)']           = 'Api_Project/showNotFullGroup/$1';
 
 $route['api/removeProject/(:num)']              = 'Api_Project/removeProject/$1';
 $route['api/removeEtapa/(:num)']                = 'Api_Project/removeEtapa/$1';
@@ -77,6 +78,7 @@ $route['api/getSearchStudentCourse']           = 'Api_Subject/getSearchStudentCo
 
 ##ADMIN##
 
+$route['api/getSearchTeaStu']                   = 'Api_User/getSearchStudentTeachers';
 $route['api/register']                          = 'Api_User/registerUser';
 $route['api/registerCollege']                   = 'Api_College/registerCollege';
 $route['api/editUser']                          = 'Api_User/editUser';

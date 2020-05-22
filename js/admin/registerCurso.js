@@ -73,7 +73,6 @@ $(document).ready(() => {
 function getAllSchoolYears(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllSchoolYears",
         success: function(data) {
             linhas="";
@@ -93,7 +92,6 @@ function getAllSchoolYears(){
 function getAllfaculdades(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllColleges",
         success: function(data) {
             var linhas = '<option class="college_row">Selecione uma Faculdade</option>';
@@ -124,7 +122,6 @@ function submitRegister(){
     if (data.codCourse != "" && data.nameCourse != "" && data.descCourse != "" && data.collegeId != "Selecione uma Faculdade"){
         $.ajax({
             type: "POST",
-            headers: {"Authorization": localStorage.token},
             url: base_url + "api/registerCurso",
             data: data,
             success: function(data) {
@@ -148,7 +145,6 @@ function submitRegister(){
     function getAllCursosFaculdade(faculdade){
         $.ajax({
             type: "GET",
-            headers: {"Authorization": localStorage.token},
             url: base_url + "api/getAllCursosFaculdade",
             data: {faculdade},
             success: function(data) {
@@ -207,8 +203,7 @@ function deleteCourse(linha){
     }
 
     $.ajax({
-        type: "DELETE",
-        headers: {"Authorization": localStorage.token},
+        type: "DELETE", 
         url: base_url + "api/deleteCourse",
         data: data,
 
@@ -263,7 +258,6 @@ function editCourse(){
 
     $.ajax({
         type: "POST",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/editCourse",
         data: data,   
         success: function() {

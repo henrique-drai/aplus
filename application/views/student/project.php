@@ -30,7 +30,8 @@
         </div>
 
         <div id="grupos-container" class="container">
-        </div>         <!-- Criação de grupos - @ye -->
+            <div id="grupos-container2"></div>
+        </div>       
 
         <br><br>
 

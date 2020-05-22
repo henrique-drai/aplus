@@ -14,7 +14,7 @@ class Api_Subject extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->helper(['jwt', 'authorization']);
+        $this->verify_request();
         $this->load->model('SubjectModel');
         $this->load->model('CourseModel');
         $this->load->model('YearModel');
@@ -30,20 +30,24 @@ class Api_Subject extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function insertText_post() {
-        $this->verify_request();
+        $user_id = $this->verify_request()->id;
+
         $data = Array(
             "id"    => $this->post("cadeira_id"),
             "text"  => $this->post("text"),
         );
 
-        $this->SubjectModel->insertText($data);
-
-        $this->response($data, parent::HTTP_OK);
+        if($this->verify_teacher($user_id, $data["id"], "cadeira")) {
+            $this->SubjectModel->insertText($data);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
-    public function saveHours_post() {
-        $this->verify_request();
-
+    public function saveHours_post() { 
         $data = Array (
             'id_prof'             => $this->verify_request()->id,
             'id_cadeira'          => $this->post('cadeira_id'),
@@ -52,13 +56,17 @@ class Api_Subject extends REST_Controller {
             'day'                 => $this->post('day'),
         );
 
-        $this->SubjectModel->saveHours($data);
-
-        $this->response($data, parent::HTTP_OK);
+        if($this->verify_teacher($user_id, $data["id_cadeira"], "cadeira")) {
+            $this->SubjectModel->saveHours($data);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
-    public function registerSubject_post(){
-        $this->verify_request();
+    public function registerSubject_post(){ 
         $data = Array(
             "code" => $this->post('codeCadeira'),
             "curso_id"   => $this->post('curso'),
@@ -74,52 +82,67 @@ class Api_Subject extends REST_Controller {
         $this->response(json_encode($retrieved), parent::HTTP_OK);
     }
 
-    public function insertEvent_post($hour_id) {
-        $user_id = $this->verify_request()->id;
+    public function insertEvent_post($hour_id) { 
+        $user_id = $this->session->userdata('id');
 
-        $daysOfWeek = array("", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "");
-        $days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-
-        $data["hour"] = $this->EventModel->getHorarioDuvidasById($hour_id);
-
-        if(count($data["hour"]) > 0) {
-            $data["user"] = $this->UserModel->getUserById($data["hour"]->id_prof);
-
-            $daysToGo = array_search($data["hour"]->day, $daysOfWeek);
-            $currentDay = date("Y-m-d");
-            $newDate = date("Y-m-d", strtotime('next ' . $days[$daysToGo]));
-            $startTime = $newDate . " " . $data["hour"]->start_time;
-            $endTime = $newDate . " " . $data["hour"]->end_time;
-
-            $dataInsert = Array (
-                'start_date'          => date("Y-m-d H:i:s", strtotime($startTime)),
-                'end_date'            => date("Y-m-d H:i:s", strtotime($endTime)),
-                'name'                => "Horário de Dúvidas",
-                'description'         => "Horário de Dúvidas com o(a) professor(a) " . $data["user"]->name . " " . $data["user"]->surname,
-                'location'            => $data["user"]->gabinete,
-                'horario_id'          => $hour_id,
-            );
+        if($this->verify_student($user_id, $this->post("cadeira_id"))) {
+            $daysOfWeek = array("", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "");
+            $days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
     
-            $event_id = $this->EventModel->insertEvent($dataInsert);
-
-            $this->EventModel->insertUserEvent(Array ("evento_id" => $event_id, "user_id" => $data["user"]->id));
-            $this->EventModel->insertUserEvent(Array ("evento_id" => $event_id, "user_id" => $user_id));
+            $data["hour"] = $this->EventModel->getHorarioDuvidasById($hour_id);
+    
+            if(count($data["hour"]) > 0) {
+                $data["user"] = $this->UserModel->getUserById($data["hour"]->id_prof);
+    
+                $daysToGo = array_search($data["hour"]->day, $daysOfWeek);
+                $currentDay = date("Y-m-d");
+                $newDate = date("Y-m-d", strtotime('next ' . $days[$daysToGo]));
+                $startTime = $newDate . " " . $data["hour"]->start_time;
+                $endTime = $newDate . " " . $data["hour"]->end_time;
+    
+                $dataInsert = Array (
+                    'start_date'          => date("Y-m-d H:i:s", strtotime($startTime)),
+                    'end_date'            => date("Y-m-d H:i:s", strtotime($endTime)),
+                    'name'                => "Horário de Dúvidas",
+                    'description'         => "Horário de Dúvidas com o(a) professor(a) " . $data["user"]->name . " " . $data["user"]->surname,
+                    'location'            => $data["user"]->gabinete,
+                    'horario_id'          => $hour_id,
+                );
+        
+                $event_id = $this->EventModel->insertEvent($dataInsert);
+    
+                $this->EventModel->insertUserEvent(Array ("evento_id" => $event_id, "user_id" => $data["user"]->id));
+                $this->EventModel->insertUserEvent(Array ("evento_id" => $event_id, "user_id" => $user_id));
+            }
+    
+            
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
         }
 
         
-        $this->response($data, parent::HTTP_OK);
     }
 
-    public function insertDate_post($id, $role) {
-        $user_id = $this->verify_request()->id;
+    public function insertDate_post($id, $role) { 
+        $user_id = $this->session->userdata('id');
 
-        $this->SubjectModel->insertDate($id, $user_id, $role);
+        if($this->verify_teacher($user_id, $id, "cadeira")) {
+            $this->SubjectModel->insertDate($id, $user_id, $role);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+        
     }
 
-    public function editSubject_post(){
-        $auth = $this->verify_request();
+    public function editSubject_post(){ 
+        $auth = $this->session->userdata('id');
 
-        $user = $this->UserModel->getUserById($auth->id);
+        $user = $this->UserModel->getUserById($auth);
 
         if($user->role != "admin"){
             $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
@@ -147,8 +170,8 @@ class Api_Subject extends REST_Controller {
     //                           GET
     //////////////////////////////////////////////////////////////
 
-    public function getCadeiras_get($user_id = null, $role) {
-        if($user_id != $this->verify_request()->id) {
+    public function getCadeiras_get($user_id = null, $role) { 
+        if($user_id != $this->session->userdata('id')) {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
         }
 
@@ -170,8 +193,8 @@ class Api_Subject extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function getCadeirasOrder_get($user_id = null, $role) {
-        if($user_id != $this->verify_request()->id) {
+    public function getCadeirasOrder_get($user_id = null, $role) { 
+        if($user_id != $this->session->userdata('id')) {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
         }
 
@@ -193,63 +216,83 @@ class Api_Subject extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
-    public function getHours_get($cadeira_id) {
-        $this->verify_request();
+    public function getHours_get($cadeira_id) { 
+        $user_id =  $this->session->userdata('id');
 
-        $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
+        if($this->verify_teacher($user_id, $cadeira_id, "cadeira")) {
+            $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
 
-        $data['user'] = array();
-        for ($i=0; $i < count($data["hours"]); $i++) {
-            array_push($data["user"], $this->UserModel->getUserById($data["hours"][$i]['id_prof']));
+            $data['user'] = array();
+            for ($i=0; $i < count($data["hours"]); $i++) {
+                array_push($data["user"], $this->UserModel->getUserById($data["hours"][$i]['id_prof']));
+            }
+            
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
         }
         
-        $this->response($data, parent::HTTP_OK);
     }
 
     public function getInfo_get($cadeira_id) {
-        // $user_id = $this->verify_request()->id;
-
-
-        $data["desc"] = $this->SubjectModel->getDescriptionById($cadeira_id);
-        $data["forum"] = $this->ForumModel->getForumByCadeiraID($cadeira_id);
-        $data["proj"] = $this->SubjectModel->getProj($cadeira_id);
-        $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
-        $eventos = $this->EventModel->getStudentEvents($this->get("user_id"));
-        
-        $data['user'] = array();
-        for ($i=0; $i < count($data["hours"]); $i++) {
-            array_push($data["user"], $this->UserModel->getUserById($data["hours"][$i]['id_prof']));
+        $flag = false;
+        if($this->get("role") == "student") {
+            $flag = $this->verify_student($this->get("user_id"), $cadeira_id);
+        } else if ($this->get("role") == "teacher") {
+            $flag = $this->verify_teacher($this->get("user_id"), $cadeira_id, "cadeira");
         }
 
-        if(count($eventos) > 0) {
-            $data["evento"] = array();
-            for($i=0; $i < count($eventos); $i++) {
-                array_push($data["evento"], $this->EventModel->getEventById($eventos[$i]["evento_id"]));
+        if ($flag) {
+            $data["desc"] = $this->SubjectModel->getDescriptionById($cadeira_id);
+            $data["forum"] = $this->ForumModel->getForumByCadeiraID($cadeira_id);
+            $data["proj"] = $this->SubjectModel->getProj($cadeira_id);
+            $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
+            $eventos = $this->EventModel->getStudentEvents($this->get("user_id"));
+            
+            $data['user'] = array();
+            for ($i=0; $i < count($data["hours"]); $i++) {
+                array_push($data["user"], $this->UserModel->getUserById($data["hours"][$i]['id_prof']));
             }
+    
+            if(count($eventos) > 0) {
+                $data["evento"] = array();
+                for($i=0; $i < count($eventos); $i++) {
+                    array_push($data["evento"], $this->EventModel->getEventById($eventos[$i]["evento_id"]));
+                }
+            }
+    
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
         }
-
-        $this->response($data, parent::HTTP_OK);
+        
     }
 
-    public function getCourseStudents_get($cadeira_id) {
-        $this->verify_request();
+    public function getCourseStudents_get($cadeira_id) { 
+        $user_id = $this->get("user_id");
 
-        $data["cadeira_id"] = $cadeira_id;
-        $this->load->model('StudentListModel');
-        $data["users_id"] = $this->StudentListModel->getStudentsbyCadeiraID($cadeira_id);
-
-        $data["info"] = array();
-        for($i=0; $i < count($data["users_id"]); $i++) {
-            array_push($data["info"], $this->StudentListModel->getStudentsInfo($data["users_id"][$i]["user_id"]));
+        if($this->verify_teacher($user_id, $cadeira_id, "cadeira")) {
+            $data["cadeira_id"] = $cadeira_id;
+            $data["users_id"] = $this->StudentListModel->getStudentsbyCadeiraID($cadeira_id);
+    
+            $data["info"] = array();
+            for($i=0; $i < count($data["users_id"]); $i++) {
+                array_push($data["info"], $this->StudentListModel->getStudentsInfo($data["users_id"][$i]["user_id"]));
+            }
+    
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
         }
-
-        $this->response($data, parent::HTTP_OK);
     }
 
     public function getAllSubjects_get(){
-        $this->verify_request();
-        $this->load->model('SubjectModel');
-        $this->load->model('CourseModel');
         $data["subjects"] = $this->SubjectModel->getAllSubjects();
         $data["courses"] = array();
         for($i=0; $i<count($data["subjects"]); $i++){
@@ -286,9 +329,7 @@ class Api_Subject extends REST_Controller {
     //     $this->response($data, parent::HTTP_OK);
     // }
 
-    public function getSubjectsByFilters_get(){
-        $auth = $this->verify_request();
-
+    public function getSubjectsByFilters_get(){ 
         $user = $this->UserModel->getUserById($auth->id);
 
         if($user->role != "admin"){
@@ -299,8 +340,6 @@ class Api_Subject extends REST_Controller {
         $faculdade = $this->get('f'); 
         $curso = $this->get('c');
         $ano = $this->get('a');
-        $this->load->model('SubjectModel');
-        $this->load->model('CourseModel');
         $data["courses"] = array(); 
         $data["subjects"] = array();
 
@@ -393,18 +432,26 @@ class Api_Subject extends REST_Controller {
 
     }
 
-    public function getSearchStudentCourse_get() {
-        $this->verify_request();
-
+    public function getSearchStudentCourse_get() { 
+        $user_id = $this->get("user_id");
+        $cadeira_id = $this->get("cadeira_id");
         if($this->get("query")){
             $query = $this->get("query");
         }
 
-        $cadeira_id = $this->get("cadeira_id");
+        if($user_id != $this->session->userdata('id')) {
+            $this->response(array(), parent::HTTP_NOT_FOUND); return null;
+        }
+        
+        if($this->verify_teacher($user_id, $cadeira_id, "cadeira")) {
+            $data = $this->SubjectModel->getSearchStudentCourse($query, $cadeira_id);
 
-        $data = $this->SubjectModel->getSearchStudentCourse($query, $cadeira_id);
-
-        $this->response($data, parent::HTTP_OK);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }        
     }
 
    
@@ -413,7 +460,7 @@ class Api_Subject extends REST_Controller {
     //                         DELETE
     //////////////////////////////////////////////////////////////
 
-    public function removeHours_delete() {
+    public function removeHours_delete() { 
         $data = Array (
             'id_prof'             => $this->verify_request()->id,
             'id_cadeira'          => $this->delete('cadeira_id'),
@@ -428,9 +475,7 @@ class Api_Subject extends REST_Controller {
     }
 
     
-    public function deleteSubject_delete(){
-        $auth = $this->verify_request();
-
+    public function deleteSubject_delete(){ 
         $user = $this->UserModel->getUserById($auth->id);
 
         if($user->role != "admin"){
@@ -443,7 +488,7 @@ class Api_Subject extends REST_Controller {
     }
 
 
-    public function deleteHourById_delete() {
+    public function deleteHourById_delete() { 
         $id = $this->delete("id");
         $this->SubjectModel->deleteHourById($id);
     }
@@ -454,26 +499,69 @@ class Api_Subject extends REST_Controller {
 
     private function verify_request()
     {
-        $headers = $this->input->request_headers();
-        $token = $headers['Authorization'];
-        // JWT library throws exception if the token is not valid
-        try {
-            // Successfull validation will return the decoded user data else returns false
-            $data = AUTHORIZATION::validateToken($token);
-            if ($data === false) {
-                $status = parent::HTTP_UNAUTHORIZED;
-                $response = ['status' => $status, 'msg' => 'Unauthorized Access!'];
-                $this->response($response, $status);
-                exit();
-            } else {
-                return $data;
-            }
-        } catch (Exception $e) {
-            // Token is invalid
-            // Send the unathorized access message
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
-            $this->response($response, $status);
+        if(is_null($this->session->userdata('role'))){
+            $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
+            exit();
         }
+    }
+
+    private function verify_teacher($user_id, $variable, $mode){
+
+        if ($mode == "projeto"){
+            $projeto = $this->ProjectModel->getProjectByID($variable);
+            $cadeiras = $this->SubjectModel->getCadeiras($user_id, "teacher");
+            $flag_found = false;
+
+            for($i=0; $i < count($cadeiras); $i++) {
+                if($projeto[0]["cadeira_id"] == $cadeiras[$i]["cadeira_id"]){
+                    $flag_found = true;
+                }
+            }
+
+            return $flag_found;
+
+        } elseif ($mode == "etapa") {
+            $etapa = $this->ProjectModel->getEtapaByID($variable)->result_array();
+            $projeto = $this->ProjectModel->getProjectByID($etapa[0]["projeto_id"]);
+            $cadeiras = $this->SubjectModel->getCadeiras($user_id, "teacher");
+            $flag_found = false;
+
+            for($i=0; $i < count($cadeiras); $i++) {
+                if($projeto[0]["cadeira_id"] == $cadeiras[$i]["cadeira_id"]){
+                    $flag_found = true;
+                }
+            }
+
+            return $flag_found;
+
+        } elseif ($mode == "cadeira"){
+            $cadeiras = $this->SubjectModel->getCadeiras($user_id, "teacher");
+            $flag_found = false;
+
+            for($i=0; $i < count($cadeiras); $i++) {
+                if($variable == $cadeiras[$i]["cadeira_id"]){
+                    $flag_found = true;
+                }
+            }
+
+            return $flag_found;
+    
+        } else {
+            return false;
+        }
+    }
+
+    private function verify_student($user_id, $cadeira_id){
+        $membros = $this->StudentListModel->getStudentsByCadeiraID($cadeira_id);
+
+        $flag_found = false;
+
+        for ($i=0; $i < count($membros); $i++){
+            if($user_id == $membros[$i]["user_id"]){
+                $flag_found = true;
+            }    
+        }
+
+        return $flag_found;
     }
 }

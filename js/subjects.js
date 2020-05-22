@@ -18,11 +18,9 @@ $(document).ready(() => {
 function getCadeiras() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getCadeiras/" + localStorage.user_id + "/" + user_role,
         success: function(data) {
+            console.log(data)
             $(".semestre1").empty();
             $(".semestre2").empty();
             var semestre = new Date();
@@ -49,9 +47,6 @@ function getCadeiras() {
 function getCadeirasLastLogged() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getCadeirasOrder/" + localStorage.user_id + "/" + user_role,
         success: function(data) {
             console.log(data)

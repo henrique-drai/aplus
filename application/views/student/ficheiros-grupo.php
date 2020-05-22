@@ -13,7 +13,7 @@
 
     <h3>Enviar um ficheiro:</h3>
     <div class="container" id="container-upload">
-        <?php echo form_open_multipart('UploadsC/uploadFicheirosGrupo', 'id="form-submit"');?>
+        <?php echo form_open_multipart('UploadsC/uploadFicheirosGrupo', 'id="form-submit-grupo"');?>
             <div class="file-div" id="upload-file-div">
             <input type="file" id="file_submit" name="file_submit[]" multiple accept=".zip,.rar,.pdf,.docx">
             <div class="file-text">
@@ -34,7 +34,7 @@
                  <!-- template, isto sera adicionado em js -->
                 <p><a href="">nome-do-ficheiro-grande-e-tal.pdf</a></p>
                 <p>membro-do-grupo</p>
-                <p>X</p>
+                <p><img src="<?php echo base_url(); ?>/images/icons/trash.png" class="delete_img"></p>
             </div>
             <hr>
         </div>

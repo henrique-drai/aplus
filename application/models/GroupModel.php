@@ -34,4 +34,9 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
         $this->db->where("grupo_id", $group_id);
         $this->db->delete('grupo_aluno');
     }
+
+    public function countElements($group_id){
+        $q = $this->db->get_where("grupo_aluno", array("grupo_id" => $group_id));
+        return $q->num_rows();
+    }
 }

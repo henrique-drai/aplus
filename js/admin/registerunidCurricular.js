@@ -77,7 +77,6 @@ var curso_id = "";
 function getAllSchoolYears(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllSchoolYears",
         success: function(data) {
             linhas='<option class="ano_letivo" value=""> Selecione um Ano Letivo </option>';
@@ -100,7 +99,6 @@ function getAllSchoolYears(){
 function getAllfaculdades(){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllColleges",
         success: function(data) {
             var linhas = '<option class="college_row" value="">Selecione uma Faculdade</option>';
@@ -130,7 +128,6 @@ function getAllfaculdades(){
 function getAllCursosFaculdade(faculdade, anoletivo){
     $.ajax({
         type: "GET",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/getAllCursosFaculdadeAno",
         data: {faculdade,
                 anoletivo},
@@ -182,7 +179,6 @@ function submitRegister(){
     $("#cursos_register_UnidCurricular option").remove();
     $.ajax({
         type: "POST",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/registerSubject",
         data: data,
         success: function(data) {

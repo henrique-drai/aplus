@@ -115,17 +115,13 @@ function showMyGroup(proj_id){
     // é depois necessário verificar com o token
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getMyGroupInProj/" + proj_id,
         data: {proj_id: proj_id},
         success: function(data) {
             console.log(data);
             if (data == ""){
-
-                $("#grupo-name").text('Cria um grupo ou entra num grupo existente');
-                $("#grupos-container").html("cena de criar grupos - ye");
+                $("#grupo-name").text("Grupos");
+                showNotFullGroups(proj_id);
                 $("#submitEtapa").prop('disabled', true);
                 have_group = false;
                 $("#form-submit-etapa").hide();
@@ -152,6 +148,47 @@ function showMyGroup(proj_id){
 }
 
 
+function showNotFullGroups(proj_id){
+    $.ajax({
+        type: "GET",
+        url: base_url + "api/showNotFullGroup/" + proj_id,
+        data: {proj_id: proj_id},
+        success: function(data) {
+            var array=[];
+            for(var i=0; i<data["gruposdisponiveis"].length; i++){
+                var names = '';
+                var countEle = 0;
+                
+                for(var j=1; j<data["alunosnogrupo"].length; j++){
+                    if(data["alunosnogrupo"][j]["grupo_id"] == data["gruposdisponiveis"][i].grupo_id) {
+                        countEle+=1;
+                        names = names + '<a href="'+ base_url +'app/profile/' + data["alunosnogrupo"][j].user_name[2] + '">' + data["alunosnogrupo"][j].user_name[0] + " " + data["alunosnogrupo"][j].user_name[1] + "</a> | ";
+                    } 
+                }
+                array.push('<div class="myGroupDiv" id="grupo' + data["gruposdisponiveis"][i].grupo_id + '">' +
+                    '<p><b> Grupo: </b>' + data["gruposdisponiveis"][i].grupo_nome + '</p>' +
+                    '<p><b>Membros: </b>'+ names.slice(0, -2) + " ("+ countEle + "/" + data["alunosnogrupo"][0]["maxElementos"] +")" + '</p>' +
+                    '<p><input class="entrarGroupButton" id=entrar"'+ data["gruposdisponiveis"][i].grupo_id +'" type="button" value="Entrar"></input></p></div><hr>');
+                
+            }
+            $('#grupos-container').pagination({
+                dataSource: array,
+                pageSize: 5,
+                pageNumber: 1,
+                callback: function(data, pagination) {
+                    $("#grupos-container2").html(data);
+                }
+            })
+        },
+        error: function(data) {
+            var mensagem = "<h4 id='errogrupo'>Não foi possivel encontrar grupos.</h2>";
+            $(".myGroupDiv").append(mensagem);
+            $("#errogrupo").delay(2000).fadeOut();
+        }
+    });
+}
+
+
 function getEtapas(proj_id){
     //vai buscar as etapas deste projeto, sem os botoes que aparecem nos profs mas sim
     //com a info extra e uma opcao para enviar a submissao se o grupo estiver feito
@@ -163,9 +200,6 @@ function getEtapas(proj_id){
 
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getAllEtapas/" + proj_id,
         data: data_proj,
         success: function(data) {
@@ -305,9 +339,6 @@ function submit_etapa(file_name){
 
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/submitEtapa",
         data: data,
         success: function(data) {
@@ -330,9 +361,6 @@ function checkSubmission(grupo, etapa, proj){
 
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getSub",
         data: data,
         success: function(data) {

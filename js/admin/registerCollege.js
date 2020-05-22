@@ -15,7 +15,6 @@ function submitRegister(){
     $(".msgErro").remove();
     $.ajax({
         type: "POST",
-        headers: {"Authorization": localStorage.token},
         url: base_url + "api/registerCollege",
         data: data,
         success: function(data) {

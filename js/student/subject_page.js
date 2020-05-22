@@ -44,11 +44,8 @@ function setCode(newcode){
 function getInfo() {
     $.ajax({
         type: "GET",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/getCadeira/" + id,
-        data: {user_id: localStorage.user_id},
+        data: {user_id: localStorage.user_id, role: "student"},
         success: function(data) {
             console.log(data)
 
@@ -92,15 +89,19 @@ function getInfo() {
             if(data['hours'].length != 0) {
                 for(var i=0; i < data['user'].length; i++) {
                     var flag = false;
-                    for(var j=0; j < data['evento'].length; j++) {
-                        if(data['evento'][j][0].horario_id != data.hours[i].id) {
-                            flag = false;
-                        } else {
-                            flag = true;
-                            break;
+                    if (data["evento"]) {
+                        if(data["evento"].length > 0) {
+                            for(var j=0; j < data['evento'].length; j++) {
+                                if(data['evento'][j][0].horario_id != data.hours[i].id) {
+                                    flag = false;
+                                } else {
+                                    flag = true;
+                                    break;
+                                }
+                            }
                         }
                     }
-
+                    
                     if(flag) {
                         $(".hours").append("<div><p><b>" + 
                         data.user[i].name + " " + data.user[i].surname + ":</b> " + 
@@ -112,7 +113,7 @@ function getInfo() {
                         data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
                         data.hours[i].end_time.substring(0, 5) + "<span>" +
                         "<img src='" + image_url + "' class='add_event' id='" + data.hours[i].id + "'></span></p></div>");
-                    }                  
+                    }         
                 }
             } else {
                 $(".hours").append("<p>Ainda não há horários de dúvidas disponíveis.</p>");
@@ -127,10 +128,8 @@ function getInfo() {
 function addEvent(hours_id) {
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/addEvent/" + hours_id,
+        data: {cadeira_id: localStorage.cadeira_id},
         success: function(data) {
             console.log(data)
             $("#message_hour_s").fadeTo(2000, 1);
@@ -148,9 +147,6 @@ function addEvent(hours_id) {
 function insertLoggedDate(id) {
     $.ajax({
         type: "POST",
-        headers: {
-            "Authorization": localStorage.token
-        },
         url: base_url + "api/insertDate/" + id + "/student",
         success: function(data) {
             console.log(data)

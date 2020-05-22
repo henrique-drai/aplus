@@ -72,3 +72,7 @@
 .file-row p:nth-child(3) {
     width: 5%;
 }
+
+.delete_img {
+    width: 20px;
+}

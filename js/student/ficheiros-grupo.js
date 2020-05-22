@@ -11,4 +11,6 @@ $(document).ready(() => {
             console.log($("#file_submit")[0].files);
         }
     })
+
+    
 });

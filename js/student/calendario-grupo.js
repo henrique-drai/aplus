@@ -2,14 +2,14 @@ var calendario = {}
 
 $(document).ready(()=>{
     // generateCalendarioDays()
-    // updateCalendario()
+    updateCalendario()
     // eventOnClickCalendario()
 })
 
 function updateCalendario(){
   $.ajax({
       type: "GET",
-      url: base_url + "api/calendario",
+      url: base_url + "api/grupo/"+localStorage.grupo_id+"/calendario",
       success: function(data) {
           //setCalendario(data)
           //renderCalendario()

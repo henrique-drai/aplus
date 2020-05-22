@@ -16,6 +16,27 @@ class UserModel extends CI_Model {
         return $query->row();
     }
 
+    public function userIsRelatedToGroup($user_id, $grupo_id) {
+        $grupo_id = $this->db->escape($grupo_id);
+        $result = $this->db->query("select * 
+            from grupo_aluno, user
+            where grupo_aluno.user_id = user.id
+            and user.id = $user_id
+            and grupo_aluno.grupo_id = $grupo_id");
+        return ($result->num_rows() > 0)? true : false;
+    }
+
+    public function getFutureSubmissionsByGroupId($grupo_id){
+        $id = $this->db->escape($grupo_id);
+        $query = "select * 
+            from grupo, projeto, etapa
+            where etapa.projeto_id = projeto.id
+            and grupo.projeto_id = projeto.id
+            and etapa.deadline >= CURDATE()
+            and grupo.id = $id";
+        return $this->db->query($query)->result_array();
+    }
+
     public function getUserByIdRA($id) {
         $query = $this->db->get_where('user', array('id' => $id));
         return $query->result_array();

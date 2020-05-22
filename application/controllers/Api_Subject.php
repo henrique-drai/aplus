@@ -142,6 +142,8 @@ class Api_Subject extends REST_Controller {
 
         if($flag == "true") {
             $this->SubjectModel->insertDate($id, $user_id, $role);
+            $response = ['$cadeira' => $id, '$user' => $user_id];
+            $this->response($response, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
             $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];

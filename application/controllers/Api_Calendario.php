@@ -94,7 +94,30 @@ class Api_Calendario extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function grupo_get($grupo_id) {
+        $user_id = $this->session->userdata('id');        
 
+        $this->load->model('UserModel');
+        $this->load->model('EventModel');
+        $this->load->model('GroupModel');
+
+        // TODO - verificar relacionamento de user com grupo
+        if($this->UserModel->userIsRelatedToGroup($user_id, $grupo_id) == false){
+            $this->response(array('msg' => 'You don\'t have access to that group!'), parent::HTTP_UNAUTHORIZED); exit();
+        }
+
+        $group_events = $this->EventModel->getFutureEventsByGroupId($grupo_id);
+        $submissions = $this->EventModel->getFutureSubmissionsByGroupId($grupo_id);
+        $teachers = $this->GroupModel->getTeachersByGroupId($grupo_id);
+
+        $data = Array(
+            "group_events" => $group_events,
+            "submissions" => $submissions,
+            "teachers" => $teachers,
+        );
+
+        $this->response($data, parent::HTTP_OK);
+    }
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION
@@ -103,8 +126,7 @@ class Api_Calendario extends REST_Controller {
     private function verify_request()
     {
         if(is_null($this->session->userdata('role'))){
-            $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
-            exit();
+            $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED); exit();
         }
     }
 }

@@ -51,4 +51,9 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
         $data["grupo_aluno"] = $this->db->insert_id();
         return $data;
     }
+
+    public function deleteGroup($group_id){
+        $this->db->where("id", $group_id);
+        $this->db->delete('grupo');
+    }
 }

@@ -44,6 +44,7 @@ $route['api/getMyGroupInProj/(:num)']           = 'Api_Project/getMyGroupInProj/
 $route['api/leaveMyGroup/(:num)']               = 'Api_Project/leaveMyGroup/$1';
 $route['api/showNotFullGroup/(:num)']           = 'Api_Project/showNotFullGroup/$1';
 $route['api/criarGrupo/(:num)']                 = 'Api_Project/criarGrupo/$1';
+$route['api/entrarGrupo/(:num)']                 = 'Api_Project/entrarGrupo/$1';
 
 
 $route['api/removeProject/(:num)']              = 'Api_Project/removeProject/$1';

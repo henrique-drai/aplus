@@ -566,6 +566,10 @@ class Api_Subject extends REST_Controller {
         }
     }
 
+    private function verify_admin($user_id){
+        
+    }
+
     private function verify_teacher($user_id, $variable, $mode){
 
         if ($mode == "projeto"){

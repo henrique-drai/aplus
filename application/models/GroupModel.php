@@ -39,4 +39,16 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
         $q = $this->db->get_where("grupo_aluno", array("grupo_id" => $group_id));
         return $q->num_rows();
     }
+
+    public function createGroup($data){
+        $this->db->insert("grupo", $data);
+        $data["grupo"] = $this->db->insert_id();
+        return $data;
+    }
+
+    public function addElementGroup($data){
+        $this->db->insert("grupo_aluno", $data);
+        $data["grupo_aluno"] = $this->db->insert_id();
+        return $data;
+    }
 }

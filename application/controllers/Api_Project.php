@@ -253,6 +253,25 @@ class Api_Project extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function criarGrupo_post(){
+        $user_id = $this->session->userdata('id');
+        $datagrupo = Array(
+            "name" => $this->post("nomeGrupo"),
+            "projeto_id" => $this->post("projid"),
+        );
+
+        $this->load->model("GroupModel");
+        $retrieved = $this->GroupModel->createGroup($datagrupo);
+
+        $datagrupoaluno = Array(
+            "grupo_id" => $retrieved["grupo"],
+            "user_id" => $user_id,
+        );
+
+        $addeduser = $this->GroupModel->addElementGroup($datagrupoaluno);
+        $this->response(json_encode($retrieved), parent::HTTP_OK);
+    }
+
     
 
     //////////////////////////////////////////////////////////////
@@ -585,6 +604,20 @@ class Api_Project extends REST_Controller {
 
         for ($i=0; $i < count($membros_grupo); $i++){
             if($user_id == $membros_grupo[$i]["user_id"]){
+                $flag_found = true;
+            }    
+        }
+
+        return $flag_found;
+    }
+
+    private function verify_studentInCadeira($user_id, $cadeira_id){
+        $membros = $this->StudentListModel->getStudentsByCadeiraID($cadeira_id);
+
+        $flag_found = false;
+
+        for ($i=0; $i < count($membros); $i++){
+            if($user_id == $membros[$i]["user_id"]){
                 $flag_found = true;
             }    
         }

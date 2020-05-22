@@ -52,8 +52,8 @@
 <!-- ################################################################################################# -->
 
             <div class="admin-users-window">
-                <div class="title">Exportar</div>
-                
+                <!-- <div class="title">Exportar</div> -->
+<!--                 
                 <form id="exportCsv">
                 <p>
                     <label for="data">Exportar dados:</label>
@@ -66,15 +66,20 @@
                 </p><p>
                     <input type="submit" id="exportInfo" value="Exportar">
                 
-                </form>
+                </form> -->
 
-                <br>
-                <br>
+                <!-- <br>
+                <br> -->
 
                 
                 <form id="export2Csv" action="javascript:void(0)">
 
                     <p>
+                        <div class="title">Exportar</div>
+
+                        <br>
+
+
                         <label for="data">Exportar alunos:</label>
                         
                             <select id="collegesDisplay" name="colleges">
@@ -126,12 +131,17 @@
            
 
            
-                <div class="title">Importar</div>
+               
                 
 
                 <form id="importFromCsv" action="javascript:void(0)" enctype="multipart/form-data">
                     
-                    <label for="myfile">Importar dados:</label>
+                    <p>
+                            <div class="title">Importar</div>
+
+                            <br>
+                            
+                            <label for="data">Importar alunos:</label>
                     
                             <select id="collegesDisplay1" name="colleges">
                             </select>
@@ -141,12 +151,11 @@
                             <select id="yearsDisplay1" name="years">
                             </select>
 
-                            <br>
                             
                             <div id="collegeStatus1">
                             </div>
 
-                    <br>
+                    </p>
                 
                     <!-- <input type="file" id="myfile" name="userfile" accept=".csv" required>
                     <input type="submit" id="import-data-submit"  value="Importar"> -->

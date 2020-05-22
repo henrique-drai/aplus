@@ -53,9 +53,9 @@ class Api_Admin extends REST_Controller {
 
     public function importStudentsCourse_post(){
 
-        $auth = $this->verify_request();
+        $auth = $this->session->userdata('id');
 
-        $user = $this->UserModel->getUserById($auth->id);
+        $user = $this->UserModel->getUserById($auth);
 
         if($user->role != "admin"){
             $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
@@ -63,8 +63,6 @@ class Api_Admin extends REST_Controller {
         }
 
         $this->load->helper('url');
-        $this -> load -> model('UserModel');
-        $this -> load -> model('CourseModel');
 
         $count_files = $_FILES["userfile"]['tmp_name'];
         $file  = fopen($count_files, 'r');
@@ -103,7 +101,6 @@ class Api_Admin extends REST_Controller {
         }
 
         $this->load->helper('url');
-        $this -> load -> model('UserModel');
         $count_files = $_FILES["userfile"]['tmp_name'];
         $file  = fopen($count_files, 'r');
 
@@ -139,8 +136,7 @@ class Api_Admin extends REST_Controller {
         }
 
         $this->load->helper('url');
-        $this -> load -> model('UserModel');
-        $this -> load -> model('SubjectModel');
+
         $count_files = $_FILES["userfile"]['tmp_name'];
         $file  = fopen($count_files, 'r');
 
@@ -208,7 +204,7 @@ class Api_Admin extends REST_Controller {
             return null;
         }
 
-        $this->load->model('UserModel');
+ 
         $role = $this -> get("role");
         
         $file = fopen('php://output','w');
@@ -252,8 +248,7 @@ class Api_Admin extends REST_Controller {
         // $year = $this -> get('year');           
         $course = $this -> get('course');         
         
-        $this->load->model('UserModel');
-        $this->load->model('CourseModel');
+
 
         $data["students"] = $this -> CourseModel -> getStudentsByCourse($course);
 

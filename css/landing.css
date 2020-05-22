@@ -22,10 +22,14 @@ input{
 }
 
 #imgLogo {
-    height: 197px;
-    width: 212px;
-    padding-bottom: 10%;
+    width: 100px;
 }
 
-
-
+form > .error-msg {
+    color: white;
+    font-size: 10px;
+    background-color: crimson;
+    margin-top: 10px;
+    border-radius: 3px;
+    visibility: hidden;
+}

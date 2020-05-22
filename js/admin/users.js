@@ -13,13 +13,13 @@ $(document).ready(() => {
     $("#collegesDisplay").change(function(){
         
         if($("#yearsDisplay").val()!="Selecione um Ano Letivo" && $("#collegesDisplay").val()!="Selecione uma Faculdade"){
-            getCursosFaculdade($("#yearsDisplay").val(), $("#collegesDisplay").val(), 1);
+            getCursosFaculdade($("#yearsDisplay").val(), $("#collegesDisplay").val());
         }
 
     }) ;
     $("#yearsDisplay").change(function(){
         if($("#yearsDisplay").val()!="Selecione um Ano Letivo" && $("#collegesDisplay").val()!="Selecione uma Faculdade"){
-            getCursosFaculdade($("#yearsDisplay").val(), $("#collegesDisplay").val(), 1);
+            getCursosFaculdade($("#yearsDisplay").val(), $("#collegesDisplay").val());
         }
     }) ;
 
@@ -30,13 +30,13 @@ $(document).ready(() => {
     $("#collegesDisplay1").change(function(){
         
         if($("#yearsDisplay1").val()!="Selecione um Ano Letivo" && $("#collegesDisplay1").val()!="Selecione uma Faculdade"){
-            getCursosFaculdade($("#yearsDisplay1").val(), $("#collegesDisplay1").val(),2);
+            getCursosFaculdade2($("#yearsDisplay1").val(), $("#collegesDisplay1").val());
         }
 
     }) ;
     $("#yearsDisplay1").change(function(){
         if($("#yearsDisplay1").val()!="Selecione um Ano Letivo" && $("#collegesDisplay1").val()!="Selecione uma Faculdade"){
-            getCursosFaculdade($("#yearsDisplay1").val(), $("#collegesDisplay1").val(),2);
+            getCursosFaculdade2($("#yearsDisplay1").val(), $("#collegesDisplay1").val());
         }
     }) ;
 
@@ -170,69 +170,6 @@ $(document).ready(() => {
 })
 
 
-
-
-function getCursosFaculdade(ano, faculdade, form){
-
-    const data = {
-        faculdade:          faculdade,
-        anoletivo:          ano,
-    }
-
-    $.ajax({
-        type: "GET",
-        url: base_url + "api/getAllCursosFaculdadeAno",
-        data: data,
-        success: function(data) {
-            var option = "Selecione um Curso";
-
-            if(data.courses.length > 0){
-                for (i=0; i<data.courses.length; i++){
-                    option+= "<option value='" + data.courses[i].id + "'>"+ data.courses[i].name  + "</option>"
-                }
-                console.log(form)
-                
-                if(form==1){
-                    $("#export2Csv").append("<select id='coursesDisplay' name='courses'></select>")
-                    $("#coursesDisplay").html(option)
-                    $("#export2Csv").append("<input type='submit' id='exportInfo2' value='Exportar'>")
-    
-                }
-                else if (form==2){
-                    $("#importFromCsv").append("<select id='coursesDisplay' name='courses'></select>")
-                    $("#coursesDisplay").html(option)
-                    $("#importFromCsv").append("<input type='file' id='myfile' name='userfile' accept='.csv' required>")
-                    $("#importFromCsv").append("<input type='submit' id='importToCourse'  value='Importar'></input>")
-                    
-                }               
-            }
-            else{
-                if(form==1){
-                    $("#exportInfo2").remove()
-                    $("#collegeStatus").html("Não existem cursos");
-                    $("#collegeStatus").show().delay(2000).fadeOut();
-                    
-                }
-                else if(form==2){
-                    $("#exportInfo2").remove()
-                    $("#collegeStatus1").html("Não existem cursos");
-                    $("#collegeStatus1").show().delay(2000).fadeOut();
-                    $("#myfile").remove()
-                    $("#importToCourse").remove()
-                    
-                }
-                $("#coursesDisplay").remove()
-                
-                
-            }
-            
-        },
-        error: function(data) {
-            console.log("Erro na API:")
-        }
-    });
-}
-
 function getColleges(){
     $.ajax({
         type: "GET",
@@ -305,4 +242,85 @@ function submitRegister(){
         $("#msgStatus").text("É necessário preencher todos os campos.");
         $("#msgStatus").show().delay(2000).fadeOut();
     }
+}
+
+
+// #################################################################################################
+
+
+
+function getCursosFaculdade(ano, faculdade){
+
+    const data = {
+        faculdade:          faculdade,
+        anoletivo:          ano,
+    }
+
+    $.ajax({
+        type: "GET",
+        url: base_url + "api/getAllCursosFaculdadeAno",
+        data: data,
+        success: function(data) {
+            var option = "Selecione um Curso";
+
+            if(data.courses.length > 0){
+                for (i=0; i<data.courses.length; i++){
+                    option+= "<option value='" + data.courses[i].id + "'>"+ data.courses[i].name  + "</option>"
+                }
+           
+                $("#export2Csv").append("<select id='coursesDisplay' name='courses'></select>")
+                $("#coursesDisplay").html(option)
+                $("#export2Csv").append("<input type='submit' id='exportInfo2' value='Exportar'>")
+            }
+            else{
+                
+                $("#exportInfo2").remove()
+                $("#collegeStatus").html("Não existem cursos");
+                $("#collegeStatus").show().delay(2000).fadeOut();
+                $("#coursesDisplay").remove()
+            }            
+        },
+        error: function(data) {
+            console.log("Erro na API:")
+        }
+    });
+}
+
+
+
+function getCursosFaculdade2(ano, faculdade){
+
+    const data = {
+        faculdade:          faculdade,
+        anoletivo:          ano,
+    }
+
+    $.ajax({
+        type: "GET",
+        url: base_url + "api/getAllCursosFaculdadeAno",
+        data: data,
+        success: function(data) {
+            var option = "Selecione um Curso";
+
+            if(data.courses.length > 0){
+                for (i=0; i<data.courses.length; i++){
+                    option+= "<option value='" + data.courses[i].id + "'>"+ data.courses[i].name  + "</option>"
+                }
+                $("#importFromCsv").append("<select id='coursesDisplay1' name='courses'></select>")
+                $("#coursesDisplay1").html(option)
+                $("#importFromCsv").append("<input type='file' id='myfile' name='userfile' accept='.csv' required>")
+                $("#importFromCsv").append("<input type='submit' id='importToCourse'  value='Importar'></input>")               
+            }
+            else{
+                $("#myfile").remove()
+                $("#importToCourse").remove()
+                $("#collegeStatus1").html("Não existem cursos");
+                $("#collegeStatus1").show().delay(2000).fadeOut();
+                $("#coursesDisplay1").remove()
+            }
+        },
+        error: function(data) {
+            console.log("Erro na API:")
+        }
+    });
 }

@@ -128,6 +128,7 @@ class UploadsC extends CI_Controller {
         $user_id = $this->session->userdata('id');
         $upload['upload_path'] = './uploads/profile/';
         $upload['allowed_types'] = 'jpeg|jpg|png';
+        $upload['max_size'] = 2048;
         $upload['file_name'] = $user_id;
         $upload['overwrite'] = true;
 

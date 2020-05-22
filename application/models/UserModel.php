@@ -42,28 +42,22 @@ class UserModel extends CI_Model {
     }
 
     public function getSearchStudentTeachers($query){
-        // // // $this->db->select("*");
-        // $this->db->where('role', 'student');
-        // $this->db->or_where('role', 'teacher');
-        // if($query != ''){
-        //     $this->db->group_start();
-        //     $this->db->like("name", $query);
-        //     $this->db->or_like("surname", $query);
-        //     $this->db->group_end();
-        // }
-        // $this->db->order_by("name","ASC");
-        // return $this->db->get('user');
-        $this->db->where('role', 'student');
-        $this->db->or_where('role', 'teacher');
-        $this->db->like("name", $query);
-        return $query = $this->db->get('user');
+        $this->db->select("*");
+        $status_condition = 'user.role = student OR user.role = teacher';
+        $this->db->where($status_condition);
 
-        // $qry = $this->db->select('*')
-        //             ->from('user')
-        //             ->where("column name LIKE '%$query%'")
-        //             ->get()->result(); // select data like rearch value.
-        // return $qry;
-    
+        // $this->db->where("role = 'student'");
+        // $this->db->or_where("role = 'teacher'");
+
+        if($query != ''){
+            // $this->db->group_start();
+            $this->db->like("email", $query);
+            $this->db->or_like("name", $query);
+            $this->db->or_like("surname", $query);
+            // $this->db->group_end();
+        }
+        $this->db->order_by("name","ASC");
+        return $this->db->get('user');
     }
 
     public function deleteUser($email){

@@ -35,7 +35,8 @@ function loadHome() {
             
         },
         error: function(data) {
-            alert("Houve um erro ao ir buscar a informação das cadeiras lecionadas.");
+            console.log("Erro na API:")
+            console.log(data)
         }
     })
 }

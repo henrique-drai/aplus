@@ -48,8 +48,6 @@ function getInfo() {
         url: base_url + "api/getCadeira/" + id,
         data: {user_id: localStorage.user_id, role: "student"},
         success: function(data) {
-            console.log(data)
-
             var color = convertHex(data.desc[0].color, 52);
 
             $("#subject_title").append("<h1>" + data.desc[0].name + "</h1>");
@@ -121,7 +119,8 @@ function getInfo() {
             }
         },
         error: function(data) {
-            alert("Houve um erro ao ir buscar a informação da cadeira.");
+            console.log("Erro na API:")
+            console.log(data)
         }
     });
 }
@@ -132,15 +131,14 @@ function addEvent(hours_id) {
         url: base_url + "api/addEvent/" + hours_id,
         data: {cadeira_id: localStorage.cadeira_id},
         success: function(data) {
-            console.log(data)
             $("#message_hour_s").fadeTo(2000, 1);
             setTimeout(function() {
                 $("#message_hour_s").fadeTo(2000, 0);
             }, 2000);
         },
         error: function(data) {
+            console.log("Erro na API:")
             console.log(data)
-            console.log("ups")
         }
     })
 }
@@ -153,7 +151,8 @@ function insertLoggedDate(id) {
             console.log(data)
         },
         error: function(data) {
-            alert("Houve um erro ao ir buscar a informação das cadeiras lecionadas.");
+            console.log("Erro na API:")
+            console.log(data)
         }
     })
 }

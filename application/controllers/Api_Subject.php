@@ -129,7 +129,18 @@ class Api_Subject extends REST_Controller {
     public function insertDate_post($id, $role) { 
         $user_id = $this->session->userdata('id');
 
-        if($this->verify_teacher($user_id, $id, "cadeira")) {
+        $flag = false;
+        if($role == "teacher") {
+            if($this->verify_teacher($user_id, $id, "cadeira")) {
+                $flag = true;
+            }
+        } else if($role == "student") {
+            if($this->verify_student($user_id, $id)) {
+                $flag = true;
+            }
+        }
+
+        if($flag == "true") {
             $this->SubjectModel->insertDate($id, $user_id, $role);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;

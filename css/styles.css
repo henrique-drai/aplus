@@ -24,6 +24,7 @@ body {
     font-family: 'Poppins', sans-serif !important;
     background-color: #efefef;
     height:100%;
+    box-sizing: border-box;
 }
 main {
     width: calc(100% - 220px);

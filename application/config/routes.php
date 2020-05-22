@@ -64,6 +64,7 @@ $route['api/getCadeirasOrder/(:num)/(:any)']    = 'Api_Subject/getCadeirasOrder/
 $route['api/getCourseStudents/(:num)']          = 'Api_Subject/getCourseStudents/$1';
 $route['api/insertDate/(:num)/(:any)']          = 'Api_Subject/insertDate/$1/$2';
 $route['api/deleteHourById']                    = 'Api_Subject/deleteHourById';
+$route['api/submitFileAreaCadeira']             = 'Api_Subject/submitFileAreaCadeira';
 
 $route['api/getAllTasks/(:num)']                = 'Api_Student/getAllTasks/$1';
 

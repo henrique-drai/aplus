@@ -26,13 +26,26 @@
     transition: transparent 0.3s ease-in-out;
     margin-top: -60px;
     color: black;
+    -ms-overflow-style: none;
+    z-index: 10;
 }
 
-.success-file, .error-file{
+.success-file{
+    display: none;
+    overflow-x: auto;
+    white-space: nowrap;
+    height: 30px;
+    position: relative;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.file-text ::-webkit-scrollbar {
     display: none;
 }
 
 .error-file{
+    display: none;
     color: red;
 }
 
@@ -75,4 +88,15 @@
 
 .delete_img {
     width: 20px;
+}
+
+@media screen and (max-width: 768px) {
+
+    .file-text{
+        margin-top:-75px;
+    }
+
+    .default-file, .error-file, .success-file {
+        margin-top: 14px;
+    }
 }

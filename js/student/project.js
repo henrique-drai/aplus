@@ -177,6 +177,7 @@ function showNotFullGroups(proj_id){
 
             if(array.length == 0){
                 $("#grupos-container2").html("Não existem grupos disponiveis");
+                $(".paginationjs").css("display", "none");
             }
             else{
                 $('#grupos-container').pagination({

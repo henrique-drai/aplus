@@ -84,6 +84,15 @@
     width: 90%;
 }
 
+#msgStatus{
+    background-color: rgb(255, 72, 72);
+    width: 50%;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
 @media screen and (max-width: 440px) {
     .myGroupDiv, .availableGroupsDiv{
         display: block;

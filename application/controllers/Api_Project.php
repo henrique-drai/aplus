@@ -554,7 +554,7 @@ class Api_Project extends REST_Controller {
 
         $this->GroupModel->leaveGroup($user_id, $group_id);
 
-        $numElegroup = $this->GroupModel->countElements($grupos[$i]["id"]);
+        $numElegroup = $this->GroupModel->countElements($group_id);
 
         if($numElegroup == 0){
             $this->GroupModel->deleteGroup($group_id);

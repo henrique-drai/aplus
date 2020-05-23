@@ -48,6 +48,11 @@ class UserModel extends CI_Model {
         return ($query->num_rows() > 0)? true : false;
     }
 
+    public function isValidUser($id) {
+        $query = $this->db->get_where('user', array('id' => $id));
+        return ($query->num_rows() > 0)? true : false;
+    }
+
     public function registerUser($data) {
         $this->db->insert("user", $data);
         $data["user_id"] = $this->db->insert_id();

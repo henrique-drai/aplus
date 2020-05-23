@@ -1,6 +1,10 @@
 <title>A+ Chat</title>
 <script>setPageName("chat")</script>
+
 <script src="<?php echo $base_url; ?>js/private_chat.js"></script>
+
+<?php if(isset($user)):?><script>setChatUserId(<?=$user->id?>)</script><?php endif; ?>
+
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/chat.css">
 </head>
 

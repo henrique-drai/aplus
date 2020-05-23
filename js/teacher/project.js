@@ -661,7 +661,7 @@ function makeEtapaTable(data){
         var date_full = d1[0].split("-");
         var hours_full = d1[1].split(":");
         var date = new Date(date_full[0], date_full[1]-1, date_full[2], hours_full[0], hours_full[1], hours_full[2]);
-        
+
         var today = new Date();
 
         var pClass = "p_up"

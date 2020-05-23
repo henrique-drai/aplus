@@ -507,6 +507,20 @@ class Api_Subject extends REST_Controller {
         }        
     }
 
+    public function getFicheirosCadeira_get(){
+        $user_id = $this->session->userdata('id');
+        $cadeira_id = $this->get("cadeira_id");
+
+        if($this->verify_teacher($user_id, $cadeira_id, "cadeira") || $this->verify_student($user_id, $cadeira_id)){
+            $data = $this->SubjectModel->getFicheirosCadeira($cadeira_id);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+    }
+   
    
 
     //////////////////////////////////////////////////////////////
@@ -563,6 +577,23 @@ class Api_Subject extends REST_Controller {
             $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
             $this->response($response, $status);
         }        
+    }
+
+    public function removeFicheiroAreaCadeira_delete(){
+        $user_id = $this->session->userdata('id');
+        $cadeira_id = $this->delete("cadeira_id");
+        $ficheiro_id = $this->delete("ficheiro_id");
+
+        if($this->verify_teacher($user_id, $cadeira_id, "cadeira")){
+            $ficheiro = $this->SubjectModel->getFicheiroById($ficheiro_id);
+            unlink("uploads/cadeira_files/" . $cadeira_id . "/" . $ficheiro[0]["url"]);
+            $this->SubjectModel->removeFicheiroAreaCadeira($ficheiro_id);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
     //////////////////////////////////////////////////////////////

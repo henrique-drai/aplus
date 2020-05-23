@@ -88,6 +88,11 @@
 
 .delete_img {
     width: 20px;
+    cursor: pointer;
+}
+
+.delete_img:hover{
+    opacity: 0.6;
 }
 
 @media screen and (max-width: 768px) {

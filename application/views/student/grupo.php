@@ -1,5 +1,5 @@
 <title>A+ for Students</title>
-<script>setPageName("grupo")</script>
+<script>setPageName("grupos")</script>
 <script src="<?=$base_url?>js/student/grupo.js"></script>
 <script src="<?=$base_url?>js/student/calendario-grupo.js"></script>
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/popup.css">

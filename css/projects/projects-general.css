@@ -15,7 +15,7 @@
 }
 
 label {
-    word-break: break-all;
+    word-break: break-word;
 }
 
 .p_expired{
@@ -164,6 +164,10 @@ label {
 
     .content label {
         font-size: 14px;
+    }
+
+    .popup{
+        width: 80% !important;
     }
 }
 

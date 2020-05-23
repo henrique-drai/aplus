@@ -53,7 +53,28 @@ class Api_User extends REST_Controller {
         );
 
         $this->load->model('UserModel');
+        $this->load->model('CourseModel');
+        $this->load->model('SubjectModel');
         $retrieved = $this->UserModel->registerUser($data);
+
+        if($data["role"] == 'student'){
+            $cursoid = $this->post('curso');
+            $dataCursoUser = Array(
+                "user_id"    => $retrieved["user_id"],
+                "curso_id"   => $cursoid,               
+            );
+            $this->CourseModel->insertAlunoCurso($dataCursoUser);
+            $cadeiras = $this->SubjectModel->getSubjectsByCursoId($cursoid);
+            for($i=0; $i<count($cadeiras); $i++){
+                print_r($cadeiras);
+                $dataUserCadeira = Array(
+                    "user_id" => $retrieved["user_id"],
+                    "cadeira_id" => $cadeiras[$i]["id"],
+                    "is_completed" => 0,
+                );
+                $this->SubjectModel->insertAlunoCadeira($dataUserCadeira);
+            }
+        }
 
         $this->response(json_encode($retrieved), parent::HTTP_OK);
     }

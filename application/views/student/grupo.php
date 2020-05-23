@@ -1,16 +1,16 @@
 <title>A+ for Students</title>
-<script>setPageName("grupo")</script>
-<script src="<?php echo $base_url; ?>js/student/grupo.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/student/grupo.css">
+<script>setPageName("grupos")</script>
+<script src="<?=$base_url?>js/student/grupo.js"></script>
 <script src="<?=$base_url?>js/student/calendario-grupo.js"></script>
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/popup.css">
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/student/grupo.css">
 </head>
 
 <body>
 <?php $this->view('templates/nav-menu'); ?>
     <main>
         <h4 class="breadcrumb">
-            <a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > Área de Grupo
+            <a href="<?=$base_url?>app/student/grupos">Grupos</a> > Área de Grupo
         </h4>
 
         <h1>Área de Grupo</h1>

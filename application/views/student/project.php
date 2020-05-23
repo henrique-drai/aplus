@@ -31,6 +31,8 @@
 
         <div id="grupos-container" class="container">
             <div id="grupos-container2"></div>
+            <div id="msgStatus">
+            </div>
         </div>       
 
         <br><br>

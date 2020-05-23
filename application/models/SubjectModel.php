@@ -239,4 +239,17 @@ class SubjectModel extends CI_Model { //cadeira
         $this->db->update("ficheiros_cadeira");
         return $this->db->affected_rows();
     }
+
+    public function getFicheirosCadeira($cadeira_id){
+        return $this->db->get_where("ficheiros_cadeira", array("cadeira_id" => $cadeira_id))->result_array();
+    }
+
+    public function removeFicheiroAreaCadeira($ficheiro_id){
+        $this->db->where("id", $ficheiro_id);
+        $this->db->delete("ficheiros_cadeira");
+    }
+
+    public function getFicheiroById($ficheiro_id){
+        return $this->db->get_where("ficheiros_cadeira", array("id" => $ficheiro_id))->result_array();
+    }
 }

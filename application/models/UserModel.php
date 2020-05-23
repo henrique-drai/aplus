@@ -43,18 +43,16 @@ class UserModel extends CI_Model {
 
     public function getSearchStudentTeachers($query){
         $this->db->select("*");
-        $status_condition = 'user.role = student OR user.role = teacher';
+        $status_condition = 'role != "admin"';
         $this->db->where($status_condition);
 
-        // $this->db->where("role = 'student'");
-        // $this->db->or_where("role = 'teacher'");
-
         if($query != ''){
-            // $this->db->group_start();
+            $this->db->group_start();
             $this->db->like("email", $query);
             $this->db->or_like("name", $query);
             $this->db->or_like("surname", $query);
-            // $this->db->group_end();
+            $this->db->or_like("CONCAT(name,' ',surname)", $query);
+            $this->db->group_end();
         }
         $this->db->order_by("name","ASC");
         return $this->db->get('user');
@@ -129,6 +127,7 @@ class UserModel extends CI_Model {
             $this->db->like("email", $query);
             $this->db->or_like("name", $query);
             $this->db->or_like("surname", $query);
+            $this->db->or_like("CONCAT(name,' ',surname)", $query);
             $this->db->group_end();
         }
         $this->db->order_by("name","ASC");
@@ -143,6 +142,7 @@ class UserModel extends CI_Model {
             $this->db->like("email", $query);
             $this->db->or_like("name", $query);
             $this->db->or_like("surname", $query);
+            $this->db->or_like("CONCAT(name,' ',surname)", $query);
             $this->db->group_end();
         }
         $this->db->order_by("name","ASC");

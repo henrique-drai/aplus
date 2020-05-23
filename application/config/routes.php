@@ -6,6 +6,7 @@ https://codeigniter.com/userguide3/general/routing.html
 */
 
 $route['api/calendario']                        = 'Api_Calendario/calendario';
+$route['api/grupo/(:num)/calendario']           = 'Api_Calendario/grupo/$1';
 $route['api/agenda']                            = 'Api_Calendario/agenda';
 
 $route['api/event/(:num)']                      = 'Api_Event/event/$1';
@@ -52,6 +53,9 @@ $route['api/removeEtapa/(:num)']                = 'Api_Project/removeEtapa/$1';
 $route['api/removeEnunciadoEtapa/(:num)']       = 'Api_Project/removeEnunciadoEtapa/$1';
 $route['api/removeEnunciadoProj/(:num)']        = 'Api_Project/removeEnunciadoProj/$1';
 
+$route['api/submitFileAreaGrupo']               = 'Api_Project/submitFileAreaGrupo';
+$route['api/getFicheirosGrupo/(:num)']          = 'Api_Project/getFicheirosGrupo/$1';
+
 $route['api/getGroupMembers/(:num)']            = 'Api_Project/getGroupMembers/$1';
 $route['api/insertTask']                        = 'Api_Project/insertTask';
 $route['api/getTasks/(:num)']                   = 'Api_Project/getTasks/$1';
@@ -70,6 +74,8 @@ $route['api/deleteHourById']                    = 'Api_Subject/deleteHourById';
 $route['api/submitFileAreaCadeira']             = 'Api_Subject/submitFileAreaCadeira';
 
 $route['api/getAllTasks/(:num)']                = 'Api_Student/getAllTasks/$1';
+$route['api/getFicheirosCadeira/(:num)']        = 'Api_Subject/getFicheirosCadeira/$1';
+$route['api/removeFicheiroAreaCadeira/(:num)']  = 'Api_Subject/removeFicheiroAreaCadeira/$1';
 
 
 $route['api/getProjectStatus']                  = 'Api_Project/getProjectStatus';

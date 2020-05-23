@@ -56,4 +56,16 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
         $this->db->where("id", $group_id);
         $this->db->delete('grupo');
     }
+
+    public function getTeachersByGroupId($grupo_id){
+        $grupo_id = $this->db->escape($grupo_id);
+        $query = "select * 
+            from grupo, projeto, cadeira, professor_cadeira, user
+            where user.id = professor_cadeira.user_id
+            and professor_cadeira.cadeira_id = cadeira.id
+            and projeto.cadeira_id = cadeira.id
+            and projeto.id = grupo.projeto_id
+            and grupo.id = $grupo_id";
+        return $this->db->query($query)->result_array();
+    }
 }

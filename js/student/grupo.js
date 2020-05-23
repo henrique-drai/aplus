@@ -193,6 +193,9 @@ function getTasks() {
                 }
             } else {
                 $(".tasksTable").append("<p>Não existem tarefas.</p>");
+                $("#editTarefa").css('visibility', 'hidden');
+                $("#deleteTarefa").css('visibility', 'hidden');
+                
             }
         },
         error: function(data) {

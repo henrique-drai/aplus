@@ -74,7 +74,6 @@ $route['api/insertDate/(:num)/(:any)']          = 'Api_Subject/insertDate/$1/$2'
 $route['api/deleteHourById']                    = 'Api_Subject/deleteHourById';
 $route['api/submitFileAreaCadeira']             = 'Api_Subject/submitFileAreaCadeira';
 
-$route['api/getAllTasks/(:num)']                = 'Api_Student/getAllTasks/$1';
 $route['api/getFicheirosCadeira/(:num)']        = 'Api_Subject/getFicheirosCadeira/$1';
 $route['api/removeFicheiroAreaCadeira/(:num)']  = 'Api_Subject/removeFicheiroAreaCadeira/$1';
 

@@ -1,17 +1,3 @@
-/* #tab-gerir-tarefas {
-	width: 100%;
-	text-align: center;
-}
-
-#tab-gerir-tarefas th {
-	background-color: #939393;
-	padding: 15px 0px;
-}
-
-#tab-gerir-tarefas tr:hover {
-	background-color: #ccc
-} */
-
 input[type="text"], textarea, input[type="datetime-local"], select {
 	width: 100%;
 }

@@ -41,6 +41,21 @@
                         <option value="teacher">Teacher</option>
                     </select>
                     </p>
+                    <p>
+                        <label for="academicYearUser">Ano Letivo:</label>
+                        <select id="registerAnoUser" name="academicYearUser">
+                        </select>
+                    </p>
+                    <p>
+                        <label for="faculUser">Faculdade:</label>
+                        <select id="registerUserFacul" name="faculUser">
+                        </select>
+                    </p>
+                    <p id="cursoUser">
+                        <label for="cursoUser">Curso:</label>
+                        <select id="registerUserCurso" name="cursoUser">
+                        </select>
+                    </p>
                     <input type="submit" id="register-form-submit">
                 </form>
                 <br>

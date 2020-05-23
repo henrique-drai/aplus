@@ -83,7 +83,6 @@ class CourseModel extends CI_Model { //curso & curso_standard & aluno_curso
         $this->db->from("aluno_curso");
         return $this->db->count_all_results();
     }
-
 }
 
 

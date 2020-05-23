@@ -252,4 +252,8 @@ class SubjectModel extends CI_Model { //cadeira
     public function getFicheiroById($ficheiro_id){
         return $this->db->get_where("ficheiros_cadeira", array("id" => $ficheiro_id))->result_array();
     }
+
+    public function insertAlunoCadeira($data){
+        $this->db->insert("aluno_cadeira", $data);
+    }
 }

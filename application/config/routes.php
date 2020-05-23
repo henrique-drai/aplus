@@ -45,7 +45,7 @@ $route['api/getMyGroupInProj/(:num)']           = 'Api_Project/getMyGroupInProj/
 $route['api/leaveMyGroup/(:num)']               = 'Api_Project/leaveMyGroup/$1';
 $route['api/showNotFullGroup/(:num)']           = 'Api_Project/showNotFullGroup/$1';
 $route['api/criarGrupo/(:num)']                 = 'Api_Project/criarGrupo/$1';
-$route['api/entrarGrupo/(:num)']                 = 'Api_Project/entrarGrupo/$1';
+$route['api/entrarGrupo/(:num)']                = 'Api_Project/entrarGrupo/$1';
 
 
 $route['api/removeProject/(:num)']              = 'Api_Project/removeProject/$1';
@@ -55,6 +55,7 @@ $route['api/removeEnunciadoProj/(:num)']        = 'Api_Project/removeEnunciadoPr
 
 $route['api/submitFileAreaGrupo']               = 'Api_Project/submitFileAreaGrupo';
 $route['api/getFicheirosGrupo/(:num)']          = 'Api_Project/getFicheirosGrupo/$1';
+$route['api/removeFicheiroAreaGrupo/(:num)']    = 'Api_Project/removeFicheiroAreaGrupo/$1';
 
 $route['api/getGroupMembers/(:num)']            = 'Api_Project/getGroupMembers/$1';
 $route['api/insertTask']                        = 'Api_Project/insertTask';

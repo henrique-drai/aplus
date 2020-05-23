@@ -118,7 +118,7 @@ function getAllfaculdades(){
         error: function(data) {
             $("#faculdades_register_UnidCurricular").css("display", "none");
             $("#faculdades_register_UnidCurricular option").remove();
-            $("#msgStatus").text("Não foi possível encontrar faculdade.");
+            $("#msgStatus").text("Não foi possível encontrar faculdades.");
             $("#msgStatus").show().delay(2000).fadeOut();
         }
     });

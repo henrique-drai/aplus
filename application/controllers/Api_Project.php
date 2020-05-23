@@ -15,6 +15,9 @@ class Api_Project extends REST_Controller {
     public function __construct() {
         parent::__construct();
         $this->verify_request();
+        $this->load->model("SubjectModel");
+        $this->load->model('ProjectModel');
+        $this->load->model('GroupModel');
     }
 
 
@@ -41,7 +44,6 @@ class Api_Project extends REST_Controller {
             );
             
             $dataEtapa = $this->post("listetapas");
-            $this->load->model('ProjectModel');
 
             $proj_id = $this->ProjectModel->insertProject($dataProj);    
             for($i=0; $i < count($dataEtapa); $i++) {
@@ -72,7 +74,6 @@ class Api_Project extends REST_Controller {
         //Verificar se o id do professor guardado no token está associado à cadeira atraves da etapa - verify teacher
         
         $etapa = $this->post('new_etapa');
-        $this->load->model('ProjectModel');
 
 
         if ($this->verify_teacher($user_id,$this->post('projid'),"projeto") == true){
@@ -101,9 +102,7 @@ class Api_Project extends REST_Controller {
         $grupo_id = $this->post('grupo_id');
         $etapa_id = $this->post('etapa_id');
         $feedback = $this->post('feedback');
-
-        $this->load->model('ProjectModel');
-
+       
         if($this->verify_teacher($user_id, $etapa_id, "etapa") == true){
             $etapa_submit = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
             $data = $this->ProjectModel->insertFeedback($feedback, $etapa_submit->row()->id);
@@ -118,9 +117,6 @@ class Api_Project extends REST_Controller {
     public function editEtapa_post(){ 
         $user_id = $this->session->userdata('id');
         //Verificar se o id do professor guardado no token está associado à cadeira
-
-        $this->load->model('ProjectModel');
-
 
         if ($this->verify_teacher($user_id,$this->post('projid'), "projeto") == true){
             $etapa = $this->post('edited_etapa');
@@ -160,8 +156,6 @@ class Api_Project extends REST_Controller {
         $proj = $this->post('projid');
         $enunciado = $this->post('enunciado');
 
-        $this->load->model('ProjectModel');
-
         if ($this->verify_teacher($user_id,$proj,"projeto") == true){
             $this->ProjectModel->updateProjEnunciado($enunciado, $proj);
             $this->response($enunciado, parent::HTTP_OK);            
@@ -179,7 +173,6 @@ class Api_Project extends REST_Controller {
 
         $etapa = $this->post('etapaid');
         $enunc = $this->post('enunciado');
-        $this->load->model('ProjectModel');
 
         if($this->verify_teacher($user_id, $etapa, "etapa") == true){
             $this->ProjectModel->editEtapaEnunciado($enunc, $etapa);
@@ -203,8 +196,6 @@ class Api_Project extends REST_Controller {
         $grupo = $this->post('grupo');
         $etapa = $this->post('etapa');
         $fich  = $this->post('ficheiro');
-        $this->load->model('ProjectModel');
-
 
         if($this->verify_student($user_id, $grupo)==true){
             $data_send = Array(
@@ -296,16 +287,48 @@ class Api_Project extends REST_Controller {
     }
 
     
+    public function submitFileAreaGrupo_post(){
+        $user_id = $this->session->userdata('id');
+        $grupo_id = $this->post("grupo_id");
+        $ficheiro_url = $this->post("ficheiro_url");
+
+        //deviamos importar os models todos no constructor
+        $this->load->model("GroupModel");
+
+        if($this->verify_student($user_id, $grupo_id)){
+
+            $data_send = Array(
+                "grupo_id"      => $grupo_id,
+                "user_id"       => $user_id,
+                "url"           => $ficheiro_url,
+            );
+
+            //ver se o ficheiro existe
+
+            $data["ficheiro_db"] = $this->GroupModel->getFicheiroGrupoByURLSub($ficheiro_url, $grupo_id);
+
+            if(empty($data["ficheiro_db"])){
+                $toReturn = $this->GroupModel->submit_ficheiro_areagrupo($data_send);
+            } else {
+                $toReturn = "Exists";
+            }
+
+            $data["result"] = $toReturn;
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+
+
+    }
 
     //////////////////////////////////////////////////////////////
     //                           GET
     //////////////////////////////////////////////////////////////
 
     public function getProjectStatus_get(){ 
-
-        $this->load->model('GroupModel');
-        $this->load->model('ProjectModel');
-
         $grupo_id =  $this->get('grupo_id');
         $projeto_id = $this->GroupModel->getProjectId($grupo_id)[0]["projeto_id"];
         $data["date"] = $this->ProjectModel->getLastEtapa($projeto_id)[0]["deadline"];
@@ -320,8 +343,6 @@ class Api_Project extends REST_Controller {
         $grupo_id = $this->get('grupo_id');
         $etapa_id = $this->get('etapa_id');
 
-        $this->load->model('ProjectModel');
-
         $result = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
 
         $this->response($result->result_array(), parent::HTTP_OK);
@@ -331,7 +352,6 @@ class Api_Project extends REST_Controller {
     public function getAllEtapas_get(){ 
 
         $proj_id = $this->get('projid');
-        $this->load->model('ProjectModel');
         $data = $this->ProjectModel->getEtapasByProjectID($proj_id);
 
         $this->response($data, parent::HTTP_OK);
@@ -365,9 +385,6 @@ class Api_Project extends REST_Controller {
 
     public function showNotFullGroup_get(){ 
         $proj_id = $this->get("proj_id");
-
-        $this->load->model('ProjectModel');
-        $this->load->model('GroupModel');
         $this->load->model("UserModel");
 
         $maxelementos = $this->ProjectModel->getMaxElementsGroup($proj_id);
@@ -467,6 +484,33 @@ class Api_Project extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function getFicheirosGrupo_get($grupo_id){
+        $user_id = $this->session->userdata('id');
+        $grupo_id = $this->get("grupo_id");
+
+        $this->load->model("GroupModel");
+        $this->load->model("UserModel");
+        //importar os models no constuctor para limpar isto
+
+        if($this->verify_student($user_id, $grupo_id)){
+            $data["ficheiros"] = $this->GroupModel->getFicheirosGrupo($grupo_id);
+            $membros = $this->GroupModel->getStudents($grupo_id);
+
+            $data["nomes"] = array();
+            for($i=0; $i< count($membros); $i++) {
+                $query = $this->UserModel->getUserById($membros[$i]["user_id"]);
+                array_push($data["nomes"], array($query->name, $query->surname, $membros[$i]["user_id"]));
+            }
+
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+
+    }
+
     //////////////////////////////////////////////////////////////
     //                         DELETE
     //////////////////////////////////////////////////////////////
@@ -475,11 +519,8 @@ class Api_Project extends REST_Controller {
         $user_id = $this->session->userdata('id');
         //Verificar se o id do professor guardado no token está associado à cadeira
 
-        $this->load->model('ProjectModel');
-
         if ($this->verify_teacher($user_id,$this->delete('projid'),"projeto") == true){
             $proj_id = $this->delete('projid');
-            $this->load->model('ProjectModel');
             $data = $this->ProjectModel->removeProjectByID($proj_id);
 
             $this->response($data, parent::HTTP_OK);
@@ -496,7 +537,6 @@ class Api_Project extends REST_Controller {
         //Verificar se o id do professor guardado no token está associado à cadeira
 
         $id = $this->delete('etapa_id');
-        $this->load->model('ProjectModel');
 
         if ($this->verify_teacher($user_id,$id,"etapa") == true){
             $data = $this->ProjectModel->removeEtapaByID($id);
@@ -511,7 +551,6 @@ class Api_Project extends REST_Controller {
     public function removeEnunciadoEtapa_delete(){ 
         $user_id = $this->session->userdata('id');
         //Verificar se o id do professor guardado no token está associado à cadeira
-        $this->load->model('ProjectModel');
 
         $id = $this->delete('id');
         $proj = $this->delete('projid');
@@ -532,7 +571,6 @@ class Api_Project extends REST_Controller {
         //Verificar se o id do professor guardado no token está associado à cadeira
 
         $proj = $this->delete('projid');
-        $this->load->model('ProjectModel');
 
         if($this->verify_teacher($user_id, $proj, "projeto") == true){
             $this->ProjectModel->removeEnunciadoProj($proj);
@@ -563,6 +601,23 @@ class Api_Project extends REST_Controller {
     }
 
 
+    public function removeFicheiroAreaGrupo_delete(){
+        $user_id = $this->session->userdata('id');
+        $group_id = $this->delete("grupo_id");
+        $ficheiro_id = $this->delete("ficheiro_id");
+
+        if($this->verify_student($user_id, $group_id)){
+            $ficheiro = $this->GroupModel->getFicheiroGrupoById($ficheiro_id);
+            unlink("uploads/grupo_files/" . $group_id . "/" . $ficheiro[0]["url"]);
+            $this->GroupModel->removeFicheiroAreaGrupo($ficheiro_id);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+    }
+
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION
     //////////////////////////////////////////////////////////////
@@ -578,7 +633,6 @@ class Api_Project extends REST_Controller {
     //variavel pode ser o id do projeto, id da cadeira, etc
     //mode vai nos dizer o que é a variavel, assim podemos diferenciar os casos
     private function verify_teacher($user_id, $variable, $mode){
-        $this->load->model('ProjectModel');
         $this->load->model('SubjectModel');
 
         if ($mode == "projeto"){
@@ -626,7 +680,6 @@ class Api_Project extends REST_Controller {
     }
 
     private function verify_student($user_id, $group_id){
-        $this->load->model('GroupModel');
         $membros_grupo = $this->GroupModel->getStudents($group_id);
 
         $flag_found = false;

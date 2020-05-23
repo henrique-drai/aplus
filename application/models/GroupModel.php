@@ -68,4 +68,26 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
             and grupo.id = $grupo_id";
         return $this->db->query($query)->result_array();
     }
+
+    public function getFicheiroGrupoByURLSub($ficheiro_url, $grupo_id){
+        return $this->db->get_where("ficheiros_grupo", array("url" => $ficheiro_url, "grupo_id" => $grupo_id))->row();
+    }
+
+    public function submit_ficheiro_areagrupo($data){
+        $this->db->insert("ficheiros_grupo", $data);  
+        return $this->db->insert_id();  
+    }
+
+    public function getFicheirosGrupo($grupo_id){
+        return $this->db->get_where("ficheiros_grupo", array("grupo_id" => $grupo_id))->result_array();
+    }
+
+    public function getFicheiroGrupoById($id){
+        return $this->db->get_where("ficheiros_grupo", array("id" => $id))->result_array();
+    }
+
+    public function removeFicheiroAreaGrupo($ficheiro_id){
+        $this->db->where("id", $ficheiro_id);
+        $this->db->delete("ficheiros_grupo");
+    }
 }

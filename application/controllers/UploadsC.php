@@ -103,11 +103,31 @@ class UploadsC extends CI_Controller {
     public function uploadFicheirosGrupo($grupo_id)
     {
         // query para verificar se user na session está associado ao grupo
-        if ( ! $this->upload->do_upload('file_submit'))
+
+        //verificar cadeira_code e year
+
+        if(!is_dir('./uploads/grupo_files/' . strval($grupo_id) . '/')){
+            mkdir('./uploads/grupo_files/' . strval($grupo_id) . '/', 0777, TRUE);
+        }
+
+        $upload['upload_path'] = './uploads/grupo_files/' . strval($grupo_id) . '/';
+        $upload['allowed_types'] = 'zip|rar|pdf|docx';
+        $upload['overwrite'] = true;
+        $upload['max_size'] = 5048;
+
+        $this->load->library('upload', $upload);
+
+        if ( ! $this->upload->do_upload("file_submit"))
         {
-        $error = array('error' => $this->upload->display_errors());
-        print_r($error);
-        echo "<br>Erro upload ficheiro";
+            $error = array('error' => $this->upload->display_errors());
+            echo "Ficheiro enviado excede o limite de tamanho";
+            header("Location: ".base_url()."app/ficheiros/".$grupo_id);
+            //fazer uma pagina chamada error.php, mandar para a pasta ficheiros/id/error e 
+            // mandar para trás depois de mostrar o erro ?
+        }  
+        else
+        {
+            header("Location: ".base_url()."app/ficheiros/".$grupo_id);
         }
     }
 
@@ -125,6 +145,7 @@ class UploadsC extends CI_Controller {
         $upload['upload_path'] = './uploads/cadeira_files/' . strval($cadeira_id) . '/';
         $upload['allowed_types'] = 'zip|rar|pdf|docx';
         $upload['overwrite'] = true;
+        $upload['max_size'] = 5048;
 
         $this->load->library('upload', $upload);
 

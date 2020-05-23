@@ -20,13 +20,6 @@ $(document).ready(() => {
 
     get_ficheiros(cadeira);
 
-    $('body').on('click', '.cd-popup', function(event){
-		if($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
-            event.preventDefault();
-            $(".cd-popup").remove();
-		}
-    });
-
     $("body").on("click", ".delete_img", function(){
         makePopup("confirmRemove", "Tem a certeza que deseja eliminar o ficheiro?");
         ficheiro_id = $(this).attr("id");
@@ -106,21 +99,6 @@ function get_ficheiros(cadeira_id){
     });
 }
 
-function makePopup(butID, msg){
-    popup = '<div class="cd-popup" role="alert">' +
-        '<div class="cd-popup-container">' +
-        '<p>'+ msg +'</p>' +
-        '<ul class="cd-buttons">' +
-        '<li><a href="#" id="'+ butID +'">Sim</a></li>' +
-        '<li><a href="#" id="closeButton">Não</a></li>' +
-        '</ul>' +
-        '<a class="cd-popup-close"></a>' +
-        '</div></div>'
-
-    $("#popups").append(popup);
-    $(".cd-popup").css('opacity', '1');
-    $(".cd-popup").css('visibility', 'visible');
-}
 
 function removeFicheiro(cadeira_id, ficheiro_id){
     console.log("eliminar ficheiro da bd depois de fazer verificacao e dar unlink no php");

@@ -23,8 +23,8 @@
             <input type="file" id="file_submit" name="file_submit" accept=".zip,.rar,.pdf,.docx">
             <div class="file-text">
                 <div class="success-file">Nome do ficheiro</div>
-                <div class="default-file">Selecione o ficheiro ou ficheiros a enviar</div>
-                <div class="error-file">Tem de selecionar no mínimo um ficheiro</div>
+                <div class="default-file">Selecione o ficheiro a enviar</div>
+                <div class="error-file">Tem de selecionar um ficheiro</div>
             </div>
             </div>
             <input id="submit-file-cadeira" type="submit" value="Enviar">

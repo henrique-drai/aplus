@@ -13,6 +13,7 @@
 
 <body>
 <?php $this->view('templates/nav-menu'); ?>
+<?php $this->view('templates/popup'); ?>
     <main>
         <h4 class="breadcrumb">
             <a href="<?=$base_url?>app/student/grupos">Grupos</a> > Área de Grupo

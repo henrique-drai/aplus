@@ -2,24 +2,7 @@ var calendario = {}
 
 $(document).ready(()=>{
     updateCalendario()
-    // eventOnClickCalendario()
-
-    $("body").on("click", "#submitEvento", function(){
-
-
-        var dateEvento = $('input[name="dateEvento"]').val();
-        var nomeEvento = $('input[name="nomeEvento"]').val();
-        var description = $('input[name="descEvento"]').val();
-        var local = $('input[name="localEvento"]').val();
-
-        var split = dateEvento.split(" ");
-
-        var date = split[2] + "/" +  months[split[1].replace(",","")] + "/" + split[0]
-         
-        if(nomeEvento != '' && description != '') {
-            insertEvent(date, nomeEvento, description, local);
-        }
-    })
+    eventOnClickCalendario()
 })
 
 function updateCalendario(){
@@ -114,6 +97,7 @@ function getTimeString(time){
 
 function eventOnClickCalendario(){
     $('#calendario-hook').on('click', '.cell .clickable', function(event){
+
         event = calendario.events[parseInt(event.target.id)]
         
         let message = $('<div class="calendario-msg"></div>')
@@ -144,6 +128,8 @@ function eventOnClickCalendario(){
         $('.cd-message').html(message)
         $('.cd-popup').addClass('is-visible')
     });
+
+
 }
 
 
@@ -180,28 +166,23 @@ function ajaxNotGoing(event_id){
     })
 }
 
-function insertEvent(date, nomeEvento, description, local){
-
-    const data = {
-        grupo_id: localStorage.grupo_id,
-        name: nomeEvento,
-        description: description,
-        date: date,
-        location: local
-    }
-
-    console.log(data)
+function insertEvent(){
     $.ajax({
         type: "POST",
-        url: base_url + "api/insertEvento",
-        data: data,
+        url: base_url + "api/grupo/"+localStorage.grupo_id+"/evento",
+        data: {
+            name: $('input[name="dateEvento"]').val(),
+            description: $('input[name="descEvento"]').val(),
+            date: $('input[name="dateEvento"]').val(),
+            location: $('input[name="localEvento"]').val()
+        },
         success: function(data) {
-           
+            
         },
         error: function(data) {
-            console.log("Erro na API:")
+            console.log("Erro ao criar um evento de grupo:")
             console.log(data)
         }
     });
-
+    
 }

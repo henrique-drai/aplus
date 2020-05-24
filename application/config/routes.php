@@ -61,6 +61,8 @@ $route['api/getGroupMembers/(:num)']            = 'Api_Project/getGroupMembers/$
 $route['api/insertTask']                        = 'Api_Project/insertTask';
 $route['api/getTasks/(:num)']                   = 'Api_Project/getTasks/$1';
 
+$route['api/insertEvento']                      = 'Api_Project/insertEvento';
+
 $route['api/getCadeira/(:num)']                 = 'Api_Subject/getInfo/$1';
 $route['api/insertText']                        = 'Api_Subject/insertText';
 $route['api/getHours/(:num)']                   = 'Api_Subject/getHours/$1';
@@ -74,7 +76,6 @@ $route['api/insertDate/(:num)/(:any)']          = 'Api_Subject/insertDate/$1/$2'
 $route['api/deleteHourById']                    = 'Api_Subject/deleteHourById';
 $route['api/submitFileAreaCadeira']             = 'Api_Subject/submitFileAreaCadeira';
 
-$route['api/getAllTasks/(:num)']                = 'Api_Student/getAllTasks/$1';
 $route['api/getFicheirosCadeira/(:num)']        = 'Api_Subject/getFicheirosCadeira/$1';
 $route['api/removeFicheiroAreaCadeira/(:num)']  = 'Api_Subject/removeFicheiroAreaCadeira/$1';
 

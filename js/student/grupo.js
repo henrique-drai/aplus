@@ -1,4 +1,55 @@
 $(document).ready(() => {
+      
+
+    const months = {
+        "Janeiro":1,
+        "Fevereiro":2,
+        "Março":3,
+        "Abril":4,
+        "Maio":5,
+        "Junho":6,
+        "Julho":7,
+        "Agosto":8,
+        "Setembro":9,
+        "Outubro":10,
+        "Novembro":11,
+        "Dezembro":12
+    }
+
+
+    // ##############################   MARCAR EVENTO GRUPO #########################################################
+
+
+    $('.datepicker').pickadate({
+        monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+        today: 'Hoje',
+        clear: 'Limpar',
+        close: 'Fechar',
+        min: Date.now()    
+    })
+
+
+    $("body").on("click", "#submitEvento", function(){
+
+
+        var dateEvento = $('input[name="dateEvento"]').val();
+        var nomeEvento = $('input[name="nomeEvento"]').val();
+        var description = $('input[name="descEvento"]').val();
+        var local = $('input[name="localEvento"]').val();
+
+        var split = dateEvento.split(" ");
+
+        var date = split[2] + "/" +  months[split[1].replace(",","")] + "/" + split[0]
+         
+        if(nomeEvento != '' && description != '') {
+            insertEvent(date, nomeEvento, description, local);
+        }
+    })
+
+    // ############################################################################################
+
+
 
     getTasks();
 
@@ -48,6 +99,8 @@ $(document).ready(() => {
 
     checkClosedProject();
 
+
+   
 });
 
 function validateFormNumb(id){
@@ -193,6 +246,9 @@ function getTasks() {
                 }
             } else {
                 $(".tasksTable").append("<p>Não existem tarefas.</p>");
+                $("#editTarefa").css('visibility', 'hidden');
+                $("#deleteTarefa").css('visibility', 'hidden');
+                
             }
         },
         error: function(data) {
@@ -207,4 +263,30 @@ Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
+}
+
+function insertEvent(date, nomeEvento, description, local){
+
+    const data = {
+        grupo_id: localStorage.grupo_id,
+        name: nomeEvento,
+        description: description,
+        date: date,
+        location: local
+    }
+
+    console.log(data)
+    $.ajax({
+        type: "POST",
+        url: base_url + "api/insertEvento",
+        data: data,
+        success: function(data) {
+           
+        },
+        error: function(data) {
+            console.log("Erro na API:")
+            console.log(data)
+        }
+    });
+
 }

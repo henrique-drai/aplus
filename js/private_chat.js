@@ -38,7 +38,7 @@ function getSearchTeaStu(query){
             }
         },
         error: function(data) {
-            var mensagem = "<h2 id='mens_erro_alunos'>Não é possivel apresentar os professores.</h2>";
+            var mensagem = "<h2 id='mens_erro_alunos'>Sem resultados</h2>";
             $("msgStatus").append(mensagem);
             $("#mens_erro_alunos").delay(2000).fadeOut();
         }
@@ -48,7 +48,7 @@ function getSearchTeaStu(query){
 function makeUserList(data){
     users= '';
     for (i=0;i<data.users.length;i++){
-        users += '<li>' + data.users[i].name +' '+ data.users[i].surname + '</li>';
+        users += '<li user_id='+ data.users[i].id +'>' + data.users[i].name +' '+ data.users[i].surname + '</li>';
     }
     var list = '<ul class="chatList" id="chatList">'+ users + '</ul>';
     $("#chat-container").html(list);    

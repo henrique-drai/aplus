@@ -18,6 +18,7 @@ class Api_Project extends REST_Controller {
         $this->load->model("SubjectModel");
         $this->load->model('ProjectModel');
         $this->load->model('GroupModel');
+        $this->load->model('EventModel');
     }
 
 

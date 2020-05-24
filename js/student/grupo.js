@@ -1,5 +1,22 @@
 $(document).ready(() => {
+      
 
+    const months = {
+        "Janeiro":1,
+        "Fevereiro":2,
+        "Março":3,
+        "Abril":4,
+        "Maio":5,
+        "Junho":6,
+        "Julho":7,
+        "Agosto":8,
+        "Setembro":9,
+        "Outubro":10,
+        "Novembro":11,
+        "Dezembro":12
+    }
+
+    
     getTasks();
 
     // dar set no id do grupo pelo url - ou seja - se o utilizador vier para esta pagina pelo link.
@@ -48,6 +65,8 @@ $(document).ready(() => {
 
     checkClosedProject();
 
+
+   
 });
 
 function validateFormNumb(id){
@@ -211,3 +230,4 @@ Date.prototype.addDays = function(days) {
     date.setDate(date.getDate() + days);
     return date;
 }
+

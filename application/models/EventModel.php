@@ -104,6 +104,10 @@ class EventModel extends CI_Model { //evento & horario_duvidas
         $this->db->insert('evento_user', $data);
     }
 
+    public function insertGroupEvent($data) {
+        $this->db->insert('evento_grupo', $data);
+    }
+
     public function userRelatedToEvent($user_id, $evento_id){
         $this->db->where('user_id', $user_id);
         $this->db->where('evento_id', $evento_id);

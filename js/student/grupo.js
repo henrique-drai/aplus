@@ -1,12 +1,23 @@
 $(document).ready(() => {
 
+    const months = {
+        "Janeiro":1,
+        "Fevereiro":2,
+        "Março":3,
+        "Abril":4,
+        "Maio":5,
+        "Junho":6,
+        "Julho":7,
+        "Agosto":8,
+        "Setembro":9,
+        "Outubro":10,
+        "Novembro":11,
+        "Dezembro":12
+    }
+
     getTasks();
 
-    // dar set no id do grupo pelo url - ou seja - se o utilizador vier para esta pagina pelo link.
-
-    var link = location.href.split("grupo");
-    var id = link[1].replace("/","");
-    localStorage.setItem("grupo_id", id);
+    const id = localStorage.grupo_id
 
     $("body").on("click", "#ratingmembros", function() {
         window.location = base_url + "app/rating/" + localStorage.grupo_id;
@@ -46,8 +57,7 @@ $(document).ready(() => {
         }
     })
 
-    checkClosedProject();
-
+    checkClosedProject()
 });
 
 function validateFormNumb(id){
@@ -193,6 +203,9 @@ function getTasks() {
                 }
             } else {
                 $(".tasksTable").append("<p>Não existem tarefas.</p>");
+                $("#editTarefa").css('visibility', 'hidden');
+                $("#deleteTarefa").css('visibility', 'hidden');
+                
             }
         },
         error: function(data) {
@@ -207,4 +220,8 @@ Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
+}
+
+function setGrupoId(id){
+    localStorage.grupo_id=id
 }

@@ -142,6 +142,8 @@ class Api_Subject extends REST_Controller {
 
         if($flag == "true") {
             $this->SubjectModel->insertDate($id, $user_id, $role);
+            $response = ['$cadeira' => $id, '$user' => $user_id];
+            $this->response($response, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
             $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
@@ -505,6 +507,43 @@ class Api_Subject extends REST_Controller {
         }        
     }
 
+    public function getFicheirosCadeira_get(){
+        $user_id = $this->session->userdata('id');
+        $cadeira_id = $this->get("cadeira_id");
+
+        if($this->verify_teacher($user_id, $cadeira_id, "cadeira") || $this->verify_student($user_id, $cadeira_id)){
+            $data = $this->SubjectModel->getFicheirosCadeira($cadeira_id);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+    }
+    
+    public function getAllCadeirasFaculdade_get(){
+        $this->verify_admin();
+        $faculdade = $this->get('faculdade');
+        $ano = $this->get('anoletivo');
+        $this->load->model('CourseModel');
+        $this->load->model('SubjectModel');
+        $data["courses"] = $this->CourseModel->getCollegeYearCourses($faculdade, $ano);
+        $data["cadeiras"] = array();
+        for($i=0; $i<count($data["courses"]); $i++){
+            array_push($data["cadeiras"],$this->SubjectModel->getSubjectsByCursoId($data["courses"][$i]["id"]));
+        }
+
+        $this->response($data, parent::HTTP_OK);
+
+    }
+
+    public function getAllCadeirasByCourse_get(){
+        $this->verify_admin();
+        $cursoid = $this->get('cursoid');
+        $this->load->model('SubjectModel');
+        $data["cadeiras"] = $this->SubjectModel->getSubjectsByCursoId($cursoid);
+        $this->response($data, parent::HTTP_OK);
+    }
    
 
     //////////////////////////////////////////////////////////////
@@ -563,6 +602,23 @@ class Api_Subject extends REST_Controller {
         }        
     }
 
+    public function removeFicheiroAreaCadeira_delete(){
+        $user_id = $this->session->userdata('id');
+        $cadeira_id = $this->delete("cadeira_id");
+        $ficheiro_id = $this->delete("ficheiro_id");
+
+        if($this->verify_teacher($user_id, $cadeira_id, "cadeira")){
+            $ficheiro = $this->SubjectModel->getFicheiroById($ficheiro_id);
+            unlink("uploads/cadeira_files/" . $cadeira_id . "/" . $ficheiro[0]["url"]);
+            $this->SubjectModel->removeFicheiroAreaCadeira($ficheiro_id);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+    }
+
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION
     //////////////////////////////////////////////////////////////
@@ -575,8 +631,15 @@ class Api_Subject extends REST_Controller {
         }
     }
 
-    private function verify_admin($user_id){
-        
+    private function verify_admin(){
+        $auth = $this->session->userdata('id');
+
+        $user = $this->UserModel->getUserById($auth);
+
+        if($user->role != "admin"){
+            $this->response(array('msg' => 'No admin rights.'), parent::HTTP_UNAUTHORIZED);
+            exit();
+        }
     }
 
     private function verify_teacher($user_id, $variable, $mode){

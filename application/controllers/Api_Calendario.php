@@ -94,7 +94,49 @@ class Api_Calendario extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function grupo_get($grupo_id) {
+        $user_id = $this->session->userdata('id');        
 
+        $this->load->model('UserModel');
+        $this->load->model('EventModel');
+        $this->load->model('GroupModel');
+
+        if($this->UserModel->userIsRelatedToGroup($user_id, $grupo_id) == false){
+            $this->response(array('msg' => 'You don\'t have access to that group!'), parent::HTTP_UNAUTHORIZED); exit();
+        }
+
+        $group_events = $this->EventModel->getFutureEventsByGroupId($grupo_id);
+        $submissions = $this->EventModel->getFutureSubmissionsByGroupId($grupo_id);
+        $teachers = $this->GroupModel->getTeachersByGroupId($grupo_id);
+
+        $data = Array(
+            "group_events" => $group_events,
+            "submissions" => $submissions,
+            "teachers" => $teachers,
+        );
+
+        $this->response($data, parent::HTTP_OK);
+    }
+    
+    public function grupo_evento_post($grupo){
+       
+        $data_evento = Array (
+            "name" => $this->post("name"),
+            "description" => $this->post("description"),
+            "location" => $this->post("location"),
+            "start_date" => $this->post("date"),
+            "end_date" => $this->post("date"),
+        );
+        
+        $evento_id = $this->EventModel->insertEvent($data_evento);
+        
+        $data_Evento_Grupo = Array (
+            "evento_id" => $evento_id,
+            "grupo_id" => $this->post("grupo_id"),   
+        );
+
+        $this->EventModel->insertGroupEvent($data_Evento_Grupo);
+    }
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION
@@ -103,8 +145,7 @@ class Api_Calendario extends REST_Controller {
     private function verify_request()
     {
         if(is_null($this->session->userdata('role'))){
-            $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
-            exit();
+            $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED); exit();
         }
     }
 }

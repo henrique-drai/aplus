@@ -9,6 +9,7 @@ class App extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
         $this->load->helper('form');
+        $this->verify_request();
     }
 
     //app/
@@ -104,12 +105,15 @@ class App extends CI_Controller {
             $this->load->view('errors/404', $data); return null;
         }
 
-        $this->load->view('templates/head', $data);
-        //escolher que página deve ser mostrada
-        switch ($this->session->userdata('role')) {
-            case 'student': $this->load->view('student/grupo', $data); break;
+        $data["grupo"] = $grupo[0];
+
+        if($this->session->userdata('role') == "student"){
+            $this->load->view('templates/head', $data);
+            $this->load->view('student/grupo', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->load->view('errors/403', $data); return null;
         }
-        $this->load->view('templates/footer');
     }
 
     //app/rating/:grupoid
@@ -188,10 +192,6 @@ class App extends CI_Controller {
     {
         $data["base_url"] = base_url();
         
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;}
-        
         //verificar foi dado algum parâmetro
         if(is_null($user_id)) {
             $this->load->view('errors/404', $data); return null;}
@@ -239,33 +239,29 @@ class App extends CI_Controller {
 
     //app/chat/:chat_id
     public function chat($user_id = null){
-    $data["base_url"] = base_url();
-    
-    //verificar se a pessoa fez login
-    if(is_null($this->session->userdata('role'))){
-        $this->load->view('errors/403', $data); return null;}
-    
-    //verificar foi dado algum parâmetro
-    if(is_null($user_id)) {
-        $this->load->view('errors/404', $data); return null;}
 
-    $this->load->model('UserModel');
-    
-    $data["user"] = $this->UserModel->getUserById($user_id);
-    
-    //verificar se o user existe
-    if(is_null($data["user"])){
-        $this->load->view('errors/404', $data); return null;}
+        $this->load->model('UserModel');
 
-    $this->load->helper('form');
+        $data["base_url"] = base_url();
+        
+        if($this->UserModel->isValidUser($user_id)){
+            $data["user"] = $this->UserModel->getUserById($user_id);
+        }
+        
+        $this->load->view('templates/head', $data);
 
-    $this->load->view('templates/head', $data);
-    //escolher que página deve ser mostrada
-    switch ($this->session->userdata('id') == $user_id) {
-        case true:  $this->load->view('app/private_chat', $data); break;
+        $this->load->view('app/private_chat', $data);
+
+        $this->load->view('templates/footer');
     }
-    $this->load->view('templates/footer');
-    }
+
+
+
+
+
+
+
+
 
     //app/notifications
     public function notifications()
@@ -275,6 +271,14 @@ class App extends CI_Controller {
         $this->load->view('templates/head', $data);
         $this->load->view('app/notifications', $data); 
         $this->load->view('templates/footer');
+    }
+
+    private function verify_request()
+    {
+        if(is_null($this->session->userdata('role'))){
+            $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
     }
 }
 

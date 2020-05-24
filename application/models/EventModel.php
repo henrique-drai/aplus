@@ -9,8 +9,7 @@ class EventModel extends CI_Model { //evento & horario_duvidas
             and curso.ano_letivo_id = ano_letivo.id
             and aula.cadeira_id = cadeira.id
             and aluno_aula.user_id = ".$id;
-        $result = $this->db->query($query);
-        return $result->result_array();
+        return $this->db->query($query)->result_array();
     }
 
     public function getClassesByTeacherId($id) {
@@ -21,8 +20,7 @@ class EventModel extends CI_Model { //evento & horario_duvidas
             and curso.ano_letivo_id = ano_letivo.id
             and aula.cadeira_id = cadeira.id
             and professor_aula.user_id = ".$id;
-        $result = $this->db->query($query);
-        return $result->result_array();
+        return $this->db->query($query)->result_array();
     }
 
     public function getFutureEventsByUserId($id) {
@@ -31,22 +29,20 @@ class EventModel extends CI_Model { //evento & horario_duvidas
             where evento.id = evento_user.evento_id
             and evento.start_date >= CURDATE()
             and evento_user.user_id = ".$id;
-        $result = $this->db->query($query);
-        return $result->result_array();
+        return $this->db->query($query)->result_array();
     }
 
     public function getFutureGroupEventsByUserId($id) {
         $query = "select * 
             from grupo, grupo_aluno, evento_grupo, evento, evento_user
             where grupo.id = grupo_aluno.grupo_id
-            and evento_user.user_id = ".$id." 
+            and evento_user.user_id = $id
             and evento_user.evento_id = evento.id
             and evento.id = evento_grupo.evento_id
             and evento.start_date >= CURDATE()
             and evento_grupo.grupo_id = grupo.id
             and grupo_aluno.user_id = ".$id;
-        $result = $this->db->query($query);
-        return $result->result_array();
+        return $this->db->query($query)->result_array();
     }
 
     public function getFutureSubmissionsByUserId($id) {
@@ -58,8 +54,18 @@ class EventModel extends CI_Model { //evento & horario_duvidas
             and grupo.projeto_id = projeto.id
             and etapa.deadline >= CURDATE()
             and grupo_aluno.user_id = ".$id;
-        $result = $this->db->query($query);
-        return $result->result_array();
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getFutureSubmissionsByGroupId($grupo_id){
+        $id = $this->db->escape($grupo_id);
+        $query = "select * 
+            from grupo, projeto, etapa
+            where etapa.projeto_id = projeto.id
+            and grupo.projeto_id = projeto.id
+            and etapa.deadline >= CURDATE()
+            and grupo.id = $id";
+        return $this->db->query($query)->result_array();
     }
 
     public function getHorarioDuvidasByTeacherId($prof_id) {
@@ -70,6 +76,17 @@ class EventModel extends CI_Model { //evento & horario_duvidas
             and cadeira.curso_id = curso.id
             and curso.ano_letivo_id = ano_letivo.id
             and horario_duvidas.id_prof = ".$prof_id;
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getFutureEventsByGroupId($grupo_id){
+        $id = $this->db->escape($grupo_id);
+        $query = "select * 
+            from grupo g, evento_grupo eg, evento e
+            where g.id = eg.grupo_id
+            and e.id = eg.evento_id
+            and e.start_date >= CURDATE()
+            and g.id = $id";
         return $this->db->query($query)->result_array();
     }
 
@@ -85,6 +102,10 @@ class EventModel extends CI_Model { //evento & horario_duvidas
 
     public function insertUserEvent($data) {
         $this->db->insert('evento_user', $data);
+    }
+
+    public function insertGroupEvent($data) {
+        $this->db->insert('evento_grupo', $data);
     }
 
     public function userRelatedToEvent($user_id, $evento_id){

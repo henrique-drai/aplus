@@ -51,4 +51,43 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
         $data["grupo_aluno"] = $this->db->insert_id();
         return $data;
     }
+
+    public function deleteGroup($group_id){
+        $this->db->where("id", $group_id);
+        $this->db->delete('grupo');
+    }
+
+    public function getTeachersByGroupId($grupo_id){
+        $grupo_id = $this->db->escape($grupo_id);
+        $query = "select pc.user_id, pc.cadeira_id, u.name, u.surname, u.picture 
+            from grupo g, projeto p, cadeira c, professor_cadeira pc, user u
+            where u.id = pc.user_id
+            and pc.cadeira_id = c.id
+            and p.cadeira_id = c.id
+            and p.id = g.projeto_id
+            and g.id = $grupo_id";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getFicheiroGrupoByURLSub($ficheiro_url, $grupo_id){
+        return $this->db->get_where("ficheiros_grupo", array("url" => $ficheiro_url, "grupo_id" => $grupo_id))->row();
+    }
+
+    public function submit_ficheiro_areagrupo($data){
+        $this->db->insert("ficheiros_grupo", $data);  
+        return $this->db->insert_id();  
+    }
+
+    public function getFicheirosGrupo($grupo_id){
+        return $this->db->get_where("ficheiros_grupo", array("grupo_id" => $grupo_id))->result_array();
+    }
+
+    public function getFicheiroGrupoById($id){
+        return $this->db->get_where("ficheiros_grupo", array("id" => $id))->result_array();
+    }
+
+    public function removeFicheiroAreaGrupo($ficheiro_id){
+        $this->db->where("id", $ficheiro_id);
+        $this->db->delete("ficheiros_grupo");
+    }
 }

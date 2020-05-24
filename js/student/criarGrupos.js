@@ -23,6 +23,11 @@ $(document).ready(() => {
     $("body").on('click', "#criarGrupoSubmit", function(){
         createGroup(proj);
     })
+
+    $("body").on("click", ".entrarGroupButton", function(){
+        var groupid = $(this).attr("id").split('"')[1];
+        enterGroup(proj, groupid);
+    })
 });
 
 function leaveGroup(proj_id, groupid){
@@ -57,10 +62,36 @@ function createGroup(proj_id){
             showMyGroup(proj_id)
         },
         error: function(data) {
-            $("#msgStatus").text("Não foi possivel registar a faculdade");
+            $("#msgStatus").text("Não foi possivel criar o grupo");
             $("#msgStatus").show().delay(2000).fadeOut();
         }
     });
 
+}
+
+function enterGroup(proj_id, grupo_id){
+    const data = {
+        grupoid: grupo_id,
+        projid:  proj_id
+    }
+    $.ajax({
+        type: "POST",
+        url: base_url + "api/entrarGrupo/" + proj_id,
+        data: data,
+        success: function(data) {
+            if(data["grupo_aluno"]==""){
+                $("#msgStatus").text("Não foi possivel entrar no grupo");
+                $("#msgStatus").show().delay(5000).fadeOut();
+                showMyGroup(proj_id);
+            }
+            else{
+                showMyGroup(proj_id);
+            }
+        },
+        error: function(data) {
+            $("#msgStatus").text("Não foi possivel entrar no grupo");
+            $("#msgStatus").show().delay(2000).fadeOut();
+        }
+    });
 }
 

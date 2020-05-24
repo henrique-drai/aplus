@@ -40,8 +40,8 @@ $(document).ready(() => {
         var sigla = $("#register-cadeiras-form input[name='siglaCadeira']").val();
         var form = confirmForm(codeCadeira, nomeCadeira, descCadeira, faculdade, curso, sigla);
         if(form == true){
-            $("#msgStatus").text("Necessário preencher todos os campos.");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErro").text("Necessário preencher todos os campos.");
+            $("#msgErro").show().delay(2000).fadeOut();
         }
         else{
             submitRegister();
@@ -90,8 +90,8 @@ function getAllSchoolYears(){
         error: function(data) {
             $("#faculdades_register_UnidCurricular").css("display", "none");
             $("#faculdades_register_UnidCurricular option").remove();
-            $("#msgStatus").text("Não foi possível encontrar anos letivos.");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErro").text("Não foi possível encontrar anos letivos.");
+            $("#msgErro").show().delay(2000).fadeOut();
         }
     });
 }
@@ -111,15 +111,15 @@ function getAllfaculdades(){
             else{
                 $("#faculdades_register_UnidCurricular").css("display", "none");
                 $("#faculdades_register_UnidCurricular option").remove();
-                $("#msgStatus").text("Não existem disponíveis faculdade.");
-                $("#msgStatus").show().delay(2000).fadeOut();
+                $("#msgErro").text("Não existem disponíveis faculdade.");
+                $("#msgErro").show().delay(2000).fadeOut();
             }
         },
         error: function(data) {
             $("#faculdades_register_UnidCurricular").css("display", "none");
             $("#faculdades_register_UnidCurricular option").remove();
-            $("#msgStatus").text("Não foi possível encontrar faculdade.");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErro").text("Não foi possível encontrar faculdades.");
+            $("#msgErro").show().delay(2000).fadeOut();
         }
     });
 
@@ -147,15 +147,15 @@ function getAllCursosFaculdade(faculdade, anoletivo){
             else{
                 $("#cursos_register_UnidCurricular").css("display", "none");
                 $("#cursos_register_UnidCurricular option").remove();
-                $("#msgStatus").text(" Não existem cursos associados à faculdade.");
-                $("#msgStatus").show().delay(2000).fadeOut();
+                $("#msgErro").text(" Não existem cursos associados à faculdade.");
+                $("#msgErro").show().delay(2000).fadeOut();
             }
         },
         error: function(data) {
             $("#cursos_register_UnidCurricular").css("display", "none");
             $("#cursos_register_UnidCurricular option").remove();
-            $("#msgStatus").text(" Não existem cursos associados à faculdade.");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErro").text(" Não existem cursos associados à faculdade.");
+            $("#msgErro").show().delay(2000).fadeOut();
         }
     });
 
@@ -191,17 +191,9 @@ function submitRegister(){
         error: function(jqxhr) {
             $("input[type='text']").val("");
             $("textarea[type='text']").val("");
-
-            // var html = $(jqxhr.responseText);
-            // var body = html.find("div #container");
-            // console.log(body);
-
-            // PARA VER QUAL E O ERRO se e porque existem codigos iguais
-
-
             $("#register-cadeiras-form input[name='codeCadeira']").css("border-left-color", "red");
-            $("#msgStatus").text("Não foi possivel registar a unidade curricular");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErro").text("Não foi possivel registar a unidade curricular");
+            $("#msgErro").show().delay(2000).fadeOut();
             
         }
     });

@@ -29,12 +29,11 @@
             <input type="text" name="siglas" required>
         </p>
             <input type="submit" id="register-college-submit">
+            <div id="msgStatus">
+            </div>
+            <div id="msgErro">
+            </div>
         </form><br>
-
-        <div id="msgStatus">
-        </div>
-
-
         <div id="college-container" class="container">
         </div>
 

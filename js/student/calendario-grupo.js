@@ -111,24 +111,52 @@ function eventOnClickCalendario(){
 
 
 function renderPopUpGroupEvent(event) {
-    let message = $('<div class="calendario-msg"></div>')
-    message.append("<h3>"+event.obj.name+"</h3>")
-    message.append("<p>" + event.obj.description + "</p>")
-    message.append("<p>" +
-        getTimeString(new Date(event.obj.start_date)) + " - " +
-        getTimeString(new Date(event.obj.end_date)) + "</p>")
-    message.append("<p>Localização: " + event.obj.location + "</p>")
+    
+    let form = $('<form id="groupEventForm" action="' +
+        base_url + '"api/event/'+event.obj.id+'" method="POST"></form>')
 
-    $(".cd-popup #actionButton").html("Não Vou").off()
-        .click(()=>{ajaxNotGoing(event.obj.evento_id)})
+    form.append(
+        '<label><b>Assunto</b></label>',
+        '<input type="text" name="name" value="' + event.obj.name + '" required>',
+        '<label>Descrição</label>',
+        '<input type="text" name="description" value="' + event.obj.description + '" >',
+        '<label>Localização</label>',
+        '<input type="text" name="location" value="' + event.obj.location + '" >',
+        "<p>" + getTimeString(new Date(event.obj.start_date)) + " - " +
+        getTimeString(new Date(event.obj.end_date)) + "</p>")
+
+    $(".cd-popup #actionButton").html("Guardar").off()
+        .click(()=>{
+            console.log($("#groupEventForm").serialize())
+            $.ajax({
+                type: "PUT",
+                url: base_url + 'api/event/' + event.obj.id + "?" + $("#groupEventForm").serialize(),
+                data: {
+                    name: $('input[name="dateEvento"]').val(),
+                    description: $('input[name="descEvento"]').val(),
+                    date: $('input[name="dateEvento"]').val(),
+                    location: $('input[name="localEvento"]').val()
+                },
+                success: function(data) {
+                    
+                },
+                error: function(data) {
+                    console.log("Erro ao criar um evento de grupo:")
+                    console.log(data)
+                }
+            });
+        }
+    )
     $(".cd-popup #closeButton").html("Fechar")
 
-    $('.cd-message').html(message)
+    $('.cd-message').html(
+        $('<div class="calendario-msg"></div>').append(form)
+    )
 }
 
 function renderPopUpSubmission(event) {
     let message = $('<div class="calendario-msg"></div>')
-    message.append("<h3>"+event.obj.nome+" (entrega)</h3>")
+    message.append("<h3>" + event.obj.nome + " (entrega)</h3>")
     message.append("<p>" + event.obj.description + "</p>")
 
     $(".cd-popup #actionButton").html("Visitar Projeto").off().click(()=>{

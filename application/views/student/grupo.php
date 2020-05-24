@@ -1,8 +1,10 @@
 <title>A+ for Students</title>
 <script>setPageName("grupo")</script>
-<script src="<?php echo $base_url; ?>js/student/grupo.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/student/grupo.css"> 
+<script src="<?=$base_url?>js/student/grupo.js"></script>
+<script src="<?=$base_url?>js/student/calendario-grupo.js"></script>
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/popup.css">
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/student/grupo.css"> 
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/calendario.css"> 
 
 <!--  ######################  -->
 
@@ -29,11 +31,13 @@
 
         <h1>Área de Grupo</h1>
 
-        <div id="calendario-hook"></div>
-
         <div id="btnArea">
             <input id="ficheiros" type="button" value="Ficheiros">  
         </div>
+
+        <h2>Agenda</h2>
+        <div id="calendario-hook"></div>
+        <br>
         
         
         <h2>Gestão de Tarefas</h2>
@@ -81,6 +85,3 @@
           
           </form>
         </div>
-
-
-

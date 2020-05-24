@@ -101,7 +101,6 @@ class Api_Calendario extends REST_Controller {
         $this->load->model('EventModel');
         $this->load->model('GroupModel');
 
-        // TODO - verificar relacionamento de user com grupo
         if($this->UserModel->userIsRelatedToGroup($user_id, $grupo_id) == false){
             $this->response(array('msg' => 'You don\'t have access to that group!'), parent::HTTP_UNAUTHORIZED); exit();
         }

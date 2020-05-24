@@ -1,5 +1,4 @@
 $(document).ready(() => {
-      
 
     const months = {
         "Janeiro":1,
@@ -16,14 +15,9 @@ $(document).ready(() => {
         "Dezembro":12
     }
 
-    
     getTasks();
 
-    // dar set no id do grupo pelo url - ou seja - se o utilizador vier para esta pagina pelo link.
-
-    var link = location.href.split("grupo");
-    var id = link[1].replace("/","");
-    localStorage.setItem("grupo_id", id);
+    const id = localStorage.grupo_id
 
     $("body").on("click", "#ratingmembros", function() {
         window.location = base_url + "app/rating/" + localStorage.grupo_id;
@@ -63,10 +57,7 @@ $(document).ready(() => {
         }
     })
 
-    checkClosedProject();
-
-
-   
+    checkClosedProject()
 });
 
 function validateFormNumb(id){
@@ -231,3 +222,6 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
+function setGrupoId(id){
+    localStorage.grupo_id=id
+}

@@ -105,12 +105,15 @@ class App extends CI_Controller {
             $this->load->view('errors/404', $data); return null;
         }
 
-        $this->load->view('templates/head', $data);
-        //escolher que página deve ser mostrada
-        switch ($this->session->userdata('role')) {
-            case 'student': $this->load->view('student/grupo', $data); break;
+        $data["grupo"] = $grupo[0];
+
+        if($this->session->userdata('role') == "student"){
+            $this->load->view('templates/head', $data);
+            $this->load->view('student/grupo', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->load->view('errors/403', $data); return null;
         }
-        $this->load->view('templates/footer');
     }
 
     //app/rating/:grupoid

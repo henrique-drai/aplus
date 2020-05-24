@@ -131,6 +131,7 @@ function showMyGroup(proj_id){
                 $("#grupo-name").text('Grupo ' + data["grupo"]["name"]);
                 $("#submitEtapa").prop('disabled', false);
                 $(".criarGrupo").css("display", "none");
+                $("#criarGrupoName").hide();
                 have_group = true;
                 grupo = data["grupo"]["id"];
                 var names = '';

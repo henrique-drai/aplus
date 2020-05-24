@@ -58,7 +58,6 @@ function createGroup(proj_id){
         url: base_url + "api/criarGrupo/" + proj_id,
         data: data,
         success: function(data) {
-            $("#criarGrupoName").hide();
             showMyGroup(proj_id)
         },
         error: function(data) {

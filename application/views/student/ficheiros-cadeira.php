@@ -1,8 +1,11 @@
 <title>A+ for Students</title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/ficheiros.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/student/ficheiros-cadeira.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 <script>setPageName("subjects")</script>
+<script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 <script src="<?php echo $base_url; ?>js/student/ficheiros-cadeira.js"></script>
+<script>setCadeira("<?php echo $subject->id; ?>")</script>
 </head>
 
 <body>
@@ -14,10 +17,6 @@
     <h3>Ficheiros:</h3>
     <div class="container" id="container-ficheiros">
         <div class="file-div" id="show-files-div">
-            <div class="file-row" id="file-row-aluno">
-                 <!-- template, isto sera adicionado em js -->
-                <p><a href="">nome-do-ficheiro-grande-e-tal.pdf</a></p>
-            </div>
             <hr>
         </div>
     </div>

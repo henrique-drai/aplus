@@ -27,21 +27,74 @@
     word-wrap: break-word;
 }
 
-.myGroupDiv p:first-child {
+.myGroupDiv p:first-child, .availableGroupsDiv p:first-child {
     width: 36%;
 }
 
-.myGroupDiv p:nth-child(2) {
+.myGroupDiv p:nth-child(2), .availableGroupsDiv p:nth-child(2){
     width: 50%;
 }
 
-.myGroupDiv p:nth-child(3) {
+.myGroupDiv p:nth-child(3),.availableGroupsDiv p:nth-child(3) {
     width: 14%;
 }
 
+#criarGrupo_button{
+    width: 30px;
+    border-radius: 15px;
+}
+
+#grupo-name{
+    display: inline-block;
+}
+
+.availableGroupsDiv {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#criarGrupoName{
+    display: none;
+    margin-bottom: 20px;
+}
+
+#criarGrupoName p{
+    margin-top: 6px;
+    margin-bottom: 0px;
+}
+
+
+#criarGrupoInput{
+    background-color: white;
+    margin-right: 10px;
+    width: 50%;
+    display: inline;
+}
+
+#criarGrupoSubmit{
+    display: inline;
+}
+
+.criarGrupoSucess{
+    background-color: rgba(106, 192, 66, 0.7);
+    text-align: center;
+    border-radius: 5px;
+    float: left;
+    width: 90%;
+}
+
+#msgStatus{
+    background-color: rgb(255, 72, 72);
+    width: 50%;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
 
 @media screen and (max-width: 440px) {
-    .myGroupDiv{
+    .myGroupDiv, .availableGroupsDiv{
         display: block;
         justify-content: unset;
         flex-wrap: unset;

@@ -120,7 +120,7 @@ select, textarea {
     height: 130px;
     font-size: 20px;
     display: inline-block;
-    margin-left: 2%;
+    margin-right: 2%;
     cursor: pointer;
     margin-bottom: 5%;
 }
@@ -182,6 +182,7 @@ select, textarea {
 
 .hours_header {
     display: inline-block;
+    margin-bottom: 2%;
 }
 
 .hours_inputs {
@@ -316,7 +317,7 @@ a { color: inherit; }
     height: 150px;
     font-size: 20px;
     display: inline-block;
-    margin-left: 2%;
+    margin-right: 2%;
     cursor: pointer;
     margin-bottom: 5%;
 }
@@ -364,13 +365,32 @@ a { color: inherit; }
     }
 }
 
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 1170px) {
+    .grid {
+        display: block;
+    }
+
+    .card_info_project, .card_info_forum {
+        width: 40%;
+    }
+
     .hours div {
-        display: block !important;
+        margin-right: 10%;
     }
 
     .add_event {
-        margin-left: 55px;
+        margin-left: 15px;
+        margin-bottom: -10px !important;
+    }
+
+    .card_info {
+        width: 31%;
+    }
+}
+
+@media only screen and (max-width: 1030px) {
+    .hours div {
+        display: block !important;
     }
 
     #message_hour_s {
@@ -380,13 +400,28 @@ a { color: inherit; }
 
 @media only screen and (max-width: 1024px) {
     .card_info_project, .card_info_forum {
-        width: 83%;
+        width: 45%;
     }
 
     .element {
         width: 31%;
     }
+
+    .card_info {
+        margin-bottom: 12%;
+    }
+
+    .semestre2 {
+        margin-top: 0;
+    }
 }
+
+@media only screen and (max-width: 900px) {
+    .card_info {
+        width: 48%;
+    }
+}
+
 @media only screen and (max-width: 770px) {
     h2 {
         margin-top: 1%;
@@ -396,10 +431,10 @@ a { color: inherit; }
         display: block;
     }
 
-    .card_info_project, .card_info_forum, .card_info {
+    .card_info_project, .card_info_forum {
         width: 46%;
     }
-
+    
     .minnuminput, .maxnuminput {
         width: 137%;
     }
@@ -489,7 +524,7 @@ a { color: inherit; }
 
     .add_event {
         margin-top: -5% !important;
-        margin-left: 0;
+        margin-left: 6px;
     }
 
     #message_hour_s {

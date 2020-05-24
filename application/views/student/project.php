@@ -24,13 +24,15 @@
         <h4 id="enunciado_h4"></h4>
         <div class="container-header">
             <br><br>
-            <!-- Mostramos em baixo o grupo se já tiver grupo ou a criação dos grupos no caso de não ter
-                ficando a criação ao criterio do ye -->
-            <h2 id="grupo-name">Grupo</h2>
+            <h2 id="grupo-name">Grupo</h2> <span class="criarGrupo"><img src="<?php echo base_url(); ?>images/add.png" id="criarGrupo_button"></span>
+            <div id="criarGrupoName">
+            </div>
         </div>
 
         <div id="grupos-container" class="container">
             <div id="grupos-container2"></div>
+            <div id="msgStatus">
+            </div>
         </div>       
 
         <br><br>

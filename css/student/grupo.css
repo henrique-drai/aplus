@@ -1,17 +1,3 @@
-/* #tab-gerir-tarefas {
-	width: 100%;
-	text-align: center;
-}
-
-#tab-gerir-tarefas th {
-	background-color: #939393;
-	padding: 15px 0px;
-}
-
-#tab-gerir-tarefas tr:hover {
-	background-color: #ccc
-} */
-
 input[type="text"], textarea, input[type="datetime-local"], select {
 	width: 100%;
 }
@@ -139,61 +125,3 @@ You could also use a data-* attribute and content for this. That way "bloats" th
         margin-bottom: -20%;
     }
 }
-
-
-/* ####################################################### */
-
-fieldset {
-    padding: 1rem;
-    border: none;
-  }
-  
-  label {
-    display: inline-block;
-    padding-right: 0.25rem;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    text-align: right;
-    font-weight: 700;
-    font-size: 12px;
-    width: 100px;
-  }
-  
-  input, select {
-    padding: 0.25rem;
-    width: 100px;
-  }
-  
-  input {
-    text-align: center;
-    width: 65px;
-  }
-  
-  #calendar {
-    width: 500px;
-    margin: 2rem auto;
-  }
-  
-  .labels, .dates {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    text-align: right;
-    grid-gap: 4px;
-  }
-  
-  .dates span {
-    height: 50px;
-    font-size: 16px;
-    letter-spacing: -1px;
-    border: 1px solid #e6e4e4;
-    padding-right: 4px;
-    font-weight: 700;
-  }
-  
-  .labels span {
-    font-weight: 300;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    opacity: 0.6;
-  }

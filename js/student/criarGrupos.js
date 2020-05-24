@@ -6,6 +6,28 @@ $(document).ready(() => {
         leaveGroup(proj, groupid);
     })
 
+    $('body').on('click', '#criarGrupo_button', function(){
+        if($("#criarGrupoName").css("display")=="none"){
+            $("#criarGrupoh3").show();
+            $("#criarGrupoName").show();
+            $("#criarGrupoName").empty();
+            $("#criarGrupoName").append('<p> Nome do Grupo</p>');
+            $("#criarGrupoName").append("<input type='text' id='criarGrupoInput' placeholder='Nome do grupo'> <input type='submit' id='criarGrupoSubmit' value='Criar'>");
+        }
+        else{
+            $("#criarGrupoName").hide();
+        }
+        
+    })
+
+    $("body").on('click', "#criarGrupoSubmit", function(){
+        createGroup(proj);
+    })
+
+    $("body").on("click", ".entrarGroupButton", function(){
+        var groupid = $(this).attr("id").split('"')[1];
+        enterGroup(proj, groupid);
+    })
 });
 
 function leaveGroup(proj_id, groupid){
@@ -14,13 +36,61 @@ function leaveGroup(proj_id, groupid){
         url: base_url + "api/leaveMyGroup/" + proj_id,
         data: {grupo_id: groupid},
         success: function(data) {
-            // showMyGroup(proj_id);
             location.reload();
         },
         error: function(data) {
             var mensagem = "<h4 id='errogrupo'>Não foi possivel sair do grupo.</h2>";
             $(".myGroupDiv").append(mensagem);
             $("#errogrupo").delay(2000).fadeOut();
+        }
+    });
+}
+
+function createGroup(proj_id){
+
+    const data = {
+        nomeGrupo:  $("#criarGrupoInput").val(),
+        projid:     proj_id
+    }
+
+    $.ajax({
+        type: "POST",
+        url: base_url + "api/criarGrupo/" + proj_id,
+        data: data,
+        success: function(data) {
+            $("#criarGrupoName").hide();
+            showMyGroup(proj_id)
+        },
+        error: function(data) {
+            $("#msgStatus").text("Não foi possivel criar o grupo");
+            $("#msgStatus").show().delay(2000).fadeOut();
+        }
+    });
+
+}
+
+function enterGroup(proj_id, grupo_id){
+    const data = {
+        grupoid: grupo_id,
+        projid:  proj_id
+    }
+    $.ajax({
+        type: "POST",
+        url: base_url + "api/entrarGrupo/" + proj_id,
+        data: data,
+        success: function(data) {
+            if(data["grupo_aluno"]==""){
+                $("#msgStatus").text("Não foi possivel entrar no grupo");
+                $("#msgStatus").show().delay(5000).fadeOut();
+                showMyGroup(proj_id);
+            }
+            else{
+                showMyGroup(proj_id);
+            }
+        },
+        error: function(data) {
+            $("#msgStatus").text("Não foi possivel entrar no grupo");
+            $("#msgStatus").show().delay(2000).fadeOut();
         }
     });
 }

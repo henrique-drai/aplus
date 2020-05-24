@@ -142,6 +142,8 @@ class Api_Subject extends REST_Controller {
 
         if($flag == "true") {
             $this->SubjectModel->insertDate($id, $user_id, $role);
+            $response = ['$cadeira' => $id, '$user' => $user_id];
+            $this->response($response, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
             $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
@@ -189,15 +191,13 @@ class Api_Subject extends REST_Controller {
 
             //ver se o ficheiro ja consta
 
-            $data["ficheiro_db"] = $this->SubjectModel->getFicheiroAreaByURL($this->post("ficheiro_url"));
+            $data["ficheiro_db"] = $this->SubjectModel->getFicheiroAreaByURLSub($this->post("ficheiro_url"), $this->post("cadeira_id"));
 
             if(empty($data["ficheiro_db"])){
                 $toReturn = $this->SubjectModel->submitFicheiroArea($data_send);
             } else {
                 $toReturn = "Exists";
             }
-
-            
 
             $data["result"] = $toReturn;
 
@@ -507,6 +507,20 @@ class Api_Subject extends REST_Controller {
         }        
     }
 
+    public function getFicheirosCadeira_get(){
+        $user_id = $this->session->userdata('id');
+        $cadeira_id = $this->get("cadeira_id");
+
+        if($this->verify_teacher($user_id, $cadeira_id, "cadeira") || $this->verify_student($user_id, $cadeira_id)){
+            $data = $this->SubjectModel->getFicheirosCadeira($cadeira_id);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+    }
+   
    
 
     //////////////////////////////////////////////////////////////
@@ -565,6 +579,23 @@ class Api_Subject extends REST_Controller {
         }        
     }
 
+    public function removeFicheiroAreaCadeira_delete(){
+        $user_id = $this->session->userdata('id');
+        $cadeira_id = $this->delete("cadeira_id");
+        $ficheiro_id = $this->delete("ficheiro_id");
+
+        if($this->verify_teacher($user_id, $cadeira_id, "cadeira")){
+            $ficheiro = $this->SubjectModel->getFicheiroById($ficheiro_id);
+            unlink("uploads/cadeira_files/" . $cadeira_id . "/" . $ficheiro[0]["url"]);
+            $this->SubjectModel->removeFicheiroAreaCadeira($ficheiro_id);
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+    }
+
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION
     //////////////////////////////////////////////////////////////
@@ -575,6 +606,10 @@ class Api_Subject extends REST_Controller {
             $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
             exit();
         }
+    }
+
+    private function verify_admin($user_id){
+        
     }
 
     private function verify_teacher($user_id, $variable, $mode){

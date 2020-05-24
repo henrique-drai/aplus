@@ -1,7 +1,7 @@
 <title>A+ Profile</title>
 <script>setPageName("profile")</script>
-<script src="<?php echo $base_url; ?>js/profile.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/profile.css">
+<script src="<?=$base_url?>js/profile.js"></script>
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/profile.css">
 </head> 
 
 <?php
@@ -20,18 +20,23 @@
 
     <main>
         <div class="header">
-            <img src="<?php echo $picture; ?>" alt="Profile Picture">
+            <img src="<?=$picture?>" alt="Profile Picture">
             <div class="header-info">
                 <div class="name">
-                    <?php echo $user->name." ". $user->surname; ?>
-                    <span><?php echo $user->gabinete; ?><span>
+                    <?=$user->name." ". $user->surname?>
+                    <span class="gabinete"><?=$user->gabinete?></span>
+                    <span class="chat">
+                        <a href="<?=$base_url?>app/chat/<?=$user->id?>">
+                            <img src="<?=$base_url?>images/icons/message_black.png" alt="Chat">
+                        </a>
+                    </span>
                 </div>
                 <hr>
                 <div class="bio">
-                    <pre><?php echo $user->description; ?></pre>
+                    <pre><?=$user->description?></pre>
                 </div>
                 <div class="email">
-                <?php echo $user->email; ?>
+                    <?=$user->email?>
                 </div>
             </div>
         </div>

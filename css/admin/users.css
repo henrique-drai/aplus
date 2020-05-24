@@ -54,3 +54,7 @@ main > * {
 input#myfile {
     margin-top: 9%;
 }
+
+#cursoUser{
+    display: none;
+}

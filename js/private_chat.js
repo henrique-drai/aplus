@@ -1,5 +1,7 @@
-$(document).ready(() => {
+var chat_user_id=null;
 
+$(document).ready(() => {
+    console.log(chat_user_id)
     if (page_name=="chat"){
         $("#search_text_chat").keyup(function(){
             var s = $(this).val();
@@ -12,6 +14,10 @@ $(document).ready(() => {
         })}
     
 })
+
+function setChatUserId(user_id){
+    chat_user_id = user_id
+}
 
 function getSearchTeaStu(query){
     console.log(query)
@@ -42,7 +48,7 @@ function getSearchTeaStu(query){
 function makeUserList(data){
     users= '';
     for (i=0;i<data.users.length;i++){
-        users += '<li>' + data.users[i].name + '</li>';
+        users += '<li>' + data.users[i].name +' '+ data.users[i].surname + '</li>';
     }
     var list = '<ul class="chatList" id="chatList">'+ users + '</ul>';
     $("#chat-container").html(list);    

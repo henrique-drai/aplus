@@ -39,4 +39,55 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
         $q = $this->db->get_where("grupo_aluno", array("grupo_id" => $group_id));
         return $q->num_rows();
     }
+
+    public function createGroup($data){
+        $this->db->insert("grupo", $data);
+        $data["grupo"] = $this->db->insert_id();
+        return $data;
+    }
+
+    public function addElementGroup($data){
+        $this->db->insert("grupo_aluno", $data);
+        $data["grupo_aluno"] = $this->db->insert_id();
+        return $data;
+    }
+
+    public function deleteGroup($group_id){
+        $this->db->where("id", $group_id);
+        $this->db->delete('grupo');
+    }
+
+    public function getTeachersByGroupId($grupo_id){
+        $grupo_id = $this->db->escape($grupo_id);
+        $query = "select * 
+            from grupo, projeto, cadeira, professor_cadeira, user
+            where user.id = professor_cadeira.user_id
+            and professor_cadeira.cadeira_id = cadeira.id
+            and projeto.cadeira_id = cadeira.id
+            and projeto.id = grupo.projeto_id
+            and grupo.id = $grupo_id";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getFicheiroGrupoByURLSub($ficheiro_url, $grupo_id){
+        return $this->db->get_where("ficheiros_grupo", array("url" => $ficheiro_url, "grupo_id" => $grupo_id))->row();
+    }
+
+    public function submit_ficheiro_areagrupo($data){
+        $this->db->insert("ficheiros_grupo", $data);  
+        return $this->db->insert_id();  
+    }
+
+    public function getFicheirosGrupo($grupo_id){
+        return $this->db->get_where("ficheiros_grupo", array("grupo_id" => $grupo_id))->result_array();
+    }
+
+    public function getFicheiroGrupoById($id){
+        return $this->db->get_where("ficheiros_grupo", array("id" => $id))->result_array();
+    }
+
+    public function removeFicheiroAreaGrupo($ficheiro_id){
+        $this->db->where("id", $ficheiro_id);
+        $this->db->delete("ficheiros_grupo");
+    }
 }

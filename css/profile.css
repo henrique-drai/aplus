@@ -86,10 +86,17 @@ form.profile-edit-user input[type=submit]{
     font-weight: bold;
     font-size: 30px;
 }
-.header-info .name span{
+.header-info .gabinete{
     font-weight: 300;
     font-size: 18px;
     color: #555;
+}
+.header-info .chat img{
+    width: 20px;
+    margin: 0px 2px;
+}
+.header-info .chat img:hover {
+    opacity: 0.6;
 }
 .header-info .bio pre {
     color: #888;

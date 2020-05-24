@@ -150,10 +150,10 @@ function insertLoggedDate(id) {
         type: "POST",
         url: base_url + "api/insertDate/" + id + "/student",
         success: function(data) {
-            console.log(data)
+            //console.log(data)
         },
         error: function(data) {
-            alert("Houve um erro ao ir buscar a informação das cadeiras lecionadas.");
+            alert("Houve um erro ao atualizar a cadeira mais recente.");
         }
     })
 }

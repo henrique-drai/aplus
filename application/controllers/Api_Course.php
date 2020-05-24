@@ -185,4 +185,8 @@ class Api_Course extends REST_Controller {
             exit();
         }
     }
+
+    private function verify_admin($user_id){
+        
+    }
 }

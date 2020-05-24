@@ -118,16 +118,19 @@ function showMyGroup(proj_id){
         url: base_url + "api/getMyGroupInProj/" + proj_id,
         data: {proj_id: proj_id},
         success: function(data) {
-            console.log(data);
             if (data == ""){
+                $(".criarGrupo").css("display", "inline");
                 $("#grupo-name").text("Grupos");
                 showNotFullGroups(proj_id);
+                var timeout = setInterval(function(){showNotFullGroups(proj_id);}, 10000);
+
                 $("#submitEtapa").prop('disabled', true);
                 have_group = false;
                 $("#form-submit-etapa").hide();
             } else {
                 $("#grupo-name").text('Grupo ' + data["grupo"]["name"]);
                 $("#submitEtapa").prop('disabled', false);
+                $(".criarGrupo").css("display", "none");
                 have_group = true;
                 grupo = data["grupo"]["id"];
                 var names = '';
@@ -165,20 +168,28 @@ function showNotFullGroups(proj_id){
                         names = names + '<a href="'+ base_url +'app/profile/' + data["alunosnogrupo"][j].user_name[2] + '">' + data["alunosnogrupo"][j].user_name[0] + " " + data["alunosnogrupo"][j].user_name[1] + "</a> | ";
                     } 
                 }
-                array.push('<div class="myGroupDiv" id="grupo' + data["gruposdisponiveis"][i].grupo_id + '">' +
+                array.push('<div class="availableGroupsDiv" id="grupo' + data["gruposdisponiveis"][i].grupo_id + '">' +
                     '<p><b> Grupo: </b>' + data["gruposdisponiveis"][i].grupo_nome + '</p>' +
                     '<p><b>Membros: </b>'+ names.slice(0, -2) + " ("+ countEle + "/" + data["alunosnogrupo"][0]["maxElementos"] +")" + '</p>' +
                     '<p><input class="entrarGroupButton" id=entrar"'+ data["gruposdisponiveis"][i].grupo_id +'" type="button" value="Entrar"></input></p></div><hr>');
                 
             }
-            $('#grupos-container').pagination({
-                dataSource: array,
-                pageSize: 5,
-                pageNumber: 1,
-                callback: function(data, pagination) {
-                    $("#grupos-container2").html(data);
-                }
-            })
+
+            if(array.length == 0){
+                $("#grupos-container2").html("Não existem grupos disponiveis");
+                $(".paginationjs").css("display", "none");
+            }
+            else{
+                $('#grupos-container').pagination({
+                    dataSource: array,
+                    pageSize: 5,
+                    pageNumber: 1,
+                    callback: function(data, pagination) {
+                        $("#grupos-container2").html(data);
+                    }
+                })
+            }
+            
         },
         error: function(data) {
             var mensagem = "<h4 id='errogrupo'>Não foi possivel encontrar grupos.</h2>";

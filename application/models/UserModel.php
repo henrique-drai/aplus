@@ -16,6 +16,27 @@ class UserModel extends CI_Model {
         return $query->row();
     }
 
+    public function userIsRelatedToGroup($user_id, $grupo_id) {
+        $grupo_id = $this->db->escape($grupo_id);
+        $result = $this->db->query("select * 
+            from grupo_aluno, user
+            where grupo_aluno.user_id = user.id
+            and user.id = $user_id
+            and grupo_aluno.grupo_id = $grupo_id");
+        return ($result->num_rows() > 0)? true : false;
+    }
+
+    public function getFutureSubmissionsByGroupId($grupo_id){
+        $id = $this->db->escape($grupo_id);
+        $query = "select * 
+            from grupo, projeto, etapa
+            where etapa.projeto_id = projeto.id
+            and grupo.projeto_id = projeto.id
+            and etapa.deadline >= CURDATE()
+            and grupo.id = $id";
+        return $this->db->query($query)->result_array();
+    }
+
     public function getUserByIdRA($id) {
         $query = $this->db->get_where('user', array('id' => $id));
         return $query->result_array();
@@ -24,6 +45,11 @@ class UserModel extends CI_Model {
     # serve para o login
     public function isValidPassword($email, $password) {
         $query = $this->db->get_where('user', array('email' => $email,'password' => md5($password)));
+        return ($query->num_rows() > 0)? true : false;
+    }
+
+    public function isValidUser($id) {
+        $query = $this->db->get_where('user', array('id' => $id));
         return ($query->num_rows() > 0)? true : false;
     }
 
@@ -42,28 +68,20 @@ class UserModel extends CI_Model {
     }
 
     public function getSearchStudentTeachers($query){
-        // // // $this->db->select("*");
-        // $this->db->where('role', 'student');
-        // $this->db->or_where('role', 'teacher');
-        // if($query != ''){
-        //     $this->db->group_start();
-        //     $this->db->like("name", $query);
-        //     $this->db->or_like("surname", $query);
-        //     $this->db->group_end();
-        // }
-        // $this->db->order_by("name","ASC");
-        // return $this->db->get('user');
-        $this->db->where('role', 'student');
-        $this->db->or_where('role', 'teacher');
-        $this->db->like("name", $query);
-        return $query = $this->db->get('user');
+        $this->db->select("*");
+        $status_condition = 'role != "admin"';
+        $this->db->where($status_condition);
 
-        // $qry = $this->db->select('*')
-        //             ->from('user')
-        //             ->where("column name LIKE '%$query%'")
-        //             ->get()->result(); // select data like rearch value.
-        // return $qry;
-    
+        if($query != ''){
+            $this->db->group_start();
+            $this->db->like("email", $query);
+            $this->db->or_like("name", $query);
+            $this->db->or_like("surname", $query);
+            $this->db->or_like("CONCAT(name,' ',surname)", $query);
+            $this->db->group_end();
+        }
+        $this->db->order_by("name","ASC");
+        return $this->db->get('user');
     }
 
     public function deleteUser($email){
@@ -135,6 +153,7 @@ class UserModel extends CI_Model {
             $this->db->like("email", $query);
             $this->db->or_like("name", $query);
             $this->db->or_like("surname", $query);
+            $this->db->or_like("CONCAT(name,' ',surname)", $query);
             $this->db->group_end();
         }
         $this->db->order_by("name","ASC");
@@ -149,6 +168,7 @@ class UserModel extends CI_Model {
             $this->db->like("email", $query);
             $this->db->or_like("name", $query);
             $this->db->or_like("surname", $query);
+            $this->db->or_like("CONCAT(name,' ',surname)", $query);
             $this->db->group_end();
         }
         $this->db->order_by("name","ASC");

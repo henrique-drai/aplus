@@ -1,5 +1,5 @@
 $(document).ready(() => {
-
+      
     getTasks();
 
     // dar set no id do grupo pelo url - ou seja - se o utilizador vier para esta pagina pelo link.
@@ -206,3 +206,4 @@ Date.prototype.addDays = function(days) {
     date.setDate(date.getDate() + days);
     return date;
 }
+

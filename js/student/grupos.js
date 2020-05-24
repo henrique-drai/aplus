@@ -70,10 +70,7 @@ function getAll(user_id, status){
                             grupos+= "<div id='statusOn'>Em Curso</div>"                            
                         }
                     }
-                    else{
-                        grupos+="<div class='noGroups'> Não existem grupos"
-                    }
-                   
+
                     grupos+= "</div>";
                    
                 }

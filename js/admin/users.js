@@ -262,7 +262,6 @@ function getCursosFaculdade(ano, faculdade){
         data: data,
         success: function(data) {
             var option = "Selecione um Curso";
-
             if(data.courses.length > 0){
                 for (i=0; i<data.courses.length; i++){
                     option+= "<option value='" + data.courses[i].id + "'>"+ data.courses[i].name  + "</option>"
@@ -289,19 +288,16 @@ function getCursosFaculdade(ano, faculdade){
 
 
 function getCursosFaculdade2(ano, faculdade){
-
     const data = {
         faculdade:          faculdade,
         anoletivo:          ano,
     }
-
     $.ajax({
         type: "GET",
         url: base_url + "api/getAllCursosFaculdadeAno",
         data: data,
         success: function(data) {
             var option = "Selecione um Curso";
-
             if(data.courses.length > 0){
                 for (i=0; i<data.courses.length; i++){
                     option+= "<option value='" + data.courses[i].id + "'>"+ data.courses[i].name  + "</option>"

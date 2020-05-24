@@ -55,8 +55,8 @@ class Api_Subject extends REST_Controller {
             'end_time'            => $this->post('end_time'),
             'day'                 => $this->post('day'),
         );
-
-        if($this->verify_teacher($user_id, $data["id_cadeira"], "cadeira")) {
+        
+        if($this->verify_teacher($data["id_prof"], $data["id_cadeira"], "cadeira")) {
             $this->SubjectModel->saveHours($data);
             $this->response($data, parent::HTTP_OK);
         } else {

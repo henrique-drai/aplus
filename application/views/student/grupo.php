@@ -6,18 +6,7 @@
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/student/grupo.css"> 
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/calendario.css"> 
 
-<!--  ######################  -->
 
-<!-- <link rel="stylesheet" href="https://common.olemiss.edu/_js/pickadate.js-3.5.3/lib/themes/classic.css" id=theme_base"> -->
-<link rel="stylesheet" href="https://common.olemiss.edu/_js/pickadate.js-3.5.3/lib/themes/classic.date.css" id="theme_date">
-<link rel="stylesheet" href="https://amsul.ca/pickadate.js/vendor/pickadate/lib/themes/default.css">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/picker.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/picker.date.js"></script>
-
-
-
-<!-- ###################### -->
 
 
 </head>
@@ -70,7 +59,7 @@
                   
               
                   <label for="">Data:</label>
-                  <input class="datepicker" name="dateEvento" type="text">
+                  <input class="name" name="dateEvento" type="date">
               
                   <label for="">Nome Evento:</label>
                   <input class="name" name="nomeEvento" type="text" >

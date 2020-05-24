@@ -3,6 +3,23 @@ var calendario = {}
 $(document).ready(()=>{
     updateCalendario()
     // eventOnClickCalendario()
+
+    $("body").on("click", "#submitEvento", function(){
+
+
+        var dateEvento = $('input[name="dateEvento"]').val();
+        var nomeEvento = $('input[name="nomeEvento"]').val();
+        var description = $('input[name="descEvento"]').val();
+        var local = $('input[name="localEvento"]').val();
+
+        var split = dateEvento.split(" ");
+
+        var date = split[2] + "/" +  months[split[1].replace(",","")] + "/" + split[0]
+         
+        if(nomeEvento != '' && description != '') {
+            insertEvent(date, nomeEvento, description, local);
+        }
+    })
 })
 
 function updateCalendario(){
@@ -94,22 +111,6 @@ function getTimeString(time){
     m = time.getMinutes()
     return ((h < 10)? "0" + h : h) + ":" + ((m < 10)? "0" + m : m)
 }
-function getClassTimeString(time){
-    return time.split(":")[0] + ":" + time.split(":")[1]
-}
-
-function getRandomColor(){
-    let r,g,b
-    do {
-        r = Math.floor((Math.random() * 255) + 1);
-        g = Math.floor((Math.random() * 255) + 1);
-        b = Math.floor((Math.random() * 255) + 1);
-    } while (r + g + b < 340 || 600 < r + g + b)
-    return "rgba("+r+","+g+","+b+",0.5)"
-}
-
-
-
 
 function eventOnClickCalendario(){
     $('#calendario-hook').on('click', '.cell .clickable', function(event){
@@ -177,4 +178,30 @@ function ajaxNotGoing(event_id){
             console.log(data)
         }
     })
+}
+
+function insertEvent(date, nomeEvento, description, local){
+
+    const data = {
+        grupo_id: localStorage.grupo_id,
+        name: nomeEvento,
+        description: description,
+        date: date,
+        location: local
+    }
+
+    console.log(data)
+    $.ajax({
+        type: "POST",
+        url: base_url + "api/insertEvento",
+        data: data,
+        success: function(data) {
+           
+        },
+        error: function(data) {
+            console.log("Erro na API:")
+            console.log(data)
+        }
+    });
+
 }

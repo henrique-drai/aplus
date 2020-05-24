@@ -16,41 +16,7 @@ $(document).ready(() => {
         "Dezembro":12
     }
 
-
-    // ##############################   MARCAR EVENTO GRUPO #########################################################
-
-
-    $('.datepicker').pickadate({
-        monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-        weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-        today: 'Hoje',
-        clear: 'Limpar',
-        close: 'Fechar',
-        min: Date.now()    
-    })
-
-
-    $("body").on("click", "#submitEvento", function(){
-
-
-        var dateEvento = $('input[name="dateEvento"]').val();
-        var nomeEvento = $('input[name="nomeEvento"]').val();
-        var description = $('input[name="descEvento"]').val();
-        var local = $('input[name="localEvento"]').val();
-
-        var split = dateEvento.split(" ");
-
-        var date = split[2] + "/" +  months[split[1].replace(",","")] + "/" + split[0]
-         
-        if(nomeEvento != '' && description != '') {
-            insertEvent(date, nomeEvento, description, local);
-        }
-    })
-
-    // ############################################################################################
-
-
-
+    
     getTasks();
 
     // dar set no id do grupo pelo url - ou seja - se o utilizador vier para esta pagina pelo link.
@@ -265,28 +231,3 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
-function insertEvent(date, nomeEvento, description, local){
-
-    const data = {
-        grupo_id: localStorage.grupo_id,
-        name: nomeEvento,
-        description: description,
-        date: date,
-        location: local
-    }
-
-    console.log(data)
-    $.ajax({
-        type: "POST",
-        url: base_url + "api/insertEvento",
-        data: data,
-        success: function(data) {
-           
-        },
-        error: function(data) {
-            console.log("Erro na API:")
-            console.log(data)
-        }
-    });
-
-}

@@ -52,9 +52,12 @@
                 <select id="cursos_register_UnidCurricular" name="curso">
                 </select>
             </p>
+            
+            <input type="submit" id="register-cadeira-submit">
             <div id="msgStatus">
             </div>
-            <input type="submit" id="register-cadeira-submit">
+            <div id="msgErro">
+            </div>
         </form><br>        
         
         <h2>Consultar Unidades Curriculares</h2>

@@ -102,6 +102,8 @@ $route['api/getAllCourses']                     = 'Api_Course/getAllCourses';
 $route['api/registerCurso']                     = 'Api_Course/registerCurso';
 $route['api/getAllCursosFaculdadeAno']          = 'Api_Course/getAllCollegesYearCourses';
 $route['api/getAllCursosFaculdade']             = 'Api_Course/getAllCollegesCourses';
+$route['api/getAllCadeirasByCourse']            = 'Api_Subject/getAllCadeirasByCourse';
+$route["api/getAllCadeirasFaculdade"]           = 'Api_Subject/getAllCadeirasFaculdade';
 $route['api/deleteCourse']                      = 'Api_Course/deleteCourse';
 $route['api/getSearchStudent']                  = 'Api_Student/getSearchStudent';
 $route['api/getAllStudents']                    = 'Api_Student/getAllStudents';
@@ -117,6 +119,7 @@ $route['api/importX']                           = 'Api_Admin/importX';
 $route['api/getAdminHome']                      = 'Api_Admin/getAdminHome';
 $route['api/exportSpecific']                    = 'Api_Admin/exportSpecific';
 $route['api/importStudentsCourse']              = 'Api_Admin/importStudentsCourse';
+
 
 
 #Raul#ja arrumo#dw#

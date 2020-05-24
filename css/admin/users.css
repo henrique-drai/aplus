@@ -11,7 +11,7 @@ main > * {
 
 .admin-users-window {
     margin: 30px;
-    min-width: 300px;
+    min-width: 350px;
 }
 
 .admin-users-window .title {
@@ -55,6 +55,43 @@ input#myfile {
     margin-top: 9%;
 }
 
-#cursoUser{
+#cursoUser, #cadeirasProf, #selectedCadeiras{
     display: none;
+}
+
+select{
+    width: 300px;
+}
+
+#msgErro, #collegeStatus, #collegeStatus1{
+    background-color: rgb(255, 72, 72);
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
+#msgStatus{
+    background-color: rgba(106, 192, 66, 0.7);
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
+#register-form label[for='academicYearUser'], #register-form label[for='faculUser'], #registerAnoUser, #registerUserFacul{
+    display: none;
+}
+
+#registerProfCadeira select:checked{
+    color:rgba(106, 192, 66, 0.7);
+}
+
+
+.tirarCadeira{
+    margin-left: 10px;
+    color: #333;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
 }

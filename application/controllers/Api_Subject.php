@@ -520,7 +520,30 @@ class Api_Subject extends REST_Controller {
             $this->response($response, $status);
         }
     }
-   
+    
+    public function getAllCadeirasFaculdade_get(){
+        $this->verify_admin();
+        $faculdade = $this->get('faculdade');
+        $ano = $this->get('anoletivo');
+        $this->load->model('CourseModel');
+        $this->load->model('SubjectModel');
+        $data["courses"] = $this->CourseModel->getCollegeYearCourses($faculdade, $ano);
+        $data["cadeiras"] = array();
+        for($i=0; $i<count($data["courses"]); $i++){
+            array_push($data["cadeiras"],$this->SubjectModel->getSubjectsByCursoId($data["courses"][$i]["id"]));
+        }
+
+        $this->response($data, parent::HTTP_OK);
+
+    }
+
+    public function getAllCadeirasByCourse_get(){
+        $this->verify_admin();
+        $cursoid = $this->get('cursoid');
+        $this->load->model('SubjectModel');
+        $data["cadeiras"] = $this->SubjectModel->getSubjectsByCursoId($cursoid);
+        $this->response($data, parent::HTTP_OK);
+    }
    
 
     //////////////////////////////////////////////////////////////
@@ -608,8 +631,15 @@ class Api_Subject extends REST_Controller {
         }
     }
 
-    private function verify_admin($user_id){
-        
+    private function verify_admin(){
+        $auth = $this->session->userdata('id');
+
+        $user = $this->UserModel->getUserById($auth);
+
+        if($user->role != "admin"){
+            $this->response(array('msg' => 'No admin rights.'), parent::HTTP_UNAUTHORIZED);
+            exit();
+        }
     }
 
     private function verify_teacher($user_id, $variable, $mode){

@@ -111,9 +111,23 @@ function eventOnClickCalendario(){
 
 
 function renderPopUpGroupEvent(event) {
+
+    function dateToISO (date){
+        var isoStr = new Date(date).toISOString()
+        return isoStr.substring(0,isoStr.length-1)
+    }
     
     let form = $('<form id="groupEventForm" action="' +
         base_url + '"api/event/'+event.obj.id+'" method="POST"></form>')
+
+    let time_div = $('<div class="time_div"></div>').append(
+        $('<label></label>').append(
+            $('<input type="datetime-local" name="start_date" value="' + dateToISO(event.obj.start_date) + '" required>')
+        ),
+        $('<label></label>').append(
+            $('<input type="datetime-local" name="end_date" value="' + dateToISO(event.obj.end_date) + '" required>')
+        )
+    )
 
     form.append(
         '<label><b>Assunto</b></label>',
@@ -122,8 +136,8 @@ function renderPopUpGroupEvent(event) {
         '<input type="text" name="description" value="' + event.obj.description + '" >',
         '<label>Localização</label>',
         '<input type="text" name="location" value="' + event.obj.location + '" >',
-        "<p>" + getTimeString(new Date(event.obj.start_date)) + " - " +
-        getTimeString(new Date(event.obj.end_date)) + "</p>")
+        time_div
+    )
 
     $(".cd-popup #actionButton").html("Guardar").off()
         .click(()=>{

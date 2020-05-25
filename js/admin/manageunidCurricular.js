@@ -491,12 +491,22 @@ function  editSubject(){
         url: base_url + "api/editSubject",
         data: data,   
         success: function() {    
-            // getSearchTeacher($("#search_text_profs").val());
-
             $(".overlay").css('visibility', 'hidden');
             $(".overlay").css('opacity', '0');
             $(".popup").css("display", "none");
-
+            var faculdade = $("#Consultar_Cadeiras_Faculdade").val();
+            var curso = document.getElementById("Consultar_Cadeiras_Curso").options[document.getElementById("Consultar_Cadeiras_Curso").selectedIndex].text;
+            var cursonome = curso.split("(")[0];
+            
+            if(cursonome == "Selecione uma Curso"){
+                cursonome = "";
+            }
+            else{
+                cursonome = cursonome.split(" ")[0]; 
+            }
+            
+            var ano = $("#Consultar_Cadeiras_Ano").val();
+            getSubjectsByFilters(faculdade,cursonome,ano);
         },
         error: function() {
             msgErro = "<p class='msgErro'> Não foi possivel editar o utilizador.</p>";

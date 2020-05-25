@@ -383,13 +383,7 @@ class Api_Subject extends REST_Controller {
     // }
 
     public function getSubjectsByFilters_get(){ 
-        $user = $this->UserModel->getUserById($auth->id);
-
-        if($user->role != "admin"){
-            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
-            return null;
-        }
-
+        $this->verify_admin();
         $faculdade = $this->get('f'); 
         $curso = $this->get('c');
         $ano = $this->get('a');

@@ -12,6 +12,42 @@
     <main>
         <h1>Courses</h1>
 
+
+        <h3>Registar Curso</h3>
+
+        <form id="register-cursos-form" action="javascript:void(0)">
+        <p>
+
+            <label for="codeCurso">Código de Curso:</label>
+            <input type="text" name="codeCurso" required>
+        </p>
+        <p>
+            <label for="nomeCurso">Nome de Curso:</label>
+            <input type="text" name="nomeCurso" required>
+        </p>
+        <p>
+            <label for="descCurso">Descrição de Curso:</label>
+            <input type="text" name="descCurso" required>
+        </p>
+        <p>
+            <label for="academicYear">Ano Letivo:</label>
+            <select id="consultar_anos_letivos" name="academicYear">
+            </select>
+        </p>
+        <p>
+            <label for="college">Faculdade:</label>
+            <select id="faculdades_register_UnidCurricular" name="faculdade">
+            </select>
+        </p>
+
+            <input type="submit" id="register-course-submit">
+        </form><br>
+
+        <div id="msgStatus">
+        </div>
+
+
+
         <h3>Consultar cursos de uma faculdade</h3>
         <select id="consultar_cursos_faculdade" name="consultarCadeirasporFaculdade">
         </select>
@@ -54,7 +90,8 @@
                         <input type="text" name="academicYear" required>
                     </p><p>
                         <label for="description">Descrição</label>
-                        <input type="text" name="description" required>
+                        <!-- <input type="text" name="description" required> -->
+                        <textarea name="description" id="descriptionTA" cols="30" rows="3" required></textarea>
                     </p><p>
                         <input type="submit" id="editCourse-form-submit" required>
                     </form>

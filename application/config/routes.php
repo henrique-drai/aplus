@@ -10,6 +10,7 @@ $route['api/grupo/(:num)/calendario']           = 'Api_Calendario/grupo/$1';
 $route['api/grupo/(:num)/evento']               = 'Api_Calendario/grupo_evento/$1';
 $route['api/agenda']                            = 'Api_Calendario/agenda';
 
+$route['api/event/edit/(:num)']                 = 'Api_Event/editGroupEvent/$1';
 $route['api/event/(:num)']                      = 'Api_Event/event/$1';
 $route['api/event/going/(:num)']                = 'Api_Event/going/$1';
 
@@ -122,8 +123,9 @@ $route['api/exportSpecific']                    = 'Api_Admin/exportSpecific';
 $route['api/importStudentsCourse']              = 'Api_Admin/importStudentsCourse';
 
 
+$route['api/getLastPrivateMsg']                 = 'Api_Chat/getLastPrivateMsg';
+$route['api/getChatLogs']                       = 'Api_Chat/getChatLogs';
 
-#Raul#ja arrumo#dw#
 
 $route['default_controller'] = 'landing';
 $route['404_override'] = '';

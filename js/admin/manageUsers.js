@@ -6,11 +6,11 @@ $(document).ready(() => {
     $('body').on('click','#deleteUser', function(event){
         event.preventDefault();
         User = $(event.target).closest("tr");
-        $('.cd-popup').addClass('is-visible');
+        $('#users_admin_delete').addClass('is-visible');
     });
 
     //close popup delete
-	$('.cd-popup').on('click', function(event){
+	$('#users_admin_delete').on('click', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
 			event.preventDefault();
 			$(this).removeClass('is-visible');
@@ -18,32 +18,24 @@ $(document).ready(() => {
     });
     
     $("body").on('click', "#confirmRemove", function(){
-        $('.cd-popup').removeClass('is-visible');
+        $('#users_admin_delete').removeClass('is-visible');
         deleteUser(User);
     });
 
     // POPUP Edit
     $('body').on("click", "#editUser",function() {
-        $(".overlay").css('display', 'block');
-        $(".overlay").css('visibility', 'visible');
-        $(".overlay").css('opacity', '1');
+        event.preventDefault();
+        User = $(event.target).closest("tr");
+        $('#users_admin_edit').addClass('is-visible');
         displayEditUser();
     });
 
-    $('.close').click(function() {
-        $(".overlay").css('display', 'none');
-        $(".overlay").css('visibility', 'hidden');
-        $(".overlay").css('opacity', '0');
-    })
-
-    $('#popup_button').click(function() {
-        var name = $("input[type='text']").val();
-        var desc = $("textarea").val();
-        insertThread(name, desc);
-        getThreads();
-        $(".overlay").css('visibility', 'hidden');
-        $(".overlay").css('opacity', '0');
-    })
+    $('#users_admin_edit').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+    });
 
 
     if (page_name=="students"){
@@ -139,10 +131,8 @@ function editUser(){
                 else{
                     getSearchStudent($("#search_text_students").val());
                 }   
-                $(".overlay").css('display', 'none');
-                $(".overlay").css('visibility', 'hidden');
-                $(".overlay").css('opacity', '0');
-                $(".popup").css("display", "none");
+                event.preventDefault();
+			    $("#users_admin_edit").removeClass('is-visible');
                 
             } else if (page_name=="teachers") {
                 if($("#search_text_profs").val()=="*"){
@@ -151,9 +141,8 @@ function editUser(){
                 else{
                     getSearchTeacher($("#search_text_profs").val());
                 }
-                $(".overlay").css('visibility', 'hidden');
-                $(".overlay").css('opacity', '0');
-                $(".popup").css("display", "none");
+                event.preventDefault();
+                $("#users_admin_edit").removeClass('is-visible');
             } 
         },
         error: function() {

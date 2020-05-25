@@ -157,7 +157,7 @@ class Api_User extends REST_Controller {
     public function deleteUser_delete(){ 
         $auth = $this->session->userdata('id');
 
-        $user = $this->UserModel->getUserById($auth->id);
+        $user = $this->UserModel->getUserById($auth);
 
         if($user->role != "admin"){
             $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);

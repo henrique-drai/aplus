@@ -56,3 +56,12 @@ label[for="curso"]{
     margin-bottom: 10px;
     border-radius: 3px;
 }
+
+#editSubject-form-submit{
+    background-color: #3e5d4f;
+}
+
+.editSubjects_inputs{
+    margin: 20px auto;
+    width: 90%;
+}

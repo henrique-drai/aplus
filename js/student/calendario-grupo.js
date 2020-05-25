@@ -118,41 +118,38 @@ function renderPopUpGroupEvent(event) {
     }
     
     let form = $('<form id="groupEventForm" action="' +
-        base_url + '"api/event/'+event.obj.id+'" method="POST"></form>')
-
-    let time_div = $('<div class="time_div"></div>').append(
-        $('<label></label>').append(
-            $('<input type="datetime-local" name="start_date" value="' + dateToISO(event.obj.start_date) + '" required>')
-        ),
-        $('<label></label>').append(
-            $('<input type="datetime-local" name="end_date" value="' + dateToISO(event.obj.end_date) + '" required>')
-        )
-    )
-
-    form.append(
+        base_url + '"api/event/'+event.obj.id+'" method="POST"></form>').append(
         '<label><b>Assunto</b></label>',
         '<input type="text" name="name" value="' + event.obj.name + '" required>',
         '<label>Descrição</label>',
         '<input type="text" name="description" value="' + event.obj.description + '" >',
         '<label>Localização</label>',
         '<input type="text" name="location" value="' + event.obj.location + '" >',
-        time_div
+        $('<div class="time_div"></div>').append(
+            $('<label>Início</label>').append(
+                $('<input type="datetime-local" name="start_date" value="' + dateToISO(event.obj.start_date) + '" required>')
+            ),
+            $('<label>Fim</label>').append(
+                $('<input type="datetime-local" name="end_date" value="' + dateToISO(event.obj.end_date) + '" required>')
+            )
+        )
     )
 
     $(".cd-popup #actionButton").html("Guardar").off()
         .click(()=>{
-            console.log($("#groupEventForm").serialize())
             $.ajax({
-                type: "PUT",
-                url: base_url + 'api/event/' + event.obj.id + "?" + $("#groupEventForm").serialize(),
+                type: "POST",
+                url: base_url + 'api/event/edit/' + event.obj.id,
                 data: {
-                    name: $('input[name="dateEvento"]').val(),
-                    description: $('input[name="descEvento"]').val(),
-                    date: $('input[name="dateEvento"]').val(),
-                    location: $('input[name="localEvento"]').val()
+                    name: $('#groupEventForm input[name="name"]').val(),
+                    description: $('#groupEventForm input[name="description"]').val(),
+                    date: $('#groupEventForm input[name="date"]').val(),
+                    location: $('#groupEventForm input[name="location"]').val(),
+                    start_date: $('#groupEventForm input[name="start_date"]').val(),
+                    end_date: $('#groupEventForm input[name="end_date"]').val(),
                 },
                 success: function(data) {
-                    
+                    console.log(data)
                 },
                 error: function(data) {
                     console.log("Erro ao criar um evento de grupo:")

@@ -109,11 +109,11 @@ function getInfo() {
                         data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
                         data.hours[i].end_time.substring(0, 5) + "</p></div>");
                     } else {
-                        $(".hours").append("<div><p><b>" + 
+                        $(".hours").append("<div><p><span><img src='" + image_url + 
+                        "' class='add_event' id='" + data.hours[i].id + "'></span><b>" + 
                         data.user[i].name + " " + data.user[i].surname + ":</b> " + 
                         data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
-                        data.hours[i].end_time.substring(0, 5) + "<span>" +
-                        "<img src='" + image_url + "' class='add_event' id='" + data.hours[i].id + "'></span></p></div>");
+                        data.hours[i].end_time.substring(0, 5) + "</p></div>");
                     }         
                 }
             } else {

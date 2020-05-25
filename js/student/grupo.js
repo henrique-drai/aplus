@@ -197,6 +197,7 @@ function getTasks() {
         success: function(data) {
             console.log(data)
             $(".tasksTable").empty();
+            var image_url = base_url + "/images/icons/trash.png";
 
             if(data.tasks.length != 0) {
                 $(".tasksTable").append("<table id='tab-gerir-tarefas'><tr><th>Tarefa</th><th>Descrição</th>" +
@@ -206,8 +207,8 @@ function getTasks() {
                     $("#tab-gerir-tarefas").append("<tr><td>" + data.tasks[i].name + "</td><td>" +
                     data.tasks[i].description + "</td><td>" + data.members[i][0].name + " " + 
                     data.members[i][0].surname + "</td><td>" + data.tasks[i].start_date + "</td><td>" + 
-                        data.tasks[i].done_date + "</td><td>" +
-                        "<span><img src='" + image_url + "' class='delete_img' id='" + data.tasks[i].id + "'></span><b>" + "</td></tr>");
+                    data.tasks[i].done_date + "</td><td>" +
+                    "<span><img src='" + image_url + "' class='delete_img' id='" + data.tasks[i].id + "'></span><b>" + "</td></tr>");
                 }
             } else {
                 $(".tasksTable").append("<p>Não existem tarefas.</p>");
@@ -237,7 +238,7 @@ function setGrupoId(id){
 function deleteTaskById(id) {
     $.ajax({
         type: "DELETE",
-        url: base_url + "api/deleteTaskById" + id,
+        url: base_url + "api/deleteTaskById/" + id,
         data: {
             id: id
         },

@@ -130,14 +130,14 @@ function submitRegister(){
                 $('#register-cursos-form')[0].reset();
             },
             error: function(data) {
-                $("#msgStatus").text("Não foi possível adicionar o curso");
-                $("#msgStatus").show().delay(2000).fadeOut();
+                $("#msgErro").text("Não foi possível adicionar o curso");
+                $("#msgErro").show().delay(2000).fadeOut();
             }
         });
     }
     else{
-        $("#msgStatus").text("É necessário preencher todos os campos");
-        $("#msgStatus").show().delay(2000).fadeOut();
+        $("#msgErro").text("É necessário preencher todos os campos");
+        $("#msgErro").show().delay(2000).fadeOut();
     }
 }
 
@@ -153,13 +153,16 @@ function submitRegister(){
                     makeCoursesTable(data)
                 }
                 else{
-                    $("#course-container").html("Não existem cursos disponíveis para a faculdade selecionada.");
+                    $("#course-container").html("")
+                    $("#msgErro2").text("Não existem cursos disponíveis para a faculdade selecionada.");
+                    $("#msgErro2").show().delay(2000).fadeOut();
+                    
                 }
             },
             error: function(data) {
                 var mensagem = "<h2 id='mens_erro_cursos'>Não é possivel apresentar os cursos.</h2>";
                 $("body").append(mensagem);
-                $("#mens_erro_cursos").delay(2000).fadeOut();
+                $("#msgErro2").delay(2000).fadeOut();
             }
         });
     }
@@ -277,8 +280,8 @@ function editCourse(){
             $(".overlay").css('opacity', '0');
             $(".popup").css("display", "none");
 
-            $("#msgStatus").text("Erro a editar curso");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErro").text("Erro a editar curso");
+            $("#msgErro").show().delay(2000).fadeOut();
         }
     });
 

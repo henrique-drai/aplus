@@ -3,6 +3,10 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-users.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-subjects.css">
+
+
 <script src="<?php echo $base_url; ?>js/admin/registerCurso.js"></script>
 
 </head>
@@ -46,6 +50,8 @@
         <div id="msgStatus">
         </div>
 
+        <div id="msgErro">
+        </div>
 
 
         <h3>Consultar cursos de uma faculdade</h3>
@@ -59,7 +65,7 @@
           
         <br>
        
-        <div id="msgStatus">
+        <div id="msgErro2">
         </div>
 
         <div class="cd-popup" role="alert">

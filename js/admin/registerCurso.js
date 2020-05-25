@@ -239,7 +239,7 @@ function displayEditCourse(){
     $("#editCourse-form input[name='codCourse']").val(codCourse);
     $("#editCourse-form input[name='name']").val(name);
     $("#editCourse-form input[name='academicYear']").val(academicYear) ;
-    $("#editCourse-form input[name='description']").val(description) ;
+    $("#descriptionTA").val(description) ;
       
     // }
 }
@@ -251,7 +251,7 @@ function editCourse(){
         code:     $("#editCourse-form input[name='codCourse']").val(),
         name:    $("#editCourse-form input[name='name']").val(),
         academicYear:    $("#editCourse-form input[name='academicYear']").val(),
-        description:      $("#editCourse-form input[name='description']").val(),
+        description:      $("#descriptionTA").val(),
         collegeId:      $('#consultar_cursos_faculdade :selected').val(),
         oldCurso: codCourse
     }

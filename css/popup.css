@@ -153,7 +153,6 @@
 }
 
 .popup {
-    display: none;  /*SE ISTO ATROFIAR ALGUMA COISA TIRAR  */
     margin: 100px auto;
     padding: 20px;
     background: rgb(255, 255, 255);

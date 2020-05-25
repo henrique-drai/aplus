@@ -121,7 +121,9 @@ $route['api/exportSpecific']                    = 'Api_Admin/exportSpecific';
 $route['api/importStudentsCourse']              = 'Api_Admin/importStudentsCourse';
 
 
-#Raul#ja arrumo#dw#
+$route['api/getLastPrivateMsg']                 = 'Api_Chat/getLastPrivateMsg';
+$route['api/getChatLogs']                       = 'Api_Chat/getChatLogs';
+
 
 $route['default_controller'] = 'landing';
 $route['404_override'] = '';

@@ -55,7 +55,6 @@ $(document).ready(() => {
         if(taskName != '' && taskDesc != '') {
             insertTask(taskName, taskDesc, taskMember, beginDate, endDate);
         }
-        getTasks();
     })
 
     $("body").on("click", ".delete_img", function () {
@@ -177,6 +176,8 @@ function insertTask(taskName, taskDesc, taskMember, beginDate, endDate) {
             $(".overlay").css('visibility', 'hidden');
             $(".overlay").css('opacity', '0');
 
+            getTasks();
+            
             $(".message").append("Tarefa adicionada com sucesso!");
             $(".message").fadeTo(2000, 1);
             setTimeout(function() {
@@ -243,12 +244,13 @@ function deleteTaskById(id) {
             id: id
         },
         success: function (data) {
-
+            getTasks();
             $(".message").append("Tarefa eliminada com sucesso!");
             $(".message").fadeTo(2000, 1);
             setTimeout(function () {
                 $(".message").fadeTo(2000, 0);
             }, 2000);
+
         },
         error: function (data) {
             alert("Houve um erro a remover a tarefa.")

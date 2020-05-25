@@ -68,7 +68,7 @@
         <div id="msgErro2">
         </div>
 
-        <div class="cd-popup" role="alert">
+        <div class="cd-popup" role="alert" id="courses_admin_delete">
 	        <div class="cd-popup-container">
 		        <p>Tem a certeza que deseja eliminar o ano letivo?</p>
                 <ul class="cd-buttons">
@@ -79,30 +79,28 @@
 	        </div>
         </div>
 
-        <div class='overlay'>
-            <div class='popup'>
-                <a class='close' href='#'>&times;</a>
-                <div class='content'>
+        <div class="cd-popup" role="alert" id="courses_admin_edit">
+	        <div class="cd-popup-container">
+                <form id="editCourse-form" action="javascript:void(0)">
+                <div class="editCourse_inputs">
                     <h2>Editar Curso</h2>
-                    <form id="editCourse-form" action="javascript:void(0)">
-                    <p>
-                        <label for="codCourse">Código Curso</label>
-                        <input type="text" name="codCourse" required>
-                    </p><p>
-                        <label for="name">Nome</label>
-                        <input type="text" name="name" required>
-                    </p><p>
-                        <label for="academicYear">Ano Letivo</label>
-                        <input type="text" name="academicYear" required>
-                    </p><p>
-                        <label for="description">Descrição</label>
-                        <!-- <input type="text" name="description" required> -->
-                        <textarea name="description" id="descriptionTA" cols="30" rows="3" required></textarea>
-                    </p><p>
-                        <input type="submit" id="editCourse-form-submit" required>
-                    </form>
+                    <label for="codCourse">Código Curso</label>
+                    <input type="text" name="codCourse" required>
+                    <label for="name">Nome</label>
+                    <input type="text" name="name" required>
+                    <label for="academicYear">Ano Letivo</label>
+                    <input type="text" name="academicYear" required>
+                    <label for="description">Descrição</label>
+                    <textarea name="description" id="descriptionTA" cols="30" rows="3" required></textarea>
                 </div>
-            </div>
+                <ul class="cd-buttons">
+                    <li><a href="#" id="editCourse-form-submit">Submeter</a></li>
+                    <li><a href="#" id="closeButton">Cancelar</a></li>
+                </ul>
+                </form>
+		        <a class="cd-popup-close"></a>
+	        </div>
         </div>
+
 
     </main>

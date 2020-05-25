@@ -57,11 +57,11 @@ label[for="curso"]{
     border-radius: 3px;
 }
 
-#editSubject-form-submit{
+#editSubject-form-submit, #editCourse-form-submit {
     background-color: #3e5d4f;
 }
 
-.editSubjects_inputs{
+.editSubjects_inputs, .editCourse_inputs{
     margin: 20px auto;
     width: 90%;
 }

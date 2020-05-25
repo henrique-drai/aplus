@@ -148,13 +148,13 @@ select, textarea {
 
 .hours div {
     display: inline-block;
-    margin-right: 5%;
+    width: 90%;
 }
 
 .add_event {
     width: 30px;
-    margin-left: 310px;
-    margin-top: -30px !important;
+    margin-right: 2%;
+    margin-bottom: -3%;
 }
 
 .add_event:hover {

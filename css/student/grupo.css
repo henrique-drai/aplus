@@ -46,6 +46,10 @@ th, td {
     border-bottom: 1.5px solid #a5a5a5 !important;
 }
 
+.delete_img {
+	width: 20px;
+}
+
 @media only screen and (max-width: 770px) {
 	.message {
 		width: 50%;

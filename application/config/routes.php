@@ -62,6 +62,7 @@ $route['api/removeFicheiroAreaGrupo/(:num)']    = 'Api_Project/removeFicheiroAre
 $route['api/getGroupMembers/(:num)']            = 'Api_Project/getGroupMembers/$1';
 $route['api/insertTask']                        = 'Api_Project/insertTask';
 $route['api/getTasks/(:num)']                   = 'Api_Project/getTasks/$1';
+$route['api/deleteTaskById/(:num)']             = 'Api_Project/deleteTaskById/$1';
 
 $route['api/getCadeira/(:num)']                 = 'Api_Subject/getInfo/$1';
 $route['api/insertText']                        = 'Api_Subject/insertText';

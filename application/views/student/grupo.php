@@ -33,7 +33,7 @@
         
         <h2>Gestão de Tarefas</h2>
 
-        <div class="message">Adicionado com sucesso!</div>
+        <div class="message"></div>
         
         <div class="tasksTable"></div>
 
@@ -42,7 +42,6 @@
         <div class="buttons-container">
             <input id="newTarefa" type="button" value="Adicionar tarefa">
             <input id="editTarefa" type="button" value="Editar tarefa">
-            <input id="deleteTarefa" type="button" value="Eliminar tarefa">
         </div>
 
         <!-- Popups gerados em js -->

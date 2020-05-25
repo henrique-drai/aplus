@@ -17,4 +17,9 @@ class TasksModel extends CI_Model {
         return $this->db->insert_id();
     }
 
+     public function deleteTaskById($id) {
+        return $this->db->delete("tarefa", array("id =" => $id));
+
+    }
+
 }

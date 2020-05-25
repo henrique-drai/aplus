@@ -97,8 +97,8 @@ function makeUserListLastText(dataFromUser){
 
         users += '<li class="list-group-class" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat">' +
          dataFromUser.users[i].name +' '+ dataFromUser.users[i].surname + '</div><p>'+ getLastPrivateMsg(dataFromUser.users[i].id) +'</p></li>';
-         setTimeout(function(){alert("hi")}, 1000);
-        }
+         
+    }
     var list = '<ul class="chatList" id="chatList">'+ users + '</ul>';
     $("#results-container").html(list);    
 }

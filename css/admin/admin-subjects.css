@@ -40,3 +40,19 @@ label[for="curso"]{
 #register-cadeiras-form input, #register-cadeiras-form textarea {
     background-color: white;
 }
+
+#msgErro{
+    background-color: rgb(255, 72, 72);
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
+#msgStatus{
+    background-color: rgba(106, 192, 66, 0.7);
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}

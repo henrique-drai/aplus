@@ -7,6 +7,7 @@ https://codeigniter.com/userguide3/general/routing.html
 
 $route['api/calendario']                        = 'Api_Calendario/calendario';
 $route['api/grupo/(:num)/calendario']           = 'Api_Calendario/grupo/$1';
+$route['api/grupo/(:num)/evento']               = 'Api_Calendario/grupo_evento/$1';
 $route['api/agenda']                            = 'Api_Calendario/agenda';
 
 $route['api/event/(:num)']                      = 'Api_Event/event/$1';
@@ -61,8 +62,6 @@ $route['api/getGroupMembers/(:num)']            = 'Api_Project/getGroupMembers/$
 $route['api/insertTask']                        = 'Api_Project/insertTask';
 $route['api/getTasks/(:num)']                   = 'Api_Project/getTasks/$1';
 
-$route['api/insertEvento']                      = 'Api_Project/insertEvento';
-
 $route['api/getCadeira/(:num)']                 = 'Api_Subject/getInfo/$1';
 $route['api/insertText']                        = 'Api_Subject/insertText';
 $route['api/getHours/(:num)']                   = 'Api_Subject/getHours/$1';
@@ -104,6 +103,8 @@ $route['api/getAllCourses']                     = 'Api_Course/getAllCourses';
 $route['api/registerCurso']                     = 'Api_Course/registerCurso';
 $route['api/getAllCursosFaculdadeAno']          = 'Api_Course/getAllCollegesYearCourses';
 $route['api/getAllCursosFaculdade']             = 'Api_Course/getAllCollegesCourses';
+$route['api/getAllCadeirasByCourse']            = 'Api_Subject/getAllCadeirasByCourse';
+$route["api/getAllCadeirasFaculdade"]           = 'Api_Subject/getAllCadeirasFaculdade';
 $route['api/deleteCourse']                      = 'Api_Course/deleteCourse';
 $route['api/getSearchStudent']                  = 'Api_Student/getSearchStudent';
 $route['api/getAllStudents']                    = 'Api_Student/getAllStudents';

@@ -1,27 +1,20 @@
 <title>A+ for Students</title>
 <script>setPageName("grupo")</script>
-<script src="<?php echo $base_url; ?>js/student/grupo.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/student/grupo.css"> 
-
-<!--  ######################  -->
-
-<!-- <link rel="stylesheet" href="https://common.olemiss.edu/_js/pickadate.js-3.5.3/lib/themes/classic.css" id=theme_base"> -->
-<link rel="stylesheet" href="https://common.olemiss.edu/_js/pickadate.js-3.5.3/lib/themes/classic.date.css" id="theme_date">
-<link rel="stylesheet" href="https://amsul.ca/pickadate.js/vendor/pickadate/lib/themes/default.css">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/picker.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/picker.date.js"></script>
+<script src="<?=$base_url?>js/student/grupo.js"></script>
+<script src="<?=$base_url?>js/student/calendario-grupo.js"></script>
+<?='<script>setGrupoId("'.$grupo["id"].'")</script>'?>
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/popup.css">
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/student/grupo.css"> 
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/calendario.css"> 
 
 
-
-<!-- ###################### -->
 
 
 </head>
 
 <body>
 <?php $this->view('templates/nav-menu'); ?>
+<?php $this->view('templates/popup'); ?>
     <main>
         <h4 class="breadcrumb">
             <a href="<?=$base_url?>app/student/grupos">Grupos</a> > Área de Grupo
@@ -29,11 +22,13 @@
 
         <h1>Área de Grupo</h1>
 
-        <div id="calendario-hook"></div>
-
         <div id="btnArea">
             <input id="ficheiros" type="button" value="Ficheiros">  
         </div>
+
+        <h2>Agenda</h2>
+        <div id="calendario-hook"></div>
+        <br>
         
         
         <h2>Gestão de Tarefas</h2>
@@ -66,7 +61,7 @@
                   
               
                   <label for="">Data:</label>
-                  <input class="datepicker" name="dateEvento" type="text">
+                  <input class="name" name="dateEvento" type="date">
               
                   <label for="">Nome Evento:</label>
                   <input class="name" name="nomeEvento" type="text" >
@@ -81,6 +76,3 @@
           
           </form>
         </div>
-
-
-

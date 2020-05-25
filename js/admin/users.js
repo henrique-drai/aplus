@@ -167,21 +167,117 @@ $(document).ready(() => {
        
     })
 
+    $("#register-form select[name='role']").change(function(){
+        if($(this).val()=="student"){
+            $("#register-form label[for='academicYearUser']").css("display", "block");
+            $("#register-form label[for='faculUser']").css("display", "block");
+            $("#registerUserFacul").css("display", "block");
+            $("#registerAnoUser").css("display", "block");
+            $("#cursoUser").css("display", "none");
+            $("#cadeirasProf").css("display", "none");
+            $("#registerUserFacul").val("");
+            $("#registerAnoUser").val("");
+            $("#registerUserCurso").val("");
+            $("#selectedCadeiras").css("display", "none");
+            $(".selectedcadeiras").remove();
+        }
+        else if($(this).val()=="admin"){
+            $("#register-form label[for='academicYearUser']").css("display", "none");
+            $("#register-form label[for='faculUser']").css("display", "none");
+            $("#registerUserFacul").css("display", "none");
+            $("#registerAnoUser").css("display", "none");
+            $("#cadeirasProf").css("display", "none");
+            $("#cursoUser").css("display", "none");
+            $("#selectedCadeiras").css("display", "none"); 
+            $(".selectedcadeiras").remove();
+            $("#registerUserFacul").val("");
+            $("#registerAnoUser").val("");
+            $("#registerUserCurso").val("");
+        }
+        else if($(this).val()=="teacher"){
+            $("#register-form label[for='academicYearUser']").css("display", "block");
+            $("#register-form label[for='faculUser']").css("display", "block");
+            $("#registerUserFacul").css("display", "block");
+            $("#registerAnoUser").css("display", "block");
+            $("#cursoUser").css("display", "none");
+            $("#registerUserFacul").val("");
+            $("#registerAnoUser").val("");
+            $("#registerUserCurso").val("");
+        }
+    })
+
     $("#registerUserFacul").change(function(){
         if($(this).val()!="Selecione uma Faculdade"){
-            if($("#registerAnoUser").val()!= ""){
+            if($("#registerAnoUser").val()!= "" && $("#register-form select[name='role']").val() == "student"){
                 getAllCursosFaculdade($(this).val(), $("#registerAnoUser").val()); 
             }
         }
     });
 
     $("#registerAnoUser").change(function(){
-        if($(this).val()!="Selecione uma Faculdade"){
-            if($("#registerUserFacul").val()!= ""){
+        if($(this).val()!="Selecione um Ano Letivo"){
+            if($("#registerUserFacul").val()!= "" && $("#register-form select[name='role']").val() == "student"){
                 getAllCursosFaculdade($("#registerUserFacul").val(), $(this).val()); 
             }
         }
     });
+
+    $("#registerUserFacul").change(function(){
+        if($(this).val()!="Selecione uma Faculdade"){
+            if($("#registerAnoUser").val()!= "" && $("#register-form select[name='role']").val() == "teacher"){
+                getAllCursosFaculdade($(this).val(), $("#registerAnoUser").val()); 
+            }
+        }
+    });
+
+    $("#registerAnoUser").change(function(){
+        if($(this).val()!="Selecione um Ano Letivo"){
+            if($("#registerUserFacul").val()!= "" && $("#register-form select[name='role']").val() == "teacher"){
+                getAllCursosFaculdade($("#registerUserFacul").val(), $(this).val()); 
+                
+            }
+        }
+    });
+
+    $("#registerUserCurso").change(function(){
+        if($(this).val()!="Selecione um Curso"){
+            if($("#registerUserCurso").val()!= "" && $("#register-form select[name='role']").val() == "teacher"){
+                getAllCadeirasByCourse($("#registerUserCurso").val()); 
+                $("#cadeirasProf").css("display", "block");
+            }
+        }
+    });
+
+    $("body").on("click", ".cadeira_row_prof", function(){
+        $("#selectedCadeiras").css("display", "block");
+
+        if($(".selectedcadeiras").length>0){
+            var repetido = true;
+            for(var i=0; i<$(".selectedcadeiras").length; i++){
+                
+                var id = $(".selectedcadeiras")[i].id
+                var cadeiraid = id.split("_")[1];
+                if(cadeiraid == $(this).val()){
+                    repetido = false;
+                }
+               
+            }
+            if(repetido){
+                var linha = '<p class="selectedcadeiras" id="cadeira_' + $(this).val()+'">' + $(this).text() + "<a class='tirarCadeira' href='#'>&times;</a></p>";
+                $("#selectedCadeiras").append(linha);
+            }
+        }
+        else{
+            var linha = '<p class="selectedcadeiras" id="cadeira_' + $(this).val()+'">' + $(this).text() + "<a class='tirarCadeira' href='#'>&times;</a></p>";
+            $("#selectedCadeiras").append(linha);
+        }        
+        
+    })
+
+    $("body").on("click", ".tirarCadeira", function(){
+       $(this).parent().remove();
+    })
+
 })
 
 
@@ -228,17 +324,25 @@ function getYears(){
 }
 
 function submitRegister(){
-
+    var cadeirasprof = [];
+    if($(".selectedcadeiras").length>0){
+        for(var i=0; i<$(".selectedcadeiras").length; i++){
+            var id = $(".selectedcadeiras")[i].id
+            var cadeiraid = id.split("_")[1];
+            cadeirasprof.push(cadeiraid);
+        }
+    }
     const data = {
         name:       $("#register-form input[name='name']").val(),
         surname:    $("#register-form input[name='surname']").val(),
         email:      $("#register-form input[name='email']").val(),
         password:   $("#register-form input[name='password']").val(),
         role:       $("#register-form select[name='role']").val(),
-        curso:      $("#register-form select[name='cursoUser']").val(),
+        curso:      $("#register-form select[name='cursoUserSel']").val(),
+        cadeiras:   cadeirasprof,
     }
-    if(data.role == "admin" || data.role == "teacher"){
-        if(data.name!=="" || data.surname!=="" || data.email!=="" || data.password!==""){
+    if(data.role == "admin"){
+        if(data.name!=="" && data.surname!=="" && data.email!=="" && data.password!==""){
             $.ajax({
                 type: "POST",
                 url: base_url + "api/register",
@@ -249,19 +353,18 @@ function submitRegister(){
                     $("#msgStatus").show().delay(2000).fadeOut();
                 },
                 error: function(data) {
-                    $("input[type='text']").val("");
-                    $("#msgStatus").text("Não foi possivel registar o utilizador.");
-                    $("#msgStatus").show().delay(2000).fadeOut();
+                    $("#msgErro").text("Não foi possivel registar o utilizador.");
+                    $("#msgErro").show().delay(2000).fadeOut();
                 }
             });
         }
         else{
-            $("#msgStatus").text("É necessário preencher todos os campos.");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErro").text("É necessário preencher todos os campos.");
+            $("#msgErro").show().delay(2000).fadeOut();
         }
     }
-    else{
-        if(data.name!=="" || data.surname!=="" || data.email!=="" || data.password!=="" || data.course !== null){
+    else if(data.role == "student"){
+        if(data.name!=="" && data.surname!=="" && data.email!=="" && data.password!=="" && data.course != null){
             $.ajax({
                 type: "POST",
                 url: base_url + "api/register",
@@ -270,20 +373,62 @@ function submitRegister(){
                     $("input[type='text']").val("");
                     $("#msgStatus").text("Utilizador registado com sucesso.");
                     $("#msgStatus").show().delay(2000).fadeOut();
+                    $("#register-form label[for='academicYearUser']").css("display", "none");
+                    $("#register-form label[for='faculUser']").css("display", "none");
+                    $("#registerUserFacul").css("display", "none");
+                    $("#registerAnoUser").css("display", "none");
+                    $("#cadeirasProf").css("display", "none");
+                    $("#cursoUser").css("display", "none");
+                    $("#selectedCadeiras").css("display", "none"); 
+                    $(".selectedcadeiras").remove();
+                    $("#registerUserFacul").val("");
+                    $("#registerAnoUser").val("");
+                    $("#registerUserCurso").val("");
                 },
                 error: function(data) {
-                    $("input[type='text']").val("");
-                    $("#msgStatus").text("Não foi possivel registar o utilizador.");
-                    $("#msgStatus").show().delay(2000).fadeOut();
+                    $("#msgErro").text("Não foi possivel registar o utilizador.");
+                    $("#msgErro").show().delay(2000).fadeOut();
                 }
             });
         }
         else{
-            $("#msgStatus").text("É necessário preencher todos os campos.");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErro").text("É necessário preencher todos os campos.");
+            $("#msgErro").show().delay(2000).fadeOut();
         }
     }
-    
+    else if(data.role == "teacher"){
+        if(data.name!=="" && data.surname!=="" && data.email!=="" && data.password!==""){
+            $.ajax({
+                type: "POST",
+                url: base_url + "api/register",
+                data: data,
+                success: function(data) {
+                    $("input[type='text']").val("");
+                    $("#msgStatus").text("Utilizador registado com sucesso.");
+                    $("#msgStatus").show().delay(2000).fadeOut();
+                    $("#register-form label[for='academicYearUser']").css("display", "none");
+                    $("#register-form label[for='faculUser']").css("display", "none");
+                    $("#registerUserFacul").css("display", "none");
+                    $("#registerAnoUser").css("display", "none");
+                    $("#cadeirasProf").css("display", "none");
+                    $("#cursoUser").css("display", "none");
+                    $("#selectedCadeiras").css("display", "none"); 
+                    $(".selectedcadeiras").remove();
+                    $("#registerUserFacul").val("");
+                    $("#registerAnoUser").val("");
+                    $("#registerUserCurso").val("");
+                },
+                error: function(data) {
+                    $("#msgErro").text("Não foi possivel registar o utilizador.");
+                    $("#msgErro").show().delay(2000).fadeOut();
+                }
+            });
+        }
+        else{
+            $("#msgErro").text("É necessário preencher todos os campos.");
+            $("#msgErro").show().delay(2000).fadeOut();
+        }
+    }
     
 }
 
@@ -380,8 +525,8 @@ function getAllSchoolYears(){
             }
         },
         error: function(data) {
-            $("#msgStatus").text("Não foi possível encontrar anos letivos.");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErro").text("Não foi possível encontrar anos letivos.");
+            $("#msgErro").show().delay(2000).fadeOut();
         }
     });
 }
@@ -399,13 +544,13 @@ function getAllfaculdades(){
                 $("#registerUserFacul").html(linhas);
             }
             else{
-                $("#msgStatus").text("Não existem disponíveis faculdade.");
-                $("#msgStatus").show().delay(2000).fadeOut();
+                $("#msgErro").text("Não existem disponíveis faculdade.");
+                $("#msgErro").show().delay(2000).fadeOut();
             }
         },
         error: function(data) {
-            $("#msgStatus").text("Não foi possível encontrar faculdades.");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErro").text("Não foi possível encontrar faculdades.");
+            $("#msgErro").show().delay(2000).fadeOut();
         }
     });
 
@@ -421,28 +566,52 @@ function getAllCursosFaculdade(faculdade, anoletivo){
             if(data.courses.length>0){
                 $(".course_row_register_user").remove();
                 $("#cursoUser").css("display", "block");
-                for(i=0; i<data.courses.length; i++){
-                   
-                    var linhas = '';
+                var linhas = '<option class="course_row_user" value="">Selecione um Curso</option>';
+                for(i=0; i<data.courses.length; i++){ 
                     linhas += '<option class="course_row_register_user" value=' + data.courses[i].id +">" + data.courses[i].name + '</option>'; 
-                
-                     $("#registerUserCurso").append(linhas);
                 }
+                $("#registerUserCurso").html(linhas);
             }
             else{
                 $("#cursoUser").css("display", "none");
-                $("#registerUserCurso option").remove();
-                $("#msgStatus").text("Não existem cursos.");
-                $("#msgStatus").show().delay(2000).fadeOut();
+                $("#msgErro").text("Não existem cursos.");
+                $("#msgErro").show().delay(2000).fadeOut();
 
             }
         },
         error: function(data) {
             $("#cursoUser").css("display", "none");
-            $("#registerUserCurso option").remove();
-            $("#msgStatus").text(" Não existem cursos.");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErro").text(" Não existem cursos.");
+            $("#msgErro").show().delay(2000).fadeOut();
         }
     });
+}
 
+function getAllCadeirasByCourse(cursoid){
+    $.ajax({
+        type: "GET",
+        url: base_url + "api/getAllCadeirasByCourse",
+        data: {cursoid},
+        success: function(data) {
+            if(data.cadeiras.length>0){
+                var linhas = '';
+                for(var i=0; i< data.cadeiras.length; i++){
+                    linhas += '<option class="cadeira_row_prof" value=' + data.cadeiras[i]["id"] +">" + data.cadeiras[i]["name"] + '</option>'; 
+                }
+                $("#registerProfCadeira").html(linhas);
+
+            }
+            else{
+                $("#cadeirasProf").css("display", "none");
+                $("#msgErro").text("Não existem cadeiras.");
+                $("#msgErro").show().delay(2000).fadeOut();
+
+            }
+        },
+        error: function(data) {
+            $("#cadeirasProf").css("display", "none");
+            $("#msgErro").text(" Não existem cadeiras.");
+            $("#msgErro").show().delay(2000).fadeOut();
+        }
+    });
 }

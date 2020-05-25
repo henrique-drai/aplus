@@ -256,4 +256,8 @@ class SubjectModel extends CI_Model { //cadeira
     public function insertAlunoCadeira($data){
         $this->db->insert("aluno_cadeira", $data);
     }
+
+    public function insertProfCadeira($data){
+        $this->db->insert("professor_cadeira", $data);
+    }
 }

@@ -1,6 +1,8 @@
 <title>A+ for Admins</title>
 <script>setPageName("home")</script>
 <script src="<?php echo $base_url; ?>js/admin/users.js"></script>
+<script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/users.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
 </head>
@@ -52,14 +54,24 @@
                         </select>
                     </p>
                     <p id="cursoUser">
-                        <label for="cursoUser">Curso:</label>
-                        <select id="registerUserCurso" name="cursoUser">
+                        <label for="cursoUserSel">Curso:</label>
+                        <select id="registerUserCurso" name="cursoUserSel">
                         </select>
                     </p>
+                    <p id="cadeirasProf">
+                        <label for="caderiasProfessor">Cadeiras:</label>
+                        <select id="registerProfCadeira" name="caderiasProfessor" multiple="multiple">
+                        </select>
+                    </p>
+                    <div id="selectedCadeiras">
+                        <h4>Cadeiras Selecionadas</h4>
+                    </div>
                     <input type="submit" id="register-form-submit">
                 </form>
                 <br>
                 <div id="msgStatus">
+                </div>
+                <div id="msgErro">
                 </div>
             </div>
 

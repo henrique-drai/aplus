@@ -53,11 +53,12 @@ class Api_User extends REST_Controller {
         );
 
         $this->load->model('UserModel');
-        $this->load->model('CourseModel');
-        $this->load->model('SubjectModel');
+        
         $retrieved = $this->UserModel->registerUser($data);
 
         if($data["role"] == 'student'){
+            $this->load->model('CourseModel');
+            $this->load->model('SubjectModel');
             $cursoid = $this->post('curso');
             $dataCursoUser = Array(
                 "user_id"    => $retrieved["user_id"],
@@ -75,6 +76,18 @@ class Api_User extends REST_Controller {
                 $this->SubjectModel->insertAlunoCadeira($dataUserCadeira);
             }
         }
+        else if($data["role"] == 'teacher'){
+            $this->load->model('SubjectModel');
+            $cadeiras = $this->post('cadeiras');
+            foreach ($cadeiras as $cadeiraid){
+                $dataProf = Array(
+                    "user_id"    => $retrieved["user_id"],
+                    "cadeira_id"   => $cadeiraid,               
+                );
+                $this->SubjectModel->insertProfCadeira($dataProf);
+            }
+        }
+
 
         $this->response(json_encode($retrieved), parent::HTTP_OK);
     }

@@ -26,3 +26,8 @@
     background-color:#3e5d4f38;
     opacity: 0.8;
 }
+
+
+#descriptionTA {
+    max-width: 100%;
+}

@@ -91,7 +91,7 @@
                     <label for="academicYear">Ano Letivo</label>
                     <input type="text" name="academicYear" required>
                     <label for="description">Descrição</label>
-                    <textarea name="description" id="descriptionTA" cols="30" rows="3" required></textarea>
+                    <textarea name="description" id="descriptionTA" cols="70" rows="10" required></textarea>
                 </div>
                 <ul class="cd-buttons">
                     <li><a href="#" id="editCourse-form-submit">Submeter</a></li>

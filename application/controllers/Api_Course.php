@@ -24,7 +24,7 @@ class Api_Course extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function editCourse_post(){ 
-        // FALTA REVEREM A PRIVACIDADE
+        $this->verify_admin();
         $this->load->model("CourseModel");
         $this->load->model("YearModel");
 
@@ -42,7 +42,7 @@ class Api_Course extends REST_Controller {
     }
 
     public function registerCurso_post(){ 
-        // FALTA REVEREM A PRIVACIDADE
+        $this->verify_admin();
         $this -> load -> model('CourseModel');
        
         $data = Array(
@@ -63,14 +63,8 @@ class Api_Course extends REST_Controller {
 
 
     public function getAllCollegesYearCourses_get(){ 
-        $auth = $this->session->userdata('id');
+        $this->verify_admin();
 
-        $user = $this->UserModel->getUserById($auth);
-
-        if($user->role != "admin"){
-            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
-            return null;
-        }
         $faculdade = $this->get('faculdade');
         $ano = $this->get('anoletivo');
         $this->load->model('CourseModel');
@@ -80,14 +74,7 @@ class Api_Course extends REST_Controller {
 
     
     public function getAllCollegesCourses_get(){ 
-        $auth = $this->session->userdata('id');
-
-        $user = $this->UserModel->getUserById($auth);
-
-        if($user->role != "admin"){
-            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
-            return null;
-        }
+        $this->verify_admin();
 
         $faculdade = $this->get('faculdade');
         $this->load->model('CourseModel');
@@ -111,14 +98,7 @@ class Api_Course extends REST_Controller {
     }
 
     public function getAllCoursesByYear_get(){ 
-        $auth = $this->session->userdata('id');
-
-        $user = $this->UserModel->getUserById($auth);
-
-        if($user->role != "admin"){
-            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
-            return null;
-        }
+        $this->verify_admin();
 
         $ano = $this->get('idyear');
         $this->load->model('CourseModel');
@@ -127,14 +107,7 @@ class Api_Course extends REST_Controller {
     }
 
     public function getAllCourses_get(){ 
-        $auth = $this->session->userdata('id');
-
-        $user = $this->UserModel->getUserById($auth);
-
-        if($user->role != "admin"){
-            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
-            return null;
-        }
+        $this->verify_admin();
 
         $this->load->model('CourseModel');
         $this->load->model('SubjectModel');
@@ -156,14 +129,7 @@ class Api_Course extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function deleteCourse_delete(){ 
-        $auth = $this->session->userdata('id');
-
-        $user = $this->UserModel->getUserById($auth);
-
-        if($user->role != "admin"){
-            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
-            return null;
-        }
+        $this->verify_admin();
 
         $this->load->model('CourseModel');
         $data = Array(
@@ -186,7 +152,14 @@ class Api_Course extends REST_Controller {
         }
     }
 
-    private function verify_admin($user_id){
-        
+    private function verify_admin(){
+        $auth = $this->session->userdata('id');
+        $this->load->model('UserModel');
+        $user = $this->UserModel->getUserById($auth);
+
+        if($user->role != "admin"){
+            $this->response(array('msg' => 'No admin rights.'), parent::HTTP_UNAUTHORIZED);
+            exit();
+        }
     }
 }

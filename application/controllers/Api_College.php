@@ -24,6 +24,7 @@ class Api_College extends REST_Controller {
 
 
     public function registerCollege_post(){ 
+        $this->verify_admin();
         $data = Array(
             "name" => $this->post('nomefaculdade'),
             "location"   => $this->post('morada'),
@@ -41,6 +42,7 @@ class Api_College extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function getAllColleges_get(){ 
+        $this->verify_admin();
         $this->load->model('CollegeModel');
         $data["colleges"] = $this->CollegeModel->getColleges();
         
@@ -53,6 +55,7 @@ class Api_College extends REST_Controller {
 
 
     public function deleteCollege_delete(){
+        $this->verify_admin();
         $siglas = $this->delete('siglas');
         $this->load->model('CollegeModel');
         $this->CollegeModel->deleteCollege($siglas);
@@ -70,8 +73,16 @@ class Api_College extends REST_Controller {
         }
     }
 
-    private function verify_admin($user_id){
-        
+    private function verify_admin(){
+        $this->load->model('UserModel');
+        $auth = $this->session->userdata('id');
+
+        $user = $this->UserModel->getUserById($auth);
+
+        if($user->role != "admin"){
+            $this->response(array('msg' => 'No admin rights.'), parent::HTTP_UNAUTHORIZED);
+            exit();
+        }
     }
 
 }

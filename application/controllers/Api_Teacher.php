@@ -35,6 +35,7 @@ class Api_Teacher extends REST_Controller {
     //////////////////////////////////////////////////////////////
     
     public function getSearchTeacher_get(){ 
+        $this->verify_admin();
         $query = '';
         $this->load->model('UserModel');
         if($this->get("query")){
@@ -53,6 +54,7 @@ class Api_Teacher extends REST_Controller {
     }
 
     public function getAllTeachers_get(){ 
+        $this->verify_admin();
         $this ->load-> model('UserModel');
         $data["teachers"] = $this ->UserModel-> getTeachers();
         $this -> response($data, parent::HTTP_OK);
@@ -74,6 +76,18 @@ class Api_Teacher extends REST_Controller {
     {
         if(is_null($this->session->userdata('role'))){
             $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
+            exit();
+        }
+    }
+
+    private function verify_admin(){
+        $this->load->model('UserModel');
+        $auth = $this->session->userdata('id');
+
+        $user = $this->UserModel->getUserById($auth);
+
+        if($user->role != "admin"){
+            $this->response(array('msg' => 'No admin rights.'), parent::HTTP_UNAUTHORIZED);
             exit();
         }
     }

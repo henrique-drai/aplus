@@ -1,4 +1,4 @@
-<title>A+ for Teachers</title>
+<title>A+ for Students</title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/subjects.css">
 <script>setPageName("subjects")</script>
 <script>setRole("student")</script>

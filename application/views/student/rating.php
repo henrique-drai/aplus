@@ -1,4 +1,4 @@
-<title>A+ for Teachers</title>
+<title>A+ for Students</title>
 <script>setPageName("rating")</script>
 <script src="<?php echo $base_url; ?>js/student/rating.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/student/popup.css">

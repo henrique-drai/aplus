@@ -91,8 +91,8 @@ function deleteCollege(linha){
             $("#msgStatusDelete").show().delay(2000).fadeOut();
         },
         error: function() {
-            $("#msgStatus").text(" Não foi possivel eliminar a faculdade");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErroDelete").text(" Não foi possivel eliminar a faculdade");
+            $("#msgErroDelete").show().delay(2000).fadeOut();
         }
     });
 }

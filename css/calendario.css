@@ -77,3 +77,22 @@
     background: #555;
 }
 
+.time_div {
+    margin: -10px;
+}
+.time_div label {
+    width: 50%;
+    box-sizing: border-box;
+    padding: 10px;
+    display: inline-block;
+}
+@media (max-width: 600px){
+    .time_div {
+        margin: 0px;
+    }
+    .time_div label {
+        width: 100%;
+        padding: 0px;
+        display: inline-block;
+    }
+}

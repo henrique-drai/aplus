@@ -142,11 +142,11 @@ $(document).ready(() => {
 	$('body').on('click','.deleteSubject', function(event){
         event.preventDefault();
         unidCurr = $(event.target).closest("tr");
-        $('.cd-popup').addClass('is-visible');
+        $('#subject_admin_delete').addClass('is-visible');
     });
     
 	//close popup
-	$('.cd-popup').on('click', function(event){
+	$('#subject_admin_delete').on('click', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
 			event.preventDefault();
 			$(this).removeClass('is-visible');
@@ -161,21 +161,25 @@ $(document).ready(() => {
     });
 
     $("body").on('click', "#confirmRemove", function(){
-        $('.cd-popup').removeClass('is-visible');
+        $('#subject_admin_delete').removeClass('is-visible');
         deleteSubject(unidCurr);
     })
 
     // POPUP Edit
+
     $('body').on("click", ".editSubject",function() {
-        $(".overlay").css('visibility', 'visible');
-        $(".overlay").css('opacity', '1');
+        event.preventDefault();
+        User = $(event.target).closest("tr");
+        $('#subject_admin_edit').addClass('is-visible');
         displayEditSubject();
     });
-    
-    $('.close').click(function() {
-        $(".overlay").css('visibility', 'hidden');
-        $(".overlay").css('opacity', '0');
-    })
+
+    $('#subject_admin_edit').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+    });
 })
 
 
@@ -491,9 +495,7 @@ function  editSubject(){
         url: base_url + "api/editSubject",
         data: data,   
         success: function() {    
-            $(".overlay").css('visibility', 'hidden');
-            $(".overlay").css('opacity', '0');
-            $(".popup").css("display", "none");
+            $("#subject_admin_edit").removeClass('is-visible');
             var faculdade = $("#Consultar_Cadeiras_Faculdade").val();
             var curso = document.getElementById("Consultar_Cadeiras_Curso").options[document.getElementById("Consultar_Cadeiras_Curso").selectedIndex].text;
             var cursonome = curso.split("(")[0];

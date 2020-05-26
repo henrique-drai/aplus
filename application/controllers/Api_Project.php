@@ -619,6 +619,15 @@ class Api_Project extends REST_Controller {
         }
     }
 
+    public function deleteTaskById_delete($id){ 
+        $this->load->model("TasksModel");
+        $data = $this->TasksModel->deleteTaskById($id);
+    
+        $this->response($data, parent::HTTP_OK);
+        
+    }
+
+
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION
     //////////////////////////////////////////////////////////////

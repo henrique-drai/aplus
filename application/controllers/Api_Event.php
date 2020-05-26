@@ -13,8 +13,8 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 class Api_Event extends REST_Controller {
 
     public function __construct() {
-      $this->verify_request();
       parent::__construct();
+      $this->verify_request();
     }
 
     public function event_delete($event_id) { 
@@ -41,7 +41,26 @@ class Api_Event extends REST_Controller {
       $this->response(array(), parent::HTTP_OK);
     }
 
+    public function editGroupEvent_post($grupo){
+       
+      $data = array (
+        "name" => htmlspecialchars($this->post("name")),
+        "description" => htmlspecialchars($this->post("description")),
+        "location" => htmlspecialchars($this->post("location")),
+        "start_date" => htmlspecialchars($this->post("start_date")),
+        "end_date" => htmlspecialchars($this->post("end_date")),
+      );
+      
+      // $evento_id = $this->EventModel->insertEvent($data_evento);
+      
+      // $data_Evento_Grupo = Array (
+      //     "evento_id" => $evento_id,
+      //     "grupo_id" => $this->post("grupo_id"),   
+      // );
 
+      // $this->EventModel->insertGroupEvent($data_Evento_Grupo);
+      $this->response($data, parent::HTTP_OK);
+    }
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

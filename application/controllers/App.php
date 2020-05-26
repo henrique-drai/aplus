@@ -9,7 +9,6 @@ class App extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
         $this->load->helper('form');
-        $this->verify_request();
     }
 
     //app/
@@ -89,30 +88,29 @@ class App extends CI_Controller {
 
     //app/grupo/:grupoid - done
     public function grupo($grupo_id = null){
-        $data["base_url"] = base_url();
+        $this->load->model('GroupModel');
 
         //verificar se a pessoa fez login
         if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
+            $this->load->view('errors/403'); return null;
         }
         
         //verificar se o grupo id está vazio ou se o grupo nao existe - usar get grupo by id
-        $this->load->model('GroupModel');
-
         $grupo = $this->GroupModel->getGroupById($grupo_id);
 
         if(empty($grupo)){
-            $this->load->view('errors/404', $data); return null;
+            $this->load->view('errors/404'); return null;
         }
 
+        $data["base_url"] = base_url();
         $data["grupo"] = $grupo[0];
 
         if($this->session->userdata('role') == "student"){
-            $this->load->view('templates/head', $data);
+            $this->load->view('templates/head');
             $this->load->view('student/grupo', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->load->view('errors/403', $data); return null;
+            $this->load->view('errors/403'); return null;
         }
     }
 
@@ -271,14 +269,6 @@ class App extends CI_Controller {
         $this->load->view('templates/head', $data);
         $this->load->view('app/notifications', $data); 
         $this->load->view('templates/footer');
-    }
-
-    private function verify_request()
-    {
-        if(is_null($this->session->userdata('role'))){
-            $this->response(array('msg' => 'You must be logged in!'), parent::HTTP_UNAUTHORIZED);
-            return null;
-        }
     }
 }
 

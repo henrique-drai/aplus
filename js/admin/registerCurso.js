@@ -27,11 +27,11 @@ $(document).ready(() => {
 	$('body').on('click','.deleteCourse', function(event){
         event.preventDefault();
         cso = $(event.target).closest("tr");
-        $('.cd-popup').addClass('is-visible');
+        $('#courses_admin_delete').addClass('is-visible');
     });
     
 	//close popup
-	$('.cd-popup').on('click', function(event){
+	$('#courses_admin_delete').on('click', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
 			event.preventDefault();
 			$(this).removeClass('is-visible');
@@ -46,25 +46,25 @@ $(document).ready(() => {
     });
 
     $("body").on('click', "#confirmRemove", function(){
-        $('.cd-popup').removeClass('is-visible');
+        $('#courses_admin_delete').removeClass('is-visible');
         deleteCourse(cso);
     })
 
     // _____________________________________________
 
     $('body').on("click", ".editCourse",function() {
-        $(".overlay").css('display', 'block');
-        $(".overlay").css('visibility', 'visible');
-        $(".overlay").css('opacity', '1');
-        displayEditCourse();
+        event.preventDefault();
+        User = $(event.target).closest("tr");
+        $('#courses_admin_edit').addClass('is-visible');
+        displayEditCourse()
     });
 
-    $('.close').click(function() {
-        $(".overlay").css('display', 'none');
-        $(".overlay").css('visibility', 'hidden');
-        $(".overlay").css('opacity', '0');
-        $("#editCourse-form").css("display", "none");
-    })
+    $('#courses_admin_edit').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+    });
 
 })
 
@@ -130,14 +130,14 @@ function submitRegister(){
                 $('#register-cursos-form')[0].reset();
             },
             error: function(data) {
-                $("#msgStatus").text("Não foi possível adicionar o curso");
-                $("#msgStatus").show().delay(2000).fadeOut();
+                $("#msgErro").text("Não foi possível adicionar o curso");
+                $("#msgErro").show().delay(2000).fadeOut();
             }
         });
     }
     else{
-        $("#msgStatus").text("É necessário preencher todos os campos");
-        $("#msgStatus").show().delay(2000).fadeOut();
+        $("#msgErro").text("É necessário preencher todos os campos");
+        $("#msgErro").show().delay(2000).fadeOut();
     }
 }
 
@@ -153,13 +153,16 @@ function submitRegister(){
                     makeCoursesTable(data)
                 }
                 else{
-                    $("#course-container").html("Não existem cursos disponíveis para a faculdade selecionada.");
+                    $("#course-container").html("")
+                    $("#msgErro2").text("Não existem cursos disponíveis para a faculdade selecionada.");
+                    $("#msgErro2").show().delay(2000).fadeOut();
+                    
                 }
             },
             error: function(data) {
                 var mensagem = "<h2 id='mens_erro_cursos'>Não é possivel apresentar os cursos.</h2>";
                 $("body").append(mensagem);
-                $("#mens_erro_cursos").delay(2000).fadeOut();
+                $("#msgErro2").delay(2000).fadeOut();
             }
         });
     }
@@ -239,7 +242,7 @@ function displayEditCourse(){
     $("#editCourse-form input[name='codCourse']").val(codCourse);
     $("#editCourse-form input[name='name']").val(name);
     $("#editCourse-form input[name='academicYear']").val(academicYear) ;
-    $("#editCourse-form input[name='description']").val(description) ;
+    $("#descriptionTA").val(description) ;
       
     // }
 }
@@ -251,7 +254,7 @@ function editCourse(){
         code:     $("#editCourse-form input[name='codCourse']").val(),
         name:    $("#editCourse-form input[name='name']").val(),
         academicYear:    $("#editCourse-form input[name='academicYear']").val(),
-        description:      $("#editCourse-form input[name='description']").val(),
+        description:      $("#descriptionTA").val(),
         collegeId:      $('#consultar_cursos_faculdade :selected').val(),
         oldCurso: codCourse
     }
@@ -261,10 +264,7 @@ function editCourse(){
         url: base_url + "api/editCourse",
         data: data,   
         success: function() {
-            $(".overlay").css('display', 'none');
-            $(".overlay").css('visibility', 'hidden');
-            $(".overlay").css('opacity', '0');
-            $(".popup").css("display", "none");
+            $("#courses_admin_edit").removeClass('is-visible');
 
             getAllCursosFaculdade(data.collegeId);
             $("#msgStatus").text("Curso editado com sucesso");
@@ -272,13 +272,9 @@ function editCourse(){
             displayEditCourse();
         },
         error: function() {
-            $(".overlay").css('display', 'none');
-            $(".overlay").css('visibility', 'hidden');
-            $(".overlay").css('opacity', '0');
-            $(".popup").css("display", "none");
-
-            $("#msgStatus").text("Erro a editar curso");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#courses_admin_edit").removeClass('is-visible');
+            $("#msgErro").text("Erro a editar curso");
+            $("#msgErro").show().delay(2000).fadeOut();
         }
     });
 

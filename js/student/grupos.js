@@ -42,7 +42,7 @@ function getAll(user_id, status){
                     if(status == "terminated"  && new Date(data.deadline[i])<Date.now()){
 
                         grupos+="<div class='groupMembros' id='" + data.grupo[i].grupo_id + "'>"
-                        + "<div id='groupId'> Grupo: " + data.grupo[i].grupo_id  + "</div>"
+                        + "<div id='groupId'> Grupo: " + data.proj_name[i]  + "</div>"
                         + "<div id='subject'>" + data.subjName[i] + "</div>"
                         + "<div id='project'>" + data.info[i][0].nome   + "</div>"
                         + "<div id='statusOff'>Terminado</div>"         
@@ -50,7 +50,7 @@ function getAll(user_id, status){
 
                     else if(status == "ongoing" && new Date(data.deadline[i])>=Date.now()){
                         grupos+="<div class='groupMembros' id='" + data.grupo[i].grupo_id + "'>"
-                        + "<div id='groupId'> Grupo: " + data.grupo[i].grupo_id  + "</div>"
+                        + "<div id='groupId'> Grupo: " + data.proj_name[i] + "</div>"
                         + "<div id='subject'>" + data.subjName[i] + "</div>"
                         + "<div id='project'>" + data.info[i][0].nome   + "</div>"
                         + "<div id='statusOn'>Em Curso</div>"
@@ -59,7 +59,7 @@ function getAll(user_id, status){
                     else if(status == "allGroups"){
 
                         grupos+="<div class='groupMembros' id='" + data.grupo[i].grupo_id + "'>"
-                        + "<div id='groupId'> Grupo: " + data.grupo[i].grupo_id  + "</div>"
+                        + "<div id='groupId'> Grupo: " + data.proj_name[i]  + "</div>"
                         + "<div id='subject'>" + data.subjName[i] + "</div>"
                         + "<div id='project'>" + data.info[i][0].nome   + "</div>"
                         

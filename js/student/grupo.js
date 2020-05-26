@@ -57,6 +57,11 @@ $(document).ready(() => {
         }
     })
 
+    $("body").on("click", ".delete_img", function () {
+        var id = $(this).attr("id");
+        deleteTaskById(id);
+    })
+
     checkClosedProject()
 });
 
@@ -171,6 +176,9 @@ function insertTask(taskName, taskDesc, taskMember, beginDate, endDate) {
             $(".overlay").css('visibility', 'hidden');
             $(".overlay").css('opacity', '0');
 
+            getTasks();
+            
+            $(".message").append("Tarefa adicionada com sucesso!");
             $(".message").fadeTo(2000, 1);
             setTimeout(function() {
                 $(".message").fadeTo(2000, 0);
@@ -190,16 +198,18 @@ function getTasks() {
         success: function(data) {
             console.log(data)
             $(".tasksTable").empty();
+            var image_url = base_url + "/images/icons/trash.png";
 
             if(data.tasks.length != 0) {
                 $(".tasksTable").append("<table id='tab-gerir-tarefas'><tr><th>Tarefa</th><th>Descrição</th>" +
-                "<th>Membro Responsável</th><th>Começo</th><th>Fim</th></tr></table>");
+                "<th>Membro Responsável</th><th>Começo</th><th>Fim</th><th></th></tr></table>");
 
                 for(var i=0; i < data.tasks.length; i++) {
                     $("#tab-gerir-tarefas").append("<tr><td>" + data.tasks[i].name + "</td><td>" +
                     data.tasks[i].description + "</td><td>" + data.members[i][0].name + " " + 
                     data.members[i][0].surname + "</td><td>" + data.tasks[i].start_date + "</td><td>" + 
-                    data.tasks[i].done_date + "</td></tr>");
+                    data.tasks[i].done_date + "</td><td>" +
+                    "<span><img src='" + image_url + "' class='delete_img' id='" + data.tasks[i].id + "'></span><b>" + "</td></tr>");
                 }
             } else {
                 $(".tasksTable").append("<p>Não existem tarefas.</p>");
@@ -224,4 +234,28 @@ Date.prototype.addDays = function(days) {
 
 function setGrupoId(id){
     localStorage.grupo_id=id
+}
+
+function deleteTaskById(id) {
+    $.ajax({
+        type: "DELETE",
+        url: base_url + "api/deleteTaskById/" + id,
+        data: {
+            id: id
+        },
+        success: function (data) {
+            getTasks();
+            $(".message").append("Tarefa eliminada com sucesso!");
+            $(".message").fadeTo(2000, 1);
+            setTimeout(function () {
+                $(".message").fadeTo(2000, 0);
+            }, 2000);
+
+        },
+        error: function (data) {
+            alert("Houve um erro a remover a tarefa.")
+            console.log(data)
+
+        }
+    })
 }

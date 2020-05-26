@@ -118,25 +118,6 @@ class Api_Calendario extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
     
-    public function grupo_evento_post($grupo){
-       
-        $data_evento = Array (
-            "name" => $this->post("name"),
-            "description" => $this->post("description"),
-            "location" => $this->post("location"),
-            "start_date" => $this->post("date"),
-            "end_date" => $this->post("date"),
-        );
-        
-        $evento_id = $this->EventModel->insertEvent($data_evento);
-        
-        $data_Evento_Grupo = Array (
-            "evento_id" => $evento_id,
-            "grupo_id" => $this->post("grupo_id"),   
-        );
-
-        $this->EventModel->insertGroupEvent($data_Evento_Grupo);
-    }
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

@@ -33,7 +33,7 @@
         
         <h2>Gestão de Tarefas</h2>
 
-        <div class="message">Adicionado com sucesso!</div>
+        <div class="message"></div>
         
         <div class="tasksTable"></div>
 
@@ -42,7 +42,6 @@
         <div class="buttons-container">
             <input id="newTarefa" type="button" value="Adicionar tarefa">
             <input id="editTarefa" type="button" value="Editar tarefa">
-            <input id="deleteTarefa" type="button" value="Eliminar tarefa">
         </div>
 
         <!-- Popups gerados em js -->
@@ -50,29 +49,3 @@
 
         <!-- Pop up para o add -->
         <div class="popupAdd"></div>
-
-
-
-        <h2>Marcar Eventos</h2>
-
-       <div id="marcarEvento">
-
-          <form id="eventSchedule" class="event-Schedule"  action="javascript:void(0)">
-                  
-              
-                  <label for="">Data:</label>
-                  <input class="name" name="dateEvento" type="date">
-              
-                  <label for="">Nome Evento:</label>
-                  <input class="name" name="nomeEvento" type="text" >
-              
-                  <label for="">Descrição:</label>
-                  <input class="name" name="descEvento" type="text" >
-              
-                  <label for="">Localização:</label>
-                  <input class="name" name="localEvento" type="text" >
-                            
-              <input id="submitEvento" type="submit"  value="Efetuar marcação">
-          
-          </form>
-        </div>

@@ -52,14 +52,42 @@ class Api_Chat extends REST_Controller {
 
         $this->load->model('ChatModel');
 
+        $this->load->model('UserModel');
+
         $resultquery = $this->ChatModel->getChatLogs($id);
 
-        $data['users']="";
+        $data['users']=array();
+
+        // if(empty($resultquery)){
+        //     $data["users"]="no data";
+        // }else{
+        //     $data["users"] = $resultquery;
+        // }
+        
+        // $user = $this->UserModel->getUserById(intval($user_id));
+
+        for($i=0; $i < count($resultquery); $i++) {
+            $tmp = $this->UserModel->getUserById($resultquery[$i]["id_sender"]);
+            array_push($data["users"], $tmp);
+        }
+
+        $data["content"]=$resultquery;
+        
+        $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getChatHistory_get(){
+        $id = $this->session->userdata('id');
+        $this->load->model('ChatModel');
+        $id_sender = $this->get('id_sender');
+        $resultquery = $this->ChatModel->getChatHistory($id,$id_sender);
+
+        $data['msg']=array();
 
         if(empty($resultquery)){
-            $data["users"]="no data";
+            $data["msg"]="no data";
         }else{
-            $data["users"] = $resultquery;
+            $data["msg"] = $resultquery;
         }
 
         $this->response($data, parent::HTTP_OK);

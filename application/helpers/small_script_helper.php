@@ -141,10 +141,10 @@ function small_script($m) {
 
     $m->etapa_submit($grupo3_id, $etapa1_id, "URL-FALSO-HEHE-XD");
 
-    $evento1_id = $m->evento("2020-05-14 11:00:00", "2020-05-14 12:30:00", "Reunião de Grupo", "Discutir o modelo da base de dados. 1", "FCUL");
-    $evento2_id = $m->evento("2020-05-16 12:10:00", "2020-05-16 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 1", "6.3.45");
-    $evento3_id = $m->evento("2020-05-27 11:00:00", "2020-05-27 12:30:00", "Decidir Framework", "Esta descrição descreve o evento. 2", "Azenhas");
-    $evento4_id = $m->evento("2020-05-13 12:10:00", "2020-05-13 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 2", "6.3.45");
+    $evento1_id = $m->evento("2020-05-30 11:00:00", "2020-05-30 12:30:00", "Reunião de Grupo", "Discutir o modelo da base de dados. 1", "FCUL");
+    $evento2_id = $m->evento("2020-06-16 12:10:00", "2020-06-16 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 1", "6.3.45");
+    $evento3_id = $m->evento("2020-07-27 11:00:00", "2020-07-27 12:30:00", "Decidir Framework", "Esta descrição descreve o evento. 2", "Azenhas");
+    $evento4_id = $m->evento("2020-07-13 12:10:00", "2020-07-13 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 2", "6.3.45");
 
     $m->batch("evento_grupo", Array(
       Array("evento_id"=> $evento1_id,  "grupo_id"=>$grupo1_id),
@@ -161,11 +161,21 @@ function small_script($m) {
     $m->horario_duvidas($cadeira1_id, $prof1_id, "11:30:00", "13:00:00", "Segunda-feira");
     $m->horario_duvidas($cadeira1_id, $prof1_id, "12:00:00", "13:00:00", "Quinta-feira");
 
-    $m->notification($aluno1_id, "message", "Mensagem de João Ye", "Atão crlh?", "app/profile/2801", false, "2020-04-09 11:30:31");
-    $m->notification($aluno1_id, "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "app/profile/2", false, "2020-04-09 11:30:35");
-    $m->notification($aluno1_id, "alert", "Falhaste uma entrega", "Teatro", "subjects/subject/TEA84/2019", false, "2020-04-09 11:30:30");
+    $m->notification($aluno1_id, "message", "Mensagem de João Ye", "Atão crlh?", "app/profile/2801", false, "2020-05-20 11:30:31");
+    $m->notification($aluno1_id, "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "app/profile/2", false, "2020-05-25 11:30:35");
+    $m->notification($aluno1_id, "alert", "Falhaste uma entrega", "Teatro", "subjects/subject/TEA84/2019", false, "2020-05-23 11:30:30");
     $m->notification($aluno1_id, "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "app/profile/62", true, "2020-04-09 11:30:33");
-        
+      
+    $m->batch("private_msg", Array(
+      Array("id_receiver"=> $aluno1_id,  "id_sender"=>$aluno2_id,   "date"=>"2020-04-09 11:30:31",  "content"=>"Ola tudo bem?" ),
+      Array("id_receiver"=> $aluno1_id,  "id_sender"=>$aluno2_id,   "date"=>"2020-04-09 12:30:31",  "content"=>"Tens as soluçoes da 4a)?" ),
+      Array("id_receiver"=> $aluno1_id,  "id_sender"=>$aluno3_id,   "date"=>"2020-04-09 15:30:31",  "content"=>"Ola tudo bem?" ),
+      Array("id_receiver"=> $aluno1_id,  "id_sender"=>$aluno4_id,   "date"=>"2020-04-09 11:30:31",  "content"=>"Ola tudo bem?" ),
+      Array("id_receiver"=> $aluno1_id,  "id_sender"=>$aluno4_id,   "date"=>"2020-04-10 11:30:31",  "content"=>"Que fazes?" ),
+
+
+    ));
+
     $execution_time = microtime(true) - $time_start;
 
     echo "<h2>Tempo de processamento: ".$execution_time."s </h2>";

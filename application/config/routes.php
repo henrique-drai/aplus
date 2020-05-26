@@ -122,7 +122,7 @@ $route['api/exportSpecific']                    = 'Api_Admin/exportSpecific';
 $route['api/importStudentsCourse']              = 'Api_Admin/importStudentsCourse';
 
 
-$route['api/getLastPrivateMsg']                 = 'Api_Chat/getLastPrivateMsg';
+$route['api/getChatHistory']                    = 'Api_Chat/getChatHistory';
 $route['api/getChatLogs']                       = 'Api_Chat/getChatLogs';
 
 

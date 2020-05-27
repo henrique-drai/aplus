@@ -1075,7 +1075,7 @@ function large_script($m) {
     $etapa = array();
     $etapa["1"] = $m->etapa($projeto["3"], "2020-05-06 23:00:00", "", "Pesquisa", "Façam pesquisa sobre o Spotipy.");
     $etapa["2"] = $m->etapa($projeto["3"], "2020-05-06 23:00:00", "", "Pesquisa2", "Façam pesquisa sobre como programar em Haskell.");
-    $etapa["3"] = $m->etapa($projeto["3"], "2020-05-21 23:55:00", "", "Implementação", "Implementar o Spotipy em Haskell.");
+    $etapa["3"] = $m->etapa($projeto["3"], "2020-07-21 23:55:00", "", "Implementação", "Implementar o Spotipy em Haskell.");
     $etapa["4"] = $m->etapa($projeto["1"], "2020-06-06 23:00:00", "", "Pesquisa", "Pesquisar sobre Charles Darwin.");
     $etapa["5"] = $m->etapa($projeto["1"], "2020-06-21 23:55:00", "", "Implementação", "Fazer relatório.");
     $etapa["6"] = $m->etapa($projeto["2"], "2020-06-06 23:00:00", "", "Pesquisa", "Procurar cadástro de Almada.");

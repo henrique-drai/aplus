@@ -35,7 +35,7 @@ class Api_Project extends REST_Controller {
         //tabela que liga cadeira a user
 
 
-        if ($this->verify_teacher($user_id,$this->post("cadeira_id"),"cadeira") == true){
+        if ($this->verify_teacher($user_id,htmlspecialchars($this->post("cadeira_id")),"cadeira") == true){
 
             $dataProj = Array(
                 "cadeira_id"          => htmlspecialchars($this->post("cadeira_id")),
@@ -46,7 +46,7 @@ class Api_Project extends REST_Controller {
                 "enunciado_url"       => htmlspecialchars($this->post("file")),
             );
             
-            $dataEtapa = $this->htmlspecialchars(post("listetapas"));
+            $dataEtapa = $this->post("listetapas");
 
             $proj_id = $this->ProjectModel->insertProject($dataProj);    
             for($i=0; $i < count($dataEtapa); $i++) {
@@ -76,7 +76,7 @@ class Api_Project extends REST_Controller {
 
         //Verificar se o id do professor guardado no token está associado à cadeira atraves da etapa - verify teacher
         
-        $etapa = htmlspecialchars($this->post('new_etapa'));
+        $etapa = $this->post('new_etapa');
 
 
         if ($this->verify_teacher($user_id,$this->post('projid'),"projeto") == true){
@@ -122,7 +122,7 @@ class Api_Project extends REST_Controller {
         //Verificar se o id do professor guardado no token está associado à cadeira
 
         if ($this->verify_teacher($user_id,$this->post('projid'), "projeto") == true){
-            $etapa = htmlspecialchars($this->post('edited_etapa'));
+            $etapa = $this->post('edited_etapa');
             $id = htmlspecialchars($this->post('id'));
     
             $enunciado = '';

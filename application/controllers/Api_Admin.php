@@ -39,7 +39,7 @@ class Api_Admin extends REST_Controller {
             return null;
         }
 
-        $role = $this->post('role');
+        $role = htmlspecialchars($this->post('role'));
 
         if($role=="users"){
             $this -> importCSV();
@@ -67,7 +67,7 @@ class Api_Admin extends REST_Controller {
         $count_files = $_FILES["userfile"]['tmp_name'];
         $file  = fopen($count_files, 'r');
 
-        $courseId = $this -> post("courses");
+        $courseId = htmlspecialchars($this -> post("courses"));
         
 ;
         // Skip first line
@@ -147,10 +147,10 @@ class Api_Admin extends REST_Controller {
             $idUser = $this -> UserModel -> getUserByEmailRA($column[0]);
             
             $data = Array(
-                "user_id"      => $idUser[0]['id'],
-                "cadeira_id"   => $column[1],
-                "is_completed"     => $column[2],
-                "image_url"     => "",
+                "user_id"           => $idUser[0]['id'],
+                "cadeira_id"        => $column[1],
+                "is_completed"      => $column[2],
+                "image_url"         => "",
             );
             $this -> SubjectModel -> insertUpdate($data);        
         }
@@ -205,7 +205,7 @@ class Api_Admin extends REST_Controller {
         }
 
  
-        $role = $this -> get("role");
+        $role = htmlspecialchars($this -> get("role"));
         
         $file = fopen('php://output','w');
         $header = array("Name", "Surname", "Email","Role", "Password");
@@ -239,17 +239,14 @@ class Api_Admin extends REST_Controller {
             $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
             return null;
         }
-
-          
+  
         $file = fopen('php://output','w');
         $header = array("Name", "Surname", "Email","Role", "Password");
 
         // $college = $this -> get('college');        
         // $year = $this -> get('year');           
-        $course = $this -> get('course');         
+        $course = htmlspecialchars($this -> get('course'));         
         
-
-
         $data["students"] = $this -> CourseModel -> getStudentsByCourse($course);
 
         fputcsv($file, $header);

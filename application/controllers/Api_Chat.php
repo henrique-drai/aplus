@@ -57,6 +57,8 @@ class Api_Chat extends REST_Controller {
         $resultquery = $this->ChatModel->getChatLogs($id);
 
         $data['users']=array();
+        // $data['content']=array();
+
 
         // if(empty($resultquery)){
         //     $data["users"]="no data";
@@ -69,6 +71,8 @@ class Api_Chat extends REST_Controller {
         for($i=0; $i < count($resultquery); $i++) {
             $tmp = $this->UserModel->getUserById($resultquery[$i]["id_sender"]);
             array_push($data["users"], $tmp);
+            // array_push($data["content"], $resultquery[$i]["id_sender"]);
+
         }
 
         $data["content"]=$resultquery;
@@ -81,11 +85,13 @@ class Api_Chat extends REST_Controller {
         $this->load->model('ChatModel');
         $id_sender = $this->get('id_sender');
         $resultquery = $this->ChatModel->getChatHistory($id,$id_sender);
+        $this->load->model('UserModel');
 
+        $data['user']=$this->UserModel->getUserById($id_sender);
         $data['msg']=array();
 
         if(empty($resultquery)){
-            $data["msg"]="no data";
+            $data["msg"]="";
         }else{
             $data["msg"] = $resultquery;
         }

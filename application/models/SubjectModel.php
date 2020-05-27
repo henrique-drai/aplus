@@ -260,4 +260,8 @@ class SubjectModel extends CI_Model { //cadeira
     public function insertProfCadeira($data){
         $this->db->insert("professor_cadeira", $data);
     }
+
+    public function verifyTeacherSubject($user_id, $cadeira_id){
+        return $this->db->get_where("professor_cadeira", array("user_id" => $user_id, "cadeira_id" => $cadeira_id))->row();
+    }
 }

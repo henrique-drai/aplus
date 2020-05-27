@@ -32,7 +32,8 @@ $(document).ready(() => {
 
     $('#users_admin_edit').on('click', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
-			event.preventDefault();
+            event.preventDefault();
+            $(".editUser_inputs input").val("");
 			$(this).removeClass('is-visible');
 		}
     });
@@ -132,6 +133,7 @@ function editUser(){
                     getSearchStudent($("#search_text_students").val());
                 }   
                 event.preventDefault();
+                $(".editUser_inputs input").val("");
 			    $("#users_admin_edit").removeClass('is-visible');
                 
             } else if (page_name=="teachers") {
@@ -142,12 +144,13 @@ function editUser(){
                     getSearchTeacher($("#search_text_profs").val());
                 }
                 event.preventDefault();
+                $(".editUser_inputs input").val("");
                 $("#users_admin_edit").removeClass('is-visible');
             } 
         },
         error: function() {
             msgErro = "<p class='msgErro'> Não foi possivel editar o utilizador.</p>";
-            $("#msgStatus").append(msgErro);
+            $("#msgErroEditar").append(msgErro);
             $(".msgErro").delay(2000).fadeOut();
         }
     });
@@ -218,12 +221,12 @@ function getSearchStudent(query){
                 $(".adminTable").remove();
                 $("#mens_erro_alunos").remove();
                 var mensagem = "<h2 id='mens_erro_alunos'>Não existe nenhum aluno com o email, nome ou apelido indicado.</h2>";
-                $("#msgStatus").append(mensagem);
+                $("#msgSemAlunos").append(mensagem);
             }
         },
         error: function(data) {
             var mensagem = "<h2 id='mens_erro_alunos'>Não é possivel apresentar os professores.</h2>";
-            $("msgStatus").append(mensagem);
+            $("msgErro").append(mensagem);
             $("#mens_erro_alunos").delay(2000).fadeOut();
         }
     })
@@ -243,12 +246,12 @@ function getSearchTeacher(query){
                 $(".adminTable").remove();
                 $("#mens_erro_professores").remove();
                 var mensagem = "<h2 id='mens_erro_professores'>Não existe nenhum professor com o email, nome ou apelido indicado.</h2>";
-                $("#msgStatus").append(mensagem);
+                $("#msgSemAlunos").append(mensagem);
             }
         },
         error: function(data) {
             var mensagem = "<h2 id='mens_erro_professores'>Não é possivel apresentar os professores.</h2>";
-            $("msgStatus").append(mensagem);
+            $("msgErro").append(mensagem);
             $("#mens_erro_professores").delay(2000).fadeOut();
         }
     })
@@ -266,14 +269,14 @@ function getAllTeachers(){
             }
             else{
                 $("#mens_sem_teachers").remove();
-                var mensagem = "<h2 id='mens_sem_teachers'>Não existe nenhum aluno</h2>";
-                $("#msgStatus").append(mensagem)
+                var mensagem = "<h2 id='mens_sem_teachers'>Não existe nenhum Professor</h2>";
+                $("#msgErro").append(mensagem)
             }
             
         },
         error: function(data) {
             var mensagem = "<h2 id='mens_erro_professores'>Não é possivel apresentar os professores.</h2>";
-            $("#msgStatus").append(mensagem);
+            $("#msgErro").append(mensagem);
             $("#mens_erro_professores").delay(2000).fadeOut();
         }
     });

@@ -88,7 +88,6 @@ $route['api/getSearchStudentCourse']            = 'Api_Subject/getSearchStudentC
 
 
 ##ADMIN##
-$route['api/getSearchTeaStu']                   = 'Api_User/getSearchStudentTeachers';
 $route['api/register']                          = 'Api_User/registerUser';
 $route['api/editUser']                          = 'Api_User/editUser';
 $route['api/deleteUser']                        = 'Api_User/deleteUser';
@@ -123,9 +122,11 @@ $route['api/getAdminHome']                      = 'Api_Admin/getAdminHome';
 $route['api/exportSpecific']                    = 'Api_Admin/exportSpecific';
 $route['api/importStudentsCourse']              = 'Api_Admin/importStudentsCourse';
 
+##chat##
 
 $route['api/getChatHistory']                    = 'Api_Chat/getChatHistory';
 $route['api/getChatLogs']                       = 'Api_Chat/getChatLogs';
+$route['api/getSearchTeaStu']                   = 'Api_User/getSearchStudentTeachers';
 
 
 $route['default_controller'] = 'landing';

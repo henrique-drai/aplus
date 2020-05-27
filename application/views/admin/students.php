@@ -65,6 +65,8 @@
                     <label for="password" class='form-label'>Password</label>
                     <input type="password" name="password">
                 </div>
+                <div id="msgErroEditar">
+                </div>
                 <ul class="cd-buttons">
                     <li><a href="#" id="editUser-form-submit">Submeter</a></li>
                     <li><a href="#" id="closeButton">Cancelar</a></li>
@@ -86,7 +88,7 @@
 		        <a class="cd-popup-close"></a>
 	        </div>
         </div>
-        <div id="msgStatus">
+        <div id="msgSemAlunos">
         </div>
         
     </main>

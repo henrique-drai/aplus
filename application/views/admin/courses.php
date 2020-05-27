@@ -93,6 +93,8 @@
                     <label for="description">Descrição</label>
                     <textarea name="description" id="descriptionTA" cols="70" rows="10" required></textarea>
                 </div>
+                <div id="msgErroEditar">
+                </div>
                 <ul class="cd-buttons">
                     <li><a href="#" id="editCourse-form-submit">Submeter</a></li>
                     <li><a href="#" id="closeButton">Cancelar</a></li>

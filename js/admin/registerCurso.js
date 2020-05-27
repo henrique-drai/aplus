@@ -273,8 +273,8 @@ function editCourse(){
         },
         error: function() {
             $("#courses_admin_edit").removeClass('is-visible');
-            $("#msgErro").text("Erro a editar curso");
-            $("#msgErro").show().delay(2000).fadeOut();
+            $("#msgErroEditar").text("Erro a editar curso");
+            $("#msgErroEditar").show().delay(2000).fadeOut();
         }
     });
 

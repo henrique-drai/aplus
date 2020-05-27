@@ -69,13 +69,13 @@ class Api_Subject extends REST_Controller {
     public function registerSubject_post(){ 
         $this->verify_admin();
         $data = Array(
-            "code" => $this->post('codeCadeira'),
-            "curso_id"   => $this->post('curso'),
-            "name" => $this->post('nomeCadeira'),
-            "sigla" => $this->post('sigla'),
-            "description"   => $this->post('descCadeira'),
-            "semestre" => $this->post("semestre"),
-            "color" => $this->post("cor"),
+            "code"          =>       htmlspecialchars($this->post('codeCadeira')),
+            "curso_id"      =>       htmlspecialchars($this->post('curso')),
+            "name"          =>       htmlspecialchars($this->post('nomeCadeira')),
+            "sigla"         =>       htmlspecialchars($this->post('sigla')),
+            "description"   =>       htmlspecialchars($this->post('descCadeira')),
+            "semestre"      =>       htmlspecialchars($this->post("semestre")),
+            "color"         =>       htmlspecialchars($this->post("cor")),
         );
 
         $this->load->model('SubjectModel');

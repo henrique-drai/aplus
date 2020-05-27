@@ -28,15 +28,15 @@ class Api_Course extends REST_Controller {
         $this->load->model("CourseModel");
         $this->load->model("YearModel");
 
-        $idYear = $this->YearModel->getYearByInicio($this->post('academicYear'))->id;
+        $idYear = $this->YearModel->getYearByInicio(htmlspecialchars($this->post('academicYear')))->id;
 
         $data = Array(
-            "code"         => $this->post('code'),
-            "name"          => $this->post('name'),
+            "code"         => htmlspecialchars($this->post('code')),
+            "name"          => htmlspecialchars($this->post('name')),
             "academicYear"  => $idYear,
-            "description"   => $this->post('description'),
-            "oldCurso"      => $this->post('oldCurso'),
-            "collegeId"      => $this->post('collegeId'),
+            "description"   => htmlspecialchars($this->post('description')),
+            "oldCurso"      => htmlspecialchars($this->post('oldCurso')),
+            "collegeId"      => htmlspecialchars($this->post('collegeId')),
         );
         $this->CourseModel->editCourse($data);
     }
@@ -46,11 +46,11 @@ class Api_Course extends REST_Controller {
         $this -> load -> model('CourseModel');
        
         $data = Array(
-            "faculdade_id"      => $this->post('collegeId'),
-            "ano_letivo_id"     => $this->post('academicYear'),
-            "code"              => $this->post('codCourse'),
-            "name"              => $this->post('nameCourse'),
-            "description"       => $this->post('descCourse')
+            "faculdade_id"      => htmlspecialchars($this->post('collegeId')),
+            "ano_letivo_id"     => htmlspecialchars($this->post('academicYear')),
+            "code"              => htmlspecialchars($this->post('codCourse')),
+            "name"              => htmlspecialchars($this->post('nameCourse')),
+            "description"       =>htmlspecialchars($this->post('descCourse'))
         );
        
         $this->CourseModel->register_course($data);

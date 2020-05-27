@@ -189,7 +189,10 @@
                 </form>
                 <br>
 
-                <div id="importStatus">
+                <div id="importSuccess">
+                </div>
+
+                <div id="importError">
                 </div>
             
             </div>

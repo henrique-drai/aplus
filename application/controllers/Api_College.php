@@ -26,9 +26,9 @@ class Api_College extends REST_Controller {
     public function registerCollege_post(){ 
         $this->verify_admin();
         $data = Array(
-            "name" => $this->post('nomefaculdade'),
-            "location"   => $this->post('morada'),
-            "siglas"   => $this->post('siglas'),
+            "name" => htmlspecialchars($this->post('nomefaculdade')),
+            "location"   => htmlspecialchars($this->post('morada')),
+            "siglas"   => htmlspecialchars($this->post('siglas')),
         );
 
         $this->load->model('CollegeModel');

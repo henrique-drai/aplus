@@ -178,8 +178,8 @@ class Api_Forum extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function removeForum_delete($forum_id) { 
-        $user_id = $this->get("user_id");
-        $cadeira_id = $this->get("cadeira_id");
+        $user_id = $this->delete("user_id");
+        $cadeira_id = $this->delete("cadeira_id");
 
         if($user_id != $this->session->userdata('id')) {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
@@ -195,9 +195,9 @@ class Api_Forum extends REST_Controller {
     }
 
     public function removePost_delete($post_id) { 
-        $user_id = $this->get("user_id");
-        $cadeira_id = $this->get("cadeira_id");
-        $role = $this->get("role");
+        $user_id = $this->delete("user_id");
+        $cadeira_id = $this->delete("cadeira_id");
+        $role = $this->delete("role");
 
         $flag = false;
         if($role == "teacher") {

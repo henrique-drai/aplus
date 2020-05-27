@@ -234,9 +234,7 @@ class Api_Project extends REST_Controller {
             "grupo_id"          => $this->post("grupo_id"),
             "user_id"           => $this->post("user_id"),
             "name"              => $this->post("name"),
-            "description"       => $this->post("description"),
-            "start_date"        => $this->post("start_date"),
-            "done_date"         => $this->post("done_date"),
+            "description"       => $this->post("description")
         );
 
         $this->load->model("TasksModel");

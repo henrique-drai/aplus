@@ -4,22 +4,18 @@ $(document).ready(() => {
     setInterval(getThreads, 3000); 
 
     $('body').on("click", '#add_button', function() {
-        $(".overlay").css('visibility', 'visible');
-        $(".overlay").css('opacity', '1');
+        makePopup2();
+        $(".cd-popup2").css('visibility', 'visible');
+        $(".cd-popup2").css('opacity', '1');
     });
 
-    $('body').on("click", '.close', function() {
-        $(".overlay").css('visibility', 'hidden');
-        $(".overlay").css('opacity', '0');
-    })
-
-    $('body').on("click", '#popup_button', function() {
+    $('body').on("click", '#createThread-form-submit', function() {
         var name = $("input[type='text']").val();
         var desc = $("textarea").val();
         insertThread(name, desc);
         getThreads();
-        $(".overlay").css('visibility', 'hidden');
-        $(".overlay").css('opacity', '0');
+        $(".cd-popup2").css('visibility', 'hidden');
+        $(".cd-popup2").css('opacity', '0');
     })
 
     $("body").on("click", ".thread_button", function() {
@@ -30,11 +26,21 @@ $(document).ready(() => {
     //open popup - REMOVER FORUM
 	$('body').on('click', '.remove', function(){
         makePopup("confirmRemove", "Tem a certeza que deseja eliminar o fórum?");
+        $(".cd-popup").css('visibility', 'visible');
+        $(".cd-popup").css('opacity', '1');
 	});
 	
 	//close popup - REMOVER FORUM
 	$('body').on('click', '.cd-popup', function(){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+            event.preventDefault();
+            $(this).remove();
+		}
+    });
+
+    //close popup2 - REMOVER FORUM
+	$('body').on('click', '.cd-popup2', function(){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') || $(event.target).is('#closeButton') ){
             event.preventDefault();
             $(this).remove();
 		}
@@ -72,6 +78,17 @@ function makePopup(butID, msg){
     $("#popups").html(popup);
 }
 
+function makePopup2() {
+    $(".add").html("<input type='button' id='add_button' value='Criar Tópico'>" +
+    "<div class='cd-popup2' role='alert'><div class='cd-popup-container'>" +                 
+    "<form id='createThread' action='javascript:void(0)'><div class='createThread_inputs'><h2>Criar novo tópico</h2>" +
+    "<label class='form-label'>Assunto do tópico:</label><input class='form-input-text' type='text' name='threadName' required>" +
+    "<label class='form-label'>Discussão:</label><textarea class='form-text-area' type='text' name='threadDescription' required>" + 
+    "</textarea></div><ul class='cd-buttons'><li><a href='#' id='createThread-form-submit'>" +
+    "Criar Tópico</a></li><li><a href='#' id='closeButton'>Cancelar</a></li></ul></form>" +
+    "<a class='cd-popup-close'></a></div></div>");
+}
+
 function getInfo(id) {
     $.ajax({
         type: "GET",
@@ -90,13 +107,7 @@ function getInfo(id) {
             }
 
             if(data.user.role == "teacher" || localStorage.teachers_only == 0) {
-                $(".add").append("<input type='button' id='add_button' value='Criar Tópico'><div class='overlay'>" +
-                    "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'>" +
-                    "<h2>Criar novo tópico</h2><form id='threadForm' class='thread-form'  action='javascript:void(0)'>" +
-                    "<p><label class='form-label'>Assunto do Tópico:</label><input class='form-input-text' type='text'" +
-                    "name='threadName' required></p><p><label class='form-label'>Discussão:</label><textarea class='" +
-                    "form-text-area' type='text' name='threadDescription' required></textarea></p><input type='button'" +
-                    "id='popup_button' value='Criar'></form></div></div></div>");
+                makePopup2();
             }
         },
         error: function(data) {

@@ -66,7 +66,7 @@ class Api_Student extends REST_Controller {
         $this->load->model('ProjectModel');
         $this->load->model('SubjectModel');
 
-        $user_id = $this->get('id');
+        $user_id = htmlspecialchars($this->get('id'));
         $data['grupo'] = $this->GroupModel->getGroups($user_id);
 
         $data["info"] = array();

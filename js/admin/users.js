@@ -9,7 +9,6 @@ $(document).ready(() => {
 
     // ############################ EXPORT ###########################################
 
-    // 1 ou 2 como parâmetro, para não repetir código e para saber se é do primeiro form ou do segundo
 
     $("#collegesDisplay").change(function(){
         
@@ -59,8 +58,13 @@ $(document).ready(() => {
             headers: {"Authorization": localStorage.token},
             data: formData,
             success: function (data) {
-                $("#importStatus").html("Ficheiro importado com sucesso");
-                $("#importStatus").show().delay(2000).fadeOut();
+                $("#importSuccess").html("Ficheiro importado com sucesso");
+                $("#importSuccess").show().delay(2000).fadeOut();
+                $("#myfile").val("");
+            },
+            error: function(data) {
+                $("#importError").html("Ficheiro importado com sucesso");
+                $("#importError").show().delay(2000).fadeOut();
                 $("#myfile").val("");
             },
             cache: false,

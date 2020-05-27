@@ -46,11 +46,11 @@ class Api_User extends REST_Controller {
         $email = $this->post('email');
 
         $data = Array(
-            "name"      => $this->post('name'),
-            "surname"   => $this->post('surname'),
-            "email"     => $this->post('email'),
+            "name"      => htmlspecialchars($this->post('name')),
+            "surname"   => htmlspecialchars($this->post('surname')),
+            "email"     => htmlspecialchars($this->post('email')),
             "password"  => md5($this->post('password')),
-            "role"      => $this->post('role'),
+            "role"      => htmlspecialchars($this->post('role')),
         );
 
         $this->load->model('UserModel');
@@ -97,9 +97,9 @@ class Api_User extends REST_Controller {
         $this->verify_admin();
         $email = $this->post('oldemail');
         $data = Array(
-            "name"      => $this->post('name'),
-            "surname"   => $this->post('surname'),
-            "email"     => $this->post('email'),
+            "name"      => htmlspecialchars($this->post('name')),
+            "surname"   => htmlspecialchars($this->post('surname')),
+            "email"     => htmlspecialchars($this->post('email')),
             "password"  => md5($this->post('password')),
         );
         $this->load->model('UserModel');

@@ -63,7 +63,7 @@ select{
     width: 300px;
 }
 
-#msgErro, #collegeStatus, #collegeStatus1{
+#msgErro, #collegeStatus, #collegeStatus1, #importError{
     background-color: rgb(255, 72, 72);
     text-align: center;
     margin: auto;
@@ -71,7 +71,7 @@ select{
     border-radius: 3px;
 }
 
-#msgStatus{
+#msgStatus, #importSuccess{
     background-color: rgba(106, 192, 66, 0.7);
     text-align: center;
     margin: auto;

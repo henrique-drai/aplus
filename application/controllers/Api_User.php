@@ -133,7 +133,7 @@ class Api_User extends REST_Controller {
 
     
     public function getSearchStudentTeachers_get(){ 
-        $this->verify_admin();
+        $this-> verify_request();
         $query = '';
         $this->load->model('UserModel');
         if($this->get("query")){

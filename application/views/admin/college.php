@@ -34,11 +34,15 @@
             <div id="msgErro">
             </div>
         </form><br>
-        <div id="college-container" class="container">
-        </div>
 
         <div id="msgStatusDelete">
         </div>
+        <div id="msgErroDelete">
+        </div>
+        <div id="college-container" class="container">
+        </div>
+
+        
 
         <div class="cd-popup" role="alert">
 	        <div class="cd-popup-container">

@@ -207,44 +207,58 @@ $(document).ready(() => {
     })
 
     $("#registerUserFacul").change(function(){
-        if($(this).val()!="Selecione uma Faculdade"){
+        if($(this).val()!=""){
             if($("#registerAnoUser").val()!= "" && $("#register-form select[name='role']").val() == "student"){
                 getAllCursosFaculdade($(this).val(), $("#registerAnoUser").val()); 
             }
         }
+        else{
+            $("#cursoUser").css("display", "none");
+        }
     });
 
     $("#registerAnoUser").change(function(){
-        if($(this).val()!="Selecione um Ano Letivo"){
+        if($(this).val()!=""){
             if($("#registerUserFacul").val()!= "" && $("#register-form select[name='role']").val() == "student"){
                 getAllCursosFaculdade($("#registerUserFacul").val(), $(this).val()); 
             }
         }
+        else{
+            $("#cursoUser").css("display", "none");
+        }
     });
 
     $("#registerUserFacul").change(function(){
-        if($(this).val()!="Selecione uma Faculdade"){
+        if($(this).val()!=""){
             if($("#registerAnoUser").val()!= "" && $("#register-form select[name='role']").val() == "teacher"){
                 getAllCursosFaculdade($(this).val(), $("#registerAnoUser").val()); 
             }
         }
+        else{
+            $("#cursoUser").css("display", "none");
+        }
     });
 
     $("#registerAnoUser").change(function(){
-        if($(this).val()!="Selecione um Ano Letivo"){
+        if($(this).val()!=""){
             if($("#registerUserFacul").val()!= "" && $("#register-form select[name='role']").val() == "teacher"){
-                getAllCursosFaculdade($("#registerUserFacul").val(), $(this).val()); 
-                
+                getAllCursosFaculdade($("#registerUserFacul").val(), $(this).val());   
             }
+        }
+        else{
+            $("#cursoUser").css("display", "none");
         }
     });
 
     $("#registerUserCurso").change(function(){
-        if($(this).val()!="Selecione um Curso"){
+        if($(this).val()!=""){
             if($("#registerUserCurso").val()!= "" && $("#register-form select[name='role']").val() == "teacher"){
                 getAllCadeirasByCourse($("#registerUserCurso").val()); 
                 $("#cadeirasProf").css("display", "block");
             }
+        }
+        else{
+            $("#cadeirasProf").css("display", "none");
         }
     });
 
@@ -364,7 +378,7 @@ function submitRegister(){
         }
     }
     else if(data.role == "student"){
-        if(data.name!=="" && data.surname!=="" && data.email!=="" && data.password!=="" && data.course != null){
+        if(data.name!=="" && data.surname!=="" && data.email!=="" && data.password!=="" && data.course !== ""){
             $.ajax({
                 type: "POST",
                 url: base_url + "api/register",
@@ -544,6 +558,7 @@ function getAllfaculdades(){
                 $("#registerUserFacul").html(linhas);
             }
             else{
+                
                 $("#msgErro").text("Não existem disponíveis faculdade.");
                 $("#msgErro").show().delay(2000).fadeOut();
             }

@@ -67,6 +67,7 @@ class Api_Subject extends REST_Controller {
     }
 
     public function registerSubject_post(){ 
+        $this->verify_admin();
         $data = Array(
             "code" => $this->post('codeCadeira'),
             "curso_id"   => $this->post('curso'),
@@ -153,15 +154,7 @@ class Api_Subject extends REST_Controller {
     }
 
     public function editSubject_post(){ 
-        $auth = $this->session->userdata('id');
-
-        $user = $this->UserModel->getUserById($auth);
-
-        if($user->role != "admin"){
-            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
-            return null;
-        }
-
+        $this->verify_admin();
         $id = $this->post('id');
 
         $data = Array(
@@ -346,6 +339,7 @@ class Api_Subject extends REST_Controller {
     }
 
     public function getAllSubjects_get(){
+        $this->verify_admin();
         $data["subjects"] = $this->SubjectModel->getAllSubjects();
         $data["courses"] = array();
         for($i=0; $i<count($data["subjects"]); $i++){
@@ -480,6 +474,7 @@ class Api_Subject extends REST_Controller {
     }
 
     public function getSearchStudentCourse_get() { 
+        $this->verify_admin();
         $user_id = $this->get("user_id");
         $cadeira_id = $this->get("cadeira_id");
         if($this->get("query")){
@@ -566,12 +561,7 @@ class Api_Subject extends REST_Controller {
 
     
     public function deleteSubject_delete(){ 
-        $user = $this->UserModel->getUserById($auth->id);
-
-        if($user->role != "admin"){
-            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
-            return null;
-        }
+        $this->verify_admin();
         $code = $this->delete('code');
         $this->load->model('SubjectModel');
         $this->SubjectModel->deleteSubject($code);
@@ -626,6 +616,7 @@ class Api_Subject extends REST_Controller {
     }
 
     private function verify_admin(){
+        $this->load->model('UserModel');
         $auth = $this->session->userdata('id');
 
         $user = $this->UserModel->getUserById($auth);

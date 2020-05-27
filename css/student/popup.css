@@ -67,8 +67,6 @@
 
   
 
-
-
 .overlay {
     position: fixed;
     top: 0;
@@ -126,13 +124,18 @@ input[type="text"], textarea {
     border-bottom: 4px dashed #bdc3c7;
     text-align: center;
     font-weight: bold;
-    font-size: 10em;
-    width: 300px; 
-    height: 100px;
-    line-height: 60px;
-    margin: 40px auto;
-    letter-spacing: -.07em;
+    font-size: 9em;
+    max-width: 300px;
+    /* height: 100px; */
+    /* line-height: 60px; */
+    margin: 0 auto;
+    /* letter-spacing: -.07em; */
     text-shadow: white 2px 2px 2px;
+    height: 23%;
+}
+input#rate {
+    margin: 5% auto;
+    width: 70%;
 }
 
 input[type="range"] {

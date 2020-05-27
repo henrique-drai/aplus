@@ -20,14 +20,9 @@ $(document).ready(() => {
         var faculdade = $("#Consultar_Cadeiras_Faculdade").val();
         var curso = document.getElementById("Consultar_Cadeiras_Curso").options[document.getElementById("Consultar_Cadeiras_Curso").selectedIndex].text;
         var cursonome = curso.split("(")[0];
-        
         if(cursonome == "Selecione uma Curso"){
             cursonome = "";
         }
-        else{
-            cursonome = cursonome.split(" ")[0]; 
-        }
-        
         var ano = $("#Consultar_Cadeiras_Ano").val();
         getSubjectsByFilters(faculdade,cursonome,ano);
 

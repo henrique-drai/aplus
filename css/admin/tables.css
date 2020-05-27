@@ -26,3 +26,25 @@
     background-color:#3e5d4f38;
     opacity: 0.8;
 }
+
+
+#descriptionTA {
+    max-width: 100%;
+}
+
+
+#msgErro, #msgErroDelete{
+    background-color: rgb(255, 72, 72);
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
+#msgStatus, #msgStatusDelete{
+    background-color: rgba(106, 192, 66, 0.7);
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}

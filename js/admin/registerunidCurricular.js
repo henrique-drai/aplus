@@ -13,7 +13,7 @@ $(document).ready(() => {
     })
    
     $("#faculdades_register_UnidCurricular").change(function(){
-        if($(this).val()!="Selecione uma Faculdade"){
+        if($(this).val()!=""){
             if($("#anos_register_UnidCurricular").val()!= ""){
                 getAllCursosFaculdade($(this).val(), $("#anos_register_UnidCurricular").val()); 
             }
@@ -21,7 +21,7 @@ $(document).ready(() => {
     }) ;
 
     $("#anos_register_UnidCurricular").change(function(){
-        if($(this).val()!="Selecione um Ano Letivo"){
+        if($(this).val()!=""){
             if($("#faculdades_register_UnidCurricular").val()!= ""){
                 getAllCursosFaculdade($("#faculdades_register_UnidCurricular").val(), $(this).val()); 
             }
@@ -63,7 +63,7 @@ function confirmForm(codeCadeira, nomeCadeira, descCadeira, faculdade, curso, si
     else if(faculdade  === "Selecione uma Faculdade" ){
         return true;
     }
-    else if(curso.length == 0){
+    else if(curso == null || curso.length == 0){
         return true;
     }
     else if(sigla.length == 0){
@@ -135,10 +135,10 @@ function getAllCursosFaculdade(faculdade, anoletivo){
             if(data.courses.length>0){
                 $(".course_row_register").remove();
                 $("label[for='curso']").css("display","inline");
+                var linhas = '<option class="course_row_register" value="">Selecione um Curso</option>';
                 for(i=0; i<data.courses.length; i++){
                     
                     $("#cursos_register_UnidCurricular").css("display", "block");
-                    var linhas = '';
                     linhas += '<option class="course_row_register" value=' + data.courses[i].id +">" + data.courses[i].name + '</option>'; 
                 
                      $("#cursos_register_UnidCurricular").append(linhas);

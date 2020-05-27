@@ -30,6 +30,8 @@
         </div>
         <div id="msgStatus">
         </div>
+        <div id="msgErro">
+        </div>
 
         <div class="cd-popup" role="alert">
 	        <div class="cd-popup-container">

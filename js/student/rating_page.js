@@ -8,24 +8,31 @@ $(document).ready(() => {
   
 
     $("body").on("click", ".toClassifyMember", function() {
-        disappearRating();
+        $(".value").text(1)
+        $("#rate").val(1)
+        
+        $('#user_submit_rating').addClass('is-visible');
         userId = $(this).attr('id');
     })
-   
-    $("body").on("click", ".close", function() {
-        disappearRating("close");
-    })
 
+    $('#user_submit_rating').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+    });
+
+   
     $(document).keyup(function(event){
     	if(event.which=='27'){
-            disappearRating("close");
+            $("#user_submit_rating").removeClass('is-visible');
 	    }
     });
 
-    $("body").on("click", "#popup_button", function() {
+    $("body").on("click", "#confirmRating", function() {
         var rating = document.getElementById("rate").value;
         submitRating(rating, userId);
-        disappearRating("close");
+        $("#user_submit_rating").removeClass('is-visible');
         getInfo(localStorage.grupo_id);
     })
 
@@ -33,21 +40,6 @@ $(document).ready(() => {
 
 });
 
-
-function disappearRating(state="open"){
-    if(state=="close"){
-        $(".overlay").css('display', 'none');
-        $(".overlay").css('visibility', 'hidden');
-        $(".overlay").css('opacity', '0');
-        $("#rate").val("1");
-        $(".value").text("1");
-    }
-    else{
-        $(".overlay").css('display', 'block');
-        $(".overlay").css('visibility', 'visible');
-        $(".overlay").css('opacity', '1');
-    }
-}
 
 function submitRating(rating, user){
 
@@ -79,9 +71,6 @@ function getInfo(grupo_id){
 
             $(".classified").empty()
             $(".notClassified").empty()
-
-
-            console.log(data)
 
             if(data.class.length != 0 ){
                 var info ="";
@@ -122,7 +111,7 @@ function getInfo(grupo_id){
                 $(".notClassified").html(info2)
             }
             else{
-                $(".notClassified").html("Todos os membros do grupo já foram classificados");
+                $(".notClassified").html("Todos os membros do grupo já se encontram classificados");
             }
 
         },

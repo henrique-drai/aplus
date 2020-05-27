@@ -42,6 +42,7 @@ class Api_User extends REST_Controller {
     }
 
     public function registerUser_post(){ 
+        $this->verify_admin();
         $email = $this->post('email');
 
         $data = Array(
@@ -93,6 +94,7 @@ class Api_User extends REST_Controller {
     }
 
     public function editUser_post(){ 
+        $this->verify_admin();
         $email = $this->post('oldemail');
         $data = Array(
             "name"      => $this->post('name'),
@@ -131,6 +133,7 @@ class Api_User extends REST_Controller {
 
     
     public function getSearchStudentTeachers_get(){ 
+        $this->verify_admin();
         $query = '';
         $this->load->model('UserModel');
         if($this->get("query")){
@@ -155,6 +158,7 @@ class Api_User extends REST_Controller {
 
 
     public function deleteUser_delete(){ 
+        $this->verify_admin();
         $auth = $this->session->userdata('id');
 
         $user = $this->UserModel->getUserById($auth);
@@ -182,4 +186,16 @@ class Api_User extends REST_Controller {
             return null;
         }
     }
+
+    private function verify_admin(){
+        $auth = $this->session->userdata('id');
+
+        $user = $this->UserModel->getUserById($auth);
+
+        if($user->role != "admin"){
+            $this->response(array('msg' => 'No admin rights.'), parent::HTTP_UNAUTHORIZED);
+            exit();
+        }
+    }
+
 }

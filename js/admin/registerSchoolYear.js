@@ -46,8 +46,8 @@ function deleteSchoolYear(linha){
             $("#msgStatus").show().delay(2000).fadeOut();
         },
         error: function() {
-            $("#msgStatus").text("Não foi possível eliminar o ano letivo");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErro").text("Não foi possível eliminar o ano letivo");
+            $("#msgErro").show().delay(2000).fadeOut();
         }
     });
 }
@@ -173,8 +173,8 @@ function submitNewDate(){
         },
         error: function(data) {
 
-            $("#msgStatus").text("Não foi possível adicionar o ano letivo");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgErro").text("Não foi possível adicionar o ano letivo");
+            $("#msgErro").show().delay(2000).fadeOut();
         }
         
     });

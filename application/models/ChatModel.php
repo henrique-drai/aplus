@@ -23,5 +23,9 @@ class ChatModel extends CI_Model { //provate_chat & private_chat_msg
         $result = $query->result_array();
         return $result;
     }
+
+    // public function sendMessage($msg, $id_sender, $id_receiver){
+    //     $query = $this->db-query
+    // }
 }
 

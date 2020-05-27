@@ -16,6 +16,11 @@ $(document).ready(() => {
             }
             
         })
+        $('#write_msg').on('keydown',function (e){
+            if(e.keyCode == 13){
+                alert('you pressed enter ^_^');
+            }
+        })
         
         
     }

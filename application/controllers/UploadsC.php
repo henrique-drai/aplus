@@ -20,24 +20,32 @@ class UploadsC extends CI_Controller {
     public function uploadEnunciadoProjeto($project_id)
     {
         // query para verificar se user na session está associado ao projeto
+        $user_id = $this->session->userdata('id');
+
+        if($this->verify_teacher($user_id, $project_id)){
+            $upload['upload_path'] = './uploads/enunciados_files/';
+            $upload['allowed_types'] = 'pdf';
+            $upload['file_name'] = $project_id;
+            $upload['overwrite'] = true;
+            $upload['max_size'] = 5048;
+    
+            $this->load->library('upload', $upload);
+    
+            if ( ! $this->upload->do_upload('file_proj'))
+            {
+                $error = array('error' => $this->upload->display_errors());
+                print_r($error);
+                echo "<br>Erro upload ficheiro";
+            }
+            else
+            {
+                header("Location: ".base_url()."projects/project/".$project_id);
+            }
+        } else {
+            header("Location: ".base_url()."errors/403");
+        }
         
-        $upload['upload_path'] = './uploads/enunciados_files/';
-        $upload['allowed_types'] = 'pdf';
-        $upload['file_name'] = $project_id;
-        $upload['overwrite'] = true;
 
-        $this->load->library('upload', $upload);
-
-        if ( ! $this->upload->do_upload('file_proj'))
-        {
-            $error = array('error' => $this->upload->display_errors());
-            print_r($error);
-            echo "<br>Erro upload ficheiro";
-        }
-        else
-        {
-            header("Location: ".base_url()."projects/project/".$project_id);
-        }
     }
 
     public function uploadEnunciadoEtapa($project_id, $etapa_id)
@@ -52,6 +60,7 @@ class UploadsC extends CI_Controller {
         $upload['allowed_types'] = 'pdf';
         $upload['file_name'] = $etapa_id;
         $upload['overwrite'] = true;
+        $upload['max_size'] = 5048;
 
         $this->load->library('upload', $upload);
 
@@ -80,6 +89,7 @@ class UploadsC extends CI_Controller {
         $upload['allowed_types'] = 'zip|rar';
         $upload['file_name'] = $grupo_id;
         $upload['overwrite'] = true;
+        $upload['max_size'] = 5048;
 
         $this->load->library('upload', $upload);
 
@@ -185,6 +195,33 @@ class UploadsC extends CI_Controller {
             $this->UserModel->updatePicture($user_id, $ext);
             $this->session->set_userdata('picture', $ext);
             header("Location: ".base_url()."app/profile/".$user_id);
+        }
+    }
+
+
+    public function verify_teacher($user_id, $projeto_id){
+        //verificar
+        $this->load->model('ProjectModel');
+        $this->load->model('SubjectModel');
+        $projeto = $this->ProjectModel->getProjectByID($projeto_id);
+        $verify = $this->SubjectModel->verifyTeacherSubject($user_id, $projeto[0]["cadeira_id"]);
+
+        if(empty($verify)){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function verify_student($user_id, $grupo_id){
+        //verificar
+        $this->load->model('GroupModel');
+        $verify = $this->GroupModel->verifyGroupStudent($user_id, $grupo_id);
+
+        if(empty($verify)){
+            return false;
+        } else {
+            return true;
         }
     }
 }

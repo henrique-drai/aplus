@@ -90,4 +90,8 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
         $this->db->where("id", $ficheiro_id);
         $this->db->delete("ficheiros_grupo");
     }
+
+    public function verifyGroupStudent($user_id, $group_id){
+        return $this->db->get_where("grupo_aluno", array("user_id" => $user_id, "grupo_id" => $group_id))->row();
+    }
 }

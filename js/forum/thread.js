@@ -2,31 +2,37 @@ $(document).ready(() => {
     getInfo(localStorage.getItem("thread_id"));
 
     $('body').on("click", "#create_post_button", function() {
-        $(".overlay").css('visibility', 'visible');
-        $(".overlay").css('opacity', '1');
-    })
-
-    $('body').on("click", '.close', function() {
-        $(".overlay").css('visibility', 'hidden');
-        $(".overlay").css('opacity', '0');
+        makePopup2();
+        $(".cd-popup2").css('visibility', 'visible');
+        $(".cd-popup2").css('opacity', '1');
     })
     
-    $('body').on("click", '#popup_button', function() {
+    $('body').on("click", '#createPost-form-submit', function() {
         var desc = $("textarea").val();
         insertPost(desc);
-        $(".overlay").css('visibility', 'hidden');
-        $(".overlay").css('opacity', '0');
+        $(".cd-popup2").css('visibility', 'hidden');
+        $(".cd-popup2").css('opacity', '0');
     })
 
     //open popup - REMOVER POST
 	$('body').on('click', '.remove', function(){
         localStorage.setItem("post_id", $(this).attr("id"));
         makePopup("confirmRemove", "Tem a certeza que deseja eliminar o projeto?");
+        $(".cd-popup").css('visibility', 'visible');
+        $(".cd-popup").css('opacity', '1');
 	});
 	
 	//close popup - REMOVER POST
 	$('body').on('click', '.cd-popup', function(){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+            event.preventDefault();
+            $(this).remove();
+		}
+    });
+
+    //close popup2 - REMOVER FORUM
+	$('body').on('click', '.cd-popup2', function(){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') || $(event.target).is('#closeButton') ){
             event.preventDefault();
             $(this).remove();
 		}
@@ -63,6 +69,16 @@ function makePopup(butID, msg){
     $("#popups").html(popup);
 }
 
+function makePopup2() {
+    $(".add").html("<input type='button' id='create_post_button' value='Criar nova publicação'>" +
+    "<div class='cd-popup2' role='alert'><div class='cd-popup-container'>" +                 
+    "<form id='postForm' class='thread-form'  action='javascript:void(0)'><div class='createPost_inputs'><h2>Criar nova publicação</h2>" +
+    "<label class='form-label'>Conteúdo:</label>" +
+    "<textarea class='form-text-area' type='text' name='threadDescription' required></textarea></div><ul class='cd-buttons'>" +
+    "<li><a href='#' id='createPost-form-submit'>Criar Publicação</a></li><li><a href='#' id='closeButton'>Cancelar</a></li></ul></form>" +
+    "<a class='cd-popup-close'></a></div></div>");
+}
+
 function getInfo(id) {
     $.ajax({
         type: "GET",
@@ -96,11 +112,7 @@ function getInfo(id) {
                 }
 
                 if(localStorage.teachers_only == 0 || data.user.role == "teacher") {
-                    $(".add").append("<input type='button' id='create_post_button' value='Criar nova publicação'><div class='overlay'>" +
-                        "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'><h2>Criar nova publicação</h2>" +
-                        "<form id='threadForm' class='thread-form'  action='javascript:void(0)'><p><label class='form-label'>Conteúdo:</label>" +
-                        "<textarea class='form-text-area' type='text' name='threadDescription' required></textarea></p><input type='button'" +
-                        "id='popup_button' value='Criar'></form></div></div></div>");
+                    makePopup2();
                 }
             }
         },

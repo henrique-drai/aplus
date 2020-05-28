@@ -35,7 +35,7 @@ class Api_Project extends REST_Controller {
         //tabela que liga cadeira a user
 
 
-        if ($this->verify_teacher($user_id,$this->post("cadeira_id"),"cadeira") == true){
+        if ($this->verify_teacher($user_id,htmlspecialchars($this->post("cadeira_id")),"cadeira") == true){
 
             $dataProj = Array(
                 "cadeira_id"          => htmlspecialchars($this->post("cadeira_id")),
@@ -46,7 +46,7 @@ class Api_Project extends REST_Controller {
                 "enunciado_url"       => htmlspecialchars($this->post("file")),
             );
             
-            $dataEtapa = $this->htmlspecialchars(post("listetapas"));
+            $dataEtapa = $this->post("listetapas");
 
             $proj_id = $this->ProjectModel->insertProject($dataProj);    
             for($i=0; $i < count($dataEtapa); $i++) {
@@ -76,7 +76,7 @@ class Api_Project extends REST_Controller {
 
         //Verificar se o id do professor guardado no token está associado à cadeira atraves da etapa - verify teacher
         
-        $etapa = htmlspecialchars($this->post('new_etapa'));
+        $etapa = $this->post('new_etapa');
 
 
         if ($this->verify_teacher($user_id,$this->post('projid'),"projeto") == true){
@@ -122,7 +122,7 @@ class Api_Project extends REST_Controller {
         //Verificar se o id do professor guardado no token está associado à cadeira
 
         if ($this->verify_teacher($user_id,$this->post('projid'), "projeto") == true){
-            $etapa = htmlspecialchars($this->post('edited_etapa'));
+            $etapa = $this->post('edited_etapa');
             $id = htmlspecialchars($this->post('id'));
     
             $enunciado = '';
@@ -238,8 +238,6 @@ class Api_Project extends REST_Controller {
             "user_id"           => htmlspecialchars($this->post("user_id")),
             "name"              => htmlspecialchars($this->post("name")),
             "description"       => htmlspecialchars($this->post("description")),
-            "start_date"        => htmlspecialchars($this->post("start_date")),
-            "done_date"         => htmlspecialchars($this->post("done_date")),
         );
 
         $this->load->model("TasksModel");
@@ -250,44 +248,64 @@ class Api_Project extends REST_Controller {
 
     public function criarGrupo_post(){
         $user_id = $this->session->userdata('id');
-        $datagrupo = Array(
-            "name" => htmlspecialchars($this->post("nomeGrupo")),
-            "projeto_id" => htmlspecialchars($this->post("projid")),
-        );
+        $cadeiraid = $this->post("cadeiraid");
 
-        $this->load->model("GroupModel");
-        $retrieved = $this->GroupModel->createGroup($datagrupo);
+        if($this->verify_studentInCadeira($user_id, $cadeiraid)==true){
+            $datagrupo = Array(
+                "name" => htmlspecialchars($this->post("nomeGrupo")),
+                "projeto_id" => htmlspecialchars($this->post("projid")),
+            );
+    
+            $this->load->model("GroupModel");
+            $retrieved = $this->GroupModel->createGroup($datagrupo);
+    
+            $datagrupoaluno = Array(
+                "grupo_id" => $retrieved["grupo"],
+                "user_id" => $user_id,
+            );
+    
+            $addeduser = $this->GroupModel->addElementGroup($datagrupoaluno);
+            $this->response(json_encode($retrieved), parent::HTTP_OK);
+        }
+        else{
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
 
-        $datagrupoaluno = Array(
-            "grupo_id" => $retrieved["grupo"],
-            "user_id" => $user_id,
-        );
-
-        $addeduser = $this->GroupModel->addElementGroup($datagrupoaluno);
-        $this->response(json_encode($retrieved), parent::HTTP_OK);
+        
     }
 
     public function entrarGrupo_post(){
         $user_id = $this->session->userdata('id');
         $proj_id = htmlspecialchars($this->post("projid"));
         $grupoid = htmlspecialchars($this->post("grupoid"));
-        $datagrupo = Array(
-            "grupo_id" => $grupoid,
-            "user_id" => $user_id,
-        );
+        $cadeiraid = $this->post("cadeiraid");
 
-        $this->load->model("ProjectModel");
-        $this->load->model("GroupModel");
-
-        $maxelementos = $this->ProjectModel->getMaxElementsGroup($proj_id);
-        $numElegroup = $this->GroupModel->countElements($grupoid);
-        if($numElegroup < $maxelementos[0]["max_elementos"]){
-            $data["grupo_aluno"] = $this->GroupModel->addElementGroup($datagrupo);
+        if($this->verify_studentInCadeira($user_id, $cadeiraid)==true){
+            $datagrupo = Array(
+                "grupo_id" => $grupoid,
+                "user_id" => $user_id,
+            );
+    
+            $this->load->model("ProjectModel");
+            $this->load->model("GroupModel");
+    
+            $maxelementos = $this->ProjectModel->getMaxElementsGroup($proj_id);
+            $numElegroup = $this->GroupModel->countElements($grupoid);
+            if($numElegroup < $maxelementos[0]["max_elementos"]){
+                $data["grupo_aluno"] = $this->GroupModel->addElementGroup($datagrupo);
+            }
+            else{
+                $data["grupo_aluno"] = "";
+            }
+            $this->response($data, parent::HTTP_OK);
         }
         else{
-            $data["grupo_aluno"] = "";
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
         }
-        $this->response($data, parent::HTTP_OK);
     }
 
     
@@ -611,17 +629,24 @@ class Api_Project extends REST_Controller {
         $user_id = $this->session->userdata('id');
         $group_id = htmlspecialchars($this->delete("grupo_id"));
         $proj_id = htmlspecialchars($this->get("proj_id"));
+        
+        if($this->verify_student($user_id, $group_id)==true){
+            $this->load->model("GroupModel");
 
-        $this->load->model("GroupModel");
+            $this->GroupModel->leaveGroup($user_id, $group_id);
 
-        $this->GroupModel->leaveGroup($user_id, $group_id);
+            $numElegroup = $this->GroupModel->countElements($group_id);
 
-        $numElegroup = $this->GroupModel->countElements($group_id);
-
-        if($numElegroup == 0){
-            $this->GroupModel->deleteGroup($group_id);
+            if($numElegroup == 0){
+                $this->GroupModel->deleteGroup($group_id);
+            }
         }
-
+        else{
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+        
     }
 
 
@@ -644,7 +669,8 @@ class Api_Project extends REST_Controller {
 
     public function deleteTaskById_delete($id){ 
         $this->load->model("TasksModel");
-        $data = $this->TasksModel->deleteTaskById($id);
+        $data["id"] = $id;
+        $data["result"] = $this->TasksModel->deleteTaskById($id);
     
         $this->response($data, parent::HTTP_OK);
         
@@ -713,31 +739,37 @@ class Api_Project extends REST_Controller {
     }
 
     private function verify_student($user_id, $group_id){
-        $membros_grupo = $this->GroupModel->getStudents($group_id);
+        $verify = $this->GroupModel->verifyGroupStudent($user_id, $group_id);
 
-        $flag_found = false;
-
-        for ($i=0; $i < count($membros_grupo); $i++){
-            if($user_id == $membros_grupo[$i]["user_id"]){
-                $flag_found = true;
-            }    
+        if(empty($verify)){
+            return false;
+        } else {
+            return true;
         }
-
-        return $flag_found;
     }
 
     private function verify_studentInCadeira($user_id, $cadeira_id){
-        $membros = $this->StudentListModel->getStudentsByCadeiraID($cadeira_id);
 
-        $flag_found = false;
+        $this->load->model('StudentListModel');
+        $verify = $this->StudentListModel->verifyStudentInCadeira($user_id, $cadeira_id);
 
-        for ($i=0; $i < count($membros); $i++){
-            if($user_id == $membros[$i]["user_id"]){
-                $flag_found = true;
-            }    
+        if(empty($verify)){
+            return false;
+        } else {
+            return true;
         }
 
-        return $flag_found;
+        // $membros = $this->StudentListModel->getStudentsByCadeiraID($cadeira_id);
+
+        // $flag_found = false;
+
+        // for ($i=0; $i < count($membros); $i++){
+        //     if($user_id == $membros[$i]["user_id"]){
+        //         $flag_found = true;
+        //     }    
+        // }
+
+        // return $flag_found;
     }
 
 }

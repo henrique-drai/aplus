@@ -101,6 +101,8 @@
                     <label for="descCadeira">Descrição da Unidade Curricular:</label>
                     <textarea class="form-text-area" type="text" name="descCadeira" required></textarea>
                 </div>
+                <div id="msgErroEditar">
+                </div>
                 <ul class="cd-buttons">
                     <li><a href="#" id="editSubject-form-submit">Submeter</a></li>
                     <li><a href="#" id="closeButton">Cancelar</a></li>

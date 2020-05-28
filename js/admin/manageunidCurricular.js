@@ -507,7 +507,7 @@ function  editSubject(){
         },
         error: function() {
             msgErro = "<p class='msgErro'> Não foi possivel editar o utilizador.</p>";
-            $("#msgStatus").append(msgErro);
+            $("#msgErroEditar").append(msgErro);
             $(".msgErro").delay(2000).fadeOut();
         }
     });

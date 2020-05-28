@@ -31,6 +31,9 @@
         </div>
         </div>
         <div id="chat-container" class="container">
+            <div class="headName"></div>
+            <div class="bodyChat"></div>
+            <div class="footSend"></div>
         </div> 
         </div>
         <!--

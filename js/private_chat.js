@@ -116,7 +116,10 @@ function getChatHistory(id_sender){
         url: base_url + "api/getChatHistory",
         data: {id_sender},
         success: function(data) {
-            $("#chat-container").html(makeMsgHistory(data,id_sender))
+            makeMsgHistory(data,id_sender);
+            $(".headName").html('<div class="chatter"><h3>'+ data.user.name + ' ' + data.user.surname +'</h3></div>')
+            $(".footSend").html('<div class="type-msg"><input type="text" id="write_msg" placeholder="Type a message"><img class="icon-send"src="http://localhost/aplus//images/icons/paper-airplane.png"> </div>')
+            console.log(chat_user_id)
             bindEnterChat()
 
 }})};
@@ -132,8 +135,8 @@ function makeMsgHistory(data,id_sender){
             chatbox+='<div class="sent-msg"><div class="sent-msg-width"><p>'+ data.msg[i].content +'</p><span  class="time_date">'+ data.msg[i].date +'</span></div></div>'
         }
     }
-    return '<div class="chatter"><h3>'+ data.user.name + ' ' + data.user.surname +'</h3></div><div class="msg-history">'+chatbox+
-    '</div><div class="type-msg"><input type="text" id="write_msg" placeholder="Type a message"><img class="icon-send"src="http://localhost/aplus//images/icons/paper-airplane.png"> </div>';
+    $(".bodyChat").html( '<div class="msg-history">'+chatbox+'</div>')
+    $(".msg-history").scrollTop($(".msg-history")[0].scrollHeight);
 }
 
 function makeUserList(dataFromUser){
@@ -156,6 +159,7 @@ function sendMessage(msg, time){
         url: base_url + "api/sendMessage",
         data: {m:msg,id:clicked_user,t:time},
         success: function(data) {
+            getChatHistory(clicked_user)
             console.log("123")
     
     }})};

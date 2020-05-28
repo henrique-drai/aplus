@@ -346,9 +346,57 @@ class Api_Project extends REST_Controller {
 
     }
 
+
+    public function submitRating_post(){
+        $this->load->model('GroupModel');
+
+        $data = Array(
+            "classificador_id"      => $this->post('meuUser'),
+            "classificado_id"     => $this->post('himUser'),
+            "grupo_id"              => $this->post('grupoId'),
+            "valor"              => $this->post('rating')
+        );
+       
+        $this->GroupModel->insertClassification($data); 
+    }
+
+
     //////////////////////////////////////////////////////////////
     //                           GET
     //////////////////////////////////////////////////////////////
+
+    
+    public function getStudentsFromGroup_get(){
+         
+        $grupo_id =  $this->get('id');
+        $classificador = $this->get('classificador');
+
+        $projId =  $this->GroupModel->getProjectId($grupo_id);
+
+        $data['proj_name'] = $this->ProjectModel->getProjectByID($projId[0]['projeto_id']);
+
+        $data['students'] = $this->GroupModel->getStudents($grupo_id);
+        $data["notClass"] = array();
+        $data["class"] = array();
+        $data["rate"] = array();
+
+        for ($i=0; $i < count($data["students"]); $i++) {
+            $userId = $data["students"][$i]['user_id'];
+            
+            if($userId != $classificador){
+                $nota = $this->GroupModel->getClassVal($grupo_id, $userId); 
+
+                if(isset($nota)) {
+                    array_push($data["class"], $this->UserModel->getUserById($userId));
+                    array_push($data["rate"], $nota->valor);
+                }
+                else{
+                    array_push($data["notClass"], $this->UserModel->getUserById($userId));
+                }
+            }
+        }
+        $this->response($data, parent::HTTP_OK);
+    }
 
     public function getProjectStatus_get(){ 
         $grupo_id =  htmlspecialchars($this->get('grupo_id'));
@@ -676,6 +724,8 @@ class Api_Project extends REST_Controller {
         
     }
 
+
+  
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

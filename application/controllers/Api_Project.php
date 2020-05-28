@@ -238,8 +238,6 @@ class Api_Project extends REST_Controller {
             "user_id"           => htmlspecialchars($this->post("user_id")),
             "name"              => htmlspecialchars($this->post("name")),
             "description"       => htmlspecialchars($this->post("description")),
-            "start_date"        => htmlspecialchars($this->post("start_date")),
-            "done_date"         => htmlspecialchars($this->post("done_date")),
         );
 
         $this->load->model("TasksModel");
@@ -671,7 +669,8 @@ class Api_Project extends REST_Controller {
 
     public function deleteTaskById_delete($id){ 
         $this->load->model("TasksModel");
-        $data = $this->TasksModel->deleteTaskById($id);
+        $data["id"] = $id;
+        $data["result"] = $this->TasksModel->deleteTaskById($id);
     
         $this->response($data, parent::HTTP_OK);
         

@@ -4,7 +4,7 @@
                                     /
   -------------------------------- */
 
-  .cd-popup {
+  .cd-popup, .cd-popup2 {
     position: fixed;
     z-index: 100;
     left: 0;
@@ -122,7 +122,7 @@
     text-decoration: none;
 }
 
-.cd-popup ul, .cd-popup li {
+.cd-popup ul, .cd-popup li, .cd-popup2 ul, .cd-popup2 li {
     margin: 0;
 	padding: 0;
 	border: 0;

@@ -5,7 +5,7 @@
 #all-chat{
     width: 100%;
     display: inline-flex;
-    min-height: 80%;
+    height: 80%;
 }
 
 li p{
@@ -68,46 +68,48 @@ li p{
     height: 70%;}
 
 .received-msg{
-    display: inline-block;
+    /* display: inline-block; */
     padding: 0 0 15px 10px;
-    vertical-align: top;
-    width: 92%;
+    /* vertical-align: top;
+    width: 92%; */
 }
 
 .received-msg-width{
-    width: 57%;
+    width: fit-content;
+    max-width: 60%;
 }
 
 .received-msg-width p{
+    word-break: break-all;
     background: #d4d4d4 none repeat scroll 0 0;
     border-radius: 3px;
     color: #2b2b2b;
     font-size: 14px;
     margin: 0;
     padding: 5px 10px 5px 12px;
-    width: 100%;
+    /* width: 100%; */
 }
-
-
 
 .sent-msg{
     overflow: hidden;
-    margin: 26px 0 26px;
+    padding: 0px 0 15px 0px;
 }
 
 .sent-msg-width{
     float: right;
-    width: 46%;
+    /* width: 46%; */
+    max-width: 60%;
 }
 
 .sent-msg-width p{
+    word-break: break-all;
     background: #05728f none repeat scroll 0 0;
     border-radius: 3px;
     font-size: 14px;
     margin: 0;
     color: #fff;
     padding: 5px 10px 5px 12px;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .time_date{
@@ -138,4 +140,11 @@ li p{
     font-size: 15px;
     min-height: 48px;
     width: 100%;
+}
+
+.icon-send{
+    width: 30px;
+    right: 0;
+    position: absolute;
+    top: 10px;
 }

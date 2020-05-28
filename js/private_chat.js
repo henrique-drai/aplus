@@ -1,4 +1,5 @@
 var chat_user_id=null;
+var clicked_user="";
 
 $(document).ready(() => {
     getChatLogs();
@@ -16,11 +17,7 @@ $(document).ready(() => {
             }
             
         })
-        $('#write_msg').on('keydown',function (e){
-            if(e.keyCode == 13){
-                alert('you pressed enter ^_^');
-            }
-        })
+       
         
         
     }
@@ -31,10 +28,20 @@ function setChatUserId(user_id){
     chat_user_id = user_id
 }
 
+function twoDigits(d) {
+    if(0 <= d && d < 10) return "0" + d.toString();
+    if(-10 < d && d < 0) return "-0" + (-1*d).toString();
+    return d.toString();
+}
+Date.prototype.toMysqlFormat = function() {
+    return this.getUTCFullYear() + "-" + twoDigits(1 + this.getUTCMonth()) + "-" + twoDigits(this.getUTCDate()) + " " + twoDigits(this.getUTCHours()+1) + ":" + twoDigits(this.getUTCMinutes()) + ":" + twoDigits(this.getUTCSeconds());
+};
+
 function bindLiClick(){
     $("li").click(function() {
         // clearInterval(loadmsgs)
         var id_sender = $(this).attr("user_id");
+        clicked_user = id_sender;
         getChatHistory(id_sender);
         // var loadmsgs = setInterval(function(){getChatHistory(id_sender);},5000);
     });
@@ -43,7 +50,9 @@ function bindLiClick(){
 function bindEnterChat(){
     $('#write_msg').keydown(function (e){
         if(e.keyCode == 13){
-            alert('you pressed enter ^_^');
+            sendMessage($('#write_msg').val(),new Date().toMysqlFormat());
+            $('#write_msg').val("");
+
         }
     })
 }
@@ -108,6 +117,8 @@ function getChatHistory(id_sender){
         data: {id_sender},
         success: function(data) {
             $("#chat-container").html(makeMsgHistory(data,id_sender))
+            bindEnterChat()
+
 }})};
 
 function makeMsgHistory(data,id_sender){
@@ -122,8 +133,7 @@ function makeMsgHistory(data,id_sender){
         }
     }
     return '<div class="chatter"><h3>'+ data.user.name + ' ' + data.user.surname +'</h3></div><div class="msg-history">'+chatbox+
-    '</div><div class="type-msg"><input type="text" id="write_msg" placeholder="Type a message"><button class="msg_send_btn" type="button"></button> </div>';
-    bindEnterChat()
+    '</div><div class="type-msg"><input type="text" id="write_msg" placeholder="Type a message"><img class="icon-send"src="http://localhost/aplus//images/icons/paper-airplane.png"> </div>';
 }
 
 function makeUserList(dataFromUser){
@@ -140,6 +150,15 @@ function makeUserList(dataFromUser){
     bindLiClick()  
 }
 
+function sendMessage(msg, time){
+    $.ajax({
+        type: "POST",
+        url: base_url + "api/sendMessage",
+        data: {m:msg,id:clicked_user,t:time},
+        success: function(data) {
+            console.log("123")
+    
+    }})};
 // function incomingMsg(data){
 
 // }

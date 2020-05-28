@@ -18,7 +18,7 @@
             <div class="grid">
                 <div class="item1">
                     <div class="header">
-                        <h2>Sumário da Unidade Curricular  <span><img src="<?php echo base_url(); ?>/images/icons/edit.png" id="edit_button"></span></h2>
+                        <h2>Descrição da Unidade Curricular  <span><img src="<?php echo base_url(); ?>/images/icons/edit.png" id="edit_button"></span></h2>
                     </div>
                     <div class="summary"></div>
 

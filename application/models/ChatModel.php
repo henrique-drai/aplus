@@ -24,8 +24,12 @@ class ChatModel extends CI_Model { //provate_chat & private_chat_msg
         return $result;
     }
 
-    // public function sendMessage($msg, $id_sender, $id_receiver){
-    //     $query = $this->db-query
-    // }
+    public function sendMessage($data){
+        // $data = array(
+        //     'content' => $msg,
+        //     'id_sender' => $id_sender,
+        //     'id_receiver' => $id_receiver);
+        $this->db->insert('private_msg', $data);
+    }
 }
 

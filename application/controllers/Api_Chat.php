@@ -24,6 +24,19 @@ class Api_Chat extends REST_Controller {
     //                           POST
     //////////////////////////////////////////////////////////////
 
+    public function sendMessage_post(){
+        $this->load->model('ChatModel');
+        // $msg = htmlspecialchars($this->post('m'));
+        // $id_receiver = $this->post('id');
+        // $id = $this->session->userdata('id');
+        $data = Array(
+            "content"     => htmlspecialchars($this->post('m')),
+            "id_receiver" => $this->post('id'),
+            "id_sender"   => $this->session->userdata('id'),
+            "date"        => $this->post('t'),  
+        );
+        $this->ChatModel->sendMessage($data);
+    }
 
     //////////////////////////////////////////////////////////////
     //                           GET

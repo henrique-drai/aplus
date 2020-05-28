@@ -36,7 +36,7 @@
                     <input type="password" name="password">
                     </p>
                     <p>
-                    <label for="role">Role:</label>
+                    <label for="role">Privilégio:</label>
                     <select name="role">
                         <option value="admin">Admin</option>
                         <option value="student">Student</option>

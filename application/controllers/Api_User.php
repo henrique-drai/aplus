@@ -101,11 +101,11 @@ class Api_User extends REST_Controller {
             "name"      => htmlspecialchars($this->post('name')),
             "surname"   => htmlspecialchars($this->post('surname')),
             "email"     => htmlspecialchars($this->post('email')),
-            "password"  => md5($this->post('password')),
+            "password"  => htmlspecialchars($this->post('password')),
         );
         $this->load->model('UserModel');
         $retrieved = $this->UserModel->editStudent($email, $data);
-
+        print_r($retrieved);
         $this->response(json_encode($retrieved), parent::HTTP_OK);
     }
 

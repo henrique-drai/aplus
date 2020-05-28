@@ -47,10 +47,10 @@ function leaveGroup(proj_id, groupid){
 }
 
 function createGroup(proj_id){
-
     const data = {
         nomeGrupo:  $("#criarGrupoInput").val(),
-        projid:     proj_id
+        projid:     proj_id,
+        cadeiraid: localStorage.getItem("cadeira_id")
     }
 
     $.ajax({
@@ -71,7 +71,8 @@ function createGroup(proj_id){
 function enterGroup(proj_id, grupo_id){
     const data = {
         grupoid: grupo_id,
-        projid:  proj_id
+        projid:  proj_id,
+        cadeiraid: localStorage.getItem("cadeira_id")
     }
     $.ajax({
         type: "POST",

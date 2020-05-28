@@ -250,44 +250,64 @@ class Api_Project extends REST_Controller {
 
     public function criarGrupo_post(){
         $user_id = $this->session->userdata('id');
-        $datagrupo = Array(
-            "name" => htmlspecialchars($this->post("nomeGrupo")),
-            "projeto_id" => htmlspecialchars($this->post("projid")),
-        );
+        $cadeiraid = $this->post("cadeiraid");
 
-        $this->load->model("GroupModel");
-        $retrieved = $this->GroupModel->createGroup($datagrupo);
+        if($this->verify_studentInCadeira($user_id, $cadeiraid)==true){
+            $datagrupo = Array(
+                "name" => htmlspecialchars($this->post("nomeGrupo")),
+                "projeto_id" => htmlspecialchars($this->post("projid")),
+            );
+    
+            $this->load->model("GroupModel");
+            $retrieved = $this->GroupModel->createGroup($datagrupo);
+    
+            $datagrupoaluno = Array(
+                "grupo_id" => $retrieved["grupo"],
+                "user_id" => $user_id,
+            );
+    
+            $addeduser = $this->GroupModel->addElementGroup($datagrupoaluno);
+            $this->response(json_encode($retrieved), parent::HTTP_OK);
+        }
+        else{
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
 
-        $datagrupoaluno = Array(
-            "grupo_id" => $retrieved["grupo"],
-            "user_id" => $user_id,
-        );
-
-        $addeduser = $this->GroupModel->addElementGroup($datagrupoaluno);
-        $this->response(json_encode($retrieved), parent::HTTP_OK);
+        
     }
 
     public function entrarGrupo_post(){
         $user_id = $this->session->userdata('id');
         $proj_id = htmlspecialchars($this->post("projid"));
         $grupoid = htmlspecialchars($this->post("grupoid"));
-        $datagrupo = Array(
-            "grupo_id" => $grupoid,
-            "user_id" => $user_id,
-        );
+        $cadeiraid = $this->post("cadeiraid");
 
-        $this->load->model("ProjectModel");
-        $this->load->model("GroupModel");
-
-        $maxelementos = $this->ProjectModel->getMaxElementsGroup($proj_id);
-        $numElegroup = $this->GroupModel->countElements($grupoid);
-        if($numElegroup < $maxelementos[0]["max_elementos"]){
-            $data["grupo_aluno"] = $this->GroupModel->addElementGroup($datagrupo);
+        if($this->verify_studentInCadeira($user_id, $cadeiraid)==true){
+            $datagrupo = Array(
+                "grupo_id" => $grupoid,
+                "user_id" => $user_id,
+            );
+    
+            $this->load->model("ProjectModel");
+            $this->load->model("GroupModel");
+    
+            $maxelementos = $this->ProjectModel->getMaxElementsGroup($proj_id);
+            $numElegroup = $this->GroupModel->countElements($grupoid);
+            if($numElegroup < $maxelementos[0]["max_elementos"]){
+                $data["grupo_aluno"] = $this->GroupModel->addElementGroup($datagrupo);
+            }
+            else{
+                $data["grupo_aluno"] = "";
+            }
+            $this->response($data, parent::HTTP_OK);
         }
         else{
-            $data["grupo_aluno"] = "";
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
         }
-        $this->response($data, parent::HTTP_OK);
     }
 
     
@@ -611,17 +631,24 @@ class Api_Project extends REST_Controller {
         $user_id = $this->session->userdata('id');
         $group_id = htmlspecialchars($this->delete("grupo_id"));
         $proj_id = htmlspecialchars($this->get("proj_id"));
+        
+        if($this->verify_student($user_id, $group_id)==true){
+            $this->load->model("GroupModel");
 
-        $this->load->model("GroupModel");
+            $this->GroupModel->leaveGroup($user_id, $group_id);
 
-        $this->GroupModel->leaveGroup($user_id, $group_id);
+            $numElegroup = $this->GroupModel->countElements($group_id);
 
-        $numElegroup = $this->GroupModel->countElements($group_id);
-
-        if($numElegroup == 0){
-            $this->GroupModel->deleteGroup($group_id);
+            if($numElegroup == 0){
+                $this->GroupModel->deleteGroup($group_id);
+            }
         }
-
+        else{
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+        
     }
 
 

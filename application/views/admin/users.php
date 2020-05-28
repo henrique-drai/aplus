@@ -38,9 +38,9 @@
                     <p>
                     <label for="role">Privilégio:</label>
                     <select name="role">
-                        <option value="admin">Admin</option>
-                        <option value="student">Student</option>
-                        <option value="teacher">Teacher</option>
+                        <option value="admin">Administrador</option>
+                        <option value="student">Aluno</option>
+                        <option value="teacher">Professor</option>
                     </select>
                     </p>
                     <p>

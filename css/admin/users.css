@@ -12,6 +12,7 @@ main > * {
 .admin-users-window {
     margin: 30px;
     min-width: 350px;
+    max-width: 400px;
 }
 
 .admin-users-window .title {

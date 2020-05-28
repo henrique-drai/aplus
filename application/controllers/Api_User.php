@@ -54,8 +54,9 @@ class Api_User extends REST_Controller {
         );
 
         $this->load->model('UserModel');
-        
+     
         $retrieved = $this->UserModel->registerUser($data);
+        
 
         if($data["role"] == 'student'){
             $this->load->model('CourseModel');

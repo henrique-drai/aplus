@@ -17,7 +17,8 @@ $(document).ready(() => {
 
     getTasks();
 
-    const id = localStorage.grupo_id
+    const id = localStorage.grupo_id;
+    var task_id;
 
     $("body").on("click", "#ratingmembros", function() {
         window.location = base_url + "app/rating/" + localStorage.grupo_id;
@@ -66,14 +67,14 @@ $(document).ready(() => {
     })
 
     $("body").on("click", ".delete_img", function () {
-        var id = $(this).attr("id");
+        task_id = $(this).attr("id");
         makePopup("confirmRemove", "Tem a certeza que deseja eliminar a tarefa?");
         $(".cd-popup").css('visibility', 'visible');
         $(".cd-popup").css('opacity', '1');
     })
 
     $("body").on('click', '#confirmRemove', function(){
-        deleteTaskById(id);
+        deleteTaskById(task_id);
     })
 
     checkClosedProject()
@@ -247,11 +248,9 @@ function deleteTaskById(id) {
     $.ajax({
         type: "DELETE",
         url: base_url + "api/deleteTaskById/" + id,
-        data: {
-            id: id
-        },
         success: function (data) {
             $(".message").empty();
+            console.log(data);
 
             $(".cd-popup").css('visibility', 'hidden');
             $(".cd-popup").css('opacity', '0');

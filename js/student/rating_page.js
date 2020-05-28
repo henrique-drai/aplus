@@ -2,9 +2,9 @@ var userId;
 $(document).ready(() => {
     getInfo(localStorage.grupo_id);
 
-    // setInterval(function() {
-    //     getInfo(localStorage.grupo_id);
-    //   }, 7000);
+    setInterval(function() {
+        getInfo(localStorage.grupo_id);
+      }, 7000);
   
 
     $("body").on("click", ".toClassifyMember", function() {
@@ -45,11 +45,10 @@ function submitRating(rating, user){
 
     $.ajax({
         type: "POST",
-        url: base_url + "student/api/submitRating",
+        url: base_url + "api/submitRating",
         data: {rating: rating, meuUser: localStorage.user_id, himUser: user, grupoId: localStorage.grupo_id},
         success: function(data) {
             getInfo(localStorage.grupo_id);
-            console.log("Rating atribuido com sucesso")
         },
         error: function(data) {
             console.log("Erro na API:")
@@ -63,7 +62,7 @@ function getInfo(grupo_id){
 
     $.ajax({
         type: "GET",
-        url: base_url + "student/api/getStudentsFromGroup",
+        url: base_url + "api/getStudentsFromGroup",
         data: {id: grupo_id, classificador: localStorage.user_id},
         success: function(data) {
             $("#groupName").html("Grupo: " + grupo_id);

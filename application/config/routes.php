@@ -55,6 +55,9 @@ $route['api/removeEtapa/(:num)']                = 'Api_Project/removeEtapa/$1';
 $route['api/removeEnunciadoEtapa/(:num)']       = 'Api_Project/removeEnunciadoEtapa/$1';
 $route['api/removeEnunciadoProj/(:num)']        = 'Api_Project/removeEnunciadoProj/$1';
 
+$route['api/submitRating']                      = 'Api_Project/submitRating';
+$route['api/getStudentsFromGroup']              = 'Api_Project/getStudentsFromGroup';
+
 $route['api/submitFileAreaGrupo']               = 'Api_Project/submitFileAreaGrupo';
 $route['api/getFicheirosGrupo/(:num)']          = 'Api_Project/getFicheirosGrupo/$1';
 $route['api/removeFicheiroAreaGrupo/(:num)']    = 'Api_Project/removeFicheiroAreaGrupo/$1';

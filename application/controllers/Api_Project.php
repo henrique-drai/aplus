@@ -739,31 +739,37 @@ class Api_Project extends REST_Controller {
     }
 
     private function verify_student($user_id, $group_id){
-        $membros_grupo = $this->GroupModel->getStudents($group_id);
+        $verify = $this->GroupModel->verifyGroupStudent($user_id, $group_id);
 
-        $flag_found = false;
-
-        for ($i=0; $i < count($membros_grupo); $i++){
-            if($user_id == $membros_grupo[$i]["user_id"]){
-                $flag_found = true;
-            }    
+        if(empty($verify)){
+            return false;
+        } else {
+            return true;
         }
-
-        return $flag_found;
     }
 
     private function verify_studentInCadeira($user_id, $cadeira_id){
-        $membros = $this->StudentListModel->getStudentsByCadeiraID($cadeira_id);
 
-        $flag_found = false;
+        $this->load->model('StudentListModel');
+        $verify = $this->StudentListModel->verifyStudentInCadeira($user_id, $cadeira_id);
 
-        for ($i=0; $i < count($membros); $i++){
-            if($user_id == $membros[$i]["user_id"]){
-                $flag_found = true;
-            }    
+        if(empty($verify)){
+            return false;
+        } else {
+            return true;
         }
 
-        return $flag_found;
+        // $membros = $this->StudentListModel->getStudentsByCadeiraID($cadeira_id);
+
+        // $flag_found = false;
+
+        // for ($i=0; $i < count($membros); $i++){
+        //     if($user_id == $membros[$i]["user_id"]){
+        //         $flag_found = true;
+        //     }    
+        // }
+
+        // return $flag_found;
     }
 
 }

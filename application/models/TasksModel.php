@@ -19,7 +19,6 @@ class TasksModel extends CI_Model {
 
      public function deleteTaskById($id) {
         return $this->db->delete("tarefa", array("id =" => $id));
-
     }
 
 }

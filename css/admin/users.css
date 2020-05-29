@@ -56,7 +56,7 @@ input#myfile {
     margin-top: 9%;
 }
 
-#cursoUser, #cadeirasProf, #selectedCadeiras{
+#cursoUser, #cadeirasUser, #selectedCadeiras{
     display: none;
 }
 
@@ -84,7 +84,7 @@ select{
     display: none;
 }
 
-#registerProfCadeira select:checked{
+#registerUserCadeira select:checked{
     color:rgba(106, 192, 66, 0.7);
 }
 

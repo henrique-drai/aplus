@@ -348,16 +348,30 @@ class Api_Project extends REST_Controller {
 
 
     public function submitRating_post(){
-        $this->load->model('GroupModel');
+        
+        $myUser = $this->post('meuUser');
+        $group_id = $this->post('grupoId');
 
-        $data = Array(
-            "classificador_id"      => $this->post('meuUser'),
-            "classificado_id"     => $this->post('himUser'),
-            "grupo_id"              => $this->post('grupoId'),
-            "valor"              => $this->post('rating')
-        );
-       
-        $this->GroupModel->insertClassification($data); 
+
+        if($this->verify_student($myUser, $group_id)){
+
+            $data = Array(
+                "classificador_id"      => $myUser,
+                "classificado_id"     => $this->post('himUser'),
+                "grupo_id"              => $group_id,
+                "valor"              => $this->post('rating')
+            );
+           
+            $this->GroupModel->insertClassification($data); 
+
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+
+
+      
     }
 
 

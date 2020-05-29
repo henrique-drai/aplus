@@ -27,6 +27,7 @@
             </div>
             </div>
             <input id="submit-file" type="submit" value="Enviar">
+            <div id="success" class="submit-msg">Ficheiro adicionado com sucesso!</div>
         </form>
     </div>
     <br>

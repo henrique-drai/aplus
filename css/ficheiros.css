@@ -6,6 +6,13 @@
     cursor: pointer;
 }
 
+#success {
+    background: rgba(106, 192, 66, 0.7);
+    display:none;
+    text-align: center;
+    padding: 2px;
+}
+
 .file-div {
     width: 100%;
     height: 100px;

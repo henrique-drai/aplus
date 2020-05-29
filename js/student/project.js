@@ -98,8 +98,16 @@ $(document).ready(() => {
     })
 
     $("#file_submit").on("change", function(){
-        $("#name-file-submit").text($("#file_submit").val().split('\\').pop());
-        $("#file-img-submit").attr('src',base_url+"images/icons/check-solid.png");
+
+        if($("#file_submit").val() != "") {
+            $("#name-file-submit").text($("#file_submit").val().split('\\').pop());
+            $("#file-img-submit").attr('src',base_url+"images/icons/check-solid.png");
+        } else {
+            $("#name-file-submit").text("Envie o ficheiro do enunciado");
+            $("#file-img-submit").attr('src',base_url+"images/icons/upload-solid.png");
+            $("#enviado-erro").show().delay(1500).fadeOut();
+        }
+
     })
 
     $("body").on("click", "#addSubmission", function(e){

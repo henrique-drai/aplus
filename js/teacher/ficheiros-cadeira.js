@@ -49,6 +49,7 @@ function submit_ficheiro(cadeira_id, ficheiro){
         data: data,
         success: function(data) {
             console.log(data)
+            $("#success").show();
         },
         error: function(data) {
             console.log("Erro na API - Submit File Para Area da Cadeira");

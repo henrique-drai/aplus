@@ -37,6 +37,7 @@ $(document).ready(() => {
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
             event.preventDefault();
             $(this).remove();
+            $(".taskInfo").css("background-color", "white");
 		}
     });
 
@@ -45,6 +46,7 @@ $(document).ready(() => {
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') || $(event.target).is('#closeButton') ){
             event.preventDefault();
             $(this).remove();
+            $(".taskInfo").css("background-color", "white");
 		}
     });
 

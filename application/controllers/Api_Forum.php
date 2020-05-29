@@ -29,10 +29,10 @@ class Api_Forum extends REST_Controller {
     public function insertForum_post() {
         $user_id = $this->session->userdata('id');
         $data = Array (
-            "cadeira_id"        => $this->htmlspecialchars(post('cadeira_id')),
-            "name"              => $this->htmlspecialchars(post("name")),
-            "description"       => $this->htmlspecialchars(post("desc")),
-            "teachers_only"     => $this->htmlspecialchars(post("teachers_only")),
+            "cadeira_id"        => htmlspecialchars($this->post('cadeira_id')),
+            "name"              => htmlspecialchars($this->post("name")),
+            "description"       => htmlspecialchars($this->post("desc")),
+            "teachers_only"     => htmlspecialchars($this->post("teachers_only")),
         );
 
         if($this->verify_teacher($user_id, $data["cadeira_id"], "cadeira")) {
@@ -53,10 +53,10 @@ class Api_Forum extends REST_Controller {
         $role = $this->post("role");
         $data = Array (
             "user_id"           => $this->session->userdata('id'),
-            "forum_id"          => $this->htmlspecialchars(post("forum_id")),
-            "title"             => $this->htmlspecialchars(post("title")),
-            "content"           => $this->htmlspecialchars(post("content")),
-            "date"              => $this->htmlspecialchars(post("date")),
+            "forum_id"          => htmlspecialchars($this->post("forum_id")),
+            "title"             => htmlspecialchars($this->post("title")),
+            "content"           => htmlspecialchars($this->post("content")),
+            "date"              => htmlspecialchars($this->post("date")),
         );
 
         $flag = false;
@@ -83,10 +83,10 @@ class Api_Forum extends REST_Controller {
         $cadeira_id = $this->post("cadeira_id");
         $role = $this->post("role");
         $data = Array (
-            "thread_id"          => $this->htmlspecialchars(post("thread_id")),
+            "thread_id"          => htmlspecialchars($this->post("thread_id")),
             "user_id"            => $this->session->userdata('id'),
-            "content"            => $this->htmlspecialchars(post("content")),
-            "date"               => $this->htmlspecialchars(post("date")),
+            "content"            => htmlspecialchars($this->post("content")),
+            "date"               => htmlspecialchars($this->post("date")),
         );
 
         $flag = false;
@@ -116,8 +116,8 @@ class Api_Forum extends REST_Controller {
 
     public function getForumById_get($forum_id) {
         $user_id = $this->session->userdata('id');
-        $cadeira_id = $this->htmlspecialchars(get("cadeira_id"));
-        $role = $this->htmlspecialchars(get("role"));
+        $cadeira_id = htmlspecialchars($this->get("cadeira_id"));
+        $role = htmlspecialchars($this->get("role"));
 
         $flag = false;
         if($role == "teacher") {
@@ -153,7 +153,7 @@ class Api_Forum extends REST_Controller {
     }
 
     public function getForum_get() {
-        $cadeira_id = $this->htmlspecialchars(get("cadeira_id"));
+        $cadeira_id = htmlspecialchars($this->get("cadeira_id"));
         $data = $this->ForumModel->getForumByCadeiraID($cadeira_id);
 
         $this->response($data, parent::HTTP_OK);
@@ -178,8 +178,8 @@ class Api_Forum extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function removeForum_delete($forum_id) { 
-        $user_id = $this->htmlspecialchars(delete("user_id"));
-        $cadeira_id = $this->htmlspecialchars(delete("cadeira_id"));
+        $user_id = htmlspecialchars($this->delete("user_id"));
+        $cadeira_id = htmlspecialchars($this->delete("cadeira_id"));
 
         if($user_id != $this->session->userdata('id')) {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
@@ -195,9 +195,9 @@ class Api_Forum extends REST_Controller {
     }
 
     public function removePost_delete($post_id) { 
-        $user_id = $this->htmlspecialchars(delete("user_id"));
-        $cadeira_id = $this->htmlspecialchars(delete("cadeira_id"));
-        $role = $this->htmlspecialchars(delete("role"));
+        $user_id = htmlspecialchars($this->delete("user_id"));
+        $cadeira_id = htmlspecialchars($this->delete("cadeira_id"));
+        $role = htmlspecialchars($this->delete("role"));
 
         $flag = false;
         if($role == "teacher") {

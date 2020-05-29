@@ -28,7 +28,7 @@ $(document).ready(() => {
         makePopup("confirmRemove", "Tem a certeza que deseja eliminar o projeto?");
 	});
 	
-	//close popup - REMOVER PROJETO
+	//remove popup - REMOVER PROJETO
 	$('body').on('click', '.cd-popup', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
             event.preventDefault();
@@ -36,6 +36,23 @@ $(document).ready(() => {
 		}
     });
     
+
+    //hide popup - usado no criar etapa por enquanto só
+    $('body').on("click", ".cd-popup2", function(event){
+        if( $(event.target).is('.cd-popup-hide') || $(event.target).is('#closeButton-hide') || $(event.target).is('.cd-popup2') ){
+            event.preventDefault();
+            $(this).hide();
+            $(".moreInfoButtons").css("background-color", "white");
+            $("#etapa-form-edit").hide();
+            $("#feedback-form").hide();
+            $("#form-upload-etapa").hide();
+            formStatus = null;
+            checkFormStatus();
+		}
+    })
+
+
+
     //confirmed delete do popup - REMOVER PROJETO
     $("body").on('click', '#confirmRemove', function(){
         const data = {
@@ -73,7 +90,10 @@ $(document).ready(() => {
     //file enunciado projeto selected - MUDAR ENUNCIADO
     $("#file_projeto").on('change', function(){
         $("#addEnunciado").show();
-        $("#file_projeto").css("border-left-color", "lawngreen");
+        
+        $("#name-enunciado-proj").text($("#file_projeto").val().split('\\').pop());
+        $("#file-img").attr('src',base_url+"images/icons/check-solid.png");
+        
     })
 
 
@@ -88,17 +108,22 @@ $(document).ready(() => {
     //--- ENUNCIADO ETAPA
 
     $("#file_etapa").on('change', function(){
-        $("#addEnuncEtapa").show();
         $("#file_etapa").css("border-left-color", "lawngreen");
+
+        //fazer teste ao tamanho, se nao for, meter um x
+        $("#name-enunciado-etapa").text($("#file_etapa").val().split('\\').pop());
+        $("#file-img-etapa").attr('src',base_url+"images/icons/check-solid.png");
+
     })
 
-    $("#addEnuncEtapa").on('click', function(e){
+    $('body').on("click", "#addEnuncEtapa", function(e){
         enunc = $("#file_etapa").val().split('\\').pop();
         console.log(enunc);
         if (enunc.length == 0){
             $("#errormsgenunc").text("Tem de selecionar um ficheiro");
-            $("#errormsgenunc").show().delay(5000).fadeOut();
+            $("#errormsgenunc").show().delay(2500).fadeOut();
         } else {
+            $("#form-upload-etapa").submit();
             submit_new_etapa_enunciado(enunc);
         }
     })
@@ -120,8 +145,9 @@ $(document).ready(() => {
     $("body").on("click", "#opennewEtapa", function(){
         $("#etapa-form").show();
         $("#newEtapa").show();
-        $("#etapa-overlay-new").css('visibility', 'visible');
-        $("#etapa-overlay-new").css('opacity', '1');
+        $("#etapa-form-popup").show();
+        $("#etapa-form-popup").css('visibility', 'visible');
+        $("#etapa-form-popup").css('opacity', '1');
         $("#etapa-label").text("Nova etapa:");
 
         $("#etapa-form-edit").hide();
@@ -135,7 +161,6 @@ $(document).ready(() => {
         } else {
             formStatus = null;
             checkFormStatus();
-            $("#etapa-form").hide();
         }
 
     });
@@ -144,20 +169,23 @@ $(document).ready(() => {
     //show feedback etapa - FEEDBACK ETAPA
     $('body').on("click", "#feedbackEtapaButton", function(){
 
+        $("#ul-buttons").find("li:first").find("a").prop("id", "confirmFeedback");
+
         $("#etapa-form").hide();
         $("#etapa-form-edit").hide();
         $("#form-upload-etapa").hide();
 
         $("#feedback-form").show();
-        $("#confirmFeedback").show();
         showGroups(proj);
 
         if(formStatus != 'feedback'){
             formStatus = 'feedback';
+            $("#ul-buttons").show();
             checkFormStatus();
         } else {
             formStatus = null;
             checkFormStatus();
+            $("#ul-buttons").hide();
             $("#feedback-form").hide();
         }
 
@@ -173,23 +201,28 @@ $(document).ready(() => {
     //show editar etapa form - EDITAR ETAPA
     $('body').on("click", "#editEtapaButton", function(){
         
+        $("#ul-buttons").find("li:first").find("a").prop("id", "newEtapaEDIT");
+
         $("#etapa-form").hide();
         $("#feedback-form").hide();
         $("#form-upload-etapa").hide();
 
         $("#etapa-form-edit").show();
         $("#etapa-label-edit").text("Editar etapa '" + $("#etapa" + selected_etapa).find("p:first").text() + "':");
-        $("#newEtapaEDIT").show();
+        
+
 
         putEtapaInfoForm(selected_etapa);
 
         if(formStatus != 'edit'){
             formStatus = 'edit';
+            $("#ul-buttons").show();
             checkFormStatus();
         } else {
             formStatus = null;
             checkFormStatus();
             emptyEtapa();
+            $("#ul-buttons").hide();
             $("#etapa-form-edit").hide();
         }
 
@@ -202,12 +235,17 @@ $(document).ready(() => {
         $("#etapa-form").hide();
         $("#feedback-form").hide();
         $("#form-upload-etapa").show();
+        
+        $("#ul-buttons").find("li:first").find("a").prop("id", "addEnuncEtapa");
+        console.log($("#addEnuncEtapa"));
 
         if(formStatus != 'addEnunc'){
             formStatus = 'addEnunc';
+            $("#ul-buttons").show();
             checkFormStatus();
         } else {
             formStatus = null;
+            $("#ul-buttons").hide();
             checkFormStatus();
             $("#etapa-form").hide();
             $("#form-upload-etapa").hide();
@@ -261,6 +299,7 @@ $(document).ready(() => {
         $("#form-upload-etapa").hide();
         formStatus = null;
         checkFormStatus();
+        $("#ul-buttons").hide();
         makePopup('confirmRemoveEtapa','Tem a certeza que deseja eliminar esta etapa?');    
     })
     
@@ -270,8 +309,7 @@ $(document).ready(() => {
         $('.cd-popup').remove();
         removeEtapa(selected_etapa);
         getEtapas(proj);
-        $(".overlay").css('visibility', 'hidden');
-        $(".overlay").css('opacity', '0');
+        $(".cd-popup2").hide();
         checkEntrega();
     })
 
@@ -284,12 +322,11 @@ $(document).ready(() => {
 
         updateEtapaPopup(selected_etapa);
 
-       
 
-        if ($(this).css("background-color") == "#3e5d4f"){
+        if ($(this).css("background-color") == "#75a790"){
             $(this).css("background-color", "white");
         } else {
-            $(this).css("background-color", "#3e5d4f");
+            $(this).css("background-color", "#75a790");
         }
 
         if(etapas_info_global.length == 1){
@@ -302,17 +339,17 @@ $(document).ready(() => {
     })
 
     // fechar popup - etapas
-    $('body').on("click", '.close', function() {
-        $("#etapa-form-edit").hide();
-        $("#feedback-form").hide();
-        $("#form-upload-etapa").hide();
-        formStatus = null;
-        checkFormStatus();
-        $(".moreInfoButtons").css("background-color", "white");
-        event.preventDefault();
-        $(".overlay").css('visibility', 'hidden');
-        $(".overlay").css('opacity', '0');
-    })
+    // $('body').on("click", '.cd-popup-hide', function() {
+    //     $("#etapa-form-edit").hide();
+    //     $("#feedback-form").hide();
+    //     $("#form-upload-etapa").hide();
+    //     formStatus = null;
+    //     checkFormStatus();
+    //     $(".moreInfoButtons").css("background-color", "white");
+    //     event.preventDefault();
+    //     $(".overlay").css('visibility', 'hidden');
+    //     $(".overlay").css('opacity', '0');
+    // })
 
     //ver se updated_enunc_etapa é true - se for acabou de ser feito um upload e é suposto
 
@@ -320,7 +357,7 @@ $(document).ready(() => {
     $('body').on('click', '#removeEnunciado', function(e) {
         etapa_clear_enunciado();
         getEtapas(proj);
-        $("#"+selected_etapa).css("background-color", "#3e5d4f");
+        $("#"+selected_etapa).css("background-color", "#75a790");
     })
 
     //remover enunciado projeto
@@ -334,11 +371,17 @@ $(document).ready(() => {
 
 
     //editar etapa 
-    $("#newEtapaEDIT").click(() => submit_edit_etapa());
+    $("body").on("click", "#newEtapaEDIT", function(){
+        $("#etapa-form-edit").submit();
+        submit_edit_etapa();
+    })
 
 
     //submit feedback
-    $("#confirmFeedback").click(() => submit_feedback($('textarea[name="feedback-text"]').val(), selected_etapa, $("#select_grupo_feedback :selected").val()));
+    $("body").on("click", "#confirmFeedback", function(){
+        $("#feedback-div").submit();
+        submit_feedback($('textarea[name="feedback-text"]').val(), selected_etapa, $("#select_grupo_feedback :selected").val());
+    })
 
     //--- ETAPAS
     
@@ -384,7 +427,7 @@ function putEtapaInfoForm(newid){
     var name = $("#etapa" + newid).find("p:first").text();
     var data = $("#etapa" + newid).find("p:nth-child(2)").text().replace(",","");
     data +=":00";
-    var desc = $("#etapa-popup .content").find("label:first").text();
+    var desc = $(".cd-popup-container").find("label:first").text();
     var newdata = strToDate(data).toISOString();
     var finaldata = newdata.substring(0,newdata.length-1);
 
@@ -432,7 +475,8 @@ function checkEntrega(){
 function verifyDates(data){
 
     if (data == ""){
-        $("#errormsg").text("Todos os campos devem ser preenchidos");
+        $("#errormsgedit").text("Todos os campos devem ser preenchidos");
+        $("#errormsgedit").show().delay(2500).fadeOut();
         return false;
     }
 
@@ -440,13 +484,16 @@ function verifyDates(data){
     var today = new Date();
 
     var dParse = Date.parse(dmaior);
-    $("#errormsg").text("A data da etapa tem de ser maior que a data atual");
 
     if (isNaN(dParse)){
+        $("#errormsgedit").text("A data da etapa tem de ser maior que a data atual");
+        $("#errormsgedit").show().delay(2500).fadeOut();
         return false;
     }
 
     if (dmaior <= today){
+        $("#errormsgedit").text("A data da etapa tem de ser maior que a data atual");
+        $("#errormsgedit").show().delay(2500).fadeOut();
         return false;
     }
 
@@ -481,7 +528,7 @@ function submit_etapa(){
             }
         });
     } else {
-        $("#errormsg").show().delay(5000).fadeOut();
+        $("#errormsg").show().delay(2500).fadeOut();
         return false;
     }
 }
@@ -514,7 +561,7 @@ function submit_edit_etapa(){
             }
         });
     } else {
-        $("#errormsg").show().delay(5000).fadeOut();
+        $("#errormsg").show().delay(2500).fadeOut();
         return false;
     }
 }
@@ -567,7 +614,6 @@ function submit_new_enunciado(enunc){
             console.log(data);
             console.log(base_url + "uploads/enunciados_files/"+ proj);
             $("#enunciado_h4").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + data + "</a>");
-            $("#addEnunciado").hide();
         },
         error: function(data) {
             console.log("Erro na API - Edit Enunciado");
@@ -593,7 +639,7 @@ function submit_new_etapa_enunciado(enunc){
             console.log(selected_etapa);
             $("#successmsgenunc").text("Enunciado adicionado com sucesso");
             $('#file_etapa').css("border-left-color", "rgb(124, 124, 124)");
-            $("#successmsgenunc").show().delay(5000).fadeOut();
+            $("#successmsgenunc").show().delay(2500).fadeOut();
             var removebut = removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
             $("#enunciado_label").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+ "/" + selected_etapa+".pdf'>" + data + "</a>" + removebut);
             console.log(base_url + "uploads/enunciados_files/"+ proj + "/" + selected_etapa);
@@ -601,7 +647,7 @@ function submit_new_etapa_enunciado(enunc){
         error: function(data) {
             console.log("Erro na API - Edit Etapa Enunciado");
             $("#errormsgenunc").text("Erro a adicionar o enunciado");
-            $("#errormsgenunc").show().delay(5000).fadeOut();
+            $("#errormsgenunc").show().delay(2500).fadeOut();
             console.log(data);
         }
     });
@@ -624,16 +670,16 @@ function setBackPage(href){
 function checkFormStatus(){
     if(formStatus == 'edit'){
         $("#opennewEtapa").css('background-color','white');
-        $(".editb").css('background-color','#3e5d4f');
+        $(".editb").css('background-color','#75a790');
         $(".feedbackb").css('background-color','white');
         $(".addE").css('background-color','white');
     } else if(formStatus == 'new'){
-        $("#opennewEtapa").css('background-color','#3e5d4f');
+        $("#opennewEtapa").css('background-color','#75a790');
         $(".editb").css('background-color','white');
         $(".feedbackb").css('background-color','white');
         $(".addE").css('background-color','white');
     } else if(formStatus == 'feedback'){
-        $(".feedbackb").css('background-color','#3e5d4f');
+        $(".feedbackb").css('background-color','#75a790');
         $("#opennewEtapa").css('background-color','white');
         $(".editb").css('background-color','white');
         $(".addE").css('background-color','white');
@@ -641,7 +687,7 @@ function checkFormStatus(){
         $("#opennewEtapa").css('background-color','white');
         $(".editb").css('background-color','white');
         $(".feedbackb").css('background-color','white');
-        $(".addE").css('background-color','#3e5d4f');
+        $(".addE").css('background-color','#75a790');
     } else {
         $("#opennewEtapa").css('background-color','white');
         $(".editb").css('background-color','white');
@@ -727,12 +773,13 @@ function updateEtapaPopup(etapa_rec){
 
     console.log(etapa);
 
-    $("#etapa-popup .content").find("label:first").text(etapa["description"]);
+    $(".cd-popup-container").find("label:first").text(etapa["description"]);
     $("#enunciado_label").html(etapa["enunciado"]);
     $("#enunciado_label").append(etapa["remove"]);
 
-    $("#etapa-overlay").css('visibility', 'visible');
-    $("#etapa-overlay").css('opacity', '1');
+    $("#popup-geral").css('visibility', 'visible');
+    $("#popup-geral").css('opacity', '1');
+    $("#popup-geral").show();
 }
 
 function getEtapas(proj_id){
@@ -847,7 +894,7 @@ function getSumbission(grupo_id, etapa, proj){
             if (data.length > 0){
                 var base_link = base_url + "uploads/submissions/" + proj + "/" + etapa + "/";
                 var extension = data[0]["submit_url"].split(".").pop();
-                $("#sub_url").html('<a href="'+base_link+grupo_id+'.'+extension+'">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
+                $("#sub_url").html('<a target="_blank" href="'+base_link+grupo_id+'.'+extension+'">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
                 $("#confirmFeedback").show();
                 if (data[0]["feedback"] == ""){
                     $("#fb_content").text("Ainda não foi atribuido feedback a esta etapa.");
@@ -869,7 +916,7 @@ function getSumbission(grupo_id, etapa, proj){
 
 
 function validate_feedback(){
-    if ($("textarea[name='feedback-text']").val() != ''){
+    if ($("textarea[name='feedback-text']").val() != '' && $("#select_grupo_feedback").val() != ''){
         return true
     }
 
@@ -895,18 +942,23 @@ function submit_feedback(feedback, etapa, grupo_id){
                 $("#sub_url").text('Entrega ainda não foi submetida');
                 $("#confirmFeedback").hide();
                 $("#fb_content").text("Ainda não foi atribuido feedback a esta etapa.");
-                $("#successmsgfb").show().delay(5000).fadeOut();
+                $("#successmsgfb").show().delay(2500).fadeOut();
             },
             error: function(data) {
                 console.log("Erro na API - Dar feedback");
                 $("#errormsgfb").text("Erro ao submeter feedback");
-                $("#errormsgfb").show().delay(5000).fadeOut();
+                $("#errormsgfb").show().delay(2500).fadeOut();
                 console.log(data);
             }
         });
     } else {
-        $("#errormsgfb").text("Feedback tem de ser preenchido");
-        $("#errormsgfb").show().delay(5000).fadeOut();
+        if($("#select_grupo_feedback").val() == ""){
+            $("#errormsgfb").text("Tem de selecionar um grupo válido");
+        } else {
+            $("#errormsgfb").text("Feedback tem de ser preenchido");
+        }
+
+        $("#errormsgfb").show().delay(2500).fadeOut();
         return false;
     }
 }

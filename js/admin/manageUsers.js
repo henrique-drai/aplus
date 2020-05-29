@@ -119,7 +119,6 @@ function editUser(){
         password:   $("#editUser-form input[name='password']").val(),
         oldemail:   oldEmail,
     }
-
     $.ajax({
         type: "POST",
         url: base_url + "api/editUser",

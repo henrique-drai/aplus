@@ -367,6 +367,7 @@ function submitRegister(){
                 data: data,
                 success: function(data) {
                     $("input[type='text']").val("");
+                    $("input[type='password']").val("");
                     $("#msgStatus").text("Utilizador registado com sucesso.");
                     $("#msgStatus").show().delay(2000).fadeOut();
                 },
@@ -389,6 +390,7 @@ function submitRegister(){
                 data: data,
                 success: function(data) {
                     $("input[type='text']").val("");
+                    $("input[type='password']").val("");
                     $("#msgStatus").text("Utilizador registado com sucesso.");
                     $("#msgStatus").show().delay(2000).fadeOut();
                     $("#register-form label[for='academicYearUser']").css("display", "none");
@@ -422,6 +424,7 @@ function submitRegister(){
                 data: data,
                 success: function(data) {
                     $("input[type='text']").val("");
+                    $("input[type='password']").val("");
                     $("#msgStatus").text("Utilizador registado com sucesso.");
                     $("#msgStatus").show().delay(2000).fadeOut();
                     $("#register-form label[for='academicYearUser']").css("display", "none");

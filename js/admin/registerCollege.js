@@ -1,5 +1,7 @@
 $(document).ready(() => {
-    $("#register-college-submit").click(() => submitRegister())  
+    $("#register-college-submit").click(() => submitRegister())
+    
+    
 })
 
 

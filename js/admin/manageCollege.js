@@ -1,9 +1,13 @@
 var col
 
 $(document).ready(() => {
-        getAllColleges();
-        
-        setInterval(getAllColleges, 3000);
+
+
+    getAllColleges();
+
+
+  
+    // setInterval(getAllColleges, 3000);
 
     //open popup
 	$('body').on('click','.deleteCollege', function(event){
@@ -48,13 +52,22 @@ function getAllColleges(){
                 var mensagem = "<h2 id='mens_sem_faculdades'>Não existe nenhuma faculdade</h2>";
                 $("body").append(mensagem);
             }
+
+            const mq = window.matchMedia( "(max-width: 452px)" );
+
+            if (mq.matches) {
+                $('.adminTable tr').find('td:eq(0),th:eq(0)').remove();
+                
+            } 
+            
             
         },
         error: function(data) {
             var mensagem = "<h2 id='mens_erro_faculdades'>Não é possivel apresentar as faculdades.</h2>";
             $("body").append(mensagem);
             $("#mens_erro_faculdades").delay(2000).fadeOut();
-        }
+        },
+    
     });
 }
 

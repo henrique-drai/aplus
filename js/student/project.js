@@ -47,13 +47,19 @@ $(document).ready(() => {
 
 
         if (today > data_entrega_final){
-            $('#submitEtapa').prop('disabled', true);
+            // $('#submitEtapa').prop('disabled', true);
             $("#erro-entrega").show();
+            $("#form-submit-etapa").hide();
+            $("#ul-buttons").hide();
         } else {
             if(have_group){
-                $('#submitEtapa').prop('disabled', false);
+                // $('#submitEtapa').prop('disabled', false);
+                $("#form-submit-etapa").show();
+                $("#ul-buttons").show();
             } else {
                 $("#no-group-erro").show().delay(5000).fadeOut();
+                $("#form-submit-etapa").hide();
+                $("#ul-buttons").hide();
             }
             $("#erro-entrega").hide();
         }
@@ -65,29 +71,26 @@ $(document).ready(() => {
 
         checkSubmission(grupo, selected_etapa, proj);
 
-        if ($(this).css("background-color") == "#3e5d4f"){
+        if ($(this).css("background-color") == "#75a790"){
             $(this).css("background-color", "white");
         } else {
-            $(this).css("background-color", "#3e5d4f");
+            $(this).css("background-color", "#75a790");
         }
 
     })
 
-
-    // fechar popup - etapas
-    $('body').on("click", '.close', function() {
-        $("#etapa-form-edit").hide();
-        $("#form-upload-etapa").hide();
-        $("#erro-entrega").hide();
-        $("#form-submit-etapa").hide();
-        $("#no-group-erro").hide();
-        formStatus = null;
-        $(".moreButton").css("background-color", "white");
-        event.preventDefault();
-        $(".overlay").css('visibility', 'hidden');
-        $(".overlay").css('opacity', '0');
+    $('body').on("click", ".cd-popup2", function(event){
+        if( $(event.target).is('.cd-popup-hide') || $(event.target).is('#closeButton-hide') || $(event.target).is('.cd-popup2') ){
+            event.preventDefault();
+            $(this).hide();
+            $(".moreButton").css("background-color", "white");
+            $("#no-group-erro").hide();
+            $("#etapa-form-edit").hide();
+            $("#form-upload-etapa").hide();
+            $("#erro-entrega").hide();
+            $("#form-submit-etapa").hide();
+		}
     })
-
 
 
     $("body").on("click", "#submitEtapa", function(){
@@ -95,11 +98,17 @@ $(document).ready(() => {
     })
 
     $("#file_submit").on("change", function(){
-        $("#file_submit").css("border-left-color", "lawngreen");
+        $("#name-file-submit").text($("#file_submit").val().split('\\').pop());
+        $("#file-img-submit").attr('src',base_url+"images/icons/check-solid.png");
     })
 
-    $("body").on("click","#addSubmission", function(e){
-        submit_etapa($("#file_submit").val().split('\\').pop());
+    $("body").on("click", "#addSubmission", function(e){
+        if($("#file_submit").val() == ""){
+            $("#enviado-erro").show().delay(2500).fadeOut();
+        } else {
+            $("#form-submit-etapa").submit();
+            submit_etapa($("#file_submit").val().split('\\').pop());
+        }
     })
     
 
@@ -335,11 +344,12 @@ function updateEtapaPopup(etapa_rec){
 
     console.log(etapa);
 
-    $("#etapa-popup .content").find("label:first").text(etapa["description"]);
+    $(".cd-popup-container").find("label:first").text(etapa["description"]);
     $("#enunciado_label").html(etapa["enunciado"]);
 
-    $("#etapa-overlay").css('visibility', 'visible');
-    $("#etapa-overlay").css('opacity', '1');
+    $("#popup-geral").css('visibility', 'visible');
+    $("#popup-geral").css('opacity', '1');
+    $("#popup-geral").show();
 }
 
 function submit_etapa(file_name){
@@ -380,7 +390,7 @@ function checkSubmission(grupo, etapa, proj){
                 console.log(data);
                 var base_link = base_url + "uploads/submissions/" + proj + "/" + etapa + "/";
                 var extension = data[0]["submit_url"].split(".").pop();
-                $("#sub_label").html('<a href="'+base_link+grupo+'.'+extension+'">' + data[0]["submit_url"] + '</a>');
+                $("#sub_label").html('<a target="_blank" href="'+base_link+grupo+'.'+extension+'">' + data[0]["submit_url"] + '</a>');
                 if (data[0]["feedback"] == ""){
                     $("#feedback_label").text("Ainda não foi atribuido feedback a esta etapa.");
                 } else {

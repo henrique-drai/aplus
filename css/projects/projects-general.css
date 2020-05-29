@@ -7,23 +7,87 @@
 .submit-msg {
     display:none;
     text-align: center;
-    width:98%;
-    padding: 4px;
-    border-radius: 4px;
+    /* width:98%;
+    padding: 4px; */
+    width: 100%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    /* border-radius: 4px; */
     position: relative;
     margin-top: 10px;
+}
+
+.cd-popup-container .cd-popup-hide {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    cursor:pointer;
+}
+
+.cd-popup-container .cd-popup-hide::before, .cd-popup-container .cd-popup-hide::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    width: 14px;
+    height: 3px;
+    background-color: #8f9cb5;
+}
+
+.cd-popup-container .cd-popup-hide::before {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    left: 8px;
+}
+
+.cd-popup-container .cd-popup-hide::after {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    right: 8px;
 }
 
 label {
     word-break: break-word;
 }
 
+.form-label-title{
+    font-weight: 600;
+}
+
 .p_expired{
     color:rgb(255, 72, 72);
 }
 
+#errormsg, #errormsgfb, #errormsgenunc, #errormsgedit {
+    background: rgb(255, 72, 72);
+}
+
+#successmsg, #successmsgfb, #successmsgenunc, #successmsg_editar, #successmsg_criar{
+    background: rgba(106, 192, 66, 0.7);
+}
+
 .container{
     width: 100%;
+}
+
+#addEtapa, #addEtapa img, .labelRemove, .labelRemove img{
+    width:30px;
+    border-radius: 15px;
+}
+
+#addEtapa, .labelRemove{
+    cursor:pointer;
+}
+
+#removeEtapa img{
+    margin-left: 65px;
+    position: absolute;
+    margin-top: -42px;
+}
+
+#addEtapa:hover, .labelRemove img:hover{
+    background-color:rgb(194, 194, 194);
 }
 
 .container-header{
@@ -60,13 +124,13 @@ label {
     display: none;
 }
 
-/* #etapas-container{
-    margin-bottom: 1%;
-    margin-bottom: 30px;
-} */
-
 .form-input-file{
-    border-left-color: rgb(124, 124, 124);
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }
 
 .etapasDIV, .gruposDIV{
@@ -113,11 +177,20 @@ label {
 
 .wrapper input[type="button"] {
     display: inline;
+    width: unset;
 }
 
-.wrapper {
+/* .wrapper {
     margin-top: 50px;
     margin-bottom: 30px;
+} */
+
+.cd-popup-container > div {
+    padding:unset;
+}
+
+#feedback-div > p{
+    text-align: left;
 }
 
 .wrapper input {
@@ -149,6 +222,61 @@ label {
     overflow-y: scroll;
 }
 
+
+/* input type file */
+.input-label {
+    text-align: center;
+    color: black;
+    line-height: 30px;
+    width: 250px;
+    display: block;
+    border: 2px solid #3e5d4f;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+.input-label:hover{
+    color: rgba(0, 0, 0, 0.842);
+    border-color: rgb(85, 150, 120);
+}
+
+.input-label img {
+    width: 12px;
+}
+
+
+.inputs-popup, .inputs-div{
+    padding: 10px;
+    margin: 20px auto;
+    width: 90%;
+}
+
+
+.inputs-popup > h3, .inputs-popup > label,
+.inputs-div > h3, .inputs-div > label {
+    text-align:left;
+}
+
+
+#container-geral{
+    padding-top: 1px;
+}
+
+#forms > form{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+/* #container-geral{
+    padding: 10px;
+} */
+
 /* botoes pop up */
 @media screen and (max-width: 750px) {
     .wrapper input[type="button"] {
@@ -164,10 +292,6 @@ label {
 
     .content label {
         font-size: 14px;
-    }
-
-    .popup{
-        width: 80% !important;
     }
 }
 

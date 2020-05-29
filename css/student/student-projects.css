@@ -6,8 +6,14 @@
     display: none;
 }
 
-#erro-entrega, #no-group-erro{
+#ul-buttons{
+    display: none;
+}
+
+#erro-entrega, #no-group-erro, #enviado-erro{
     background: rgb(255, 72, 72);
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 #enviado-sucesso{

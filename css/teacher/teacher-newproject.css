@@ -1,0 +1,37 @@
+.etapa {
+    margin-left: 40px;
+    margin-bottom: 30px;
+}
+
+.form-input-text, .form-input-number, .form-input-file, .form-text-area{
+    width:100%;
+}
+
+
+.form-input-number{
+    width: unset;
+    display: flex;
+    min-width: 48%;
+}
+
+
+@media screen and (max-width: 460px) {
+    .form-input-number{
+        width: 100%;
+    }
+
+    .form-input-number:first-of-type{
+        margin-bottom: 30px;
+    }
+}
+
+
+.pminmax{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.pminmax label{
+    min-width:100%;
+}

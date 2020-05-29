@@ -1,6 +1,6 @@
 <title>A+ for Teachers</title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/projects/projects-general.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/teacher-projects.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/teacher-newproject.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/teacher/projectNEW.js"></script>
 <script>setSubjectID("<?php echo $subject->id; ?>")</script>

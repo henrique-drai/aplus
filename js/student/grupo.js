@@ -48,6 +48,15 @@ $(document).ready(() => {
 		}
     });
 
+    //close popup2 - REMOVER FORUM
+	$('body').on('click', '.cd-popup3', function(){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup3') || $(event.target).is('#closeButton') ){
+            event.preventDefault();
+            $(this).remove();
+            $(".taskInfo").css("background-color", "white");
+		}
+    });
+
     $("body").on("change", "select", function() {
         if($("select").val() == "") {
             $("select").css("border-left-color", "salmon");
@@ -66,8 +75,9 @@ $(document).ready(() => {
         }
     })
 
-    $("body").on("click", ".delete_img", function () {
+    $("body").on("click", ".remove", function () {
         task_id = $(this).attr("id");
+        $(".cd-popup3").remove();
         makePopup("confirmRemove", "Tem a certeza que deseja eliminar a tarefa?");
         $(".cd-popup").css('visibility', 'visible');
         $(".cd-popup").css('opacity', '1');
@@ -77,8 +87,79 @@ $(document).ready(() => {
         deleteTaskById(task_id);
     })
 
+    $('body').on('click', '.taskInfo', function(){
+        var task_id = $(this).attr("id");
+        updateTaskPopup(task_id);
+
+        if ($(this).css("background-color") == "#75a790"){
+            $(this).css("background-color", "white");
+        } else {
+            $(this).css("background-color", "#75a790");
+        }        
+    })
+
+    $("body").on("click", ".start_date_button", function() {
+        var task_id = $(this).attr("id");
+        insertTaskStartDate(task_id);
+    })
+
+    $("body").on("click", ".end_date_button", function() {
+        var task_id = $(this).attr("id");
+        insertTaskEndDate(task_id);
+    })
+
     checkClosedProject()
 });
+
+function updateTaskPopup(task_id){
+    $.ajax({
+        type: "GET",
+        url: base_url + "api/getTaskById/" + task_id,
+        success: function(data) {
+            console.log(data)
+            var popup = '';
+
+            popup = popup + "<div class='cd-popup3' role='alert'><div class='cd-popup-container' id='container-geral'>" +                 
+                "<div class='infoTask_inputs'><h3>Tarefa: " + data.task[0].name + "</h3>" +
+                "<h3>Descrição</h3>";
+                
+            if(data.task[0].description == "") {
+                popup = popup + "<label>Não tem descrição.</label>"
+            } else {
+                popup = popup + "<label>" + data.task[0].description + "</label>";
+            }
+
+            popup = popup + "<h3>Data de Início</h3>";
+
+            if(data.task[0].start_date == "0000-00-00 00:00:00") {
+                popup = popup + "<span class='start'><input type='button' class='start_date_button' id='" + data.task[0].id + "' value='Iniciar Tarefa'></span>";
+            } else {
+                popup = popup + "<label>" + data.task[0].start_date + "</label>";
+            }
+
+            popup = popup + "<h3>Data de Fim</h3>";
+
+            if(data.task[0].start_date == "0000-00-00 00:00:00") {
+                popup = popup + "<label>A tarefa ainda não foi começada.</label></div>";
+            } else if(data.task[0].done_date != "0000-00-00 00:00:00") {
+                popup = popup + "<label>" + data.task[0].done_date + "</label></div>";
+            } else {
+                popup = popup + "<span class='end'><input type='button' class='end_date_button' id='" + data.task[0].id + "' value='Terminar Tarefa'></span></div>";
+            }
+
+            popup = popup + "<div class='wrapper'><hr><input id='" + data.task[0].id + "' class='editTask' type='button' value='Editar Tarefa'>" +
+                "<input id='" + data.task[0].id + "' class='remove' type='button' value='Eliminar'><hr></div><a class='cd-popup-close'></a></div></div>";
+        
+            $(".popupAdd").html(popup);
+            $(".cd-popup3").css('visibility', 'visible');
+            $(".cd-popup3").css('opacity', '1');
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+    });
+}
 
 function makePopup(butID, msg){
     popup = '<div class="cd-popup" role="alert">' +
@@ -210,15 +291,25 @@ function getTasks() {
             var image_url = base_url + "/images/icons/trash.png";
 
             if(data.tasks.length != 0) {
-                $(".tasksTable").append("<table id='tab-gerir-tarefas'><tr><th>Tarefa</th><th>Descrição</th>" +
-                "<th>Membro Responsável</th><th>Começo</th><th>Fim</th><th></th></tr></table>");
+                var table = "";
+                table = table + "<table id='tab-gerir-tarefas'><tr><th>Tarefa</th>" +
+                "<th>Membro Responsável</th><th>Terminado</th><th></th></tr>";
 
                 for(var i=0; i < data.tasks.length; i++) {
-                    $("#tab-gerir-tarefas").append("<tr><td>" + data.tasks[i].name + "</td><td>" +
-                    data.tasks[i].description + "</td><td>" + data.members[i][0].name + " " + 
-                    data.members[i][0].surname + "</td><td>botao de inicio</td><td>botao de fum</td><td>" +
-                    "<span><img src='" + image_url + "' class='delete_img' id='" + data.tasks[i].id + "'></span><b>" + "</td></tr>");
+                    table = table + "<tr><td>" + data.tasks[i].name + "</td><td>" + data.members[i][0].name + " " + 
+                    data.members[i][0].surname + "</td>";
+
+                    if(data.tasks[i].done_date == "0000-00-00 00:00:00") {
+                        table = table + "<td>Não</td>";
+                    } else {
+                        table = table + "<td>Sim</td>";
+                    }
+
+                    table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + "' type='button' value='Opções'></td><tr>";
                 }
+
+                table = table + "</table>"
+                $(".tasksTable").html(table);
             } else {
                 $(".tasksTable").append("<p>Não existem tarefas.</p>");
                 $("#editTarefa").css('visibility', 'hidden');
@@ -262,6 +353,40 @@ function deleteTaskById(id) {
                 $(".message").fadeTo(2000, 0);
             }, 2000);
 
+        },
+        error: function (data) {
+            alert("Houve um erro a remover a tarefa.")
+            console.log(data)
+
+        }
+    })
+}
+
+function insertTaskStartDate(task_id) {
+    $.ajax({
+        type: "POST",
+        url: base_url + "api/insertTaskStartDate/" + task_id,
+        data: {grupo_id: localStorage.grupo_id, user_id: localStorage.user_id},
+        success: function (data) {
+            $(".start").empty();
+            $(".start").append("<p>" + data + "</p>");
+        },
+        error: function (data) {
+            alert("Houve um erro a remover a tarefa.")
+            console.log(data)
+
+        }
+    })
+}
+
+function insertTaskEndDate(task_id) {
+    $.ajax({
+        type: "POST",
+        url: base_url + "api/insertTaskEndDate/" + task_id,
+        data: {grupo_id: localStorage.grupo_id, user_id: localStorage.user_id},
+        success: function (data) {
+            $(".end").empty();
+            $(".end").append("<p>" + data + "</p>");
         },
         error: function (data) {
             alert("Houve um erro a remover a tarefa.")

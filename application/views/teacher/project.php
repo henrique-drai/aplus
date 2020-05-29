@@ -29,8 +29,8 @@
             <?php echo form_open_multipart('UploadsC/uploadEnunciadoProjeto', "id='form-upload-proj'");?>
                 <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado" accept=".pdf">
                 <label for="file_projeto" class="input-label">
-                    <img id="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
-                    <span id="name-enunciado-proj">Envie o ficheiro do enunciado</span>
+                    <img id="file-img" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
+                    <span id="name-enunciado-proj" class="span-name">Envie o ficheiro do enunciado</span>
                 </label>
 
                 <input id="addEnunciado" type="submit" value="Adicionar enunciado">
@@ -76,8 +76,8 @@
                         <?php echo form_open_multipart('UploadsC/uploadEnunciadoEtapa', 'id="form-upload-etapa"');?>
                             <input class="form-input-file" type="file" id="file_etapa" name="file_etapa" accept=".pdf">
                             <label for="file_etapa" class="input-label">
-                                <img id="file-img-etapa" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
-                                <span id="name-enunciado-etapa">Envie o ficheiro do enunciado</span>
+                                <img id="file-img-etapa" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
+                                <span id="name-enunciado-etapa" class="span-name">Envie o ficheiro do enunciado</span>
                             </label>
                         </form>
 
@@ -95,7 +95,7 @@
                                 <p id="fb_content">Ainda não atribuiu feedback a esta etapa</p>
                                 <br>
                                 <label class="form-label-title">Dar feedback:</label>
-                                <textarea class="form-text-area" type="text" name="feedback-text" required></textarea>
+                                <textarea class="form-text-area" type="text" name="feedback-text" disabled required></textarea>
                             </div>
                         </form>
 

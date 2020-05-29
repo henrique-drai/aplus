@@ -98,6 +98,7 @@ function submit_ficheiro_grupo(grupo_id, ficheiro){
         url: base_url + "api/submitFileAreaGrupo",
         data: data,
         success: function(data) {
+            $("#success").show();
             console.log(data)
         },
         error: function(data) {

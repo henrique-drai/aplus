@@ -58,9 +58,9 @@
                         <select id="registerUserCurso" name="cursoUserSel">
                         </select>
                     </p>
-                    <p id="cadeirasProf">
-                        <label for="caderiasProfessor">Cadeiras:</label>
-                        <select id="registerProfCadeira" name="caderiasProfessor" multiple="multiple">
+                    <p id="cadeirasUser">
+                        <label for="caderiasAlunProf">Cadeiras:</label>
+                        <select id="registerUserCadeira" name="caderiasAlunProf" multiple="multiple">
                         </select>
                     </p>
                     <div id="selectedCadeiras">

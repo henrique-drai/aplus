@@ -69,6 +69,10 @@ $(document).ready(() => {
 
         updateEtapaPopup(selected_etapa);
 
+        etapa_name = $("#etapa" + selected_etapa).find("p").find("b").text();
+
+        $(".cd-popup-container").find("h3:first").text("Etapa: '" + etapa_name + "'");
+
         checkSubmission(grupo, selected_etapa, proj);
 
         if ($(this).css("background-color") == "#75a790"){
@@ -98,8 +102,16 @@ $(document).ready(() => {
     })
 
     $("#file_submit").on("change", function(){
-        $("#name-file-submit").text($("#file_submit").val().split('\\').pop());
-        $("#file-img-submit").attr('src',base_url+"images/icons/check-solid.png");
+
+        if($("#file_submit").val() != "") {
+            $("#name-file-submit").text($("#file_submit").val().split('\\').pop());
+            $("#file-img-submit").attr('src',base_url+"images/icons/check-solid.png");
+        } else {
+            $("#name-file-submit").text("Envie o ficheiro do enunciado");
+            $("#file-img-submit").attr('src',base_url+"images/icons/upload-solid.png");
+            $("#enviado-erro").show().delay(1500).fadeOut();
+        }
+
     })
 
     $("body").on("click", "#addSubmission", function(e){
@@ -343,7 +355,6 @@ function updateEtapaPopup(etapa_rec){
     }
 
     console.log(etapa);
-
     $(".cd-popup-container").find("label:first").text(etapa["description"]);
     $("#enunciado_label").html(etapa["enunciado"]);
 

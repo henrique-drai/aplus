@@ -17,8 +17,25 @@ class TasksModel extends CI_Model {
         return $this->db->insert_id();
     }
 
-     public function deleteTaskById($id) {
+    public function deleteTaskById($id) {
         return $this->db->delete("tarefa", array("id =" => $id));
+    }
+
+    public function getTaskById($id) {
+        $query = $this->db->get_where('tarefa', array('id' => $id));
+        return $query->result_array();
+    }
+
+    public function insertTaskDate($date, $task_id, $mode) {
+        if($mode == "start") {
+            $this->db->set('start_date', $date);
+            $this->db->where(array('id' => $task_id));
+            $this->db->update('tarefa');
+        } else if($mode == "end") {
+            $this->db->set('done_date', $date);
+            $this->db->where(array('id' => $task_id));
+            $this->db->update('tarefa');
+        }
     }
 
 }

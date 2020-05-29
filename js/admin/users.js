@@ -232,6 +232,18 @@ $(document).ready(() => {
         }
     });
 
+    $("#registerUserCurso").change(function(){
+        if($(this).val()!=""){
+            if($("#registerUserCurso").val()!= "" && $("#register-form select[name='role']").val() == "student"){
+                getAllCadeirasByCourse($("#registerUserCurso").val()); 
+                $("#cadeirasUser").css("display", "block");
+            }
+        }
+        else{
+            $("#cadeirasUser").css("display", "none");
+        }
+    });
+
     $("#registerUserFacul").change(function(){
         if($(this).val()!=""){
             if($("#registerAnoUser").val()!= "" && $("#register-form select[name='role']").val() == "teacher"){
@@ -258,15 +270,15 @@ $(document).ready(() => {
         if($(this).val()!=""){
             if($("#registerUserCurso").val()!= "" && $("#register-form select[name='role']").val() == "teacher"){
                 getAllCadeirasByCourse($("#registerUserCurso").val()); 
-                $("#cadeirasProf").css("display", "block");
+                $("#cadeirasUser").css("display", "block");
             }
         }
         else{
-            $("#cadeirasProf").css("display", "none");
+            $("#cadeirasUser").css("display", "none");
         }
     });
 
-    $("body").on("click", ".cadeira_row_prof", function(){
+    $("body").on("click", ".cadeira_row_user", function(){
         $("#selectedCadeiras").css("display", "block");
 
         if($(".selectedcadeiras").length>0){
@@ -342,12 +354,12 @@ function getYears(){
 }
 
 function submitRegister(){
-    var cadeirasprof = [];
+    var cadeirasUser = [];
     if($(".selectedcadeiras").length>0){
         for(var i=0; i<$(".selectedcadeiras").length; i++){
             var id = $(".selectedcadeiras")[i].id
             var cadeiraid = id.split("_")[1];
-            cadeirasprof.push(cadeiraid);
+            cadeirasUser.push(cadeiraid);
         }
     }
     const data = {
@@ -357,7 +369,7 @@ function submitRegister(){
         password:   $("#register-form input[name='password']").val(),
         role:       $("#register-form select[name='role']").val(),
         curso:      $("#register-form select[name='cursoUserSel']").val(),
-        cadeiras:   cadeirasprof,
+        cadeiras:   cadeirasUser,
     }
     if(data.role == "admin"){
         if(data.name!=="" && data.surname!=="" && data.email!=="" && data.password!==""){
@@ -383,7 +395,7 @@ function submitRegister(){
         }
     }
     else if(data.role == "student"){
-        if(data.name!=="" && data.surname!=="" && data.email!=="" && data.password!=="" && data.course !== ""){
+        if(data.name!=="" && data.surname!=="" && data.email!=="" && data.password!=="" && data.course !== "" && cadeirasUser !== []){
             $.ajax({
                 type: "POST",
                 url: base_url + "api/register",
@@ -397,7 +409,7 @@ function submitRegister(){
                     $("#register-form label[for='faculUser']").css("display", "none");
                     $("#registerUserFacul").css("display", "none");
                     $("#registerAnoUser").css("display", "none");
-                    $("#cadeirasProf").css("display", "none");
+                    $("#cadeirasUser").css("display", "none");
                     $("#cursoUser").css("display", "none");
                     $("#selectedCadeiras").css("display", "none"); 
                     $(".selectedcadeiras").remove();
@@ -431,7 +443,7 @@ function submitRegister(){
                     $("#register-form label[for='faculUser']").css("display", "none");
                     $("#registerUserFacul").css("display", "none");
                     $("#registerAnoUser").css("display", "none");
-                    $("#cadeirasProf").css("display", "none");
+                    $("#cadeirasUser").css("display", "none");
                     $("#cursoUser").css("display", "none");
                     $("#selectedCadeiras").css("display", "none"); 
                     $(".selectedcadeiras").remove();
@@ -618,20 +630,20 @@ function getAllCadeirasByCourse(cursoid){
             if(data.cadeiras.length>0){
                 var linhas = '';
                 for(var i=0; i< data.cadeiras.length; i++){
-                    linhas += '<option class="cadeira_row_prof" value=' + data.cadeiras[i]["id"] +">" + data.cadeiras[i]["name"] + '</option>'; 
+                    linhas += '<option class="cadeira_row_user" value=' + data.cadeiras[i]["id"] +">" + data.cadeiras[i]["name"] + '</option>'; 
                 }
-                $("#registerProfCadeira").html(linhas);
+                $("#registerUserCadeira").html(linhas);
 
             }
             else{
-                $("#cadeirasProf").css("display", "none");
+                $("#cadeirasUser").css("display", "none");
                 $("#msgErro").text("Não existem cadeiras.");
                 $("#msgErro").show().delay(2000).fadeOut();
 
             }
         },
         error: function(data) {
-            $("#cadeirasProf").css("display", "none");
+            $("#cadeirasUser").css("display", "none");
             $("#msgErro").text(" Não existem cadeiras.");
             $("#msgErro").show().delay(2000).fadeOut();
         }

@@ -42,6 +42,11 @@ function twoDigits(d) {
 Date.prototype.toMysqlFormat = function() {
     return this.getUTCFullYear() + "-" + twoDigits(1 + this.getUTCMonth()) + "-" + twoDigits(this.getUTCDate()) + " " + twoDigits(this.getUTCHours()+1) + ":" + twoDigits(this.getUTCMinutes()) + ":" + twoDigits(this.getUTCSeconds());
 };
+function meiaNoite(hour){
+    if(hour==24){
+        return "00"
+    }
+}
 
 function bindLiClick(){
     $("li").click(function() {

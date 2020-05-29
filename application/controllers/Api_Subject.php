@@ -33,8 +33,8 @@ class Api_Subject extends REST_Controller {
         $user_id = $this->session->userdata('id');
 
         $data = Array(
-            "id"    => $this->htmlspecialchars(post("cadeira_id")),
-            "text"  => $this->htmlspecialchars(post("text")),
+            "id"    => htmlspecialchars($this->post("cadeira_id")),
+            "text"  => htmlspecialchars($this->post("text")),
         );
 
         if($this->verify_teacher($user_id, $data["id"], "cadeira")) {
@@ -50,10 +50,10 @@ class Api_Subject extends REST_Controller {
     public function saveHours_post() { 
         $data = Array (
             'id_prof'             => $this->session->userdata('id'),
-            'id_cadeira'          => $this->htmlspecialchars(post('cadeira_id')),
-            'start_time'          => $this->htmlspecialchars(post('start_time')),
-            'end_time'            => $this->htmlspecialchars(post('end_time')),
-            'day'                 => $this->htmlspecialchars(post('day')),
+            'id_cadeira'          => htmlspecialchars($this->post('cadeira_id')),
+            'start_time'          => htmlspecialchars($this->post('start_time')),
+            'end_time'            => htmlspecialchars($this->post('end_time')),
+            'day'                 => htmlspecialchars($this->post('day')),
         );
         
         if($this->verify_teacher($data["id_prof"], $data["id_cadeira"], "cadeira")) {
@@ -275,15 +275,15 @@ class Api_Subject extends REST_Controller {
     }
 
     public function getInfo_get($cadeira_id) {
-        $user_id = $this->htmlspecialchars(get("user_id"));
+        $user_id = htmlspecialchars($this->get("user_id"));
         if($user_id != $this->session->userdata('id')) {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
         }
 
         $flag = false;
-        if($this->htmlspecialchars(get("role")) == "student") {
+        if(htmlspecialchars($this->get("role")) == "student") {
             $flag = $this->verify_student($user_id, $cadeira_id);
-        } else if ($this->htmlspecialchars(get("role")) == "teacher") {
+        } else if(htmlspecialchars($this->get("role") == "teacher")) {
             $flag = $this->verify_teacher($user_id, $cadeira_id, "cadeira");
         }
 
@@ -316,7 +316,7 @@ class Api_Subject extends REST_Controller {
     }
 
     public function getCourseStudents_get($cadeira_id) { 
-        $user_id = $this->htmlspecialchars(get("user_id"));
+        $user_id = htmlspecialchars($this->get("user_id"));
         if($user_id != $this->session->userdata('id')) {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
         }
@@ -542,10 +542,10 @@ class Api_Subject extends REST_Controller {
     public function removeHours_delete() { 
         $data = Array (
             'id_prof'             => $this->session->userdata('id'),
-            'id_cadeira'          => $this->htmlspecialchars(delete('cadeira_id')),
-            'start_time'          => $this->htmlspecialchars(delete('start_time')),
-            'end_time'            => $this->htmlspecialchars(delete('end_time')),
-            'day'                 => $this->htmlspecialchars(delete('day')),
+            'id_cadeira'          => htmlspecialchars($this->delete('cadeira_id')),
+            'start_time'          => htmlspecialchars($this->delete('start_time')),
+            'end_time'            => htmlspecialchars($this->delete('end_time')),
+            'day'                 => htmlspecialchars($this->delete('day')),
         );
 
         if($this->verify_teacher($data["id_prof"], $data["id_cadeira"], "cadeira")) {
@@ -569,9 +569,9 @@ class Api_Subject extends REST_Controller {
 
 
     public function deleteHourById_delete() { 
-        $user_id = $this->htmlspecialchars(delete("user_id"));
-        $cadeira_id = $this->htmlspecialchars(delete("cadeira_id"));
-        $id = $this->htmlspecialchars(delete("id"));
+        $user_id = htmlspecialchars($this->delete("user_id"));
+        $cadeira_id = htmlspecialchars($this->delete("cadeira_id"));
+        $id = htmlspecialchars($this->delete("id"));
 
         if($user_id != $this->session->userdata('id')) {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
@@ -588,8 +588,8 @@ class Api_Subject extends REST_Controller {
 
     public function removeFicheiroAreaCadeira_delete(){
         $user_id = $this->session->userdata('id');
-        $cadeira_id = $this->htmlspecialchars(delete("cadeira_id"));
-        $ficheiro_id = $this->htmlspecialchars(delete("ficheiro_id"));
+        $cadeira_id = htmlspecialchars($this->delete("cadeira_id"));
+        $ficheiro_id = htmlspecialchars($this->delete("ficheiro_id"));
 
         if($this->verify_teacher($user_id, $cadeira_id, "cadeira")){
             $ficheiro = $this->SubjectModel->getFicheiroById($ficheiro_id);

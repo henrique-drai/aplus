@@ -67,12 +67,11 @@ class Api_User extends REST_Controller {
                 "curso_id"   => $cursoid,               
             );
             $this->CourseModel->insertAlunoCurso($dataCursoUser);
-            $cadeiras = $this->SubjectModel->getSubjectsByCursoId($cursoid);
-            for($i=0; $i<count($cadeiras); $i++){
-                print_r($cadeiras);
+            $cadeiras = $this->post('cadeiras');
+            foreach ($cadeiras as $cadeiraid){
                 $dataUserCadeira = Array(
                     "user_id" => $retrieved["user_id"],
-                    "cadeira_id" => $cadeiras[$i]["id"],
+                    "cadeira_id" => $cadeiraid,
                     "is_completed" => 0,
                 );
                 $this->SubjectModel->insertAlunoCadeira($dataUserCadeira);

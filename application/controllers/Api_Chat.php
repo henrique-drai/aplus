@@ -67,6 +67,8 @@ class Api_Chat extends REST_Controller {
 
         $this->load->model('UserModel');
 
+        
+
         $resultquery = $this->ChatModel->getChatLogs($id);
 
         $data['users']=array();
@@ -80,15 +82,23 @@ class Api_Chat extends REST_Controller {
         // }
         
         // $user = $this->UserModel->getUserById(intval($user_id));
+        $compArray=array();
+        // print_r($resultquery);
 
         for($i=0; $i < count($resultquery); $i++) {
-            $tmp = $this->UserModel->getUserById($resultquery[$i]["id_sender"]);
-            array_push($data["users"], $tmp);
+            if($resultquery[$i]["id_sender"]!=$id && !in_array($resultquery[$i]["id_sender"], $compArray)){
+                $tmp = $this->UserModel->getUserById($resultquery[$i]["id_sender"]);
+                array_push($data["users"], $tmp);
+                array_push($compArray,$resultquery[$i]["id_sender"]);
             // array_push($data["content"], $resultquery[$i]["id_sender"]);
-
+            }elseif ($resultquery[$i]["id_sender"]==$id && !in_array($resultquery[$i]["id_receiver"], $compArray)) {
+                $tmp = $this->UserModel->getUserById($resultquery[$i]["id_receiver"]);
+                array_push($data["users"], $tmp);
+                array_push($compArray,$resultquery[$i]["id_receiver"]);
+            }
         }
 
-        $data["content"]=$resultquery;
+        // $data["content"]=$resultquery;
         
         $this->response($data, parent::HTTP_OK);
     }

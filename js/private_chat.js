@@ -1,8 +1,14 @@
 var chat_user_id=null;
 var clicked_user="";
+var refreshIntervalIdHistory='';
+var refreshIntervalIdRecent='';
+
 
 $(document).ready(() => {
     getChatLogs();
+    refreshIntervalIdRecent = setInterval(function(){
+        getChatLogs();
+    }, 2000);
 
     if (page_name=="chat"){
 
@@ -10,18 +16,18 @@ $(document).ready(() => {
             var s = $(this).val();
             $(".chatList").remove();
             if(s.length!=0){
+                clearInterval(refreshIntervalIdRecent);
                 getSearchTeaStu(s);
             }
             else if(s.length==0){
+                clearInterval(refreshIntervalIdRecent);
                 getChatLogs();
-            }
+                refreshIntervalIdRecent = setInterval(function(){
+                    getChatLogs();
+                }, 2000);            }
             
         })
-       
-        
-        
     }
-    
 })
 
 function setChatUserId(user_id){
@@ -39,17 +45,21 @@ Date.prototype.toMysqlFormat = function() {
 
 function bindLiClick(){
     $("li").click(function() {
-        // clearInterval(loadmsgs)
         var id_sender = $(this).attr("user_id");
         clicked_user = id_sender;
         getChatHistory(id_sender);
-        // var loadmsgs = setInterval(function(){getChatHistory(id_sender);},5000);
+        clearInterval(refreshIntervalId);
+
+        refreshIntervalId = setInterval(function(){
+            getChatHistory(id_sender);
+        }, 2000);
     });
 }
 
 function bindEnterChat(){
     $('#write_msg').keydown(function (e){
         if(e.keyCode == 13){
+            console.log(new Date().toMysqlFormat())
             sendMessage($('#write_msg').val(),new Date().toMysqlFormat());
             $('#write_msg').val("");
 
@@ -88,23 +98,24 @@ function getChatLogs(){
         url: base_url + "api/getChatLogs",
         
         success: function(data) {
-            // if(data.users != "no data"){
-            console.log(data)
             $("#mens_erro_user").remove();
             makeUserListLastText(data);
-            // }
         }
 });
 }
 
 function makeUserListLastText(dataFromUser){
     users= '';
+    console.log(dataFromUser)
+    existingChats=[];
     for (i=0;i<dataFromUser.users.length;i++){
-        // getLastPrivateMsg(dataFromUser.users[i].id)
         users += '<li class="list-group-class" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat">' +
-         dataFromUser.users[i].name +' '+ dataFromUser.users[i].surname + '</div><p>'+ dataFromUser.content[i].content +'</p></li>';
+         dataFromUser.users[i].name +' '+ dataFromUser.users[i].surname + '</div>'
+        //  '<p>'+ dataFromUser.content[i].content +'</p></li>';
          
     }
+    console.log(users)
+
     var list = '<h4>Recentes</h4><ul class="chatList" id="chatList">'+ users + '</ul>';
     $("#results-container").html(list);  
     bindLiClick()  
@@ -119,13 +130,11 @@ function getChatHistory(id_sender){
             makeMsgHistory(data,id_sender);
             $(".headName").html('<div class="chatter"><h3>'+ data.user.name + ' ' + data.user.surname +'</h3></div>')
             $(".footSend").html('<div class="type-msg"><input type="text" id="write_msg" placeholder="Type a message"><img class="icon-send"src="http://localhost/aplus//images/icons/paper-airplane.png"> </div>')
-            console.log(chat_user_id)
             bindEnterChat()
 
 }})};
 
 function makeMsgHistory(data,id_sender){
-    // console.log(data);
     chatbox=''
     for (i=0;i<data.msg.length;i++){
         if(data.msg[i].id_sender == id_sender){
@@ -160,38 +169,5 @@ function sendMessage(msg, time){
         data: {m:msg,id:clicked_user,t:time},
         success: function(data) {
             getChatHistory(clicked_user)
-            console.log("123")
     
     }})};
-// function incomingMsg(data){
-
-// }
-
-// function sentMsg(data){
-    
-// }
-
-
-
-
-
-
-
-// function getLastPrivateMsg(id_sender){
-//     $.ajax({
-//         type: "GET",
-//         url: base_url + "api/getLastPrivateMsg",
-//         data: {id_sender},
-//         success: function(data) {
-//             if(data.msg != "no data"){
-//                 // console.log(data.msg[0].content)
-//                 return (data.msg[0].content);
-//             }else{
-//                 console.log("123")
-//                 return ' ';
-//             }
-//         }
-//     })
-// }
-
-

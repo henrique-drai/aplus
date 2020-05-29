@@ -58,6 +58,7 @@
             <div class="cd-popup2" id="popup-geral">
                 <div class="cd-popup-container" id="container-geral">
                     <div class="inputs-div">
+                        <h3>Etapa</h3>
                         <h3>Descrição:</h3>
                         <label></label>
                         <h3>Enunciado: </h3>

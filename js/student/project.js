@@ -69,6 +69,10 @@ $(document).ready(() => {
 
         updateEtapaPopup(selected_etapa);
 
+        etapa_name = $("#etapa" + selected_etapa).find("p").find("b").text();
+
+        $(".cd-popup-container").find("h3:first").text("Etapa: '" + etapa_name + "'");
+
         checkSubmission(grupo, selected_etapa, proj);
 
         if ($(this).css("background-color") == "#75a790"){
@@ -351,7 +355,6 @@ function updateEtapaPopup(etapa_rec){
     }
 
     console.log(etapa);
-
     $(".cd-popup-container").find("label:first").text(etapa["description"]);
     $("#enunciado_label").html(etapa["enunciado"]);
 

@@ -60,6 +60,14 @@
 #calendario-hook .whitespace {
     min-width: 50px;
 }
+#calendario-hook .no-events-msg {
+    text-align: center;
+    margin: -15px 0px 10px;
+    font-size: 13px;
+}
+#calendario-hook .no-events-msg.left {
+    text-align: left;
+}
 
 
 #calendario-hook ::-webkit-scrollbar {

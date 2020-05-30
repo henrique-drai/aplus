@@ -5,8 +5,8 @@
     <main style="width: 100%; text-align: center;">
     
       <h2>Scripts:</h2>
-      <input type="button" value="Small Reset" id="btn-small">
-      <input type="button" value="Large Reset" id="btn-large">
+      <input type="button" value="Correr os 2 scripts de uma vez" id="btn-small">
+      <input type="button" value="Correr apenas o large_script" id="btn-large">
       <div id="msg-box"></div>
 
 

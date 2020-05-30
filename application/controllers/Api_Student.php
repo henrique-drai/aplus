@@ -77,10 +77,9 @@ class Api_Student extends REST_Controller {
 
 
         for ($i=0; $i < count($data["grupo"]); $i++) {
-           
             $projId =  $this->GroupModel->getProjectId($data["grupo"][$i]["grupo_id"]);
 
-            array_push($data["proj_name"], $projId[$i]['name']);
+            array_push($data["proj_name"], $projId[0]['name']);
             
             array_push($data["deadline"], $this->ProjectModel->getLastEtapa($projId[0]['projeto_id'])[0]['deadline']);
 

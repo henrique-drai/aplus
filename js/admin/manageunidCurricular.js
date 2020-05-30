@@ -175,6 +175,13 @@ $(document).ready(() => {
 			$(this).removeClass('is-visible');
 		}
     });
+
+    $("body").on("click", ".infoCadeira", function(){
+        var linha = $(event.target).closest("tr");
+        selectedUC = linha.find("td:eq(0)").text()
+        localStorage.setItem("cadeira_id", selectedUC);
+        window.location = base_url + "app/adminsubject/" + selectedUC;
+    })
 })
 
 
@@ -223,13 +230,13 @@ function makeAllSubjectsTable(data){
     var allSubjects="";
     for(i=0; i<data.subjects.length;i++){
         allSubjects += '<tr class="subject_row">' +
-                    '<td>'+ data.subjects[i].id +'</td>' +
-                    '<td>'+ data.subjects[i].code +'</td>' +
-                    '<td>'+ data.courses[i].name +'</td>' +
-                    '<td>'+ data.subjects[i].name + '</td>' +
-                    '<td>'+ data.subjects[i].sigla + '</td>' +
-                    '<td>'+ data.subjects[i].semestre + '</td>' +
-                    '<td>'+ data.subjects[i].description + '</td>' +
+                    '<td class="infoCadeira">'+ data.subjects[i].id +'</td>' +
+                    '<td class="infoCadeira">'+ data.subjects[i].code +'</td>' +
+                    '<td class="infoCadeira">'+ data.courses[i].name +'</td>' +
+                    '<td class="infoCadeira">'+ data.subjects[i].name + '</td>' +
+                    '<td class="infoCadeira">'+ data.subjects[i].sigla + '</td>' +
+                    '<td class="infoCadeira">'+ data.subjects[i].semestre + '</td>' +
+                    '<td class="infoCadeira">'+ data.subjects[i].description + '</td>' +
                     '<td><input class="editSubject" type="button" value="Editar"></td>' +
                     '<td><input class="deleteSubject" type="button" value="Eliminar"></td>' +
                     '</tr>';

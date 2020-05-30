@@ -533,7 +533,27 @@ class Api_Subject extends REST_Controller {
         $data["cadeiras"] = $this->SubjectModel->getSubjectsByCursoId($cursoid);
         $this->response($data, parent::HTTP_OK);
     }
-   
+
+    public function adminSubject_get(){
+        $this->verify_admin();
+        $idcadeira = htmlspecialchars($this->get('idcadeira'));
+        $this->load->model('SubjectModel');
+        $data["cadeira"] = $this->SubjectModel->getSubjectByID($idcadeira);
+        $this->response($data, parent::HTTP_OK);
+    }
+    
+    public function getStudentsSubjectAdmin_get(){
+        $this->verify_admin();
+        $idcadeira = htmlspecialchars($this->get('idcadeira'));
+        $users = $this->StudentListModel->getStudentsbyCadeiraID($idcadeira);
+
+        $data["info"] = array();
+        for($i=0; $i < count($users); $i++) {
+            array_push($data["info"], $this->StudentListModel->getStudentsInfo($users[$i]["user_id"]));
+        }
+
+        $this->response($data, parent::HTTP_OK);
+    }
 
     //////////////////////////////////////////////////////////////
     //                         DELETE
@@ -601,6 +621,18 @@ class Api_Subject extends REST_Controller {
             $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
             $this->response($response, $status);
         }
+    }
+
+    public function deleteUserFromSubject_delete(){
+        $this->verify_admin();
+        $alunoEmail = htmlspecialchars($this->delete("aluno"));
+        $cadeiraid = htmlspecialchars($this->delete("cadeira"));
+
+        $this->load->model('SubjectModel');
+        $this->load->model('UserModel');
+        $aluno = $this->UserModel->getUserByEmail($alunoEmail);
+        $alunoid = $aluno->id;
+        $this->SubjectModel->deleteStudentSubject($alunoid,$cadeiraid);
     }
 
     //////////////////////////////////////////////////////////////

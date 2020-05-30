@@ -10,7 +10,6 @@ $(document).ready(() => {
 
     $("#entrega_h3").text("Entrega final:");
 
-    checkEntrega();
 
     //ENUNCIADO PROJETO --- 
 
@@ -118,8 +117,17 @@ $(document).ready(() => {
         if($("#file_submit").val() == ""){
             $("#enviado-erro").show().delay(2500).fadeOut();
         } else {
-            $("#form-submit-etapa").submit();
-            submit_etapa($("#file_submit").val().split('\\').pop());
+            if($("#file_submit")[0].files[0].size < 5024000){
+                $("#form-submit-etapa").submit();
+                submit_etapa($("#file_submit").val().split('\\').pop());
+            } else {
+                $("#enviado-erro").text("Ficheiro ultrapassa o limite de 5MB");
+                $("#enviado-erro").show().delay(2500).fadeOut();
+                $("#name-file-submit").text("Envie o ficheiro do enunciado");
+                $("#file-img-submit").attr('src',base_url+"images/icons/upload-solid.png");
+                $("#file_submit").val("");
+                e.preventDefault();
+            }
         }
     })
     
@@ -236,7 +244,8 @@ function getEtapas(proj_id){
         url: base_url + "api/getAllEtapas/" + proj_id,
         data: data_proj,
         success: function(data) {
-            makeEtapaDiv(data);
+            makeEtapaDiv(data["etapas"]);
+            checkEntrega(data["data_final"]);
         },
         error: function(data) {
             console.log("Erro na API - Get Etapa")
@@ -311,17 +320,14 @@ function makeEtapaDiv(data){
 }
 
 
-function checkEntrega(){
-    setTimeout(function(){
-        getEtapas(proj);
-        var datafinal = $(".etapasDIV").last().find("p:nth-child(2)").text();
-        if(datafinal == ''){
-           $("#entrega_h3").text("Entrega final: Ainda não definida");
-        } else {
-           $("#entrega_h3").text("Entrega final: " + datafinal);
-        }
-        
-   }, 1000);
+function checkEntrega(dateOld){
+
+    date = dateFormatter(new Date(dateOld));
+    if(date == ''){
+        $("#entrega_h3").text("Entrega final: Ainda não definida");
+    } else {
+        $("#entrega_h3").text("Entrega final: " + date);
+    }
 }
 
 // Este tem uma pequena alteração porque nao usa o button

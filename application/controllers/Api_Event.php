@@ -17,7 +17,9 @@ class Api_Event extends REST_Controller {
       $this->verify_request();
     }
 
-    public function event_delete($event_id) { 
+    public function event_delete($event_id) {
+      $event_id = htmlspecialchars($event_id);
+
       $user_id = $this->session->userdata('id');
 
       $this->load->model('EventModel');
@@ -30,6 +32,7 @@ class Api_Event extends REST_Controller {
     }
 
     public function going_delete($event_id) { 
+      $event_id = htmlspecialchars($event_id);
       $user_id = $this->session->userdata('id');
 
       $this->load->model('EventModel');
@@ -41,7 +44,8 @@ class Api_Event extends REST_Controller {
       $this->response(array(), parent::HTTP_OK);
     }
 
-    public function editGroupEvent_post($grupo){
+    public function editGroupEvent_post($grupo_id){
+      $grupo_id = htmlspecialchars($grupo_id);
        
       $data = array (
         "name" => htmlspecialchars($this->post("name")),
@@ -55,10 +59,14 @@ class Api_Event extends REST_Controller {
       
       // $data_Evento_Grupo = Array (
       //     "evento_id" => $evento_id,
-      //     "grupo_id" => $this->post("grupo_id"),   
+      //     "grupo_id" => $grupo_id,   
       // );
 
       // $this->EventModel->insertGroupEvent($data_Evento_Grupo);
+
+      // if ($this->EventModel->userRelatedToEvent($user_id, $event_id)){
+
+      // } 
       $this->response($data, parent::HTTP_OK);
     }
 

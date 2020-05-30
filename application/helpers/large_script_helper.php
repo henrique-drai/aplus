@@ -7,7 +7,7 @@ function large_script($m) {
     // $aluno["1"] = $m->student("Name", "Surname", "s1", "s1", "Descrição default.");
     // $aluno["2"] = $m->student("Adriana", "De", "s2", "s2", "Descrição default.");
     // $aluno["3"] = $m->student("Afonso", "JosÉ", "s3", "s3", "Descrição default.");
-    $aluno["4"] = $m->student("X Æ", "A-12", "s4", "s4", "Descrição default.");
+    $aluno["4"] = $m->student("Catarina", "Leite", "s4", "s4", "Esta é a nossa aluna principal, pelo que tem mais informação.");
     // $aluno["5"] = $m->student("Alessia", "Lopes", "s5", "s5", "Descrição default.");
     // $aluno["6"] = $m->student("Alexandre", "Antonio", "s6", "s6", "Descrição default.");
     // $aluno["7"] = $m->student("Alice", "Calretas", "s7", "s7", "Descrição default.");
@@ -115,8 +115,8 @@ function large_script($m) {
     // $aluno["109"] = $m->student("JoÃo", "Pedro", "s109", "s109", "Descrição default.");
     // $aluno["110"] = $m->student("JoÃo", "Pedro", "s110", "s110", "Descrição default.");
     // $aluno["111"] = $m->student("JoÃo", "Tiago", "s111", "s111", "Descrição default.");
-    // $aluno["112"] = $m->student("JoÃo", "Ye", "s112", "s112", "Descrição default.");
-    // $aluno["113"] = $m->student("JÉssica", "Meninas", "s113", "s113", "Descrição default.");
+    // $aluno["112"] = $m->student("JoÃo", "Martins", "s112", "s112", "Descrição default.");
+    // $aluno["113"] = $m->student("Jéssica", "Alves", "s113", "s113", "Descrição default.");
     $aluno["114"] = $m->student("Karolina", "Mazurek", "s114", "s114", "Descrição default.");
     // $aluno["115"] = $m->student("Kennedy", "Samuel", "s115", "s115", "Descrição default.");
     // $aluno["116"] = $m->student("Lara", "Isabel", "s116", "s116", "Descrição default.");
@@ -137,32 +137,32 @@ function large_script($m) {
     // $aluno["131"] = $m->student("Margarida", "Rodrigues", "s131", "s131", "Descrição default.");
     // $aluno["132"] = $m->student("Maria", "Ana", "s132", "s132", "Descrição default.");
     $aluno["133"] = $m->student("Maria", "Carolina", "s133", "s133", "Descrição default.");
-    // $aluno["134"] = $m->student("Maria", "Catarina", "s134", "s134", "Descrição default.");
-    // $aluno["135"] = $m->student("Maria", "Francisca", "s135", "s135", "Descrição default.");
-    // $aluno["136"] = $m->student("Maria", "Inês", "s136", "s136", "Descrição default.");
-    // $aluno["137"] = $m->student("Maria", "Leonor", "s137", "s137", "Descrição default.");
-    // $aluno["138"] = $m->student("Maria", "Leonor", "s138", "s138", "Descrição default.");
-    // $aluno["139"] = $m->student("Maria", "Rodrigues", "s139", "s139", "Descrição default.");
+    $aluno["134"] = $m->student("Maria", "Catarina", "s134", "s134", "Descrição default.");
+    $aluno["135"] = $m->student("Maria", "Francisca", "s135", "s135", "Descrição default.");
+    $aluno["136"] = $m->student("Maria", "Inês", "s136", "s136", "Descrição default.");
+    $aluno["137"] = $m->student("Maria", "Leonor", "s137", "s137", "Descrição default.");
+    $aluno["138"] = $m->student("Maria", "Leonor", "s138", "s138", "Descrição default.");
+    $aluno["139"] = $m->student("Maria", "Rodrigues", "s139", "s139", "Descrição default.");
     // $aluno["140"] = $m->student("Maria", "Teresa", "s140", "s140", "Descrição default.");
     // $aluno["141"] = $m->student("Mariana", "CÂmara", "s141", "s141", "Descrição default.");
     // $aluno["142"] = $m->student("Mariana", "De", "s142", "s142", "Descrição default.");
     $aluno["143"] = $m->student("Mariana", "Ferreira", "s143", "s143", "Descrição default.");
-    // $aluno["144"] = $m->student("Mariana", "Inês", "s144", "s144", "Descrição default.");
-    // $aluno["145"] = $m->student("Mariana", "Matias", "s145", "s145", "Descrição default.");
-    // $aluno["146"] = $m->student("Mariana", "Neves", "s146", "s146", "Descrição default.");
-    // $aluno["147"] = $m->student("Mariana", "Zurrapa", "s147", "s147", "Descrição default.");
-    // $aluno["148"] = $m->student("Marta", "Almeida", "s148", "s148", "Descrição default.");
-    // $aluno["149"] = $m->student("Marta", "Da", "s149", "s149", "Descrição default.");
-    // $aluno["150"] = $m->student("Marta", "Meira", "s150", "s150", "Descrição default.");
-    // $aluno["151"] = $m->student("Marta", "Ponciano", "s151", "s151", "Descrição default.");
-    // $aluno["152"] = $m->student("Marta", "Soares", "s152", "s152", "Descrição default.");
-    // $aluno["153"] = $m->student("Marta", "Sofia", "s153", "s153", "Descrição default.");
-    // $aluno["154"] = $m->student("Marta", "Sofia", "s154", "s154", "Descrição default.");
-    // $aluno["155"] = $m->student("Martim", "Da", "s155", "s155", "Descrição default.");
-    // $aluno["156"] = $m->student("Martim", "EstêvÃo", "s156", "s156", "Descrição default.");
-    // $aluno["157"] = $m->student("Mathias", "Alex", "s157", "s157", "Descrição default.");
-    // $aluno["158"] = $m->student("Matilde", "Maria", "s158", "s158", "Descrição default.");
-    // $aluno["159"] = $m->student("Miguel", "Afonso", "s159", "s159", "Descrição default.");
+    $aluno["144"] = $m->student("Mariana", "Inês", "s144", "s144", "Descrição default.");
+    $aluno["145"] = $m->student("Mariana", "Matias", "s145", "s145", "Descrição default.");
+    $aluno["146"] = $m->student("Mariana", "Neves", "s146", "s146", "Descrição default.");
+    $aluno["147"] = $m->student("Mariana", "Zurrapa", "s147", "s147", "Descrição default.");
+    $aluno["148"] = $m->student("Marta", "Almeida", "s148", "s148", "Descrição default.");
+    $aluno["149"] = $m->student("Marta", "Da", "s149", "s149", "Descrição default.");
+    $aluno["150"] = $m->student("Marta", "Meira", "s150", "s150", "Descrição default.");
+    $aluno["151"] = $m->student("Marta", "Ponciano", "s151", "s151", "Descrição default.");
+    $aluno["152"] = $m->student("Marta", "Soares", "s152", "s152", "Descrição default.");
+    $aluno["153"] = $m->student("Marta", "Sofia", "s153", "s153", "Descrição default.");
+    $aluno["154"] = $m->student("Marta", "Sofia", "s154", "s154", "Descrição default.");
+    $aluno["155"] = $m->student("Martim", "Da", "s155", "s155", "Descrição default.");
+    $aluno["156"] = $m->student("Martim", "EstêvÃo", "s156", "s156", "Descrição default.");
+    $aluno["157"] = $m->student("Mathias", "Alex", "s157", "s157", "Descrição default.");
+    $aluno["158"] = $m->student("Matilde", "Maria", "s158", "s158", "Descrição default.");
+    $aluno["159"] = $m->student("Miguel", "Afonso", "s159", "s159", "Descrição default.");
     $aluno["160"] = $m->student("Miguel", "Alexandre", "s160", "s160", "Descrição default.");
     // $aluno["161"] = $m->student("Miguel", "Alexandre", "s161", "s161", "Descrição default.");
     // $aluno["162"] = $m->student("Miguel", "Laranjeira", "s162", "s162", "Descrição default.");
@@ -224,7 +224,7 @@ function large_script($m) {
     $prof["2"] = $m->teacher("José", "Andrade", "t2", "t2", "Descrição default.", "6.1.123");
     $prof["3"] = $m->teacher("João", "Sousa", "t3", "t3", "Descrição default.", "6.1.4");
     $prof["4"] = $m->teacher("Amélia", "Silva", "t4", "t4", "Descrição default.", "6.1.3");
-    $prof["5"] = $m->teacher("Cristina", "Ye", "t5", "t5", "Descrição default.", "6.1.64");
+    $prof["5"] = $m->teacher("Cristina", "Soares", "t5", "t5", "Descrição default.", "6.1.64");
     $prof["6"] = $m->teacher("Ana", "Pereira", "t6", "t6", "Descrição default.", "6.1.34");
     $prof["7"] = $m->teacher("Maria", "José", "t7", "t7", "Descrição default.", "6.1.29");
     $prof["8"] = $m->teacher("André", "João", "t8", "t8", "Descrição default.", "6.1.1");
@@ -233,12 +233,16 @@ function large_script($m) {
     $prof["11"] = $m->teacher("Marilia", "Santana", "t11", "t11", "Descrição default.", "6.1.13");
     $prof["12"] = $m->teacher("Cecilia", "Brás", "t12", "t12", "Descrição default.", "6.1.12");
     $prof["13"] = $m->teacher("Joana", "Gomes", "t13", "t13", "Descrição default.", "6.1.11");
+    $prof["14"] = $m->teacher("Miguel", "Gomes", "t14", "t14", "Descrição default.", "");
 
     $faculdade["1"] = $m->faculdade("Faculdade de Ciências da Universidade de Lisboa", "FCUL", "Campo Grande");
+    $faculdade["2"] = $m->faculdade("Faculdade de Belas-Artes da Universidade de Lisboa", "FBAUL", "Largo da Academia Nacional de Belas Artes");
+    $faculdade["3"] = $m->faculdade("Instituto Superior de Economia e Gestão da Universidade de Lisboa", "ISEG", "Rua do Quelhas 6");
 
     $ano["1"] = $m->ano_letivo("2019", "2020");
 
     $curso = array();
+    #FCUL
     $curso["1"] = $m->curso($faculdade["1"], $ano["1"], "9011", "Biologia", "A Biologia visa a aprendizagem dos conceitos fundamentais inerentes aos sistemas vivos, afirmando-se como uma das ciências com maior desenvolvimento e impacto nas sociedades modernas. Desde a sequenciação de vários genomas, nomeadamente o da espécie humana e de várias espécies agrícolas de que depende a nossa sobrevivência como sociedade, aos problemas de sustentabilidade dos ecossistemas e da conservação da biodiversidade, as implicações sociais e culturais da Biologia atingem escalas sem precedência na história da humanidade. A FCUL tem larga tradição e grandes responsabilidades no ensino da Biologia já que em anos recentes se tem afirmado como a escola de referência nesta área científica, cativando mais alunos e com melhores médias académicas que qualquer outra a nível nacional. Na base deste sucesso de cativação de alunos tem estado um esquema de entrada única, sólida formação pluridisciplinar nos dois primeiros anos (tronco comum) e um leque de opções académicas de especialização que mais nenhuma escola oferece.");
     $curso["2"] = $m->curso($faculdade["1"], $ano["1"], "9015", "Bioquímica", "A Licenciatura em Bioquímica confere o título de bioquímico e tem como objetivos principais: - Formar profissionais com uma sólida formação científica em Ciências da Vida, tanto teórica como experimental, e com uma forte componente de iniciação à investigação; - Ministrar um núcleo de conhecimentos nas áreas científicas de Química, Física, Biologia, Matemática, Estatística e Informática com vista a proporcionar aos estudantes uma ampla formação básica para, no futuro, abordarem problemas de índole bioquímica diversa. Esta formação inicial é incluída maioritariamente nos dois primeiros semestres da Licenciatura; - Providenciar uma formação extensiva e transversal nas várias áreas da Bioquímica, central para o prosseguimento de carreiras nas áreas acima mencionadas. Esta formação, com forte componente prática, é fornecida no segundo e terceiro anos da Licenciatura. Competências: Planeamento, gestão e execução de projetos em diversas áreas das ciências da vida como a neuroquímica, oncobiologia, biologia de sistemas, bioinformática, biotecnologia, biologia molecular, metabolómica, genómica, proteómica ou biofísica molecular. Implementação de métodos bioquímicos analíticos em laboratórios clínicos ou de serviços.");
     $curso["3"] = $m->curso($faculdade["1"], $ano["1"], "L096", "Engenharia Geoespacial", "A área da Engenharia Geoespacial apresenta uma visão moderna e atualizada da área da Informação Geográfica e Cartográfica, hoje designada de Informação GeoEspacial ou Informação Espacial Georreferenciada. A Informação Geoespacial é toda a informação associada a uma localização, ela é fundamental no planeamento, na gestão e ordenamento do território, ao nível do ambiente, da segurança, das infraestruturas e da administração pública; é fundamental no planeamento e gestão de serviços localizados, como os sectores convencionais da água, da energia e das telecomunicações, ou os sectores emergente de serviços baseados na localização móvel, como todos os serviços bem conhecidos e disponibilizados pela Internet nas aplicações dos telemóveis ou na Web.");
@@ -257,8 +261,14 @@ function large_script($m) {
     $curso["16"] = $m->curso($faculdade["1"], $ano["1"], "9811", "Engenharia da Energia e do Ambiente", "O desafio da transição para um sistema sustentável de energia exige competências transdisciplinares que os tradicionais cursos de engenharia não podem oferecer. O Mestrado Integrado em Engenharia da Energia e do Ambiente pretende colmatar essas necessidades, formando profissionais de engenharia de conceção com capacidade de intervenção nas áreas das energias renováveis e eficiência energética mas sempre com sensibilidade para os impactos ambientais associados às tecnologias energéticas.");
     $curso["17"] = $m->curso($faculdade["1"], $ano["1"], "9368", "Engenharia Física", "O Mestrado Integrado em Engenharia Física visa a formação de profissionais com sólida formação científica e técnica em diferentes áreas do domínio da engenharia e tecnologias físicas. A perspetiva de formação é a de inserir o estudante e futuro profissional nas problemáticas associadas aos fenómenos físicos que estão na base da inovação tecnológica, dotando-os para isso de conhecimentos sólidos em física fundamental e de uma compreensão das abordagens de engenharia, ao mesmo tempo que os coloca em contacto com áreas de aplicação em que a Física é fundamental.");
 
+    #FBAUL
+    $curso["18"] = $m->curso($faculdade["2"], $ano["1"], "5251", "Arte Multimédia", "Licenciatura em Arte Multimédia constitui a resposta à necessidade contemporânea de uma formação universitária capaz de integrar, de forma multidisciplinar, diferentes práticas de criação, experimentação e teorização artísticas e estéticas, preparando os estudantes para os novos desafios da criação, da produção visual e da interatividade, na sua dupla vertente conceptual e operativa.");
+    $curso["19"] = $m->curso($faculdade["2"], $ano["1"], "5252", "Ciências da Arte e do Património", "Esta licenciatura/1º ciclo de estudos em Ciências da Arte e do Património visa proporcionar formação geral em três domínios, a saber, a Crítica de Arte, a Museologia e a Curadoria de Exposições e a Conservação e Restauro de obras de arte, através de uma formação de base artística, com os necessários complementos de formação científica e técnica e de formação humanística.");
+
+
 
     $cadeira = array();
+    #FCUL
     $cadeira["1"] = $m->cadeira($curso["1"], "66506", "Biologia Animal I", "BAni-I", 1, "Descrição default.", "#ffb3ec");
     $cadeira["2"] = $m->cadeira($curso["1"], "67589", "Biologia Celular", "BCelu", 1, "Descrição default.", "#e6b3ff");
     $cadeira["3"] = $m->cadeira($curso["1"], "66522", "História das Ideias em Biologia", "HIB", 1, "Descrição default.", "#b3b3ff");
@@ -362,6 +372,49 @@ function large_script($m) {
     // $cadeira["98"] = $m->cadeira($curso["4"], "26731", "Projeto de Sistemas de Informação", "PSI", 2, "Descrição default.", "#ffb3ec");
     // $cadeira["99"] = $m->cadeira($curso["4"], "26749", "Segurança e Confiabilidade", "SConf", 2, "Descrição default.", "#ffb3ec");
     
+    #FBAUL
+    $cadeira["100"] = $m->cadeira($curso["18"], "50123", "Artes Digitais", "ArDi", 1, "Descrição default.", "#ffb3ec");
+    $cadeira["101"] = $m->cadeira($curso["18"], "50124", "Computação Multimedia", "CM", 1, "Descrição default.", "#e6b3ff");
+    $cadeira["102"] = $m->cadeira($curso["18"], "50125", "Experiencia da Interação", "ExpInt", 1, "Descrição default.", "#b3b3ff");
+    $cadeira["103"] = $m->cadeira($curso["18"], "50126", "Fotografia Experimental", "FExp", 1, "Descrição default.", "#99ebff");
+    $cadeira["104"] = $m->cadeira($curso["18"], "50127", "Praticas do Som", "PS", 1, "Descrição default.", "#80ffdf");
+    $cadeira["105"] = $m->cadeira($curso["18"], "50128", "Projeto Design", "PD", 1, "Descrição default.", "#80ff80");
+    $cadeira["106"] = $m->cadeira($curso["18"], "50129", "Teoria da Imagem I", "TI-I", 1, "Descrição default.", "#d5ff80");
+    $cadeira["107"] = $m->cadeira($curso["18"], "50130", "Animação Digital", "AD", 1, "Descrição default.", "#ffff80");
+    $cadeira["108"] = $m->cadeira($curso["18"], "50131", "Animação e Movimento", "AM", 1, "Descrição default.", "#ffd480");
+    $cadeira["109"] = $m->cadeira($curso["18"], "50132", "Cultura Visual", "CV", 1, "Descrição default.", "#ffa8eb");
+    $cadeira["110"] = $m->cadeira($curso["19"], "50123", "Historia da Arte I", "HA-I", 1, "Descrição default.", "#ffb3ec");
+    $cadeira["111"] = $m->cadeira($curso["19"], "50124", "Historia e Teoria da Museologia", "HTM", 1, "Descrição default.", "#e6b3ff");
+    $cadeira["112"] = $m->cadeira($curso["19"], "50125", "Teorias da Arte", "TA", 1, "Descrição default.", "#b3b3ff");
+    $cadeira["113"] = $m->cadeira($curso["19"], "50126", "Desenho I", "Des-I", 1, "Descrição default.", "#99ebff");
+    $cadeira["114"] = $m->cadeira($curso["19"], "50127", "Geometria I", "Geo-I", 1, "Descrição default.", "#80ffdf");
+    $cadeira["115"] = $m->cadeira($curso["19"], "50128", "Estética I", "Est-I", 1, "Descrição default.", "#80ff80");
+    $cadeira["116"] = $m->cadeira($curso["19"], "50129", "Museologia e Curadoria", "MC", 1, "Descrição default.", "#d5ff80");
+    $cadeira["117"] = $m->cadeira($curso["19"], "50130", "Design Museográfico", "DM", 1, "Descrição default.", "#ffff80");
+    $cadeira["118"] = $m->cadeira($curso["19"], "50131", "Historia e Teoria do Restauro", "HTR", 1, "Descrição default.", "#ffd480");
+    $cadeira["119"] = $m->cadeira($curso["19"], "50132", "Teoria da Escultura Portuguesa", "TEP", 1, "Descrição default.", "#ffa8eb");
+
+    $cadeira["120"] = $m->cadeira($curso["18"], "50123", "Estudos dos Media", "EM", 2, "Descrição default.", "#ffb3ec");
+    $cadeira["121"] = $m->cadeira($curso["18"], "50124", "Fotografia", "Fot", 2, "Descrição default.", "#e6b3ff");
+    $cadeira["122"] = $m->cadeira($curso["18"], "50125", "Imagem em Movimento", "IM", 2, "Descrição default.", "#b3b3ff");
+    $cadeira["123"] = $m->cadeira($curso["18"], "50126", "Metodologia Projetual Multimedia", "MPM", 2, "Descrição default.", "#99ebff");
+    $cadeira["124"] = $m->cadeira($curso["18"], "50127", "Teoria da Imagem II", "TI-II", 2, "Descrição default.", "#80ffdf");
+    $cadeira["125"] = $m->cadeira($curso["18"], "50128", "Desenho de Património", "DP", 2, "Descrição default.", "#80ff80");
+    $cadeira["126"] = $m->cadeira($curso["18"], "50129", "Animação e Narrativa", "AN", 2, "Descrição default.", "#d5ff80");
+    $cadeira["127"] = $m->cadeira($curso["18"], "50130", "Audiovisuais", "AV", 2, "Descrição default.", "#ffff80");
+    $cadeira["128"] = $m->cadeira($curso["18"], "50131", "Sistemas Interativos", "SI", 2, "Descrição default.", "#ffd480");
+    $cadeira["129"] = $m->cadeira($curso["18"], "50132", "Performance", "P", 2, "Descrição default.", "#ffa8eb");
+    $cadeira["130"] = $m->cadeira($curso["18"], "50123", "Historia da Arte II", "HA-II", 2, "Descrição default.", "#ffb3ec");
+    $cadeira["131"] = $m->cadeira($curso["18"], "50124", "Artes e Humanidades", "AH", 2, "Descrição default.", "#e6b3ff");
+    $cadeira["132"] = $m->cadeira($curso["18"], "50125", "Museologia e Conservação", "MC", 2, "Descrição default.", "#b3b3ff");
+    $cadeira["133"] = $m->cadeira($curso["18"], "50126", "Desenho de Patrimonio", "DP", 2, "Descrição default.", "#99ebff");
+    $cadeira["134"] = $m->cadeira($curso["18"], "50127", "Materiais, Técnicas e Diagnóstico", "MTD", 2, "Descrição default.", "#80ffdf");
+    $cadeira["135"] = $m->cadeira($curso["18"], "50128", "Historia da Arte Portuguesa", "HAT", 2, "Descrição default.", "#80ff80");
+    $cadeira["136"] = $m->cadeira($curso["18"], "50129", "Desenho I", "Des-II", 2, "Descrição default.", "#d5ff80");
+    $cadeira["137"] = $m->cadeira($curso["18"], "50130", "Geometria I", "Geo-II", 2, "Descrição default.", "#ffff80");
+    $cadeira["138"] = $m->cadeira($curso["18"], "50131", "Estética I", "Est-II", 2, "Descrição default.", "#ffd480");
+    $cadeira["139"] = $m->cadeira($curso["18"], "50132", "Patrimonio e Arqueologia", "PA", 2, "Descrição default.", "#ffa8eb");
+
 
 
     $aula = array();
@@ -448,6 +501,69 @@ function large_script($m) {
     $aula["78"] = $m->aula($cadeira["85"], "TP", "15:30", "19:00", 3, "3.1.34");
     $aula["79"] = $m->aula($cadeira["90"], "PL", "15:30", "17:00", 2, "3.2.27");
     $aula["80"] = $m->aula($cadeira["90"], "T", "09:00", "11:30", 4, "4.1.21");
+
+    $aula["81"] = $m->aula($cadeira["100"], "TP", "8:00", "10:00", 1, "120");
+    $aula["82"] = $m->aula($cadeira["100"], "T", "10:00", "12:00", 1, "132");
+    $aula["83"] = $m->aula($cadeira["101"], "TP", "15:00", "17:00", 1, "121");
+    $aula["84"] = $m->aula($cadeira["101"], "T", "16:00", "18:00", 1, "125");
+    $aula["85"] = $m->aula($cadeira["102"], "T", "08:00", "11:00", 1, "112");
+    $aula["86"] = $m->aula($cadeira["102"], "TP", "12:00", "14:00", 1, "111");
+    $aula["87"] = $m->aula($cadeira["103"], "T", "09:00", "12:00", 1, "012");
+    $aula["88"] = $m->aula($cadeira["103"], "TP", "17:00", "19:00", 2, "321");
+    $aula["89"] = $m->aula($cadeira["104"], "T", "17:30", "19:30", 2, "412");
+    $aula["90"] = $m->aula($cadeira["105"], "T", "09:00", "12:00", 2, "415");
+    $aula["91"] = $m->aula($cadeira["106"], "T", "13:30", "16:30", 2, "418");
+    $aula["92"] = $m->aula($cadeira["106"], "T", "08:30", "10:30", 2, "118");
+    $aula["93"] = $m->aula($cadeira["107"], "TP", "14:30", "16:30", 2, "218");
+    $aula["94"] = $m->aula($cadeira["107"], "T", "14:30", "17:30", 3, "219");
+    $aula["95"] = $m->aula($cadeira["108"], "T", "08:00", "9:30", 3, "319");
+    $aula["96"] = $m->aula($cadeira["109"], "T", "09:30", "12:00", 3, "413");
+    $aula["97"] = $m->aula($cadeira["110"], "T", "15:00", "17:00", 3, "415");
+    $aula["98"] = $m->aula($cadeira["110"], "TP", "15:30", "19:00", 3, "334");
+    $aula["99"] = $m->aula($cadeira["111"], "T", "15:30", "17:00", 3, "327");
+    $aula["100"] = $m->aula($cadeira["112"], "T", "09:00", "11:30", 3, "421");
+    $aula["101"] = $m->aula($cadeira["113"], "TP", "12:00", "13:30", 4, "124");
+    $aula["102"] = $m->aula($cadeira["113"], "T", "10:00", "12:00", 4, "324");
+    $aula["103"] = $m->aula($cadeira["114"], "TP", "15:30", "17:00", 4, "302");
+    $aula["104"] = $m->aula($cadeira["115"], "T", "16:30", "18:00", 4, "312");
+    $aula["105"] = $m->aula($cadeira["116"], "T", "08:00", "9:30", 4, "222");
+    $aula["106"] = $m->aula($cadeira["117"], "TP", "12:00", "13:00", 4, "127");
+    $aula["107"] = $m->aula($cadeira["118"], "T", "09:00", "12:00", 5, "124");
+    $aula["108"] = $m->aula($cadeira["118"], "TP", "17:30", "19:00", 5, "203");
+    $aula["109"] = $m->aula($cadeira["119"], "T", "18:00", "19:30", 5, "322");
+
+    $aula["110"] = $m->aula($cadeira["120"], "T", "09:00", "11:30", 1, "214");
+    $aula["111"] = $m->aula($cadeira["121"], "T", "13:30", "16:00", 1, "124");
+    $aula["112"] = $m->aula($cadeira["122"], "T", "08:00", "09:00", 1, "234");
+    $aula["113"] = $m->aula($cadeira["122"], "TP", "14:30", "16:00", 1, "322");
+    $aula["114"] = $m->aula($cadeira["123"], "TP", "14:30", "18:00", 1, "428");
+    $aula["115"] = $m->aula($cadeira["123"], "T", "08:00", "9:30", 1, "417");
+    $aula["116"] = $m->aula($cadeira["124"], "T", "09:30", "12:00", 1, "424");
+    $aula["117"] = $m->aula($cadeira["125"], "T", "15:00", "17:00", 1, "424");
+    $aula["118"] = $m->aula($cadeira["125"], "TP", "15:30", "19:00", 2, "334");
+    $aula["119"] = $m->aula($cadeira["126"], "T", "15:30", "17:00", 2, "323");
+    $aula["120"] = $m->aula($cadeira["127"], "T", "09:00", "11:30", 2, "411");
+    $aula["101"] = $m->aula($cadeira["128"], "TP", "12:00", "13:30", 2, "125");
+    $aula["102"] = $m->aula($cadeira["128"], "T", "10:00", "12:00", 2, "325");
+    $aula["103"] = $m->aula($cadeira["129"], "TP", "15:30", "17:00", 2, "305");
+    $aula["104"] = $m->aula($cadeira["129"], "T", "16:30", "18:00", 3, "314");
+    $aula["105"] = $m->aula($cadeira["130"], "T", "08:00", "9:30", 3, "225");
+    $aula["106"] = $m->aula($cadeira["131"], "TP", "12:00", "13:00", 3, "128");
+    $aula["107"] = $m->aula($cadeira["131"], "T", "09:00", "12:00", 3, "111");
+    $aula["108"] = $m->aula($cadeira["132"], "TP", "17:30", "19:00", 3, "209");
+    $aula["109"] = $m->aula($cadeira["132"], "T", "18:00", "19:30", 3, "132");
+    $aula["110"] = $m->aula($cadeira["133"], "T", "09:00", "11:30", 3, "227");
+    $aula["111"] = $m->aula($cadeira["133"], "T", "13:30", "16:00", 3, "129");
+    $aula["112"] = $m->aula($cadeira["133"], "T", "08:00", "09:00", 4, "239");
+    $aula["113"] = $m->aula($cadeira["133"], "TP", "14:30", "16:00", 4, "329");
+    $aula["114"] = $m->aula($cadeira["134"], "TP", "14:30", "18:00", 4, "412");
+    $aula["115"] = $m->aula($cadeira["134"], "T", "08:00", "9:30", 4, "431");
+    $aula["116"] = $m->aula($cadeira["135"], "T", "09:30", "12:00", 4, "429");
+    $aula["117"] = $m->aula($cadeira["136"], "T", "15:00", "17:00", 4, "420");
+    $aula["118"] = $m->aula($cadeira["137"], "TP", "15:30", "19:00", 5, "330");
+    $aula["119"] = $m->aula($cadeira["137"], "T", "15:30", "17:00", 5, "325");
+    $aula["120"] = $m->aula($cadeira["138"], "T", "09:00", "11:30", 5, "410");
+    $aula["120"] = $m->aula($cadeira["139"], "T", "14:00", "16:00", 5, "410");
 
     $m->batch("aluno_curso", Array(
       Array("user_id"=> $aluno["199"], "curso_id"=>$curso["1"], "data_entrada"=>"2019"),
@@ -843,6 +959,9 @@ function large_script($m) {
       Array("user_id"=> $prof["13"], "cadeira_id"=>$cadeira["89"]),
       Array("user_id"=> $prof["10"], "cadeira_id"=>$cadeira["90"]),
       Array("user_id"=> $prof["11"], "cadeira_id"=>$cadeira["90"]),
+      Array("user_id"=> $prof["1"], "cadeira_id"=>$cadeira["28"]),
+      Array("user_id"=> $prof["1"], "cadeira_id"=>$cadeira["24"]),
+
 
     ));
 
@@ -1052,39 +1171,44 @@ function large_script($m) {
 
 
     $thread = array();
-    $thread["1"] = $m->thread($prof["1"], $forum["1"], "Avaliação da cadeira", "Testes e 3 projetos ao longo do semestre", "2020-04-13 11:00:00");
+    $thread["1"] = $m->thread($prof["1"], $forum["1"], "Avaliação da cadeira", "Testes e 3 projetos ao longo do semestre", "2020-05-13 11:00:00");
     $thread["2"] = $m->thread($prof["1"], $forum["3"], "Avaliação da cadeira", "Testes ao longo do semestre", "2020-04-13 11:00:00");
-    $thread["3"] = $m->thread($prof["7"], $forum["5"], "Avaliação da cadeira", "3 projetos ao longo do semestre", "2020-04-13 11:00:00");
+    $thread["3"] = $m->thread($prof["7"], $forum["5"], "Avaliação da cadeira", "3 projetos ao longo do semestre", "2020-05-13 11:00:00");
     $thread["4"] = $m->thread($prof["7"], $forum["7"], "Avaliação da cadeira", "Exame final e 5 projetos ao longo do semestre", "2020-04-13 11:00:00");
     $thread["5"] = $m->thread($prof["7"], $forum["8"], "Dúvidas", "Dúvidas expostas pelos alunos", "2020-04-13 11:00:00");
 
 
     $thread_post = array();
-    $thread_post["1"] = $m->thread_post($thread["1"], $prof["1"], "Testes e 3 projetos ao longo do semestre", "2020-04-13 11:00:00");
-    $thread_post["2"] = $m->thread_post($thread["2"], $prof["1"], "Testes ao longo do semestre", "2020-04-13 11:00:00");
+    $thread_post["1"] = $m->thread_post($thread["1"], $prof["1"], "Testes e 3 projetos ao longo do semestre", "2020-05-13 11:00:00");
+    $thread_post["2"] = $m->thread_post($thread["2"], $prof["1"], "Testes ao longo do semestre", "2020-05-13 11:00:00");
     $thread_post["3"] = $m->thread_post($thread["3"], $prof["7"], "3 projetos ao longo do semestre", "2020-04-13 11:00:00");
-    $thread_post["4"] = $m->thread_post($thread["4"], $prof["7"], "Exame final e 5 projetos ao longo do semestre", "2020-04-13 11:00:00");
+    $thread_post["4"] = $m->thread_post($thread["4"], $prof["7"], "Exame final e 5 projetos ao longo do semestre", "2020-05-13 11:00:00");
 
     
     $projeto = array();
     $projeto["1"] = $m->projeto($cadeira["1"], "Evolução da Ciência", "Relatório sobre a seleção natural.", 1, 2, "");
     $projeto["2"] = $m->projeto($cadeira["63"], "Cadastro Predial do Município", "Fazer um relatório onde exploram o cadastro predial do vosso município.", 1, 2, "");
     $projeto["3"] = $m->projeto($cadeira["83"], "Spotipy em Haskell", "Implementem o Spotipy em Haskell.", 1, 2, "");
-
+    $projeto["4"] = $m->projeto($cadeira["88"], "A matemática na natureza", "Os objetivos deste projeto são óbvios, no need to describe them.", 1, 3, "");
+    $projeto["5"] = $m->projeto($cadeira["88"], "Projeto Final", "Os objetivos deste projeto não são tão óbvios.", 1, 3, "");
 
     $etapa = array();
-    $etapa["1"] = $m->etapa($projeto["3"], "2020-05-06 23:00:00", "", "Pesquisa", "Façam pesquisa sobre o Spotipy.");
-    $etapa["2"] = $m->etapa($projeto["3"], "2020-05-06 23:00:00", "", "Pesquisa2", "Façam pesquisa sobre como programar em Haskell.");
+    $etapa["1"] = $m->etapa($projeto["3"], "2020-06-06 23:00:00", "", "Pesquisa", "Façam pesquisa sobre o Spotipy.");
+    $etapa["2"] = $m->etapa($projeto["3"], "2020-05-06 23:00:00", "", "Planeamento", "Façam pesquisa sobre como programar em Haskell.");
     $etapa["3"] = $m->etapa($projeto["3"], "2020-07-21 23:55:00", "", "Implementação", "Implementar o Spotipy em Haskell.");
     $etapa["4"] = $m->etapa($projeto["1"], "2020-06-06 23:00:00", "", "Pesquisa", "Pesquisar sobre Charles Darwin.");
     $etapa["5"] = $m->etapa($projeto["1"], "2020-06-21 23:55:00", "", "Implementação", "Fazer relatório.");
     $etapa["6"] = $m->etapa($projeto["2"], "2020-06-06 23:00:00", "", "Pesquisa", "Procurar cadástro de Almada.");
     $etapa["7"] = $m->etapa($projeto["2"], "2020-06-21 23:55:00", "", "Implementação", "Fazer relatório.");
+    $etapa["8"] = $m->etapa($projeto["4"], "2020-05-21 23:55:00", "", "Fazer continhas", "Esta etapa já acabou.");
+    $etapa["9"] = $m->etapa($projeto["5"], "2020-06-21 23:55:00", "", "Fazer continhas outra vez", "Esta etapa ainda não acabou.");
 
     $grupo = array();
     $grupo["1"] = $m->grupo($projeto["3"], "gangdogpl");
     $grupo["2"] = $m->grupo($projeto["3"], "itachi");
     $grupo["3"] = $m->grupo($projeto["3"], "nota_21");
+    $grupo["4"] = $m->grupo($projeto["4"], "1");
+    $grupo["5"] = $m->grupo($projeto["4"], "2");
 
     $m->batch("grupo_aluno", Array(
       Array("user_id"=> $aluno["96"],  "grupo_id"=>$grupo["1"]),
@@ -1094,6 +1218,7 @@ function large_script($m) {
       Array("user_id"=> $aluno["4"],  "grupo_id"=>$grupo["1"]),
       Array("user_id"=> $aluno["188"],  "grupo_id"=>$grupo["3"]),
       Array("user_id"=> $aluno["206"],  "grupo_id"=>$grupo["3"]),
+      Array("user_id"=> $aluno["4"],  "grupo_id"=>$grupo["4"]),
     ));
 
     $m->etapa_submit($grupo["1"], $etapa["1"], "URL-FALSO-HEHE-XD.pdf");
@@ -1103,10 +1228,10 @@ function large_script($m) {
     $horario["2"] = $m->horario_duvidas($cadeira["83"], $prof["7"], "12:00:00", "13:00:00", "Quinta-feira");
 
     $evento = array();
-    $evento["1"] = $m->evento("2020-05-25 11:00:00", "2020-05-25 12:30:00", "Reunião de Grupo", "Discutir distribuição do trabalho.", "FCUL");
-    $evento["2"] = $m->evento("2020-05-25 11:30:00", "2020-05-25 13:00:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) Maria José 1", "6.1.29", $horario["1"]);
-    $evento["3"] = $m->evento("2020-05-27 11:00:00", "2020-05-27 12:30:00", "Decidir Framework", "Esta descrição descreve o evento. 2", "Azenhas");
-    $evento["4"] = $m->evento("2020-05-28 12:00:00", "2020-05-28 13:00:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) Maria José 2", "6.1.29", $horario["2"]);
+    $evento["1"] = $m->evento("2020-06-18 11:00:00", "2020-06-18 12:30:00", "Reunião de Grupo", "Discutir distribuição do trabalho.", "FCUL");
+    $evento["2"] = $m->evento("2020-06-25 11:30:00", "2020-06-25 13:00:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) Maria José 1", "6.1.29", $horario["1"]);
+    $evento["3"] = $m->evento("2020-06-17 11:00:00", "2020-06-17 12:30:00", "Decidir Framework", "Esta descrição descreve o evento. 2", "Azenhas");
+    $evento["4"] = $m->evento("2020-06-18 12:00:00", "2020-06-18 13:00:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) Maria José 2", "6.1.29", $horario["2"]);
 
     $m->batch("evento_grupo", Array(
       Array("evento_id"=> $evento["1"],  "grupo_id"=>$grupo["1"]),
@@ -1118,10 +1243,10 @@ function large_script($m) {
       Array("evento_id"=> $evento["3"],  "user_id"=>$aluno["4"]),
     ));
 
-    $m->notification($aluno["4"], "message", "Mensagem de João Ye", "Então?", "app/profile/2801", false, "2020-04-09 11:30:31");
-    $m->notification($aluno["4"], "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "app/profile/2", false, "2020-04-09 11:30:35");
-    $m->notification($aluno["4"], "alert", "Falhaste uma entrega", "Teatro", "subjects/subject/TEA84/2019", false, "2020-04-09 11:30:30");
-    $m->notification($aluno["4"], "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "app/profile/62", true, "2020-04-09 11:30:33");
+    $m->notification($aluno["4"], "message", "Mensagem de João Ye", "Então?", "app/profile/2801", false, "2020-05-19 11:30:31");
+    $m->notification($aluno["4"], "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "app/profile/2", false, "2020-05-30 11:30:35");
+    $m->notification($aluno["4"], "alert", "Falhaste uma entrega", "Teatro", "subjects/subject/TEA84/2019", false, "2020-05-29 11:30:30");
+    $m->notification($aluno["4"], "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "app/profile/62", true, "2020-05-29 11:30:33");
         
     $execution_time = microtime(true) - $time_start;
 

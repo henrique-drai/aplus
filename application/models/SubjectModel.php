@@ -38,6 +38,16 @@ class SubjectModel extends CI_Model { //cadeira
         return $query->row();
     }
 
+    public function getSubjectAndYearById($id) {
+        $id = $this->db->escape($id);
+        $query = "select * 
+            from curso, cadeira, ano_letivo
+            where cadeira.curso_id = curso.id 
+            and curso.ano_letivo_id = ano_letivo.id 
+            and cadeira.id = $id";
+        return $this->db->query($query)->row();
+    }
+
     public function getCadeiras($id, $role) {
         $this->db->select("cadeira_id");
         $this->db->where(array('user_id =' => $id));
@@ -263,5 +273,10 @@ class SubjectModel extends CI_Model { //cadeira
 
     public function verifyTeacherSubject($user_id, $cadeira_id){
         return $this->db->get_where("professor_cadeira", array("user_id" => $user_id, "cadeira_id" => $cadeira_id))->row();
+    }
+
+    public function deleteStudentSubject($user_id, $cadeira_id){
+        $query = $this->db->delete('aluno_cadeira', array('user_id'=>$user_id, 'cadeira_id'=>$cadeira_id));
+
     }
 }

@@ -96,14 +96,15 @@ class App extends CI_Controller {
         }
         
         //verificar se o grupo id está vazio ou se o grupo nao existe - usar get grupo by id
-        $grupo = $this->GroupModel->getGroupById($grupo_id);
+        $grupos = $this->GroupModel->getGroupById($grupo_id);
 
-        if(empty($grupo)){
-            $this->load->view('errors/404'); return null;
-        }
+        if(empty($grupos)){$this->load->view('errors/404'); return null;}
+
+        $grupo = $grupos[0];
 
         $data["base_url"] = base_url();
-        $data["grupo"] = $grupo[0];
+        $data["grupo"] = $grupo;
+        $data["info"] = $this->GroupModel->getProjectAndSubjectInfo($grupo_id);
 
         if($this->session->userdata('role') == "student"){
             $this->load->view('templates/head');
@@ -184,6 +185,33 @@ class App extends CI_Controller {
         $this->load->view('admin/'.$page, $data);
         $this->load->view('templates/footer');
     }
+
+     //app/adminsubject/:subjectid
+     public function adminsubject($subject_id = null){
+        $data["base_url"] = base_url();
+
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403', $data); return null;
+        }
+
+        $this->load->model('SubjectModel');
+        //verificar se o grupo id é null - usar get grupo by id
+
+        $data["subject"] = $this->SubjectModel->getSubjectByID($subject_id);
+
+        if(empty($data["subject"])){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        $this->load->view('templates/head', $data);
+        //escolher que página deve ser mostrada
+        switch ($this->session->userdata('role')) {
+            case 'admin': $this->load->view('admin/subject', $data); break;
+        }
+        $this->load->view('templates/footer');
+    }
+
 
     //app/profile/:user_id
     public function profile($user_id = null)

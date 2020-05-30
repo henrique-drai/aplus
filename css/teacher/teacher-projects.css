@@ -41,8 +41,8 @@ textarea{
     }
 
     #removeEnunciado {
-        margin-left: 96px;
-        margin-top: -62px;
+        margin-left: 110px;
+        margin-top: -70px;
         width: 30px;
         position: absolute;
     }
@@ -53,8 +53,12 @@ textarea{
     margin:unset;
 }
 
-.cd-popup-container .cd-buttons li:first-child a {
-    background-color: #3e5d4f;
+#top-file{
+    margin:unset;
+}
+
+#warning-top {
+    margin-left: 12px;
 }
 
 input.remove{

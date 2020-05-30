@@ -370,6 +370,7 @@ function insertTaskStartDate(task_id) {
         url: base_url + "api/insertTaskStartDate/" + task_id,
         data: {grupo_id: localStorage.grupo_id, user_id: localStorage.user_id},
         success: function (data) {
+            console.log(data)
             $(".start").empty();
             $(".start").append("<p>" + data + "</p>");
         },

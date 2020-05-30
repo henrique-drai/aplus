@@ -96,14 +96,15 @@ class App extends CI_Controller {
         }
         
         //verificar se o grupo id está vazio ou se o grupo nao existe - usar get grupo by id
-        $grupo = $this->GroupModel->getGroupById($grupo_id);
+        $grupos = $this->GroupModel->getGroupById($grupo_id);
 
-        if(empty($grupo)){
-            $this->load->view('errors/404'); return null;
-        }
+        if(empty($grupos)){$this->load->view('errors/404'); return null;}
+
+        $grupo = $grupos[0];
 
         $data["base_url"] = base_url();
-        $data["grupo"] = $grupo[0];
+        $data["grupo"] = $grupo;
+        $data["info"] = $this->GroupModel->getProjectAndSubjectInfo($grupo_id);
 
         if($this->session->userdata('role') == "student"){
             $this->load->view('templates/head');

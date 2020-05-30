@@ -140,6 +140,9 @@ $route['api/getSearchTeaStu']                   = 'Api_User/getSearchStudentTeac
 $route['api/sendMessage']                       = 'Api_Chat/sendMessage';
 
 
+# ROUTER.php
+$route['route/subject/(:num)']                  = 'Router/subjectById/$1';
+
 
 $route['default_controller'] = 'landing';
 $route['404_override'] = '';

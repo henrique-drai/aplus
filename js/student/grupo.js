@@ -270,7 +270,7 @@ function insertTask(taskName, taskDesc, taskMember) {
 
             getTasks();
             
-            $(".message").append("Tarefa adicionada com sucesso!");
+            $(".message").html("Tarefa adicionada com sucesso!");
             $(".message").fadeTo(2000, 1);
             setTimeout(function() {
                 $(".message").fadeTo(2000, 0);
@@ -313,7 +313,7 @@ function getTasks() {
                 table = table + "</table>"
                 $(".tasksTable").html(table);
             } else {
-                $(".tasksTable").append("<p>Não existem tarefas.</p>");
+                $(".tasksTable").html("<p>Não existem tarefas.</p>");
                 $("#editTarefa").css('visibility', 'hidden');
                 $("#deleteTarefa").css('visibility', 'hidden');
                 
@@ -349,7 +349,7 @@ function deleteTaskById(id) {
             $(".cd-popup").css('opacity', '0');
 
             getTasks();
-            $(".message").append("Tarefa eliminada com sucesso!");
+            $(".message").html("Tarefa eliminada com sucesso!");
             $(".message").fadeTo(2000, 1);
             setTimeout(function () {
                 $(".message").fadeTo(2000, 0);
@@ -374,7 +374,7 @@ function insertTaskStartDate(task_id) {
             $(".start").append("<p>" + data + "</p>");
         },
         error: function (data) {
-            alert("Houve um erro a remover a tarefa.")
+            alert("Houve um erro a inserir a data-inicio da tarefa.")
             console.log(data)
 
         }
@@ -391,7 +391,7 @@ function insertTaskEndDate(task_id) {
             $(".end").append("<p>" + data + "</p>");
         },
         error: function (data) {
-            alert("Houve um erro a remover a tarefa.")
+            alert("Houve um erro a inserir a data-fim da tarefa.")
             console.log(data)
 
         }

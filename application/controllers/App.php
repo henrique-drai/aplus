@@ -185,6 +185,33 @@ class App extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+     //app/adminsubject/:subjectid
+     public function adminsubject($subject_id = null){
+        $data["base_url"] = base_url();
+
+        //verificar se a pessoa fez login
+        if(is_null($this->session->userdata('role'))){
+            $this->load->view('errors/403', $data); return null;
+        }
+
+        $this->load->model('SubjectModel');
+        //verificar se o grupo id é null - usar get grupo by id
+
+        $data["subject"] = $this->SubjectModel->getSubjectByID($subject_id);
+
+        if(empty($data["subject"])){
+            $this->load->view('errors/404', $data); return null;
+        }
+
+        $this->load->view('templates/head', $data);
+        //escolher que página deve ser mostrada
+        switch ($this->session->userdata('role')) {
+            case 'admin': $this->load->view('admin/subject', $data); break;
+        }
+        $this->load->view('templates/footer');
+    }
+
+
     //app/profile/:user_id
     public function profile($user_id = null)
     {

@@ -37,7 +37,7 @@ label[for="curso"]{
     width: 48%;
 }
 
-#register-cadeiras-form input, #register-cadeiras-form textarea, #register-cursos-form input{
+#register-cadeiras-form input, #register-cadeiras-form textarea, #register-cursos-form input, #addStudent-form input{
     background-color: white;
 }
 

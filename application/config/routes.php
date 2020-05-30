@@ -122,11 +122,15 @@ $route['api/getAllSubjects']                    = 'Api_Subject/getAllSubjects';
 $route['api/getSubjectsByFilters']              = 'Api_Subject/getSubjectsByFilters';
 $route['api/editSubject']                       = 'Api_Subject/editSubject';
 $route['api/deleteSubject']                     = 'Api_Subject/deleteSubject';
+$route['api/adminSubject']                      = 'Api_Subject/adminSubject';
+$route['api/getStudentsSubjectAdmin']           = 'Api_Subject/getStudentsSubjectAdmin';
+$route["api/deleteUserFromSubject"]             = 'Api_Subject/deleteUserFromSubject';
 $route['api/saveCSV']                           = 'Api_Admin/export';
 $route['api/importX']                           = 'Api_Admin/importX';
 $route['api/getAdminHome']                      = 'Api_Admin/getAdminHome';
 $route['api/exportSpecific']                    = 'Api_Admin/exportSpecific';
 $route['api/importStudentsCourse']              = 'Api_Admin/importStudentsCourse';
+
 
 ##chat##
 

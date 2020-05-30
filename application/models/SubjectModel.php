@@ -264,4 +264,9 @@ class SubjectModel extends CI_Model { //cadeira
     public function verifyTeacherSubject($user_id, $cadeira_id){
         return $this->db->get_where("professor_cadeira", array("user_id" => $user_id, "cadeira_id" => $cadeira_id))->row();
     }
+
+    public function deleteStudentSubject($user_id, $cadeira_id){
+        $query = $this->db->delete('aluno_cadeira', array('user_id'=>$user_id, 'cadeira_id'=>$cadeira_id));
+
+    }
 }

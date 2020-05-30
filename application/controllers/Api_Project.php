@@ -476,7 +476,8 @@ class Api_Project extends REST_Controller {
         $cadeira_id = $projeto[0]["cadeira_id"];
 
         if($this->verify_studentInCadeira($user_id, $cadeira_id) || $this->verify_teacher($user_id, $proj_id, "projeto")){
-            $data = $this->ProjectModel->getEtapasByProjectID($proj_id);
+            $data["etapas"] = $this->ProjectModel->getEtapasByProjectID($proj_id);
+            $data["data_final"] = $this->ProjectModel->getLastEtapa($proj_id)[0]["deadline"];
             $this->response($data, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;

@@ -473,12 +473,12 @@ class Api_Subject extends REST_Controller {
 
     }
 
-    public function getSearchStudentCourse_get() { 
-        $this->verify_admin();
-        $user_id = $this->get("user_id");
-        $cadeira_id = $this->get("cadeira_id");
-        if($this->get("query")){
-            $query = $this->get("query");
+    public function getSearchStudentCourse_get() {
+        $user_id = htmlspecialchars($this->get("user_id"));
+        $cadeira_id = htmlspecialchars($this->get("cadeira_id"));
+
+        if(htmlspecialchars($this->get("query"))) {
+            $query = htmlspecialchars($this->get("query"));
         }
 
         if($user_id != $this->session->userdata('id')) {

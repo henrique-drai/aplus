@@ -376,12 +376,13 @@ class Api_Project extends REST_Controller {
     }
 
     public function insertTaskStartDate_post($task_id) {
-        $user_id = $this->htmlspecialchars(post("user_id"));
-        $group_id = $this->htmlspecialchars(post("grupo_id"));
+        $user_id = htmlspecialchars($this->post("user_id"));
+        $group_id = htmlspecialchars($this->post("grupo_id"));
 
         if($this->verify_student($user_id, $group_id)) {
             $data = date("Y-m-d h:i:s");
             $this->TasksModel->insertTaskDate($data, $task_id, "start");
+            $this->response($data, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
             $response = ['status' => $status, 'msg' => 'Unauthorized Access!'];
@@ -390,8 +391,8 @@ class Api_Project extends REST_Controller {
     }
 
     public function insertTaskEndDate_post($task_id) {
-        $user_id = $this->htmlspecialchars(post("user_id"));
-        $group_id = $this->htmlspecialchars(post("grupo_id"));
+        $user_id = htmlspecialchars($this->post("user_id"));
+        $group_id = htmlspecialchars($this->post("grupo_id"));
 
         if($this->verify_student($user_id, $group_id)) {
             $data = date("Y-m-d h:i:s");

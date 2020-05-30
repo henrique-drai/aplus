@@ -96,6 +96,12 @@ h4.breadcrumb a, h4.breadcrumb{
     text-decoration: none;
 }
 
+/* mensagem sobre o tamanho dos ficheiros. é um <p><b>msg</b></p> */
+.msg-warning-size{
+    font-size: 12px;
+    color: rgb(255, 72, 72);
+}
+
 @-moz-document url-prefix() {
     html {
         font-size: 1em;

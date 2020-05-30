@@ -193,7 +193,20 @@ function submitRegister(){
             course + 
             '</table>'
     
-        $("#course-container").html(table);    
+        $("#course-container").html(table); 
+        
+        const mq = window.matchMedia( "(max-width: 701px)" );
+        const mq2 = window.matchMedia( "(max-width: 1490px)" );
+
+        if (mq2.matches) {
+
+            $('.adminTable tr').find('td:eq(3),th:eq(3)').remove();
+
+            if(mq.matches){
+                $('.adminTable tr').find('td:eq(0),th:eq(0)').remove();
+                $('.adminTable tr').find('td:eq(2),th:eq(2)').remove();
+            }            
+        } 
     }
     
     

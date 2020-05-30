@@ -1,3 +1,15 @@
+.clickable-title {
+    width: fit-content;
+    margin: -20px 0px 10px;
+}
+.clickable-title a {
+    color: black;
+    text-decoration: none;
+}
+.clickable-title a:hover {
+    color: #999;
+}
+
 input[type="text"], textarea, input[type="datetime-local"], select {
 	width: 100%;
 }
@@ -13,6 +25,9 @@ input[type="datetime-local"], select {
 
 #btnArea p {
     text-align: center;
+}
+#btnArea > * {
+    display: inline-block;
 }
 
 select {

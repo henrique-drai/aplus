@@ -18,7 +18,14 @@
     <main>
     <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>subjects">Cadeiras</a> > <a href="<?php echo base_url(); ?>subjects/subject/<?php echo $subject->code; ?>/<?php echo $year[0]["inicio"]; ?>"><?php echo $subject->name; ?></a> &gt; Projeto </h4>
     <h1>Projeto: <?php echo $project[0]["nome"]; ?></h1>
-    <p> <?php echo $project[0]["description"]; ?></p>
+    <p> 
+        <?php echo $project[0]["description"]; ?>
+        <br><br>
+        Número mínimo de elementos num grupo: <?php echo $project[0]["min_elementos"]; ?>
+        <br>
+        Número máximo de elementos num grupo: <?php echo $project[0]["max_elementos"]; ?>
+        
+    </p>
     <input id="removeProject" class="remove" type="button" value="Eliminar projeto">
     <div class="container">
         <h3 id="entrega_h3"></h3>
@@ -28,10 +35,11 @@
         <div class="wrapper-top">
             <?php echo form_open_multipart('UploadsC/uploadEnunciadoProjeto', "id='form-upload-proj'");?>
                 <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado" accept=".pdf">
-                <label for="file_projeto" class="input-label">
+                <label for="file_projeto" class="input-label" id="top-file">
                     <img id="file-img" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
                     <span id="name-enunciado-proj" class="span-name">Envie o ficheiro do enunciado</span>
                 </label>
+                <p id="warning-top" class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>
 
                 <input id="addEnunciado" type="submit" value="Adicionar enunciado">
             </form>
@@ -80,6 +88,7 @@
                                 <img id="file-img-etapa" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
                                 <span id="name-enunciado-etapa" class="span-name">Envie o ficheiro do enunciado</span>
                             </label>
+                            <p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>
                         </form>
 
                         <div id="successmsgenunc" class="submit-msg">Mensagem de sucesso template</div>

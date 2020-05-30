@@ -202,7 +202,7 @@ function checkClosedProject(){
                     $("#btnArea").append("<p>Ultrapassado o tempo máximo (5 dias) p/ classificação dos membros<p>")
                 }
                 else{
-                    $("#btnArea").append("<input id='ratingmembros' type='button' value='Rating Membros'>")
+                    $("#btnArea").append("<input id='ratingmembros' type='button' value='Classificar Membros'>")
                 }
                 // $("#btnArea").append("<input id='ratingmembros' type='button' value='Rating Membros'>")
             }

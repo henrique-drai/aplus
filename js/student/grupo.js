@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    // setInterval(getTasks, 3000); 
 
     const months = {
         "Janeiro":1,
@@ -142,11 +143,18 @@ function updateTaskPopup(task_id){
             popup = popup + "<h3>Data de Fim</h3>";
 
             if(data.task[0].start_date == "0000-00-00 00:00:00") {
-                popup = popup + "<label>A tarefa ainda não foi começada.</label></div>";
+                popup = popup + "<label><span class='end'>A tarefa ainda não foi começada.</span></label></div>";
             } else if(data.task[0].done_date != "0000-00-00 00:00:00") {
-                popup = popup + "<label>" + data.task[0].done_date + "</label></div>";
+                var day = data.task[0].done_date.substring(8, 10) - data.task[0].start_date.substring(8, 10);
+                var hours = data.task[0].done_date.substring(11, 13) - data.task[0].start_date.substring(11, 13);
+                var min = data.task[0].done_date.substring(14, 16) - data.task[0].start_date.substring(14, 16);
+                var seconds = data.task[0].done_date.substring(17, 19) - data.task[0].start_date.substring(17, 19);
+                popup = popup + "<label>" + data.task[0].done_date + "</label><h3>Tempo gasto na tarefa</h3><label>" + 
+                        day + " dia(s) " + hours + " hora(s) " + min + " minutos " + Math.abs(seconds) + " segundos " + "</label></div>";
+            } else if(data.task[0].user_id == localStorage.user_id){
+                popup = popup + "<span class='end'><input type='button' class='end_date_button' id='" + data.task[0].id + "' value='Terminar Tarefa'></span><span class='time_spent'></span></div>";
             } else {
-                popup = popup + "<span class='end'><input type='button' class='end_date_button' id='" + data.task[0].id + "' value='Terminar Tarefa'></span></div>";
+                popup = popup + "<label>A tarefa ainda não foi terminada.</label></div>";
             }
 
             popup = popup + "<div class='wrapper'><hr><input id='" + data.task[0].id + "' class='editTask' type='button' value='Editar Tarefa'>" +
@@ -224,19 +232,13 @@ function createPopUpAdd() {
         type: "GET",
         url: base_url + "api/getGroupMembers/" + localStorage.grupo_id,
         success: function(data) {
-            console.log(data)
             var popup = '';
 
             popup = popup + "<div class='cd-popup2' role='alert'><div class='cd-popup-container'>" +                 
                 "<form id='addTask' action='javascript:void(0)'><div class='addTask_inputs'><h2>Adicionar nova tarefa</h2>" +
                 "<label class='form-label'>Nome:</label><input class='form-input-text' type='text' name='tarefaName' required>" +
                 "<label class='form-label'>Descrição:</label><textarea class='form-text-area' type='text' name='tarefaDescription'>" + 
-                "</textarea><label class='form-label'>Membro responsável:</label><select><option value=''>Selecionar um membro</option>";
-            
-            for(var i=0; i < data['users'].length; i++) {
-                popup = popup + "<option value='" + data["users"][i]["id"] + "'>" + data["users"][i]["name"] + " " + 
-                    data["users"][i]["surname"] + "</option>"
-            }
+                "</textarea>";
 
             popup = popup + "</select></div><ul class='cd-buttons'><li><a href='#' id='addTask-form-submit'>" +
                 "Criar Tarefa</a></li><li><a href='#' id='closeButton'>Cancelar</a></li></ul></form>" +
@@ -258,7 +260,6 @@ function insertTask(taskName, taskDesc, taskMember) {
         type: "POST",
         url: base_url + "api/insertTask",
         data: {grupo_id: localStorage.grupo_id,
-               user_id: taskMember,
                name: taskName,
                description: taskDesc},
         success: function(data) {
@@ -270,7 +271,7 @@ function insertTask(taskName, taskDesc, taskMember) {
 
             getTasks();
             
-            $(".message").append("Tarefa adicionada com sucesso!");
+            $(".message").html("Tarefa adicionada com sucesso!");
             $(".message").fadeTo(2000, 1);
             setTimeout(function() {
                 $(".message").fadeTo(2000, 0);
@@ -295,11 +296,15 @@ function getTasks() {
             if(data.tasks.length != 0) {
                 var table = "";
                 table = table + "<table id='tab-gerir-tarefas'><tr><th>Tarefa</th>" +
-                "<th>Membro Responsável</th><th>Terminado</th><th></th></tr>";
+                "<th>Membro Responsável</th><th>Completo</th><th></th></tr>";
 
                 for(var i=0; i < data.tasks.length; i++) {
-                    table = table + "<tr><td>" + data.tasks[i].name + "</td><td>" + data.members[i][0].name + " " + 
-                    data.members[i][0].surname + "</td>";
+                    if(data.tasks[i].user_id == 0) {
+                        table = table + "<tr><td>" + data.tasks[i].name + "</td><td>Ainda não atribuído</td>";
+                    } else {
+                        table = table + "<tr><td>" + data.tasks[i].name + "</td><td>" + data.members[i][0].name + " " + 
+                        data.members[i][0].surname + "</td>";
+                    }                    
 
                     if(data.tasks[i].done_date == "0000-00-00 00:00:00") {
                         table = table + "<td>Não</td>";
@@ -307,15 +312,13 @@ function getTasks() {
                         table = table + "<td>Sim</td>";
                     }
 
-                    table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + "' type='button' value='Opções'></td><tr>";
+                    table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + "' type='button' value='Opções'></td></tr>";
                 }
 
                 table = table + "</table>"
                 $(".tasksTable").html(table);
             } else {
-                $(".tasksTable").append("<p>Não existem tarefas.</p>");
-                $("#editTarefa").css('visibility', 'hidden');
-                $("#deleteTarefa").css('visibility', 'hidden');
+                $(".tasksTable").html("<p>Não existem tarefas.</p>");
                 
             }
         },
@@ -343,13 +346,12 @@ function deleteTaskById(id) {
         url: base_url + "api/deleteTaskById/" + id,
         success: function (data) {
             $(".message").empty();
-            console.log(data);
 
             $(".cd-popup").css('visibility', 'hidden');
             $(".cd-popup").css('opacity', '0');
 
             getTasks();
-            $(".message").append("Tarefa eliminada com sucesso!");
+            $(".message").html("Tarefa eliminada com sucesso!");
             $(".message").fadeTo(2000, 1);
             setTimeout(function () {
                 $(".message").fadeTo(2000, 0);
@@ -370,11 +372,14 @@ function insertTaskStartDate(task_id) {
         url: base_url + "api/insertTaskStartDate/" + task_id,
         data: {grupo_id: localStorage.grupo_id, user_id: localStorage.user_id},
         success: function (data) {
+            console.log(data)
             $(".start").empty();
-            $(".start").append("<p>" + data + "</p>");
+            $(".start").append("<label>" + data + "</label>");
+            $(".end").empty();
+            $(".end").append("<input type='button' class='end_date_button' id='" + task_id + "' value='Terminar Tarefa'>");
         },
         error: function (data) {
-            alert("Houve um erro a remover a tarefa.")
+            alert("Houve um erro a inserir a data-inicio da tarefa.")
             console.log(data)
 
         }
@@ -387,11 +392,17 @@ function insertTaskEndDate(task_id) {
         url: base_url + "api/insertTaskEndDate/" + task_id,
         data: {grupo_id: localStorage.grupo_id, user_id: localStorage.user_id},
         success: function (data) {
+            console.log(data)
             $(".end").empty();
-            $(".end").append("<p>" + data + "</p>");
+            $(".end").append("<label>" + data + "</label><span class='time_spent'></span>");
+            var day = data.substring(8, 10) - $(".start").text().substring(8, 10);
+            var hours = data.substring(11, 13) - $(".start").text().substring(11, 13);
+            var min = data.substring(14, 16) - $(".start").text().substring(14, 16);
+            var seconds = data.substring(17, 19) - $(".start").text().substring(17, 19);
+            $(".time_spent").append("<h3>Tempo gasto na tarefa</h3></label>" + day + " dia(s) " + hours + " hora(s) " + min + " minutos " + Math.abs(seconds) + " segundos " + "</label>");
         },
         error: function (data) {
-            alert("Houve um erro a remover a tarefa.")
+            alert("Houve um erro a inserir a data-fim da tarefa.")
             console.log(data)
 
         }

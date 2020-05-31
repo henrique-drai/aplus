@@ -42,6 +42,7 @@ $(document).ready(() => {
         if( $(event.target).is('.cd-popup-hide') || $(event.target).is('#closeButton-hide') || $(event.target).is('.cd-popup2') ){
             event.preventDefault();
             $(this).hide();
+            $("#ul-buttons").hide();
             $(".moreInfoButtons").css("background-color", "white");
             $("#etapa-form-edit").hide();
             $("#feedback-form").hide();
@@ -110,9 +111,14 @@ $(document).ready(() => {
 
 
     //ao confirmar - MUDAR ENUNCIADO
-    $("#addEnunciado").on('click', function(){
-        enunc = $("#file_projeto").val().split('\\').pop();
-        submit_new_enunciado(enunc);
+    $("#addEnunciado").on('click', function(e){
+        if($("#file_projeto")[0].files[0].size < 5024000){
+            enunc = $("#file_projeto").val().split('\\').pop();
+            submit_new_enunciado(enunc);
+        } else {
+            console.log("meter mensagem de erro");
+            e.preventDefault();
+        }
     })
 
     //--- ENUNCIADO PROJETO
@@ -141,8 +147,17 @@ $(document).ready(() => {
             $("#errormsgenunc").text("Tem de selecionar um ficheiro");
             $("#errormsgenunc").show().delay(2500).fadeOut();
         } else {
-            $("#form-upload-etapa").submit();
-            submit_new_etapa_enunciado(enunc);
+            if($("#file_etapa")[0].files[0].size < 5024000){
+                $("#form-upload-etapa").submit();
+                submit_new_etapa_enunciado(enunc);
+            } else {
+                $("#errormsgenunc").text("Ficheiro ultrapassa o limite de 5MB");
+                $("#errormsgenunc").show().delay(2500).fadeOut();
+                $("#name-enunciado-etapa").text("Envie o ficheiro do enunciado");
+                $("#file-img-etapa").attr('src',base_url+"images/icons/upload-solid.png");
+                $("#file_etapa").val("");
+                e.preventDefault();
+            }
         }
     })
 
@@ -155,8 +170,8 @@ $(document).ready(() => {
 
     $("#entrega_h3").text("Entrega final:");
 
-    // refresh tabela 1 vez para atualizar a data - ETAPAS
-    checkEntrega();
+    // // refresh tabela 1 vez para atualizar a data - ETAPAS
+    // checkEntrega();
 
 
     // show etapa form - CRIAR NOVA ETAPA 
@@ -194,6 +209,7 @@ $(document).ready(() => {
         $("#form-upload-etapa").hide();
 
         $("#feedback-form").show();
+        $(".inputs-div").hide();
         showGroups(proj);
 
         if(formStatus != 'feedback'){
@@ -203,6 +219,7 @@ $(document).ready(() => {
         } else {
             formStatus = null;
             checkFormStatus();
+            $(".inputs-div").show();
             $("#ul-buttons").hide();
             $("#feedback-form").hide();
         }
@@ -224,6 +241,7 @@ $(document).ready(() => {
         $("#etapa-form").hide();
         $("#feedback-form").hide();
         $("#form-upload-etapa").hide();
+        $(".inputs-div").hide();
 
         $("#etapa-form-edit").show();
         $("#etapa-label-edit").text("Editar etapa '" + $("#etapa" + selected_etapa).find("p:first").text() + "':");
@@ -240,6 +258,7 @@ $(document).ready(() => {
             formStatus = null;
             checkFormStatus();
             emptyEtapa();
+            $(".inputs-div").show();
             $("#ul-buttons").hide();
             $("#etapa-form-edit").hide();
         }
@@ -253,6 +272,7 @@ $(document).ready(() => {
         $("#etapa-form").hide();
         $("#feedback-form").hide();
         $("#form-upload-etapa").show();
+        $(".inputs-div").show();
         
         $("#ul-buttons").find("li:first").find("a").prop("id", "addEnuncEtapa");
         console.log($("#addEnuncEtapa"));
@@ -328,7 +348,6 @@ $(document).ready(() => {
         removeEtapa(selected_etapa);
         getEtapas(proj);
         $(".cd-popup2").hide();
-        checkEntrega();
     })
 
 
@@ -479,17 +498,15 @@ function makePopup(butID, msg){
     $(".cd-popup").css('visibility', 'visible');
 }
 
-function checkEntrega(){
-    setTimeout(function(){
-        getEtapas(proj);
-        var datafinal = $(".etapasDIV").last().find("p:nth-child(2)").text();
-        if(datafinal == ''){
-           $("#entrega_h3").text("Entrega final: Ainda não definida");
-        } else {
-           $("#entrega_h3").text("Entrega final: " + datafinal);
-        }
-        
-   }, 1000);
+function checkEntrega(dateOld){
+
+    date = dateFormatter(new Date(dateOld));
+
+    if(date == ''){
+        $("#entrega_h3").text("Entrega final: Ainda não definida");
+    } else {
+        $("#entrega_h3").text("Entrega final: " + date);
+    }
 }
 
 
@@ -795,7 +812,7 @@ function updateEtapaPopup(etapa_rec){
 
     console.log(etapa);
 
-
+    $(".inputs-div").show();
     $(".cd-popup-container").find("label:first").text(etapa["description"]);
     $("#enunciado_label").html(etapa["enunciado"]);
     $("#enunciado_label").append(etapa["remove"]);
@@ -816,7 +833,9 @@ function getEtapas(proj_id){
         url: base_url + "api/getAllEtapas/" + proj_id,
         data: data_proj,
         success: function(data) {
-            makeEtapaTable(data);
+            makeEtapaTable(data["etapas"]);
+            console.log(data["data_final"]);
+            checkEntrega(data["data_final"]);
         },
         error: function(data) {
             console.log("Erro na API - Get Etapa")
@@ -968,7 +987,6 @@ function submit_feedback(feedback, etapa, grupo_id){
                 $("#successmsgfb").text("Feedback submetido com sucesso");
                 $('#feedback-form')[0].reset();
                 $("#sub_url").text('Entrega ainda não foi submetida');
-                $("#confirmFeedback").hide();
                 $("#fb_content").text("Ainda não foi atribuido feedback a esta etapa.");
                 $("#successmsgfb").show().delay(2500).fadeOut();
             },

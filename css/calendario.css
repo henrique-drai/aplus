@@ -35,7 +35,7 @@
     min-width: 50px;
 }
 #calendario-hook .cell:hover {
-    background-color: #ccc !important;
+    background-color: #ddd !important;
     cursor: pointer;
 }
 #calendario-hook .cell .start {
@@ -59,6 +59,14 @@
 }
 #calendario-hook .whitespace {
     min-width: 50px;
+}
+#calendario-hook .no-events-msg {
+    text-align: center;
+    margin: -15px 0px 10px;
+    font-size: 13px;
+}
+#calendario-hook .no-events-msg.left {
+    text-align: left;
 }
 
 

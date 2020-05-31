@@ -16,6 +16,17 @@
         </h4>
 
         <h1>Área de Grupo</h1>
+        
+        <div class="clickable-title">
+            <a href="<?=$base_url?>route/subject/<?=$info->cadeira_id?>">
+                <span><?=$info->name?></span>
+            </a> 
+            <a href="<?=$base_url?>projects/project/<?=$info->projeto_id?>">
+                <span>(<?=$info->nome?>)</span>
+            </a>
+        </div>
+
+        
 
         <div id="btnArea">
             <input id="ficheiros" type="button" value="Ficheiros">  

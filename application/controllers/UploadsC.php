@@ -33,8 +33,7 @@ class UploadsC extends CI_Controller {
             if ( ! $this->upload->do_upload('file_proj'))
             {
                 $error = array('error' => $this->upload->display_errors());
-                print_r($error);
-                echo "<br>Erro upload ficheiro";
+                header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
             {
@@ -68,8 +67,7 @@ class UploadsC extends CI_Controller {
             if ( ! $this->upload->do_upload('file_etapa'))
             {
                 $error = array('error' => $this->upload->display_errors());
-                print_r($error);
-                echo "<br>Erro upload ficheiro";
+                header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
             {
@@ -105,8 +103,7 @@ class UploadsC extends CI_Controller {
             if ( ! $this->upload->do_upload('file_submit'))
             {
                 $error = array('error' => $this->upload->display_errors());
-                print_r($error);
-                echo "<br>Erro upload ficheiro";
+                header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
             {
@@ -139,10 +136,8 @@ class UploadsC extends CI_Controller {
             if ( ! $this->upload->do_upload("file_submit"))
             {
                 $error = array('error' => $this->upload->display_errors());
-                echo "Ficheiro enviado excede o limite de tamanho";
                 header("Location: ".base_url()."app/ficheiros/".$grupo_id);
-                //fazer uma pagina chamada error.php, mandar para a pasta ficheiros/id/error e 
-                // mandar para trás depois de mostrar o erro ?
+                //check é feito em js para mostrar a mensagem de erro
             }  
             else
             {
@@ -186,8 +181,7 @@ class UploadsC extends CI_Controller {
             if ( ! $this->upload->do_upload("file_submit"))
             {
                 $error = array('error' => $this->upload->display_errors());
-                print_r($error);
-                echo "<br>Erro upload ficheiro";
+                header("Location: ".base_url()."subjects/ficheiros/".$cadeira_code.'/'.$year);
             }  
             else
             {

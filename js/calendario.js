@@ -77,7 +77,18 @@ function renderCalendario(){
     }
 
     let inner = $('<div class="inner"></div>').append(cols)
-    $("#calendario-hook").html(inner)
+
+    $("#calendario-hook").html("")
+
+    if(!calendario.events.length){
+        $("#calendario-hook").append(
+            $("<div class='no-events-msg'>Não tem eventos próximos.</div>")
+        )
+    }
+
+    $("#calendario-hook").append(inner)
+
+    
 }
 
 function updateCalendario(){
@@ -97,6 +108,8 @@ function updateCalendario(){
 }
 
 function setCalendario(data){
+
+    console.log(data)
 
     function translateWeekDay(name){
         for (const day of week_days){
@@ -181,6 +194,8 @@ function eventOnClickCalendario(){
         
         let message = $('<div class="calendario-msg"></div>')
 
+        console.log(event)
+
         switch(event.type)
         {
             case "class":
@@ -195,7 +210,6 @@ function eventOnClickCalendario(){
                 break
             
             case "duvidas":
-                console.log(event)
                 message.append("<h3>Horário de dúvidas de "+event.obj.name+"</h3>")
                 message.append("<p>" +
                     getClassTimeString(event.obj.start_time) + " - " +

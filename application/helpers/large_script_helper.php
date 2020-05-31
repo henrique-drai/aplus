@@ -7,7 +7,7 @@ function large_script($m) {
     // $aluno["1"] = $m->student("Name", "Surname", "s1", "s1", "Descrição default.");
     // $aluno["2"] = $m->student("Adriana", "De", "s2", "s2", "Descrição default.");
     // $aluno["3"] = $m->student("Afonso", "JosÉ", "s3", "s3", "Descrição default.");
-    $aluno["4"] = $m->student("X Æ", "A-12", "s4", "s4", "Descrição default.");
+    $aluno["4"] = $m->student("Catarina", "Leite", "s4", "s4", "Esta é a nossa aluna principal, pelo que tem mais informação.");
     // $aluno["5"] = $m->student("Alessia", "Lopes", "s5", "s5", "Descrição default.");
     // $aluno["6"] = $m->student("Alexandre", "Antonio", "s6", "s6", "Descrição default.");
     // $aluno["7"] = $m->student("Alice", "Calretas", "s7", "s7", "Descrição default.");
@@ -1171,48 +1171,54 @@ function large_script($m) {
 
 
     $thread = array();
-    $thread["1"] = $m->thread($prof["1"], $forum["1"], "Avaliação da cadeira", "Testes e 3 projetos ao longo do semestre", "2020-04-13 11:00:00");
+    $thread["1"] = $m->thread($prof["1"], $forum["1"], "Avaliação da cadeira", "Testes e 3 projetos ao longo do semestre", "2020-05-13 11:00:00");
     $thread["2"] = $m->thread($prof["1"], $forum["3"], "Avaliação da cadeira", "Testes ao longo do semestre", "2020-04-13 11:00:00");
-    $thread["3"] = $m->thread($prof["7"], $forum["5"], "Avaliação da cadeira", "3 projetos ao longo do semestre", "2020-04-13 11:00:00");
+    $thread["3"] = $m->thread($prof["7"], $forum["5"], "Avaliação da cadeira", "3 projetos ao longo do semestre", "2020-05-13 11:00:00");
     $thread["4"] = $m->thread($prof["7"], $forum["7"], "Avaliação da cadeira", "Exame final e 5 projetos ao longo do semestre", "2020-04-13 11:00:00");
     $thread["5"] = $m->thread($prof["7"], $forum["8"], "Dúvidas", "Dúvidas expostas pelos alunos", "2020-04-13 11:00:00");
 
 
     $thread_post = array();
-    $thread_post["1"] = $m->thread_post($thread["1"], $prof["1"], "Testes e 3 projetos ao longo do semestre", "2020-04-13 11:00:00");
-    $thread_post["2"] = $m->thread_post($thread["2"], $prof["1"], "Testes ao longo do semestre", "2020-04-13 11:00:00");
+    $thread_post["1"] = $m->thread_post($thread["1"], $prof["1"], "Testes e 3 projetos ao longo do semestre", "2020-05-13 11:00:00");
+    $thread_post["2"] = $m->thread_post($thread["2"], $prof["1"], "Testes ao longo do semestre", "2020-05-13 11:00:00");
     $thread_post["3"] = $m->thread_post($thread["3"], $prof["7"], "3 projetos ao longo do semestre", "2020-04-13 11:00:00");
-    $thread_post["4"] = $m->thread_post($thread["4"], $prof["7"], "Exame final e 5 projetos ao longo do semestre", "2020-04-13 11:00:00");
+    $thread_post["4"] = $m->thread_post($thread["4"], $prof["7"], "Exame final e 5 projetos ao longo do semestre", "2020-05-13 11:00:00");
 
     
     $projeto = array();
     $projeto["1"] = $m->projeto($cadeira["1"], "Evolução da Ciência", "Relatório sobre a seleção natural.", 1, 2, "");
     $projeto["2"] = $m->projeto($cadeira["63"], "Cadastro Predial do Município", "Fazer um relatório onde exploram o cadastro predial do vosso município.", 1, 2, "");
     $projeto["3"] = $m->projeto($cadeira["83"], "Spotipy em Haskell", "Implementem o Spotipy em Haskell.", 1, 2, "");
-
+    $projeto["4"] = $m->projeto($cadeira["88"], "A matemática na natureza", "Os objetivos deste projeto são óbvios, no need to describe them.", 1, 3, "");
+    $projeto["5"] = $m->projeto($cadeira["88"], "Projeto Final", "Os objetivos deste projeto não são tão óbvios.", 1, 3, "");
 
     $etapa = array();
-    $etapa["1"] = $m->etapa($projeto["3"], "2020-05-06 23:00:00", "", "Pesquisa", "Façam pesquisa sobre o Spotipy.");
-    $etapa["2"] = $m->etapa($projeto["3"], "2020-05-06 23:00:00", "", "Pesquisa2", "Façam pesquisa sobre como programar em Haskell.");
+    $etapa["1"] = $m->etapa($projeto["3"], "2020-06-06 23:00:00", "", "Pesquisa", "Façam pesquisa sobre o Spotipy.");
+    $etapa["2"] = $m->etapa($projeto["3"], "2020-05-06 23:00:00", "", "Planeamento", "Façam pesquisa sobre como programar em Haskell.");
     $etapa["3"] = $m->etapa($projeto["3"], "2020-07-21 23:55:00", "", "Implementação", "Implementar o Spotipy em Haskell.");
     $etapa["4"] = $m->etapa($projeto["1"], "2020-06-06 23:00:00", "", "Pesquisa", "Pesquisar sobre Charles Darwin.");
     $etapa["5"] = $m->etapa($projeto["1"], "2020-06-21 23:55:00", "", "Implementação", "Fazer relatório.");
     $etapa["6"] = $m->etapa($projeto["2"], "2020-06-06 23:00:00", "", "Pesquisa", "Procurar cadástro de Almada.");
     $etapa["7"] = $m->etapa($projeto["2"], "2020-06-21 23:55:00", "", "Implementação", "Fazer relatório.");
+    $etapa["8"] = $m->etapa($projeto["4"], "2020-05-21 23:55:00", "", "Fazer continhas", "Esta etapa já acabou.");
+    $etapa["9"] = $m->etapa($projeto["5"], "2020-06-21 23:55:00", "", "Fazer continhas outra vez", "Esta etapa ainda não acabou.");
 
     $grupo = array();
     $grupo["1"] = $m->grupo($projeto["3"], "gangdogpl");
     $grupo["2"] = $m->grupo($projeto["3"], "itachi");
     $grupo["3"] = $m->grupo($projeto["3"], "nota_21");
+    $grupo["4"] = $m->grupo($projeto["4"], "1");
+    $grupo["5"] = $m->grupo($projeto["4"], "2");
 
     $m->batch("grupo_aluno", Array(
       Array("user_id"=> $aluno["96"],  "grupo_id"=>$grupo["1"]),
       Array("user_id"=> $aluno["114"],  "grupo_id"=>$grupo["1"]),
       Array("user_id"=> $aluno["47"],  "grupo_id"=>$grupo["2"]),
-      Array("user_id"=> $aluno["14"],  "grupo_id"=>$grupo["2"]),
       Array("user_id"=> $aluno["4"],  "grupo_id"=>$grupo["1"]),
       Array("user_id"=> $aluno["188"],  "grupo_id"=>$grupo["3"]),
       Array("user_id"=> $aluno["206"],  "grupo_id"=>$grupo["3"]),
+      Array("user_id"=> $aluno["4"],  "grupo_id"=>$grupo["4"]),
+      Array("user_id"=> $aluno["14"],  "grupo_id"=>$grupo["4"]),
     ));
 
     $m->etapa_submit($grupo["1"], $etapa["1"], "URL-FALSO-HEHE-XD.pdf");
@@ -1222,10 +1228,10 @@ function large_script($m) {
     $horario["2"] = $m->horario_duvidas($cadeira["83"], $prof["7"], "12:00:00", "13:00:00", "Quinta-feira");
 
     $evento = array();
-    $evento["1"] = $m->evento("2020-05-25 11:00:00", "2020-05-25 12:30:00", "Reunião de Grupo", "Discutir distribuição do trabalho.", "FCUL");
-    $evento["2"] = $m->evento("2020-05-25 11:30:00", "2020-05-25 13:00:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) Maria José 1", "6.1.29", $horario["1"]);
-    $evento["3"] = $m->evento("2020-05-27 11:00:00", "2020-05-27 12:30:00", "Decidir Framework", "Esta descrição descreve o evento. 2", "Azenhas");
-    $evento["4"] = $m->evento("2020-05-28 12:00:00", "2020-05-28 13:00:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) Maria José 2", "6.1.29", $horario["2"]);
+    $evento["1"] = $m->evento("2020-06-18 11:00:00", "2020-06-18 12:30:00", "Reunião de Grupo", "Discutir distribuição do trabalho.", "FCUL");
+    $evento["2"] = $m->evento("2020-06-25 11:30:00", "2020-06-25 13:00:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) Maria José 1", "6.1.29", $horario["1"]);
+    $evento["3"] = $m->evento("2020-06-17 11:00:00", "2020-06-17 12:30:00", "Decidir Framework", "Esta descrição descreve o evento. 2", "Azenhas");
+    $evento["4"] = $m->evento("2020-06-18 12:00:00", "2020-06-18 13:00:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) Maria José 2", "6.1.29", $horario["2"]);
 
     $m->batch("evento_grupo", Array(
       Array("evento_id"=> $evento["1"],  "grupo_id"=>$grupo["1"]),
@@ -1237,10 +1243,10 @@ function large_script($m) {
       Array("evento_id"=> $evento["3"],  "user_id"=>$aluno["4"]),
     ));
 
-    $m->notification($aluno["4"], "message", "Mensagem de João Ye", "Então?", "app/profile/2801", false, "2020-04-09 11:30:31");
-    $m->notification($aluno["4"], "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "app/profile/2", false, "2020-04-09 11:30:35");
-    $m->notification($aluno["4"], "alert", "Falhaste uma entrega", "Teatro", "subjects/subject/TEA84/2019", false, "2020-04-09 11:30:30");
-    $m->notification($aluno["4"], "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "app/profile/62", true, "2020-04-09 11:30:33");
+    $m->notification($aluno["4"], "message", "Mensagem de João Ye", "Então?", "app/profile/2801", false, "2020-05-19 11:30:31");
+    $m->notification($aluno["4"], "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "app/profile/2", false, "2020-05-30 11:30:35");
+    $m->notification($aluno["4"], "alert", "Falhaste uma entrega", "Teatro", "subjects/subject/TEA84/2019", false, "2020-05-29 11:30:30");
+    $m->notification($aluno["4"], "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "app/profile/62", true, "2020-05-29 11:30:33");
         
     $execution_time = microtime(true) - $time_start;
 

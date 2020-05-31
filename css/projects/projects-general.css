@@ -225,16 +225,17 @@ label {
 
 /* input type file */
 .input-label {
+    margin: 0 auto;
     text-align: center;
     color: black;
     line-height: 30px;
-    width: 250px;
+    width: 240px;
     display: block;
     border: 2px solid #3e5d4f;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding: 0 10px;
+    padding: 0 5px;
     cursor: pointer;
     border-radius: 4px;
     font-size: 14px;
@@ -272,6 +273,10 @@ label {
     padding-right: 15px;
 }
 
+#ul-buttons li:first-child a {
+    background-color: #3e5d4f;
+}
+
 
 /* #container-geral{
     padding: 10px;
@@ -281,9 +286,13 @@ label {
 @media screen and (max-width: 750px) {
     .wrapper input[type="button"] {
         margin-left: auto;
-        width: 160px;
+        width: 81px;
+        font-size: 12px;
         margin-right: auto;
-        display:block;
+    }
+
+    .cd-popup-container{
+        width: 95%;
     }
 
     .content h3{
@@ -295,6 +304,15 @@ label {
     }
 }
 
+
+@media screen and (max-width: 350px){
+    .wrapper input[type="button"] {
+        margin-left: auto;
+        width: 70px;
+        font-size: 10px;
+        margin-right: auto;
+    }
+}
 
 
 @media screen and (max-width: 440px) {

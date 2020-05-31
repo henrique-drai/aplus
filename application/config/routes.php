@@ -69,6 +69,7 @@ $route['api/deleteTaskById/(:num)']             = 'Api_Project/deleteTaskById/$1
 $route['api/getTaskById/(:num)']                = 'Api_Project/getTaskById/$1';
 $route['api/insertTaskStartDate/(:num)']        = 'Api_Project/insertTaskStartDate/$1';
 $route['api/insertTaskEndDate/(:num)']        = 'Api_Project/insertTaskEndDate/$1';
+$route['api/editTask/(:num)']                   = 'Api_Project/editTask/$1';
 
 $route['api/getCadeira/(:num)']                 = 'Api_Subject/getInfo/$1';
 $route['api/insertText']                        = 'Api_Subject/insertText';
@@ -140,6 +141,9 @@ $route['api/getChatLogs']                       = 'Api_Chat/getChatLogs';
 $route['api/getSearchTeaStu']                   = 'Api_User/getSearchStudentTeachers';
 $route['api/sendMessage']                       = 'Api_Chat/sendMessage';
 
+
+# ROUTER.php
+$route['route/subject/(:num)']                  = 'Router/subjectById/$1';
 
 
 $route['default_controller'] = 'landing';

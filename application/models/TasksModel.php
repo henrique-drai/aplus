@@ -26,9 +26,9 @@ class TasksModel extends CI_Model {
         return $query->result_array();
     }
 
-    public function insertTaskDate($date, $task_id, $mode) {
+    public function insertTaskDate($date, $user_id, $task_id, $mode) {
         if($mode == "start") {
-            $this->db->set('start_date', $date);
+            $this->db->set(array('start_date' => $date, 'user_id' => $user_id));
             $this->db->where(array('id' => $task_id));
             $this->db->update('tarefa');
         } else if($mode == "end") {
@@ -38,4 +38,7 @@ class TasksModel extends CI_Model {
         }
     }
 
+    public function updateTask($data, $id){
+        return $this->db->update("tarefa", $data, ['id' => $id]);
+    }
 }

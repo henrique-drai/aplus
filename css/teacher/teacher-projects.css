@@ -13,9 +13,9 @@ textarea:disabled{
     border-left-color:#333 !important;
 }
 
-textarea{
+/* textarea{
     height: 110px;
-}
+} */
 
 #removeEnunciado {
     margin-left: 115px;
@@ -41,8 +41,8 @@ textarea{
     }
 
     #removeEnunciado {
-        margin-left: 96px;
-        margin-top: -62px;
+        margin-left: 110px;
+        margin-top: -70px;
         width: 30px;
         position: absolute;
     }
@@ -53,9 +53,10 @@ textarea{
     margin:unset;
 }
 
-.cd-popup-container .cd-buttons li:first-child a {
-    background-color: #3e5d4f;
+#top-file{
+    margin:unset;
 }
+
 
 input.remove{
     background-color: #fc8982;

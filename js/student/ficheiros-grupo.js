@@ -11,7 +11,13 @@ $(document).ready(() => {
         } else {
             if($("#file_submit")[0].files[0].size < 5024000){
                 submit_ficheiro_grupo(grupo, $("#file_submit").val().split('\\').pop());   
-            }
+            } else {
+                $(".error-file").text("O ficheiro ultrapassa o limite máximo de 5MB");
+                $(".error-file").show();
+                $(".default-file").hide()
+                $(".success-file").hide();
+                e.preventDefault();
+            }    
                     
         }
     })

@@ -17,6 +17,16 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
         return $this->db->get_where("grupo", array("id" => $group_id)) -> result_array();
     }
 
+    public function getProjectAndSubjectInfo($grupo_id){
+        $grupo_id = $this->db->escape($grupo_id);
+        $query = "select * 
+            from grupo, projeto, cadeira
+            where grupo.projeto_id = projeto.id 
+            and projeto.cadeira_id = cadeira.id
+            and grupo.id = $grupo_id";
+        return $this->db->query($query)->row();
+    }
+
     public function getClassVal($grupo_id, $userId){
         return $this->db->get_where("member_classification", array("grupo_id" => $grupo_id, "classificado_id" => $userId)) -> row();
     }

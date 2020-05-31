@@ -59,11 +59,11 @@ label {
     color:rgb(255, 72, 72);
 }
 
-#errormsg, #errormsgfb, #errormsgenunc, #errormsgedit {
+#errormsg, #errormsgfb, #errormsgenunc, #errormsgedit, #projenuncerror{
     background: rgb(255, 72, 72);
 }
 
-#successmsg, #successmsgfb, #successmsgenunc, #successmsg_editar, #successmsg_criar{
+#successmsg, #successmsgfb, #successmsgenunc, #successmsg_editar, #successmsg_criar, #projenuncsucc{
     background: rgba(106, 192, 66, 0.7);
 }
 
@@ -170,20 +170,10 @@ label {
     width: 70%;
 }
 
-/* .gruposDIV p:nth-child(3) {
-    width: 10%;
-} */
-
-
 .wrapper input[type="button"] {
     display: inline;
     width: unset;
 }
-
-/* .wrapper {
-    margin-top: 50px;
-    margin-bottom: 30px;
-} */
 
 .cd-popup-container > div {
     padding:unset;
@@ -252,9 +242,9 @@ label {
 
 
 .inputs-popup, .inputs-div{
+    margin: 15px auto;
+    width: 95%;
     padding: 10px;
-    margin: 20px auto;
-    width: 90%;
 }
 
 
@@ -263,6 +253,17 @@ label {
     text-align:left;
 }
 
+.input-label{
+    text-align: center !important;
+}
+
+.inputs-popup > h3, .inputs-div > h3 {
+    color: #3e5d4f;
+}
+
+.inputs-popup > label, .inputs-div > label {
+    color: black;
+}
 
 #container-geral{
     padding-top: 1px;
@@ -273,14 +274,13 @@ label {
     padding-right: 15px;
 }
 
-#ul-buttons li:first-child a {
-    background-color: #3e5d4f;
+.cd-buttons li:first-child a {
+    background-color: #3e5d4f !important;
 }
 
-
-/* #container-geral{
-    padding: 10px;
-} */
+#red-buttons li:first-child a{
+    background-color: rgb(255, 72, 72);
+}
 
 /* botoes pop up */
 @media screen and (max-width: 750px) {

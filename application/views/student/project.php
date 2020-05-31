@@ -17,7 +17,14 @@
     <main>
     <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>subjects">Cadeiras</a> > <a href="<?php echo base_url(); ?>subjects/subject/<?php echo $subject->code; ?>/<?php echo $year[0]["inicio"]; ?>"><?php echo $subject->name; ?></a> &gt; Projeto </h4>
     <h1>Projeto: <?php echo $project[0]["nome"]; ?></h1>
-    <p> <?php echo $project[0]["description"]; ?></p>
+    <p> 
+        <?php echo $project[0]["description"]; ?>
+        <br><br>
+        Número mínimo de elementos num grupo: <?php echo $project[0]["min_elementos"]; ?>
+        <br>
+        Número máximo de elementos num grupo: <?php echo $project[0]["max_elementos"]; ?>
+        
+    </p>
     <div class="container">
         <h3 id="entrega_h3"></h3>
         <h3 id="enunciado_title">Enunciado:</h3>
@@ -71,7 +78,7 @@
                             <img id="file-img-submit" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
                             <span id="name-file-submit">Submeter etapa do projeto</span>
                         </label>
-                        
+                        <p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>
                         <!-- <input id="addSubmission" type="submit" value="Confirmar"> -->
                     </form>
                     <div id="enviado-sucesso" class="submit-msg">Etapa submetida com sucesso.</div>

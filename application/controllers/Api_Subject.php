@@ -473,12 +473,12 @@ class Api_Subject extends REST_Controller {
 
     }
 
-    public function getSearchStudentCourse_get() { 
-        $this->verify_admin();
-        $user_id = $this->get("user_id");
-        $cadeira_id = $this->get("cadeira_id");
-        if($this->get("query")){
-            $query = $this->get("query");
+    public function getSearchStudentCourse_get() {
+        $user_id = htmlspecialchars($this->get("user_id"));
+        $cadeira_id = htmlspecialchars($this->get("cadeira_id"));
+
+        if(htmlspecialchars($this->get("query"))) {
+            $query = htmlspecialchars($this->get("query"));
         }
 
         if($user_id != $this->session->userdata('id')) {
@@ -533,7 +533,27 @@ class Api_Subject extends REST_Controller {
         $data["cadeiras"] = $this->SubjectModel->getSubjectsByCursoId($cursoid);
         $this->response($data, parent::HTTP_OK);
     }
-   
+
+    public function adminSubject_get(){
+        $this->verify_admin();
+        $idcadeira = htmlspecialchars($this->get('idcadeira'));
+        $this->load->model('SubjectModel');
+        $data["cadeira"] = $this->SubjectModel->getSubjectByID($idcadeira);
+        $this->response($data, parent::HTTP_OK);
+    }
+    
+    public function getStudentsSubjectAdmin_get(){
+        $this->verify_admin();
+        $idcadeira = htmlspecialchars($this->get('idcadeira'));
+        $users = $this->StudentListModel->getStudentsbyCadeiraID($idcadeira);
+
+        $data["info"] = array();
+        for($i=0; $i < count($users); $i++) {
+            array_push($data["info"], $this->StudentListModel->getStudentsInfo($users[$i]["user_id"]));
+        }
+
+        $this->response($data, parent::HTTP_OK);
+    }
 
     //////////////////////////////////////////////////////////////
     //                         DELETE
@@ -601,6 +621,18 @@ class Api_Subject extends REST_Controller {
             $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
             $this->response($response, $status);
         }
+    }
+
+    public function deleteUserFromSubject_delete(){
+        $this->verify_admin();
+        $alunoEmail = htmlspecialchars($this->delete("aluno"));
+        $cadeiraid = htmlspecialchars($this->delete("cadeira"));
+
+        $this->load->model('SubjectModel');
+        $this->load->model('UserModel');
+        $aluno = $this->UserModel->getUserByEmail($alunoEmail);
+        $alunoid = $aluno->id;
+        $this->SubjectModel->deleteStudentSubject($alunoid,$cadeiraid);
     }
 
     //////////////////////////////////////////////////////////////

@@ -376,12 +376,13 @@ class Api_Project extends REST_Controller {
     }
 
     public function insertTaskStartDate_post($task_id) {
-        $user_id = $this->htmlspecialchars(post("user_id"));
-        $group_id = $this->htmlspecialchars(post("grupo_id"));
+        $user_id = htmlspecialchars($this->post("user_id"));
+        $group_id = htmlspecialchars($this->post("grupo_id"));
 
         if($this->verify_student($user_id, $group_id)) {
             $data = date("Y-m-d h:i:s");
             $this->TasksModel->insertTaskDate($data, $task_id, "start");
+            $this->response($data, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
             $response = ['status' => $status, 'msg' => 'Unauthorized Access!'];
@@ -390,8 +391,8 @@ class Api_Project extends REST_Controller {
     }
 
     public function insertTaskEndDate_post($task_id) {
-        $user_id = $this->htmlspecialchars(post("user_id"));
-        $group_id = $this->htmlspecialchars(post("grupo_id"));
+        $user_id = htmlspecialchars($this->post("user_id"));
+        $group_id = htmlspecialchars($this->post("grupo_id"));
 
         if($this->verify_student($user_id, $group_id)) {
             $data = date("Y-m-d h:i:s");
@@ -402,6 +403,26 @@ class Api_Project extends REST_Controller {
             $response = ['status' => $status, 'msg' => 'Unauthorized Access!'];
             $this->response($response, $status);
         } 
+    }
+
+
+    public function editTask_post(){ 
+        
+        $task = $this->post('task');
+        $id = htmlspecialchars($this->post('id'));
+         
+        $new_task = Array (
+            "grupo_id"          => htmlspecialchars($this->post('grupoid')),
+            "user_id"           => htmlspecialchars($this->post('userid')),
+            "name"              => htmlspecialchars($this->post('name')),
+            "description"       => htmlspecialchars($this->post('description')),
+            "start_date"        => htmlspecialchars($this->post('start')),
+            "done_date"         => htmlspecialchars($this->post('done')),
+        );
+    
+        $this->TasksModel->updateTask($new_task, $id);
+        $this->response($etapa, parent::HTTP_OK);
+        
     }
 
     //////////////////////////////////////////////////////////////
@@ -476,7 +497,8 @@ class Api_Project extends REST_Controller {
         $cadeira_id = $projeto[0]["cadeira_id"];
 
         if($this->verify_studentInCadeira($user_id, $cadeira_id) || $this->verify_teacher($user_id, $proj_id, "projeto")){
-            $data = $this->ProjectModel->getEtapasByProjectID($proj_id);
+            $data["etapas"] = $this->ProjectModel->getEtapasByProjectID($proj_id);
+            $data["data_final"] = $this->ProjectModel->getLastEtapa($proj_id)[0]["deadline"];
             $this->response($data, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;

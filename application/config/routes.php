@@ -69,6 +69,7 @@ $route['api/deleteTaskById/(:num)']             = 'Api_Project/deleteTaskById/$1
 $route['api/getTaskById/(:num)']                = 'Api_Project/getTaskById/$1';
 $route['api/insertTaskStartDate/(:num)']        = 'Api_Project/insertTaskStartDate/$1';
 $route['api/insertTaskEndDate/(:num)']        = 'Api_Project/insertTaskEndDate/$1';
+$route['api/editTask/(:num)']                   = 'Api_Project/editTask/$1';
 
 $route['api/getCadeira/(:num)']                 = 'Api_Subject/getInfo/$1';
 $route['api/insertText']                        = 'Api_Subject/insertText';
@@ -122,11 +123,15 @@ $route['api/getAllSubjects']                    = 'Api_Subject/getAllSubjects';
 $route['api/getSubjectsByFilters']              = 'Api_Subject/getSubjectsByFilters';
 $route['api/editSubject']                       = 'Api_Subject/editSubject';
 $route['api/deleteSubject']                     = 'Api_Subject/deleteSubject';
+$route['api/adminSubject']                      = 'Api_Subject/adminSubject';
+$route['api/getStudentsSubjectAdmin']           = 'Api_Subject/getStudentsSubjectAdmin';
+$route["api/deleteUserFromSubject"]             = 'Api_Subject/deleteUserFromSubject';
 $route['api/saveCSV']                           = 'Api_Admin/export';
 $route['api/importX']                           = 'Api_Admin/importX';
 $route['api/getAdminHome']                      = 'Api_Admin/getAdminHome';
 $route['api/exportSpecific']                    = 'Api_Admin/exportSpecific';
 $route['api/importStudentsCourse']              = 'Api_Admin/importStudentsCourse';
+
 
 ##chat##
 
@@ -137,6 +142,9 @@ $route['api/getSearchTeaStu']                   = 'Api_User/getSearchStudentTeac
 $route['api/sendMessage']                       = 'Api_Chat/sendMessage';
 $route['api/getGroups']                         = 'Api_Chat/getGroups';
 
+
+# ROUTER.php
+$route['route/subject/(:num)']                  = 'Router/subjectById/$1';
 
 
 $route['default_controller'] = 'landing';

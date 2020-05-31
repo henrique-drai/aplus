@@ -67,7 +67,14 @@ function renderCalendario(){
     }
 
     let inner = $('<div class="inner"></div>').append(cols)
-    $("#calendario-hook").html(inner)
+
+    if(!calendario.events.length){
+        $("#calendario-hook").html(
+            $("<div class='no-events-msg left'>Não tem eventos próximos.</div>")
+        )
+    }
+
+    $("#calendario-hook").append(inner)
 }
 
 function setCalendario(data){

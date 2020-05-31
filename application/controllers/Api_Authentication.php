@@ -15,8 +15,8 @@ class Api_Authentication extends REST_Controller {
     //auth/login
     public function login_post()
     {
-        $email      = $this->post('email');
-        $password   = $this->post('password');
+        $email      = htmlspecialchars($this->post('email'));
+        $password   = htmlspecialchars($this->post('password'));
 
         $this->load->model('UserModel');
 

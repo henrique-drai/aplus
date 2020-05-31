@@ -33,8 +33,9 @@ $(document).ready(() => {
 
     $("#search_add_aluno_cadeira").keyup(function(){
         var s = $(this).val();
+        var cadeiraid = localStorage.getItem("cadeira_id");
         if(s!=''){
-            getSearchStudent(s);
+            getSearchStudent(s,cadeiraid);
         }
         else if(s==""){
             $("#alunos-subject-sugestao p").remove();
@@ -124,16 +125,18 @@ function deleteStudentSubject(){
 
 }
 
-function getSearchStudent(query){
+function getSearchStudent(query, cadeiraid){
     $.ajax({
         type: "GET",
-        url: base_url + "api/getSearchStudent",
-        data: {query: query},
+        url: base_url + "api/getSearchStudentNotInSubject",
+        data: {query: query,
+                cadeiraid: cadeiraid},
         success: function(data){
+            console.log(data);
             if(data.students != "no data"){
                 $("#mens_erro_alunos").remove();
                 var linha="";
-                if(data.students.length>3){
+                if(data.students.length>=3){
                     for(var i=0; i<3; i++){
                         linha+="<p>" + data.students[i].email +"<input class='addSearchStudent' type='button' value='Adicionar' id=aluno" + data.students[i].id +">" +"</p>"
                     }

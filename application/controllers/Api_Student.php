@@ -56,6 +56,39 @@ class Api_Student extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function getSearchStudentNotInSubject_get(){ 
+        $query = '';
+        $cadeiraid=$this->get("cadeiraid");
+        $this->load->model('UserModel');
+        $this->load->model('SubjectModel');
+        if($this->get("query")){
+            $query = $this->get("query");
+        }
+        $resultquery = $this->UserModel->getSearchStudent($query);
+        $resultalunoscadeira = $this->SubjectModel->getAllStudentSubject($cadeiraid);
+        $data["students"] = array();
+        if($resultquery -> num_rows() == 0){
+            $data["students"] = "no data"; 
+        }
+        else{
+            $filterStudents=$resultquery->result();
+            
+            foreach($filterStudents as $aluno){
+                $NotinCadeira=true;
+                for($i=0; $i<count($resultalunoscadeira); $i++){
+                    if($aluno->id==$resultalunoscadeira[$i]["user_id"]){
+                        $NotinCadeira=false;
+                    }
+                }
+                if($NotinCadeira){
+                    array_push($data["students"], $aluno);
+                }
+                
+            };      
+        }
+        $this->response($data, parent::HTTP_OK);
+    }
+
      //////////////////////////////////////////////////////////////
     //                     GROUPS
     //////////////////////////////////////////////////////////////

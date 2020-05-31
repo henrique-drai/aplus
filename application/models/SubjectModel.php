@@ -282,4 +282,8 @@ class SubjectModel extends CI_Model { //cadeira
     public function confirmUserInSubject($user_id, $cadeira_id){
         return $this->db->get_where("aluno_cadeira", array('user_id' => $user_id, "cadeira_id" => $cadeira_id))->row();
     }
+
+    public function getAllStudentSubject($cadeira_id){
+        return $this->db->get_where("aluno_cadeira", array("cadeira_id" => $cadeira_id))->result_array();
+    }
 }

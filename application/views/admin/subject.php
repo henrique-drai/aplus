@@ -1,7 +1,6 @@
 <title>A+ for Admins</title>
 <script>setPageName("subject")</script>
 <script src="<?php echo $base_url; ?>js/admin/subject.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-subjects.css">

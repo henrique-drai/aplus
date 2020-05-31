@@ -1,7 +1,7 @@
 <title>A+ for Admins</title>
 <script>setPageName("registerCourses")</script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-subjects.css">
 <script src="<?php echo $base_url; ?>js/admin/registerCurso.js"></script>
 
 </head>
@@ -21,11 +21,11 @@
         </p>
         <p>
             <label for="nomeCurso">Nome de Curso:</label>
-            <input type="text" name="nomeCurso" required>
+            <input class="notSmallInput" type="text" name="nomeCurso" required>
         </p>
         <p>
             <label for="descCurso">Descrição de Curso:</label>
-            <input type="text" name="descCurso" required>
+            <input class="notSmallInput"type="text" name="descCurso" required>
         </p>
         <p>
             <label for="academicYear">Ano Letivo:</label>

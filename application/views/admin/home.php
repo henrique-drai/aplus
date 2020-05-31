@@ -3,7 +3,6 @@
 <script src="<?php echo $base_url; ?>js/admin/home.js"></script>
 
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/home.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
 </head>
 
 <body>

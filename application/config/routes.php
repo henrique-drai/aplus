@@ -115,6 +115,8 @@ $route['api/getAllCadeirasByCourse']            = 'Api_Subject/getAllCadeirasByC
 $route["api/getAllCadeirasFaculdade"]           = 'Api_Subject/getAllCadeirasFaculdade';
 $route['api/deleteCourse']                      = 'Api_Course/deleteCourse';
 $route['api/getSearchStudent']                  = 'Api_Student/getSearchStudent';
+$route['api/getSearchStudentNotInSubject']      = 'Api_Student/getSearchStudentNotInSubject';
+
 $route['api/getAllStudents']                    = 'Api_Student/getAllStudents';
 // $route['api/getAllSubjectsByCourse']            = 'Api_Subject/getAllSubjectsByCourse';
 // $route['api/getAllCoursesByYear']               = 'Api_Course/getAllCoursesByYear';

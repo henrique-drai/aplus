@@ -253,7 +253,7 @@ label {
     text-align:left;
 }
 
-.input-label{
+.input-label, #enunc-label{
     text-align: center !important;
 }
 

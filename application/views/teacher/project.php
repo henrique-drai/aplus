@@ -35,7 +35,7 @@
         <h3 id="enunciado_h4"></h3>
         <!-- <div id="removeDiv"></div> -->
 
-        <input id="openEnunc" type="submit" value="Adicionar enunciado">
+        <input id="openEnunc" type="button" value="Adicionar enunciado">
         
         <div class="wrapper-top">
 
@@ -170,7 +170,7 @@
                 <div class="cd-popup-container">
                 <?php echo form_open_multipart('UploadsC/uploadEnunciadoProjeto', "id='enunciado-form'");?>
                         <div class="inputs-popup">
-                            <label class="form-label-title">Escolher um enunciado para o projeto</label>
+                            <label id="enunc-label" class="form-label-title">Escolher um enunciado para o projeto</label>
                             <br>
                             <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado" accept=".pdf">
                             <label for="file_projeto" class="input-label">

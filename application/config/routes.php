@@ -125,6 +125,7 @@ $route['api/deleteSubject']                     = 'Api_Subject/deleteSubject';
 $route['api/adminSubject']                      = 'Api_Subject/adminSubject';
 $route['api/getStudentsSubjectAdmin']           = 'Api_Subject/getStudentsSubjectAdmin';
 $route["api/deleteUserFromSubject"]             = 'Api_Subject/deleteUserFromSubject';
+$route["api/addStudentSubject"]                 = 'Api_Subject/addStudentSubject';
 $route['api/saveCSV']                           = 'Api_Admin/export';
 $route['api/importX']                           = 'Api_Admin/importX';
 $route['api/getAdminHome']                      = 'Api_Admin/getAdminHome';

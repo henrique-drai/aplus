@@ -13,8 +13,6 @@
 
         <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Ano Letivo</h4>
 
-        <h1>Ano Letivo</h1>
-
         <!-- <form id="register-anoletivo-form" action="javascript:void(0)">
         <p>
             <label for="anoLetivo">Insira um ano válido:</label>

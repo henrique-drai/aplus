@@ -14,10 +14,8 @@
 <body>
     <?php $this->view('templates/nav-menu'); ?>
     <main>
-        <h1>Courses</h1>
-
-
-        <h3>Registar Curso</h3>
+        <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Cursos</h4>
+        <h1>Registar Curso</h1>
 
         <form id="register-cursos-form" action="javascript:void(0)">
         <p>

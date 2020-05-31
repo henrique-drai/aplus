@@ -12,8 +12,7 @@
 <body>
 <?php $this->view('templates/nav-menu'); ?>
     <main>   
-        <h1>Professores</h1>
-        
+        <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Professores</h4>
         <div class="form-group">
             <div class="input-group">
                 <h2>Procurar Professores</h2>

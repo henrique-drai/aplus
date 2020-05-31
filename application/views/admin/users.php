@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/users.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
 </head>
 
 <body>

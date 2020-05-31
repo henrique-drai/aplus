@@ -31,6 +31,22 @@ $(document).ready(() => {
         deleteStudentSubject();
     })
 
+    $("#search_add_aluno_cadeira").keyup(function(){
+        var s = $(this).val();
+        if(s!=''){
+            getSearchStudent(s);
+        }
+        else if(s==""){
+            $("#alunos-subject-sugestao p").remove();
+        }
+    })
+
+    $("body").on("click", ".addSearchStudent", function(){
+        var alunoid = $(this).attr("id").split('aluno')[1];
+        var cadeiraid = localStorage.getItem("cadeira_id");
+        addStudentSubject(alunoid, cadeiraid);
+    })
+
 });
 
 
@@ -106,4 +122,67 @@ function deleteStudentSubject(){
         }
     });
 
+}
+
+function getSearchStudent(query){
+    $.ajax({
+        type: "GET",
+        url: base_url + "api/getSearchStudent",
+        data: {query: query},
+        success: function(data){
+            if(data.students != "no data"){
+                $("#mens_erro_alunos").remove();
+                var linha="";
+                if(data.students.length>3){
+                    for(var i=0; i<3; i++){
+                        linha+="<p>" + data.students[i].email +"<input class='addSearchStudent' type='button' value='Adicionar' id=aluno" + data.students[i].id +">" +"</p>"
+                    }
+                }
+                else if(data.students.length<3){
+                    for(var i=0; i<data.students.length; i++){
+                        linha+="<p>" + data.students[i].email +"<input class='addSearchStudent' type='button' value='Adicionar' id=aluno" + data.students[i].id +">" +"</p>"
+                    }
+                }
+                $("#alunos-subject-sugestao").html(linha);
+                
+            }
+            else{
+                $("#alunos-subject-sugestao p").remove();
+                $("#mens_erro_alunos").remove();
+                var mensagem = "<p id='mens_erro_alunos'>Não existe nenhum aluno com o email indicado.</p>";
+                $("#msgErro").append(mensagem);
+            }
+        },
+        error: function(data) {
+            $("#alunos-subject-sugestao p").remove();
+            var mensagem = "<p id='mens_erro_alunos'>Não é possivel encontrar alunos.</p>";
+            $("msgErro").append(mensagem);
+            $("#mens_erro_alunos").delay(2000).fadeOut();
+        }
+    })
+}
+
+function addStudentSubject($alunoid, $cadeiraid){
+    $.ajax({
+        type: "POST",
+        url: base_url + "api/addStudentSubject",
+        data: {alunoid: $alunoid,
+                cadeiraid: $cadeiraid},
+        success: function(data){
+            if(data==1){
+                getStudents();
+            }
+            else if(data==0){
+                $("#mens_erro_alunos").remove();
+                var mensagem = "<p id='mens_erro_alunos'>Aluno já esta adicionado à unidade curricular.</p>";
+                $("#msgErro").append(mensagem);
+                $("#mens_erro_alunos").delay(2000).fadeOut();
+            }
+        },
+        error: function(data) {
+            var mensagem = "<p id='mens_erro_alunos'>Não é possivel apresentar os professores.</p>";
+            $("msgErro").append(mensagem);
+            $("#mens_erro_alunos").delay(2000).fadeOut();
+        }
+    })
 }

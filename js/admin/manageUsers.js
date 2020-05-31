@@ -224,7 +224,7 @@ function getSearchStudent(query){
             }
         },
         error: function(data) {
-            var mensagem = "<h2 id='mens_erro_alunos'>Não é possivel apresentar os professores.</h2>";
+            var mensagem = "<h2 id='mens_erro_alunos'>Não é possivel apresentar os alunos.</h2>";
             $("msgErro").append(mensagem);
             $("#mens_erro_alunos").delay(2000).fadeOut();
         }

@@ -35,7 +35,7 @@
     min-width: 50px;
 }
 #calendario-hook .cell:hover {
-    background-color: #ccc !important;
+    background-color: #ddd !important;
     cursor: pointer;
 }
 #calendario-hook .cell .start {

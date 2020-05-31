@@ -16,8 +16,8 @@
     <div class="container">
 
         <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Unidades Curriculares</h4>
-
-        <h1>Registar Unidades Curriculares</h1>
+        <br>
+        <h2>Registar Unidades Curriculares</h2>
 
         <form id="register-cadeiras-form" action="javascript:void(0)">
             <p>

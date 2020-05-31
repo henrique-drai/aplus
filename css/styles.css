@@ -12,6 +12,10 @@
     src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 }
 
+h1{
+    font-size:28px;
+}
+
 html, body {
     width: 100%;
     margin: 0px;

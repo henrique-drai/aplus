@@ -232,11 +232,8 @@ class Api_Project extends REST_Controller {
     }
 
     public function insertTask_post() { 
-
-
         $data_send = Array (
             "grupo_id"          => htmlspecialchars($this->post("grupo_id")),
-            "user_id"           => htmlspecialchars($this->post("user_id")),
             "name"              => htmlspecialchars($this->post("name")),
             "description"       => htmlspecialchars($this->post("description")),
         );
@@ -381,7 +378,7 @@ class Api_Project extends REST_Controller {
 
         if($this->verify_student($user_id, $group_id)) {
             $data = date("Y-m-d h:i:s");
-            $this->TasksModel->insertTaskDate($data, $task_id, "start");
+            $this->TasksModel->insertTaskDate($data, $user_id, htmlspecialchars($task_id), "start");
             $this->response($data, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
@@ -396,7 +393,7 @@ class Api_Project extends REST_Controller {
 
         if($this->verify_student($user_id, $group_id)) {
             $data = date("Y-m-d h:i:s");
-            $this->TasksModel->insertTaskDate($data, $task_id, "end");
+            $this->TasksModel->insertTaskDate($data, $user_id, htmlspecialchars($task_id), "end");
             $this->response($data, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
@@ -622,7 +619,7 @@ class Api_Project extends REST_Controller {
     }
 
     public function getGroupMembers_get($group_id) {        
-        $data["user_ids"] = $this->GroupModel->getStudents($group_id);
+        $data["user_ids"] = $this->GroupModel->getStudents(htmlspecialchars($group_id));
         $data["users"] = array();
         for($i=0; $i < count($data["user_ids"]); $i++) {
             array_push($data["users"], $this->UserModel->getUserById($data["user_ids"][$i]["user_id"]));
@@ -634,8 +631,8 @@ class Api_Project extends REST_Controller {
     public function getTasks_get($group_id) { 
         $user_id = $this->session->userdata('id');
 
-        if($this->verify_student($user_id, $group_id)) {
-            $data["tasks"] = $this->TasksModel->getTarefas($group_id);
+        if($this->verify_student($user_id, htmlspecialchars($group_id))) {
+            $data["tasks"] = $this->TasksModel->getTarefas(htmlspecialchars($group_id));
     
             $data["members"] = array();
             for($i=0; $i < count($data["tasks"]); $i++) {
@@ -673,7 +670,7 @@ class Api_Project extends REST_Controller {
     }
 
     public function getTaskById_get($id) {
-        $data["task"] = $this->TasksModel->getTaskById($id);
+        $data["task"] = $this->TasksModel->getTaskById(htmlspecialchars($id));
 
         $this->response($data, parent::HTTP_OK);
     }
@@ -794,8 +791,7 @@ class Api_Project extends REST_Controller {
 
     public function deleteTaskById_delete($id){ 
         $this->load->model("TasksModel");
-        $data["id"] = $id;
-        $data["result"] = $this->TasksModel->deleteTaskById($id);
+        $data = $this->TasksModel->deleteTaskById(htmlspecialchars($id));
     
         $this->response($data, parent::HTTP_OK);
         

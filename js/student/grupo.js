@@ -271,7 +271,7 @@ function insertTask(taskName, taskDesc, taskMember) {
 
             getTasks();
             
-            $(".message").append("Tarefa adicionada com sucesso!");
+            $(".message").html("Tarefa adicionada com sucesso!");
             $(".message").fadeTo(2000, 1);
             setTimeout(function() {
                 $(".message").fadeTo(2000, 0);
@@ -318,9 +318,7 @@ function getTasks() {
                 table = table + "</table>"
                 $(".tasksTable").html(table);
             } else {
-                $(".tasksTable").append("<p>Não existem tarefas.</p>");
-                $("#editTarefa").css('visibility', 'hidden');
-                $("#deleteTarefa").css('visibility', 'hidden');
+                $(".tasksTable").html("<p>Não existem tarefas.</p>");
                 
             }
         },
@@ -353,7 +351,7 @@ function deleteTaskById(id) {
             $(".cd-popup").css('opacity', '0');
 
             getTasks();
-            $(".message").append("Tarefa eliminada com sucesso!");
+            $(".message").html("Tarefa eliminada com sucesso!");
             $(".message").fadeTo(2000, 1);
             setTimeout(function () {
                 $(".message").fadeTo(2000, 0);
@@ -381,7 +379,7 @@ function insertTaskStartDate(task_id) {
             $(".end").append("<input type='button' class='end_date_button' id='" + task_id + "' value='Terminar Tarefa'>");
         },
         error: function (data) {
-            alert("Houve um erro a remover a tarefa.")
+            alert("Houve um erro a inserir a data-inicio da tarefa.")
             console.log(data)
 
         }
@@ -404,7 +402,7 @@ function insertTaskEndDate(task_id) {
             $(".time_spent").append("<h3>Tempo gasto na tarefa</h3></label>" + day + " dia(s) " + hours + " hora(s) " + min + " minutos " + Math.abs(seconds) + " segundos " + "</label>");
         },
         error: function (data) {
-            alert("Houve um erro a remover a tarefa.")
+            alert("Houve um erro a inserir a data-fim da tarefa.")
             console.log(data)
 
         }

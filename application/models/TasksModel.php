@@ -38,4 +38,7 @@ class TasksModel extends CI_Model {
         }
     }
 
+    public function updateTask($data, $id){
+        return $this->db->update("tarefa", $data, ['id' => $id]);
+    }
 }

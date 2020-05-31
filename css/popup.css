@@ -29,6 +29,8 @@
     position: relative;
     width: 90%;
     max-width: 600px;
+    overflow: auto;
+    max-height: 90%;
     margin: 0 auto;
     background: #FFF;
     border-radius: .25em .25em .4em .4em;

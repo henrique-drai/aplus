@@ -65,20 +65,13 @@
 
             <div class="cd-popup2" id="popup-geral">
                 <div class="cd-popup-container" id="container-geral">
+
                     <div class="inputs-div">
                         <h3>Etapa</h3>
                         <h3>Descrição:</h3>
                         <label></label>
                         <h3>Enunciado: </h3>
                         <label id="enunciado_label"></label>
-                    </div>
-                    <div class="wrapper">
-                        <hr>
-                        <input id="addEtapaEnunciado" class="addE" type="button" value="Adicionar Enunciado">
-                        <input id="editEtapaButton" class="editb" type="button" value="Editar">
-                        <input id="feedbackEtapaButton" class="feedbackb" type="button" value="Feedback">
-                        <input id="removeEtapaButton" class="remove" type="button" value="Eliminar">
-                        <hr>
                     </div>
 
                     <div id="forms">
@@ -91,9 +84,6 @@
                             <p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>
                         </form>
 
-                        <div id="successmsgenunc" class="submit-msg">Mensagem de sucesso template</div>
-                        <div id="errormsgenunc" class="submit-msg">Mensagem de erro template</div>
-
                         <form id="feedback-form">
                             <div id="feedback-div">
                                 <label class="form-label-title">Selecione o grupo</label>
@@ -103,14 +93,10 @@
                                 <p id="sub_url">Entrega ainda não foi submetida</p>
                                 <label class="form-label-title">Feedback dado:</label>
                                 <p id="fb_content">Ainda não atribuiu feedback a esta etapa</p>
-                                <br>
                                 <label class="form-label-title">Dar feedback:</label>
                                 <textarea class="form-text-area" type="text" name="feedback-text" disabled required></textarea>
                             </div>
                         </form>
-
-                        <div id="successmsgfb" class="submit-msg">Mensagem de sucesso template</div>
-                        <div id="errormsgfb" class="submit-msg">Mensagem de erro template</div>
 
                         <form id="etapa-form-edit" action="javascript:void(0)">
                             <div id="etapa-edit">
@@ -124,8 +110,21 @@
                             </div>
                         </form>
 
+                        <div class="wrapper">
+                            <hr>
+                            <input id="addEtapaEnunciado" class="addE" type="button" value="Enunciado">
+                            <input id="editEtapaButton" class="editb" type="button" value="Editar">
+                            <input id="feedbackEtapaButton" class="feedbackb" type="button" value="Feedback">
+                            <input id="removeEtapaButton" class="remove" type="button" value="Eliminar">
+                            <br>
+                        </div>
+
+                        <div id="successmsgenunc" class="submit-msg">Mensagem de sucesso template</div>
+                        <div id="errormsgenunc" class="submit-msg">Mensagem de erro template</div>
                         <div id="successmsg_editar" class="submit-msg">Etapa editada com sucesso</div>
                         <div id="errormsgedit" class="submit-msg">Mensagem de erro template</div>
+                        <div id="successmsgfb" class="submit-msg">Mensagem de sucesso template</div>
+                        <div id="errormsgfb" class="submit-msg">Mensagem de erro template</div>
 
                         <ul class="cd-buttons" id="ul-buttons">
                             <li><a href="#" id="id-generico">Submeter</a></li>

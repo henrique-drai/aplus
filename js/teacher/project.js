@@ -209,6 +209,7 @@ $(document).ready(() => {
         $("#form-upload-etapa").hide();
 
         $("#feedback-form").show();
+        $(".inputs-div").hide();
         showGroups(proj);
 
         if(formStatus != 'feedback'){
@@ -218,6 +219,7 @@ $(document).ready(() => {
         } else {
             formStatus = null;
             checkFormStatus();
+            $(".inputs-div").show();
             $("#ul-buttons").hide();
             $("#feedback-form").hide();
         }
@@ -239,6 +241,7 @@ $(document).ready(() => {
         $("#etapa-form").hide();
         $("#feedback-form").hide();
         $("#form-upload-etapa").hide();
+        $(".inputs-div").hide();
 
         $("#etapa-form-edit").show();
         $("#etapa-label-edit").text("Editar etapa '" + $("#etapa" + selected_etapa).find("p:first").text() + "':");
@@ -255,6 +258,7 @@ $(document).ready(() => {
             formStatus = null;
             checkFormStatus();
             emptyEtapa();
+            $(".inputs-div").show();
             $("#ul-buttons").hide();
             $("#etapa-form-edit").hide();
         }
@@ -268,6 +272,7 @@ $(document).ready(() => {
         $("#etapa-form").hide();
         $("#feedback-form").hide();
         $("#form-upload-etapa").show();
+        $(".inputs-div").show();
         
         $("#ul-buttons").find("li:first").find("a").prop("id", "addEnuncEtapa");
         console.log($("#addEnuncEtapa"));
@@ -807,7 +812,7 @@ function updateEtapaPopup(etapa_rec){
 
     console.log(etapa);
 
-
+    $(".inputs-div").show();
     $(".cd-popup-container").find("label:first").text(etapa["description"]);
     $("#enunciado_label").html(etapa["enunciado"]);
     $("#enunciado_label").append(etapa["remove"]);

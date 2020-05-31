@@ -96,3 +96,26 @@ select{
     font-weight: bold;
     text-decoration: none;
 }
+
+/* Global style */
+
+.btn-tertiary {
+    color: #555;
+    padding: 0;
+    width: 300px;
+    margin: auto;
+    display: block;
+    border: 2px solid #555;
+}
+
+ 
+.input-file {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      z-index: -1;
+}
+
+select#coursesDisplay1 {
+    margin-top: 4%;
+}

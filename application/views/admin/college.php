@@ -25,7 +25,7 @@
             <input type="text" name="morada" required>
         </p>
         <p>
-            <label for="siglas">Siglas da Faculdade:</label>
+            <label for="siglas">Sigla da Faculdade:</label>
             <input type="text" name="siglas" required>
         </p>
             <input type="submit" id="register-college-submit">

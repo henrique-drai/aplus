@@ -101,11 +101,9 @@
                 
                 <form id="export2Csv" action="javascript:void(0)">
 
-                    <p>
                         <div class="title">Exportar</div>
 
                         <br>
-
 
                         <label for="data">Exportar alunos:</label>
                         
@@ -119,10 +117,7 @@
 
 
                             <div id="collegeStatus">
-                            </div>
-                    </p>
-                    
-    
+                            </div>                    
                 </form>
 
                 <br>
@@ -163,7 +158,6 @@
 
                 <form id="importFromCsv" action="javascript:void(0)" enctype="multipart/form-data">
                     
-                    <p>
                             <div class="title">Importar</div>
 
                             <br>
@@ -182,10 +176,6 @@
                             <div id="collegeStatus1">
                             </div>
 
-                    </p>
-                
-                    <!-- <input type="file" id="myfile" name="userfile" accept=".csv" required>
-                    <input type="submit" id="import-data-submit"  value="Importar"> -->
                 </form>
                 <br>
 

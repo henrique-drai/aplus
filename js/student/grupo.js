@@ -314,8 +314,6 @@ function getTasks() {
                 $(".tasksTable").html(table);
             } else {
                 $(".tasksTable").html("<p>Não existem tarefas.</p>");
-                $("#editTarefa").css('visibility', 'hidden');
-                $("#deleteTarefa").css('visibility', 'hidden');
                 
             }
         },

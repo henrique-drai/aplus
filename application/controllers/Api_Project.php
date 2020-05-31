@@ -405,6 +405,26 @@ class Api_Project extends REST_Controller {
         } 
     }
 
+
+    public function editTask_post(){ 
+        
+        $task = $this->post('task');
+        $id = htmlspecialchars($this->post('id'));
+         
+        $new_task = Array (
+            "grupo_id"          => htmlspecialchars($this->post('grupoid')),
+            "user_id"           => htmlspecialchars($this->post('userid')),
+            "name"              => htmlspecialchars($this->post('name')),
+            "description"       => htmlspecialchars($this->post('description')),
+            "start_date"        => htmlspecialchars($this->post('start')),
+            "done_date"         => htmlspecialchars($this->post('done')),
+        );
+    
+        $this->TasksModel->updateTask($new_task, $id);
+        $this->response($etapa, parent::HTTP_OK);
+        
+    }
+
     //////////////////////////////////////////////////////////////
     //                           GET
     //////////////////////////////////////////////////////////////

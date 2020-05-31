@@ -26,14 +26,15 @@
             </div>
         </div>
 
-        <div id="results-container" class="container">
-
+        <div id="results-container" class="accordions">
+        <div id="privateChat" class="accordion-item"></div>
+        <div id="groupChat" class="accordion-item"></div>
         </div>
         </div>
         <div id="chat-container" class="container">
             <div class="headName"></div>
             <div class="bodyChat"></div>
-            <div class="footSend"></div>
+            <div class="footSend"><div class="type-msg"><input type="text" id="write_msg" placeholder="Type a message"><img class="icon-send"src="http://localhost/aplus//images/icons/paper-airplane.png"> </div></div>
         </div> 
         </div>
         <!--

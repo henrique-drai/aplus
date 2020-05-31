@@ -24,6 +24,20 @@ class Api_Chat extends REST_Controller {
     //                           POST
     //////////////////////////////////////////////////////////////
 
+    public function sendMessageGroup_post(){
+        // $this->load->model('ChatModel');
+        // // $msg = htmlspecialchars($this->post('m'));
+        // // $id_receiver = $this->post('id');
+        // // $id = $this->session->userdata('id');
+        // $data = Array(
+        //     "content"     => htmlspecialchars($this->post('m')),
+        //     "id_receiver" => $this->post('id'),
+        //     "id_sender"   => $this->session->userdata('id'),
+        //     "date"        => $this->post('t'),  
+        // );
+        // $this->ChatModel->sendMessage($data);
+    }
+
     public function sendMessage_post(){
         $this->load->model('ChatModel');
         // $msg = htmlspecialchars($this->post('m'));
@@ -42,23 +56,23 @@ class Api_Chat extends REST_Controller {
     //                           GET
     //////////////////////////////////////////////////////////////
 
-    public function getLastPrivateMsg_get(){ 
-        $this->load->model('ChatModel');
+    // public function getLastPrivateMsg_get(){ 
+    //     $this->load->model('ChatModel');
         
-        $id_receiver = $this->session->userdata('id');
+    //     $id_receiver = $this->session->userdata('id');
 
-        $id_sender = $this->get('id_sender');
+    //     $id_sender = $this->get('id_sender');
 
-        $resultquery = $this->ChatModel->last_record_privateMsg($id_receiver,$id_sender);
-        $data['msg']="";
-        if(empty($resultquery)){
-            $data["msg"]="no data";
-        }else{
-            $data["msg"] = $resultquery;
-        }
+    //     $resultquery = $this->ChatModel->last_record_privateMsg($id_receiver,$id_sender);
+    //     $data['msg']="";
+    //     if(empty($resultquery)){
+    //         $data["msg"]="no data";
+    //     }else{
+    //         $data["msg"] = $resultquery;
+    //     }
 
-        $this->response($data, parent::HTTP_OK);
-    }
+    //     $this->response($data, parent::HTTP_OK);
+    // }
 
     public function getChatLogs_get(){
         $id = $this->session->userdata('id');
@@ -120,6 +134,58 @@ class Api_Chat extends REST_Controller {
         }
 
         $this->response($data, parent::HTTP_OK);
+    }
+
+    public function getChatGroupHistory_get(){
+        $this->load->model('ChatModel');
+        $id_group = $this->get('id_group');
+        $resultquery = $this->ChatModel->getChatGroupHistory($id_group);
+        $this->load->model('UserModel');
+
+        // $data['user']=$this->UserModel->getUserById($id_sender);
+        // $data['users']=array();
+
+        $data['msg']=array();
+        for($i=0; $i < count($resultquery); $i++) {
+            array_push($data['msg'], array($resultquery[$i],$this->UserModel->getUserById($resultquery[$i]["user_id"])));
+        }
+        if(empty($resultquery)){
+            $data["msg"]="";
+        }
+        // else{
+        //     $data["msg"] = $resultquery;
+        // }
+        // $data['sent']=array();
+        // $data['received']=array();
+        
+        // for($i=0; $i < count($resultquery); $i++) {
+        //     if($resultquery[$i]["user_id"]==$id){
+        //         array_push($data['sent'], array($resultquery[$i],$this->UserModel->getUserById($resultquery[$i]["user_id"])));
+        //     }
+        //     else{
+        //         array_push($data['received'], array($resultquery[$i],$this->UserModel->getUserById($resultquery[$i]["user_id"])));
+        //     }
+            
+        // }
+        // if(empty($resultquery)){
+        //     $data="";
+        // }
+
+        $this->response($data, parent::HTTP_OK);
+    }
+    
+
+    public function getGroups_get(){
+        $id = $this->session->userdata('id');
+        $this->load->model('GroupModel');
+        $ides["grupos"] = $this->GroupModel->getGroups($id);
+        $data=array();
+        for ($i=0; $i < count($ides["grupos"]); $i++) {
+            $grupo = $this->GroupModel->getGroupById($ides["grupos"][$i]["grupo_id"]);
+            array_push($data, $grupo);
+        }
+        $this->response($data, parent::HTTP_OK);
+
     }
  
     //////////////////////////////////////////////////////////////

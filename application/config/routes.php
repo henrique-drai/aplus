@@ -131,9 +131,11 @@ $route['api/importStudentsCourse']              = 'Api_Admin/importStudentsCours
 ##chat##
 
 $route['api/getChatHistory']                    = 'Api_Chat/getChatHistory';
+$route['api/getChatGroupHistory']               = 'Api_Chat/getChatGroupHistory';
 $route['api/getChatLogs']                       = 'Api_Chat/getChatLogs';
 $route['api/getSearchTeaStu']                   = 'Api_User/getSearchStudentTeachers';
 $route['api/sendMessage']                       = 'Api_Chat/sendMessage';
+$route['api/getGroups']                         = 'Api_Chat/getGroups';
 
 
 

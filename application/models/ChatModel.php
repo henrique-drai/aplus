@@ -25,12 +25,18 @@ class ChatModel extends CI_Model { //provate_chat & private_chat_msg
         return $result;
     }
 
+    public function getChatGroupHistory($group_id){
+        $query = $this->db->query("SELECT * FROM grupo_msg WHERE grupo_id=$group_id ORDER BY date ASC");
+        $result = $query->result_array();
+        return $result;
+    }
+
     public function sendMessage($data){
-        // $data = array(
-        //     'content' => $msg,
-        //     'id_sender' => $id_sender,
-        //     'id_receiver' => $id_receiver);
         $this->db->insert('private_msg', $data);
+    }
+
+    public function sendMessageGroup($data){
+        $this->db->insert('group_msg', $data);
     }
 }
 

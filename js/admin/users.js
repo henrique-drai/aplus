@@ -8,6 +8,32 @@ $(document).ready(() => {
 
 
 
+    // ############################ POP-UP ###########################################
+
+
+    $('body').on("click", "#showDemo",function() {
+        event.preventDefault();
+        $('#import_csv_style').addClass('is-visible');
+    });
+
+
+    //close popup
+	$('.cd-popup').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+	});
+	//close popup when clicking the esc keyboard button
+	$(document).keyup(function(event){
+    	if(event.which=='27'){
+    		$('.cd-popup').removeClass('is-visible');
+	    }
+    });
+    $("body").on('click', "#closePopUp", function(){
+        $('.cd-popup').removeClass('is-visible');
+    })
+
 
       
     // ############################ EXPORT ###########################################

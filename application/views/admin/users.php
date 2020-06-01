@@ -2,9 +2,10 @@
 <script>setPageName("home")</script>
 <script src="<?php echo $base_url; ?>js/admin/users.js"></script>
 <script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/users.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
+
+
 </head>
 
 <body>
@@ -123,7 +124,7 @@
 
                     <br>
                     
-                    <label for="data">Importar alunos:</label>
+                    <label for="data">Importar alunos: <a href="#" id="showDemo">Formato</a></label>
             
                     <select id="collegesDisplay1" name="colleges">
                     </select>
@@ -179,6 +180,18 @@
 
 
         </section>
+
+
+        <div class="cd-popup" role="alert" id="import_csv_style">
+            <div class="cd-popup-container">
+                <p id="removePadding">Formato ficheiro ".csv" para importação</p>
+                <img src="<?php echo base_url(); ?>images/csv_example.png" alt="csv_example">
+                <ul class="cd-buttons">
+                    <li id="fullW"><a href="#" id="closePopUp">Fechar</a></li>
+                </ul>
+                <a class="cd-popup-close"></a>
+            </div>
+        </div>
 
     
     </main>

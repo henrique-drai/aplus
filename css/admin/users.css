@@ -1,5 +1,9 @@
-main > * {
+main > *:not(#import_csv_style) {
     margin: 10px;
+}
+
+input{
+    background-color: white !important;
 }
 
 .flex-section {
@@ -127,6 +131,30 @@ select{
     color:rgba(106, 192, 66, 0.7);
 }
 
+#showDemo {
+    margin-left: 3%;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #3e5d4f;
+    vertical-align: middle;
+}
+
+#fullW{
+    width: 100%;
+}
+
+#removePadding{
+    padding: 0 0;
+    font-weight: bold;
+}
+
+#closePopUp {
+    background: #3e5d4f;
+}
+
+img[alt="csv_example"] {
+    padding: 1% 0 3% 0;
+}
 
 .tirarCadeira{
     cursor: pointer;

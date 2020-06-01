@@ -126,7 +126,35 @@ $(document).ready(() => {
         createPopUpEdit(task_id);
 
      });
+
+     disableTasksClose()
 });
+
+function disableTasksClose() {
+	$.ajax({
+		type: "GET",
+		url: base_url + "api/getProjectStatus",
+		data: {
+			grupo_id: localStorage.grupo_id
+		},
+		success: function (data) {
+            console.log(data.date)
+            
+            if (new Date(data.date) < Date.now()){
+                $("#newTarefa").remove();
+                
+                $('.tasksTable thead tr th:last').remove(); 
+                $(".tasksTable th:last-child, .tasksTable td:last-child").remove();           
+            		
+            }
+        },
+		error: function (data) {
+			console.log("Erro na API:")
+		}
+	});
+}
+
+
 
 function updateTaskPopup(task_id){
     $.ajax({

@@ -291,7 +291,7 @@ function getCourses(){
         url: base_url + "api/getAllCourses",
         success: function(data) {
             $("#Consultar_Cadeiras_Curso option").remove();
-            var linhas = '<option class="course_row" value="">Selecione uma Curso</option>';
+            var linhas = '<option class="course_row" value="">Selecione um Curso</option>';
             if(data.courses.length>0){
                 for(i=0; i<data.courses.length;i++){
                     linhas += '<option class="course_row" value=' + data.courses[i].id +">" + data.courses[i].name + " (" + data.numSubject[data.courses[i].name] + ")" + '</option>'; 
@@ -501,12 +501,9 @@ function  editSubject(){
             var faculdade = $("#Consultar_Cadeiras_Faculdade").val();
             var curso = document.getElementById("Consultar_Cadeiras_Curso").options[document.getElementById("Consultar_Cadeiras_Curso").selectedIndex].text;
             var cursonome = curso.split("(")[0];
-            
-            if(cursonome == "Selecione uma Curso"){
+
+            if(cursonome == "Selecione um Curso"){
                 cursonome = "";
-            }
-            else{
-                cursonome = cursonome.split(" ")[0]; 
             }
             
             var ano = $("#Consultar_Cadeiras_Ano").val();

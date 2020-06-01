@@ -19,21 +19,14 @@
             <div class="admin-users-window">
                 <div class="title">Registar</div>
                 <form id="register-form" action="javascript:void(0)">
-                    <p>
-                    <label for="name">Nome:</label>
-                    <input type="text" name="name">
+                    <p class="double_input">
+                        <label for="name">Nome:<br><input type="text" name="name"></label>
+                        <label for="surname">Apelido:<br><input type="text" name="surname"></label>
                     </p>
-                    <p>
-                    <label for="surname">Apelido:</label>
-                    <input type="text" name="surname">
-                    </p>
-                    <p>
-                    <label for="email">Email:</label>
-                    <input type="text" name="email">
-                    </p>
-                    <p>
-                    <label for="password">Password:</label>
-                    <input type="password" name="password">
+                    <p class="double_input">
+                        <label for="email">Email:<br><input type="text" name="email"></label>
+                        
+                        <label for="password">Password:<br><input type="password" name="password"></label>                
                     </p>
                     <p>
                     <label for="role">Privilégio:</label>
@@ -64,7 +57,9 @@
                         </select>
                     </p>
                     <div id="selectedCadeiras">
-                        <h4>Cadeiras Selecionadas</h4>
+                        <h4>Cadeiras a inscrever</h4>
+                        <div id="cadeiras">
+                        </div>
                     </div>
                     <input type="submit" id="register-form-submit">
                 </form>
@@ -78,7 +73,7 @@
 
 <!-- ################################################################################################# -->
 
-            <div class="admin-users-window">
+            <div class="admin-users-window-export">
                 <!-- <div class="title">Exportar</div> -->
 <!--                 
                 <form id="exportCsv">
@@ -122,14 +117,43 @@
 
                 <br>
 
+                <form id="importFromCsv" action="javascript:void(0)" enctype="multipart/form-data">
+                    
+                    <div class="title">Importar</div>
+
+                    <br>
+                    
+                    <label for="data">Importar alunos:</label>
+            
+                    <select id="collegesDisplay1" name="colleges">
+                    </select>
+
+                    <br>
+
+                    <select id="yearsDisplay1" name="years">
+                    </select>
+
+                    
+                    <div id="collegeStatus1">
+                    </div>
+
+                </form>
+                <br>
+
+                <div id="importSuccess">
+                </div>
+
+                <div id="importError">
+                </div>
+
                 
             </div>
 
 
 <!-- ################################################################################################# -->
 
-            <div class="admin-users-window">
-                <!-- <div class="title">Importar</div>
+            <!-- <div class="admin-users-window">
+                <div class="title">Importar</div>
                 
 
                 <form id="file-form" action="javascript:void(0)" enctype="multipart/form-data">
@@ -149,47 +173,10 @@
                 <br>
 
                 <div id="importStatus">
-                </div> -->
-           
-
-           
-               
-                
-
-                <form id="importFromCsv" action="javascript:void(0)" enctype="multipart/form-data">
-                    
-                            <div class="title">Importar</div>
-
-                            <br>
-                            
-                            <label for="data">Importar alunos:</label>
-                    
-                            <select id="collegesDisplay1" name="colleges">
-                            </select>
-
-                            <br>
-
-                            <select id="yearsDisplay1" name="years">
-                            </select>
-
-                            
-                            <div id="collegeStatus1">
-                            </div>
-
-                </form>
-                <br>
-
-                <div id="importSuccess">
-                </div>
-
-                <div id="importError">
-                </div>
+                </div> 
             
-            </div>
+            </div> -->
 
-            
-
-            
 
         </section>
 

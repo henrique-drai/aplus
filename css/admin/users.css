@@ -3,19 +3,48 @@ main > * {
 }
 
 .flex-section {
-    display: flex;
     flex-wrap: wrap;
     align-items: baseline;
     margin: -15px;
 }
 
 .admin-users-window {
-    margin: 30px;
-    min-width: 350px;
-    max-width: 400px;
+    padding: 30px 20px 0px;
+    min-width: 66%;
+    max-width: 100%;
+    box-sizing: border-box;
+    width: 33%;
+    display: inline-block;
+    vertical-align: top;
 }
 
-.admin-users-window .title {
+.admin-users-window-export{
+    padding: 30px 20px 0px;
+    min-width: 33%;
+    max-width: 100%;
+    box-sizing: border-box;
+    width: 33%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+@media(max-width: 767px){
+    .admin-users-window {
+        padding: 30px 20px 0px;
+        min-width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .admin-users-window-export{
+        padding: 30px 20px 0px;
+        min-width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+.admin-users-window .title, .admin-users-window-export .title{
     border-bottom: 1px solid #aaa;
     text-align: center;
     padding: 5px 8px;
@@ -23,28 +52,38 @@ main > * {
     color: #333;
 }
 
-.admin-users-window form {
+
+
+.admin-users-window form, .admin-users-window-export form {
     width: 100%;
 }
 
-.admin-users-window label {
+.admin-users-window-export label {
     padding: 5px 10px 5px;
     margin: 0px;
 }
-.admin-users-window select {
+
+.admin-users-window label{
+    margin:0px;
+}
+
+.admin-users-window select, .admin-users-window-export select {
     padding: 5px;
 }
 
 .admin-users-window input,
-.admin-users-window select {
+.admin-users-window select, .admin-users-window-export input,
+.admin-users-window-export select {
     width: 100%;
 }
 
-.admin-users-window input[type=submit] {
+.admin-users-window input[type=submit],
+.admin-users-window-export input[type=submit] {
     width: unset;
 }
 
-.admin-users-window input[type=file] {
+.admin-users-window input[type=file],
+.admin-users-window-export input[type=file] {
     background-color: transparent;
 }
 
@@ -90,11 +129,48 @@ select{
 
 
 .tirarCadeira{
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
     margin-left: 10px;
     color: #333;
     font-size: 15px;
     font-weight: bold;
     text-decoration: none;
+}
+
+.selectedcadeiras{
+    border: solid 1px grey;
+    display: inline-block;
+    margin: 3px;
+    padding: 5px;
+}
+
+.tirarCadeira .tooltiptext {
+    display: inline-block;
+    visibility: hidden;
+    width: 120px;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    margin-left: 10px;
+    bottom: 10px;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+  
+.tirarCadeira:hover .tooltiptext {
+    visibility: visible;
+}
+
+#cadeiras{
+    border: solid 1px grey;
+    max-width: 100%;
+    min-width: 33%;
+    padding: 3px;
 }
 
 /* Global style */
@@ -118,4 +194,27 @@ select{
 
 select#coursesDisplay1 {
     margin-top: 4%;
+}
+
+.double_input{
+    width: 100%;
+}
+
+.double_input label{
+    width: 49%;
+    display: inline-block;
+}
+
+@media(max-width: 767px){
+    .double_input label{
+        width: 100%;
+    }
+    
+    .double_input{
+        margin-bottom:0px;
+    }
+
+    .double_input input{
+        margin-bottom:5px;
+    }
 }

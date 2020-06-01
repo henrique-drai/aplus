@@ -299,19 +299,25 @@ $(document).ready(() => {
                
             }
             if(repetido){
-                var linha = '<p class="selectedcadeiras" id="cadeira_' + $(this).val()+'">' + $(this).text() + "<a class='tirarCadeira' href='#'>&times;</a></p>";
-                $("#selectedCadeiras").append(linha);
+                // var linha = '<p class="selectedcadeiras" id="cadeira_' + $(this).val()+'">' + $(this).text() + "<a class='tirarCadeira' href='#'>&times;</a></p>";
+                // var linha = '<p class="selectedcadeiras" id="cadeira_' + $(this).val()+'">' + $(this).text() + "<button class='tirarCadeira'>Anular</button></p>";
+                var linha = '<div class="selectedcadeiras" id="cadeira_' + $(this).val()+'">' + $(this).text() + "<div class='tirarCadeira'>&times; <span class='tooltiptext'>Remover</span></div></div>";
+                $("#cadeiras").append(linha);
             }
         }
         else{
-            var linha = '<p class="selectedcadeiras" id="cadeira_' + $(this).val()+'">' + $(this).text() + "<a class='tirarCadeira' href='#'>&times;</a></p>";
-            $("#selectedCadeiras").append(linha);
+            // var linha = '<p class="selectedcadeiras" id="cadeira_' + $(this).val()+'">' + $(this).text() + "<a class='tirarCadeira' href='#'>&times;</a></p>";
+            var linha = '<div class="selectedcadeiras" id="cadeira_' + $(this).val()+'">' + $(this).text() + "<div class='tirarCadeira'>&times; <span class='tooltiptext'>Remover</span></div></div>";
+            $("#cadeiras").append(linha);
         }        
         
     })
 
     $("body").on("click", ".tirarCadeira", function(){
        $(this).parent().remove();
+       if($(".selectedcadeiras").length==0){
+            $("#cadeiras").css("display", "none");
+        }
     })
 
 })

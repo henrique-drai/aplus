@@ -16,7 +16,7 @@
         
         <form id="register-faculdade-form" action="javascript:void(0)">
         <p>
-            <label for="siglas">Siglas da Faculdade:</label>
+            <label for="siglas">Sigla da Faculdade:</label>
             <input type="text" name="siglas" required>
         </p>
         <p>

@@ -30,3 +30,7 @@
     margin: 20px auto;
     width: 90%;
 }
+
+.notSmallInput {
+    background-color: white;
+}

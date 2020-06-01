@@ -28,7 +28,7 @@
         </p>
         <p>
             <label for="descCurso">Descrição de Curso:</label>
-            <input class="notSmallInput" type="text" name="descCurso" required>
+            <textarea class="notSmallInput" type="text" name="descCurso" required></textarea>
         </p>
         <p>
             <label for="academicYear">Ano Letivo:</label>

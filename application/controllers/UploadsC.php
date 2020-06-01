@@ -22,7 +22,17 @@ class UploadsC extends CI_Controller {
         $user_id = $this->session->userdata('id');
 
         if($this->verify_teacher($user_id, $project_id, "projeto")){
-            $upload['upload_path'] = './uploads/enunciados_files/';
+            $path = './uploads/enunciados_files/';
+
+            if(!is_dir($path)){
+                mkdir($path, 0777, TRUE);
+            }
+
+            if (! chmod('./uploads/enunciados_files', 0777) ){
+                echo "erro chmod";
+            }
+
+            $upload['upload_path'] = $path;
             $upload['allowed_types'] = 'pdf';
             $upload['file_name'] = $project_id;
             $upload['overwrite'] = true;

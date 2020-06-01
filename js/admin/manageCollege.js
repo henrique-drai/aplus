@@ -102,6 +102,7 @@ function deleteCollege(linha){
         success: function() {
             $("#msgStatusDelete").text("Faculdade eliminada com Sucesso");
             $("#msgStatusDelete").show().delay(2000).fadeOut();
+            getAllColleges();
         },
         error: function() {
             $("#msgErroDelete").text(" Não foi possivel eliminar a faculdade");

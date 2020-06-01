@@ -18,11 +18,11 @@ input[type="submit"]{
     display: flex;
 }
 #rightSideAlunoContainer{
-    width: 80%;
+    width: 60%;
     text-align: center;
 }
 #leftDivAddStudent{
-    width: 30%;
+    width: 40%;
 }
 
 .container {
@@ -89,9 +89,14 @@ label[for="curso"]{
 
 #alunos-subject-sugestao p{
     margin:1%;
-    width: 50%;
+    /* width: 50%; */
 }
 
 .addSearchStudent{
     display: inline-block;
+}
+
+#alunos-subject-sugestao input[type=button]{
+    margin: 10px 0px 0px 15px;
+    text-align: right; 
 }

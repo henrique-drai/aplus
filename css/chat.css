@@ -121,11 +121,19 @@ li p{
     /* width: 100%; */
 }
 
-.time_date{
+.time_date, .nameMsg{
     color: #747474;
     display: block;
     font-size: 12px;
     margin: 8px 0 0;
+}
+
+.accordion h4{
+    display: flex;
+}
+
+#recentConvo, #groupsExi{
+    margin-left: 3px;
 }
 
 .chatter{
@@ -156,6 +164,7 @@ li p{
     right: 5px;
     position: absolute;
     top: 10px;
+    cursor: pointer;
 }
 
 .type-msg{
@@ -232,7 +241,7 @@ li p{
     transition: 0.4s;
   }
   
-  .active, .accordion:hover {
+  #results-container .active, .accordion:hover {
     background-color: #ccc;
   }
   

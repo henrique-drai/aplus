@@ -36,7 +36,7 @@ class ChatModel extends CI_Model { //provate_chat & private_chat_msg
     }
 
     public function sendMessageGroup($data){
-        $this->db->insert('group_msg', $data);
+        $this->db->insert('grupo_msg', $data);
     }
 }
 

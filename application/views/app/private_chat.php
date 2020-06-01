@@ -18,7 +18,6 @@
         <div id="leftSideChat">           
         <div class="form-group">
             <div class="input-group">
-                <h2>Procurar</h2>
                 <input type="text" name="search_text" id="search_text_chat" placeholder = "Procurar utilizador" class="form-control"/>
                 <!-- <p class="informacaoUsers">Use * para visualizar todos os utilizadores da sua ?faculdade?</p> -->
                 <div id="msgStatus">
@@ -34,7 +33,7 @@
         <div id="chat-container" class="container">
             <div class="headName"></div>
             <div class="bodyChat"></div>
-            <div class="footSend"><div class="type-msg"><input type="text" id="write_msg" placeholder="Type a message"><img class="icon-send"src="http://localhost/aplus//images/icons/paper-airplane.png"> </div></div>
+            <div class="footSend"><div class="type-msg"><input type="text" id="write_msg" placeholder="Type a message"><img id="icon-send" class="icon-send"src="http://localhost/aplus//images/icons/paper-airplane.png"> </div></div>
         </div> 
         </div>
         <!--

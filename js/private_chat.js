@@ -1,6 +1,7 @@
 var chat_user_id=null;
 var clicked_user="";
 var clicked_group="";
+var nomeGrupo="";
 var refreshIntervalIdHistory='';
 var refreshIntervalGroupIdHistory='';
 var refreshIntervalIdRecent='';
@@ -37,16 +38,15 @@ function setChatUserId(user_id){
 }
 
 function loadAccordion(){
-    $("#privateChat").html('<div class="accordion"><h4>Conversas Recentes</h4></div><div id="private" class="panel"></div>');  
-    $("#groupChat").html('<div class="accordion"><h4>Grupos Existentes</h4></div><div id="group" class="panel"></div>');  
+    $("#privateChat").html('<div class="accordion"><h4>Conversas Recentes <div id="recentConvo"></div></h4></div><div id="private" class="panel"></div>');  
+    $("#groupChat").html('<div class="accordion"><h4>Grupos Existentes <div id="groupsExi"></div></h4></div><div id="group" class="panel"></div>');  
     bindButtonPrivateMsg()
 
-    // bindButtonGroupMsg()
     getGroups();
     getChatLogs();
 
     refreshIntervalIdRecentGroups = setInterval(function(){
-        getGroups();;
+        getGroups();
     }, 3000);
     refreshIntervalIdRecent = setInterval(function(){
         getChatLogs();
@@ -77,7 +77,9 @@ function bindPrivateChatLiClick(){
 
         getChatHistory(id_sender);
         clearInterval(refreshIntervalIdHistory);
-        bindEnterChat()
+        clearInterval(refreshIntervalGroupIdHistory);
+        $('#write_msg').unbind("keydown");
+        bindEnterChat() //######################################
         refreshIntervalIdHistory = setInterval(function(){
             getChatHistory(id_sender);
         }, 2000);
@@ -90,39 +92,48 @@ function bindGroupLiClick(){
         flagScroll=false
         var id_group = $(this).attr("group_id");
         clicked_group = id_group;
-        var nomeGrupo = $(this).text()
-        getChatGroupHistory(id_group,nomeGrupo);
+        nomeGrupo = $(this).text()
+        getChatGroupHistory(id_group);
         clearInterval(refreshIntervalGroupIdHistory);
-
+        clearInterval(refreshIntervalIdHistory);
+        $('#write_msg').unbind("keydown");
+        bindEnterChatGroup();  //######################################
         refreshIntervalGroupIdHistory = setInterval(function(){
-            getChatGroupHistory(id_group,nomeGrupo);
+            getChatGroupHistory(id_group);
         }, 2000);
 
     });
 }
 
 
-function bindEnterChat(){
+function bindEnterChat(){ //######################################
+    $('#write_msg').keydown(function (e){
+        if(e.keyCode == 13){
+            sendMessage($('#write_msg').val(),new Date().toMysqlFormat());
+            $('#write_msg').val("");
+        }
+    })
+    $('#icon-send').click(function(){
+        sendMessage($('#write_msg').val(),new Date().toMysqlFormat());
+        $('#write_msg').val("");
+    })
+}
+
+function bindEnterChatGroup(){ //######################################
     $('#write_msg').keydown(function (e){
         if(e.keyCode == 13){
             console.log(new Date().toMysqlFormat())
-            sendMessage($('#write_msg').val(),new Date().toMysqlFormat());
+            sendMessageGroup($('#write_msg').val(),new Date().toMysqlFormat());
             $('#write_msg').val("");
 
         }
     })
+    $('#icon-send').click(function(){
+        sendMessageGroup($('#write_msg').val(),new Date().toMysqlFormat());
+        $('#write_msg').val("");
+    })
+
 }
-
-// function bindEnterChatGroup(){
-//     $('#write_msg').keydown(function (e){
-//         if(e.keyCode == 13){
-//             console.log(new Date().toMysqlFormat())
-//             sendMessageGroup($('#write_msg').val(),new Date().toMysqlFormat());
-//             $('#write_msg').val("");
-
-//         }
-//     })
-// }
 
 function getSearchTeaStu(query){
     $.ajax({
@@ -165,13 +176,16 @@ function makeUserListLastText(dataFromUser){
     users= '';
     // console.log(dataFromUser)
     existingChats=[];
+    var incr=0;
     for (i=0;i<dataFromUser.users.length;i++){
         users += '<li class="list-group-class" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat">' +
          dataFromUser.users[i].name +' '+ dataFromUser.users[i].surname + '</div>'
         //  '<p>'+ dataFromUser.content[i].content +'</p></li>';
+        incr++;
          
     }
     // console.log(users)
+    $('#recentConvo').html('('+incr+')')
 
     if(users!=''){
         var list = '<ul class="chatList" id="chatList1">'+ users + '</ul>';
@@ -215,13 +229,13 @@ function makeUserListGroups(data){
     groups= '';
     // console.log(data)
     // existingChats=[];
+    var incr = 0;
     for (i=0;i<data.length;i++){
-        console.log(data[i])
         groups += '<li class="list-group-class" group_id='+ data[i][0].id +'> <div class="list-chat">Grupo ' + data[i][0].name + '</div>'
         //  '<p>'+ dataFromUser.content[i].content +'</p></li>';
-         
+        incr++;
     }
-
+    $('#groupsExi').html('('+incr+')');
     if(groups!=''){
         var list = '<ul class="chatList" id="chatList1">'+ groups + '</ul>';
         $("#group").html(list);  
@@ -263,7 +277,7 @@ function makeMsgHistory(data,id_sender){
     $(".bodyChat").html( '<div class="msg-history">'+chatbox+'</div>')
 }
 
-function getChatGroupHistory(id_group,nomeGrupo){
+function getChatGroupHistory(id_group){
     $.ajax({
         type: "GET",
         url: base_url + "api/getChatGroupHistory",
@@ -272,9 +286,10 @@ function getChatGroupHistory(id_group,nomeGrupo){
             // console.log(data.sent)
             // console.log(nomeGrupo)
             makeGroupMsgHistory(data);
-            $(".footSend").html('<div class="type-msg"><input type="text" id="write_msg" placeholder="Type a message"><img class="icon-send"src="http://localhost/aplus//images/icons/paper-airplane.png"> </div>')
             $(".headName").html('<div class="chatter"><h3>'+ nomeGrupo +'</h3></div>')
             // bindEnterChatGroup()
+            $(".type-msg").css("display","block")
+
             if(flagScroll==false){
                 $(".bodyChat").scrollTop($(".bodyChat")[0].scrollHeight);
                 flagScroll=true;
@@ -285,14 +300,14 @@ function getChatGroupHistory(id_group,nomeGrupo){
 
 function makeGroupMsgHistory(data){
     chatbox=''
-    console.log(data)
-    // console.log(chat_user_id)
+    
     for (i=0;i<data.msg.length;i++){
-        if(data.msg[i][0].user_id == chat_user_id){
-            chatbox+='<div class="received-msg"><div class="received-msg-width"><p>'+ data.msg[i][0].content +'</p><span class="time_date">'+ data.msg[i][0].date +'</span></div></div>'
+        console.log(data.msg[i])
+        if(data.msg[i][0].user_id == data.me){
+            chatbox+='<div class="sent-msg"><div class="sent-msg-width"><p>'+ data.msg[i][0].content +'</p><span  class="time_date">'+ data.msg[i][0].date +'</span></div></div>'
         }
         else{
-            chatbox+='<div class="sent-msg"><div class="sent-msg-width"><p>'+ data.msg[i][0].content +'</p><span  class="time_date">'+ data.msg[i][0].date +'</span></div></div>'
+            chatbox+='<div class="received-msg"><div class="received-msg-width"><span class="nameMsg">'+ data.msg[i][1].name + ' ' + data.msg[i][1].surname +'</span><p>'+ data.msg[i][0].content +'</p><span class="time_date">'+ data.msg[i][0].date +'</span></div></div>'
         }
     }
     $(".bodyChat").html( '<div class="msg-history">'+chatbox+'</div>')
@@ -324,13 +339,13 @@ function sendMessage(msg, time){
     
     }})};
 
-// function sendMessageGroup(msg, time){
-//     $.ajax({
-//         type: "POST",
-//         url: base_url + "api/sendMessage",
-//         data: {m:msg,id:clicked_user,t:time},
-//         success: function() {
-//             flagScroll=false;
-//             getChatHistory(clicked_user);
+function sendMessageGroup(msg, time){
+    $.ajax({
+        type: "POST",
+        url: base_url + "api/sendMessageGroup",
+        data: {m:msg,id:clicked_group,t:time},
+        success: function() {
+            flagScroll=false;
+            getChatGroupHistory(clicked_group);
     
-//     }})};
+    }})};

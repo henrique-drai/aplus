@@ -177,15 +177,15 @@ function updateTaskPopup(task_id){
             popup = popup + "<h3>Data de Início</h3>";
 
             if(data.task[0].start_date == "0000-00-00 00:00:00") {
-                popup = popup + "<span class='start'><input type='button' class='start_date_button' id='" + data.task[0].id + "' value='Iniciar Tarefa'></span>";
+                popup = popup + "<span class='startTask'><input type='button' class='start_date_button' id='" + data.task[0].id + "' value='Iniciar Tarefa'></span>";
             } else {
-                popup = popup + "<label>" + data.task[0].start_date + "</label>";
+                popup = popup + "<label><span class='startTask'>" + data.task[0].start_date + "</span></label>";
             }
 
             popup = popup + "<h3>Data de Fim</h3>";
 
             if(data.task[0].start_date == "0000-00-00 00:00:00") {
-                popup = popup + "<label><span class='end'>A tarefa ainda não foi começada.</span></label></div>";
+                popup = popup + "<label><span class='endTask'>A tarefa ainda não foi começada.</span></label></div>";
             } else if(data.task[0].done_date != "0000-00-00 00:00:00") {
                 var day = data.task[0].done_date.substring(8, 10) - data.task[0].start_date.substring(8, 10);
                 var hours = data.task[0].done_date.substring(11, 13) - data.task[0].start_date.substring(11, 13);
@@ -194,7 +194,7 @@ function updateTaskPopup(task_id){
                 popup = popup + "<label>" + data.task[0].done_date + "</label><h3>Tempo gasto na tarefa</h3><label>" + 
                         day + " dia(s) " + hours + " hora(s) " + min + " minutos " + Math.abs(seconds) + " segundos " + "</label></div>";
             } else if(data.task[0].user_id == localStorage.user_id){
-                popup = popup + "<span class='end'><input type='button' class='end_date_button' id='" + data.task[0].id + "' value='Terminar Tarefa'></span><span class='time_spent'></span></div>";
+                popup = popup + "<span class='endTask'><input type='button' class='end_date_button' id='" + data.task[0].id + "' value='Terminar Tarefa'></span><span class='time_spent'></span></div>";
             } else {
                 popup = popup + "<label>A tarefa ainda não foi terminada.</label></div>";
             }
@@ -414,10 +414,10 @@ function insertTaskStartDate(task_id) {
         data: {grupo_id: localStorage.grupo_id, user_id: localStorage.user_id},
         success: function (data) {
             console.log(data)
-            $(".start").empty();
-            $(".start").append("<label>" + data + "</label>");
-            $(".end").empty();
-            $(".end").append("<input type='button' class='end_date_button' id='" + task_id + "' value='Terminar Tarefa'>");
+            $(".startTask").empty();
+            $(".startTask").append("<label><span class='startTask'>" + data + "</span></label>");
+            $(".endTask").empty();
+            $(".endTask").append("<input type='button' class='end_date_button' id='" + task_id + "' value='Terminar Tarefa'>");
         },
         error: function (data) {
             alert("Houve um erro a inserir a data-inicio da tarefa.")
@@ -434,12 +434,12 @@ function insertTaskEndDate(task_id) {
         data: {grupo_id: localStorage.grupo_id, user_id: localStorage.user_id},
         success: function (data) {
             console.log(data)
-            $(".end").empty();
-            $(".end").append("<label>" + data + "</label><span class='time_spent'></span>");
-            var day = data.substring(8, 10) - $(".start").text().substring(8, 10);
-            var hours = data.substring(11, 13) - $(".start").text().substring(11, 13);
-            var min = data.substring(14, 16) - $(".start").text().substring(14, 16);
-            var seconds = data.substring(17, 19) - $(".start").text().substring(17, 19);
+            $(".endTask").empty();
+            $(".endTask").append("<label>" + data + "</label>");
+            var day = data.substring(8, 10) - $(".startTask").text().substring(8, 10);
+            var hours = data.substring(11, 13) - $(".startTask").text().substring(11, 13);
+            var min = data.substring(14, 16) - $(".startTask").text().substring(14, 16);
+            var seconds = data.substring(17, 19) - $(".startTask").text().substring(17, 19);
             $(".time_spent").append("<h3>Tempo gasto na tarefa</h3></label>" + day + " dia(s) " + hours + " hora(s) " + min + " minutos " + Math.abs(seconds) + " segundos " + "</label>");
         },
         error: function (data) {

@@ -60,6 +60,14 @@ $(document).ready(() => {
 		}
     });
 
+    $('body').on('click', '.cd-popup4', function () {
+    	if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup4') || $(event.target).is('#closeButton')) {
+    		event.preventDefault();
+    		$(this).remove();
+    		$(".taskInfo").css("background-color", "white");
+    	}
+    });
+
     $("body").on("change", "select", function() {
         if($("select").val() == "") {
             $("select").css("border-left-color", "salmon");
@@ -112,6 +120,12 @@ $(document).ready(() => {
     })
 
     checkClosedProject()
+
+    $('body').on("click", ".editTask", function () {
+        var task_id = $(this).attr("id");
+        createPopUpEdit(task_id);
+
+     });
 });
 
 function updateTaskPopup(task_id){
@@ -158,7 +172,7 @@ function updateTaskPopup(task_id){
             }
 
             popup = popup + "<div class='wrapper'><hr><input id='" + data.task[0].id + "' class='editTask' type='button' value='Editar Tarefa'>" +
-                "<input id='" + data.task[0].id + "' class='remove' type='button' value='Eliminar'><hr></div><a class='cd-popup-close'></a></div></div>";
+                "<input id='" + data.task[0].id + "' class='remove' type='button' value='Eliminar'></div><a class='cd-popup-close'></a></div></div>";
         
             $(".popupAdd").html(popup);
             $(".cd-popup3").css('visibility', 'visible');
@@ -291,7 +305,6 @@ function getTasks() {
         success: function(data) {
             console.log(data)
             $(".tasksTable").empty();
-            var image_url = base_url + "/images/icons/trash.png";
 
             if(data.tasks.length != 0) {
                 var table = "";
@@ -407,4 +420,37 @@ function insertTaskEndDate(task_id) {
 
         }
     })
+}
+
+function createPopUpEdit(task_id) {
+	$.ajax({
+		type: "GET",
+		url: base_url + "api/getTaskById/" + task_id,
+		success: function (data) {
+			console.log(data)
+			var popup = '';
+
+			popup = popup + "<div class='cd-popup4' role='alert'><div class='cd-popup-container'>" +
+				"<form id='editTask' action='javascript:void(0)'><div class='editTask_inputs'><h2>Editar tarefa</h2>" +
+				"<label class='form-label'>Nome:</label><input class='form-input-text' type='text' name='tarefaName'>" +
+				"<label class='form-label'>Descrição:</label><textarea class='form-text-area' type='text' name='tarefaDescription'>" +
+                "</textarea>" + "<label class='form-label-title'> Começo:" +
+                "</label><input class='form-input-date' type='datetime-local' name='startDate'>" +
+                "<label class='form-label-title'> Fim: " +
+                "</label><input class='form-input-date' type='datetime-local' name='doneDate'>";
+                
+            popup = popup + "</select></div><ul class='cd-buttons'><li><a href='#' id='editTask-form-submit'>" +
+                "Confirmar</a></li><li><a href='#' id='closeButton'>Cancelar</a></li></ul></form>" +
+                "<a class='cd-popup-close'></a></div></div>"
+
+			$(".popupAdd").remove();
+			$(".popupEdit").html(popup);
+			$(".cd-popup4").css('visibility', 'visible');
+			$(".cd-popup4").css('opacity', '1');
+
+		},
+		error: function (data) {
+			console.log(data)
+		}
+	});
 }

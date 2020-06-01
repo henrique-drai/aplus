@@ -112,18 +112,15 @@ th, td {
     border-bottom: 1.5px solid #a5a5a5 !important;
 }
 
-.delete_img {
-    width: 20px;
-    cursor: pointer;
-}
-
-.addTask_inputs {
+.addTask_inputs, 
+.editTask_inputs {
     padding: 10px;
     margin: 20px auto;
     width: 90%;
 }
 
-#addTask-form-submit {
+#addTask-form-submit,
+#editTask-form-submit {
     background-color: #3e5d4f;
 }
 

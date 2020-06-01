@@ -51,3 +51,6 @@
 
         <!-- Pop up para o add -->
         <div class="popupAdd"></div>
+
+        <!-- Pop up para o edit -->
+        <div class="popupEdit"></div>

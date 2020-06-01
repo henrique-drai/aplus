@@ -11,7 +11,18 @@ input[type="submit"]{
 }
 
 #addStudent-form input[type='text']{
-    width: 35%;
+    /* width: 35%; */
+}
+
+#bigDiv{
+    display: flex;
+}
+#rightSideAlunoContainer{
+    width: 80%;
+    text-align: center;
+}
+#leftDivAddStudent{
+    width: 30%;
 }
 
 .container {

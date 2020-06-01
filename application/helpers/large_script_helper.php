@@ -1214,11 +1214,11 @@ function large_script($m) {
       Array("user_id"=> $aluno["96"],  "grupo_id"=>$grupo["1"]),
       Array("user_id"=> $aluno["114"],  "grupo_id"=>$grupo["1"]),
       Array("user_id"=> $aluno["47"],  "grupo_id"=>$grupo["2"]),
-      Array("user_id"=> $aluno["14"],  "grupo_id"=>$grupo["2"]),
       Array("user_id"=> $aluno["4"],  "grupo_id"=>$grupo["1"]),
       Array("user_id"=> $aluno["188"],  "grupo_id"=>$grupo["3"]),
       Array("user_id"=> $aluno["206"],  "grupo_id"=>$grupo["3"]),
       Array("user_id"=> $aluno["4"],  "grupo_id"=>$grupo["4"]),
+      Array("user_id"=> $aluno["14"],  "grupo_id"=>$grupo["4"]),
     ));
 
     $m->etapa_submit($grupo["1"], $etapa["1"], "URL-FALSO-HEHE-XD.pdf");

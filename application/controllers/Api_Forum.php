@@ -131,8 +131,8 @@ class Api_Forum extends REST_Controller {
         }
 
         if($flag) {
-            $data["info"] = $this->ForumModel->getForumByID($forum_id);
-            $data["user"] = $this->UserModel->getUserById($user_id);
+            $data["info"] = $this->ForumModel->getForumByID(htmlspecialchars($forum_id));
+            $data["user"] = $this->UserModel->getUserById(htmlspecialchars($user_id));
     
             $this->response($data, parent::HTTP_OK);
         } else {
@@ -143,7 +143,7 @@ class Api_Forum extends REST_Controller {
     }
 
     public function getThreadsByForumId_get($forum_id) {
-        $data["threads"] = $this->ForumModel->getThreadsByForumId($forum_id);
+        $data["threads"] = $this->ForumModel->getThreadsByForumId(htmlspecialchars($forum_id));
         $data["criadores"] = array();
         for($i=0; $i < count($data["threads"]); $i++) {
             array_push($data["criadores"], $this->UserModel->getUserById($data["threads"][$i]["user_id"]));
@@ -161,8 +161,8 @@ class Api_Forum extends REST_Controller {
 
     public function getThreadById_get($thread_id) {
         $user_id = $this->session->userdata('id');
-        $data["info"] = $this->ForumModel->getThreadByID($thread_id);
-        $data["posts"] = $this->ForumModel->getThreadPosts($thread_id);
+        $data["info"] = $this->ForumModel->getThreadByID(htmlspecialchars($thread_id));
+        $data["posts"] = $this->ForumModel->getThreadPosts(htmlspecialchars($thread_id));
         $data["user"] = $this->UserModel->getUserById($user_id);
 
         $data["users"] = array();
@@ -186,7 +186,7 @@ class Api_Forum extends REST_Controller {
         }
 
         if($this->verify_teacher($user_id, $cadeira_id, "cadeira")) {
-            $this->ForumModel->removeForum($forum_id);
+            $this->ForumModel->removeForum(htmlspecialchars($forum_id));
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
             $response = ['status' => $status, 'msg' => 'Unauthorized Access!', 'user_id' => $user_id];
@@ -211,7 +211,7 @@ class Api_Forum extends REST_Controller {
         }
 
         if($flag) {
-            $this->ForumModel->removePost($post_id);
+            $this->ForumModel->removePost(htmlspecialchars($post_id));
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
             $response = ['status' => $status, 'msg' => 'Unauthorized Access!', 'user_id' => $user_id];

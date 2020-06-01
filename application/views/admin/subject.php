@@ -1,7 +1,6 @@
 <title>A+ for Admins</title>
 <script>setPageName("subject")</script>
 <script src="<?php echo $base_url; ?>js/admin/subject.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-subjects.css">
@@ -15,17 +14,17 @@
         <h1 id="adminCadeira"></h1>
 
         <form id="addStudent-form" action="javascript:void(0)">
-        <p>
-            <label for="alunoemail">Email do Aluno:</label>
-            <input type="text" name="alunoemail" required>
-        </p>
-            <input type="submit" id="addStudent-submit">
-            <div id="msgStatus">
-            </div>
-            <div id="msgErro">
-            </div>
-        </form><br> 
-        
+            <p>
+                <label for="alunoemail">Email do Aluno:</label>
+                <input id="search_add_aluno_cadeira" type="text" name="alunoemail" required>
+            </p>
+        </form>
+        <div id="alunos-subject-sugestao">
+        </div>
+        <div id="msgStatus">
+        </div>
+        <div id="msgErro">
+        </div>
         <div id="aluno-subject-container" class="container">
         </div> 
 

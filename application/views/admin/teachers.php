@@ -4,7 +4,6 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-users.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
 
 <script src="<?php echo $base_url; ?>js/admin/manageUsers.js"></script>
 </head>
@@ -12,8 +11,8 @@
 <body>
 <?php $this->view('templates/nav-menu'); ?>
     <main>   
-        <h1>Professores</h1>
-        
+        <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Professores</h4>
+        <br>
         <div class="form-group">
             <div class="input-group">
                 <h2>Procurar Professores</h2>

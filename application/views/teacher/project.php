@@ -24,25 +24,21 @@
         Número mínimo de elementos num grupo: <?php echo $project[0]["min_elementos"]; ?>
         <br>
         Número máximo de elementos num grupo: <?php echo $project[0]["max_elementos"]; ?>
-        
+        <br><br>
     </p>
     <input id="removeProject" class="remove" type="button" value="Eliminar projeto">
     <div class="container">
         <h3 id="entrega_h3"></h3>
-        <h3 id="enunciado_title">Enunciado:</h3>
-        <div id="removeDiv"></div>
-        <h4 id="enunciado_h4"></h4>
-        <div class="wrapper-top">
-            <?php echo form_open_multipart('UploadsC/uploadEnunciadoProjeto', "id='form-upload-proj'");?>
-                <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado" accept=".pdf">
-                <label for="file_projeto" class="input-label" id="top-file">
-                    <img id="file-img" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
-                    <span id="name-enunciado-proj" class="span-name">Envie o ficheiro do enunciado</span>
-                </label>
-                <p id="warning-top" class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>
+        <!-- <h3 id="enunciado_title">Enunciado:</h3>
+        
+         -->
+        <h3 id="enunciado_h4"></h3>
+        <!-- <div id="removeDiv"></div> -->
 
-                <input id="addEnunciado" type="submit" value="Adicionar enunciado">
-            </form>
+        <input id="openEnunc" type="button" value="Adicionar enunciado">
+        
+        <div class="wrapper-top">
+
         </div>
         <div class="container-header">
             <br><br>
@@ -65,6 +61,7 @@
 
             <div class="cd-popup2" id="popup-geral">
                 <div class="cd-popup-container" id="container-geral">
+
                     <div class="inputs-div">
                         <h3>Etapa</h3>
                         <h3>Descrição:</h3>
@@ -72,17 +69,10 @@
                         <h3>Enunciado: </h3>
                         <label id="enunciado_label"></label>
                     </div>
-                    <div class="wrapper">
-                        <hr>
-                        <input id="addEtapaEnunciado" class="addE" type="button" value="Adicionar Enunciado">
-                        <input id="editEtapaButton" class="editb" type="button" value="Editar">
-                        <input id="feedbackEtapaButton" class="feedbackb" type="button" value="Feedback">
-                        <input id="removeEtapaButton" class="remove" type="button" value="Eliminar">
-                        <hr>
-                    </div>
 
                     <div id="forms">
                         <?php echo form_open_multipart('UploadsC/uploadEnunciadoEtapa', 'id="form-upload-etapa"');?>
+                            <br>
                             <input class="form-input-file" type="file" id="file_etapa" name="file_etapa" accept=".pdf">
                             <label for="file_etapa" class="input-label">
                                 <img id="file-img-etapa" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
@@ -90,9 +80,6 @@
                             </label>
                             <p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>
                         </form>
-
-                        <div id="successmsgenunc" class="submit-msg">Mensagem de sucesso template</div>
-                        <div id="errormsgenunc" class="submit-msg">Mensagem de erro template</div>
 
                         <form id="feedback-form">
                             <div id="feedback-div">
@@ -103,29 +90,38 @@
                                 <p id="sub_url">Entrega ainda não foi submetida</p>
                                 <label class="form-label-title">Feedback dado:</label>
                                 <p id="fb_content">Ainda não atribuiu feedback a esta etapa</p>
-                                <br>
                                 <label class="form-label-title">Dar feedback:</label>
                                 <textarea class="form-text-area" type="text" name="feedback-text" disabled required></textarea>
                             </div>
                         </form>
 
-                        <div id="successmsgfb" class="submit-msg">Mensagem de sucesso template</div>
-                        <div id="errormsgfb" class="submit-msg">Mensagem de erro template</div>
-
                         <form id="etapa-form-edit" action="javascript:void(0)">
                             <div id="etapa-edit">
                                 <label id="etapa-label-edit" class="form-label-title"></label>
-                                <label class="form-label">Nome</label>
+                                <label class="form-label-title">Nome</label>
                                 <input class="form-input-text" type="text" name="editetapaName" required>
-                                <label class="form-label">Descrição</label>
+                                <label class="form-label-title">Descrição</label>
                                 <textarea class="form-text-area" type="text" name="editetapaDescription" required></textarea>
-                                <label class="form-label">Data de entrega</label>
+                                <label class="form-label-title">Data de entrega</label>
                                 <input class="form-input-date" type="datetime-local" name="editetapaDate" required>
                             </div>
                         </form>
 
+                        <div class="wrapper">
+                            <hr>
+                            <input id="addEtapaEnunciado" class="addE" type="button" value="Enunciado">
+                            <input id="editEtapaButton" class="editb" type="button" value="Editar">
+                            <input id="feedbackEtapaButton" class="feedbackb" type="button" value="Feedback">
+                            <input id="removeEtapaButton" class="remove" type="button" value="Eliminar">
+                            <br>
+                        </div>
+
+                        <div id="successmsgenunc" class="submit-msg">Mensagem de sucesso template</div>
+                        <div id="errormsgenunc" class="submit-msg">Mensagem de erro template</div>
                         <div id="successmsg_editar" class="submit-msg">Etapa editada com sucesso</div>
                         <div id="errormsgedit" class="submit-msg">Mensagem de erro template</div>
+                        <div id="successmsgfb" class="submit-msg">Mensagem de sucesso template</div>
+                        <div id="errormsgfb" class="submit-msg">Mensagem de erro template</div>
 
                         <ul class="cd-buttons" id="ul-buttons">
                             <li><a href="#" id="id-generico">Submeter</a></li>
@@ -160,7 +156,7 @@
                         <div id="successmsg_criar" class="submit-msg">Etapa criada com sucesso</div>
                         <div id="errormsg" class="submit-msg">Mensagem de erro template</div>
                 
-                        <ul class="cd-buttons">
+                        <ul class="cd-buttons" id="ul-buttons-etapa">
                             <li><a href="#" id="newEtapa">Submeter</a></li>
                             <li><a href="#" id="closeButton-hide">Cancelar</a></li>
                         </ul>
@@ -169,6 +165,36 @@
                 </div>
             </div>
 
+
+            <div class="cd-popup2" id="enunciado-popup">
+                <div class="cd-popup-container">
+                <?php echo form_open_multipart('UploadsC/uploadEnunciadoProjeto', "id='enunciado-form'");?>
+                        <div class="inputs-popup">
+                            <label id="enunc-label" class="form-label-title">Escolher um enunciado para o projeto</label>
+                            <br>
+                            <input class="form-input-file" type="file" id="file_projeto" name="file_proj" title="Escolher enunciado" accept=".pdf">
+                            <label for="file_projeto" class="input-label">
+                                <img id="file-img" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
+                                <span id="name-enunciado-proj" class="span-name">Envie o ficheiro do enunciado</span>
+                            </label>
+                            <p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>
+                        </div>
+
+
+                        <div id="projenuncsucc" class="submit-msg">Enunciado submetido com sucesso</div>
+                        <div id="projenuncerror" class="submit-msg">Tem de selecionar um ficheiro</div>
+
+
+                        <ul class="cd-buttons" id="ul-buttons-enunc">
+                            <li><a href="#" id="addEnunciado">Submeter</a></li>
+                            <li><a href="#" id="closeButton-hide">Cancelar</a></li>
+                        </ul>
+                </form>
+                <a class="cd-popup-hide"></a>
+                </div>
+            </div>
+            
+            
         </div>
 
 

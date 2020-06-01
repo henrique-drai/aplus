@@ -3,7 +3,6 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-users.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-subjects.css">
 
 
@@ -14,10 +13,8 @@
 <body>
     <?php $this->view('templates/nav-menu'); ?>
     <main>
-        <h1>Courses</h1>
-
-
-        <h3>Registar Curso</h3>
+        <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Cursos</h4>
+        <br><h2>Registar Curso</h2>
 
         <form id="register-cursos-form" action="javascript:void(0)">
         <p>
@@ -27,11 +24,11 @@
         </p>
         <p>
             <label for="nomeCurso">Nome de Curso:</label>
-            <input type="text" name="nomeCurso" required>
+            <input class="notSmallInput" type="text" name="nomeCurso" required>
         </p>
         <p>
             <label for="descCurso">Descrição de Curso:</label>
-            <input type="text" name="descCurso" required>
+            <input class="notSmallInput" type="text" name="descCurso" required>
         </p>
         <p>
             <label for="academicYear">Ano Letivo:</label>

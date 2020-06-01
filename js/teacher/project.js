@@ -14,8 +14,6 @@ $(document).ready(() => {
     //tabela dos grupos
     showGroups(proj);
 
-    $("#form-upload-proj").attr('action', base_url + 'UploadsC/uploadEnunciadoProjeto/' + proj);
-
     // --- GRUPOS
 
     //REMOVER PROJETO ---
@@ -42,7 +40,7 @@ $(document).ready(() => {
         if( $(event.target).is('.cd-popup-hide') || $(event.target).is('#closeButton-hide') || $(event.target).is('.cd-popup2') ){
             event.preventDefault();
             $(this).hide();
-            $("#ul-buttons").hide();
+            $(".cd-buttons").hide();
             $(".moreInfoButtons").css("background-color", "white");
             $("#etapa-form-edit").hide();
             $("#feedback-form").hide();
@@ -112,12 +110,22 @@ $(document).ready(() => {
 
     //ao confirmar - MUDAR ENUNCIADO
     $("#addEnunciado").on('click', function(e){
-        if($("#file_projeto")[0].files[0].size < 5024000){
-            enunc = $("#file_projeto").val().split('\\').pop();
-            submit_new_enunciado(enunc);
-        } else {
-            console.log("meter mensagem de erro");
+        enunc = $("#file_projeto").val().split('\\').pop();
+        if (enunc.length == 0){
+            $("#projenuncerror").text("Tem de selecionar um ficheiro");
+            $("#projenuncerror").show().delay(2500).fadeOut();
             e.preventDefault();
+        } else {
+            if($("#file_projeto")[0].files[0].size < 5024000){
+                enunc = $("#file_projeto").val().split('\\').pop();
+                $("#projenuncsucc").show().delay(2500).fadeOut();
+                submit_new_enunciado(enunc);
+                $("#enunciado-form").submit();
+            } else {
+                $("#projenuncerror").text("Ficheiro ultrapassa o limite máximo de 5MB");
+                $("#projenuncerror").show().delay(2500).fadeOut();
+                e.preventDefault();
+            }
         }
     })
 
@@ -182,6 +190,7 @@ $(document).ready(() => {
         $("#etapa-form-popup").css('visibility', 'visible');
         $("#etapa-form-popup").css('opacity', '1');
         $("#etapa-label").text("Nova etapa:");
+        $("#ul-buttons-etapa").show();
 
         $("#etapa-form-edit").hide();
         $("#feedback-form").hide();
@@ -209,6 +218,7 @@ $(document).ready(() => {
         $("#form-upload-etapa").hide();
 
         $("#feedback-form").show();
+        $(".inputs-div").hide();
         showGroups(proj);
 
         if(formStatus != 'feedback'){
@@ -218,6 +228,7 @@ $(document).ready(() => {
         } else {
             formStatus = null;
             checkFormStatus();
+            $(".inputs-div").show();
             $("#ul-buttons").hide();
             $("#feedback-form").hide();
         }
@@ -238,6 +249,8 @@ $(document).ready(() => {
 
         $("#etapa-form").hide();
         $("#feedback-form").hide();
+        $("#form-upload").hide();
+        $(".inputs-div").hide();
         $("#form-upload-etapa").hide();
 
         $("#etapa-form-edit").show();
@@ -255,6 +268,7 @@ $(document).ready(() => {
             formStatus = null;
             checkFormStatus();
             emptyEtapa();
+            $(".inputs-div").show();
             $("#ul-buttons").hide();
             $("#etapa-form-edit").hide();
         }
@@ -268,13 +282,14 @@ $(document).ready(() => {
         $("#etapa-form").hide();
         $("#feedback-form").hide();
         $("#form-upload-etapa").show();
-        
+        $(".inputs-div").show();
+        $("#ul-buttons").show();
+
         $("#ul-buttons").find("li:first").find("a").prop("id", "addEnuncEtapa");
         console.log($("#addEnuncEtapa"));
 
         if(formStatus != 'addEnunc'){
             formStatus = 'addEnunc';
-            $("#ul-buttons").show();
             checkFormStatus();
         } else {
             formStatus = null;
@@ -333,6 +348,7 @@ $(document).ready(() => {
         formStatus = null;
         checkFormStatus();
         $("#ul-buttons").hide();
+        $(".inputs-div").show();
         makePopup('confirmRemoveEtapa','Tem a certeza que deseja eliminar esta etapa?');    
     })
     
@@ -374,20 +390,6 @@ $(document).ready(() => {
         
     })
 
-    // fechar popup - etapas
-    // $('body').on("click", '.cd-popup-hide', function() {
-    //     $("#etapa-form-edit").hide();
-    //     $("#feedback-form").hide();
-    //     $("#form-upload-etapa").hide();
-    //     formStatus = null;
-    //     checkFormStatus();
-    //     $(".moreInfoButtons").css("background-color", "white");
-    //     event.preventDefault();
-    //     $(".overlay").css('visibility', 'hidden');
-    //     $(".overlay").css('opacity', '0');
-    // })
-
-    //ver se updated_enunc_etapa é true - se for acabou de ser feito um upload e é suposto
 
     //remover enunciado etapa
     $('body').on('click', '#removeEnunciado', function(e) {
@@ -419,8 +421,19 @@ $(document).ready(() => {
         submit_feedback($('textarea[name="feedback-text"]').val(), selected_etapa, $("#select_grupo_feedback :selected").val());
     })
 
+    //enunciado - projeto
+    $("body").on("click", "#openEnunc", function(){
+        $("#enunciado-popup").css("visibility", "visible");
+        $("#enunciado-popup").css("opacity", "1");
+        $("#enunciado-popup").show();
+        $("#ul-buttons-enunc").show();
+        
+        $("#enunciado-form").attr('action', base_url + 'UploadsC/uploadEnunciadoProjeto/' + proj);
+
+    })
+
+
     //--- ETAPAS
-    
     
 })
 
@@ -429,18 +442,19 @@ function checkEnunciado(){
     //pensar em mudar isto para chamada ajax mesmo.
     $.get(base_url + "uploads/enunciados_files/"+ proj+".pdf")
         .done(function() { 
-            var removebut = '<label id="removeEnunciadoProj" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> ';
-            $("#removeDiv").html(removebut);
+            // var removebut = '<label id="removeEnunciadoProj" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> ';
             if (enunciado_h4 != ""){
-                $("#enunciado_h4").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h4 + "</a>");
+                $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h4 + "</a>");
             } else {
-                $("#enunciado_h4").text("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
+                $("#enunciado_h4").text("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
             }
-
+            // $("#removeDiv").html(removebut);
+            $("#openEnunc").val("Editar Enunciado");
             return true;
         })
         .fail(function() { 
             $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")
+            $("#openEnunc").val("Adicionar Enunciado");
             return false;
         })
 }
@@ -481,7 +495,7 @@ function makePopup(butID, msg){
     popup = '<div class="cd-popup" role="alert">' +
         '<div class="cd-popup-container">' +
         '<p>'+ msg +'</p>' +
-        '<ul class="cd-buttons">' +
+        '<ul class="cd-buttons" id="red-buttons">' +
         '<li><a href="#" id="'+ butID +'">Sim</a></li>' +
         '<li><a href="#" id="closeButton">Não</a></li>' +
         '</ul>' +
@@ -807,8 +821,8 @@ function updateEtapaPopup(etapa_rec){
 
     console.log(etapa);
 
-
-    $(".cd-popup-container").find("label:first").text(etapa["description"]);
+    $(".inputs-div").show();
+    $("#container-geral").find("label:first").text(etapa["description"]);
     $("#enunciado_label").html(etapa["enunciado"]);
     $("#enunciado_label").append(etapa["remove"]);
 

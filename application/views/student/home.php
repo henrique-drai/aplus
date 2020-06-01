@@ -11,7 +11,10 @@
 <?php $this->view('templates/nav-menu'); ?>
 <?php $this->view('templates/popup'); ?>
 <main>
-    <h1>Painel de Controlo</h1>
+    <h4 class="breadcrumb">
+        <a href="">Painel de Controlo</a>
+    </h4>
+
     <h3 style="text-align: center">Calendário</h3>
     <div id="calendario-hook"></div>
     <br>

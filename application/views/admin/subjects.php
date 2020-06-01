@@ -5,7 +5,6 @@
 <script src="<?php echo $base_url; ?>js/admin/registerunidCurricular.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/manageunidCurricular.js"></script>
 
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
 
@@ -17,19 +16,19 @@
     <div class="container">
 
         <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Unidades Curriculares</h4>
-
-        <h1>Unidades Curriculares</h1>
+        <br>
+        <h2>Registar Unidades Curriculares</h2>
 
         <form id="register-cadeiras-form" action="javascript:void(0)">
             <p>
                 <label for="codeCadeira">Código da Unidade Curricular:</label>
                 <input class="form-input-number" type="text" name="codeCadeira" required>
             </p><p>
+                <label for="siglaCadeira">Sigla da Unidade Curricular:</label>
+                <input type="text" name="siglaCadeira" required>
+            </p><p>
                 <label for="nomeCadeira">Unidade Curricular:</label>
                 <input class="form-input-text" type="text" name="nomeCadeira" required>
-            </p><p>
-                <label for="siglaCadeira">Sigla da Unidade Curricular:</label>
-                <input class="form-input-text" type="text" name="siglaCadeira" required>
             </p><p>
                 <label for="descCadeira">Descrição da Unidade Curricular:</label>
                 <textarea class="form-text-area" type="text" name="descCadeira" required></textarea>

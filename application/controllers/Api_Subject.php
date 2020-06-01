@@ -202,6 +202,24 @@ class Api_Subject extends REST_Controller {
         }
     }
 
+    public function addStudentSubject_post(){
+        $this->verify_admin();
+        $userid=htmlspecialchars($this->post('alunoid'));
+        $cadeiraid=htmlspecialchars($this->post('cadeiraid'));
+        $alunoCadeira = $this->SubjectModel->confirmUserInSubject($userid, $cadeiraid);
+        $value=0;
+        if($alunoCadeira==""){
+            $value=1;
+            $data = Array(
+                "user_id" => $userid,
+                "cadeira_id" => $cadeiraid,
+                "is_completed" => 0,
+            );  
+            $this->SubjectModel->insertAlunoCadeira($data);
+        }
+        $this->response($value, parent::HTTP_OK);
+    }
+
 
 
     //////////////////////////////////////////////////////////////

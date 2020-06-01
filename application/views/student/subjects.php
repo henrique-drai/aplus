@@ -12,7 +12,6 @@
             <a href="<?php echo base_url(); ?>subjects">Unidades Curriculares</a>
         </h4>
         <div class="container">
-            <h1>Unidades Curriculares</h1>
             <div class="cadeiras">
                 <div class="filter">
                     <input class="filter_dropdown" type="button" value="Filtrar">

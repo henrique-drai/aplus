@@ -23,12 +23,11 @@
         Número mínimo de elementos num grupo: <?php echo $project[0]["min_elementos"]; ?>
         <br>
         Número máximo de elementos num grupo: <?php echo $project[0]["max_elementos"]; ?>
-        
+        <br><br>
     </p>
     <div class="container">
         <h3 id="entrega_h3"></h3>
-        <h3 id="enunciado_title">Enunciado:</h3>
-        <h4 id="enunciado_h4"></h4>
+        <h3 id="enunciado_h4"></h3>
         <div class="container-header">
             <br><br>
             <h2 id="grupo-name">Grupo</h2> <span class="criarGrupo"><img src="<?php echo base_url(); ?>images/add.png" id="criarGrupo_button"></span>

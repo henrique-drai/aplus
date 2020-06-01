@@ -5,7 +5,6 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/college.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
-
 </head>
 
 <body>
@@ -13,21 +12,22 @@
     <main>
         <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Faculdades</h4>
 
-        <h1>Registar Faculdade!</h1>
-
+        <br><h2>Registar Faculdade</h2>
+        
         <form id="register-faculdade-form" action="javascript:void(0)">
-        <p>
-            <label for="nomefaculdade">Nome da Faculdade:</label>
-            <input type="text" name="nomefaculdade" required>
-        </p>
-        <p>
-            <label for="morada">Morada:</label>
-            <input type="text" name="morada" required>
-        </p>
         <p>
             <label for="siglas">Sigla da Faculdade:</label>
             <input type="text" name="siglas" required>
         </p>
+        <p>
+            <label for="nomefaculdade">Nome da Faculdade:</label>
+            <input class="notSmallInput" type="text" name="nomefaculdade" required>
+        </p>
+        <p>
+            <label for="morada">Morada:</label>
+            <input class="notSmallInput" type="text" name="morada" required>
+        </p>
+        
             <input type="submit" id="register-college-submit">
             <div id="msgStatus">
             </div>

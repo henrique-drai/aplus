@@ -4,7 +4,10 @@
                                     /
   -------------------------------- */
 
-  .cd-popup, .cd-popup2, .cd-popup3 {
+  .cd-popup,
+  .cd-popup2,
+  .cd-popup3,
+  .cd-popup4 {
     position: fixed;
     z-index: 100;
     left: 0;
@@ -29,6 +32,8 @@
     position: relative;
     width: 90%;
     max-width: 600px;
+    overflow: auto;
+    max-height: 90%;
     margin: 0 auto;
     background: #FFF;
     border-radius: .25em .25em .4em .4em;
@@ -48,11 +53,11 @@
     padding: 3em 1em;
 }
 
-.cd-popup-container .cd-buttons:after{
+/* .cd-popup-container .cd-buttons:after{
     content: "";
     display: table;
     clear: both;
-}
+} */
 
 .cd-popup-container .cd-buttons li{
     float: left;
@@ -122,7 +127,12 @@
     text-decoration: none;
 }
 
-.cd-popup ul, .cd-popup li, .cd-popup2 ul, .cd-popup2 li {
+.cd-popup ul,
+.cd-popup li,
+.cd-popup2 ul,
+.cd-popup2 li,
+.cd-popup4 ul,
+.cd-popup4 li {
     margin: 0;
 	padding: 0;
 	border: 0;

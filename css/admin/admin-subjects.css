@@ -6,9 +6,25 @@ input[type="submit"]{
     margin-top: 5%;
 }
 
-.form-input-text, .form-input-number, .form-input-file, .form-text-area{
+.form-input-text, .form-input-file, .form-text-area, .notSmallInput{
     width:100%;
 }
+
+#addStudent-form input[type='text']{
+    /* width: 35%; */
+}
+
+#bigDiv{
+    display: flex;
+}
+#rightSideAlunoContainer{
+    width: 80%;
+    text-align: center;
+}
+#leftDivAddStudent{
+    width: 30%;
+}
+
 .container {
     width: 100%;
 }
@@ -65,4 +81,17 @@ label[for="curso"]{
     padding: 10px;
     margin: 20px auto;
     width: 90%;
+}
+
+.infoCadeira{
+    cursor: pointer;
+}
+
+#alunos-subject-sugestao p{
+    margin:1%;
+    width: 50%;
+}
+
+.addSearchStudent{
+    display: inline-block;
 }

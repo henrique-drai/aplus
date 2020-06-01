@@ -12,7 +12,6 @@
         <h4 class="breadcrumb">
             <a href="<?php echo base_url(); ?>app/grupos">Grupos</a>
         </h4>
-        <h1>Grupos</h1>
 
         <label for="groupStatus"></label>
         

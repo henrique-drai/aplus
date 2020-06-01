@@ -13,9 +13,6 @@ textarea:disabled{
     border-left-color:#333 !important;
 }
 
-textarea{
-    height: 110px;
-}
 
 #removeEnunciado {
     margin-left: 115px;
@@ -57,9 +54,6 @@ textarea{
     margin:unset;
 }
 
-#warning-top {
-    margin-left: 12px;
-}
 
 input.remove{
     background-color: #fc8982;
@@ -75,6 +69,10 @@ input.remove:hover {
     margin-bottom: 30px;
 }
 
-#addEnunciado {
-    display:none;
+#openEnunc{
+    margin:unset;
+}
+
+#enunciado-form > #ul-buttons{
+    display: block;
 }

@@ -10,7 +10,7 @@ $(document).ready(() => {
             "name": "Cadeiras"
         },
         "chat": {
-            "href": base_url + "app/chat/"+localStorage.user_id,
+            "href": base_url + "app/chat",
             "name": "Chat"
         },
     }

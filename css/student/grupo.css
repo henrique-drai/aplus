@@ -1,6 +1,9 @@
 .clickable-title {
     width: fit-content;
-    margin: -20px 0px 10px;
+    margin: 0px 0px 10px;
+}
+.clickable-title h2 {
+    margin-bottom: 5px;
 }
 .clickable-title a {
     color: black;
@@ -109,18 +112,15 @@ th, td {
     border-bottom: 1.5px solid #a5a5a5 !important;
 }
 
-.delete_img {
-    width: 20px;
-    cursor: pointer;
-}
-
-.addTask_inputs {
+.addTask_inputs, 
+.editTask_inputs {
     padding: 10px;
     margin: 20px auto;
     width: 90%;
 }
 
-#addTask-form-submit {
+#addTask-form-submit,
+#editTask-form-submit {
     background-color: #3e5d4f;
 }
 
@@ -143,6 +143,10 @@ option[value=""] {
 		margin-top: -4%;
         padding: 1.5%;
     }
+
+    .taskinfo {
+        margin-top: 0 !important;
+    }
     
     tr:first-child {
         display: none;
@@ -156,8 +160,8 @@ option[value=""] {
     /* Hide table headers (but not display: none;, for accessibility) */
     thead tr {
         position: absolute;
-        top: -9999px;
-        left: -9999px;
+        top: -9999px !important;
+        left: -9999px !important;
     }
 
     tr {
@@ -177,10 +181,10 @@ option[value=""] {
         /* Now like a table header */
         position: absolute;
         /* Top/left values mimic padding */
-        top: 4px;
-        left: 6px;
-        width: 45%;
-        padding-right: 10px;
+        top: 4px !important;
+        left: 6px !important;
+        width: 45% !important;
+        padding-right: 10px !important;
         white-space: nowrap;
     }
 
@@ -189,10 +193,9 @@ option[value=""] {
 You could also use a data-* attribute and content for this. That way "bloats" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.
     */
     td:nth-of-type(1):before { content: "Tarefa"; font-weight: bold;}
-    td:nth-of-type(2):before { content: "Descrição"; font-weight: bold;}
-    td:nth-of-type(3):before { content: "Membro"; font-weight: bold;}
-	td:nth-of-type(4):before { content: "Começo"; font-weight: bold;}
-	td:nth-of-type(5):before { content: "Fim"; font-weight: bold;}
+    td:nth-of-type(2):before { content: "Membro"; font-weight: bold;}
+    td:nth-of-type(3):before { content: "Completo"; font-weight: bold;}
+	td:nth-of-type(4):before { content: "Ver mais"; font-weight: bold;}
 }
 
 @media only screen and (max-width: 375px) {

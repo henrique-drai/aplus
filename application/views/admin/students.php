@@ -3,18 +3,17 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-users.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/styles.css">
 <script src="<?php echo $base_url; ?>js/admin/manageUsers.js"></script>
 </head>
 
 <body>
 <?php $this->view('templates/nav-menu'); ?>    
     <main>
-        <h1>Estudantes</h1>
-
+        <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Alunos</h4>
+        <br>
         <div class="form-group">
             <div class="input-group">
-                <h2>Procurar Estudantes</h2>
+                <h2>Procurar Alunos</h2>
                 <input type="text" name="search_text" id="search_text_students" placeholder = "Procurar Estudantes pelo email, nome ou apelido" class="form-control"/>
                 <p class="informacaoUsers">Use * para visualizar todos os estudantes</p>
             </div>

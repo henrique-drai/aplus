@@ -10,7 +10,7 @@
     <main>
 
         <h4 class="breadcrumb">Painel de Controlo</h4>
-        <h1>Painel de Controlo</h1>
+        <br>
         <section class="admin-stats">
             <div class="admin-stats-window" id="users-hook">
                 <div class="admin-stats-title">Utilizadores</div>

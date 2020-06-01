@@ -335,9 +335,9 @@ function checkEnunciado(){
     $.get(base_url + "uploads/enunciados_files/"+ proj+".pdf")
         .done(function() { 
             if (enunciado_h4 != ""){
-                $("#enunciado_h4").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h4 + "</a>");
+                $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h4 + "</a>");
             } else {
-                $("#enunciado_h4").text("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
+                $("#enunciado_h4").text("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
             }
 
             return true;

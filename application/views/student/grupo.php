@@ -14,12 +14,10 @@
         <h4 class="breadcrumb">
             <a href="<?=$base_url?>app/student/grupos">Grupos</a> > Área de Grupo
         </h4>
-
-        <h1>Área de Grupo</h1>
         
         <div class="clickable-title">
             <a href="<?=$base_url?>route/subject/<?=$info->cadeira_id?>">
-                <span><?=$info->name?></span>
+                <h2><?=$info->name?></h2>
             </a> 
             <a href="<?=$base_url?>projects/project/<?=$info->projeto_id?>">
                 <span>(<?=$info->nome?>)</span>
@@ -53,3 +51,6 @@
 
         <!-- Pop up para o add -->
         <div class="popupAdd"></div>
+
+        <!-- Pop up para o edit -->
+        <div class="popupEdit"></div>

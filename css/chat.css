@@ -1,11 +1,18 @@
 #mens_erro_user, #informacaoUsers{
     font-size: 13px;
+    margin-left: 4px;
 }
-
+.mens_erro_conversas{
+    margin-left: 6px;
+}
 #all-chat{
     width: 100%;
     display: inline-flex;
     height: 80%;
+}
+
+.bodyChat{
+    overflow-y: auto;
 }
 
 li p{
@@ -50,7 +57,10 @@ li p{
     padding: 0px 25px 0px 0px;
     overflow-y: auto
 }
-
+#chatList1{
+    margin: 0;
+    padding: 0;
+}
 .input-group{
     padding-bottom: 10px;
 }
@@ -64,7 +74,6 @@ li p{
 .msg-history{
     /* min-height: 516px; */
     padding: 30px 15px 0 25px;
-    overflow-y: auto;
     height: 70%;}
 
 .received-msg{
@@ -112,11 +121,19 @@ li p{
     /* width: 100%; */
 }
 
-.time_date{
+.time_date, .nameMsg{
     color: #747474;
     display: block;
     font-size: 12px;
     margin: 8px 0 0;
+}
+
+.accordion h4{
+    display: flex;
+}
+
+#recentConvo, #groupsExi{
+    margin-left: 3px;
 }
 
 .chatter{
@@ -147,4 +164,91 @@ li p{
     right: 5px;
     position: absolute;
     top: 10px;
+    cursor: pointer;
 }
+
+.type-msg{
+    display:none;
+}
+
+/* accordion */
+/* .accordions {
+    font-family: arial;
+    margin: 60px auto;
+}
+
+.accordion-item {
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.accordion-item .accordion-title {
+    cursor: pointer;
+    padding: 20px;
+    transition: all 0.4s;
+    border-radius: 5px 5px 0 0;
+}
+
+.accordion-item .accordion-title.active-title {
+    background-color: #04b8d8;
+    color: #fff;
+}
+
+.accordion-item .accordion-title h2 {
+    margin: 0;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.accordion-item .accordion-title i.fa-chevron-down {
+    transform: rotate(0);
+    transition: 0.4s;
+}
+
+.accordion-item .accordion-title i.fa-chevron-down.chevron-top {
+    transform: rotate(-180deg);
+}
+
+.accordion-item .accordion-content {
+    display: none;
+    line-height: 1.7; */
+    /* padding: 20px; */
+    /* background-color: #f9f9f9;
+    border-radius: 0 0 5px 5px;
+}
+
+.accordion-item .accordion-content.active {
+    display: block;
+}
+
+.accordion-item .accordion-content p {
+    margin: 0;
+} */
+
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+  }
+  
+  #results-container .active, .accordion:hover {
+    background-color: #ccc;
+  }
+  
+  .panel {
+    /* padding: 0 18px; */
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }

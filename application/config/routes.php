@@ -115,6 +115,8 @@ $route['api/getAllCadeirasByCourse']            = 'Api_Subject/getAllCadeirasByC
 $route["api/getAllCadeirasFaculdade"]           = 'Api_Subject/getAllCadeirasFaculdade';
 $route['api/deleteCourse']                      = 'Api_Course/deleteCourse';
 $route['api/getSearchStudent']                  = 'Api_Student/getSearchStudent';
+$route['api/getSearchStudentNotInSubject']      = 'Api_Student/getSearchStudentNotInSubject';
+
 $route['api/getAllStudents']                    = 'Api_Student/getAllStudents';
 // $route['api/getAllSubjectsByCourse']            = 'Api_Subject/getAllSubjectsByCourse';
 // $route['api/getAllCoursesByYear']               = 'Api_Course/getAllCoursesByYear';
@@ -126,6 +128,7 @@ $route['api/deleteSubject']                     = 'Api_Subject/deleteSubject';
 $route['api/adminSubject']                      = 'Api_Subject/adminSubject';
 $route['api/getStudentsSubjectAdmin']           = 'Api_Subject/getStudentsSubjectAdmin';
 $route["api/deleteUserFromSubject"]             = 'Api_Subject/deleteUserFromSubject';
+$route["api/addStudentSubject"]                 = 'Api_Subject/addStudentSubject';
 $route['api/saveCSV']                           = 'Api_Admin/export';
 $route['api/importX']                           = 'Api_Admin/importX';
 $route['api/getAdminHome']                      = 'Api_Admin/getAdminHome';
@@ -136,9 +139,12 @@ $route['api/importStudentsCourse']              = 'Api_Admin/importStudentsCours
 ##chat##
 
 $route['api/getChatHistory']                    = 'Api_Chat/getChatHistory';
+$route['api/getChatGroupHistory']               = 'Api_Chat/getChatGroupHistory';
 $route['api/getChatLogs']                       = 'Api_Chat/getChatLogs';
 $route['api/getSearchTeaStu']                   = 'Api_User/getSearchStudentTeachers';
 $route['api/sendMessage']                       = 'Api_Chat/sendMessage';
+$route['api/sendMessageGroup']                  = 'Api_Chat/sendMessageGroup';
+$route['api/getGroups']                         = 'Api_Chat/getGroups';
 
 
 # ROUTER.php

@@ -59,11 +59,11 @@ label {
     color:rgb(255, 72, 72);
 }
 
-#errormsg, #errormsgfb, #errormsgenunc, #errormsgedit {
+#errormsg, #errormsgfb, #errormsgenunc, #errormsgedit, #projenuncerror{
     background: rgb(255, 72, 72);
 }
 
-#successmsg, #successmsgfb, #successmsgenunc, #successmsg_editar, #successmsg_criar{
+#successmsg, #successmsgfb, #successmsgenunc, #successmsg_editar, #successmsg_criar, #projenuncsucc{
     background: rgba(106, 192, 66, 0.7);
 }
 
@@ -170,20 +170,10 @@ label {
     width: 70%;
 }
 
-/* .gruposDIV p:nth-child(3) {
-    width: 10%;
-} */
-
-
 .wrapper input[type="button"] {
     display: inline;
     width: unset;
 }
-
-/* .wrapper {
-    margin-top: 50px;
-    margin-bottom: 30px;
-} */
 
 .cd-popup-container > div {
     padding:unset;
@@ -229,13 +219,13 @@ label {
     text-align: center;
     color: black;
     line-height: 30px;
-    width: 245px;
+    width: 240px;
     display: block;
     border: 2px solid #3e5d4f;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding: 0 10px;
+    padding: 0 5px;
     cursor: pointer;
     border-radius: 4px;
     font-size: 14px;
@@ -252,9 +242,9 @@ label {
 
 
 .inputs-popup, .inputs-div{
+    margin: 15px auto;
+    width: 95%;
     padding: 10px;
-    margin: 20px auto;
-    width: 90%;
 }
 
 
@@ -263,6 +253,17 @@ label {
     text-align:left;
 }
 
+.input-label, #enunc-label{
+    text-align: center !important;
+}
+
+.inputs-popup > h3, .inputs-div > h3 {
+    color: #3e5d4f;
+}
+
+.inputs-popup > label, .inputs-div > label {
+    color: black;
+}
 
 #container-geral{
     padding-top: 1px;
@@ -273,22 +274,25 @@ label {
     padding-right: 15px;
 }
 
-.cd-popup-container .cd-buttons li:first-child a {
-    background-color: #3e5d4f;
+.cd-buttons li:first-child a {
+    background-color: #3e5d4f !important;
 }
 
-
-/* #container-geral{
-    padding: 10px;
-} */
+#red-buttons li:first-child a{
+    background-color: rgb(255, 72, 72);
+}
 
 /* botoes pop up */
 @media screen and (max-width: 750px) {
     .wrapper input[type="button"] {
         margin-left: auto;
-        width: 160px;
+        width: 81px;
+        font-size: 12px;
         margin-right: auto;
-        display:block;
+    }
+
+    .cd-popup-container{
+        width: 95%;
     }
 
     .content h3{
@@ -300,6 +304,15 @@ label {
     }
 }
 
+
+@media screen and (max-width: 350px){
+    .wrapper input[type="button"] {
+        margin-left: auto;
+        width: 70px;
+        font-size: 10px;
+        margin-right: auto;
+    }
+}
 
 
 @media screen and (max-width: 440px) {

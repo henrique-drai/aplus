@@ -23,8 +23,12 @@ class UploadsC extends CI_Controller {
 
         if($this->verify_teacher($user_id, $project_id, "projeto")){
             $path = './uploads/enunciados_files/';
-            
-            if (! chmod($path, 0777) ){
+
+            if(!is_dir($path)){
+                mkdir($path, 0777, TRUE);
+            }
+
+            if (! chmod('./uploads/enunciados_files', 0777) ){
                 echo "erro chmod";
             }
 

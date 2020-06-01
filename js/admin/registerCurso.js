@@ -128,6 +128,11 @@ function submitRegister(){
                 $("#msgStatus").text("Curso registado com Sucesso");
                 $("#msgStatus").show().delay(2000).fadeOut();
                 $('#register-cursos-form')[0].reset();
+
+                if($("#consultar_cursos_faculdade").val() != "Selecione uma Faculdade"){
+                    getAllCursosFaculdade($("#consultar_cursos_faculdade").val())
+                }
+               
             },
             error: function(data) {
                 $("#msgErro").text("Não foi possível adicionar o curso");

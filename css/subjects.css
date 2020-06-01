@@ -453,7 +453,7 @@ a { color: inherit; }
     }
 
     .add_event {
-        margin-left: 310px;
+        margin-left: 0px;
     }
 }
 
@@ -524,7 +524,6 @@ a { color: inherit; }
 
     .add_event {
         margin-top: -5% !important;
-        margin-left: 6px;
     }
 
     #message_hour_s {

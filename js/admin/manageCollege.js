@@ -5,8 +5,8 @@ $(document).ready(() => {
 
     getAllColleges();
 
+    $("#register-college-submit").click(() => submitRegister())
 
-  
     // setInterval(getAllColleges, 3000);
 
     //open popup
@@ -102,10 +102,41 @@ function deleteCollege(linha){
         success: function() {
             $("#msgStatusDelete").text("Faculdade eliminada com Sucesso");
             $("#msgStatusDelete").show().delay(2000).fadeOut();
+            getAllColleges();
         },
         error: function() {
             $("#msgErroDelete").text(" Não foi possivel eliminar a faculdade");
             $("#msgErroDelete").show().delay(2000).fadeOut();
         }
     });
+}
+
+
+function submitRegister(){
+    const data = {
+        nomefaculdade:   $("#register-faculdade-form input[name='nomefaculdade']").val(),
+        morada:    $("#register-faculdade-form input[name='morada']").val(),
+        siglas:    $("#register-faculdade-form input[name='siglas']").val(),
+    }
+    if(data.nomefaculdade!=="" && data.morada!=="" && data.siglas!==""){
+        $.ajax({
+            type: "POST",
+            url: base_url + "api/registerCollege",
+            data: data,
+            success: function(data) {
+                $("#msgStatus").text("Faculdade registada com Sucesso");
+                $("#msgStatus").show().delay(2000).fadeOut();
+                $("input[type='text']").val("");
+                getAllColleges();
+            },
+            error: function(data) {
+                $("#msgErro").text("Não foi possivel registar a faculdade");
+                $("#msgErro").show().delay(2000).fadeOut();
+            }
+        });
+    }
+    else{
+        $("#msgErro").text("É necessário preencher todos os campos.");
+        $("#msgErro").show().delay(2000).fadeOut();
+    }
 }

@@ -8,43 +8,43 @@ function large_script($m) {
     // $aluno["2"] = $m->student("Adriana", "De", "s2", "s2", "Descrição default.");
     // $aluno["3"] = $m->student("Afonso", "JosÉ", "s3", "s3", "Descrição default.");
     $aluno["4"] = $m->student("Catarina", "Leite", "s4", "s4", "Esta é a nossa aluna principal, pelo que tem mais informação.");
-    // $aluno["5"] = $m->student("Alessia", "Lopes", "s5", "s5", "Descrição default.");
-    // $aluno["6"] = $m->student("Alexandre", "Antonio", "s6", "s6", "Descrição default.");
-    // $aluno["7"] = $m->student("Alice", "Calretas", "s7", "s7", "Descrição default.");
-    // $aluno["8"] = $m->student("Alice", "Martins", "s8", "s8", "Descrição default.");
-    // $aluno["9"] = $m->student("Ana", "Beatriz", "s9", "s9", "Descrição default.");
-    // $aluno["10"] = $m->student("Ana", "Catarina", "s10", "s10", "Descrição default.");
-    // $aluno["11"] = $m->student("Ana", "Filipa", "s11", "s11", "Descrição default.");
-    // $aluno["12"] = $m->student("Ana", "Isabel", "s12", "s12", "Descrição default.");
+    $aluno["5"] = $m->student("Alessia", "Lopes", "s5", "s5", "Descrição default.");
+    $aluno["6"] = $m->student("Alexandre", "Antonio", "s6", "s6", "Descrição default.");
+    $aluno["7"] = $m->student("Alice", "Calretas", "s7", "s7", "Descrição default.");
+    $aluno["8"] = $m->student("Alice", "Martins", "s8", "s8", "Descrição default.");
+    $aluno["9"] = $m->student("Ana", "Beatriz", "s9", "s9", "Descrição default.");
+    $aluno["10"] = $m->student("Ana", "Catarina", "s10", "s10", "Descrição default.");
+    $aluno["11"] = $m->student("Ana", "Filipa", "s11", "s11", "Descrição default.");
+    $aluno["12"] = $m->student("Ana", "Isabel", "s12", "s12", "Descrição default.");
     // $aluno["13"] = $m->student("Ana", "Marisa", "s13", "s13", "Descrição default.");
     $aluno["14"] = $m->student("Ana", "Marta", "s14", "s14", "Descrição default.");
-    // $aluno["15"] = $m->student("Ana", "Rita", "s15", "s15", "Descrição default.");
-    // $aluno["16"] = $m->student("Ana", "Rita", "s16", "s16", "Descrição default.");
-    // $aluno["17"] = $m->student("Ana", "Sofia", "s17", "s17", "Descrição default.");
-    // $aluno["18"] = $m->student("Andreia", "Carina", "s18", "s18", "Descrição default.");
-    // $aluno["19"] = $m->student("Andreia", "CarriÇo", "s19", "s19", "Descrição default.");
-    // $aluno["20"] = $m->student("AndrÉ", "Filipe", "s20", "s20", "Descrição default.");
-    // $aluno["21"] = $m->student("AndrÉ", "Filipe", "s21", "s21", "Descrição default.");
-    // $aluno["22"] = $m->student("AndrÉ", "Filipe", "s22", "s22", "Descrição default.");
-    // $aluno["23"] = $m->student("AndrÉ", "Vieira", "s23", "s23", "Descrição default.");
-    // $aluno["24"] = $m->student("AntÓnio", "Afonso", "s24", "s24", "Descrição default.");
-    // $aluno["25"] = $m->student("AntÓnio", "Maria", "s25", "s25", "Descrição default.");
-    // $aluno["26"] = $m->student("AntÓnio", "Maria", "s26", "s26", "Descrição default.");
-    // $aluno["27"] = $m->student("AntÓnio", "Miguel", "s27", "s27", "Descrição default.");
-    // $aluno["28"] = $m->student("AntÓnio", "Pedro", "s28", "s28", "Descrição default.");
-    // $aluno["29"] = $m->student("Beatriz", "Alexandra", "s29", "s29", "Descrição default.");
+    $aluno["15"] = $m->student("Ana", "Rita", "s15", "s15", "Descrição default.");
+    $aluno["16"] = $m->student("Ana", "Rita", "s16", "s16", "Descrição default.");
+    $aluno["17"] = $m->student("Ana", "Sofia", "s17", "s17", "Descrição default.");
+    $aluno["18"] = $m->student("Andreia", "Carina", "s18", "s18", "Descrição default.");
+    $aluno["19"] = $m->student("Andreia", "CarriÇo", "s19", "s19", "Descrição default.");
+    $aluno["20"] = $m->student("AndrÉ", "Filipe", "s20", "s20", "Descrição default.");
+    $aluno["21"] = $m->student("AndrÉ", "Filipe", "s21", "s21", "Descrição default.");
+    $aluno["22"] = $m->student("AndrÉ", "Filipe", "s22", "s22", "Descrição default.");
+    $aluno["23"] = $m->student("AndrÉ", "Vieira", "s23", "s23", "Descrição default.");
+    $aluno["24"] = $m->student("AntÓnio", "Afonso", "s24", "s24", "Descrição default.");
+    $aluno["25"] = $m->student("AntÓnio", "Maria", "s25", "s25", "Descrição default.");
+    $aluno["26"] = $m->student("AntÓnio", "Maria", "s26", "s26", "Descrição default.");
+    $aluno["27"] = $m->student("AntÓnio", "Miguel", "s27", "s27", "Descrição default.");
+    $aluno["28"] = $m->student("AntÓnio", "Pedro", "s28", "s28", "Descrição default.");
+    $aluno["29"] = $m->student("Beatriz", "Alexandra", "s29", "s29", "Descrição default.");
     // $aluno["30"] = $m->student("Beatriz", "Catarino", "s30", "s30", "Descrição default.");
     $aluno["31"] = $m->student("Beatriz", "Coutinho", "s31", "s31", "Descrição default.");
-    // $aluno["32"] = $m->student("Beatriz", "Daniela", "s32", "s32", "Descrição default.");
-    // $aluno["33"] = $m->student("Beatriz", "Dinelli", "s33", "s33", "Descrição default.");
-    // $aluno["34"] = $m->student("Beatriz", "Duarte", "s34", "s34", "Descrição default.");
-    // $aluno["35"] = $m->student("Beatriz", "Lopes", "s35", "s35", "Descrição default.");
-    // $aluno["36"] = $m->student("Beatriz", "Parreirinha", "s36", "s36", "Descrição default.");
-    // $aluno["37"] = $m->student("Beatriz", "Silva", "s37", "s37", "Descrição default.");
-    // $aluno["38"] = $m->student("Bernardo", "LourenÇo", "s38", "s38", "Descrição default.");
-    // $aluno["39"] = $m->student("Bruno", "Alexandre", "s39", "s39", "Descrição default.");
-    // $aluno["40"] = $m->student("Bruno", "Daniel", "s40", "s40", "Descrição default.");
-    // $aluno["41"] = $m->student("Bruno", "Miguel", "s41", "s41", "Descrição default.");
+    $aluno["32"] = $m->student("Beatriz", "Daniela", "s32", "s32", "Descrição default.");
+    $aluno["33"] = $m->student("Beatriz", "Dinelli", "s33", "s33", "Descrição default.");
+    $aluno["34"] = $m->student("Beatriz", "Duarte", "s34", "s34", "Descrição default.");
+    $aluno["35"] = $m->student("Beatriz", "Lopes", "s35", "s35", "Descrição default.");
+    $aluno["36"] = $m->student("Beatriz", "Parreirinha", "s36", "s36", "Descrição default.");
+    $aluno["37"] = $m->student("Beatriz", "Silva", "s37", "s37", "Descrição default.");
+    $aluno["38"] = $m->student("Bernardo", "LourenÇo", "s38", "s38", "Descrição default.");
+    $aluno["39"] = $m->student("Bruno", "Alexandre", "s39", "s39", "Descrição default.");
+    $aluno["40"] = $m->student("Bruno", "Daniel", "s40", "s40", "Descrição default.");
+    $aluno["41"] = $m->student("Bruno", "Miguel", "s41", "s41", "Descrição default.");
     $aluno["42"] = $m->student("Bruno", "Miguel", "s42", "s42", "Descrição default.");
     // $aluno["43"] = $m->student("Bruno", "Teixeira", "s43", "s43", "Descrição default.");
     // $aluno["44"] = $m->student("Carolina", "Baptista", "s44", "s44", "Descrição default.");
@@ -52,47 +52,47 @@ function large_script($m) {
     // $aluno["46"] = $m->student("Carolina", "Maria", "s46", "s46", "Descrição default.");
     $aluno["47"] = $m->student("Carolina", "Maria", "s47", "s47", "Descrição default.");
     // $aluno["48"] = $m->student("Carolina", "Nunes", "s48", "s48", "Descrição default.");
-    // $aluno["49"] = $m->student("Carolina", "Sofia", "s49", "s49", "Descrição default.");
-    // $aluno["50"] = $m->student("Catarina", "Alexandra", "s50", "s50", "Descrição default.");
-    // $aluno["51"] = $m->student("Catarina", "GonÇalves", "s51", "s51", "Descrição default.");
-    // $aluno["52"] = $m->student("Catarina", "GonÇalves", "s52", "s52", "Descrição default.");
-    // $aluno["53"] = $m->student("Catarina", "Lopes", "s53", "s53", "Descrição default.");
-    // $aluno["54"] = $m->student("Catarina", "Maria", "s54", "s54", "Descrição default.");
-    // $aluno["55"] = $m->student("Catarina", "Salgado", "s55", "s55", "Descrição default.");
-    // $aluno["56"] = $m->student("Clara", "Morais", "s56", "s56", "Descrição default.");
-    // $aluno["57"] = $m->student("ConstanÇa", "Melo", "s57", "s57", "Descrição default.");
-    // $aluno["58"] = $m->student("Cristiana", "Sofia", "s58", "s58", "Descrição default.");
-    // $aluno["59"] = $m->student("CÉlia", "Samo", "s59", "s59", "Descrição default.");
+    $aluno["49"] = $m->student("Carolina", "Sofia", "s49", "s49", "Descrição default.");
+    $aluno["50"] = $m->student("Catarina", "Alexandra", "s50", "s50", "Descrição default.");
+    $aluno["51"] = $m->student("Catarina", "GonÇalves", "s51", "s51", "Descrição default.");
+    $aluno["52"] = $m->student("Catarina", "GonÇalves", "s52", "s52", "Descrição default.");
+    $aluno["53"] = $m->student("Catarina", "Lopes", "s53", "s53", "Descrição default.");
+    $aluno["54"] = $m->student("Catarina", "Maria", "s54", "s54", "Descrição default.");
+    $aluno["55"] = $m->student("Catarina", "Salgado", "s55", "s55", "Descrição default.");
+    $aluno["56"] = $m->student("Clara", "Morais", "s56", "s56", "Descrição default.");
+    $aluno["57"] = $m->student("ConstanÇa", "Melo", "s57", "s57", "Descrição default.");
+    $aluno["58"] = $m->student("Cristiana", "Sofia", "s58", "s58", "Descrição default.");
+    $aluno["59"] = $m->student("CÉlia", "Samo", "s59", "s59", "Descrição default.");
     // $aluno["60"] = $m->student("Daniela", "Hanganu", "s60", "s60", "Descrição default.");
     $aluno["61"] = $m->student("Diana", "Patricia", "s61", "s61", "Descrição default.");
     // $aluno["62"] = $m->student("Diogo", "AntÓnio", "s62", "s62", "Descrição default.");
     // $aluno["63"] = $m->student("Diogo", "Caneco", "s63", "s63", "Descrição default.");
     // $aluno["64"] = $m->student("Diogo", "Catarino", "s64", "s64", "Descrição default.");
-    // $aluno["65"] = $m->student("Diogo", "Maria", "s65", "s65", "Descrição default.");
-    // $aluno["66"] = $m->student("Diogo", "Miguel", "s66", "s66", "Descrição default.");
-    // $aluno["67"] = $m->student("Duarte", "De", "s67", "s67", "Descrição default.");
-    // $aluno["68"] = $m->student("Duarte", "Ferreira", "s68", "s68", "Descrição default.");
-    // $aluno["69"] = $m->student("Duarte", "Maria", "s69", "s69", "Descrição default.");
-    // $aluno["70"] = $m->student("Duarte", "SimÃo", "s70", "s70", "Descrição default.");
-    // $aluno["71"] = $m->student("Eduardo", "Pinheiro", "s71", "s71", "Descrição default.");
-    // $aluno["72"] = $m->student("Filipa", "Alexandra", "s72", "s72", "Descrição default.");
-    // $aluno["73"] = $m->student("Filipe", "Antunes", "s73", "s73", "Descrição default.");
-    // $aluno["74"] = $m->student("Francisca", "Maria", "s74", "s74", "Descrição default.");
-    // $aluno["75"] = $m->student("Francisco", "Marques", "s75", "s75", "Descrição default.");
+    $aluno["65"] = $m->student("Diogo", "Maria", "s65", "s65", "Descrição default.");
+    $aluno["66"] = $m->student("Diogo", "Miguel", "s66", "s66", "Descrição default.");
+    $aluno["67"] = $m->student("Duarte", "De", "s67", "s67", "Descrição default.");
+    $aluno["68"] = $m->student("Duarte", "Ferreira", "s68", "s68", "Descrição default.");
+    $aluno["69"] = $m->student("Duarte", "Maria", "s69", "s69", "Descrição default.");
+    $aluno["70"] = $m->student("Duarte", "SimÃo", "s70", "s70", "Descrição default.");
+    $aluno["71"] = $m->student("Eduardo", "Pinheiro", "s71", "s71", "Descrição default.");
+    $aluno["72"] = $m->student("Filipa", "Alexandra", "s72", "s72", "Descrição default.");
+    $aluno["73"] = $m->student("Filipe", "Antunes", "s73", "s73", "Descrição default.");
+    $aluno["74"] = $m->student("Francisca", "Maria", "s74", "s74", "Descrição default.");
+    $aluno["75"] = $m->student("Francisco", "Marques", "s75", "s75", "Descrição default.");
     // $aluno["76"] = $m->student("Francisco", "Moura", "s76", "s76", "Descrição default.");
     // $aluno["77"] = $m->student("Francisco", "Stevens", "s77", "s77", "Descrição default.");
     $aluno["78"] = $m->student("Fábio", "Jorge", "s78", "s78", "Descrição default.");
-    // $aluno["79"] = $m->student("Fátima", "Carvalho", "s79", "s79", "Descrição default.");
-    // $aluno["80"] = $m->student("GonÇalo", "Da", "s80", "s80", "Descrição default.");
-    // $aluno["81"] = $m->student("GonÇalo", "De", "s81", "s81", "Descrição default.");
-    // $aluno["82"] = $m->student("GonÇalo", "Manuel", "s82", "s82", "Descrição default.");
-    // $aluno["83"] = $m->student("Guilherme", "Herculano", "s83", "s83", "Descrição default.");
-    // $aluno["84"] = $m->student("Henrique", "Miguel", "s84", "s84", "Descrição default.");
-    // $aluno["85"] = $m->student("Inês", "Alexandra", "s85", "s85", "Descrição default.");
-    // $aluno["86"] = $m->student("Inês", "Carvalho", "s86", "s86", "Descrição default.");
-    // $aluno["87"] = $m->student("Inês", "Costa", "s87", "s87", "Descrição default.");
-    // $aluno["88"] = $m->student("Inês", "Luz", "s88", "s88", "Descrição default.");
-    // $aluno["89"] = $m->student("Inês", "Sofia", "s89", "s89", "Descrição default.");
+    $aluno["79"] = $m->student("Fátima", "Carvalho", "s79", "s79", "Descrição default.");
+    $aluno["80"] = $m->student("GonÇalo", "Da", "s80", "s80", "Descrição default.");
+    $aluno["81"] = $m->student("GonÇalo", "De", "s81", "s81", "Descrição default.");
+    $aluno["82"] = $m->student("GonÇalo", "Manuel", "s82", "s82", "Descrição default.");
+    $aluno["83"] = $m->student("Guilherme", "Herculano", "s83", "s83", "Descrição default.");
+    $aluno["84"] = $m->student("Henrique", "Miguel", "s84", "s84", "Descrição default.");
+    $aluno["85"] = $m->student("Inês", "Alexandra", "s85", "s85", "Descrição default.");
+    $aluno["86"] = $m->student("Inês", "Carvalho", "s86", "s86", "Descrição default.");
+    $aluno["87"] = $m->student("Inês", "Costa", "s87", "s87", "Descrição default.");
+    $aluno["88"] = $m->student("Inês", "Luz", "s88", "s88", "Descrição default.");
+    $aluno["89"] = $m->student("Inês", "Sofia", "s89", "s89", "Descrição default.");
     $aluno["90"] = $m->student("Joana", "Catarina", "s90", "s90", "Descrição default.");
     // $aluno["91"] = $m->student("Joana", "De", "s91", "s91", "Descrição default.");
     // $aluno["92"] = $m->student("Joana", "Maria", "s92", "s92", "Descrição default.");
@@ -102,40 +102,40 @@ function large_script($m) {
     $aluno["96"] = $m->student("Joana", "Raquel", "s96", "s96", "Descrição default.");
     // $aluno["97"] = $m->student("Joana", "Torres", "s97", "s97", "Descrição default.");
     $aluno["98"] = $m->student("Jonathan", "Fingolo", "s98", "s98", "Descrição default.");
-    // $aluno["99"] = $m->student("JosÉ", "Do", "s99", "s99", "Descrição default.");
-    // $aluno["100"] = $m->student("JosÉ", "Maria", "s100", "s100", "Descrição default.");
-    // $aluno["101"] = $m->student("JoÃo", "AntÓnio", "s101", "s101", "Descrição default.");
-    // $aluno["102"] = $m->student("JoÃo", "Carlos", "s102", "s102", "Descrição default.");
-    // $aluno["103"] = $m->student("JoÃo", "Filipe", "s103", "s103", "Descrição default.");
-    // $aluno["104"] = $m->student("JoÃo", "GonÇalo", "s104", "s104", "Descrição default.");
-    // $aluno["105"] = $m->student("JoÃo", "JosÉ", "s105", "s105", "Descrição default.");
-    // $aluno["106"] = $m->student("JoÃo", "Miguel", "s106", "s106", "Descrição default.");
-    // $aluno["107"] = $m->student("JoÃo", "Miguel", "s107", "s107", "Descrição default.");
-    // $aluno["108"] = $m->student("JoÃo", "Pedro", "s108", "s108", "Descrição default.");
-    // $aluno["109"] = $m->student("JoÃo", "Pedro", "s109", "s109", "Descrição default.");
-    // $aluno["110"] = $m->student("JoÃo", "Pedro", "s110", "s110", "Descrição default.");
-    // $aluno["111"] = $m->student("JoÃo", "Tiago", "s111", "s111", "Descrição default.");
-    // $aluno["112"] = $m->student("JoÃo", "Martins", "s112", "s112", "Descrição default.");
-    // $aluno["113"] = $m->student("Jéssica", "Alves", "s113", "s113", "Descrição default.");
+    $aluno["99"] = $m->student("JosÉ", "Do", "s99", "s99", "Descrição default.");
+    $aluno["100"] = $m->student("JosÉ", "Maria", "s100", "s100", "Descrição default.");
+    $aluno["101"] = $m->student("JoÃo", "AntÓnio", "s101", "s101", "Descrição default.");
+    $aluno["102"] = $m->student("JoÃo", "Carlos", "s102", "s102", "Descrição default.");
+    $aluno["103"] = $m->student("JoÃo", "Filipe", "s103", "s103", "Descrição default.");
+    $aluno["104"] = $m->student("JoÃo", "GonÇalo", "s104", "s104", "Descrição default.");
+    $aluno["105"] = $m->student("JoÃo", "JosÉ", "s105", "s105", "Descrição default.");
+    $aluno["106"] = $m->student("JoÃo", "Miguel", "s106", "s106", "Descrição default.");
+    $aluno["107"] = $m->student("JoÃo", "Miguel", "s107", "s107", "Descrição default.");
+    $aluno["108"] = $m->student("JoÃo", "Pedro", "s108", "s108", "Descrição default.");
+    $aluno["109"] = $m->student("JoÃo", "Pedro", "s109", "s109", "Descrição default.");
+    $aluno["110"] = $m->student("JoÃo", "Pedro", "s110", "s110", "Descrição default.");
+    $aluno["111"] = $m->student("JoÃo", "Tiago", "s111", "s111", "Descrição default.");
+    $aluno["112"] = $m->student("JoÃo", "Martins", "s112", "s112", "Descrição default.");
+    $aluno["113"] = $m->student("Jéssica", "Alves", "s113", "s113", "Descrição default.");
     $aluno["114"] = $m->student("Karolina", "Mazurek", "s114", "s114", "Descrição default.");
     // $aluno["115"] = $m->student("Kennedy", "Samuel", "s115", "s115", "Descrição default.");
     // $aluno["116"] = $m->student("Lara", "Isabel", "s116", "s116", "Descrição default.");
     $aluno["117"] = $m->student("Leonor", "Inês", "s117", "s117", "Descrição default.");
     // $aluno["118"] = $m->student("Lucas", "Bronger", "s118", "s118", "Descrição default.");
     $aluno["119"] = $m->student("Luis", "Ricciardi", "s119", "s119", "Descrição default.");
-    // $aluno["120"] = $m->student("Luis", "Eduardo", "s120", "s120", "Descrição default.");
-    // $aluno["121"] = $m->student("Luis", "Miguel", "s121", "s121", "Descrição default.");
-    // $aluno["122"] = $m->student("Luis", "Tiago", "s122", "s122", "Descrição default.");
-    // $aluno["123"] = $m->student("Madalena", "Sousa", "s123", "s123", "Descrição default.");
-    // $aluno["124"] = $m->student("Manuel", "Neves", "s124", "s124", "Descrição default.");
-    // $aluno["125"] = $m->student("Manuel", "Ulrich", "s125", "s125", "Descrição default.");
-    // $aluno["126"] = $m->student("Margarida", "Comprido", "s126", "s126", "Descrição default.");
+    $aluno["120"] = $m->student("Luis", "Eduardo", "s120", "s120", "Descrição default.");
+    $aluno["121"] = $m->student("Luis", "Miguel", "s121", "s121", "Descrição default.");
+    $aluno["122"] = $m->student("Luis", "Tiago", "s122", "s122", "Descrição default.");
+    $aluno["123"] = $m->student("Madalena", "Sousa", "s123", "s123", "Descrição default.");
+    $aluno["124"] = $m->student("Manuel", "Neves", "s124", "s124", "Descrição default.");
+    $aluno["125"] = $m->student("Manuel", "Ulrich", "s125", "s125", "Descrição default.");
+    $aluno["126"] = $m->student("Margarida", "Comprido", "s126", "s126", "Descrição default.");
     $aluno["127"] = $m->student("Margarida", "Do", "s127", "s127", "Descrição default.");
-    // $aluno["128"] = $m->student("Margarida", "Duarte", "s128", "s128", "Descrição default.");
-    // $aluno["129"] = $m->student("Margarida", "Olaio", "s129", "s129", "Descrição default.");
-    // $aluno["130"] = $m->student("Margarida", "Ramos", "s130", "s130", "Descrição default.");
-    // $aluno["131"] = $m->student("Margarida", "Rodrigues", "s131", "s131", "Descrição default.");
-    // $aluno["132"] = $m->student("Maria", "Ana", "s132", "s132", "Descrição default.");
+    $aluno["128"] = $m->student("Margarida", "Duarte", "s128", "s128", "Descrição default.");
+    $aluno["129"] = $m->student("Margarida", "Olaio", "s129", "s129", "Descrição default.");
+    $aluno["130"] = $m->student("Margarida", "Ramos", "s130", "s130", "Descrição default.");
+    $aluno["131"] = $m->student("Margarida", "Rodrigues", "s131", "s131", "Descrição default.");
+    $aluno["132"] = $m->student("Maria", "Ana", "s132", "s132", "Descrição default.");
     $aluno["133"] = $m->student("Maria", "Carolina", "s133", "s133", "Descrição default.");
     $aluno["134"] = $m->student("Maria", "Catarina", "s134", "s134", "Descrição default.");
     $aluno["135"] = $m->student("Maria", "Francisca", "s135", "s135", "Descrição default.");
@@ -168,24 +168,24 @@ function large_script($m) {
     // $aluno["162"] = $m->student("Miguel", "Laranjeira", "s162", "s162", "Descrição default.");
     // $aluno["163"] = $m->student("Miguel", "Tomás", "s163", "s163", "Descrição default.");
     $aluno["164"] = $m->student("Márcia", "Filipa", "s164", "s164", "Descrição default.");
-    // $aluno["165"] = $m->student("Márcia", "Henriques", "s165", "s165", "Descrição default.");
-    // $aluno["166"] = $m->student("MÓnica", "Beatriz", "s166", "s166", "Descrição default.");
-    // $aluno["167"] = $m->student("Nadine", "Figueiredo", "s167", "s167", "Descrição default.");
-    // $aluno["168"] = $m->student("Nautaran", "Nancassa", "s168", "s168", "Descrição default.");
-    // $aluno["169"] = $m->student("Nuno", "Barata", "s169", "s169", "Descrição default.");
-    // $aluno["170"] = $m->student("Nuno", "Ricardo", "s170", "s170", "Descrição default.");
-    // $aluno["171"] = $m->student("Olivia", "Maria", "s171", "s171", "Descrição default.");
-    // $aluno["172"] = $m->student("Otavio", "Augusto", "s172", "s172", "Descrição default.");
-    // $aluno["173"] = $m->student("Patricia", "Filipa", "s173", "s173", "Descrição default.");
-    // $aluno["174"] = $m->student("Pedro", "Da", "s174", "s174", "Descrição default.");
-    // $aluno["175"] = $m->student("Pedro", "Miguel", "s175", "s175", "Descrição default.");
+    $aluno["165"] = $m->student("Márcia", "Henriques", "s165", "s165", "Descrição default.");
+    $aluno["166"] = $m->student("MÓnica", "Beatriz", "s166", "s166", "Descrição default.");
+    $aluno["167"] = $m->student("Nadine", "Figueiredo", "s167", "s167", "Descrição default.");
+    $aluno["168"] = $m->student("Nautaran", "Nancassa", "s168", "s168", "Descrição default.");
+    $aluno["169"] = $m->student("Nuno", "Barata", "s169", "s169", "Descrição default.");
+    $aluno["170"] = $m->student("Nuno", "Ricardo", "s170", "s170", "Descrição default.");
+    $aluno["171"] = $m->student("Olivia", "Maria", "s171", "s171", "Descrição default.");
+    $aluno["172"] = $m->student("Otavio", "Augusto", "s172", "s172", "Descrição default.");
+    $aluno["173"] = $m->student("Patricia", "Filipa", "s173", "s173", "Descrição default.");
+    $aluno["174"] = $m->student("Pedro", "Da", "s174", "s174", "Descrição default.");
+    $aluno["175"] = $m->student("Pedro", "Miguel", "s175", "s175", "Descrição default.");
     $aluno["176"] = $m->student("Pedro", "Rendo", "s176", "s176", "Descrição default.");
-    // $aluno["177"] = $m->student("Phillip", "Kemp", "s177", "s177", "Descrição default.");
-    // $aluno["178"] = $m->student("Rafael", "Banza", "s178", "s178", "Descrição default.");
-    // $aluno["179"] = $m->student("Raquel", "Filipa", "s179", "s179", "Descrição default.");
-    // $aluno["180"] = $m->student("Raquel", "PerdigÃo", "s180", "s180", "Descrição default.");
-    // $aluno["181"] = $m->student("Raquel", "Rebelo", "s181", "s181", "Descrição default.");
-    // $aluno["182"] = $m->student("RaÚl", "Julian", "s182", "s182", "Descrição default.");
+    $aluno["177"] = $m->student("Phillip", "Kemp", "s177", "s177", "Descrição default.");
+    $aluno["178"] = $m->student("Rafael", "Banza", "s178", "s178", "Descrição default.");
+    $aluno["179"] = $m->student("Raquel", "Filipa", "s179", "s179", "Descrição default.");
+    $aluno["180"] = $m->student("Raquel", "PerdigÃo", "s180", "s180", "Descrição default.");
+    $aluno["181"] = $m->student("Raquel", "Rebelo", "s181", "s181", "Descrição default.");
+    $aluno["182"] = $m->student("RaÚl", "Julian", "s182", "s182", "Descrição default.");
     $aluno["183"] = $m->student("Ricardo", "Martins", "s183", "s183", "Descrição default.");
     // $aluno["184"] = $m->student("Rita", "Alexandra", "s184", "s184", "Descrição default.");
     // $aluno["185"] = $m->student("Rita", "Isabel", "s185", "s185", "Descrição default.");
@@ -210,12 +210,12 @@ function large_script($m) {
     // $aluno["204"] = $m->student("Tomás", "Dos", "s204", "s204", "Descrição default.");
     // $aluno["205"] = $m->student("Tomás", "Jardim", "s205", "s205", "Descrição default.");
     $aluno["206"] = $m->student("Tomás", "Ventura", "s206", "s206", "Descrição default.");
-    // $aluno["207"] = $m->student("Vasco", "Filipe", "s207", "s207", "Descrição default.");
-    // $aluno["208"] = $m->student("Vasco", "Maria", "s208", "s208", "Descrição default.");
-    // $aluno["209"] = $m->student("Vasco", "Santos", "s209", "s209", "Descrição default.");
-    // $aluno["210"] = $m->student("Vasco", "Sousa", "s210", "s210", "Descrição default.");
-    // $aluno["211"] = $m->student("Vera", "Alexandra", "s211", "s211", "Descrição default.");
-    // $aluno["212"] = $m->student("Yiqing", "Zhu", "s212", "s212", "Descrição default.");
+    $aluno["207"] = $m->student("Vasco", "Filipe", "s207", "s207", "Descrição default.");
+    $aluno["208"] = $m->student("Vasco", "Maria", "s208", "s208", "Descrição default.");
+    $aluno["209"] = $m->student("Vasco", "Santos", "s209", "s209", "Descrição default.");
+    $aluno["210"] = $m->student("Vasco", "Sousa", "s210", "s210", "Descrição default.");
+    $aluno["211"] = $m->student("Vera", "Alexandra", "s211", "s211", "Descrição default.");
+    $aluno["212"] = $m->student("Yiqing", "Zhu", "s212", "s212", "Descrição default.");
     $aluno["213"] = $m->student("Ângela", "Do", "s213", "s213", "Descrição default.");
     $aluno["214"] = $m->student("Érica", "Beatriz", "s214", "s214", "Descrição default.");
 
@@ -247,6 +247,7 @@ function large_script($m) {
     $curso["2"] = $m->curso($faculdade["1"], $ano["1"], "9015", "Bioquímica", "A Licenciatura em Bioquímica confere o título de bioquímico e tem como objetivos principais: - Formar profissionais com uma sólida formação científica em Ciências da Vida, tanto teórica como experimental, e com uma forte componente de iniciação à investigação; - Ministrar um núcleo de conhecimentos nas áreas científicas de Química, Física, Biologia, Matemática, Estatística e Informática com vista a proporcionar aos estudantes uma ampla formação básica para, no futuro, abordarem problemas de índole bioquímica diversa. Esta formação inicial é incluída maioritariamente nos dois primeiros semestres da Licenciatura; - Providenciar uma formação extensiva e transversal nas várias áreas da Bioquímica, central para o prosseguimento de carreiras nas áreas acima mencionadas. Esta formação, com forte componente prática, é fornecida no segundo e terceiro anos da Licenciatura. Competências: Planeamento, gestão e execução de projetos em diversas áreas das ciências da vida como a neuroquímica, oncobiologia, biologia de sistemas, bioinformática, biotecnologia, biologia molecular, metabolómica, genómica, proteómica ou biofísica molecular. Implementação de métodos bioquímicos analíticos em laboratórios clínicos ou de serviços.");
     $curso["3"] = $m->curso($faculdade["1"], $ano["1"], "L096", "Engenharia Geoespacial", "A área da Engenharia Geoespacial apresenta uma visão moderna e atualizada da área da Informação Geográfica e Cartográfica, hoje designada de Informação GeoEspacial ou Informação Espacial Georreferenciada. A Informação Geoespacial é toda a informação associada a uma localização, ela é fundamental no planeamento, na gestão e ordenamento do território, ao nível do ambiente, da segurança, das infraestruturas e da administração pública; é fundamental no planeamento e gestão de serviços localizados, como os sectores convencionais da água, da energia e das telecomunicações, ou os sectores emergente de serviços baseados na localização móvel, como todos os serviços bem conhecidos e disponibilizados pela Internet nas aplicações dos telemóveis ou na Web.");
     $curso["4"] = $m->curso($faculdade["1"], $ano["1"], "9119", "Engenharia Informática", "A Licenciatura em Engenharia Informática (LEI) corresponde aos enormes desafios de imaginação, criatividade e inovação tecnológica impostos pela sociedade e pelo mercado de emprego no espaço económico europeu. A LEI adquiriu um grau de qualidade que permite considerá-la como uma das melhores do país no seu domínio. Este contexto extremamente positivo resulta de um processo de melhoria contínua com o objetivo de aproximar, de forma sistemática, o melhor e mais recente saber científico e técnico às solicitações das empresas mais qualificadas do mercado. A LEI encontra-se articulada com o Mestrado em Engenharia Informática, constituindo um produto coerente de cinco anos de formação necessária ao desempenho da atividade profissional de engenheiro informático. Esta formação está acreditada pela Ordem dos Engenheiros, concedendo aos seus graduados acesso ao título de Engenheiro Informático, e pela A3ES, a agência de acreditação nacional do ensino superior.");
+    
     $curso["5"] = $m->curso($faculdade["1"], $ano["1"], "9381", "Estatística Aplicada", "A Licenciatura em Estatística Aplicada, cujo eixo é a recolha/produção de dados, sua análise e interpretação, visa a formação de profissionais para empresas de sondagens e de estudos de mercado, para a administração central e local, gestão de informação em órgãos de comunicação social e partidos políticos, empresas de médio ou grande porte.");
     $curso["6"] = $m->curso($faculdade["1"], $ano["1"], "9458", "Estudos Gerais", "A Licenciatura em Estudos Gerais tem uma característica que a diferencia de todas as outras em Portugal: permite uma combinação única entre as artes, as humanidades e as ciências. Os estudantes vão licenciar-se naquilo que decidirem durante a licenciatura, podendo escolher com menos pressões e com mais conhecimento de causa, pois só têm de definir eventuais áreas de concentração durante o seu curso.");
     $curso["7"] = $m->curso($faculdade["1"], $ano["1"], "9141", "Física", "A Licenciatura em Física oferece uma formação sólida e abrangente em física fundamental e aplicada. O curso está estruturado em duas fases, uma primeira de formação geral em matemática e física, e uma segunda de formação complementar em física mais avançada. Nesta é possível optar por diferentes percursos: Física, que fornece formação nas áreas principais da física contemporânea; Astronomia e Astrofísica, que integra uma formação orientada para esta área; e Minor em outra área científica, que permite diferentes perfis pluridisciplinares, combinando uma formação em Física com formação noutra área científica.");
@@ -330,9 +331,9 @@ function large_script($m) {
     // $cadeira["57"] = $m->cadeira($curso["3"], "84678", "Instrumentação e Metrologia", "IMetro", 1, "Descrição default.", "#ffb3ec");
     // $cadeira["58"] = $m->cadeira($curso["3"], "64781", "Sistemas de Informação Geográfica", "SIGeo", 1, "Descrição default.", "#ffb3ec");
     // $cadeira["59"] = $m->cadeira($curso["3"], "73458", "Cartografia", "Cart", 2, "Descrição default.", "#ffb3ec");
-    // $cadeira["60"] = $m->cadeira($curso["3"], "74211", "Ordenamento do Território e Urbanismo", "OTUrb", 2, "Descrição default.", "#ffb3ec");
-    // $cadeira["61"] = $m->cadeira($curso["3"], "71746", "Posicionamento Geospacial I", "PGeo-I", 2, "Descrição default.", "#ffb3ec");
-    // $cadeira["62"] = $m->cadeira($curso["3"], "71748", "Sistemas de Referência Espaciais", "SREsp", 2, "Descrição default.", "#ffb3ec");
+    $cadeira["60"] = $m->cadeira($curso["3"], "74211", "Ordenamento do Território e Urbanismo", "OTUrb", 2, "Descrição default.", "#ffb3ec");
+    $cadeira["61"] = $m->cadeira($curso["3"], "71746", "Posicionamento Geospacial I", "PGeo-I", 2, "Descrição default.", "#ffb3ec");
+    $cadeira["62"] = $m->cadeira($curso["3"], "71748", "Sistemas de Referência Espaciais", "SREsp", 2, "Descrição default.", "#ffb3ec");
     $cadeira["63"] = $m->cadeira($curso["3"], "86458", "Cadastro Predial", "CPre", 1, "Descrição default.", "#ffb3ec");
     $cadeira["64"] = $m->cadeira($curso["3"], "71744", "Deteção Remota e Processamento de Imagem", "DRPImag", 1, "Descrição default.", "#e6b3ff");
     $cadeira["65"] = $m->cadeira($curso["3"], "71741", "Geodesia Física", "GFis", 1, "Descrição default.", "#b3b3ff");
@@ -383,17 +384,6 @@ function large_script($m) {
     $cadeira["107"] = $m->cadeira($curso["18"], "50130", "Animação Digital", "AD", 1, "Descrição default.", "#ffff80");
     $cadeira["108"] = $m->cadeira($curso["18"], "50131", "Animação e Movimento", "AM", 1, "Descrição default.", "#ffd480");
     $cadeira["109"] = $m->cadeira($curso["18"], "50132", "Cultura Visual", "CV", 1, "Descrição default.", "#ffa8eb");
-    $cadeira["110"] = $m->cadeira($curso["19"], "50123", "Historia da Arte I", "HA-I", 1, "Descrição default.", "#ffb3ec");
-    $cadeira["111"] = $m->cadeira($curso["19"], "50124", "Historia e Teoria da Museologia", "HTM", 1, "Descrição default.", "#e6b3ff");
-    $cadeira["112"] = $m->cadeira($curso["19"], "50125", "Teorias da Arte", "TA", 1, "Descrição default.", "#b3b3ff");
-    $cadeira["113"] = $m->cadeira($curso["19"], "50126", "Desenho I", "Des-I", 1, "Descrição default.", "#99ebff");
-    $cadeira["114"] = $m->cadeira($curso["19"], "50127", "Geometria I", "Geo-I", 1, "Descrição default.", "#80ffdf");
-    $cadeira["115"] = $m->cadeira($curso["19"], "50128", "Estética I", "Est-I", 1, "Descrição default.", "#80ff80");
-    $cadeira["116"] = $m->cadeira($curso["19"], "50129", "Museologia e Curadoria", "MC", 1, "Descrição default.", "#d5ff80");
-    $cadeira["117"] = $m->cadeira($curso["19"], "50130", "Design Museográfico", "DM", 1, "Descrição default.", "#ffff80");
-    $cadeira["118"] = $m->cadeira($curso["19"], "50131", "Historia e Teoria do Restauro", "HTR", 1, "Descrição default.", "#ffd480");
-    $cadeira["119"] = $m->cadeira($curso["19"], "50132", "Teoria da Escultura Portuguesa", "TEP", 1, "Descrição default.", "#ffa8eb");
-
     $cadeira["120"] = $m->cadeira($curso["18"], "50123", "Estudos dos Media", "EM", 2, "Descrição default.", "#ffb3ec");
     $cadeira["121"] = $m->cadeira($curso["18"], "50124", "Fotografia", "Fot", 2, "Descrição default.", "#e6b3ff");
     $cadeira["122"] = $m->cadeira($curso["18"], "50125", "Imagem em Movimento", "IM", 2, "Descrição default.", "#b3b3ff");
@@ -404,16 +394,28 @@ function large_script($m) {
     $cadeira["127"] = $m->cadeira($curso["18"], "50130", "Audiovisuais", "AV", 2, "Descrição default.", "#ffff80");
     $cadeira["128"] = $m->cadeira($curso["18"], "50131", "Sistemas Interativos", "SI", 2, "Descrição default.", "#ffd480");
     $cadeira["129"] = $m->cadeira($curso["18"], "50132", "Performance", "P", 2, "Descrição default.", "#ffa8eb");
-    $cadeira["130"] = $m->cadeira($curso["18"], "50123", "Historia da Arte II", "HA-II", 2, "Descrição default.", "#ffb3ec");
-    $cadeira["131"] = $m->cadeira($curso["18"], "50124", "Artes e Humanidades", "AH", 2, "Descrição default.", "#e6b3ff");
-    $cadeira["132"] = $m->cadeira($curso["18"], "50125", "Museologia e Conservação", "MC", 2, "Descrição default.", "#b3b3ff");
-    $cadeira["133"] = $m->cadeira($curso["18"], "50126", "Desenho de Patrimonio", "DP", 2, "Descrição default.", "#99ebff");
-    $cadeira["134"] = $m->cadeira($curso["18"], "50127", "Materiais, Técnicas e Diagnóstico", "MTD", 2, "Descrição default.", "#80ffdf");
-    $cadeira["135"] = $m->cadeira($curso["18"], "50128", "Historia da Arte Portuguesa", "HAT", 2, "Descrição default.", "#80ff80");
-    $cadeira["136"] = $m->cadeira($curso["18"], "50129", "Desenho I", "Des-II", 2, "Descrição default.", "#d5ff80");
-    $cadeira["137"] = $m->cadeira($curso["18"], "50130", "Geometria I", "Geo-II", 2, "Descrição default.", "#ffff80");
-    $cadeira["138"] = $m->cadeira($curso["18"], "50131", "Estética I", "Est-II", 2, "Descrição default.", "#ffd480");
-    $cadeira["139"] = $m->cadeira($curso["18"], "50132", "Patrimonio e Arqueologia", "PA", 2, "Descrição default.", "#ffa8eb");
+
+    $cadeira["110"] = $m->cadeira($curso["19"], "50123", "Historia da Arte I", "HA-I", 1, "Descrição default.", "#ffb3ec");
+    $cadeira["111"] = $m->cadeira($curso["19"], "50124", "Historia e Teoria da Museologia", "HTM", 1, "Descrição default.", "#e6b3ff");
+    $cadeira["112"] = $m->cadeira($curso["19"], "50125", "Teorias da Arte", "TA", 1, "Descrição default.", "#b3b3ff");
+    $cadeira["113"] = $m->cadeira($curso["19"], "50126", "Desenho I", "Des-I", 1, "Descrição default.", "#99ebff");
+    $cadeira["114"] = $m->cadeira($curso["19"], "50127", "Geometria I", "Geo-I", 1, "Descrição default.", "#80ffdf");
+    $cadeira["115"] = $m->cadeira($curso["19"], "50128", "Estética I", "Est-I", 1, "Descrição default.", "#80ff80");
+    $cadeira["116"] = $m->cadeira($curso["19"], "50129", "Museologia e Curadoria", "MC", 1, "Descrição default.", "#d5ff80");
+    $cadeira["117"] = $m->cadeira($curso["19"], "50130", "Design Museográfico", "DM", 1, "Descrição default.", "#ffff80");
+    $cadeira["118"] = $m->cadeira($curso["19"], "50131", "Historia e Teoria do Restauro", "HTR", 1, "Descrição default.", "#ffd480");
+    $cadeira["119"] = $m->cadeira($curso["19"], "50132", "Teoria da Escultura Portuguesa", "TEP", 1, "Descrição default.", "#ffa8eb");
+    $cadeira["130"] = $m->cadeira($curso["19"], "50123", "Historia da Arte II", "HA-II", 2, "Descrição default.", "#ffb3ec");
+    $cadeira["131"] = $m->cadeira($curso["19"], "50124", "Artes e Humanidades", "AH", 2, "Descrição default.", "#e6b3ff");
+    $cadeira["132"] = $m->cadeira($curso["19"], "50125", "Museologia e Conservação", "MC", 2, "Descrição default.", "#b3b3ff");
+    $cadeira["133"] = $m->cadeira($curso["19"], "50126", "Desenho de Patrimonio", "DP", 2, "Descrição default.", "#99ebff");
+    $cadeira["134"] = $m->cadeira($curso["19"], "50127", "Materiais, Técnicas e Diagnóstico", "MTD", 2, "Descrição default.", "#80ffdf");
+    $cadeira["135"] = $m->cadeira($curso["19"], "50128", "Historia da Arte Portuguesa", "HAT", 2, "Descrição default.", "#80ff80");
+    $cadeira["136"] = $m->cadeira($curso["19"], "50129", "Desenho I", "Des-II", 2, "Descrição default.", "#d5ff80");
+    $cadeira["137"] = $m->cadeira($curso["19"], "50130", "Geometria I", "Geo-II", 2, "Descrição default.", "#ffff80");
+    $cadeira["138"] = $m->cadeira($curso["19"], "50131", "Estética I", "Est-II", 2, "Descrição default.", "#ffd480");
+    $cadeira["139"] = $m->cadeira($curso["19"], "50132", "Patrimonio e Arqueologia", "PA", 2, "Descrição default.", "#ffa8eb");
+
 
 
 
@@ -502,6 +504,8 @@ function large_script($m) {
     $aula["79"] = $m->aula($cadeira["90"], "PL", "15:30", "17:00", 2, "3.2.27");
     $aula["80"] = $m->aula($cadeira["90"], "T", "09:00", "11:30", 4, "4.1.21");
 
+
+    //FBAUL
     $aula["81"] = $m->aula($cadeira["100"], "TP", "8:00", "10:00", 1, "120");
     $aula["82"] = $m->aula($cadeira["100"], "T", "10:00", "12:00", 1, "132");
     $aula["83"] = $m->aula($cadeira["101"], "TP", "15:00", "17:00", 1, "121");
@@ -518,6 +522,23 @@ function large_script($m) {
     $aula["94"] = $m->aula($cadeira["107"], "T", "14:30", "17:30", 3, "219");
     $aula["95"] = $m->aula($cadeira["108"], "T", "08:00", "9:30", 3, "319");
     $aula["96"] = $m->aula($cadeira["109"], "T", "09:30", "12:00", 3, "413");
+
+    $aula["110"] = $m->aula($cadeira["120"], "T", "09:00", "11:30", 1, "214");
+    $aula["111"] = $m->aula($cadeira["121"], "T", "13:30", "16:00", 1, "124");
+    $aula["112"] = $m->aula($cadeira["122"], "T", "08:00", "09:00", 1, "234");
+    $aula["113"] = $m->aula($cadeira["122"], "TP", "14:30", "16:00", 1, "322");
+    $aula["114"] = $m->aula($cadeira["123"], "TP", "14:30", "18:00", 1, "428");
+    $aula["115"] = $m->aula($cadeira["123"], "T", "08:00", "9:30", 1, "417");
+    $aula["116"] = $m->aula($cadeira["124"], "T", "09:30", "12:00", 1, "424");
+    $aula["117"] = $m->aula($cadeira["125"], "T", "15:00", "17:00", 1, "424");
+    $aula["118"] = $m->aula($cadeira["125"], "TP", "15:30", "19:00", 2, "334");
+    $aula["119"] = $m->aula($cadeira["126"], "T", "15:30", "17:00", 2, "323");
+    $aula["120"] = $m->aula($cadeira["127"], "T", "09:00", "11:30", 2, "411");
+    $aula["121"] = $m->aula($cadeira["128"], "TP", "12:00", "13:30", 2, "125");
+    $aula["122"] = $m->aula($cadeira["128"], "T", "10:00", "12:00", 2, "325");
+    $aula["123"] = $m->aula($cadeira["129"], "TP", "15:30", "17:00", 2, "305");
+    $aula["124"] = $m->aula($cadeira["129"], "T", "16:30", "18:00", 3, "314");
+
     $aula["97"] = $m->aula($cadeira["110"], "T", "15:00", "17:00", 3, "415");
     $aula["98"] = $m->aula($cadeira["110"], "TP", "15:30", "19:00", 3, "334");
     $aula["99"] = $m->aula($cadeira["111"], "T", "15:30", "17:00", 3, "327");
@@ -532,38 +553,23 @@ function large_script($m) {
     $aula["108"] = $m->aula($cadeira["118"], "TP", "17:30", "19:00", 5, "203");
     $aula["109"] = $m->aula($cadeira["119"], "T", "18:00", "19:30", 5, "322");
 
-    $aula["110"] = $m->aula($cadeira["120"], "T", "09:00", "11:30", 1, "214");
-    $aula["111"] = $m->aula($cadeira["121"], "T", "13:30", "16:00", 1, "124");
-    $aula["112"] = $m->aula($cadeira["122"], "T", "08:00", "09:00", 1, "234");
-    $aula["113"] = $m->aula($cadeira["122"], "TP", "14:30", "16:00", 1, "322");
-    $aula["114"] = $m->aula($cadeira["123"], "TP", "14:30", "18:00", 1, "428");
-    $aula["115"] = $m->aula($cadeira["123"], "T", "08:00", "9:30", 1, "417");
-    $aula["116"] = $m->aula($cadeira["124"], "T", "09:30", "12:00", 1, "424");
-    $aula["117"] = $m->aula($cadeira["125"], "T", "15:00", "17:00", 1, "424");
-    $aula["118"] = $m->aula($cadeira["125"], "TP", "15:30", "19:00", 2, "334");
-    $aula["119"] = $m->aula($cadeira["126"], "T", "15:30", "17:00", 2, "323");
-    $aula["120"] = $m->aula($cadeira["127"], "T", "09:00", "11:30", 2, "411");
-    $aula["101"] = $m->aula($cadeira["128"], "TP", "12:00", "13:30", 2, "125");
-    $aula["102"] = $m->aula($cadeira["128"], "T", "10:00", "12:00", 2, "325");
-    $aula["103"] = $m->aula($cadeira["129"], "TP", "15:30", "17:00", 2, "305");
-    $aula["104"] = $m->aula($cadeira["129"], "T", "16:30", "18:00", 3, "314");
-    $aula["105"] = $m->aula($cadeira["130"], "T", "08:00", "9:30", 3, "225");
-    $aula["106"] = $m->aula($cadeira["131"], "TP", "12:00", "13:00", 3, "128");
-    $aula["107"] = $m->aula($cadeira["131"], "T", "09:00", "12:00", 3, "111");
-    $aula["108"] = $m->aula($cadeira["132"], "TP", "17:30", "19:00", 3, "209");
-    $aula["109"] = $m->aula($cadeira["132"], "T", "18:00", "19:30", 3, "132");
-    $aula["110"] = $m->aula($cadeira["133"], "T", "09:00", "11:30", 3, "227");
-    $aula["111"] = $m->aula($cadeira["133"], "T", "13:30", "16:00", 3, "129");
-    $aula["112"] = $m->aula($cadeira["133"], "T", "08:00", "09:00", 4, "239");
-    $aula["113"] = $m->aula($cadeira["133"], "TP", "14:30", "16:00", 4, "329");
-    $aula["114"] = $m->aula($cadeira["134"], "TP", "14:30", "18:00", 4, "412");
-    $aula["115"] = $m->aula($cadeira["134"], "T", "08:00", "9:30", 4, "431");
-    $aula["116"] = $m->aula($cadeira["135"], "T", "09:30", "12:00", 4, "429");
-    $aula["117"] = $m->aula($cadeira["136"], "T", "15:00", "17:00", 4, "420");
-    $aula["118"] = $m->aula($cadeira["137"], "TP", "15:30", "19:00", 5, "330");
-    $aula["119"] = $m->aula($cadeira["137"], "T", "15:30", "17:00", 5, "325");
-    $aula["120"] = $m->aula($cadeira["138"], "T", "09:00", "11:30", 5, "410");
-    $aula["120"] = $m->aula($cadeira["139"], "T", "14:00", "16:00", 5, "410");
+    $aula["125"] = $m->aula($cadeira["130"], "T", "08:00", "9:30", 3, "225");
+    $aula["126"] = $m->aula($cadeira["131"], "TP", "12:00", "13:00", 3, "128");
+    $aula["127"] = $m->aula($cadeira["131"], "T", "09:00", "12:00", 3, "111");
+    $aula["128"] = $m->aula($cadeira["132"], "TP", "17:30", "19:00", 3, "209");
+    $aula["129"] = $m->aula($cadeira["132"], "T", "18:00", "19:30", 3, "132");
+    $aula["130"] = $m->aula($cadeira["133"], "T", "09:00", "11:30", 3, "227");
+    $aula["131"] = $m->aula($cadeira["133"], "T", "13:30", "16:00", 3, "129");
+    $aula["132"] = $m->aula($cadeira["133"], "T", "08:00", "09:00", 4, "239");
+    $aula["133"] = $m->aula($cadeira["133"], "TP", "14:30", "16:00", 4, "329");
+    $aula["134"] = $m->aula($cadeira["134"], "TP", "14:30", "18:00", 4, "412");
+    $aula["135"] = $m->aula($cadeira["134"], "T", "08:00", "9:30", 4, "431");
+    $aula["136"] = $m->aula($cadeira["135"], "T", "09:30", "12:00", 4, "429");
+    $aula["137"] = $m->aula($cadeira["136"], "T", "15:00", "17:00", 4, "420");
+    $aula["138"] = $m->aula($cadeira["137"], "TP", "15:30", "19:00", 5, "330");
+    $aula["139"] = $m->aula($cadeira["137"], "T", "15:30", "17:00", 5, "325");
+    $aula["140"] = $m->aula($cadeira["138"], "T", "09:00", "11:30", 5, "410");
+    $aula["141"] = $m->aula($cadeira["139"], "T", "14:00", "16:00", 5, "410");
 
     $m->batch("aluno_curso", Array(
       Array("user_id"=> $aluno["199"], "curso_id"=>$curso["1"], "data_entrada"=>"2019"),
@@ -594,233 +600,351 @@ function large_script($m) {
       Array("user_id"=> $aluno["176"], "curso_id"=>$curso["3"], "data_entrada"=>"2019"),
       Array("user_id"=> $aluno["188"], "curso_id"=>$curso["4"], "data_entrada"=>"2019"),
       Array("user_id"=> $aluno["206"], "curso_id"=>$curso["4"], "data_entrada"=>"2019"),
+
+      /////////////////////////////////////////////////////////////////////////////////
+
+      Array("user_id"=> $aluno["5"], "curso_id"=>$curso["5"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["6"], "curso_id"=>$curso["6"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["7"], "curso_id"=>$curso["7"], "data_entrada"=>"2018"),
+      Array("user_id"=> $aluno["8"], "curso_id"=>$curso["8"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["9"], "curso_id"=>$curso["9"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["10"], "curso_id"=>$curso["10"], "data_entrada"=>"2020"),
+      Array("user_id"=> $aluno["11"], "curso_id"=>$curso["11"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["15"], "curso_id"=>$curso["12"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["16"], "curso_id"=>$curso["13"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["17"], "curso_id"=>$curso["14"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["18"], "curso_id"=>$curso["15"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["19"], "curso_id"=>$curso["16"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["20"], "curso_id"=>$curso["17"], "data_entrada"=>"2019"),
+
+      Array("user_id"=> $aluno["21"], "curso_id"=>$curso["5"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["22"], "curso_id"=>$curso["6"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["23"], "curso_id"=>$curso["7"], "data_entrada"=>"2018"),
+      Array("user_id"=> $aluno["24"], "curso_id"=>$curso["8"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["25"], "curso_id"=>$curso["9"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["26"], "curso_id"=>$curso["10"], "data_entrada"=>"2020"),
+      Array("user_id"=> $aluno["27"], "curso_id"=>$curso["11"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["28"], "curso_id"=>$curso["12"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["32"], "curso_id"=>$curso["13"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["33"], "curso_id"=>$curso["14"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["34"], "curso_id"=>$curso["15"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["35"], "curso_id"=>$curso["16"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["36"], "curso_id"=>$curso["17"], "data_entrada"=>"2019"),
+
+      Array("user_id"=> $aluno["37"], "curso_id"=>$curso["5"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["38"], "curso_id"=>$curso["6"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["39"], "curso_id"=>$curso["7"], "data_entrada"=>"2018"),
+      Array("user_id"=> $aluno["40"], "curso_id"=>$curso["8"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["41"], "curso_id"=>$curso["9"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["49"], "curso_id"=>$curso["10"], "data_entrada"=>"2020"),
+      Array("user_id"=> $aluno["50"], "curso_id"=>$curso["11"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["51"], "curso_id"=>$curso["12"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["52"], "curso_id"=>$curso["13"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["53"], "curso_id"=>$curso["14"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["54"], "curso_id"=>$curso["15"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["55"], "curso_id"=>$curso["16"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["56"], "curso_id"=>$curso["17"], "data_entrada"=>"2019"),
+
+      Array("user_id"=> $aluno["57"], "curso_id"=>$curso["5"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["58"], "curso_id"=>$curso["6"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["59"], "curso_id"=>$curso["7"], "data_entrada"=>"2018"),
+      Array("user_id"=> $aluno["99"], "curso_id"=>$curso["8"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["100"], "curso_id"=>$curso["9"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["101"], "curso_id"=>$curso["10"], "data_entrada"=>"2020"),
+      Array("user_id"=> $aluno["102"], "curso_id"=>$curso["11"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["103"], "curso_id"=>$curso["12"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["104"], "curso_id"=>$curso["13"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["105"], "curso_id"=>$curso["14"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["106"], "curso_id"=>$curso["15"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["107"], "curso_id"=>$curso["16"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["108"], "curso_id"=>$curso["17"], "data_entrada"=>"2019"),
+
+      Array("user_id"=> $aluno["109"], "curso_id"=>$curso["5"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["110"], "curso_id"=>$curso["6"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["111"], "curso_id"=>$curso["7"], "data_entrada"=>"2018"),
+      Array("user_id"=> $aluno["112"], "curso_id"=>$curso["8"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["113"], "curso_id"=>$curso["9"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["165"], "curso_id"=>$curso["10"], "data_entrada"=>"2020"),
+      Array("user_id"=> $aluno["166"], "curso_id"=>$curso["11"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["167"], "curso_id"=>$curso["12"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["168"], "curso_id"=>$curso["13"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["169"], "curso_id"=>$curso["14"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["170"], "curso_id"=>$curso["15"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["171"], "curso_id"=>$curso["16"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["172"], "curso_id"=>$curso["17"], "data_entrada"=>"2019"),
+
+      //////////////////////////////////////////////////////////////////////////////////
+      
+      Array("user_id"=> $aluno["120"], "curso_id"=>$curso["18"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["121"], "curso_id"=>$curso["18"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["122"], "curso_id"=>$curso["18"], "data_entrada"=>"2018"),
+      Array("user_id"=> $aluno["123"], "curso_id"=>$curso["18"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["124"], "curso_id"=>$curso["18"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["125"], "curso_id"=>$curso["18"], "data_entrada"=>"2020"),
+      Array("user_id"=> $aluno["126"], "curso_id"=>$curso["18"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["177"], "curso_id"=>$curso["18"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["178"], "curso_id"=>$curso["18"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["179"], "curso_id"=>$curso["18"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["180"], "curso_id"=>$curso["18"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["181"], "curso_id"=>$curso["18"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["128"], "curso_id"=>$curso["18"], "data_entrada"=>"2019"),
+
+      Array("user_id"=> $aluno["129"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["130"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["131"], "curso_id"=>$curso["19"], "data_entrada"=>"2018"),
+      Array("user_id"=> $aluno["132"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["79"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["80"], "curso_id"=>$curso["19"], "data_entrada"=>"2020"),
+      Array("user_id"=> $aluno["81"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["82"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["83"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["84"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["85"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["86"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["87"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["88"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["89"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["207"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["208"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["209"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["210"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["211"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
+      Array("user_id"=> $aluno["212"], "curso_id"=>$curso["19"], "data_entrada"=>"2019"),
     ));
   
     $m->batch("aluno_cadeira", Array(
-      // Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["1"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["2"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["3"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["4"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["5"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["6"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["7"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["8"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["9"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["10"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["11"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["1"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["2"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["3"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["4"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["5"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["6"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["7"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["8"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["9"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["10"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["199"], "cadeira_id"=>$cadeira["11"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["1"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["2"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["3"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["4"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["5"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["6"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["7"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["8"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["9"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["10"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["11"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["1"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["2"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["3"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["4"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["5"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["6"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["7"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["8"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["9"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["10"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["198"], "cadeira_id"=>$cadeira["11"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["1"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["2"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["3"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["4"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["5"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["6"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["7"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["8"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["9"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["10"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["11"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["1"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["2"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["3"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["4"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["5"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["6"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["7"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["8"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["9"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["10"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["213"], "cadeira_id"=>$cadeira["11"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["1"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["2"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["3"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["4"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["5"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["6"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["7"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["8"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["9"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["10"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["11"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["1"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["2"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["3"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["4"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["5"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["6"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["7"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["8"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["9"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["10"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["31"], "cadeira_id"=>$cadeira["11"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["1"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["2"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["3"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["4"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["5"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["6"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["7"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["8"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["9"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["10"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["11"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["1"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["2"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["3"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["4"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["5"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["6"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["7"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["8"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["9"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["10"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["42"], "cadeira_id"=>$cadeira["11"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["1"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["2"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["3"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["4"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["5"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["6"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["7"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["8"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["9"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["10"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["11"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["1"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["2"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["3"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["4"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["5"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["6"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["7"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["8"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["9"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["10"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["61"], "cadeira_id"=>$cadeira["11"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+    
+      Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["214"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["194"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["183"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      
+      Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["160"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["78"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      
+      Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["90"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["60"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["61"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["62"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["63"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["64"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["65"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["66"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["67"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["68"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["69"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["70"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["98"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["60"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["61"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["62"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["63"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["64"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["65"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["66"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["67"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["68"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["69"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["70"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      
+      Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["60"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["61"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["62"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["63"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["64"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["65"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["66"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["67"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["68"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["69"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["70"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["117"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["60"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["61"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["62"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["63"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["64"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["65"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["66"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["67"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["68"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["69"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["70"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["63"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["64"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["65"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["66"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["67"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["68"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["69"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["127"], "cadeira_id"=>$cadeira["70"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["60"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["61"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["62"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["63"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["64"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["65"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["66"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["67"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["68"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["69"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["70"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
-      // Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["119"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-
-      // Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["133"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-
-      // Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-
-      // Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["164"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-
-      // Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["34"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["35"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["36"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["37"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["38"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["39"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["40"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["41"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["42"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-      // Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["43"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
-
+      Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["60"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["61"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["62"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["63"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["64"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["65"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["66"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["67"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["68"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["176"], "cadeira_id"=>$cadeira["69"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["143"], "cadeira_id"=>$cadeira["70"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      
       Array("user_id"=> $aluno["114"], "cadeira_id"=>$cadeira["81"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
       Array("user_id"=> $aluno["114"], "cadeira_id"=>$cadeira["82"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
       Array("user_id"=> $aluno["114"], "cadeira_id"=>$cadeira["83"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
@@ -898,6 +1022,189 @@ function large_script($m) {
       Array("user_id"=> $aluno["206"], "cadeira_id"=>$cadeira["89"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
       Array("user_id"=> $aluno["206"], "cadeira_id"=>$cadeira["90"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
 
+      //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      // Array("user_id"=> $aluno["5"], "cadeira_id"=>$cadeira["81"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      // Array("user_id"=> $aluno["5"], "cadeira_id"=>$cadeira["82"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      // Array("user_id"=> $aluno["5"], "cadeira_id"=>$cadeira["83"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      // Array("user_id"=> $aluno["5"], "cadeira_id"=>$cadeira["84"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      // Array("user_id"=> $aluno["5"], "cadeira_id"=>$cadeira["85"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      // Array("user_id"=> $aluno["5"], "cadeira_id"=>$cadeira["86"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      // Array("user_id"=> $aluno["5"], "cadeira_id"=>$cadeira["87"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      // Array("user_id"=> $aluno["5"], "cadeira_id"=>$cadeira["88"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      // Array("user_id"=> $aluno["5"], "cadeira_id"=>$cadeira["89"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      // Array("user_id"=> $aluno["5"], "cadeira_id"=>$cadeira["90"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      ///////////////////
+
+      Array("user_id"=> $aluno["120"], "cadeira_id"=>$cadeira["100"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["120"], "cadeira_id"=>$cadeira["101"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["120"], "cadeira_id"=>$cadeira["102"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["120"], "cadeira_id"=>$cadeira["103"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["120"], "cadeira_id"=>$cadeira["104"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["120"], "cadeira_id"=>$cadeira["120"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["120"], "cadeira_id"=>$cadeira["121"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["120"], "cadeira_id"=>$cadeira["122"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["120"], "cadeira_id"=>$cadeira["123"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["120"], "cadeira_id"=>$cadeira["124"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      Array("user_id"=> $aluno["121"], "cadeira_id"=>$cadeira["100"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["121"], "cadeira_id"=>$cadeira["101"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["121"], "cadeira_id"=>$cadeira["102"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["121"], "cadeira_id"=>$cadeira["103"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["121"], "cadeira_id"=>$cadeira["104"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["121"], "cadeira_id"=>$cadeira["120"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["121"], "cadeira_id"=>$cadeira["121"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["121"], "cadeira_id"=>$cadeira["122"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["121"], "cadeira_id"=>$cadeira["123"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["121"], "cadeira_id"=>$cadeira["124"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      Array("user_id"=> $aluno["122"], "cadeira_id"=>$cadeira["100"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["122"], "cadeira_id"=>$cadeira["101"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["122"], "cadeira_id"=>$cadeira["102"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["122"], "cadeira_id"=>$cadeira["103"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["122"], "cadeira_id"=>$cadeira["104"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["122"], "cadeira_id"=>$cadeira["120"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["122"], "cadeira_id"=>$cadeira["121"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["122"], "cadeira_id"=>$cadeira["122"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["122"], "cadeira_id"=>$cadeira["123"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["122"], "cadeira_id"=>$cadeira["124"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      Array("user_id"=> $aluno["123"], "cadeira_id"=>$cadeira["105"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["123"], "cadeira_id"=>$cadeira["106"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["123"], "cadeira_id"=>$cadeira["107"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["123"], "cadeira_id"=>$cadeira["108"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["123"], "cadeira_id"=>$cadeira["109"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["123"], "cadeira_id"=>$cadeira["125"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["123"], "cadeira_id"=>$cadeira["126"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["123"], "cadeira_id"=>$cadeira["127"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["123"], "cadeira_id"=>$cadeira["128"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["123"], "cadeira_id"=>$cadeira["129"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      Array("user_id"=> $aluno["124"], "cadeira_id"=>$cadeira["105"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["124"], "cadeira_id"=>$cadeira["106"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["124"], "cadeira_id"=>$cadeira["107"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["124"], "cadeira_id"=>$cadeira["108"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["124"], "cadeira_id"=>$cadeira["109"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["124"], "cadeira_id"=>$cadeira["125"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["124"], "cadeira_id"=>$cadeira["126"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["124"], "cadeira_id"=>$cadeira["127"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["124"], "cadeira_id"=>$cadeira["128"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["124"], "cadeira_id"=>$cadeira["129"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      Array("user_id"=> $aluno["125"], "cadeira_id"=>$cadeira["105"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["125"], "cadeira_id"=>$cadeira["106"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["125"], "cadeira_id"=>$cadeira["107"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["125"], "cadeira_id"=>$cadeira["108"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["125"], "cadeira_id"=>$cadeira["109"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["125"], "cadeira_id"=>$cadeira["125"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["125"], "cadeira_id"=>$cadeira["126"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["125"], "cadeira_id"=>$cadeira["127"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["125"], "cadeira_id"=>$cadeira["128"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["125"], "cadeira_id"=>$cadeira["129"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      Array("user_id"=> $aluno["126"], "cadeira_id"=>$cadeira["105"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["126"], "cadeira_id"=>$cadeira["106"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["126"], "cadeira_id"=>$cadeira["107"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["126"], "cadeira_id"=>$cadeira["108"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["126"], "cadeira_id"=>$cadeira["109"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["126"], "cadeira_id"=>$cadeira["125"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["126"], "cadeira_id"=>$cadeira["126"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["126"], "cadeira_id"=>$cadeira["127"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["126"], "cadeira_id"=>$cadeira["128"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["126"], "cadeira_id"=>$cadeira["129"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      ///////////////
+
+      Array("user_id"=> $aluno["79"], "cadeira_id"=>$cadeira["110"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["79"], "cadeira_id"=>$cadeira["111"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["79"], "cadeira_id"=>$cadeira["112"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["79"], "cadeira_id"=>$cadeira["113"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["79"], "cadeira_id"=>$cadeira["114"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["79"], "cadeira_id"=>$cadeira["130"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["79"], "cadeira_id"=>$cadeira["131"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["79"], "cadeira_id"=>$cadeira["132"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["79"], "cadeira_id"=>$cadeira["133"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["79"], "cadeira_id"=>$cadeira["134"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      Array("user_id"=> $aluno["80"], "cadeira_id"=>$cadeira["110"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["80"], "cadeira_id"=>$cadeira["111"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["80"], "cadeira_id"=>$cadeira["112"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["80"], "cadeira_id"=>$cadeira["113"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["80"], "cadeira_id"=>$cadeira["114"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["80"], "cadeira_id"=>$cadeira["130"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["80"], "cadeira_id"=>$cadeira["131"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["80"], "cadeira_id"=>$cadeira["132"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["80"], "cadeira_id"=>$cadeira["133"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["80"], "cadeira_id"=>$cadeira["134"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      Array("user_id"=> $aluno["81"], "cadeira_id"=>$cadeira["110"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["81"], "cadeira_id"=>$cadeira["111"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["81"], "cadeira_id"=>$cadeira["112"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["81"], "cadeira_id"=>$cadeira["113"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["81"], "cadeira_id"=>$cadeira["114"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["81"], "cadeira_id"=>$cadeira["130"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["81"], "cadeira_id"=>$cadeira["131"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["81"], "cadeira_id"=>$cadeira["132"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["81"], "cadeira_id"=>$cadeira["133"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["81"], "cadeira_id"=>$cadeira["134"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      Array("user_id"=> $aluno["82"], "cadeira_id"=>$cadeira["110"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["82"], "cadeira_id"=>$cadeira["111"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["82"], "cadeira_id"=>$cadeira["112"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["82"], "cadeira_id"=>$cadeira["113"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["82"], "cadeira_id"=>$cadeira["114"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["82"], "cadeira_id"=>$cadeira["130"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["82"], "cadeira_id"=>$cadeira["131"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["82"], "cadeira_id"=>$cadeira["132"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["82"], "cadeira_id"=>$cadeira["133"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["82"], "cadeira_id"=>$cadeira["134"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      Array("user_id"=> $aluno["83"], "cadeira_id"=>$cadeira["115"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["83"], "cadeira_id"=>$cadeira["116"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["83"], "cadeira_id"=>$cadeira["117"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["83"], "cadeira_id"=>$cadeira["118"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["83"], "cadeira_id"=>$cadeira["119"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["83"], "cadeira_id"=>$cadeira["135"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["83"], "cadeira_id"=>$cadeira["136"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["83"], "cadeira_id"=>$cadeira["137"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["83"], "cadeira_id"=>$cadeira["138"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["83"], "cadeira_id"=>$cadeira["139"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      Array("user_id"=> $aluno["84"], "cadeira_id"=>$cadeira["115"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["84"], "cadeira_id"=>$cadeira["116"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["84"], "cadeira_id"=>$cadeira["117"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["84"], "cadeira_id"=>$cadeira["118"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["84"], "cadeira_id"=>$cadeira["119"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["84"], "cadeira_id"=>$cadeira["135"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["84"], "cadeira_id"=>$cadeira["136"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["84"], "cadeira_id"=>$cadeira["137"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["84"], "cadeira_id"=>$cadeira["138"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["84"], "cadeira_id"=>$cadeira["139"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      Array("user_id"=> $aluno["85"], "cadeira_id"=>$cadeira["115"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["85"], "cadeira_id"=>$cadeira["116"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["85"], "cadeira_id"=>$cadeira["117"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["85"], "cadeira_id"=>$cadeira["118"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["85"], "cadeira_id"=>$cadeira["119"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["85"], "cadeira_id"=>$cadeira["135"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["85"], "cadeira_id"=>$cadeira["136"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["85"], "cadeira_id"=>$cadeira["137"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["85"], "cadeira_id"=>$cadeira["138"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["85"], "cadeira_id"=>$cadeira["139"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+      Array("user_id"=> $aluno["86"], "cadeira_id"=>$cadeira["115"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["86"], "cadeira_id"=>$cadeira["116"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["86"], "cadeira_id"=>$cadeira["117"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["86"], "cadeira_id"=>$cadeira["118"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["86"], "cadeira_id"=>$cadeira["119"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["86"], "cadeira_id"=>$cadeira["135"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["86"], "cadeira_id"=>$cadeira["136"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["86"], "cadeira_id"=>$cadeira["137"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["86"], "cadeira_id"=>$cadeira["138"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+      Array("user_id"=> $aluno["86"], "cadeira_id"=>$cadeira["139"], "is_completed"=>False, "last_visited"=>date('Y-m-d H:i:s')),
+
+
     ));    
 
     $m->batch("professor_cadeira", Array(
@@ -961,6 +1268,13 @@ function large_script($m) {
       Array("user_id"=> $prof["11"], "cadeira_id"=>$cadeira["90"]),
       Array("user_id"=> $prof["1"], "cadeira_id"=>$cadeira["28"]),
       Array("user_id"=> $prof["1"], "cadeira_id"=>$cadeira["24"]),
+
+      Array("user_id"=> $prof["14"], "cadeira_id"=>$cadeira["100"]),
+      Array("user_id"=> $prof["14"], "cadeira_id"=>$cadeira["101"]),
+      Array("user_id"=> $prof["14"], "cadeira_id"=>$cadeira["102"]),
+      Array("user_id"=> $prof["14"], "cadeira_id"=>$cadeira["103"]),
+      Array("user_id"=> $prof["14"], "cadeira_id"=>$cadeira["104"]),
+      Array("user_id"=> $prof["14"], "cadeira_id"=>$cadeira["105"]),
 
 
     ));
@@ -1069,6 +1383,184 @@ function large_script($m) {
       Array("user_id"=> $aluno["14"], "aula_id"=>$aula["78"]),
       Array("user_id"=> $aluno["4"], "aula_id"=>$aula["79"]),
       Array("user_id"=> $aluno["4"], "aula_id"=>$aula["80"]),
+    
+      ///
+
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["81"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["82"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["83"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["84"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["85"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["86"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["87"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["88"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["89"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["110"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["111"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["112"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["113"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["114"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["115"]),
+      Array("user_id"=> $aluno["120"], "aula_id"=>$aula["116"]),
+
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["81"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["82"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["83"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["84"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["85"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["86"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["87"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["88"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["89"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["110"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["111"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["112"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["113"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["114"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["115"]),
+      Array("user_id"=> $aluno["121"], "aula_id"=>$aula["116"]),
+
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["81"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["82"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["83"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["84"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["85"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["86"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["87"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["88"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["89"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["110"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["111"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["112"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["113"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["114"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["115"]),
+      Array("user_id"=> $aluno["122"], "aula_id"=>$aula["116"]),
+
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["90"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["91"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["92"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["93"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["94"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["95"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["96"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["117"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["118"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["119"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["120"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["121"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["122"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["123"]),
+      Array("user_id"=> $aluno["123"], "aula_id"=>$aula["124"]),
+    
+      
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["90"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["91"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["92"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["93"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["94"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["95"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["96"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["117"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["118"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["119"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["120"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["121"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["122"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["123"]),
+      Array("user_id"=> $aluno["124"], "aula_id"=>$aula["124"]),
+
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["90"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["91"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["92"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["93"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["94"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["95"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["96"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["117"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["118"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["119"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["120"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["121"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["122"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["123"]),
+      Array("user_id"=> $aluno["125"], "aula_id"=>$aula["124"]),
+
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["90"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["91"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["92"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["93"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["94"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["95"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["96"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["117"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["118"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["119"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["120"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["121"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["122"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["123"]),
+      Array("user_id"=> $aluno["126"], "aula_id"=>$aula["124"]),
+
+      ///////////////////////////////
+
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["97"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["98"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["99"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["100"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["101"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["102"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["103"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["125"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["126"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["127"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["128"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["129"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["130"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["131"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["132"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["133"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["134"]),
+      Array("user_id"=> $aluno["79"], "aula_id"=>$aula["135"]),
+
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["97"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["98"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["99"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["100"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["101"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["102"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["103"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["125"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["126"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["127"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["128"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["129"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["130"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["131"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["132"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["133"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["134"]),
+      Array("user_id"=> $aluno["80"], "aula_id"=>$aula["135"]),
+
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["97"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["98"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["99"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["100"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["101"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["102"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["103"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["125"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["126"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["127"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["128"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["129"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["130"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["131"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["132"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["133"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["134"]),
+      Array("user_id"=> $aluno["81"], "aula_id"=>$aula["135"]),
+      //ATE AO 86
 
     ));
 
@@ -1205,16 +1697,16 @@ function large_script($m) {
 
     $grupo = array();
     $grupo["1"] = $m->grupo($projeto["3"], "gangdogpl");
-    $grupo["2"] = $m->grupo($projeto["3"], "itachi");
+    $grupo["2"] = $m->grupo($projeto["3"], "Rumo ao 20");
     $grupo["3"] = $m->grupo($projeto["3"], "nota_21");
-    $grupo["4"] = $m->grupo($projeto["4"], "1");
-    $grupo["5"] = $m->grupo($projeto["4"], "2");
+    $grupo["4"] = $m->grupo($projeto["4"], "Grupo1");
+    $grupo["5"] = $m->grupo($projeto["4"], "Grupo2");
 
     $m->batch("grupo_aluno", Array(
-      Array("user_id"=> $aluno["96"],  "grupo_id"=>$grupo["1"]),
       Array("user_id"=> $aluno["114"],  "grupo_id"=>$grupo["1"]),
-      Array("user_id"=> $aluno["47"],  "grupo_id"=>$grupo["2"]),
       Array("user_id"=> $aluno["4"],  "grupo_id"=>$grupo["1"]),
+      Array("user_id"=> $aluno["47"],  "grupo_id"=>$grupo["2"]),
+      Array("user_id"=> $aluno["96"],  "grupo_id"=>$grupo["2"]),
       Array("user_id"=> $aluno["188"],  "grupo_id"=>$grupo["3"]),
       Array("user_id"=> $aluno["206"],  "grupo_id"=>$grupo["3"]),
       Array("user_id"=> $aluno["4"],  "grupo_id"=>$grupo["4"]),
@@ -1243,7 +1735,7 @@ function large_script($m) {
       Array("evento_id"=> $evento["3"],  "user_id"=>$aluno["4"]),
     ));
 
-    $m->notification($aluno["4"], "message", "Mensagem de João Ye", "Então?", "app/profile/2801", false, "2020-05-19 11:30:31");
+    $m->notification($aluno["4"], "message", "Mensagem de João Soares", "Então?", "app/profile/2801", false, "2020-05-19 11:30:31");
     $m->notification($aluno["4"], "alert", "Tens uma trabalho para entregar", "Arquitetura de Computadores", "app/profile/2", false, "2020-05-30 11:30:35");
     $m->notification($aluno["4"], "alert", "Falhaste uma entrega", "Teatro", "subjects/subject/TEA84/2019", false, "2020-05-29 11:30:30");
     $m->notification($aluno["4"], "message", "Mensagem de Raul Koch", "Esta está seen, não deve aparecer", "app/profile/62", true, "2020-05-29 11:30:33");

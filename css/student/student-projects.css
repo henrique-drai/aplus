@@ -50,6 +50,11 @@
     border-radius: 15px;
 }
 
+#criarGrupo_button:hover {
+    cursor: pointer;
+    background-color: grey;
+}
+
 #grupo-name{
     display: inline-block;
 }

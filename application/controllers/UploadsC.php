@@ -22,28 +22,28 @@ class UploadsC extends CI_Controller {
         $user_id = $this->session->userdata('id');
 
         if($this->verify_teacher($user_id, $project_id, "projeto")){
+
             $path = './uploads/enunciados_files/';
 
             if(!is_dir($path)){
                 mkdir($path, 0777, TRUE);
-            }
-
-            if (! chmod('./uploads/enunciados_files', 0777) ){
-                echo "erro chmod";
+            } else {
+                chmod($path, 0777);
             }
 
             $upload['upload_path'] = $path;
             $upload['allowed_types'] = 'pdf';
             $upload['file_name'] = $project_id;
-            $upload['overwrite'] = true;
             $upload['max_size'] = 5048;
+            $upload['overwrite'] = true;
     
             $this->load->library('upload', $upload);
     
             if ( ! $this->upload->do_upload('file_proj'))
             {
                 $error = array('error' => $this->upload->display_errors());
-                header("Location: ".base_url()."projects/project/".$project_id);
+                echo $error;
+                // header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
             {
@@ -69,15 +69,16 @@ class UploadsC extends CI_Controller {
             $upload['upload_path'] = './uploads/enunciados_files/' . strval($project_id) . '/';
             $upload['allowed_types'] = 'pdf';
             $upload['file_name'] = $etapa_id;
-            $upload['overwrite'] = true;
             $upload['max_size'] = 5048;
+            $upload['overwrite'] = true;
 
             $this->load->library('upload', $upload);
 
             if ( ! $this->upload->do_upload('file_etapa'))
             {
                 $error = array('error' => $this->upload->display_errors());
-                header("Location: ".base_url()."projects/project/".$project_id);
+                echo $error;
+                // header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
             {
@@ -102,8 +103,8 @@ class UploadsC extends CI_Controller {
             $upload['upload_path'] = './uploads/submissions/' . strval($project_id) . '/' . strval($etapa_id) . '/';
             $upload['allowed_types'] = 'zip|rar|pdf|docx';
             $upload['file_name'] = $grupo_id;
-            $upload['overwrite'] = true;
             $upload['max_size'] = 5048;
+            $upload['overwrite'] = true;
 
             $this->load->library('upload', $upload);
 
@@ -113,7 +114,8 @@ class UploadsC extends CI_Controller {
             if ( ! $this->upload->do_upload('file_submit'))
             {
                 $error = array('error' => $this->upload->display_errors());
-                header("Location: ".base_url()."projects/project/".$project_id);
+                echo $error;
+                // header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
             {
@@ -138,8 +140,8 @@ class UploadsC extends CI_Controller {
 
             $upload['upload_path'] = './uploads/grupo_files/' . strval($grupo_id) . '/';
             $upload['allowed_types'] = 'zip|rar|pdf|docx';
-            $upload['overwrite'] = true;
             $upload['max_size'] = 5048;
+            $upload['overwrite'] = true;
 
             $this->load->library('upload', $upload);
 
@@ -183,8 +185,8 @@ class UploadsC extends CI_Controller {
 
             $upload['upload_path'] = './uploads/cadeira_files/' . strval($cadeira_id) . '/';
             $upload['allowed_types'] = 'zip|rar|pdf|docx';
-            $upload['overwrite'] = true;
             $upload['max_size'] = 5048;
+            $upload['overwrite'] = true;
 
             $this->load->library('upload', $upload);
 

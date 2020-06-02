@@ -21,9 +21,9 @@
     <p> 
         <?php echo $project[0]["description"]; ?>
         <br><br>
-        Número mínimo de elementos num grupo: <?php echo $project[0]["min_elementos"]; ?>
+        Núm mínimo de elementos de grupo: <?php echo $project[0]["min_elementos"]; ?>
         <br>
-        Número máximo de elementos num grupo: <?php echo $project[0]["max_elementos"]; ?>
+        Núm máximo de elementos de grupo: <?php echo $project[0]["max_elementos"]; ?>
         <br><br>
     </p>
     <input id="removeProject" class="remove" type="button" value="Eliminar projeto">
@@ -79,6 +79,7 @@
                                 <span id="name-enunciado-etapa" class="span-name">Envie o ficheiro do enunciado</span>
                             </label>
                             <p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>
+                            
                         </form>
 
                         <form id="feedback-form">
@@ -124,7 +125,8 @@
                         <div id="errormsgfb" class="submit-msg">Mensagem de erro template</div>
 
                         <ul class="cd-buttons" id="ul-buttons">
-                            <li><a href="#" id="id-generico">Submeter</a></li>
+                            <!-- <li><a href="#" id="id-generico">Submeter</a></li> -->
+                            <li><input class="button-popup" id="id-generico" type="submit"></li>
                             <li><a href="#" id="closeButton-hide">Cancelar</a></li>
                         </ul>
                     </div>
@@ -186,7 +188,9 @@
 
 
                         <ul class="cd-buttons" id="ul-buttons-enunc">
-                            <li><a href="#" id="addEnunciado">Submeter</a></li>
+                            <!-- <li><a href="#" id="addEnunciado">Submeter</a></li> -->
+                            <!-- mudei nestes popups com receio que fosse a causa dos erros mas funciona da mesma forma. $(id-form)[0].submit comentados no js -->
+                            <li><input class="button-popup" id="addEnunciado" type="submit"></li>
                             <li><a href="#" id="closeButton-hide">Cancelar</a></li>
                         </ul>
                 </form>

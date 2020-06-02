@@ -78,16 +78,16 @@
                             <span id="name-file-submit">Submeter etapa do projeto</span>
                         </label>
                         <p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>
-                        <!-- <input id="addSubmission" type="submit" value="Confirmar"> -->
-                    </form>
+                  
                     <div id="enviado-sucesso" class="submit-msg">Etapa submetida com sucesso.</div>
                     <div id="enviado-erro" class="submit-msg">Tem de selecionar um ficheiro.</div>
                     
                     <ul class="cd-buttons" id="ul-buttons">
+                        <!-- mudar tambem para button??? neste caso provavelmente não fica com full width se ficar la dentro... -->
                         <li><a href="#" id="addSubmission">Submeter</a></li>
                         <li><a href="#" id="closeButton-hide">Cancelar</a></li>
                     </ul>
-
+                    </form>
                 </div>
                 <a class="cd-popup-hide"></a>
             </div>

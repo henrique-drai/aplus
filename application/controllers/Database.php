@@ -6,7 +6,6 @@ class Database extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('ScriptModel');
     }
 
     public function index() {
@@ -18,6 +17,7 @@ class Database extends CI_Controller {
     }
 
     public function small_script() {
+        $this->load->model('ScriptModel');
         $this->load->helper('small_script');
         small_script($this->ScriptModel);
         $this->load->helper('large_script');
@@ -25,7 +25,14 @@ class Database extends CI_Controller {
     }
 
     public function large_script() {
+        $this->load->model('ScriptModel');
         $this->load->helper('large_script');
         large_script($this->ScriptModel);
+    }
+
+    public function smart_script() {
+        $this->load->model('SmartModel');
+        $this->load->helper('smart_script');
+        smart_script($this->SmartModel);
     }
 }

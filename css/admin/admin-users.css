@@ -34,3 +34,7 @@
 .notSmallInput {
     background-color: white;
 }
+
+.adminTable{
+    display: none;
+}

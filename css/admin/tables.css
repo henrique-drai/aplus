@@ -21,6 +21,9 @@
     background-color: #ccc
 }
 
+.adminTable td, .adminTable th{
+    width: 15%;
+}
 
 #suggestedDate {
     background-color:#3e5d4f38;

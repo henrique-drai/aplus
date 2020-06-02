@@ -114,11 +114,13 @@ function submitRegister(){
     const data = {
         codCourse:   $("#register-cursos-form input[name='codeCurso']").val(),
         nameCourse:    $("#register-cursos-form input[name='nomeCurso']").val(),
-        descCourse:    $("#register-cursos-form input[name='descCurso']").val(),
+        descCourse:    $("#register-cursos-form textarea").val(),
         collegeId:   $("#register-cursos-form select[name='faculdade']").val(),
         academicYear:   $("#register-cursos-form select[name='academicYear']").val()
     }
+    console.log(data.descCourse);
 
+    console.log(data.collegeId);
     if (data.codCourse != "" && data.nameCourse != "" && data.descCourse != "" && data.collegeId != "Selecione uma Faculdade"){
         $.ajax({
             type: "POST",

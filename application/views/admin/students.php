@@ -3,7 +3,9 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-users.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 <script src="<?php echo $base_url; ?>js/admin/manageUsers.js"></script>
+<script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 </head>
 
 <body>
@@ -20,34 +22,17 @@
         </div>
 
         <div id="student-container" class="container">
+
+            <table class="adminTable" id="student_list"> 
+                <tr>
+                    <th>Email</th>
+                    <th>Nome</th>
+                    <th>Apelido</th>
+                    <th>Editar</th>
+                    <th>Apagar</th>
+                </tr>
+            </table>
         </div> 
-        <!-- <div class='overlay'>
-            <div class='popup'>
-                <a class='close' href='#'>&times;</a>
-                <div class='content'>
-                    <h2>Editar Alunos</h2>
-                    <form id="editUser-form" action="javascript:void(0)">
-                    <p>
-                        <label for="name" class='form-label'>Nome</label>
-                        <input type="text" name="name" required>
-                    </p><p>
-                        <label for="surname" class='form-label'>Apelido</label>
-                        <input type="text" name="surname" required>
-                    </p><p>
-                        <label for="email" class='form-label'>Email</label>
-                        <input type="text" name="email" required>
-                    </p><p>
-                        <label for="password" class='form-label'>Password</label>
-                        <input type="password" name="password">
-                    </p>
-                    <ul class="cd-buttons">
-                        <li><a href="#" id="editUser-form-submit">Submeter</a></li>
-                        <li><a href="#" id="closeButton">Cancelar</a></li>
-                    </ul>
-                    </form>
-                </div>
-            </div>
-        </div> -->
 
         <div class="cd-popup" role="alert" id="users_admin_edit">
 	        <div class="cd-popup-container">

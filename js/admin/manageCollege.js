@@ -51,6 +51,8 @@ function getAllColleges(){
                 $("#mens_sem_faculdades").remove();
                 var mensagem = "<h2 id='mens_sem_faculdades'>Não existe nenhuma faculdade</h2>";
                 $("body").append(mensagem);
+                $(".paginationjs").remove();
+                $(".adminTable").css("display", "none");
             }
 
             const mq = window.matchMedia( "(max-width: 452px)" );
@@ -72,25 +74,35 @@ function getAllColleges(){
 }
 
 function makeCollegeTable(data){
-    college = '<h2>Consultar Faculdades</h2>';
+    colleges=[]
     for (i=0; i<data.colleges.length; i++){
-        college += '<tr>' +
+        colleges.push('<tr class="colleges">' +
             '<td>'+ data.colleges[i].name +'</td>' +
             '<td>'+ data.colleges[i].location +'</td>' +
             '<td>' + data.colleges[i].siglas + '</td>' +
             '<td><input class="deleteCollege" type="button" value="Eliminar"></td>' +
-            '</tr>'
+            '</tr>')
     }
-   
-    var table = '<table class="adminTable" id="show_colleges">' +
-        '<tr><th>Nome</th>' +
-        '<th>Localização</th>' + 
-        '<th>Siglas</th>' +
-        '<th>Eliminar</th></tr>' +
-        college + 
-        '</table>'
 
-    $("#college-container").html(table);    
+    $('#college-container').pagination({
+        dataSource: colleges,
+        pageSize: 8,
+        pageNumber: 1,
+        callback: function(data, pagination) {
+            $(".colleges").remove();
+            $(".adminTable").append(data);
+        }
+    })   
+   
+    // var table = '<table class="adminTable" id="show_colleges">' +
+    //     '<tr><th>Nome</th>' +
+    //     '<th>Localização</th>' + 
+    //     '<th>Siglas</th>' +
+    //     '<th>Eliminar</th></tr>' +
+    //     college + 
+    //     '</table>'
+
+    // $("#college-container").html(table);    
 }
 
 

@@ -20,8 +20,12 @@ $(document).ready(() => {
         var faculdade = $("#Consultar_Cadeiras_Faculdade").val();
         var curso = document.getElementById("Consultar_Cadeiras_Curso").options[document.getElementById("Consultar_Cadeiras_Curso").selectedIndex].text;
         var cursonome = curso.split("(")[0];
-        if(cursonome == "Selecione uma Curso"){
+        
+        if(cursonome == "Selecione um Curso"){
             cursonome = "";
+        }
+        else{
+            cursonome = cursonome.split(" ")[0];
         }
         var ano = $("#Consultar_Cadeiras_Ano").val();
         getSubjectsByFilters(faculdade,cursonome,ano);
@@ -186,8 +190,7 @@ $(document).ready(() => {
 
 
 function cleanTable(){
-    allSubjects = "";
-    $("#subject_list").remove();
+    allSubjects = [];
     $(".subject_row").remove();
 }
 
@@ -227,9 +230,10 @@ function getAllSubjects(){
 
 
 function makeAllSubjectsTable(data){   
-    var allSubjects="";
+    $(".adminTable").css("display", "table");
+    allSubjects=[];
     for(i=0; i<data.subjects.length;i++){
-        allSubjects += '<tr class="subject_row">' +
+        allSubjects.push('<tr class="subject_row">' +
                     '<td class="infoCadeira">'+ data.subjects[i].id +'</td>' +
                     '<td class="infoCadeira">'+ data.subjects[i].code +'</td>' +
                     '<td class="infoCadeira">'+ data.courses[i].name +'</td>' +
@@ -239,22 +243,32 @@ function makeAllSubjectsTable(data){
                     '<td class="infoCadeira">'+ data.subjects[i].description + '</td>' +
                     '<td><input class="editSubject" type="button" value="Editar"></td>' +
                     '<td><input class="deleteSubject" type="button" value="Eliminar"></td>' +
-                    '</tr>';
+                    '</tr>'
+        )
     }
-    var table = '<table class="adminTable" id="subject_list">' +
-    '<tr><th>ID</th>' +
-    '<th>Código da UC</th>' +
-    '<th>Curso</th>' + 
-    '<th>Nome</th>' +
-    '<th>Sigla</th>' +
-    '<th>Semestre</th>' +
-    '<th>Descrição</th>' + 
-    '<th>Editar</th>' +
-    '<th>Apagar</th></tr>' +
-    allSubjects + 
-    '</table>'
+    $('#subject-container').pagination({
+        dataSource: allSubjects,
+        pageSize: 8,
+        pageNumber: 1,
+        callback: function(data, pagination) {
+            $(".subject_row").remove();
+            $(".adminTable").append(data);
+        }
+    })   
+    // var table = '<table class="adminTable" id="subject_list">' +
+    // '<tr><th>ID</th>' +
+    // '<th>Código da UC</th>' +
+    // '<th>Curso</th>' + 
+    // '<th>Nome</th>' +
+    // '<th>Sigla</th>' +
+    // '<th>Semestre</th>' +
+    // '<th>Descrição</th>' + 
+    // '<th>Editar</th>' +
+    // '<th>Apagar</th></tr>' +
+    // allSubjects + 
+    // '</table>'
 
-    $("#subject-container").html(table);       
+    // $("#subject-container").html(table);       
 }
 
 function getColleges(){
@@ -335,11 +349,14 @@ function getSubjectsByFilters(faculdade, curso, ano){
         data: {f: faculdade,c: curso, a: ano},
         success: function(data) {
             if(data.subjects != ""){
+                $("#mens_sem_cadeiras").remove();
                 makeAllSubjectsTable(data);
             }
             else{
-                $("#mens_sem_cadeiras").remove();
+                $(".adminTable").css("display", "none");
+                $(".paginationjs").remove();
                 cleanTable();
+                $("#mens_sem_cadeiras").remove();
                 var mensagem = "<h2 id='mens_sem_cadeiras'>Não existem unidades curriculares com as opções indicadas.</h2>";
                 $("#subject-container").append(mensagem); 
             }

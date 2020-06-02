@@ -4,8 +4,9 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-subjects.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 
-
+<script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/registerCurso.js"></script>
 
 </head>
@@ -53,10 +54,19 @@
 
         <h3>Consultar cursos de uma faculdade</h3>
         <select id="consultar_cursos_faculdade" name="consultarCadeirasporFaculdade">
+        
         </select>
 
         <br><br>
         <div id="course-container" class="container">
+            <table class="adminTable" id="show_courses">
+                <tr><th>Código de Curso</th>
+                <th>Nome</th>
+                <th>Ano Letivo</th>
+                <th>Descrição</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </table>
         </div>
 
           

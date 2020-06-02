@@ -1,9 +1,11 @@
 <title>A+ for Admins</title>
 <script>setPageName("college")</script>
 <script src="<?php echo $base_url; ?>js/admin/manageCollege.js"></script>
+<script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/college.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 </head>
 
 <body>
@@ -38,7 +40,16 @@
         </div>
         <div id="msgErroDelete">
         </div>
+        <h2>Consultar Faculdades</h2>
         <div id="college-container" class="container">
+            <table class="adminTable" id="student_list"> 
+                <tr>
+                    <th>Nome</th>
+                    <th>Localização</th>
+                    <th>Siglas</th>
+                    <th>Apagar</th>
+                </tr>
+            </table>
         </div>
 
         

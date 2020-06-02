@@ -13,12 +13,13 @@ $(document).ready(() => {
     $("#consultar_cursos_faculdade").change(function(){
         if($(this).val()!="Selecione uma Faculdade"){
             getAllCursosFaculdade($(this).val()); 
+            $(".adminTable").css("display", "table")
             $(".course_row").hide();
             $("#course-container").show();
         }
         else{
             $(".course_row").hide();
-            $(".adminTable").hide();
+            $(".adminTable").css("display", "none");
             $("#course-container").hide();
         }
     }) ;
@@ -118,9 +119,9 @@ function submitRegister(){
         collegeId:   $("#register-cursos-form select[name='faculdade']").val(),
         academicYear:   $("#register-cursos-form select[name='academicYear']").val()
     }
-    console.log(data.descCourse);
+    // console.log(data.descCourse);
 
-    console.log(data.collegeId);
+    // console.log(data.collegeId);
     if (data.codCourse != "" && data.nameCourse != "" && data.descCourse != "" && data.collegeId != "Selecione uma Faculdade"){
         $.ajax({
             type: "POST",
@@ -175,10 +176,10 @@ function submitRegister(){
     }
 
     function makeCoursesTable(data){
-        course = '';
+        courses = [];
 
         for (i=0; i<data.courses.length; i++){
-            course += '<tr>' +
+            courses.push('<tr class="courses">' +
                 '<td>'+ data.courses[i].code +'</td>' +
                 '<td>'+ data.courses[i].name +'</td>' +
                 '<td>'+ data.years[i] + '</td>' +
@@ -186,21 +187,31 @@ function submitRegister(){
 
                 "<td><input class='editCourse' type='button' value='Editar'></td>"
                 + "<td><input class='deleteCourse' type='button' value='Eliminar'></td>"
-                + '</tr>'
+                + '</tr>')
         }
+
+        $('#course-container').pagination({
+            dataSource: courses,
+            pageSize: 5,
+            pageNumber: 1,
+            callback: function(data, pagination) {
+                $(".courses").remove();
+                $(".adminTable").append(data);
+            }
+        })  
        
-        var table = '<table class="adminTable" id="show_courses">' +
-            '<tr><th>Código de Curso</th>' +
-            '<th>Nome</th>' + 
-            '<th>Ano Letivo</th>' +
-            '<th>Descrição</th>' +
-            '<th>Editar</th>' +
-            '<th>Eliminar</th>' +
-            '</tr>' +
-            course + 
-            '</table>'
+        // var table = '<table class="adminTable" id="show_courses">' +
+        //     '<tr><th>Código de Curso</th>' +
+        //     '<th>Nome</th>' + 
+        //     '<th>Ano Letivo</th>' +
+        //     '<th>Descrição</th>' +
+        //     '<th>Editar</th>' +
+        //     '<th>Eliminar</th>' +
+        //     '</tr>' +
+        //     course + 
+        //     '</table>'
     
-        $("#course-container").html(table); 
+        // $("#course-container").html(table); 
         
         const mq = window.matchMedia( "(max-width: 701px)" );
         const mq2 = window.matchMedia( "(max-width: 1490px)" );

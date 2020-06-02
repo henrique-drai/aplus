@@ -1,13 +1,14 @@
 <title>A+ for Admins</title>
 <script>setPageName("subjects")</script>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-subjects.css">
 
 <script src="<?php echo $base_url; ?>js/admin/registerunidCurricular.js"></script>
 <script src="<?php echo $base_url; ?>js/admin/manageunidCurricular.js"></script>
+<script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-subjects.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
-
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 </head>
 
 <body>
@@ -82,6 +83,17 @@
         </select>
 
         <div id="subject-container" class="container">
+            <table class="adminTable" id="subject_list">
+                <tr><th>ID</th>
+                <th>Código da UC</th>
+                <th>Curso</th> 
+                <th>Nome</th>
+                <th>Sigla</th>
+                <th>Semestre</th>
+                <th>Descrição</th> 
+                <th>Editar</th>
+                <th>Apagar</th></tr>
+            </table>
         </div> 
 
         <div class="cd-popup" role="alert" id="subject_admin_edit">

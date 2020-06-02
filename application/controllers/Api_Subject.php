@@ -401,7 +401,6 @@ class Api_Subject extends REST_Controller {
         $ano = $this->get('a');
         $data["courses"] = array(); 
         $data["subjects"] = array();
-
         if($faculdade != "" && $curso != "" && $ano != ""){
             $cursos = $this->CourseModel->getCollegeCourses($faculdade);
             for($i=0; $i<count($cursos);$i++){

@@ -189,6 +189,7 @@
 
                         <ul class="cd-buttons" id="ul-buttons-enunc">
                             <!-- <li><a href="#" id="addEnunciado">Submeter</a></li> -->
+                            <!-- mudei nestes popups com receio que fosse a causa dos erros mas funciona da mesma forma. $(id-form)[0].submit comentados no js -->
                             <li><input class="button-popup" id="addEnunciado" type="submit"></li>
                             <li><a href="#" id="closeButton-hide">Cancelar</a></li>
                         </ul>

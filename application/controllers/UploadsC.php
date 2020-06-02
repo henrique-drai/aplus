@@ -27,6 +27,8 @@ class UploadsC extends CI_Controller {
 
             if(!is_dir($path)){
                 mkdir($path, 0777, TRUE);
+            } else {
+                chmod($path, 0777);
             }
 
             $upload['upload_path'] = $path;
@@ -40,7 +42,8 @@ class UploadsC extends CI_Controller {
             if ( ! $this->upload->do_upload('file_proj'))
             {
                 $error = array('error' => $this->upload->display_errors());
-                header("Location: ".base_url()."projects/project/".$project_id);
+                echo $error;
+                // header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
             {
@@ -74,7 +77,8 @@ class UploadsC extends CI_Controller {
             if ( ! $this->upload->do_upload('file_etapa'))
             {
                 $error = array('error' => $this->upload->display_errors());
-                header("Location: ".base_url()."projects/project/".$project_id);
+                echo $error;
+                // header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
             {
@@ -110,7 +114,8 @@ class UploadsC extends CI_Controller {
             if ( ! $this->upload->do_upload('file_submit'))
             {
                 $error = array('error' => $this->upload->display_errors());
-                header("Location: ".base_url()."projects/project/".$project_id);
+                echo $error;
+                // header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
             {

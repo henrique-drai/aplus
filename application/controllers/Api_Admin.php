@@ -31,7 +31,6 @@ class Api_Admin extends REST_Controller {
     public function importX_post(){
 
         $auth = $this->session->userdata('id');
-
         $user = $this->UserModel->getUserById($auth);
 
         if($user->role != "admin"){
@@ -54,7 +53,6 @@ class Api_Admin extends REST_Controller {
     public function importStudentsCourse_post(){
 
         $auth = $this->session->userdata('id');
-
         $user = $this->UserModel->getUserById($auth);
 
         if($user->role != "admin"){
@@ -92,7 +90,6 @@ class Api_Admin extends REST_Controller {
     public function importCSV(){
         
         $auth = $this->session->userdata('id');
-
         $user = $this->UserModel->getUserById($auth);
 
         if($user->role != "admin"){
@@ -115,9 +112,6 @@ class Api_Admin extends REST_Controller {
                 "role"      => $column[3],
                 "password"  => $column[4]
             );
-            // print_r($data);
-
-            // $this -> UserModel -> registerUser($data);   
             $this -> UserModel -> insertUpdate($data);       
         }
         // header("Location: ". base_url()."app/admin/");
@@ -127,7 +121,6 @@ class Api_Admin extends REST_Controller {
     public function importStudentSubjects(){
         
         $auth = $this->session->userdata('id');
-
         $user = $this->UserModel->getUserById($auth);
 
         if($user->role != "admin"){
@@ -154,7 +147,7 @@ class Api_Admin extends REST_Controller {
             );
             $this -> SubjectModel -> insertUpdate($data);        
         }
-        header("Location: ". base_url()."app/admin/");
+        // header("Location: ". base_url()."app/admin/");
     }
 
 
@@ -165,6 +158,39 @@ class Api_Admin extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
 
+    public function importTeachersSubjects_post(){
+
+        $auth = $this->session->userdata('id');
+        $user = $this->UserModel->getUserById($auth);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        $this->load->helper('url');
+        $count_files = $_FILES["userfile"]['tmp_name'];
+        $file  = fopen($count_files, 'r');
+
+        // Skip first line
+        fgetcsv($file, 0, ","); 
+        while (($column = fgetcsv($file, 0, ",")) !== FALSE) {
+            
+            // TODO: VERSÃO BASE -> JÁ TER OS PROFS TODOS NA TABELA USERS
+
+                $idAnoLetivo    = $this->YearModel->getYearByInicio($column[3])->id;
+                $idFaculdade    = $this->CollegeModel->getCollegeBySigla($column[4])->id;
+                $idCurso        = $this->CourseModel->getCourseByFaculdadeAnoNome($idFaculdade, $idAnoLetivo, $column[5])->id;
+                $idUser         = $this->UserModel->getUserByEmail($column[2])->id;
+                $idCadeira      = $this->SubjectModel->getSubjectsByCursoIdName($idCurso, $column[6])->id;
+
+                $this->SubjectModel->registerProfCadeira($idUser, $idCadeira);
+                  
+        }
+
+    }
+
+
 
 
 
@@ -173,8 +199,8 @@ class Api_Admin extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function getAdminHome_get(){
-        $auth = $this->session->userdata('id');
 
+        $auth = $this->session->userdata('id');
         $user = $this->UserModel->getUserById($auth);
 
         if($user->role != "admin"){
@@ -195,8 +221,8 @@ class Api_Admin extends REST_Controller {
     }
 
     public function export_get(){
-        $auth = $this->session->userdata('id');
 
+        $auth = $this->session->userdata('id');
         $user = $this->UserModel->getUserById($auth);
 
         if($user->role != "admin"){

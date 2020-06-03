@@ -131,12 +131,16 @@ select{
     color:rgba(106, 192, 66, 0.7);
 }
 
-#showDemo {
+#showDemo, #showDemo2 {
     margin-left: 3%;
     font-size: 10px;
     text-transform: uppercase;
     color: #3e5d4f;
     vertical-align: middle;
+}
+
+#collegesDisplay1, #yearsDisplay1, #teachersImport{
+    display: none;
 }
 
 #fullW{
@@ -213,7 +217,7 @@ img[alt="csv_example"] {
 }
 
  
-.input-file {
+.input-file, .input-file2  {
       width: 0.1px;
       height: 0.1px;
       opacity: 0;
@@ -233,6 +237,11 @@ select#coursesDisplay1 {
     display: inline-block;
 }
 
+#csvExample {
+    width: 420px;
+    height: 190px;
+}
+
 @media(max-width: 767px){
     .double_input label{
         width: 100%;
@@ -246,3 +255,21 @@ select#coursesDisplay1 {
         margin-bottom:5px;
     }
 }
+
+
+@media(max-width: 494px){
+
+    #csvExample {
+        width: 300px;
+        height: 150px;
+    }
+}
+
+@media(max-width: 331px){
+    #csvExample {
+        width: 266px;
+        height: 150px;
+    }
+}
+
+

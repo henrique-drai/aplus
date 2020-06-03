@@ -83,6 +83,11 @@ class CourseModel extends CI_Model { //curso & curso_standard & aluno_curso
         $this->db->from("aluno_curso");
         return $this->db->count_all_results();
     }
+
+    public function getCourseByFaculdadeAnoNome($faculdade, $ano, $nome){
+        $query = $this->db->get_where("curso", array('faculdade_id'=>$faculdade, "ano_letivo_id"=>$ano, "name"=>$nome));
+        return $query->row();
+    }
 }
 
 

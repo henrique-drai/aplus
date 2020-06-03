@@ -53,16 +53,7 @@ function getAllColleges(){
                 $("body").append(mensagem);
                 $(".paginationjs").remove();
                 $(".adminTable").css("display", "none");
-            }
-
-            const mq = window.matchMedia( "(max-width: 452px)" );
-
-            if (mq.matches) {
-                $('.adminTable tr').find('td:eq(0),th:eq(0)').remove();
-                
-            } 
-            
-            
+            }        
         },
         error: function(data) {
             var mensagem = "<h2 id='mens_erro_faculdades'>Não é possivel apresentar as faculdades.</h2>";
@@ -86,14 +77,25 @@ function makeCollegeTable(data){
 
     $('#college-container').pagination({
         dataSource: colleges,
-        pageSize: 8,
+        pageSize: 5,
         pageNumber: 1,
         callback: function(data, pagination) {
             $(".colleges").remove();
             $(".adminTable").append(data);
+            const mq = window.matchMedia( "(max-width: 452px)" );
+
+            if (mq.matches) {
+                $('.adminTable tr').find('td:eq(0)').remove();
+                
+            } 
         }
     })   
-   
+    const mq = window.matchMedia( "(max-width: 452px)" );
+
+    if (mq.matches) {
+        $('.adminTable tr').find('th:eq(0)').remove();
+    }
+     
     // var table = '<table class="adminTable" id="show_colleges">' +
     //     '<tr><th>Nome</th>' +
     //     '<th>Localização</th>' + 

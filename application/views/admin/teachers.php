@@ -22,7 +22,8 @@
                 <p class="informacaoUsers">Use * para visualizar todos os professores</p>
             </div>
         </div>
-
+        <div id="msgStatus">
+        </div>
         <div id="teacher-container" class="container">
             <table class="adminTable" id="student_list"> 
                 <tr>

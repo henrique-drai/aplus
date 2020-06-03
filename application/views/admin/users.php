@@ -75,8 +75,8 @@
 <!-- ################################################################################################# -->
 
             <div class="admin-users-window-export">
-                <!-- <div class="title">Exportar</div> -->
-<!--                 
+                <div class="title">Exportar</div>                  
+                
                 <form id="exportCsv">
                 <p>
                     <label for="data">Exportar dados:</label>
@@ -89,10 +89,10 @@
                 </p><p>
                     <input type="submit" id="exportInfo" value="Exportar">
                 
-                </form> -->
+                </form>
 
-                <!-- <br>
-                <br> -->
+                <br>
+                <br>
 
                 
                 <form id="export2Csv" action="javascript:void(0)">
@@ -118,14 +118,24 @@
 
                 <br>
 
-                <form id="importFromCsv" action="javascript:void(0)" enctype="multipart/form-data">
-                    
-                    <div class="title">Importar</div>
+                <div class="title">Importar</div>
 
-                    <br>
-                    
-                    <label for="data">Importar alunos: <a href="#" id="showDemo">Formato</a></label>
-            
+                <br>
+
+                <label for="data">Importar Informação: 
+                            <a href="#" id="showDemo">Alunos</a>
+                            <a href="#" id="showDemo2">Professores</a>
+                            
+                </label>
+                
+                <select id="studentsOrTeachers"">
+                        <option>Selecione um Privilégio</option>
+                        <option value='teachers'>Teachers</option>
+                        <option value='students'>Students</option>
+                </select>
+
+
+                <form id="importFromCsv" action="javascript:void(0)" enctype="multipart/form-data">                
                     <select id="collegesDisplay1" name="colleges">
                     </select>
 
@@ -133,12 +143,18 @@
 
                     <select id="yearsDisplay1" name="years">
                     </select>
-
                     
                     <div id="collegeStatus1">
                     </div>
 
                 </form>
+                
+
+                <form id="teachersImport" action="javascript:void(0)" enctype="multipart/form-data">
+                        <input id="formInput" type='file' name='userfile' accept='.csv' >
+                        <input type='submit' id='importTeachers'  value='Importar'></input>
+                </form>
+
                 <br>
 
                 <div id="importSuccess">
@@ -185,7 +201,7 @@
         <div class="cd-popup" role="alert" id="import_csv_style">
             <div class="cd-popup-container">
                 <p id="removePadding">Formato ficheiro ".csv" para importação</p>
-                <img src="<?php echo base_url(); ?>images/csv_example.png" alt="csv_example">
+                <img id="csvExample" src="<?php echo base_url(); ?>images/csv_example.png" alt="csv_example">
                 <ul class="cd-buttons">
                     <li id="fullW"><a href="#" id="closePopUp">Fechar</a></li>
                 </ul>

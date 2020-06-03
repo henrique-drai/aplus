@@ -20,4 +20,9 @@ class CollegeModel extends CI_Model {
         return $this->db->count_all_results('faculdade');
     }
 
+    public function getCollegeBySigla($sigla){
+        $query = $this->db->get_where("faculdade", array('siglas'=>$sigla));
+        return $query->row();
+    }
+
 }

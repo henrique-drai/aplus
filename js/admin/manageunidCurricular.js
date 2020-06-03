@@ -246,6 +246,9 @@ function makeAllSubjectsTable(data){
                     '</tr>'
         )
     }
+    const mq = window.matchMedia( "(max-width: 1060px)" );
+    const mq2 = window.matchMedia( "(max-width: 1490px)" );
+    const mq3 = window.matchMedia( "(max-width: 520px)" );
     $('#subject-container').pagination({
         dataSource: allSubjects,
         pageSize: 8,
@@ -253,8 +256,38 @@ function makeAllSubjectsTable(data){
         callback: function(data, pagination) {
             $(".subject_row").remove();
             $(".adminTable").append(data);
+            if (mq2.matches) {
+
+                $('.adminTable tr').find('td:eq(6)').remove();
+                $('.adminTable tr').find('td:eq(6)').remove();
+
+                if(mq.matches){
+                    $('.adminTable tr').find('td:eq(0)').remove();
+                    $('.adminTable tr').find('td:eq(2)').remove();
+                    $('.adminTable tr').find('td:eq(3)').remove();
+
+                    if(mq3.matches){
+                        $('.adminTable tr').find('td:eq(0)').remove();
+                    }
+                }            
+            } 
         }
-    })   
+    }) 
+    
+    if (mq2.matches) {
+        $('.adminTable tr').find('th:eq(6)').remove();
+        $('.adminTable tr').find('th:eq(6)').remove();
+
+        if(mq.matches){
+            $('.adminTable tr').find('th:eq(0)').remove();
+            $('.adminTable tr').find('th:eq(2)').remove();
+            $('.adminTable tr').find('th:eq(3)').remove();
+            if(mq3.matches){
+                $('.adminTable tr').find('th:eq(0)').remove();
+
+            }
+        }            
+    } 
     // var table = '<table class="adminTable" id="subject_list">' +
     // '<tr><th>ID</th>' +
     // '<th>Código da UC</th>' +
@@ -514,6 +547,8 @@ function  editSubject(){
         url: base_url + "api/editSubject",
         data: data,   
         success: function() {    
+            $("#msgStatusEditar").text("Utilizador editado com sucesso");
+            $("#msgStatusEditar").show().delay(5000).fadeOut();
             $("#subject_admin_edit").removeClass('is-visible');
             var faculdade = $("#Consultar_Cadeiras_Faculdade").val();
             var curso = document.getElementById("Consultar_Cadeiras_Curso").options[document.getElementById("Consultar_Cadeiras_Curso").selectedIndex].text;

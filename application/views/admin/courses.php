@@ -57,8 +57,10 @@
         
         </select>
 
-        <br><br>
+        <br>
         <div id="course-container" class="container">
+            <div id="msgStatusEditar">
+            </div>
             <table class="adminTable" id="show_courses">
                 <tr><th>Código de Curso</th>
                 <th>Nome</th>

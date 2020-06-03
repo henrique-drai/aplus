@@ -12,7 +12,7 @@
 <?php $this->view('templates/nav-menu'); ?>
     <main>
     <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>subjects">Cadeiras</a> > <a href="<?php echo base_url(); ?>subjects/subject/<?php echo $subject->code; ?>/<?php echo $year; ?>"><?php echo $subject->name; ?></a> &gt; Ficheiros </h4>
-    <h2>Área de ficheiros da cadeira "<?php echo $subject->name; ?>"<h2>
+    <h1>Área de ficheiros da cadeira "<?php echo $subject->name; ?>"<h1>
 
     <h3>Ficheiros:</h3>
     <div class="container" id="container-ficheiros">

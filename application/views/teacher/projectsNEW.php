@@ -39,15 +39,20 @@
                 <label id="addEtapa"><img src="<?php echo $base_url; ?>/images/add.png"></label>
             </p>
 
-            <p id="etapa1" class="etapa">
+            <div id="etapa1" class="etapa">
                 <label id="etapa-label" class="form-label-title">Etapa 1</label>
-                <label class="form-label">Nome</label>
-                <input class="form-input-text" type="text" name="etapaName" required>
+                <div id="inputsduo">
+                    <label class="form-label">Nome
+                        <input class="form-input-text" type="text" name="etapaName" required>
+                    </label>
+                    <label class="form-label">Data de entrega
+                        <input class="form-input-text" type="datetime-local" name="etapaDate" required>
+                    </label>
+                </div>
+
                 <label class="form-label">Descrição</label>
                 <textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>
-                <label class="form-label">Data de entrega</label>
-                <input class="form-input-text" type="datetime-local" name="etapaDate" required>
-            </p>
+            </div>
 
             <p>
                 <div id="errormsg" class="submit-msg">Mensagem de erro template</div>

@@ -7,18 +7,53 @@ $(document).ready(() => {
     getColleges();
 
 
+    // ##############################################################################
+    
+    $("#studentsOrTeachers").change(function(){
+        
+        if($("#studentsOrTeachers").val()!="Selecione um Privilégio" ){
+
+            if($("#studentsOrTeachers").val()=="students"){
+                $("#teachersImport").css("display","none")
+                $("#collegesDisplay1").css("display","block")
+                $("#yearsDisplay1").css("display","block")
+
+                
+            }
+            else{
+                $("#collegesDisplay1").css("display","none")
+                $("#yearsDisplay1").css("display","none")
+                $("#teachersImport").css("display","block")
+            }
+        }
+        else{
+            $("#teachersImport").css("display","none")
+            $("#collegesDisplay1").css("display","none")
+            $("#yearsDisplay1").css("display","none")
+        }
+
+    }) ;
+
 
     // ############################ POP-UP ###########################################
 
+    var path =  $('#csvExample').attr("src")
 
     $('body').on("click", "#showDemo",function() {
         event.preventDefault();
+        $('#csvExample').attr("src", path.replace("csv_example_prof.png", "csv_example.png"));
+        $('#import_csv_style').addClass('is-visible');
+    });
+    $('body').on("click", "#showDemo2",function() {
+        event.preventDefault();
+        $('#csvExample').attr("src", path.replace("csv_example.png", "csv_example_prof.png"));
         $('#import_csv_style').addClass('is-visible');
     });
 
 
+
     //close popup
-	$('.cd-popup').on('click', function(event){
+	$('.cd-popup').on('click', function(event){ 
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
 			event.preventDefault();
 			$(this).removeClass('is-visible');
@@ -70,7 +105,38 @@ $(document).ready(() => {
     }) ;
 
 
-    $("#importFromCsv").submit(function(e) {
+    $("#teachersImport").submit(function(e) {
+
+        e.preventDefault();    
+        var formData = new FormData(this);
+
+        // CONTINUAR A PARTIR DAQUI
+        // FAZER O AJAX -> CONTROLLER -> MODEL
+
+        $.ajax({
+            url: base_url + "api/importTeachersSubjects",
+            type: 'POST',
+            headers: {"Authorization": localStorage.token},
+            data: formData,
+            success: function (data) {
+                $("#importSuccess").html("Ficheiro importado com sucesso");
+                $("#importSuccess").show().delay(2000).fadeOut();
+                $("#file").val("");
+},
+            error: function(data) {
+                $("#importError").html("Erro a importar ficheiro");
+                $("#importError").show().delay(2000).fadeOut();
+},
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+    
+
+// PRECISA DE SER SUBMIT?!?
+    $("#importToCourse").submit(function(e) {
+
 
         const info = {
             college:        $("#collegesDisplay").val(),
@@ -95,7 +161,7 @@ $(document).ready(() => {
                 
             },
             error: function(data) {
-                $("#importError").html("Erro a importar ficheiro sucesso");
+                $("#importError").html("Erro a importar ficheiro");
                 $("#importError").show().delay(2000).fadeOut();
                 $("#myfile").val("");
             },
@@ -379,7 +445,9 @@ function getYears(){
             var option = "<option class='years'>Selecione um Ano Letivo</option>";
 
             for (i=0; i<data.schoolYears.length; i++){
-                option+= "<option value='" + data.schoolYears[i].id + "'>"+ data.schoolYears[i].inicio  + "</option>"
+                if(data.schoolYears[i].inicio>=new Date().getFullYear()){
+                    option+= "<option value='" + data.schoolYears[i].id + "'>"+ data.schoolYears[i].inicio  + "</option>"
+                }
             }
             $("#yearsDisplay").html(option)
             $("#yearsDisplay1").html(option)

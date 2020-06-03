@@ -20,7 +20,10 @@
                 <p class="informacaoUsers">Use * para visualizar todos os estudantes</p>
             </div>
         </div>
-
+        
+        <div id="msgStatus">
+        </div>
+        
         <div id="student-container" class="container">
 
             <table class="adminTable" id="student_list"> 

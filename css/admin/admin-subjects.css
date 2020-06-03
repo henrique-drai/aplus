@@ -62,7 +62,7 @@ label[for="curso"]{
     border-radius: 3px;
 }
 
-#msgStatus{
+#msgStatus, #msgStatusEditar{
     background-color: rgba(106, 192, 66, 0.7);
     text-align: center;
     margin: auto;

@@ -82,7 +82,11 @@
         <select id="Consultar_Cadeiras_Ano" class="SubjectsSelects" name="consultarCadeirasporAno">
         </select>
 
+       
+
         <div id="subject-container" class="container">
+            <div id="msgStatusEditar">
+            </div>
             <table class="adminTable" id="subject_list">
                 <tr><th>ID</th>
                 <th>Código da UC</th>

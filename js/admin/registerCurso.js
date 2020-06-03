@@ -13,7 +13,6 @@ $(document).ready(() => {
     $("#consultar_cursos_faculdade").change(function(){
         if($(this).val()!="Selecione uma Faculdade"){
             getAllCursosFaculdade($(this).val()); 
-            $(".adminTable").css("display", "table")
             $(".course_row").hide();
             $("#course-container").show();
         }
@@ -50,6 +49,22 @@ $(document).ready(() => {
         $('#courses_admin_delete').removeClass('is-visible');
         deleteCourse(cso);
     })
+
+    // $("body").on("click", ".paginationjs .paginationjs-pages li>a", function(){
+
+    //     const mq = window.matchMedia( "(max-width: 701px)" );
+    //     const mq2 = window.matchMedia( "(max-width: 1490px)" );
+
+    //     if (mq2.matches) {
+
+    //         $('.adminTable tr').find('td:eq(3),th:eq(3)').remove();
+
+    //         if(mq.matches){
+    //             $('.adminTable tr').find('td:eq(0),th:eq(0)').remove();
+    //          $('.adminTable tr').find('td:eq(2),th:eq(2)').remove();
+    //         }            
+    //     } 
+    // })
 
     // _____________________________________________
 
@@ -119,9 +134,6 @@ function submitRegister(){
         collegeId:   $("#register-cursos-form select[name='faculdade']").val(),
         academicYear:   $("#register-cursos-form select[name='academicYear']").val()
     }
-    // console.log(data.descCourse);
-
-    // console.log(data.collegeId);
     if (data.codCourse != "" && data.nameCourse != "" && data.descCourse != "" && data.collegeId != "Selecione uma Faculdade"){
         $.ajax({
             type: "POST",
@@ -158,10 +170,11 @@ function submitRegister(){
             success: function(data) {
                 $("#semCurso").remove();
                 if(data.courses.length>0){
-                    makeCoursesTable(data)
+                    makeCoursesTable(data)                    
                 }
                 else{
-                    $("#course-container").html("")
+                    $(".paginationjs").remove();
+                    $(".adminTable").css("display", "none");
                     $("#msgErro2").text("Não existem cursos disponíveis para a faculdade selecionada.");
                     $("#msgErro2").show().delay(2000).fadeOut();
                     
@@ -176,6 +189,8 @@ function submitRegister(){
     }
 
     function makeCoursesTable(data){
+
+
         courses = [];
 
         for (i=0; i<data.courses.length; i++){
@@ -190,6 +205,8 @@ function submitRegister(){
                 + '</tr>')
         }
 
+        const mq = window.matchMedia( "(max-width: 701px)" );
+        const mq2 = window.matchMedia( "(max-width: 1490px)" );
         $('#course-container').pagination({
             dataSource: courses,
             pageSize: 5,
@@ -197,9 +214,25 @@ function submitRegister(){
             callback: function(data, pagination) {
                 $(".courses").remove();
                 $(".adminTable").append(data);
+                if (mq2.matches) {
+
+                    $('.adminTable tr').find('td:eq(3)').remove();
+
+                    if(mq.matches){
+                        $('.adminTable tr').find('td:eq(0)').remove();
+                        $('.adminTable tr').find('td:eq(2)').remove();
+                    }            
+                } 
             }
         })  
-       
+        if (mq2.matches) {
+            $('.adminTable tr').find('th:eq(3)').remove();
+            if(mq.matches){
+                $('.adminTable tr').find('th:eq(0)').remove();
+                $('.adminTable tr').find('th:eq(2)').remove();
+            }
+        }
+        $(".adminTable").css("display", "table");
         // var table = '<table class="adminTable" id="show_courses">' +
         //     '<tr><th>Código de Curso</th>' +
         //     '<th>Nome</th>' + 
@@ -213,18 +246,7 @@ function submitRegister(){
     
         // $("#course-container").html(table); 
         
-        const mq = window.matchMedia( "(max-width: 701px)" );
-        const mq2 = window.matchMedia( "(max-width: 1490px)" );
-
-        if (mq2.matches) {
-
-            $('.adminTable tr').find('td:eq(3),th:eq(3)').remove();
-
-            if(mq.matches){
-                $('.adminTable tr').find('td:eq(0),th:eq(0)').remove();
-                $('.adminTable tr').find('td:eq(2),th:eq(2)').remove();
-            }            
-        } 
+        
     }
     
     
@@ -298,8 +320,8 @@ function editCourse(){
             $("#courses_admin_edit").removeClass('is-visible');
 
             getAllCursosFaculdade(data.collegeId);
-            $("#msgStatus").text("Curso editado com sucesso");
-            $("#msgStatus").show().delay(2000).fadeOut();
+            $("#msgStatusEditar").text("Curso editado com sucesso");
+            $("#msgStatusEditar").show().delay(5000).fadeOut();
             displayEditCourse();
         },
         error: function() {

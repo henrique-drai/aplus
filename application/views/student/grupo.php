@@ -12,7 +12,7 @@
 <?php $this->view('templates/nav-menu'); ?>
     <main>
         <h4 class="breadcrumb">
-            <a href="<?=$base_url?>app/student/grupos">Grupos</a> > Área de Grupo
+            <a href="<?=$base_url?>app/student/grupos">Grupos</a> > Área de Grupo (<?=$grupo["name"]?>)
         </h4>
         
         <div class="clickable-title">

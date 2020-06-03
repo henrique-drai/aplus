@@ -30,6 +30,8 @@
         <h3 id="enunciado_h4"></h3>
         <div class="container-header">
             <br><br>
+            <!-- mudar depois para o novo botao da ines s -->
+            <input id="areagrupo" type="button" value="Área de Grupo"> 
             <h2 id="grupo-name">Grupo</h2> <span class="criarGrupo"><img src="<?php echo base_url(); ?>images/add.png" id="criarGrupo_button"></span>
             <div id="criarGrupoName">
             </div>

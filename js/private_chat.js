@@ -47,10 +47,10 @@ function loadAccordion(){
 
     refreshIntervalIdRecentGroups = setInterval(function(){
         getGroups();
-    }, 3000);
+    }, 6000);
     refreshIntervalIdRecent = setInterval(function(){
         getChatLogs();
-    }, 3000);
+    }, 6000);
 }
 
 function twoDigits(d) {
@@ -91,6 +91,7 @@ function bindGroupLiClick(){
     $("#group li").click(function() {
         flagScroll=false
         var id_group = $(this).attr("group_id");
+        // var id_projecto = $(this).attr("projecto_id");
         clicked_group = id_group;
         nomeGrupo = $(this).text()
         getChatGroupHistory(id_group);
@@ -227,11 +228,12 @@ function getGroups(){
 
 function makeUserListGroups(data){
     groups= '';
-    // console.log(data)
+    cadeirasComum='';
+    console.log(data)
     // existingChats=[];
     var incr = 0;
     for (i=0;i<data.length;i++){
-        groups += '<li class="list-group-class" group_id='+ data[i][0].id +'> <div class="list-chat">Grupo ' + data[i][0].name + '</div>'
+        groups += '<li class="list-group-class" projeto_id='+data[i][1][0].projeto_id+' group_id='+ data[i][0].id +'> <div class="list-chat">Projeto ' + data[i][1][0].nome+' - Grupo '+data[i][0].name + '</div>'
         //  '<p>'+ dataFromUser.content[i].content +'</p></li>';
         incr++;
     }

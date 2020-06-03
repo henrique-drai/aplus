@@ -130,6 +130,12 @@ $(document).ready(() => {
             }
         }
     })
+
+
+    $("body").on("click", "#areagrupo", function() {
+        showMyGroup(proj);
+        window.location = base_url + "app/grupo/" + grupo;
+    })
     
 
 });
@@ -152,17 +158,20 @@ function showMyGroup(proj_id){
                 $("#grupo-name").text("Grupos");
                 showNotFullGroups(proj_id);
                 var timeout = setInterval(function(){showNotFullGroups(proj_id);}, 10000);
-
                 $("#submitEtapa").prop('disabled', true);
                 have_group = false;
+                $("#areagrupo").hide();
                 $("#form-submit-etapa").hide();
+                localStorage.setItem("grupo_id",0) //adicionei só para se alguem estiver a usar localstorage não dar porcaria
             } else {
                 $("#grupo-name").text('Grupo ' + data["grupo"]["name"]);
                 $("#submitEtapa").prop('disabled', false);
                 $(".criarGrupo").css("display", "none");
                 $("#criarGrupoName").hide();
+                $("#areagrupo").show(); //link para a area de grupo
                 have_group = true;
                 grupo = data["grupo"]["id"];
+                localStorage.setItem("grupo_id",grupo) //adicionei só para se alguem estiver a usar localstorage não dar porcaria
                 var names = '';
                 for(var j=0; j < data["nomes"].length; j++) {
                     names = names + '<a href="'+ base_url +'app/profile/'+ data["nomes"][j][2] + '">' + data["nomes"][j][0] + " " + data["nomes"][j][1] + "</a> | ";

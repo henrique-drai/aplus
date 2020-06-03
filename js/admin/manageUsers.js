@@ -1,4 +1,5 @@
 var User
+var responsive = 0; 
 
 $(document).ready(() => {
     $("body").on("click", "#editUser-form-submit", () => editUser());    
@@ -40,10 +41,14 @@ $(document).ready(() => {
 
 
     if (page_name=="students"){
-        $("#search_text_students").keyup(function(){
+        $("#search_text_students").keyup(function(event){
             var s = $(this).val();
             if(s == '*'){
-                getAllStudents();
+                if(event.keyCode !=16){
+                    $("#mens_erro_alunos").remove();
+                    getAllStudents();
+                }
+               
             }
             else if(s!=''){
                 getSearchStudent(s);
@@ -54,10 +59,13 @@ $(document).ready(() => {
             }
         })
     } else if (page_name=="teachers") {
-        $("#search_text_profs").keyup(function(){
+        $("#search_text_profs").keyup(function(event){
             var s = $(this).val();
             if(s=="*"){
-                getAllTeachers();
+                if(event.keyCode !=16){
+                    $("#mens_erro_professores").remove();
+                    getAllTeachers();
+                }
             }
             else if(s!=''){
                 getSearchTeacher(s);
@@ -126,6 +134,9 @@ function editUser(){
         url: base_url + "api/editUser",
         data: data,   
         success: function() {
+            $("#msgStatus").text("Utilizador editado com sucesso");
+            $("#msgStatus").show().delay(5000).fadeOut();
+
             if (page_name=="students"){
                 if($("#search_text_students").val()=="*"){
                     getAllStudents();
@@ -135,7 +146,8 @@ function editUser(){
                 }   
                 event.preventDefault();
                 $(".editUser_inputs input").val("");
-			    $("#users_admin_edit").removeClass('is-visible');
+                $("#users_admin_edit").removeClass('is-visible');
+                
                 
             } else if (page_name=="teachers") {
                 if($("#search_text_profs").val()=="*"){
@@ -199,7 +211,8 @@ function makeStudentTable(data){
             '</tr>'
         )
     }
-
+    const mq = window.matchMedia( "(max-width: 610px)" );
+    const mq2 = window.matchMedia( "(max-width: 400px)" );
     $('#student-container').pagination({
             dataSource: students,
             pageSize: 8,
@@ -207,8 +220,23 @@ function makeStudentTable(data){
             callback: function(data, pagination) {
                 $(".students").remove();
                 $(".adminTable").append(data);
+                if (mq.matches) {
+                    $('.adminTable tr').find('td:eq(3)').remove();
+                    $('.adminTable tr').find('td:eq(2)').remove();  
+                    if (mq2.matches) {
+                        $('.adminTable tr').find('td:eq(1)').remove();
+                    } 
+                } 
             }
     })  
+    if (mq.matches && responsive == 0) {
+        responsive=1;
+        $('.adminTable tr').find('th:eq(3)').remove();
+        $('.adminTable tr').find('th:eq(2)').remove();
+        if (mq2.matches) {
+            $('.adminTable tr').find('th:eq(1)').remove();
+        } 
+    }
 }
 
 
@@ -319,7 +347,8 @@ function makeTeacherTable(data){
     //     '<th>Apagar</th></tr>' +
     //     teacher + 
     //     '</table>'
-
+    const mq = window.matchMedia( "(max-width: 610px)" );
+    const mq2 = window.matchMedia( "(max-width: 400px)" );
     $('#teacher-container').pagination({
         dataSource: teachers,
         pageSize: 8,
@@ -327,8 +356,25 @@ function makeTeacherTable(data){
         callback: function(data, pagination) {
             $(".teachers").remove();
             $(".adminTable").append(data);
+            if (mq.matches) {
+                $('.adminTable tr').find('td:eq(3)').remove();
+                $('.adminTable tr').find('td:eq(2)').remove();  
+                if (mq2.matches) {
+                    $('.adminTable tr').find('td:eq(1)').remove();
+                } 
+            } 
         }
     })   
+
+    if (mq.matches && responsive == 0) {
+        responsive=1;
+        $('.adminTable tr').find('th:eq(3)').remove();
+        $('.adminTable tr').find('th:eq(2)').remove();
+        if (mq2.matches) {
+            $('.adminTable tr').find('th:eq(1)').remove();
+        } 
+     
+    }
 }
 
 

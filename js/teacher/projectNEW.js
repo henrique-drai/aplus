@@ -4,6 +4,8 @@ var project_page
 
 $(document).ready(() => {
 
+    $("#projForm")[0].reset(); //se voltarem para a pagina depois de preenchido o form a info desaparece
+
     //definir um numero que nunca se repita para id de cada etapa
     var etapanum = $('.etapa').length;
 
@@ -11,16 +13,17 @@ $(document).ready(() => {
         etapanum++;
         var pid = 'etapa'+etapanum;
 
-        const etapa = '<p id='+pid+' class="etapa">' +
+        const etapa = '<div id='+pid+' class="etapa">' +
              '<label id="etapa-label" class="form-label-title"> </label>' +
              '<label id="removeEtapa" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> ' +
-             '<label class="form-label">Nome</label> ' +
-             '<input class="form-input-text" type="text" name="etapaName" required> ' +
-             '<label class="form-label">Descrição</label> ' + 
-             '<textarea class="form-text-area" type="text" name="etapaDescription" required></textarea> ' + 
-             '<label class="form-label">Data de entrega</label> ' + 
-             '<input class="form-input-text" type="datetime-local" name="etapaDate" required> ' +
-             '</p> '
+             '<div id="inputsduo">' +
+             '<label class="form-label">Nome'+
+             '<input class="form-input-text" type="text" name="etapaName" required></label>'+
+             '<label class="form-label">Data de entrega' +
+             '<input class="form-input-text" type="datetime-local" name="etapaDate" required></label></div>' +
+             '<label class="form-label">Descrição</label>' +
+             '<textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>' + 
+             '</div> '
         
         etapas.push({id:etapanum, nome:'', desc:'', data:''});
         console.log(etapas);
@@ -35,7 +38,6 @@ $(document).ready(() => {
 
             insertIntoEtapas(newid, name, desc, enunc, data);
         })
-
 
         refreshEtapasTitle();
 

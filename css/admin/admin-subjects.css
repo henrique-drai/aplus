@@ -97,3 +97,19 @@ label[for="curso"]{
     margin: 10px 0px 0px 15px;
     text-align: right; 
 }
+
+
+.double_input{
+    width: calc(100% + 30px);
+    display: flex;
+    justify-content: space-between;
+    margin: 0px -15px;
+}
+
+.double_input input {
+    width: 100%;
+}
+.double_input label {
+    width: 100%;
+    padding: 0px 15px;
+}

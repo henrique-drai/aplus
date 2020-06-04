@@ -249,7 +249,8 @@ function checkClosedProject(){
                 
             if(new Date(data.date)<Date.now()){
                 if(new Date(data.date).addDays(5)<Date.now()){
-                    $("#btnArea").append("<p>Ultrapassado o tempo máximo (5 dias) p/ classificação dos membros<p>")
+                    $("#btnArea").append("<input disabled type='button' value='Classificar Membros'> \
+                        <p class='small-font'>A data limite foi ultrapassada.<p>")
                 }
                 else{
                     $("#btnArea").append("<input id='ratingmembros' type='button' value='Classificar Membros'>")

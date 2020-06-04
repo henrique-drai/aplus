@@ -13,6 +13,10 @@
     color: #999;
 }
 
+p.small-font {
+    font-size: 13px;
+}
+
 input[type="text"], textarea, input[type="datetime-local"], select {
 	width: 100%;
 }
@@ -209,4 +213,10 @@ You could also use a data-* attribute and content for this. That way "bloats" th
         visibility: hidden;
         margin-bottom: -20%;
     }
+}
+
+.add-event-icon {
+    width: 25px;
+    margin: 0px 4px -4px;
+    cursor: pointer;
 }

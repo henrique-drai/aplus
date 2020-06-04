@@ -3,6 +3,11 @@ var calendario = {}
 $(document).ready(()=>{
     updateCalendario()
     eventOnClickCalendario()
+
+    $(".add-event-icon").click(()=>{
+        renderPopUpAddEvent()
+        $('.cd-popup').addClass('is-visible')
+    })
 })
 
 function updateCalendario(){
@@ -183,6 +188,59 @@ function renderPopUpSubmission(event) {
     $(".cd-popup #closeButton").html("Fechar")
     
     $('.cd-message').html(message)
+}
+
+function renderPopUpAddEvent(){
+    function dateToISO (date){
+        var isoStr = new Date(date).toISOString()
+        return isoStr.substring(0,isoStr.length-1)
+    }
+    
+    let form = $('<form id="addGroupEventForm"></form>').append(
+        '<label><b>Assunto</b></label>',
+        '<input type="text" name="name" required>',
+        '<label>Descrição</label>',
+        '<input type="text" name="description">',
+        '<label>Localização</label>',
+        '<input type="text" name="location">',
+        $('<div class="time_div"></div>').append(
+            $('<label>Início</label>').append(
+                $('<input type="datetime-local" name="start_date" value="' + dateToISO(new Date()) + '" required>')
+            ),
+            $('<label>Fim</label>').append(
+                $('<input type="datetime-local" name="end_date" value="' + dateToISO(new Date()) + '" required>')
+            )
+        )
+    )
+
+    // $(".cd-popup #actionButton").html("Guardar").off()
+    //     .click(()=>{
+    //         $.ajax({
+    //             type: "POST",
+    //             url: base_url + 'api/event/edit/' + event.obj.id,
+    //             data: {
+    //                 name: $('#groupEventForm input[name="name"]').val(),
+    //                 description: $('#groupEventForm input[name="description"]').val(),
+    //                 date: $('#groupEventForm input[name="date"]').val(),
+    //                 location: $('#groupEventForm input[name="location"]').val(),
+    //                 start_date: $('#groupEventForm input[name="start_date"]').val(),
+    //                 end_date: $('#groupEventForm input[name="end_date"]').val(),
+    //             },
+    //             success: function(data) {
+    //                 console.log(data)
+    //             },
+    //             error: function(data) {
+    //                 console.log("Erro ao criar um evento de grupo:")
+    //                 console.log(data)
+    //             }
+    //         });
+    //     }
+    // )
+    $(".cd-popup #closeButton").html("Fechar")
+
+    $('.cd-message').html(
+        $('<div class="calendario-msg"></div>').append(form)
+    )
 }
 
 

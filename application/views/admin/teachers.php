@@ -4,8 +4,10 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-users.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/tables.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 
 <script src="<?php echo $base_url; ?>js/admin/manageUsers.js"></script>
+<script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 </head>
 
 <body>
@@ -20,8 +22,18 @@
                 <p class="informacaoUsers">Use * para visualizar todos os professores</p>
             </div>
         </div>
-
+        <div id="msgStatus">
+        </div>
         <div id="teacher-container" class="container">
+            <table class="adminTable" id="student_list"> 
+                <tr>
+                    <th>Email</th>
+                    <th>Nome</th>
+                    <th>Apelido</th>
+                    <th>Editar</th>
+                    <th>Apagar</th>
+                </tr>
+            </table>
         </div> 
         
         <div class="cd-popup" role="alert" id="users_admin_edit">

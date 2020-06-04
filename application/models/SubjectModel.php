@@ -286,4 +286,17 @@ class SubjectModel extends CI_Model { //cadeira
     public function getAllStudentSubject($cadeira_id){
         return $this->db->get_where("aluno_cadeira", array("cadeira_id" => $cadeira_id))->result_array();
     }
+
+    public function getSubjectsByCursoIdName($course, $name){
+        $query = $this->db->get_where('cadeira', array('curso_id' => $course, 'name'=>$name));
+        return $query->row();
+    }
+
+    public function registerProfCadeira($user, $cadeira){
+        $this->db->insert("professor_cadeira", array('user_id' => $user, 'cadeira_id'=>$cadeira));
+        $data = $this->db->insert_id();
+        return $data;
+    }
+
+
 }

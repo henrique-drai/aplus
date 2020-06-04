@@ -21,6 +21,11 @@
     background-color: #ccc
 }
 
+#student-container.adminTable td, #student-container .adminTable th,
+#teacher-container.adminTable td, #teacher-container .adminTable th,
+#college-container.adminTable td, #college-container .adminTable th{
+    width: 15%;
+}
 
 #suggestedDate {
     background-color:#3e5d4f38;

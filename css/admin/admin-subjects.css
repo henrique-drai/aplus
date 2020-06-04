@@ -10,10 +10,6 @@ input[type="submit"]{
     width:100%;
 }
 
-#addStudent-form input[type='text']{
-    /* width: 35%; */
-}
-
 #bigDiv{
     display: flex;
 }
@@ -34,6 +30,7 @@ input[type="submit"]{
 }
 
 #subject_list{
+    display:none;
     margin-top: 2%;
     margin: auto;
 }
@@ -65,7 +62,7 @@ label[for="curso"]{
     border-radius: 3px;
 }
 
-#msgStatus{
+#msgStatus, #msgStatusEditar{
     background-color: rgba(106, 192, 66, 0.7);
     text-align: center;
     margin: auto;

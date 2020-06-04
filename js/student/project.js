@@ -118,7 +118,7 @@ $(document).ready(() => {
             $("#enviado-erro").show().delay(2500).fadeOut();
         } else {
             if($("#file_submit")[0].files[0].size < 5024000){
-                $("#form-submit-etapa").submit();
+                $("#form-submit-etapa")[0].submit();
                 submit_etapa($("#file_submit").val().split('\\').pop());
             } else {
                 $("#enviado-erro").text("Ficheiro ultrapassa o limite de 5MB");
@@ -129,6 +129,12 @@ $(document).ready(() => {
                 e.preventDefault();
             }
         }
+    })
+
+
+    $("body").on("click", "#areagrupo", function() {
+        showMyGroup(proj);
+        window.location = base_url + "app/grupo/" + grupo;
     })
     
 
@@ -152,17 +158,20 @@ function showMyGroup(proj_id){
                 $("#grupo-name").text("Grupos");
                 showNotFullGroups(proj_id);
                 var timeout = setInterval(function(){showNotFullGroups(proj_id);}, 10000);
-
                 $("#submitEtapa").prop('disabled', true);
                 have_group = false;
+                $("#areagrupo").hide();
                 $("#form-submit-etapa").hide();
+                localStorage.setItem("grupo_id",0) //adicionei só para se alguem estiver a usar localstorage não dar porcaria
             } else {
                 $("#grupo-name").text('Grupo ' + data["grupo"]["name"]);
                 $("#submitEtapa").prop('disabled', false);
                 $(".criarGrupo").css("display", "none");
                 $("#criarGrupoName").hide();
+                $("#areagrupo").show(); //link para a area de grupo
                 have_group = true;
                 grupo = data["grupo"]["id"];
+                localStorage.setItem("grupo_id",grupo) //adicionei só para se alguem estiver a usar localstorage não dar porcaria
                 var names = '';
                 for(var j=0; j < data["nomes"].length; j++) {
                     names = names + '<a href="'+ base_url +'app/profile/'+ data["nomes"][j][2] + '">' + data["nomes"][j][0] + " " + data["nomes"][j][1] + "</a> | ";
@@ -286,7 +295,20 @@ function makeEtapaDiv(data){
 
         if (enunciado == ""){
             newenunciado = "Não existe enunciado associado a esta etapa."
+            removebut = ''
         } else {
+            // $.get(base_url + "uploads/enunciados_files/" + proj + "/" + json['id'] +".pdf")
+            // .done(function(){
+            //     console.log("ficheiro: " + json['id'] +".pdf existe")
+            //     removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
+            //     newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + json['id'] +".pdf'>" + enunciado + "</a>"
+            // })
+
+            // .fail(function(){
+            //     newenunciado = "Não existe enunciado associado a esta etapa."
+            //     removebut = ''
+            // })
+            removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
             newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + json['id'] +".pdf'>" + enunciado + "</a>"
         }
 
@@ -332,19 +354,27 @@ function checkEntrega(dateOld){
 
 // Este tem uma pequena alteração porque nao usa o button
 function checkEnunciado(){
-    $.get(base_url + "uploads/enunciados_files/"+ proj+".pdf")
-        .done(function() { 
-            if (enunciado_h4 != ""){
-                $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h4 + "</a>");
-            } else {
-                $("#enunciado_h4").text("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
-            }
 
-            return true;
-        }).fail(function() { 
-            $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")
-            return false;
-        })
+    if (enunciado_h4 != ""){
+        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h4 + "</a>");
+    } else {
+        //$("#enunciado_h4").text("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
+        $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")
+    }
+
+    // $.get(base_url + "uploads/enunciados_files/"+ proj+".pdf")
+    //     .done(function() { 
+    //         if (enunciado_h4 != ""){
+    //             $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h4 + "</a>");
+    //         } else {
+    //             $("#enunciado_h4").text("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
+    //         }
+
+    //         return true;
+    //     }).fail(function() { 
+    //         $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")
+    //         return false;
+    //     })
 }
 
 
@@ -407,13 +437,20 @@ function checkSubmission(grupo, etapa, proj){
                 console.log(data);
                 var base_link = base_url + "uploads/submissions/" + proj + "/" + etapa + "/";
                 var extension = data[0]["submit_url"].split(".").pop();
-                $("#sub_label").html('<a target="_blank" href="'+base_link+grupo+'.'+extension+'">' + data[0]["submit_url"] + '</a>');
                 if (data[0]["feedback"] == ""){
                     $("#feedback_label").text("Ainda não foi atribuido feedback a esta etapa.");
                 } else {
                     $("#feedback_label").text(data[0]["feedback"]);
                 }
-                
+                $("#sub_label").html('<a target="_blank" href="'+base_link+grupo+'.'+extension+'">' + data[0]["submit_url"] + '</a>');
+                // $.get(base_link+grupo+'.'+extension)
+                //     .done(function(){
+                //         $("#sub_label").html('<a target="_blank" href="'+base_link+grupo+'.'+extension+'">' + data[0]["submit_url"] + '</a>');
+                //     })
+
+                //     .fail(function(){
+                //         $("#sub_label").text("O seu grupo ainda não submeteu uma entrega.");
+                //     })
             } else {
                 $("#sub_label").text("O seu grupo ainda não submeteu uma entrega.");
                 $("#feedback_label").text("Ainda não foi atribuido feedback a esta etapa.");

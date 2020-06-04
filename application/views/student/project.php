@@ -30,6 +30,8 @@
         <h3 id="enunciado_h4"></h3>
         <div class="container-header">
             <br><br>
+            <!-- mudar depois para o novo botao da ines s -->
+            <input id="areagrupo" type="button" value="Área de Grupo"> 
             <h2 id="grupo-name">Grupo</h2> <span class="criarGrupo"><img src="<?php echo base_url(); ?>images/add.png" id="criarGrupo_button"></span>
             <div id="criarGrupoName">
             </div>
@@ -78,16 +80,16 @@
                             <span id="name-file-submit">Submeter etapa do projeto</span>
                         </label>
                         <p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>
-                        <!-- <input id="addSubmission" type="submit" value="Confirmar"> -->
-                    </form>
+                  
                     <div id="enviado-sucesso" class="submit-msg">Etapa submetida com sucesso.</div>
                     <div id="enviado-erro" class="submit-msg">Tem de selecionar um ficheiro.</div>
                     
                     <ul class="cd-buttons" id="ul-buttons">
+                        <!-- mudar tambem para button??? neste caso provavelmente não fica com full width se ficar la dentro... -->
                         <li><a href="#" id="addSubmission">Submeter</a></li>
                         <li><a href="#" id="closeButton-hide">Cancelar</a></li>
                     </ul>
-
+                    </form>
                 </div>
                 <a class="cd-popup-hide"></a>
             </div>

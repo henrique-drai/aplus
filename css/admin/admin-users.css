@@ -34,3 +34,15 @@
 .notSmallInput {
     background-color: white;
 }
+
+.adminTable{
+    display: none;
+}
+
+#msgStatus{
+    background-color: rgba(106, 192, 66, 0.7);
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}

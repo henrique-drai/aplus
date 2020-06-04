@@ -1,4 +1,5 @@
 var User
+var responsive = 0; 
 
 $(document).ready(() => {
     $("body").on("click", "#editUser-form-submit", () => editUser());    
@@ -40,29 +41,38 @@ $(document).ready(() => {
 
 
     if (page_name=="students"){
-        $("#search_text_students").keyup(function(){
+        $("#search_text_students").keyup(function(event){
             var s = $(this).val();
             if(s == '*'){
-                getAllStudents();
+                if(event.keyCode !=16){
+                    $("#mens_erro_alunos").remove();
+                    getAllStudents();
+                }
+               
             }
             else if(s!=''){
                 getSearchStudent(s);
             }
             else{
-                $(".adminTable").remove();
+                $(".adminTable").css("display","none");
+                $(".paginationjs").remove();
             }
         })
     } else if (page_name=="teachers") {
-        $("#search_text_profs").keyup(function(){
+        $("#search_text_profs").keyup(function(event){
             var s = $(this).val();
             if(s=="*"){
-                getAllTeachers();
+                if(event.keyCode !=16){
+                    $("#mens_erro_professores").remove();
+                    getAllTeachers();
+                }
             }
             else if(s!=''){
                 getSearchTeacher(s);
             }
             else{
-                $(".adminTable").remove();
+                $(".adminTable").css("display","none");
+                $(".paginationjs").remove();
             }
         })
     } 
@@ -124,6 +134,9 @@ function editUser(){
         url: base_url + "api/editUser",
         data: data,   
         success: function() {
+            $("#msgStatus").text("Utilizador editado com sucesso");
+            $("#msgStatus").show().delay(5000).fadeOut();
+
             if (page_name=="students"){
                 if($("#search_text_students").val()=="*"){
                     getAllStudents();
@@ -133,7 +146,8 @@ function editUser(){
                 }   
                 event.preventDefault();
                 $(".editUser_inputs input").val("");
-			    $("#users_admin_edit").removeClass('is-visible');
+                $("#users_admin_edit").removeClass('is-visible');
+                
                 
             } else if (page_name=="teachers") {
                 if($("#search_text_profs").val()=="*"){
@@ -167,6 +181,8 @@ function getAllStudents(){
                 makeStudentTable(data);
             }
             else{
+                $(".paginationjs").remove();
+                $(".adminTable").css("display","none");
                 $("#mens_sem_alunos").remove();
                 var mensagem = "<h2 id='mens_sem_alunos'>Não existe nenhum aluno</h2>";
                 $("main").append(mensagem)
@@ -174,6 +190,8 @@ function getAllStudents(){
             
         },
         error: function(data) {
+            $(".paginationjs").remove();
+            $(".adminTable").css("display","none");
             var mensagem = "<h2 id='mens_erro_alunos'>Não é possivel apresentar os alunos.</h2>";
             $("main").append(mensagem);
             $("#mens_erro_alunos").delay(2000).fadeOut();        }
@@ -181,28 +199,44 @@ function getAllStudents(){
 }
 
 function makeStudentTable(data){
-    student = '';
+    $(".adminTable").css("display", "table");
+    students = []
     for (i=0; i<data.students.length; i++){
-        student += '<tr>' +
+        students.push('<tr class="students">' +
             '<td>'+ data.students[i].email +'</td>' +
             '<td>'+ data.students[i].name +'</td>' +
             '<td>' + data.students[i].surname + '</td>' +
             '<td><input id="editUser" type="button" value="Editar"></td>' +
             '<td><input id="deleteUser" type="button" value="Eliminar"></td>' +
             '</tr>'
+        )
     }
-   
-    var table = '<table class="adminTable" id="student_list">' +
-        '<tr><th>Email</th>' +
-        '<th>Nome</th>' + 
-        '<th>Apelido</th>' +
-        '<th>Editar</th>' +
-        '<th>Apagar</th></tr>' +
-        student + 
-        '</table>'
-
-
-    $("#student-container").html(table);    
+    const mq = window.matchMedia( "(max-width: 610px)" );
+    const mq2 = window.matchMedia( "(max-width: 400px)" );
+    $('#student-container').pagination({
+            dataSource: students,
+            pageSize: 8,
+            pageNumber: 1,
+            callback: function(data, pagination) {
+                $(".students").remove();
+                $(".adminTable").append(data);
+                if (mq.matches) {
+                    $('.adminTable tr').find('td:eq(3)').remove();
+                    $('.adminTable tr').find('td:eq(2)').remove();  
+                    if (mq2.matches) {
+                        $('.adminTable tr').find('td:eq(1)').remove();
+                    } 
+                } 
+            }
+    })  
+    if (mq.matches && responsive == 0) {
+        responsive=1;
+        $('.adminTable tr').find('th:eq(3)').remove();
+        $('.adminTable tr').find('th:eq(2)').remove();
+        if (mq2.matches) {
+            $('.adminTable tr').find('th:eq(1)').remove();
+        } 
+    }
 }
 
 
@@ -217,13 +251,16 @@ function getSearchStudent(query){
                 makeStudentTable(data);
             }
             else{
-                $(".adminTable").remove();
+                $(".adminTable").css("display","none")
+                $(".paginationjs").remove();
                 $("#mens_erro_alunos").remove();
                 var mensagem = "<h2 id='mens_erro_alunos'>Não existe nenhum aluno com o email, nome ou apelido indicado.</h2>";
                 $("#msgSemAlunos").append(mensagem);
             }
         },
         error: function(data) {
+            $(".paginationjs").remove();
+            $(".adminTable").css("display","none");
             var mensagem = "<h2 id='mens_erro_alunos'>Não é possivel apresentar os alunos.</h2>";
             $("msgErro").append(mensagem);
             $("#mens_erro_alunos").delay(2000).fadeOut();
@@ -242,13 +279,16 @@ function getSearchTeacher(query){
                 makeTeacherTable(data);
             }
             else{
-                $(".adminTable").remove();
+                $(".paginationjs").remove();
+                $(".adminTable").css("display","none");
                 $("#mens_erro_professores").remove();
                 var mensagem = "<h2 id='mens_erro_professores'>Não existe nenhum professor com o email, nome ou apelido indicado.</h2>";
                 $("#msgSemAlunos").append(mensagem);
             }
         },
         error: function(data) {
+            $(".paginationjs").remove();
+            $(".adminTable").css("display","none");
             var mensagem = "<h2 id='mens_erro_professores'>Não é possivel apresentar os professores.</h2>";
             $("msgErro").append(mensagem);
             $("#mens_erro_professores").delay(2000).fadeOut();
@@ -267,6 +307,8 @@ function getAllTeachers(){
                 makeTeacherTable(data)
             }
             else{
+                $(".paginationjs").remove();
+                $(".adminTable").css("display","none");
                 $("#mens_sem_teachers").remove();
                 var mensagem = "<h2 id='mens_sem_teachers'>Não existe nenhum Professor</h2>";
                 $("#msgErro").append(mensagem)
@@ -274,6 +316,8 @@ function getAllTeachers(){
             
         },
         error: function(data) {
+            $(".paginationjs").remove();
+            $(".adminTable").css("display","none");
             var mensagem = "<h2 id='mens_erro_professores'>Não é possivel apresentar os professores.</h2>";
             $("#msgErro").append(mensagem);
             $("#mens_erro_professores").delay(2000).fadeOut();
@@ -283,28 +327,54 @@ function getAllTeachers(){
 } 
 
 function makeTeacherTable(data){
-    teacher = '';
+    $(".adminTable").css("display", "table");
+    teachers = [];
     for (i=0; i<data.teachers.length; i++){
-        teacher += '<tr>' +
+        teachers.push('<tr class="teachers">' +
             '<td>'+ data.teachers[i].email +'</td>' +
             '<td>'+ data.teachers[i].name +'</td>' +
             '<td>' + data.teachers[i].surname + '</td>' +
             '<td><input id="editUser" type="button" value="Editar"></td>' +
             '<td><input id="deleteUser" type="button" value="Eliminar"></td>' +
-            '</tr>'
+            '</tr>')
     }
    
-    var table = '<table class="adminTable" id="teacher_list">' +
-        '<tr><th>Email</th>' +
-        '<th>Nome</th>' + 
-        '<th>Apelido</th>' +
-        '<th>Editar</th>' +
-        '<th>Apagar</th></tr>' +
-        teacher + 
-        '</table>'
+    // var table = '<table class="adminTable" id="teacher_list">' +
+    //     '<tr><th>Email</th>' +
+    //     '<th>Nome</th>' + 
+    //     '<th>Apelido</th>' +
+    //     '<th>Editar</th>' +
+    //     '<th>Apagar</th></tr>' +
+    //     teacher + 
+    //     '</table>'
+    const mq = window.matchMedia( "(max-width: 610px)" );
+    const mq2 = window.matchMedia( "(max-width: 400px)" );
+    $('#teacher-container').pagination({
+        dataSource: teachers,
+        pageSize: 8,
+        pageNumber: 1,
+        callback: function(data, pagination) {
+            $(".teachers").remove();
+            $(".adminTable").append(data);
+            if (mq.matches) {
+                $('.adminTable tr').find('td:eq(3)').remove();
+                $('.adminTable tr').find('td:eq(2)').remove();  
+                if (mq2.matches) {
+                    $('.adminTable tr').find('td:eq(1)').remove();
+                } 
+            } 
+        }
+    })   
 
-
-    $("#teacher-container").html(table);    
+    if (mq.matches && responsive == 0) {
+        responsive=1;
+        $('.adminTable tr').find('th:eq(3)').remove();
+        $('.adminTable tr').find('th:eq(2)').remove();
+        if (mq2.matches) {
+            $('.adminTable tr').find('th:eq(1)').remove();
+        } 
+     
+    }
 }
 
 

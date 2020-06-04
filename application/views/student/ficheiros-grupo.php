@@ -12,8 +12,8 @@
 <body>
 <?php $this->view('templates/nav-menu'); ?>
     <main>
-    <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > <a href="<?php echo base_url(); ?>app/grupo/<?php echo $grupo[0]["id"];?>">Área de Grupo > Ficheiros</a></h4>
-    <h2>Área de ficheiros do grupo "<?php echo $grupo[0]["name"]; ?>"<h2>
+    <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > <a href="<?php echo base_url(); ?>app/grupo/<?php echo $grupo[0]["id"];?>">Área de Grupo (<?=$grupo[0]["name"]?>) > Ficheiros</a></h4>
+    <h1>Área de ficheiros do grupo "<?php echo $grupo[0]["name"]; ?>"<h1>
 
     <h3>Enviar um ficheiro:</h3>
     <p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>

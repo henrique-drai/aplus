@@ -26,9 +26,7 @@ class Api_Chat extends REST_Controller {
 
     public function sendMessageGroup_post(){
         $this->load->model('ChatModel');
-        // $msg = htmlspecialchars($this->post('m'));
-        // $id_receiver = $this->post('id');
-        // $id = $this->session->userdata('id');
+    
         $data = Array(
             "content"     => htmlspecialchars($this->post('m')),
             "grupo_id"    => htmlspecialchars($this->post('id')),
@@ -40,9 +38,7 @@ class Api_Chat extends REST_Controller {
 
     public function sendMessage_post(){
         $this->load->model('ChatModel');
-        // $msg = htmlspecialchars($this->post('m'));
-        // $id_receiver = $this->post('id');
-        // $id = $this->session->userdata('id');
+      
         $data = Array(
             "content"     => htmlspecialchars($this->post('m')),
             "id_receiver" => htmlspecialchars($this->post('id')),
@@ -80,8 +76,6 @@ class Api_Chat extends REST_Controller {
         $this->load->model('ChatModel');
 
         $this->load->model('UserModel');
-
-        
 
         $resultquery = $this->ChatModel->getChatLogs($id);
 
@@ -167,10 +161,13 @@ class Api_Chat extends REST_Controller {
     public function getGroups_get(){
         $id = $this->session->userdata('id');
         $this->load->model('GroupModel');
+        $this->load->model('ProjectModel');
         $ides["grupos"] = $this->GroupModel->getGroups($id);
         $data=array();
+        $grupo=array();
         for ($i=0; $i < count($ides["grupos"]); $i++) {
             $grupo = $this->GroupModel->getGroupById($ides["grupos"][$i]["grupo_id"]);
+            array_push($grupo, $this->ProjectModel->getProjectByID($grupo[0]["projeto_id"]));
             array_push($data, $grupo);
         }
         $this->response($data, parent::HTTP_OK);

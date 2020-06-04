@@ -20,43 +20,47 @@
             <div class="admin-users-window">
                 <div class="title">Registar</div>
                 <form id="register-form" action="javascript:void(0)">
-                    <p class="double_input">
-                        <label for="name">Nome:<br><input type="text" name="name"></label>
-                        <label for="surname">Apelido:<br><input type="text" name="surname"></label>
-                    </p>
-                    <p class="double_input">
-                        <label for="email">Email:<br><input type="text" name="email"></label>
+                    <div class="double_input">
+                        <label for="name">
+                            Nome:<input type="text" name="name"></label>
+                        <label for="surname">
+                            Apelido:<input type="text" name="surname"></label>
+                    </div>
+                    <div class="double_input">
+                        <label for="email">
+                            Email:<input type="text" name="email"></label>
                         
-                        <label for="password">Password:<br><input type="password" name="password"></label>                
-                    </p>
-                    <p>
+                        <label for="password">
+                            Password:<input type="password" name="password"></label>                
+                    </div>
+                    <div>
                     <label for="role">Privilégio:</label>
                     <select name="role">
                         <option value="admin">Administrador</option>
                         <option value="student">Aluno</option>
                         <option value="teacher">Professor</option>
                     </select>
-                    </p>
-                    <p>
+                    </div>
+                    <div>
                         <label for="academicYearUser">Ano Letivo:</label>
                         <select id="registerAnoUser" name="academicYearUser">
                         </select>
-                    </p>
-                    <p>
+                    </div>
+                    <div>
                         <label for="faculUser">Faculdade:</label>
                         <select id="registerUserFacul" name="faculUser">
                         </select>
-                    </p>
-                    <p id="cursoUser">
+                    </div>
+                    <div id="cursoUser">
                         <label for="cursoUserSel">Curso:</label>
                         <select id="registerUserCurso" name="cursoUserSel">
                         </select>
-                    </p>
-                    <p id="cadeirasUser">
+                    </div>
+                    <div id="cadeirasUser">
                         <label for="caderiasAlunProf">Cadeiras:</label>
                         <select id="registerUserCadeira" name="caderiasAlunProf" multiple="multiple">
                         </select>
-                    </p>
+                    </div>
                     <div id="selectedCadeiras">
                         <h4>Cadeiras a inscrever</h4>
                         <div id="cadeiras">
@@ -64,7 +68,6 @@
                     </div>
                     <input type="submit" id="register-form-submit">
                 </form>
-                <br>
                 <div id="msgStatus">
                 </div>
                 <div id="msgErro">
@@ -92,14 +95,10 @@
                 </form>
 
                 <br>
-                <br>
-
                 
                 <form id="export2Csv" action="javascript:void(0)">
 
                         <div class="title">Exportar</div>
-
-                        <br>
 
                         <label for="data">Exportar alunos:</label>
                         
@@ -119,8 +118,6 @@
                 <br>
 
                 <div class="title">Importar</div>
-
-                <br>
 
                 <label for="data">Importar Informação: 
                             <a href="#" id="showDemo">Alunos</a>

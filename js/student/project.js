@@ -46,13 +46,11 @@ $(document).ready(() => {
 
 
         if (today > data_entrega_final){
-            // $('#submitEtapa').prop('disabled', true);
             $("#erro-entrega").show();
             $("#form-submit-etapa").hide();
             $("#ul-buttons").hide();
         } else {
             if(have_group){
-                // $('#submitEtapa').prop('disabled', false);
                 $("#form-submit-etapa").show();
                 $("#ul-buttons").show();
             } else {

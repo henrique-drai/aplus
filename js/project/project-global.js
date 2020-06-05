@@ -11,3 +11,32 @@ function dateFormatter(date){
 
     return day+"/"+month.slice(-2)+"/"+year+" "+hhmmss;
 }
+
+
+function dateFromPicker(date){
+    //vem na seguinte forma dd/mm/yyyy hh:mm em string
+
+    if(date == "" || date == undefined){
+        return "";
+    } else {
+        d1 = date.split(" ");
+        d2 = d1[0].split("/");
+        dh = d1[1].split(":");
+    
+        day = d2[0];
+        month = d2[1];
+        year = d2[2];
+    
+        hh = dh[0];
+        mm = dh[1];
+
+        var final_date = new Date(year, month-1, day, hh, mm);
+        var timezoneMS = final_date.getTimezoneOffset() * 60000;
+        final_date.setTime(final_date.getTime() - timezoneMS);
+
+        isoStr = final_date.toISOString();
+
+        return isoStr.substring(0,isoStr.length-1);
+    }
+
+}

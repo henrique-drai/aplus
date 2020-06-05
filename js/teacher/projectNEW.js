@@ -1,8 +1,20 @@
+
 const etapas = [{id:1, nome:'', desc:'', enunciado:'', data:''}];
 var subject_id
 var project_page
 
 $(document).ready(() => {
+
+    const picker = new WindowDatePicker({
+        el: '#placeholder-picker1',
+        toggleEl: '#datepicker1',
+        inputEl: '#datepicker1',
+        type: 'DATEHOUR',
+        hourType: "24",
+        allowEmpty: "FALSE",
+        lang: "pt",
+    });
+
 
     $("#projForm")[0].reset(); //se voltarem para a pagina depois de preenchido o form a info desaparece
 
@@ -19,8 +31,11 @@ $(document).ready(() => {
              '<div id="inputsduo">' +
              '<label class="form-label">Nome'+
              '<input class="form-input-text" type="text" name="etapaName" required></label>'+
-             '<label class="form-label">Data de entrega' +
-             '<input class="form-input-text" type="datetime-local" name="etapaDate" required></label></div>' +
+             '<label class="form-label" id="date-picker-label">Data de entrega' +
+             '<input class="form-input-text" id="datepicker'+ etapanum +'" name="etapaDate" required>' +
+             '<div id="placeholder-picker'+etapanum+'"></div>' +
+             '</label>' +
+             '</div> ' + 
              '<label class="form-label">Descrição</label>' +
              '<textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>' + 
              '</div> '
@@ -38,6 +53,29 @@ $(document).ready(() => {
 
             insertIntoEtapas(newid, name, desc, enunc, data);
         })
+
+
+        const newpicker = new WindowDatePicker({
+            el: '#placeholder-picker' + etapanum,
+            toggleEl: '#datepicker' + etapanum,
+            inputEl: '#datepicker' + etapanum,
+            type: 'DATEHOUR',
+            hourType: "24",
+            allowEmpty: "FALSE",
+            lang: "pt",
+        });
+    
+
+
+        newpicker.el.addEventListener('wdp.change', () => {
+            var data = dateFromPicker($("#datepicker" + etapanum).val());
+
+            if (!verifyDates(data))
+                $("#datepicker" + etapanum).css("border-left-color", "red");
+            else
+                $("#datepicker" + etapanum).css("border-left-color", "lawngreen");
+        });
+    
 
         refreshEtapasTitle();
 
@@ -67,8 +105,25 @@ $(document).ready(() => {
         var desc = $(this).find('textarea[name="etapaDescription"]').val();
         var data = $(this).find('input[name="etapaDate"]').val();
         var enunc = '';
+
+        
         insertIntoEtapas(1, name, desc, enunc, data);
-    })
+    });
+
+    
+    picker.el.addEventListener('wdp.change', () => {
+        var data = dateFromPicker($("#datepicker1").val());
+
+
+        console.log(data);
+        console.log(verifyDates(data))
+
+        if (!verifyDates(data))
+            $("#datepicker1").css("border-left-color", "red");
+        else
+            $("#datepicker1").css("border-left-color", "lawngreen");
+    });
+
 
     $("#maxnuminput").keyup(function(){
         validateFormNumb();
@@ -100,22 +155,25 @@ function refreshEtapasTitle(){
 
 
 function insertIntoEtapas(id, name, desc, enunc, data){
-    console.log(id + " " + name +" " + desc + " " + enunc + " " + data);
+
+    newDate = dateFromPicker(data);
+
+    console.log(id + " " + name +" " + desc + " " + enunc + " " + newDate);
     for (i=0; i<etapas.length; i++){
         if(etapas[i].id == id){
             etapas[i].nome = name;
             etapas[i].desc = desc;
-            etapas[i].data = data;
+            etapas[i].data = newDate;
             etapas[i].enunciado = enunc;
         }
     }
 
     console.log(etapas);
 
-    if (!verifyDates(data))
-        $("#etapa"+id+" input[name='etapaDate']").css("border-left-color", "red");
+    if (!verifyDates(newDate))
+        $("#datepicker" + id).css("border-left-color", "red");
     else
-        $("#etapa"+id+" input[name='etapaDate']").css("border-left-color", "lawngreen");
+        $("#datepicker" + id).css("border-left-color", "lawngreen");
 }
 
 
@@ -146,12 +204,16 @@ function validateFormNumb(){
 
 
 function verifyDates(data){
+    // var dmaior = new Date(data);
     var dmaior = new Date(data);
+    
+    console.log(dmaior);
+
     var today = new Date();
 
     var dParse = Date.parse(dmaior);
 
-    if (isNaN(dParse)){
+    if (isNaN(dParse)){ 
         return false;
     }
 
@@ -166,6 +228,7 @@ function verifyDates(data){
 function validateAllDates(){
     for (i=0; i<etapas.length; i++){
         if (!verifyDates(etapas[i].data)){
+            console.log(etapas[i].data);
             return false;
         }
     }
@@ -191,7 +254,7 @@ function verifyallinputs(){
         $("#errormsg").show().delay(5000).fadeOut();
         return false;
     } else if (!validateAllDates()){
-        $("#errormsg").text("A data de cada etapa tem de ser maior que a data atual");
+        $("#errormsg").text("A data de cada etapa tem de ser preenchida e ser maior que a data atual");
         $("#errormsg").show().delay(5000).fadeOut();
         return false;
     } else if (!validate_descriptions()){

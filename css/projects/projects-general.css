@@ -299,6 +299,25 @@ label {
     background-color: rgb(255, 72, 72);
 }
 
+
+/* date picker */
+
+
+
+.wdp .wdp-container .wdp-date-container ul li.wdp-active:before, .wdp .wdp-container .wdp-header, .wdp .wdp-container .wdp-hour-container .wdp-hour-el-container input{
+    background: #3e5d4f !important;
+    cursor: pointer;
+}
+
+.wdp .wdp-container .wdp-header svg {
+    fill: #fff !important; 
+}
+
+
+.date-picker-label input {
+    cursor:pointer;
+}
+
 /* botoes pop up */
 @media screen and (max-width: 750px) {
     .wrapper input[type="button"] {

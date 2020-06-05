@@ -1,7 +1,10 @@
 <title>A+ for Teachers</title>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/window-date-picker.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/projects/projects-general.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/teacher-newproject.css">
 <script>setPageName("subjects")</script>
+<script src="<?php echo $base_url; ?>js/window-date-picker.min.js"></script>
+<script src="<?php echo $base_url; ?>js/project/project-global.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/projectNEW.js"></script>
 <script>setSubjectID("<?php echo $subject->id; ?>")</script>
 <script>setProjectPage("<?php echo $base_url; ?>" + "projects/project/")</script>
@@ -45,8 +48,9 @@
                     <label class="form-label">Nome
                         <input class="form-input-text" type="text" name="etapaName" required>
                     </label>
-                    <label class="form-label">Data de entrega
-                        <input class="form-input-text" type="datetime-local" name="etapaDate" required>
+                    <label class="form-label" id="date-picker-label">Data de entrega
+                        <input class="form-input-text" id="datepicker1" name="etapaDate" required>
+                        <div id="placeholder-picker1"></div>
                     </label>
                 </div>
 

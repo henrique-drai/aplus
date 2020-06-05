@@ -56,9 +56,13 @@ textarea {
     opacity: 0;
 }
 
-.remove {
+.remove, .remove_thread {
     background-color: #fc8982;
     margin: unset !important;
+}
+
+h3 {
+    text-align: initial;
 }
 
 @media only screen and (max-width: 430px) {

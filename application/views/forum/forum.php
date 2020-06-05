@@ -1,8 +1,10 @@
 <title><?php echo $subject->name; ?></title>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/forum/forum.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 <script>setPageName("subjects")</script>
 <script src="<?php echo $base_url; ?>js/forum/forum.js"></script>
+<script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 </head>
 
 <body>
@@ -20,14 +22,17 @@
                 <p><b>Descrição:</b> <span class="forumDesc"></span></p>
             </div>
 
+            <div class="remove_button"></div>
+            
             <br>
             <h3>Tópicos:</h3>
 
-            <div class="remove_button"></div>
-
             <div class="message">Adicionado com sucesso!</div>
 
-            <div class="threadTable"></div>
+            <div class="threadTable">
+                <table class='threadList'></table>
+                <div class="container2"></div>
+            </div>
 
             <div id="popups"></div>
 

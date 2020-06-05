@@ -68,6 +68,14 @@ input[name="threadName"], input[name="forumName"], textarea {
     width: 100%;
 }
 
+.container2 {
+	margin-top: 1%;
+}
+
+h3 {
+    text-align: initial;
+}
+
 @media only screen and (max-width: 430px) {
     .popup {
         width: 80%;

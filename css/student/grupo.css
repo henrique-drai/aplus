@@ -33,9 +33,6 @@ input[type="datetime-local"], select {
 #btnArea p {
     text-align: center;
 }
-#btnArea > * {
-    display: inline-block;
-}
 
 select {
     border-left: 3px solid #ff0000;
@@ -130,6 +127,10 @@ th, td {
 
 option[value=""] {
     background-color: #efefef;
+}
+
+.container2 {
+    margin-top: 1%;
 }
 
 @media only screen and (max-width: 770px) {

@@ -1,5 +1,6 @@
 $(document).ready(() => {
     // setInterval(getTasks, 3000); 
+    // setInterval(getFich, 5000);
 
     const months = {
         "Janeiro":1,
@@ -17,6 +18,7 @@ $(document).ready(() => {
     }
 
     getTasks();
+    getFich();
 
     const id = localStorage.grupo_id;
     var task_id;
@@ -130,6 +132,23 @@ $(document).ready(() => {
      disableTasksClose()
 });
 
+function getFich() {
+    $.ajax({
+		type: "GET",
+        url: base_url + "api/getFicheirosGrupo/" + localStorage.grupo_id,
+        data: {
+			grupo_id: localStorage.grupo_id
+		},
+		success: function (data) {
+            $(".fichNumb").html("<p>Tem " + data.ficheiros.length + " ficheiro(s) na área de grupo");
+        },
+		error: function (data) {
+            console.log("Erro na API:")
+            console.log(data)
+		}
+	});
+}
+
 function disableTasksClose() {
 	$.ajax({
 		type: "GET",
@@ -149,7 +168,8 @@ function disableTasksClose() {
             }
         },
 		error: function (data) {
-			console.log("Erro na API:")
+            console.log("Erro na API:")
+            console.log(data)
 		}
 	});
 }
@@ -333,12 +353,13 @@ function getTasks() {
         url: base_url + "api/getTasks/" + localStorage.grupo_id,
         success: function(data) {
             console.log(data)
-            $(".tasksTable").empty();
+            $("#tab-gerir-tarefas").empty();
 
             if(data.tasks.length != 0) {
-                var table = "";
-                table = table + "<table id='tab-gerir-tarefas'><tr><th>Tarefa</th>" +
-                "<th>Membro Responsável</th><th>Completo</th><th></th></tr>";
+                table = '';
+                html = [];
+                table = table + "<tr><th>Tarefa</th>" +
+                "<th>Membro Responsável</th><th>Completo</th><th>Tempo gasto</th><th></th></tr>";
 
                 for(var i=0; i < data.tasks.length; i++) {
                     if(data.tasks[i].user_id == 0) {
@@ -349,16 +370,29 @@ function getTasks() {
                     }                    
 
                     if(data.tasks[i].done_date == "0000-00-00 00:00:00") {
-                        table = table + "<td>Não</td>";
+                        table = table + "<td>Não</td><td>Ainda não terminado</td>";
                     } else {
-                        table = table + "<td>Sim</td>";
+                        var day = data.task[0].done_date.substring(8, 10) - data.task[0].start_date.substring(8, 10);
+                        var hours = data.task[0].done_date.substring(11, 13) - data.task[0].start_date.substring(11, 13);
+                        var min = data.task[0].done_date.substring(14, 16) - data.task[0].start_date.substring(14, 16);
+                        var seconds = data.task[0].done_date.substring(17, 19) - data.task[0].start_date.substring(17, 19);
+                        table = table + "<td>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + min + " minutos " + Math.abs(seconds) + " segundos</td>";
                     }
 
                     table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + "' type='button' value='Opções'></td></tr>";
                 }
 
-                table = table + "</table>"
-                $(".tasksTable").html(table);
+                html.push(table);
+                
+                $('.container2').pagination({
+					dataSource: html,
+					pageSize: 5,
+					pageNumber: 1,
+					callback: function(data, pagination) {
+						$("#tab-gerir-tarefas").html(data);
+					}
+                })
+                
             } else {
                 $(".tasksTable").html("<p>Não existem tarefas.</p>");
                 

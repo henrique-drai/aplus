@@ -24,6 +24,7 @@ $route['api/notification/(:num)']               = 'Api_Notification/notification
 
 $route['api/removeForum/(:num)']                = 'Api_Forum/removeForum/$1';
 $route['api/removePost/(:num)']                 = 'Api_Forum/removePost/$1';
+$route['api/removeThread/(:num)']               = 'Api_Forum/removeThread/$1';
 $route['api/getForumById/(:num)']               = 'Api_Forum/getForumById/$1';
 $route['api/getAllByForumId/(:num)']            = 'Api_Forum/getThreadsByForumId/$1';
 $route['api/insertThread']                      = 'Api_Forum/insertThread';
@@ -67,7 +68,7 @@ $route['api/getTasks/(:num)']                   = 'Api_Project/getTasks/$1';
 $route['api/deleteTaskById/(:num)']             = 'Api_Project/deleteTaskById/$1';
 $route['api/getTaskById/(:num)']                = 'Api_Project/getTaskById/$1';
 $route['api/insertTaskStartDate/(:num)']        = 'Api_Project/insertTaskStartDate/$1';
-$route['api/insertTaskEndDate/(:num)']        = 'Api_Project/insertTaskEndDate/$1';
+$route['api/insertTaskEndDate/(:num)']          = 'Api_Project/insertTaskEndDate/$1';
 $route['api/editTask/(:num)']                   = 'Api_Project/editTask/$1';
 
 $route['api/getCadeira/(:num)']                 = 'Api_Subject/getInfo/$1';

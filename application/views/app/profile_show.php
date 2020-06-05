@@ -26,7 +26,7 @@
                     <?=$user->name." ". $user->surname?>
                     <span class="gabinete"><?=$user->gabinete?></span>
                     <span class="chat">
-                        <a href="<?=$base_url?>app/chat/<?=$user->id?>">
+                        <a href="<?=$base_url?>app/chat/p/<?=$user->id?>">
                             <img src="<?=$base_url?>images/icons/message_black.png" alt="Chat">
                         </a>
                     </span>

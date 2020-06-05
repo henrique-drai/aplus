@@ -73,8 +73,10 @@ function renderCalendario(){
 
     let inner = $('<div class="inner"></div>').append(cols)
 
+    $("#calendario-hook").html("")
+
     if(!calendario.events.length){
-        $("#calendario-hook").html(
+        $("#calendario-hook").append(
             $("<div class='no-events-msg left'>Não tem eventos próximos.</div>")
         )
     }
@@ -96,7 +98,10 @@ function setCalendario(data){
     calendario.days = []
 
     for (const event of calendario.events){
-        calendario.days.push(event.start_time)
+        //eliminar repetições
+        if (!calendario.days.length || calendario.days.slice(-1)[0].getDate() != event.start_time.getDate()){
+            calendario.days.push(event.start_time)
+        }
     }
 }
 
@@ -149,6 +154,7 @@ function renderPopUpGroupEvent(event) {
 
     $(".cd-popup #actionButton").html("Guardar").off()
         .click(()=>{
+            console.log(event.obj)
             $.ajax({
                 type: "POST",
                 url: base_url + 'api/event/edit/' + event.obj.id,
@@ -192,12 +198,40 @@ function renderPopUpSubmission(event) {
 
 function renderPopUpAddEvent(){
     function dateToISO (date){
-        var isoStr = new Date(date).toISOString()
+        isoStr = date.toISOString()
         return isoStr.substring(0,isoStr.length-1)
     }
+
+    function dateISOtoSQL (date){
+        return date.slice(0, 19).replace('T', ' ')
+    }
+
+    function submitPopup() {
+        $('#actionButton').prop("disabled", true).val("A PROCESSAR")
+        $.ajax({
+            type: "POST",
+            url: base_url + 'api/event/group/' + localStorage.grupo_id,
+            data: {
+                name: $('#addGroupEventForm input[name="name"]').val(),
+                description: $('#addGroupEventForm input[name="description"]').val(),
+                date: $('#addGroupEventForm input[name="date"]').val(),
+                location: $('#addGroupEventForm input[name="location"]').val(),
+                start_date: dateISOtoSQL($('#addGroupEventForm input[name="start_date"]').val()),
+                end_date: dateISOtoSQL($('#addGroupEventForm input[name="end_date"]').val()),
+            },
+            success: function(data) {
+                updateCalendario()
+                $('.cd-popup').removeClass('is-visible')
+            },
+            error: function(data) {
+                console.log("Erro ao marcar reunião:")
+                console.log(data)
+            }
+        });
+    }
     
-    let form = $('<form id="addGroupEventForm"></form>').append(
-        '<h3>Criar Reunião</h3>',
+    let form = $('<form id="addGroupEventForm" action="javascript:void(0)"></form>').append(
+        '<h3>Nova Reunião</h3>',
         '<label><b>Assunto</b></label>',
         '<input type="text" name="name" required>',
         '<label>Descrição</label>',
@@ -212,35 +246,18 @@ function renderPopUpAddEvent(){
                 $('<input type="datetime-local" name="end_date" value="' + dateToISO(new Date()) + '" required>')
             )
         )
-    )
-
-    // $(".cd-popup #actionButton").html("Guardar").off()
-    //     .click(()=>{
-    //         $.ajax({
-    //             type: "POST",
-    //             url: base_url + 'api/event/edit/' + event.obj.id,
-    //             data: {
-    //                 name: $('#groupEventForm input[name="name"]').val(),
-    //                 description: $('#groupEventForm input[name="description"]').val(),
-    //                 date: $('#groupEventForm input[name="date"]').val(),
-    //                 location: $('#groupEventForm input[name="location"]').val(),
-    //                 start_date: $('#groupEventForm input[name="start_date"]').val(),
-    //                 end_date: $('#groupEventForm input[name="end_date"]').val(),
-    //             },
-    //             success: function(data) {
-    //                 console.log(data)
-    //             },
-    //             error: function(data) {
-    //                 console.log("Erro ao criar um evento de grupo:")
-    //                 console.log(data)
-    //             }
-    //         });
-    //     }
-    // )
-    $(".cd-popup #closeButton").html("Fechar")
+    ).submit((e)=>{submitPopup()})
 
     $('.cd-message').html(
-        $('<div class="calendario-msg"></div>').append(form)
+        $('<div class="calendario-msg"></div>').append(form))
+
+    $('.cd-buttons').html('').append(
+        $('<li></li>')
+            .append(
+                $('<input type="submit" id="actionButton" value="Marcar Reunião" form="addGroupEventForm" />')
+                    .css("background", "#3e5d4f") ),
+        $('<li><a href="#" id="closeButton">Fechar</a></li>')
+            .click( () => { $('.cd-popup').removeClass('is-visible') } )
     )
 }
 

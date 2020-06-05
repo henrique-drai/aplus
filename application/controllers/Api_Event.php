@@ -44,30 +44,23 @@ class Api_Event extends REST_Controller {
       $this->response(array(), parent::HTTP_OK);
     }
 
-    public function editGroupEvent_post($grupo_id){
-      $grupo_id = htmlspecialchars($grupo_id);
-       
-      $data = array (
+    // create
+    public function meeting_post ($grupo_id) {
+      $post = array (
         "name" => htmlspecialchars($this->post("name")),
         "description" => htmlspecialchars($this->post("description")),
         "location" => htmlspecialchars($this->post("location")),
         "start_date" => htmlspecialchars($this->post("start_date")),
         "end_date" => htmlspecialchars($this->post("end_date")),
       );
-      
-      // $evento_id = $this->EventModel->insertEvent($data_evento);
-      
-      // $data_Evento_Grupo = Array (
-      //     "evento_id" => $evento_id,
-      //     "grupo_id" => $grupo_id,   
-      // );
 
-      // $this->EventModel->insertGroupEvent($data_Evento_Grupo);
+      // TODO ver se o utilizador está no grupo
 
-      // if ($this->EventModel->userRelatedToEvent($user_id, $event_id)){
+      $this->load->model('EventModel');
 
-      // } 
-      $this->response($data, parent::HTTP_OK);
+      $this->EventModel->insertMeeting($post, $grupo_id);
+       
+      $this->response($post, parent::HTTP_OK);
     }
 
     //////////////////////////////////////////////////////////////

@@ -333,11 +333,12 @@ function getTasks() {
         url: base_url + "api/getTasks/" + localStorage.grupo_id,
         success: function(data) {
             console.log(data)
-            $(".tasksTable").empty();
+            $("#tab-gerir-tarefas").empty();
 
             if(data.tasks.length != 0) {
-                var table = "";
-                table = table + "<table id='tab-gerir-tarefas'><tr><th>Tarefa</th>" +
+                table = '';
+                html = [];
+                table = table + "<tr><th>Tarefa</th>" +
                 "<th>Membro Responsável</th><th>Completo</th><th></th></tr>";
 
                 for(var i=0; i < data.tasks.length; i++) {
@@ -357,8 +358,17 @@ function getTasks() {
                     table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + "' type='button' value='Opções'></td></tr>";
                 }
 
-                table = table + "</table>"
-                $(".tasksTable").html(table);
+                html.push(table);
+                
+                $('.container2').pagination({
+					dataSource: html,
+					pageSize: 5,
+					pageNumber: 1,
+					callback: function(data, pagination) {
+						$("#tab-gerir-tarefas").html(data);
+					}
+                })
+                
             } else {
                 $(".tasksTable").html("<p>Não existem tarefas.</p>");
                 

@@ -4,7 +4,7 @@ $(document).ready(() => {
     setInterval(getThreads, 3000); 
 
     $('body').on("click", '#add_button', function() {
-        makePopup2();
+        makePopup2($(".forumName").text());
         $(".cd-popup2").css('visibility', 'visible');
         $(".cd-popup2").css('opacity', '1');
     });
@@ -78,10 +78,11 @@ function makePopup(butID, msg){
     $("#popups").html(popup);
 }
 
-function makePopup2() {
+function makePopup2(forum_name) {
     $(".add").html("<input type='button' id='add_button' value='Criar Tópico'>" +
     "<div class='cd-popup2' role='alert'><div class='cd-popup-container'>" +                 
     "<form id='createThread' action='javascript:void(0)'><div class='createThread_inputs'><h2>Criar novo tópico</h2>" +
+    "<h3>Forum: " + forum_name + "</h3>" +
     "<label class='form-label'>Assunto do tópico:</label><input class='form-input-text' type='text' name='threadName' required>" +
     "<label class='form-label'>Discussão:</label><textarea class='form-text-area' type='text' name='threadDescription' required>" + 
     "</textarea></div><ul class='cd-buttons'><li><a href='#' id='createThread-form-submit'>" +
@@ -107,7 +108,7 @@ function getInfo(id) {
             }
 
             if(data.user.role == "teacher" || localStorage.teachers_only == 0) {
-                makePopup2();
+                makePopup2(data.info.name);
             }
         },
         error: function(data) {
@@ -122,20 +123,32 @@ function getThreads() {
         type: "GET",
         url: base_url + "api/getAllByForumId/" + localStorage.forum_id,
         success: function(data) {
-            $(".threadTable").empty();
+            linhas = [];
+            $(".threadList").empty();
             if(data.threads.length == 0) {
+                $(".threadTable p").remove();
                 $(".threadTable").append("<p>Ainda não existem tópicos no fórum.</p>");
             } else {
-                $(".threadTable").append("<table class='threadList'><tr>" +
+                $(".threadTable p").remove();
+                linhas.push("<tr>" +
                     "<th width='35%'>Assunto</th><th width='25%'>Criador</th>" +
-                    "<th width='25%'>Data</th><th width='15%'>Mais informação</th></tr></table>");
+                    "<th width='25%'>Data</th><th width='15%'>Mais informação</th></tr>");
                 
                 for(var i=0; i < data.threads.length; i++) {
-                    $(".threadList").append("<tr><td>" + data.threads[i].title +
+                    linhas.push("<tr><td>" + data.threads[i].title +
                         "</td><td>" + data.criadores[i].name + " " +data.criadores[i].surname +
                         "</td><td>" + data.threads[i].date + "<td><input type='button' class='thread_button' id='" +
                         data.threads[i].id + "' value='Ver publicações'>");
                 }
+
+                $('.container2').pagination({
+					dataSource: linhas,
+					pageSize: 5,
+					pageNumber: 1,
+					callback: function(data, pagination) {
+						$(".threadList").html(data);
+					}
+				})
             }
         },
         error: function(data) {

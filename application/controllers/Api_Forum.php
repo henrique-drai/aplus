@@ -217,7 +217,31 @@ class Api_Forum extends REST_Controller {
             $response = ['status' => $status, 'msg' => 'Unauthorized Access!', 'user_id' => $user_id];
             $this->response($response, $status);
         }
-        
+    }
+
+    public function removeThread_delete($thread_id) {
+        $user_id = htmlspecialchars($this->delete("user_id"));
+        $cadeira_id = htmlspecialchars($this->delete("cadeira_id"));
+        $role = htmlspecialchars($this->delete("role"));
+
+        $flag = false;
+        if($role == "teacher") {
+            if($this->verify_teacher($user_id, $cadeira_id, "cadeira")) {
+                $flag = true;
+            }
+        } else if($role == "student") {
+            if($this->verify_student($user_id, $cadeira_id)) {
+                $flag = true;
+            }
+        }
+
+        if($flag) {
+            $this->ForumModel->removeThread(htmlspecialchars($thread_id));
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access!', 'user_id' => $user_id];
+            $this->response($response, $status);
+        }
     }
 
 

@@ -132,6 +132,10 @@ option[value=""] {
     background-color: #efefef;
 }
 
+.container2 {
+    margin-top: 1%;
+}
+
 @media only screen and (max-width: 770px) {
 	.message {
 		width: 50%;

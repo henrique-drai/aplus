@@ -2,10 +2,12 @@
 <script>setPageName("grupo")</script>
 <script src="<?=$base_url?>js/student/grupo.js"></script>
 <script src="<?=$base_url?>js/student/calendario-grupo.js"></script>
+<script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 <?='<script>setGrupoId("'.$grupo["id"].'")</script>'?>
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/student/grupo.css"> 
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/calendario.css"> 
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 </head>
 
 <body>
@@ -41,7 +43,10 @@
             <input id="newTarefa" type="button" value="Adicionar tarefa">
         </div>
         
-        <div class="tasksTable"></div>
+        <div class="tasksTable">
+            <table id='tab-gerir-tarefas'></table>
+            <div class="container2"></div>
+        </div>
 
         <div class="message"></div>
 

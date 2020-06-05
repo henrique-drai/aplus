@@ -25,6 +25,7 @@ $route['api/notification/(:num)']               = 'Api_Notification/notification
 
 $route['api/removeForum/(:num)']                = 'Api_Forum/removeForum/$1';
 $route['api/removePost/(:num)']                 = 'Api_Forum/removePost/$1';
+$route['api/removeThread/(:num)']               = 'Api_Forum/removeThread/$1';
 $route['api/getForumById/(:num)']               = 'Api_Forum/getForumById/$1';
 $route['api/getAllByForumId/(:num)']            = 'Api_Forum/getThreadsByForumId/$1';
 $route['api/insertThread']                      = 'Api_Forum/insertThread';

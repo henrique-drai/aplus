@@ -21,6 +21,8 @@
                 <p><b>Discussão:</b> <span class="threadDesc"></span></p>
             </div>
 
+            <div class="remove_button"></div>
+
             <br>
             <h3>Publicações:</h3>
 

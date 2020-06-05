@@ -69,7 +69,7 @@ $route['api/getTasks/(:num)']                   = 'Api_Project/getTasks/$1';
 $route['api/deleteTaskById/(:num)']             = 'Api_Project/deleteTaskById/$1';
 $route['api/getTaskById/(:num)']                = 'Api_Project/getTaskById/$1';
 $route['api/insertTaskStartDate/(:num)']        = 'Api_Project/insertTaskStartDate/$1';
-$route['api/insertTaskEndDate/(:num)']        = 'Api_Project/insertTaskEndDate/$1';
+$route['api/insertTaskEndDate/(:num)']          = 'Api_Project/insertTaskEndDate/$1';
 $route['api/editTask/(:num)']                   = 'Api_Project/editTask/$1';
 
 $route['api/getCadeira/(:num)']                 = 'Api_Subject/getInfo/$1';

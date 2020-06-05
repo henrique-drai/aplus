@@ -30,7 +30,8 @@
         
 
         <div id="btnArea">
-            <input id="ficheiros" type="button" value="Ficheiros">  
+            <input id="ficheiros" type="button" value="Ficheiros">
+            <div class="fichNumb"></div>
         </div>
 
         <h2>Agenda <img src="<?=base_url()?>images/icons/add_event.png" alt="Add Event" class="add-event-icon"></h2>

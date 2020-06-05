@@ -383,6 +383,7 @@ $(document).ready(() => {
 
     $("body").on("dblclick", ".cadeira_row_user", function(){
         $("#selectedCadeiras").css("display", "block");
+        $("#cadeiras").css("display", "block");
 
         if($(".selectedcadeiras").length>0){
             var repetido = true;

@@ -34,39 +34,39 @@ $(document).ready(() => {
     })
 	
 	//close popup - REMOVER FORUM
-	$('body').on('click', '.cd-popup', function(){
-		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
-            event.preventDefault();
-            $(this).remove();
-            $(".taskInfo").css("background-color", "white");
-		}
-    });
+	// $('body').on('click', '.cd-popup', function(){
+	// 	if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+    //         event.preventDefault();
+    //         $(this).remove();
+    //         $(".taskInfo").css("background-color", "white");
+	// 	}
+    // });
 
     //close popup2 - REMOVER FORUM
-	$('body').on('click', '.cd-popup2', function(){
-		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') || $(event.target).is('#closeButton') ){
-            event.preventDefault();
-            $(this).remove();
-            $(".taskInfo").css("background-color", "white");
-		}
-    });
+	// $('body').on('click', '.cd-popup2', function(){
+	// 	if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') || $(event.target).is('#closeButton') ){
+    //         event.preventDefault();
+    //         $(this).remove();
+    //         $(".taskInfo").css("background-color", "white");
+	// 	}
+    // });
 
     //close popup2 - REMOVER FORUM
-	$('body').on('click', '.cd-popup3', function(){
-		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup3') || $(event.target).is('#closeButton') ){
-            event.preventDefault();
-            $(this).remove();
-            $(".taskInfo").css("background-color", "white");
-		}
-    });
+	// $('body').on('click', '.cd-popup3', function(){
+	// 	if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup3') || $(event.target).is('#closeButton') ){
+    //         event.preventDefault();
+    //         $(this).remove();
+    //         $(".taskInfo").css("background-color", "white");
+	// 	}
+    // });
 
-    $('body').on('click', '.cd-popup4', function () {
-    	if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup4') || $(event.target).is('#closeButton')) {
-    		event.preventDefault();
-    		$(this).remove();
-    		$(".taskInfo").css("background-color", "white");
-    	}
-    });
+    // $('body').on('click', '.cd-popup4', function () {
+    // 	if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup4') || $(event.target).is('#closeButton')) {
+    // 		event.preventDefault();
+    // 		$(this).remove();
+    // 		$(".taskInfo").css("background-color", "white");
+    // 	}
+    // });
 
     $("body").on("change", "select", function() {
         if($("select").val() == "") {

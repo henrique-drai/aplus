@@ -224,3 +224,9 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     margin: 0px 4px -4px;
     cursor: pointer;
 }
+
+
+
+form#addGroupEventForm h3 {
+    margin: 0px auto;
+}

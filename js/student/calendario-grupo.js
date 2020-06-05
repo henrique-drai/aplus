@@ -197,6 +197,7 @@ function renderPopUpAddEvent(){
     }
     
     let form = $('<form id="addGroupEventForm"></form>').append(
+        '<h3>Criar Reunião</h3>',
         '<label><b>Assunto</b></label>',
         '<input type="text" name="name" required>',
         '<label>Descrição</label>',

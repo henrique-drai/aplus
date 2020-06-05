@@ -85,9 +85,9 @@
                     <label for="data">Exportar dados:</label>
                         
                         <select name="role">
-                            <option value="student">Students</option>
-                            <option value="teacher">Teachers</option>
-                            <option value="studentsTeachers">Students + Teachers</option>
+                            <option value="student">Alunos</option>
+                            <option value="teacher">Professores</option>
+                            <option value="studentsTeachers">Alunos + Professores</option>
                         </select>
                 </p><p>
                     <input type="submit" id="exportInfo" value="Exportar">
@@ -127,8 +127,8 @@
                 
                 <select id="studentsOrTeachers"">
                         <option>Selecione um Privilégio</option>
-                        <option value='teachers'>Teachers</option>
-                        <option value='students'>Students</option>
+                        <option value='teachers'>Professores (cadeiras dadas)</option>
+                        <option value='students'>Alunos (respetivo curso)</option>
                 </select>
 
 

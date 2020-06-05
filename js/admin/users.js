@@ -41,12 +41,17 @@ $(document).ready(() => {
 
     $('body').on("click", "#showDemo",function() {
         event.preventDefault();
+        $("#removePadding").text("Formato ficheiro '.csv' de importação - Alunos ")
         $('#csvExample').attr("src", path.replace("csv_example_prof.png", "csv_example.png"));
+        $("#csvExample").css("width","420px");
         $('#import_csv_style').addClass('is-visible');
     });
     $('body').on("click", "#showDemo2",function() {
         event.preventDefault();
-        $('#csvExample').attr("src", path.replace("csv_example.png", "csv_example_prof.png"));
+        $("#removePadding").text("Formato ficheiro '.csv' de importação - Professores")
+        $('#csvExample').attr("src", path.replace("csv_example.png", "csv_example_prof1.png"));
+        $("#csvExample").css("width","529px");
+
         $('#import_csv_style').addClass('is-visible');
     });
 
@@ -376,7 +381,7 @@ $(document).ready(() => {
         }
     });
 
-    $("body").on("click", ".cadeira_row_user", function(){
+    $("body").on("dblclick", ".cadeira_row_user", function(){
         $("#selectedCadeiras").css("display", "block");
 
         if($(".selectedcadeiras").length>0){
@@ -396,17 +401,25 @@ $(document).ready(() => {
                 var linha = '<div class="selectedcadeiras" id="cadeira_' + $(this).val()+'">' + $(this).text() + "<div class='tirarCadeira'>&times; <span class='tooltiptext'>Remover</span></div></div>";
                 $("#cadeiras").append(linha);
             }
+
         }
         else{
             // var linha = '<p class="selectedcadeiras" id="cadeira_' + $(this).val()+'">' + $(this).text() + "<a class='tirarCadeira' href='#'>&times;</a></p>";
             var linha = '<div class="selectedcadeiras" id="cadeira_' + $(this).val()+'">' + $(this).text() + "<div class='tirarCadeira'>&times; <span class='tooltiptext'>Remover</span></div></div>";
             $("#cadeiras").append(linha);
         }        
+        $( "#registerUserCadeira option[value=" + $(this).val() + "]").remove();
         
     })
 
     $("body").on("click", ".tirarCadeira", function(){
-       $(this).parent().remove();
+
+        var id = $(this).parent().attr('id').split("_")[1]
+        var text = $(this).parent().text().split("×")[0]
+        $("#registerUserCadeira").append("<option class='cadeira_row_user' value=" + id +">" + text + "</option>")
+        
+        $(this).parent().remove();
+    //    registerUserCadeira
        if($(".selectedcadeiras").length==0){
             $("#cadeiras").css("display", "none");
         }

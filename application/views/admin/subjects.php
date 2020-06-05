@@ -21,37 +21,40 @@
         <h2>Registar Unidades Curriculares</h2>
 
         <form id="register-cadeiras-form" action="javascript:void(0)">
-            <p>
-                <label for="codeCadeira">Código da Unidade Curricular:</label>
-                <input class="form-input-number" type="text" name="codeCadeira" required>
-            </p><p>
-                <label for="siglaCadeira">Sigla da Unidade Curricular:</label>
-                <input type="text" name="siglaCadeira" required>
-            </p><p>
-                <label for="nomeCadeira">Unidade Curricular:</label>
+            <div class="double_input">
+                <label for="codeCadeira">
+                    Código da UC:
+                    <input class="form-input-number" type="text" name="codeCadeira" required>
+                </label>
+                <label for="siglaCadeira">
+                    Sigla:
+                    <input type="text" name="siglaCadeira" required>
+                </label>
+            </div><div>
+                <label for="nomeCadeira">Nome da UC:</label>
                 <input class="form-input-text" type="text" name="nomeCadeira" required>
-            </p><p>
-                <label for="descCadeira">Descrição da Unidade Curricular:</label>
+            </div><div>
+                <label for="descCadeira">Descrição:</label>
                 <textarea class="form-text-area" type="text" name="descCadeira" required></textarea>
-            </p><p>
+            </div><div>
                 <label for="academicYear">Ano Letivo:</label>
                 <select id="anos_register_UnidCurricular" name="academicYear">
                 </select>
-            </p><p>
+            </div><div>
                 <label for="faculdade">Faculdade:</label>
                 <select id="faculdades_register_UnidCurricular" name="faculdade">
                 </select>
-            </p><p>
+            </div><div>
                 <label for="semestre">Semestre:</label>
                 <select id="semestre_register_UnidCurricular" name="semestre">
                     <option value="1">1º semestre </option>
                     <option value="2">2º semestre </option>
                 </select>
-            </p><p>
+            </div><div>
                 <label for="curso">Curso:</label>
                 <select id="cursos_register_UnidCurricular" name="curso">
                 </select>
-            </p>
+            </div>
             
             <input type="submit" id="register-cadeira-submit">
             <div id="msgStatus">

@@ -1,31 +1,23 @@
-main > *:not(#import_csv_style) {
-    margin: 10px;
-}
+
 
 input{
     background-color: white !important;
 }
 
 .flex-section {
-    flex-wrap: wrap;
-    align-items: baseline;
-    margin: -15px;
+    margin: 10px -20px;
 }
 
 .admin-users-window {
-    padding: 30px 20px 0px;
-    min-width: 66%;
-    max-width: 100%;
+    padding: 20px;
+    width: 66%;
     box-sizing: border-box;
-    width: 33%;
     display: inline-block;
     vertical-align: top;
 }
 
 .admin-users-window-export{
-    padding: 30px 20px 0px;
-    min-width: 33%;
-    max-width: 100%;
+    padding: 20px;
     box-sizing: border-box;
     width: 33%;
     display: inline-block;
@@ -33,18 +25,9 @@ input{
 }
 
 @media(max-width: 767px){
-    .admin-users-window {
-        padding: 30px 20px 0px;
-        min-width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    .admin-users-window-export{
-        padding: 30px 20px 0px;
-        min-width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
+    .admin-users-window,
+    .admin-users-window-export {
+        width: 100%;
     }
 }
 
@@ -58,18 +41,8 @@ input{
 
 
 
-.admin-users-window form, .admin-users-window-export form {
-    width: 100%;
-}
 
-.admin-users-window-export label {
-    padding: 5px 10px 5px;
-    margin: 0px;
-}
 
-.admin-users-window label{
-    margin:0px;
-}
 
 .admin-users-window select, .admin-users-window-export select {
     padding: 5px;
@@ -229,31 +202,23 @@ select#coursesDisplay1 {
 }
 
 .double_input{
-    width: 100%;
+    width: calc(100% + 30px);
+    display: flex;
+    justify-content: space-between;
+    margin: 0px -15px;
 }
 
-.double_input label{
-    width: 49%;
-    display: inline-block;
+.double_input input {
+    width: 100%;
+}
+.double_input label {
+    width: 100%;
+    padding: 0px 15px;
 }
 
 #csvExample {
     width: 420px;
     height: 190px;
-}
-
-@media(max-width: 767px){
-    .double_input label{
-        width: 100%;
-    }
-    
-    .double_input{
-        margin-bottom:0px;
-    }
-
-    .double_input input{
-        margin-bottom:5px;
-    }
 }
 
 
@@ -268,7 +233,6 @@ select#coursesDisplay1 {
 @media(max-width: 331px){
     #csvExample {
         width: 266px;
-        height: 150px;
     }
 }
 

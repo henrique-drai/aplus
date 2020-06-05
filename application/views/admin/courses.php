@@ -18,29 +18,31 @@
         <br><h2>Registar Curso</h2>
 
         <form id="register-cursos-form" action="javascript:void(0)">
-        <p>
+        <div class="double_input">
 
-            <label for="codeCurso">Código de Curso:</label>
-            <input type="text" name="codeCurso" required>
-        </p>
-        <p>
+            <label for="codeCurso">
+                Código de Curso:
+                <input type="text" name="codeCurso" required>
+            </label>
+            <label for="academicYear">
+                Ano Letivo:
+                <select id="consultar_anos_letivos" name="academicYear"></select>
+            </label>
+        </div>
+        <div>
             <label for="nomeCurso">Nome de Curso:</label>
             <input class="notSmallInput" type="text" name="nomeCurso" required>
-        </p>
-        <p>
+        </div>
+        <div>
             <label for="descCurso">Descrição de Curso:</label>
             <textarea class="notSmallInput" type="text" name="descCurso" required></textarea>
-        </p>
-        <p>
-            <label for="academicYear">Ano Letivo:</label>
-            <select id="consultar_anos_letivos" name="academicYear">
-            </select>
-        </p>
-        <p>
+        </div>
+
+        <div>
             <label for="college">Faculdade:</label>
             <select id="faculdades_register_UnidCurricular" name="faculdade">
             </select>
-        </p>
+        </div>
 
             <input type="submit" id="register-course-submit">
         </form><br>

@@ -10,6 +10,7 @@
 
 <body>
 <?php $this->view('templates/nav-menu'); ?>
+<?php $this->view('templates/popup'); ?>
     <main>
         <h4 class="breadcrumb">
             <a href="<?=$base_url?>app/student/grupos">Grupos</a> > Área de Grupo (<?=$grupo["name"]?>)
@@ -30,7 +31,7 @@
             <input id="ficheiros" type="button" value="Ficheiros">  
         </div>
 
-        <h2>Agenda</h2>
+        <h2>Agenda <img src="<?=base_url()?>images/icons/add_event.png" alt="Add Event" class="add-event-icon"></h2>
         <div id="calendario-hook"></div>
         <br>
         

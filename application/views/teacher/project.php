@@ -21,9 +21,11 @@
     <p> 
         <?php echo $project[0]["description"]; ?>
         <br><br>
-        Núm mínimo de elementos de grupo: <?php echo $project[0]["min_elementos"]; ?>
-        <br>
-        Núm máximo de elementos de grupo: <?php echo $project[0]["max_elementos"]; ?>
+        Número de elementos por grupo: 
+            <?=$project[0]["min_elementos"]?>
+            <?php if($project[0]["min_elementos"] != $project[0]["max_elementos"]): ?>
+                 - <?=$project[0]["max_elementos"]?>
+            <?php endif; ?>
         <br><br>
     </p>
     <input id="removeProject" class="remove" type="button" value="Eliminar projeto">

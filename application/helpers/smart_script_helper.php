@@ -27,9 +27,6 @@ function smart_script($m) {
 
     $data = array();
 
-    $ctr_faculdades = 0;
-    $ctr_cursos = 0;
-
     $n_faculdades = count($ids_faculdades);
     $n_cursos = count($ids_cursos);
     $n_cadeiras = count($ids_cadeiras);
@@ -38,35 +35,22 @@ function smart_script($m) {
 
     $n_cadeiras_per_cursos = intdiv($n_cadeiras, $n_cursos); // pode-se aumentar, se for preciso, curr=7
 
-    $faculdades = array();
 
-    foreach ($ids_faculdades as $id_faculdade) {       
+    foreach ($ids_faculdades as $index_faculdade => $id_faculdade) {       
 
-      $cursos_da_faculdade = array_slice($ids_cursos, $ctr_faculdades * $n_cursos_per_faculdade, $n_cursos_per_faculdade); 
+      $cursos_da_faculdade = array_slice($ids_cursos, $index_faculdade * $n_cursos_per_faculdade, $n_cursos_per_faculdade); 
       
-      $cursos_da_faculdade_e_cadeiras = array();
-
-      foreach ($cursos_da_faculdade as $curso){
-
-        $cadeiras_do_curso = array_slice($ids_cadeiras, $ctr_cursos * $n_cadeiras_per_cursos, $n_cadeiras_per_cursos); 
-
-        array_push($cursos_da_faculdade_e_cadeiras, array(
-          "cadeiras" => $cadeiras_do_curso,
+      foreach ($cursos_da_faculdade as $curso) {
+        array_push($data, array(
+          "curso_id" => $curso,
+          "curso_data" => $cursos_data[$curso],
+          "faculdade_id" => $id_faculdade,
         ));
-
-        $ctr_cursos+=1;
       }
-      
-      $ctr_faculdades+=1;
-      array_push($faculdades, array($id_faculdade => array(
-        "cursos" => $cursos_da_faculdade_e_cadeiras,
-        "alunos" => array(),
-      )));
     }
 
-    array_push($data, array(
-      "faculdades" => $faculdades,
-    ));
+
+
 
     echo json_encode($data, JSON_PRETTY_PRINT);
     //print("<pre>".print_r($data,true)."</pre>");

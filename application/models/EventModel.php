@@ -2,13 +2,13 @@
 class EventModel extends CI_Model { //evento & horario_duvidas
 
     public function getClassesByStudentId($id) {
-        $query = "select *
+        $query = "select distinct *
             from aluno_aula, curso, ano_letivo, cadeira, aula
             where aula.id = aluno_aula.aula_id
             and cadeira.curso_id = curso.id
             and curso.ano_letivo_id = ano_letivo.id
             and aula.cadeira_id = cadeira.id
-            and aluno_aula.user_id = ".$id;
+            and aluno_aula.user_id = $id";
         return $this->db->query($query)->result_array();
     }
 
@@ -19,7 +19,7 @@ class EventModel extends CI_Model { //evento & horario_duvidas
             and cadeira.curso_id = curso.id
             and curso.ano_letivo_id = ano_letivo.id
             and aula.cadeira_id = cadeira.id
-            and professor_aula.user_id = ".$id;
+            and professor_aula.user_id = $id";
         return $this->db->query($query)->result_array();
     }
 
@@ -28,7 +28,7 @@ class EventModel extends CI_Model { //evento & horario_duvidas
             from evento, evento_user
             where evento.id = evento_user.evento_id
             and evento.start_date >= CURDATE()
-            and evento_user.user_id = ".$id;
+            and evento_user.user_id = $id";
         return $this->db->query($query)->result_array();
     }
 
@@ -41,7 +41,7 @@ class EventModel extends CI_Model { //evento & horario_duvidas
             and evento.id = evento_grupo.evento_id
             and evento.start_date >= CURDATE()
             and evento_grupo.grupo_id = grupo.id
-            and grupo_aluno.user_id = ".$id;
+            and grupo_aluno.user_id = $id";
         return $this->db->query($query)->result_array();
     }
 
@@ -53,7 +53,7 @@ class EventModel extends CI_Model { //evento & horario_duvidas
             and projeto.cadeira_id = cadeira.id
             and grupo.projeto_id = projeto.id
             and etapa.deadline >= CURDATE()
-            and grupo_aluno.user_id = ".$id;
+            and grupo_aluno.user_id = $id";
         return $this->db->query($query)->result_array();
     }
 

@@ -1,4 +1,6 @@
 var chat_user_id=null;
+var chatType=null;
+
 var clicked_user="";
 var clicked_group="";
 var nomeGrupo="";
@@ -11,9 +13,29 @@ var flagScroll=false;
 
 $(document).ready(() => {
     loadAccordion()
+    // window.history.pushState('','','../g/7171')
+    console.log(chat_user_id);
+    console.log(chatType);
 
-    if (page_name=="chat"){
+    
+        if(chat_user_id!=null&&chatType!=null){
+            if(chatType=="p"){
+                getChatHistory(chat_user_id);
 
+                refreshIntervalIdHistory = setInterval(function(){
+                    getChatHistory(chat_user_id);
+                }, 3000);
+            }
+            else if(chatType=="g"){
+                getChatGroupHistory(chat_user_id);
+                    refreshIntervalGroupIdHistory = setInterval(function(){
+                        getChatGroupHistory(chat_user_id);
+                    }, 3000);
+            }
+        }else{
+            loadRecentChat()   
+
+        }
         $("#search_text_chat").keyup(function(){
             var s = $(this).val();
             $(".chatList").remove();
@@ -31,15 +53,44 @@ $(document).ready(() => {
         
     }
 })
-    }})
+    })
 
 function setChatUserId(user_id){
     chat_user_id = user_id
+    // console.log(chat_user_id);
+}
+
+function setChatType(Type){
+    chatType = Type
+    // console.log(chatType);
+}
+
+
+function loadRecentChat(){
+    $.ajax({
+        type: "GET",
+        url: base_url + "api/getLastConvo",
+        success: function (data) {
+                if(data.Type=="Privado"){
+                    getChatHistory(data.ID);
+
+                    refreshIntervalIdHistory = setInterval(function(){
+                        getChatHistory(data.ID);
+                    }, 3000);
+                }
+                if(data.Type=="Grupo"){
+                    getChatGroupHistory(data.ID);
+                    refreshIntervalGroupIdHistory = setInterval(function(){
+                        getChatGroupHistory(data.ID);
+                    }, 3000);
+                }
+        }
+    })
 }
 
 function loadAccordion(){
-    $("#privateChat").html('<div class="accordion"><h4>Conversas Recentes <div id="recentConvo"></div></h4></div><div id="private" class="panel"></div>');  
-    $("#groupChat").html('<div class="accordion"><h4>Grupos Existentes <div id="groupsExi"></div></h4></div><div id="group" class="panel"></div>');  
+    $("#privateChat").html('<div class="accordion"><h4>Conversas Recentes <div id="recentConvo"></div><i class="fa fa-plus mais"></i></h4></div><div id="private" class="panel"></div>');  
+    $("#groupChat").html('<div class="accordion"><h4>Grupos Existentes <div id="groupsExi"></div><i class="fa fa-plus mais"></i></h4> </div><div id="group" class="panel"></div>');  
     bindButtonPrivateMsg()
 
     getGroups();
@@ -47,10 +98,10 @@ function loadAccordion(){
 
     refreshIntervalIdRecentGroups = setInterval(function(){
         getGroups();
-    }, 6000);
+    }, 8000);
     refreshIntervalIdRecent = setInterval(function(){
         getChatLogs();
-    }, 6000);
+    }, 8000);
 }
 
 function twoDigits(d) {
@@ -71,6 +122,8 @@ function meiaNoite(hour){
 
 function bindPrivateChatLiClick(){
     $("#privateChat li").click(function() {
+        // this.classList.toggle("activeTwo");
+
         flagScroll=false
         var id_sender = $(this).attr("user_id");
         clicked_user = id_sender;
@@ -80,15 +133,17 @@ function bindPrivateChatLiClick(){
         clearInterval(refreshIntervalGroupIdHistory);
         $('#write_msg').unbind("keydown");
         bindEnterChat() //######################################
+
         refreshIntervalIdHistory = setInterval(function(){
             getChatHistory(id_sender);
-        }, 2000);
+        }, 3000);
 
     });
 }
 
 function bindGroupLiClick(){
     $("#group li").click(function() {
+        // this.classList.toggle("activeTwo");
         flagScroll=false
         var id_group = $(this).attr("group_id");
         // var id_projecto = $(this).attr("projecto_id");
@@ -101,7 +156,7 @@ function bindGroupLiClick(){
         bindEnterChatGroup();  //######################################
         refreshIntervalGroupIdHistory = setInterval(function(){
             getChatGroupHistory(id_group);
-        }, 2000);
+        }, 3000);
 
     });
 }
@@ -178,8 +233,15 @@ function makeUserListLastText(dataFromUser){
     // console.log(dataFromUser)
     existingChats=[];
     var incr=0;
+    var d = new Date();
+    var miliseconds = d.getTime();
+    // console.log(dataFromUser)
     for (i=0;i<dataFromUser.users.length;i++){
-        users += '<li class="list-group-class" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat">' +
+        var src=base_url+"uploads/profile/"+dataFromUser.users[i].id+"/"+dataFromUser.users[i].picture+"?"+miliseconds;
+        if(dataFromUser.users[i].picture==""){
+            src=base_url+"uploads/profile/default.jpg"
+        }
+        users += '<li class="list-group-class" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat"><img src='+src+' class="chat_profile" alt="Profile Picture"</img>' +
          dataFromUser.users[i].name +' '+ dataFromUser.users[i].surname + '</div>'
         //  '<p>'+ dataFromUser.content[i].content +'</p></li>';
         incr++;
@@ -205,6 +267,11 @@ function bindButtonPrivateMsg(){
 
     for (i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function() {
+        if($(this).find("i").hasClass("fa-plus")){
+            $(this).find("i").removeClass("fa-plus").addClass("fa-minus")
+        }else{
+            $(this).find("i").removeClass("fa-minus").addClass("fa-plus")
+        }
         this.classList.toggle("active");
         var panel = this.nextElementSibling;
         if (panel.style.maxHeight) {
@@ -229,7 +296,7 @@ function getGroups(){
 function makeUserListGroups(data){
     groups= '';
     cadeirasComum='';
-    console.log(data)
+    // console.log(data)
     // existingChats=[];
     var incr = 0;
     for (i=0;i<data.length;i++){

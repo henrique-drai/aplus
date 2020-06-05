@@ -148,7 +148,9 @@ $route['api/getSearchTeaStu']                   = 'Api_User/getSearchStudentTeac
 $route['api/sendMessage']                       = 'Api_Chat/sendMessage';
 $route['api/sendMessageGroup']                  = 'Api_Chat/sendMessageGroup';
 $route['api/getGroups']                         = 'Api_Chat/getGroups';
+$route['api/getLastConvo']                      = 'Api_Chat/getLastConvo';
 
+// $route['app/chat/(:any)/(:num)']                = 'app/chat/$2/$1';
 
 # ROUTER.php
 $route['route/subject/(:num)']                  = 'Router/subjectById/$1';

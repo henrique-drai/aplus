@@ -72,16 +72,10 @@ class Api_Chat extends REST_Controller {
 
     public function getChatLogs_get(){
         $id = $this->session->userdata('id');
-
         $this->load->model('ChatModel');
-
         $this->load->model('UserModel');
-
         $resultquery = $this->ChatModel->getChatLogs($id);
-
         $data['users']=array();
-        
-        
         $compArray=array();
 
         for($i=0; $i < count($resultquery); $i++) {
@@ -94,9 +88,7 @@ class Api_Chat extends REST_Controller {
                 array_push($data["users"], $tmp);
                 array_push($compArray,$resultquery[$i]["id_receiver"]);
             }
-        }
-
-        
+        }  
         $this->response($data, parent::HTTP_OK);
     }
 
@@ -172,6 +164,13 @@ class Api_Chat extends REST_Controller {
         }
         $this->response($data, parent::HTTP_OK);
 
+    }
+
+    public function getLastConvo_get(){
+        $id = $this->session->userdata('id');
+        $this->load->model('ChatModel');
+        $resultquery = $this->ChatModel->getLastConvo($id);
+        $this->response(end($resultquery), parent::HTTP_OK);
     }
  
     //////////////////////////////////////////////////////////////

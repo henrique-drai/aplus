@@ -3,7 +3,8 @@
 
 <script src="<?php echo $base_url; ?>js/private_chat.js"></script>
 
-<?php if(isset($user)):?><script>setChatUserId(<?=$user->id?>)</script><?php endif; ?>
+<?php if(isset($user_id)):?><script>setChatUserId(<?=$user_id?>)</script><?php endif; ?>
+<?php if(isset($chatType)):?><script>setChatType(<?='"'.$chatType.'"'?>)</script><?php endif; ?>
 
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/chat.css">
 </head>
@@ -33,7 +34,7 @@
         <div id="chat-container" class="container">
             <div class="headName"></div>
             <div class="bodyChat"></div>
-            <div class="footSend"><div class="type-msg"><input type="text" id="write_msg" placeholder="Type a message"><img id="icon-send" class="icon-send"src="http://localhost/aplus//images/icons/paper-airplane.png"> </div></div>
+            <div class="footSend"><div class="type-msg"><input type="text" id="write_msg" placeholder="Type a message"><img id="icon-send" class="icon-send"src="<?=$base_url?>images/icons/paper-airplane.png"> </div></div>
         </div> 
         </div>
         <!--

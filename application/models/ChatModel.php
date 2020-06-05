@@ -38,5 +38,11 @@ class ChatModel extends CI_Model { //provate_chat & private_chat_msg
     public function sendMessageGroup($data){
         $this->db->insert('grupo_msg', $data);
     }
+
+    public function getLastConvo($session_id){
+        $query = $this->db->query("SELECT MAX(date), 'Grupo' AS Type, grupo_id AS ID FROM grupo_msg WHERE user_id=$session_id UNION SELECT MAX(date),'Privado' AS Type, id_receiver AS ID  FROM private_msg WHERE id_sender=$session_id");
+        $result = $query->result_array();
+        return $result;
+    }
 }
 

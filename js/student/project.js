@@ -1,4 +1,4 @@
-var proj;
+var proj;  
 var selected_etapa;
 var etapas_info_global;
 var formStatus;

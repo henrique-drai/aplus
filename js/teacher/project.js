@@ -75,7 +75,7 @@ $(document).ready(() => {
         makePopup("confirmRemove", "Tem a certeza que deseja eliminar o projeto?");
 	});
 	
-	//remove popup - REMOVER PROJETO
+	//remove popup - REMOVER PROJETO - popup criado pelo makepopup que é eliminado quando se fecha
 	$('body').on('click', '.cd-popup', function(event){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
             event.preventDefault();
@@ -85,6 +85,7 @@ $(document).ready(() => {
     
 
     //hide popup - usado no criar etapa por enquanto só
+    // popups criados diretamente no html que são escondidos e cujo conteudo é alterado
     $('body').on("click", ".cd-popup2", function(event){
         if( $(event.target).is('.cd-popup-hide') || $(event.target).is('#closeButton-hide') || $(event.target).is('.cd-popup2') ){
             event.preventDefault();

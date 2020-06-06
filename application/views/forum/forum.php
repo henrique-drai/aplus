@@ -36,6 +36,8 @@
 
             <div id="popups"></div>
 
+            <?php $this->view('templates/popup'); ?>
+
             <div class="add"></div>
         </div>
 

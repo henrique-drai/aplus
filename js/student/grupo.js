@@ -35,7 +35,7 @@ $(document).ready(() => {
         createPopUpAdd();
     })
 	
-	//close popup - REMOVER FORUM
+	// // close popup - REMOVER FORUM
 	// $('body').on('click', '.cd-popup', function(){
 	// 	if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
     //         event.preventDefault();
@@ -44,7 +44,7 @@ $(document).ready(() => {
 	// 	}
     // });
 
-    //close popup2 - REMOVER FORUM
+    // // close popup2 - REMOVER FORUM
 	// $('body').on('click', '.cd-popup2', function(){
 	// 	if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') || $(event.target).is('#closeButton') ){
     //         event.preventDefault();
@@ -53,7 +53,7 @@ $(document).ready(() => {
 	// 	}
     // });
 
-    //close popup2 - REMOVER FORUM
+    // // close popup3 - REMOVER FORUM
 	// $('body').on('click', '.cd-popup3', function(){
 	// 	if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup3') || $(event.target).is('#closeButton') ){
     //         event.preventDefault();
@@ -62,6 +62,7 @@ $(document).ready(() => {
 	// 	}
     // });
 
+    // // close popup4 - REMOVER FORUM
     // $('body').on('click', '.cd-popup4', function () {
     // 	if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup4') || $(event.target).is('#closeButton')) {
     // 		event.preventDefault();

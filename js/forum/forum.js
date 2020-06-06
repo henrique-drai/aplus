@@ -4,9 +4,9 @@ $(document).ready(() => {
     setInterval(getThreads, 3000); 
 
     $('body').on("click", '#add_button', function() {
-        makePopup2($(".forumName").text());
-        $(".cd-popup2").css('visibility', 'visible');
-        $(".cd-popup2").css('opacity', '1');
+        addPopup($(".forumName").text());
+        $(".cd-popup").css('visibility', 'visible');
+        $(".cd-popup").css('opacity', '1');
     });
 
     $('body').on("click", '#createThread-form-submit', function() {
@@ -14,8 +14,8 @@ $(document).ready(() => {
         var desc = $("textarea").val();
         insertThread(name, desc);
         getThreads();
-        $(".cd-popup2").css('visibility', 'hidden');
-        $(".cd-popup2").css('opacity', '0');
+        $(".cd-popup").css('visibility', 'hidden');
+        $(".cd-popup").css('opacity', '0');
     })
 
     $("body").on("click", ".thread_button", function() {
@@ -25,24 +25,18 @@ $(document).ready(() => {
 
     //open popup - REMOVER FORUM
 	$('body').on('click', '.remove', function(){
-        makePopup("confirmRemove", "Tem a certeza que deseja eliminar o fórum?");
+        $(".cd-message").html("<p>Tem a certeza que deseja eliminar o fórum?</p>");
+        $("#actionButton").attr('id', 'confirmRemove')
         $(".cd-popup").css('visibility', 'visible');
         $(".cd-popup").css('opacity', '1');
 	});
 	
-	//close popup - REMOVER FORUM
+	//close popup
 	$('body').on('click', '.cd-popup', function(){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
             event.preventDefault();
-            $(this).remove();
-		}
-    });
-
-    //close popup2 - REMOVER FORUM
-	$('body').on('click', '.cd-popup2', function(){
-		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') || $(event.target).is('#closeButton') ){
-            event.preventDefault();
-            $(this).remove();
+            $(this).css('visibility', 'hidden');
+            $(this).css('opacity', '1');
 		}
     });
     
@@ -64,30 +58,16 @@ $(document).ready(() => {
     })
 })
 
-function makePopup(butID, msg){
-    popup = '<div class="cd-popup" role="alert">' +
-        '<div class="cd-popup-container">' +
-        '<p>'+ msg +'</p>' +
-        '<ul class="cd-buttons">' +
-        '<li><a href="#" id="'+ butID +'">Sim</a></li>' +
-        '<li><a href="#" id="closeButton">Não</a></li>' +
-        '</ul>' +
-        '<a class="cd-popup-close"></a>' +
-        '</div></div>'
-
-    $("#popups").html(popup);
-}
-
-function makePopup2(forum_name) {
-    $(".add").html("<input type='button' id='add_button' value='Criar Tópico'>" +
-    "<div class='cd-popup2' role='alert'><div class='cd-popup-container'>" +                 
-    "<form id='createThread' action='javascript:void(0)'><div class='createThread_inputs'><h2>Criar novo tópico</h2>" +
+function addPopup(forum_name) {
+    $(".cd-message").html(              
+    "<form id='createThread' action='javascript:void(0)'></form>").append("<div class='createThread_inputs'><h2>Criar novo tópico</h2>" +
     "<h3>Forum: " + forum_name + "</h3>" +
     "<label class='form-label'>Assunto do tópico:</label><input class='form-input-text' type='text' name='threadName' required>" +
     "<label class='form-label'>Discussão:</label><textarea class='form-text-area' type='text' name='threadDescription' required>" + 
-    "</textarea></div><ul class='cd-buttons'><li><a href='#' id='createThread-form-submit'>" +
-    "Criar Tópico</a></li><li><a href='#' id='closeButton'>Cancelar</a></li></ul></form>" +
-    "<a class='cd-popup-close'></a></div></div>");
+    "</textarea>");
+    
+    $(".cd-buttons").html('').append("<li><a href='#' id='createThread-form-submit'>" +
+    "Criar Tópico</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
 function getInfo(id) {
@@ -108,7 +88,8 @@ function getInfo(id) {
             }
 
             if(data.user.role == "teacher" || localStorage.teachers_only == 0) {
-                makePopup2(data.info.name);
+                $(".add").html("<input type='button' id='add_button' value='Criar Tópico'>");
+                addPopup(data.info.name);
             }
         },
         error: function(data) {

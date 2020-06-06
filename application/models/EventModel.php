@@ -115,13 +115,18 @@ class EventModel extends CI_Model { //evento & horario_duvidas
             "evento_id" => $evento_id,
             "grupo_id" => $grupo_id)
         );
-        //$this->db->
     }
 
     public function userRelatedToEvent($user_id, $evento_id){
         $this->db->where('user_id', $user_id);
         $this->db->where('evento_id', $evento_id);
         return $this->db->count_all_results('evento_user') > 0;
+    }
+
+    public function update($evento_id, $data){
+        $this->db->set($data);
+        $this->db->where('id', $evento_id);
+        return $this->db->update("evento");
     }
 
     public function delete($id) {

@@ -80,7 +80,7 @@
                         <input class="form-input-file" type="file" id="file_submit" name="file_submit" accept=".zip,.rar,.pdf,.docx">
                         <label for="file_submit" class="input-label">
                             <img id="file-img-submit" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
-                            <span id="name-file-submit">Submeter etapa do projeto</span>
+                            <span id="name-file-submit">Submeter trabalho</span>
                         </label>
                         <p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>
                     </form>

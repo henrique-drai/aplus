@@ -224,6 +224,8 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 
 
 
-form#addGroupEventForm h3 {
-    margin: 0px auto;
+
+.fichNumb p {
+    font-size: 12px;
+    margin-top: -10px;
 }

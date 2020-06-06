@@ -88,8 +88,19 @@ $(document).ready(() => {
 
     $("body").on("click", ".delete_img", function(){
         var id = $(this).attr("id");
-        deleteHourById(id);
+        $(".cd-message").html("<p>Tem a certeza que deseja eliminar a publicação?</p>");
+        $(".cd-buttons").html('').append("<li><a href='#' id='confirmRemove'>" +
+            "Sim</a></li><li><a href='#' id='closeButton'>Não</a></li>");
+        
+        $(".cd-popup").css('visibility', 'visible');
+        $(".cd-popup").css('opacity', '1');
+
+        $("body").on("click", "#confirmRemove", function() {
+            deleteHourById(id);
+        })
     })
+
+   
 
     $("body").on("keyup", ".maxnuminput", function(){
         var id = $(this).attr("id");
@@ -150,6 +161,15 @@ $(document).ready(() => {
         localStorage.setItem("forum_id", $(this).attr("id"));
         window.location = base_url + "foruns/forum/" + $(this).attr("id");
     })
+
+    //close popup
+	$('body').on('click', '.cd-popup', function(){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+            event.preventDefault();
+            $(this).css('visibility', 'hidden');
+            $(this).css('opacity', '0');
+		}
+    });
 })
 
 function setID(newid){
@@ -401,6 +421,8 @@ function deleteHourById(id) {
         data: {id: id, user_id: localStorage.user_id, cadeira_id: localStorage.cadeira_id},
         success: function(data) {
             getHours(id);
+            $(".cd-popup").css('visibility', 'hidden');
+            $(".cd-popup").css('opacity', '0');
         },
         error: function(data) {
             alert("Houve um erro a remover a data.")

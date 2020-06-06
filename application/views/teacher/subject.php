@@ -56,6 +56,8 @@
                     <input type="button" id="save_button_hours" value="Guardar">
 
                     <div class="message" id="message_hour">Editado com sucesso!</div>
+
+                    <?php $this->view('templates/popup'); ?>
                 </div>
             </div>
 

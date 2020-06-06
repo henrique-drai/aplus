@@ -44,10 +44,11 @@ select {
     border-radius: 5px;
     width: 280px;
     margin-bottom: 0%;
-    margin-top: 1%;
+    margin-top: -51px;
 	padding: 0.5%;
     opacity: 0;
     height: 23px;
+    float: right;
 }
 
 .taskInfo {
@@ -56,9 +57,10 @@ select {
 
 .infoTask_inputs {
     text-align: initial;
-    padding: 10px;
-    margin: 20px auto;
-    width: 90%;
+}
+
+.infoTask_inputs h2 {
+    text-align: center;
 }
 
 .cd-popup-container > div {
@@ -113,13 +115,6 @@ th, td {
     border-bottom: 1.5px solid #a5a5a5 !important;
 }
 
-.addTask_inputs, 
-.editTask_inputs {
-    padding: 10px;
-    margin: 20px auto;
-    width: 90%;
-}
-
 #addTask-form-submit,
 #editTask-form-submit {
     background-color: #3e5d4f;
@@ -135,7 +130,7 @@ option[value=""] {
 
 @media only screen and (max-width: 770px) {
 	.message {
-		width: 50%;
+		width: 65%;
 	}
 }
 
@@ -145,8 +140,10 @@ option[value=""] {
     }
 
     .message {
-		margin-top: -4%;
+        margin-top: -3%;
         padding: 1.5%;
+        float: none;
+        width: 100%;
     }
 
     .taskinfo {

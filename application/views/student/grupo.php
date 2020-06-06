@@ -11,7 +11,6 @@
 
 <body>
 <?php $this->view('templates/nav-menu'); ?>
-<?php $this->view('templates/popup'); ?>
     <main>
         <h4 class="breadcrumb">
             <a href="<?=$base_url?>app/student/grupos">Grupos</a> > Área de Grupo (<?=$grupo["name"]?>)
@@ -22,7 +21,7 @@
                 <h2><?=$info->name?></h2>
             </a> 
             <a href="<?=$base_url?>projects/project/<?=$info->projeto_id?>">
-                <span>(<?=$info->nome?>)</span>
+                <span id='project_name'>(<?=$info->nome?>)</span>
             </a>
         </div>
 
@@ -42,13 +41,13 @@
         <div class="buttons-container">
             <input id="newTarefa" type="button" value="Adicionar tarefa">
         </div>
+
+        <div class="message"></div>
         
         <div class="tasksTable">
             <table id='tab-gerir-tarefas'></table>
             <div class="container2"></div>
         </div>
-
-        <div class="message"></div>
 
         <div id="msg-sem-tarefas"></div>
 
@@ -60,3 +59,5 @@
 
         <!-- Pop up para o edit -->
         <div class="popupEdit"></div>
+
+        <?php $this->view('templates/popup'); ?>

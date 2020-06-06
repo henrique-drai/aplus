@@ -22,6 +22,7 @@ $(document).ready(() => {
 
     const id = localStorage.grupo_id;
     var task_id;
+    var proj_name = $("#project_name").text();
 
     $("body").on("click", "#ratingmembros", function() {
         window.location = base_url + "app/rating/" + localStorage.grupo_id;
@@ -33,43 +34,19 @@ $(document).ready(() => {
 
     $("#newTarefa").click(function() {
         createPopUpAdd();
+        $(".cd-popup").css('visibility', 'visible');
+        $(".cd-popup").css('opacity', '1');
     })
 	
-	// // close popup - REMOVER FORUM
-	// $('body').on('click', '.cd-popup', function(){
-	// 	if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
-    //         event.preventDefault();
-    //         $(this).remove();
-    //         $(".taskInfo").css("background-color", "white");
-	// 	}
-    // });
-
-    // // close popup2 - REMOVER FORUM
-	// $('body').on('click', '.cd-popup2', function(){
-	// 	if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') || $(event.target).is('#closeButton') ){
-    //         event.preventDefault();
-    //         $(this).remove();
-    //         $(".taskInfo").css("background-color", "white");
-	// 	}
-    // });
-
-    // // close popup3 - REMOVER FORUM
-	// $('body').on('click', '.cd-popup3', function(){
-	// 	if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup3') || $(event.target).is('#closeButton') ){
-    //         event.preventDefault();
-    //         $(this).remove();
-    //         $(".taskInfo").css("background-color", "white");
-	// 	}
-    // });
-
-    // // close popup4 - REMOVER FORUM
-    // $('body').on('click', '.cd-popup4', function () {
-    // 	if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup4') || $(event.target).is('#closeButton')) {
-    // 		event.preventDefault();
-    // 		$(this).remove();
-    // 		$(".taskInfo").css("background-color", "white");
-    // 	}
-    // });
+	// close popup
+	$('body').on('click', '.cd-popup', function(){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+            event.preventDefault();
+            $(this).css('visibility', 'hidden');
+            $(this).css('opacity', '0');
+            $(".taskInfo").css("background-color", "white");
+		}
+    });
 
     $("body").on("change", "select", function() {
         if($("select").val() == "") {
@@ -91,8 +68,10 @@ $(document).ready(() => {
 
     $("body").on("click", ".remove", function () {
         task_id = $(this).attr("id");
-        $(".cd-popup3").remove();
-        makePopup("confirmRemove", "Tem a certeza que deseja eliminar a tarefa?");
+        $(".cd-message").html("<p>Tem a certeza que deseja eliminar a tarefa?</p>");
+        $(".cd-buttons").html('').append("<li><a href='#' id='confirmRemove'>" +
+            "Sim</a></li><li><a href='#' id='closeButton'>Não</a></li>");
+
         $(".cd-popup").css('visibility', 'visible');
         $(".cd-popup").css('opacity', '1');
     })
@@ -103,7 +82,7 @@ $(document).ready(() => {
 
     $('body').on('click', '.taskInfo', function(){
         var task_id = $(this).attr("id");
-        updateTaskPopup(task_id);
+        updateTaskPopup(task_id, proj_name);
 
         if ($(this).css("background-color") == "#75a790"){
             $(this).css("background-color", "white");
@@ -177,7 +156,7 @@ function disableTasksClose() {
 
 
 
-function updateTaskPopup(task_id){
+function updateTaskPopup(task_id, proj_name){
     $.ajax({
         type: "GET",
         url: base_url + "api/getTaskById/" + task_id,
@@ -185,8 +164,9 @@ function updateTaskPopup(task_id){
             console.log(data)
             var popup = '';
 
-            popup = popup + "<div class='cd-popup3' role='alert'><div class='cd-popup-container' id='container-geral'>" +                 
-                "<div class='infoTask_inputs'><h3>Tarefa: " + data.task[0].name + "</h3>" +
+            popup = popup +                 
+                "<div class='infoTask_inputs'><h2>Tarefa para " + proj_name.substring(1, proj_name.length - 1) + "</h2>" +
+                "<h3>Nome</h3><label>" + data.task[0].name + "</label>" +
                 "<h3>Descrição</h3>";
                 
             if(data.task[0].description == "") {
@@ -223,29 +203,16 @@ function updateTaskPopup(task_id){
             popup = popup + "<div class='wrapper'><hr><input id='" + data.task[0].id + "' class='editTask' type='button' value='Editar Tarefa'>" +
                 "<input id='" + data.task[0].id + "' class='remove' type='button' value='Eliminar'></div><a class='cd-popup-close'></a></div></div>";
         
-            $(".popupAdd").html(popup);
-            $(".cd-popup3").css('visibility', 'visible');
-            $(".cd-popup3").css('opacity', '1');
+            $(".cd-message").html(popup);
+            $(".cd-buttons").html('');
+            $(".cd-popup").css('visibility', 'visible');
+            $(".cd-popup").css('opacity', '1');
 
         },
         error: function(data) {
             console.log(data)
         }
     });
-}
-
-function makePopup(butID, msg){
-    popup = '<div class="cd-popup" role="alert">' +
-        '<div class="cd-popup-container">' +
-        '<p>'+ msg +'</p>' +
-        '<ul class="cd-buttons">' +
-        '<li><a href="#" id="'+ butID +'">Sim</a></li>' +
-        '<li><a href="#" id="closeButton">Não</a></li>' +
-        '</ul>' +
-        '<a class="cd-popup-close"></a>' +
-        '</div></div>'
-
-    $("#popups").html(popup);
 }
 
 function checkClosedProject(){
@@ -292,31 +259,14 @@ function checkClosedProject(){
 }
 
 function createPopUpAdd() {
-    $.ajax({
-        type: "GET",
-        url: base_url + "api/getGroupMembers/" + localStorage.grupo_id,
-        success: function(data) {
-            var popup = '';
+    $(".cd-message").html(               
+        "<form id='addTask' action='javascript:void(0)'></form>").append("<div class='addTask_inputs'><h2>Adicionar nova tarefa</h2>" +
+        "<label class='form-label'>Nome:</label><input class='form-input-text' type='text' name='tarefaName' required>" +
+        "<label class='form-label'>Descrição:</label><textarea class='form-text-area' type='text' name='tarefaDescription'>" + 
+        "</textarea>");
 
-            popup = popup + "<div class='cd-popup2' role='alert'><div class='cd-popup-container'>" +                 
-                "<form id='addTask' action='javascript:void(0)'><div class='addTask_inputs'><h2>Adicionar nova tarefa</h2>" +
-                "<label class='form-label'>Nome:</label><input class='form-input-text' type='text' name='tarefaName' required>" +
-                "<label class='form-label'>Descrição:</label><textarea class='form-text-area' type='text' name='tarefaDescription'>" + 
-                "</textarea>";
-
-            popup = popup + "</select></div><ul class='cd-buttons'><li><a href='#' id='addTask-form-submit'>" +
-                "Criar Tarefa</a></li><li><a href='#' id='closeButton'>Cancelar</a></li></ul></form>" +
-		        "<a class='cd-popup-close'></a></div></div>"
-        
-            $(".popupAdd").html(popup);
-            $(".cd-popup2").css('visibility', 'visible');
-            $(".cd-popup2").css('opacity', '1');
-
-        },
-        error: function(data) {
-            console.log(data)
-        }
-    });
+    $(".cd-buttons").html('').append("<li><a href='#' id='addTask-form-submit'>" +
+    "Criar Tarefa</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
 function insertTask(taskName, taskDesc, taskMember) {
@@ -330,8 +280,8 @@ function insertTask(taskName, taskDesc, taskMember) {
             console.log("cool")
             $(".message").empty();
             
-            $(".cd-popup2").css('visibility', 'hidden');
-            $(".cd-popup2").css('opacity', '0');
+            $(".cd-popup").css('visibility', 'hidden');
+            $(".cd-popup").css('opacity', '0');
 
             getTasks();
             
@@ -494,7 +444,7 @@ function createPopUpEdit(task_id) {
 			console.log(data)
 			var popup = '';
 
-			popup = popup + "<div class='cd-popup4' role='alert'><div class='cd-popup-container'>" +
+			popup = popup + 
 				"<form id='editTask' action='javascript:void(0)'><div class='editTask_inputs'><h2>Editar tarefa</h2>" +
 				"<label class='form-label'>Nome:</label><input class='form-input-text' type='text' name='tarefaName'>" +
 				"<label class='form-label'>Descrição:</label><textarea class='form-text-area' type='text' name='tarefaDescription'>" +

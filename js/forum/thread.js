@@ -43,14 +43,6 @@ $(document).ready(() => {
             $(this).css('opacity', '0');
 		}
     });
-
-    // //close popup2
-	// $('body').on('click', '.cd-popup2', function(){
-	// 	if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') || $(event.target).is('#closeButton') ){
-    //         event.preventDefault();
-    //         $(this).remove();
-	// 	}
-    // });
     
     //confirmed delete do popup - REMOVER PUBLICAÇÃO
     $("body").on('click', '#confirmRemove', function(){    

@@ -17,8 +17,8 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
         return $this->db->get_where("grupo", array("id" => $group_id)) -> result_array();
     }
 
-    public function isValidGroup($id) {
-        $query = $this->db->get_where('grupo', array('id' => $id));
+    public function isValidGroup($grupo_id,$user_id) {
+        $query = $this->db->get_where('grupo', array('grupo_id' => $grupo_id,'user_id',$user_id));
         return ($query->num_rows() > 0)? true : false;
     }
 

@@ -79,14 +79,14 @@ class Api_Chat extends REST_Controller {
         $compArray=array();
 
         for($i=0; $i < count($resultquery); $i++) {
-            if($resultquery[$i]["id_sender"]!=$id && !in_array($resultquery[$i]["id_sender"], $compArray)){
-                $tmp = $this->UserModel->getUserById($resultquery[$i]["id_sender"]);
+            if($resultquery[$i]["sender"]!=$id && !in_array($resultquery[$i]["sender"], $compArray)){
+                $tmp = $this->UserModel->getUserById($resultquery[$i]["sender"]);
                 array_push($data["users"], $tmp);
-                array_push($compArray,$resultquery[$i]["id_sender"]);
-            }elseif ($resultquery[$i]["id_sender"]==$id && !in_array($resultquery[$i]["id_receiver"], $compArray)) {
-                $tmp = $this->UserModel->getUserById($resultquery[$i]["id_receiver"]);
+                array_push($compArray,$resultquery[$i]["sender"]);
+            }elseif ($resultquery[$i]["sender"]==$id && !in_array($resultquery[$i]["receiver"], $compArray)) {
+                $tmp = $this->UserModel->getUserById($resultquery[$i]["receiver"]);
                 array_push($data["users"], $tmp);
-                array_push($compArray,$resultquery[$i]["id_receiver"]);
+                array_push($compArray,$resultquery[$i]["receiver"]);
             }
         }  
         $this->response($data, parent::HTTP_OK);
@@ -169,8 +169,28 @@ class Api_Chat extends REST_Controller {
     public function getLastConvo_get(){
         $id = $this->session->userdata('id');
         $this->load->model('ChatModel');
+        $this->load->model('GroupModel');
+        $this->load->model('ProjectModel');
+
+
+        $data=array();
         $resultquery = $this->ChatModel->getLastConvo($id);
-        $this->response(end($resultquery), parent::HTTP_OK);
+        // $grupo = $this->GroupModel->getGroupById($resultquery[]);
+        // $resultquery[]
+        // print_r($grupo[0]["name"]);
+        if($resultquery[0]["Type"]=="Grupo"){
+            $grupo=$this->GroupModel->getGroupById($resultquery[0]["ID"]);
+            array_push($grupo, $this->ProjectModel->getProjectByID($grupo[0]["projeto_id"]));
+            array_push($data,$resultquery);
+            array_push($data,$grupo[0]["name"]);
+            array_push($data,$grupo[1][0]["nome"]);
+
+        }
+        elseif($resultquery[0]["Type"]=="Privado"){
+            $data = $resultquery;
+        }
+        
+        $this->response($data, parent::HTTP_OK);
     }
  
     //////////////////////////////////////////////////////////////

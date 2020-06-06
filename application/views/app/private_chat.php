@@ -13,8 +13,10 @@
     <?php $this->view('templates/nav-menu'); ?>
 
     <main>
-        
-    <h1>Chat</h1>
+    
+    <h4 class="breadcrumb">
+            <a href="<?php echo base_url(); ?>app/chat">Chat</a>
+    </h4>
         <div id="all-chat">
         <div id="leftSideChat">           
         <div class="form-group">

@@ -29,6 +29,7 @@ li p{
     overflow: hidden;
     width: 245px;
     border-right: 1px solid #c4c4c4;
+    height: 105%;
 }
 
 .list-group {
@@ -64,7 +65,7 @@ li p{
 }
 
 #chatList{
-    padding: 0px 25px 0px 0px;
+    padding: 0px 0px 0px 0px;
     overflow-y: auto
 }
 #chatList1{
@@ -94,7 +95,7 @@ li p{
 }
 
 .received-msg-width{
-    width: fit-content;
+    width: max-content;
     max-width: 60%;
 }
 
@@ -166,7 +167,7 @@ li p{
     color: #4c4c4c;
     font-size: 15px;
     min-height: 48px;
-    width: 100%;
+    width: 95%;
 }
 
 .icon-send{
@@ -192,7 +193,6 @@ li p{
     color: #444;
     cursor: pointer;
     padding: 18px;
-    width: 100%;
     border: none;
     text-align: left;
     outline: none;
@@ -217,10 +217,15 @@ li p{
   }
 
   #search_text_chat{
-    width: 95%;
-    margin-top: 20px;
+    width: 90%;
+    /* margin-top: 20px; */
+    /* padding-bottom: 28px; */
+    height: 28px;
   }
 
   .accordions{
-      margin-top: 28px;
+      /* margin-top: 28px; */
+      overflow-y: scroll;
+      height: 85%;
+      padding-top: 5%;
   }

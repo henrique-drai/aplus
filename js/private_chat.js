@@ -14,8 +14,8 @@ var flagScroll=false;
 $(document).ready(() => {
     loadAccordion()
     // window.history.pushState('','','../g/7171')
-    console.log(chat_user_id);
-    console.log(chatType);
+    // console.log(chat_user_id);
+    // console.log(chatType);
 
     
         if(chat_user_id!=null&&chatType!=null){
@@ -57,12 +57,10 @@ $(document).ready(() => {
 
 function setChatUserId(user_id){
     chat_user_id = user_id
-    // console.log(chat_user_id);
 }
 
 function setChatType(Type){
     chatType = Type
-    // console.log(chatType);
 }
 
 
@@ -71,17 +69,23 @@ function loadRecentChat(){
         type: "GET",
         url: base_url + "api/getLastConvo",
         success: function (data) {
-                if(data.Type=="Privado"){
-                    getChatHistory(data.ID);
+                console.log(data)
+                if(data[0].Type=="Privado" && data[0].ID!=null){
+                    getChatHistory(data[0].ID);
+                    window.history.pushState('','','chat/p/'+data[0].ID)
+
 
                     refreshIntervalIdHistory = setInterval(function(){
-                        getChatHistory(data.ID);
+                        getChatHistory(data[0].ID);
                     }, 3000);
                 }
-                if(data.Type=="Grupo"){
-                    getChatGroupHistory(data.ID);
+                else if(data[0][0].Type=="Grupo" && data[0][0].ID!=null){
+                    window.history.pushState('','','chat/g/'+data[0][0].ID)
+
+                    nomeGrupo = "Projeto " + data[2] + " - Grupo " + data[1];
+                    getChatGroupHistory(data[0][0].ID);
                     refreshIntervalGroupIdHistory = setInterval(function(){
-                        getChatGroupHistory(data.ID);
+                        getChatGroupHistory(data[0][0].ID);
                     }, 3000);
                 }
         }
@@ -127,7 +131,7 @@ function bindPrivateChatLiClick(){
         flagScroll=false
         var id_sender = $(this).attr("user_id");
         clicked_user = id_sender;
-
+        window.history.pushState('','','/aplus/app/chat/p/'+id_sender)
         getChatHistory(id_sender);
         clearInterval(refreshIntervalIdHistory);
         clearInterval(refreshIntervalGroupIdHistory);
@@ -147,6 +151,8 @@ function bindGroupLiClick(){
         flagScroll=false
         var id_group = $(this).attr("group_id");
         // var id_projecto = $(this).attr("projecto_id");
+        window.history.pushState('','','/aplus/app/chat/g/'+id_group)
+
         clicked_group = id_group;
         nomeGrupo = $(this).text()
         getChatGroupHistory(id_group);
@@ -165,28 +171,34 @@ function bindGroupLiClick(){
 function bindEnterChat(){ //######################################
     $('#write_msg').keydown(function (e){
         if(e.keyCode == 13){
-            sendMessage($('#write_msg').val(),new Date().toMysqlFormat());
-            $('#write_msg').val("");
+            if(/\S/.test($('#write_msg').val())){
+                sendMessage($('#write_msg').val(),new Date().toMysqlFormat());
+                $('#write_msg').val("");
+            }
         }
     })
     $('#icon-send').click(function(){
-        sendMessage($('#write_msg').val(),new Date().toMysqlFormat());
-        $('#write_msg').val("");
+        if(/\S/.test($('#write_msg').val())){
+            sendMessage($('#write_msg').val(),new Date().toMysqlFormat());
+            $('#write_msg').val("");
+        }
     })
 }
 
 function bindEnterChatGroup(){ //######################################
     $('#write_msg').keydown(function (e){
         if(e.keyCode == 13){
-            console.log(new Date().toMysqlFormat())
-            sendMessageGroup($('#write_msg').val(),new Date().toMysqlFormat());
-            $('#write_msg').val("");
-
+            if(/\S/.test($('#write_msg').val())){
+                sendMessageGroup($('#write_msg').val(),new Date().toMysqlFormat());
+                $('#write_msg').val("");
+            }
         }
     })
     $('#icon-send').click(function(){
-        sendMessageGroup($('#write_msg').val(),new Date().toMysqlFormat());
-        $('#write_msg').val("");
+        if(/\S/.test($('#write_msg').val())){
+            sendMessageGroup($('#write_msg').val(),new Date().toMysqlFormat());
+            $('#write_msg').val("");
+        }
     })
 
 }
@@ -230,7 +242,6 @@ function getChatLogs(){
 
 function makeUserListLastText(dataFromUser){
     users= '';
-    // console.log(dataFromUser)
     existingChats=[];
     var incr=0;
     var d = new Date();
@@ -247,7 +258,6 @@ function makeUserListLastText(dataFromUser){
         incr++;
          
     }
-    // console.log(users)
     $('#recentConvo').html('('+incr+')')
 
     if(users!=''){
@@ -296,8 +306,7 @@ function getGroups(){
 function makeUserListGroups(data){
     groups= '';
     cadeirasComum='';
-    // console.log(data)
-    // existingChats=[];
+ 
     var incr = 0;
     for (i=0;i<data.length;i++){
         groups += '<li class="list-group-class" projeto_id='+data[i][1][0].projeto_id+' group_id='+ data[i][0].id +'> <div class="list-chat">Projeto ' + data[i][1][0].nome+' - Grupo '+data[i][0].name + '</div>'
@@ -352,8 +361,7 @@ function getChatGroupHistory(id_group){
         url: base_url + "api/getChatGroupHistory",
         data: {id_group},
         success: function(data) {
-            // console.log(data.sent)
-            // console.log(nomeGrupo)
+           
             makeGroupMsgHistory(data);
             $(".headName").html('<div class="chatter"><h3>'+ nomeGrupo +'</h3></div>')
             // bindEnterChatGroup()
@@ -371,7 +379,7 @@ function makeGroupMsgHistory(data){
     chatbox=''
     
     for (i=0;i<data.msg.length;i++){
-        console.log(data.msg[i])
+        // console.log(data.msg[i])
         if(data.msg[i][0].user_id == data.me){
             chatbox+='<div class="sent-msg"><div class="sent-msg-width"><p>'+ data.msg[i][0].content +'</p><span  class="time_date">'+ data.msg[i][0].date +'</span></div></div>'
         }
@@ -384,9 +392,14 @@ function makeGroupMsgHistory(data){
 
 function makeUserList(dataFromUser){
     users= '';
+    var d = new Date();
+    var miliseconds = d.getTime();
     for (i=0;i<dataFromUser.users.length;i++){
-        
-        users += '<li class="list-group-class" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat">' +
+        var src=base_url+"uploads/profile/"+dataFromUser.users[i].id+"/"+dataFromUser.users[i].picture+"?"+miliseconds;
+        if(dataFromUser.users[i].picture==""){
+            src=base_url+"uploads/profile/default.jpg"
+        }
+        users += '<li class="list-group-class" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat"><img src='+src+' class="chat_profile" alt="Profile Picture"</img>' +
          dataFromUser.users[i].name +' '+ dataFromUser.users[i].surname + '</div></li>'
         //  <p>'+ getLastPrivateMsg(dataFromUser.users[i].content)
         //  "test"+'</p></li>';

@@ -34,12 +34,6 @@ textarea {
     min-height: 20%;
 }
 
-.createPost_inputs {
-    padding: 10px;
-    margin: 20px auto;
-    width: 90%;
-}
-
 #createPost-form-submit {
     background-color: #3e5d4f;
 }

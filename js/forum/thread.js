@@ -2,6 +2,7 @@ $(document).ready(() => {
     getInfo(localStorage.getItem("thread_id"));
 
     $('body').on("click", "#create_post_button", function() {
+        addPopup($(".threadName").text());
         $(".cd-popup").css('visibility', 'visible');
         $(".cd-popup").css('opacity', '1');
     })
@@ -17,14 +18,19 @@ $(document).ready(() => {
 	$('body').on('click', '.remove', function(){
         localStorage.setItem("post_id", $(this).attr("id"));
         $(".cd-message").html("<p>Tem a certeza que deseja eliminar a publicação?</p>");
-        $("#actionButton").attr('id', 'confirmRemove');
+        $(".cd-buttons").html('').append("<li><a href='#' id='confirmRemove'>" +
+            "Sim</a></li><li><a href='#' id='closeButton'>Não</a></li>");
+
         $(".cd-popup").css('visibility', 'visible');
         $(".cd-popup").css('opacity', '1');
     });
     
     //open popup - REMOVER THREAD
 	$('body').on('click', '.remove_thread', function() {
-        makePopup("confirmRemoveThread", "Tem a certeza que deseja eliminar o tópico?");
+        $(".cd-message").html("<p>Tem a certeza que deseja eliminar o tópico?</p>");
+        $(".cd-buttons").html('').append("<li><a href='#' id='confirmRemoveThread'>" +
+            "Sim</a></li><li><a href='#' id='closeButton'>Não</a></li>");
+
         $(".cd-popup").css('visibility', 'visible');
         $(".cd-popup").css('opacity', '1');
 	});
@@ -38,13 +44,13 @@ $(document).ready(() => {
 		}
     });
 
-    //close popup2
-	$('body').on('click', '.cd-popup2', function(){
-		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') || $(event.target).is('#closeButton') ){
-            event.preventDefault();
-            $(this).remove();
-		}
-    });
+    // //close popup2
+	// $('body').on('click', '.cd-popup2', function(){
+	// 	if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') || $(event.target).is('#closeButton') ){
+    //         event.preventDefault();
+    //         $(this).remove();
+	// 	}
+    // });
     
     //confirmed delete do popup - REMOVER PUBLICAÇÃO
     $("body").on('click', '#confirmRemove', function(){    
@@ -79,29 +85,15 @@ $(document).ready(() => {
     })
 })
 
-function makePopup(butID, msg){
-    popup = '<div class="cd-popup" role="alert">' +
-        '<div class="cd-popup-container">' +
-        '<p>'+ msg +'</p>' +
-        '<ul class="cd-buttons">' +
-        '<li><a href="#" id="'+ butID +'">Sim</a></li>' +
-        '<li><a href="#" id="closeButton">Não</a></li>' +
-        '</ul>' +
-        '<a class="cd-popup-close"></a>' +
-        '</div></div>'
-
-    $("#popups").html(popup);
-}
-
 function addPopup(thread_name) {
-    $(".add").html("<input type='button' id='create_post_button' value='Criar nova publicação'>" +
-    "<div class='cd-popup2' role='alert'><div class='cd-popup-container'>" +                 
-    "<form id='postForm' class='thread-form'  action='javascript:void(0)'><div class='createPost_inputs'><h2>Criar nova publicação</h2>" +
+    $(".cd-message").html(               
+    "<form id='postForm' class='thread-form'  action='javascript:void(0)'></form>").append("<div class='createPost_inputs'><h2>Criar nova publicação</h2>" +
     "<h3>Tópico: " + thread_name + "</h3>" +
     "<label class='form-label'>Conteúdo:</label>" +
-    "<textarea class='form-text-area' type='text' name='threadDescription' required></textarea></div><ul class='cd-buttons'>" +
-    "<li><a href='#' id='createPost-form-submit'>Criar Publicação</a></li><li><a href='#' id='closeButton'>Cancelar</a></li></ul></form>" +
-    "<a class='cd-popup-close'></a></div></div>");
+    "<textarea class='form-text-area' type='text' name='threadDescription' required></textarea>");
+    
+    $(".cd-buttons").html('').append("<li><a href='#' id='createPost-form-submit'>Criar Publicação</a></li>" +
+    "<li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
 function getInfo(id) {

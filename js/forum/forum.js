@@ -28,7 +28,7 @@ $(document).ready(() => {
         $(".cd-message").html("<p>Tem a certeza que deseja eliminar o fórum?</p>");
         $(".cd-buttons").html('').append("<li><a href='#' id='confirmRemove'>" +
             "Sim</a></li><li><a href='#' id='closeButton'>Não</a></li>");
-            
+
         $(".cd-popup").css('visibility', 'visible');
         $(".cd-popup").css('opacity', '1');
 	});

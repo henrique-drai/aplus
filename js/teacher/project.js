@@ -517,13 +517,6 @@ function checkEnunciado(){
 }
 
 
-function strToDate(dtStr) {
-    let dateParts = dtStr.split("/");
-    let timeParts = dateParts[2].split(" ")[1].split(":");
-    dateParts[2] = dateParts[2].split(" ")[0];
-    return dateObject = new Date(dateParts[2], dateParts[1] - 1, +dateParts[0], timeParts[0], timeParts[1], timeParts[2]); 
-}
-
 //limpar os campos preenchidos
 function emptyEtapa(){
     $('#etapa-form')[0].reset();
@@ -532,19 +525,24 @@ function emptyEtapa(){
 //preencher form da etapa com a info relativa à etapa
 function putEtapaInfoForm(newid){
     var name = $("#etapa" + newid).find("p:first").text();
-    var data = $("#etapa" + newid).find("p:nth-child(2)").text().replace(",","");
-    data +=":00";
+    var data = $("#etapa" + newid).find("p:nth-child(2)").text();
     var desc = $(".inputs-div").find("label:first").text();
-    var newdata = strToDate(data).toISOString();
-    var finaldata = newdata.substring(0,newdata.length-1);
+    // var newdata = strToDate(data).toISOString();
+    // var finaldata = newdata.substring(0,newdata.length-1);
 
     $('input[name="editetapaName"]').val(name);
-    $('input[name="editetapaDate"]').val(finaldata);
+    $('input[name="editetapaDate"]').val(data);
     $('textarea[name="editetapaDescription"]').val(desc);
+
+    if (!verifyDates(data)){
+        $("#etapa-edit input[name='editetapaDate']").css("border-left-color", "red");
+    } else {
+        $("#etapa-edit input[name='editetapaDate']").css("border-left-color", "lawngreen");
+    }
 
     etapa['nome'] = name;
     etapa['desc'] = desc;
-    etapa['data'] = finaldata;
+    etapa['data'] = dateFromPicker(data);
 }
 
 
@@ -582,7 +580,7 @@ function verifyDates(data){
     if (data == ""){
         $("#errormsg").text("Todos os campos devem ser preenchidos");
         $("#errormsgedit").text("Todos os campos devem ser preenchidos");
-        $("#errormsgedit").show().delay(2500).fadeOut();
+        // $("#errormsgedit").show().delay(2500).fadeOut();
         return false;
     }
 
@@ -594,14 +592,14 @@ function verifyDates(data){
     if (isNaN(dParse)){
         $("#errormsg").text("A data da etapa tem de ser maior que a data atual");
         $("#errormsgedit").text("A data da etapa tem de ser maior que a data atual");
-        $("#errormsgedit").show().delay(2500).fadeOut();
+        // $("#errormsgedit").show().delay(2500).fadeOut();
         return false;
     }
 
     if (dmaior <= today){
         $("#errormsg").text("A data da etapa tem de ser maior que a data atual");
         $("#errormsgedit").text("A data da etapa tem de ser maior que a data atual");
-        $("#errormsgedit").show().delay(2500).fadeOut();
+        // $("#errormsgedit").show().delay(2500).fadeOut();
         return false;
     }
 

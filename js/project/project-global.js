@@ -40,3 +40,11 @@ function dateFromPicker(date){
     }
 
 }
+
+//era usada com o date time local, agora nao estou a usar mas vamos deixar aqui porque pode voltar a ser preciso
+function strToDate(dtStr) {
+    let dateParts = dtStr.split("/");
+    let timeParts = dateParts[2].split(" ")[1].split(":");
+    dateParts[2] = dateParts[2].split(" ")[0];
+    return dateObject = new Date(dateParts[2], dateParts[1] - 1, +dateParts[0], timeParts[0], timeParts[1], timeParts[2]); 
+}

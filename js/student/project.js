@@ -152,13 +152,13 @@ function showMyGroup(proj_id){
         data: {proj_id: proj_id},
         success: function(data) {
             if (data == ""){
+                $("#areagrupo").hide();
                 $(".criarGrupo").css("display", "inline");
                 $("#grupo-name").text("Grupos");
                 showNotFullGroups(proj_id);
                 var timeout = setInterval(function(){showNotFullGroups(proj_id);}, 10000);
                 $("#submitEtapa").prop('disabled', true);
                 have_group = false;
-                $("#areagrupo").hide();
                 $("#form-submit-etapa").hide();
                 localStorage.setItem("grupo_id",0) //adicionei só para se alguem estiver a usar localstorage não dar porcaria
             } else {

@@ -26,7 +26,9 @@ $(document).ready(() => {
     //open popup - REMOVER FORUM
 	$('body').on('click', '.remove', function(){
         $(".cd-message").html("<p>Tem a certeza que deseja eliminar o fórum?</p>");
-        $("#actionButton").attr('id', 'confirmRemove')
+        $(".cd-buttons").html('').append("<li><a href='#' id='confirmRemove'>" +
+            "Sim</a></li><li><a href='#' id='closeButton'>Não</a></li>");
+            
         $(".cd-popup").css('visibility', 'visible');
         $(".cd-popup").css('opacity', '1');
 	});
@@ -36,7 +38,7 @@ $(document).ready(() => {
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
             event.preventDefault();
             $(this).css('visibility', 'hidden');
-            $(this).css('opacity', '1');
+            $(this).css('opacity', '0');
 		}
     });
     

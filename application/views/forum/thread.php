@@ -32,6 +32,8 @@
             <div class="threads"></div>
 
             <div class="add"></div>
+
+            <?php $this->view('templates/popup'); ?>
         </div>
 
     </main>

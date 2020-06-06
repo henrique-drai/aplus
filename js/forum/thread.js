@@ -2,22 +2,22 @@ $(document).ready(() => {
     getInfo(localStorage.getItem("thread_id"));
 
     $('body').on("click", "#create_post_button", function() {
-        makePopup2($(".threadName").text());
-        $(".cd-popup2").css('visibility', 'visible');
-        $(".cd-popup2").css('opacity', '1');
+        $(".cd-popup").css('visibility', 'visible');
+        $(".cd-popup").css('opacity', '1');
     })
     
     $('body').on("click", '#createPost-form-submit', function() {
         var desc = $("textarea").val();
         insertPost(desc);
-        $(".cd-popup2").css('visibility', 'hidden');
-        $(".cd-popup2").css('opacity', '0');
+        $(".cd-popup").css('visibility', 'hidden');
+        $(".cd-popup").css('opacity', '0');
     })
 
     //open popup - REMOVER PUBLICAÇÃO
 	$('body').on('click', '.remove', function(){
         localStorage.setItem("post_id", $(this).attr("id"));
-        makePopup("confirmRemove", "Tem a certeza que deseja eliminar a publicação?");
+        $(".cd-message").html("<p>Tem a certeza que deseja eliminar a publicação?</p>");
+        $("#actionButton").attr('id', 'confirmRemove');
         $(".cd-popup").css('visibility', 'visible');
         $(".cd-popup").css('opacity', '1');
     });
@@ -33,7 +33,8 @@ $(document).ready(() => {
 	$('body').on('click', '.cd-popup', function(){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
             event.preventDefault();
-            $(this).remove();
+            $(this).css('visibility', 'hidden');
+            $(this).css('opacity', '0');
 		}
     });
 
@@ -92,7 +93,7 @@ function makePopup(butID, msg){
     $("#popups").html(popup);
 }
 
-function makePopup2(thread_name) {
+function addPopup(thread_name) {
     $(".add").html("<input type='button' id='create_post_button' value='Criar nova publicação'>" +
     "<div class='cd-popup2' role='alert'><div class='cd-popup-container'>" +                 
     "<form id='postForm' class='thread-form'  action='javascript:void(0)'><div class='createPost_inputs'><h2>Criar nova publicação</h2>" +
@@ -137,7 +138,8 @@ function getInfo(id) {
                 }
 
                 if(localStorage.teachers_only == 0 || data.user.role == "teacher") {
-                    makePopup2(data.info.title);
+                    $(".add").html("<input type='button' id='create_post_button' value='Criar nova publicação'>");
+                    addPopup(data.info.title);
                 }
             }
 

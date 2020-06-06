@@ -1,5 +1,6 @@
 $(document).ready(() => {
     getInfo(localStorage.getItem("thread_id"));
+    setInterval(getInfo(localStorage.thread_id), 3000);
 
     $('body').on("click", "#create_post_button", function() {
         addPopup($(".threadName").text());
@@ -106,15 +107,12 @@ function getInfo(id) {
             if(data.posts.length == 0) {
                 $(".threads").append("<p>Não há nenhuma publicação neste tópico.</p>");
 
-                $(".add").append("<input type='button' id='create_post_button' value='Criar nova publicação'><div class='overlay'>" +
-                    "<div class='popup'><a class='close' href='#'>&times;</a><div class='content'><h2>Criar nova publicação</h2>" +
-                    "<form id='threadForm' class='thread-form'  action='javascript:void(0)'><p><label class='form-label'>Conteúdo:</label>" +
-                    "<textarea class='form-text-area' type='text' name='threadDescription' required></textarea></p><input type='button'" +
-                    "id='popup_button' value='Criar'></form></div></div></div>");
+                $(".add").html("<input type='button' id='create_post_button' value='Criar nova publicação'>");
+                    addPopup(data.info.title);
             } else {
                 for(var i=0; i < data.posts.length; i++) {
                     $(".threads").append("<div class='post' id='" + data.posts[i].id + "'><div class='head'><p>" + data.users[i].name + " " + data.users[i].surname + "</p>" +
-                        "<p>Data: " + data.posts[i].date + "</p></div><div class='content2'><p>" + data.posts[i].content + "</p></div></div>");
+                        "<p>" + getDate(data.posts[i].date) + "</p></div><div class='content2'><p>" + data.posts[i].content + "</p></div></div>");
 
                         if(localStorage.user_id == data.users[i].id) {
                             $(".content2").last().append("<input id='" + data.posts[i].id + "' class='remove' type='button' value='Eliminar publicação'>");
@@ -136,6 +134,20 @@ function getInfo(id) {
             console.log(data)
         }
     })
+}
+
+function getDate(date){
+    const diff = Date.now() - new Date(date);
+
+    if (diff < 1000*60*60*24) {
+        if(diff - 3600000 < 1000*60*60) {
+            return "Há "+Math.round((diff - 3600000)/1000/60)+" minutos";
+        } else {
+            return "Há "+Math.floor(diff/1000/60/60)+" horas";
+        }
+    } else {
+        return "Há "+Math.floor(diff/1000/60/60/24)+" dias";
+    }
 }
 
 function insertPost(desc) {

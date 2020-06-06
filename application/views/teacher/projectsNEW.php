@@ -49,7 +49,7 @@
                         <input class="form-input-text" type="text" name="etapaName" required>
                     </label>
                     <label class="form-label" id="date-picker-label">Data de entrega
-                        <input class="form-input-text" id="datepicker1" name="etapaDate" required>
+                        <input class="form-input-text" id="datepicker1" name="etapaDate" autocomplete="off" required>
                         <div id="placeholder-picker1"></div>
                     </label>
                 </div>

@@ -9,6 +9,55 @@ var etapas_info_global;
 
 $(document).ready(() => {
 
+
+
+    //inicializar os dois pickers
+    const editpicker = new WindowDatePicker({
+        el: '#placeholder-picker-edit',
+        toggleEl: '#datepickeredit',
+        inputEl: '#datepickeredit',
+        type: 'DATEHOUR',
+        hourType: "24",
+        allowEmpty: "FALSE",
+        lang: "pt",
+    });
+
+    const etapapicker = new WindowDatePicker({
+        el: '#placeholder-picker-new',
+        toggleEl: '#datepickernew',
+        inputEl: '#datepickernew',
+        type: 'DATEHOUR',
+        hourType: "24",
+        allowEmpty: "FALSE",
+        lang: "pt",
+    });
+
+
+
+    //on change dos dois pickers
+    editpicker.el.addEventListener('wdp.change', () => {
+        var data = dateFromPicker($("#datepickeredit").val());
+
+        etapa['data'] = data;
+
+        if (!verifyDates(data))
+            $("#datepickeredit").css("border-left-color", "red");
+        else
+            $("#datepickeredit").css("border-left-color", "lawngreen");
+    });
+
+    etapapicker.el.addEventListener('wdp.change', () => {
+        var data = dateFromPicker($("#datepickernew").val());
+
+        etapa['data'] = data;
+
+        if (!verifyDates(data))
+            $("#datepickernew").css("border-left-color", "red");
+        else
+            $("#datepickernew").css("border-left-color", "lawngreen");
+    });
+
+
     //GRUPOS ---
 
     //tabela dos grupos
@@ -305,7 +354,7 @@ $(document).ready(() => {
     $("#etapa").change(function(){
         var name = $(this).find('input[name="etapaName"]').val();
         var desc = $(this).find('textarea[name="etapaDescription"]').val();
-        var data = $(this).find('input[name="etapaDate"]').val();
+        var data = dateFromPicker($(this).find('input[name="etapaDate"]').val());
         var enunc = '';
         
         etapa['nome'] = name;
@@ -531,6 +580,7 @@ function checkEntrega(dateOld){
 function verifyDates(data){
 
     if (data == ""){
+        $("#errormsg").text("Todos os campos devem ser preenchidos");
         $("#errormsgedit").text("Todos os campos devem ser preenchidos");
         $("#errormsgedit").show().delay(2500).fadeOut();
         return false;
@@ -542,12 +592,14 @@ function verifyDates(data){
     var dParse = Date.parse(dmaior);
 
     if (isNaN(dParse)){
+        $("#errormsg").text("A data da etapa tem de ser maior que a data atual");
         $("#errormsgedit").text("A data da etapa tem de ser maior que a data atual");
         $("#errormsgedit").show().delay(2500).fadeOut();
         return false;
     }
 
     if (dmaior <= today){
+        $("#errormsg").text("A data da etapa tem de ser maior que a data atual");
         $("#errormsgedit").text("A data da etapa tem de ser maior que a data atual");
         $("#errormsgedit").show().delay(2500).fadeOut();
         return false;
@@ -617,7 +669,7 @@ function submit_edit_etapa(){
             }
         });
     } else {
-        $("#errormsg").show().delay(2500).fadeOut();
+        $("#errormsgedit").show().delay(2500).fadeOut();
         return false;
     }
 }

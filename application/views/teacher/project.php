@@ -1,9 +1,11 @@
 <title>A+ for Teachers</title>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/window-date-picker.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/projects/projects-general.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/teacher-projects.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
 <script>setPageName("subjects")</script>
+<script src="<?php echo $base_url; ?>js/window-date-picker.min.js"></script>
 <script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 <script src="<?php echo $base_url; ?>js/project/project-global.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/project.js"></script>
@@ -105,8 +107,12 @@
                                 <input class="form-input-text" type="text" name="editetapaName" required>
                                 <label class="form-label-title">Descrição</label>
                                 <textarea class="form-text-area" type="text" name="editetapaDescription" required></textarea>
-                                <label class="form-label-title">Data de entrega</label>
-                                <input class="form-input-date" type="datetime-local" name="editetapaDate" required>
+                                <label class="form-label" id="date-picker-label">Data de entrega
+                                    <input class="form-input-text" id="datepickeredit" name="editetapaDate" autocomplete="off" required>
+                                    <div id="placeholder-picker-edit"></div>
+                                </label>
+                                <!-- <label class="form-label-title">Data de entrega</label> -->
+                                <!-- <input class="form-input-date" type="datetime-local" name="editetapaDate" required> -->
                             </div>
                         </form>
 
@@ -153,18 +159,22 @@
                             <input class="form-input-text" type="text" name="etapaName" required>
                             <label class="form-label">Descrição</label>
                             <textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>
-                            <label class="form-label">Data de entrega</label>
-                            <input class="form-input-date" type="datetime-local" name="etapaDate" required>
+                            <label class="form-label" id="date-picker-label">Data de entrega
+                                <input class="form-input-text" id="datepickernew" name="etapaDate" autocomplete="off" required>
+                            </label>                            
+                            <!-- <label class="form-label">Data de entrega</label>
+                            <input class="form-input-date" type="datetime-local" name="etapaDate" required> -->
                         </div>
-               
+                        <br>
                         <div id="successmsg_criar" class="submit-msg">Etapa criada com sucesso</div>
                         <div id="errormsg" class="submit-msg">Mensagem de erro template</div>
-                
+
                         <ul class="cd-buttons" id="ul-buttons-etapa">
                             <li><a href="#" id="newEtapa">Submeter</a></li>
                             <li><a href="#" id="closeButton-hide">Cancelar</a></li>
                         </ul>
                     </form>
+                    <div id="placeholder-picker-new"></div>
                     <a class="cd-popup-hide"></a>
                 </div>
             </div>

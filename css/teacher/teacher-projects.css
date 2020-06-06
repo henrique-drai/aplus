@@ -76,3 +76,21 @@ input.remove:hover {
 #enunciado-form > #ul-buttons{
     display: block;
 }
+.wdp {
+    position: fixed;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    /* left: 140px !important;
+    top: 10px !important;
+    position: absolute !important; */
+    /* width: 295px !important; */
+}
+
+
+

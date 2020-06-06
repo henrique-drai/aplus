@@ -35,6 +35,10 @@
     background-color: #8f9cb5;
 }
 
+.form-input-text {
+    background: #e9e9e9;
+}
+
 .cd-popup-container .cd-popup-hide::before {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);

@@ -32,7 +32,7 @@ $(document).ready(() => {
              '<label class="form-label">Nome'+
              '<input class="form-input-text" type="text" name="etapaName" required></label>'+
              '<label class="form-label" id="date-picker-label">Data de entrega' +
-             '<input class="form-input-text" id="datepicker'+ etapanum +'" name="etapaDate" required>' +
+             '<input class="form-input-text" id="datepicker'+ etapanum +'" name="etapaDate" autocomplete="off" required>' +
              '<div id="placeholder-picker'+etapanum+'"></div>' +
              '</label>' +
              '</div> ' + 
@@ -40,7 +40,7 @@ $(document).ready(() => {
              '<textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>' + 
              '</div> '
         
-        etapas.push({id:etapanum, nome:'', desc:'', data:''});
+        etapas.push({id:etapanum, nome:'', desc:'', enunc:'', data:''});
         console.log(etapas);
 
         $('.etapa').last().after(etapa);     
@@ -68,12 +68,29 @@ $(document).ready(() => {
 
 
         newpicker.el.addEventListener('wdp.change', () => {
-            var data = dateFromPicker($("#datepicker" + etapanum).val());
+
+            console.log($(this))
+
+            var newid = parseInt(pid.replace("etapa",""));
+
+            var data = dateFromPicker($("#datepicker" + newid).val());
+
+            console.log(data);
 
             if (!verifyDates(data))
-                $("#datepicker" + etapanum).css("border-left-color", "red");
+                $("#datepicker" + newid).css("border-left-color", "red");
             else
-                $("#datepicker" + etapanum).css("border-left-color", "lawngreen");
+                $("#datepicker" + newid).css("border-left-color", "lawngreen");
+
+            console.log(newid);
+
+            var name = etapas[newid-1].nome;
+            var desc = etapas[newid-1].desc;
+            var datains = $("#datepicker" + newid).val();
+            var enunc = '';
+
+
+            insertIntoEtapas(newid, name, desc, enunc, datains);
         });
     
 
@@ -122,6 +139,15 @@ $(document).ready(() => {
             $("#datepicker1").css("border-left-color", "red");
         else
             $("#datepicker1").css("border-left-color", "lawngreen");
+
+    
+        var name = etapas[0].nome;
+        var desc = etapas[0].desc;
+        var datains = $("#datepicker1").val();
+        var enunc = '';
+
+
+        insertIntoEtapas(1, name, desc, enunc, datains);
     });
 
 

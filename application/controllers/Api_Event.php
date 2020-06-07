@@ -31,6 +31,31 @@ class Api_Event extends REST_Controller {
       $this->response(array(), parent::HTTP_OK);
     }
 
+    public function event_post($event_id) {
+      $event_id = htmlspecialchars($event_id);
+
+      $post = array (
+        "name" => htmlspecialchars($this->post("name")),
+        "description" => htmlspecialchars($this->post("description")),
+        "location" => htmlspecialchars($this->post("location")),
+        "start_date" => htmlspecialchars($this->post("start_date")),
+        "end_date" => htmlspecialchars($this->post("end_date")),
+      );
+
+      $user_id = $this->session->userdata('id');
+
+      $this->load->model('EventModel');
+
+      //TODO PRIVACIDADE (comment abaixo)
+      $this->EventModel->update($event_id, $post);
+
+      // if ($this->EventModel->userRelatedToEvent($user_id, $event_id)){
+      //   $this->EventModel->update($event_id, $post);
+      // } 
+
+      $this->response(array(), parent::HTTP_OK);
+    }
+
     public function going_delete($event_id) { 
       $event_id = htmlspecialchars($event_id);
       $user_id = $this->session->userdata('id');

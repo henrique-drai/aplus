@@ -33,11 +33,7 @@
     <input id="removeProject" class="remove" type="button" value="Eliminar projeto">
     <div class="container">
         <h3 id="entrega_h3"></h3>
-        <!-- <h3 id="enunciado_title">Enunciado:</h3>
-        
-         -->
         <h3 id="enunciado_h4"></h3>
-        <!-- <div id="removeDiv"></div> -->
 
         <input id="openEnunc" type="button" value="Adicionar enunciado">
         
@@ -111,8 +107,6 @@
                                     <input class="form-input-text" id="datepickeredit" name="editetapaDate" autocomplete="off" required>
                                     <div id="placeholder-picker-edit"></div>
                                 </label>
-                                <!-- <label class="form-label-title">Data de entrega</label> -->
-                                <!-- <input class="form-input-date" type="datetime-local" name="editetapaDate" required> -->
                             </div>
                         </form>
 
@@ -143,10 +137,8 @@
             </div>
 
 
-            <!-- Pop up com form do criar nova etapa, criado logo à mao -->
+            <!-- Pop up com form do criar nova etapa -->
        
-
-
             <!-- usar cdpopup2 para os que se escondem -->
             <!-- POP UP JÁ ESTÁ COMO O NOVO. ATENÇÃO ÀS CLASSES E IDS DOS BUTTONS -->
             <!--    SE O POPUP FOR GERADO PELO MAKEPOPUP, USAR O CLOSE NORMAL, CASO CONTRARIO USAR -HIDE -->
@@ -162,8 +154,6 @@
                             <label class="form-label" id="date-picker-label">Data de entrega
                                 <input class="form-input-text" id="datepickernew" name="etapaDate" autocomplete="off" required>
                             </label>                            
-                            <!-- <label class="form-label">Data de entrega</label>
-                            <input class="form-input-date" type="datetime-local" name="etapaDate" required> -->
                         </div>
                         <br>
                         <div id="successmsg_criar" class="submit-msg">Etapa criada com sucesso</div>
@@ -209,11 +199,7 @@
                 <a class="cd-popup-hide"></a>
                 </div>
             </div>
-            
-            
         </div>
-
-
 
     <br><br>
     </div>

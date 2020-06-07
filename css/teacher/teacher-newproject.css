@@ -24,6 +24,11 @@
     justify-content: space-between;
 }
 
+
+#projForm input{
+    background-color: white;
+}
+
 #inputsduo label {
     width: 49%;
 }

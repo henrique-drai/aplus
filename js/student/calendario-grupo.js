@@ -18,7 +18,6 @@ function updateCalendario(){
           setCalendario(data)
           renderCalendario()
           // console.log(data)
-          console.log(calendario)
       },
       error: function(data) {
           console.log("Problema na API ao buscar o calendário.")
@@ -129,13 +128,45 @@ function eventOnClickCalendario(){
 
 function renderPopUpGroupEvent(event) {
 
-    function dateToISO (date){
-        var isoStr = new Date(date).toISOString()
+    function dateToISO (dateSQL){
+        date = new Date(dateSQL)
+        date.setHours(date.getHours()+1)
+        isoStr = date.toISOString()
         return isoStr.substring(0,isoStr.length-1)
     }
-    
-    let form = $('<form id="groupEventForm" action="' +
-        base_url + '"api/event/'+event.obj.id+'" method="POST"></form>').append(
+
+    function dateISOtoSQL (date){
+        return date.slice(0, 19).replace('T', ' ')
+    }
+
+    function submitPopup() {
+        $('#actionButton').prop("disabled", true).val("A PROCESSAR")
+        $.ajax({
+            type: "POST",
+            url: base_url + 'api/event/' + event.obj.evento_id,
+            data: {
+                name: $('#groupEventForm input[name="name"]').val(),
+                description: $('#groupEventForm input[name="description"]').val(),
+                date: $('#groupEventForm input[name="date"]').val(),
+                location: $('#groupEventForm input[name="location"]').val(),
+                start_date: dateISOtoSQL($('#groupEventForm input[name="start_date"]').val()),
+                end_date: dateISOtoSQL($('#groupEventForm input[name="end_date"]').val()),
+            },
+            success: function(data) {
+                //console.log(data)
+                updateCalendario()
+                $('.cd-popup').removeClass('is-visible')
+            },
+            error: function(data) {
+                console.log("Erro ao marcar reunião:")
+                console.log(data)
+            }
+        });
+    }
+
+
+    let form = $('<form id="groupEventForm" action="javascript:void(0)"></form>').append(
+        '<h3>Editar Reunião</h3>',
         '<label><b>Assunto</b></label>',
         '<input type="text" name="name" value="' + event.obj.name + '" required>',
         '<label>Descrição</label>',
@@ -150,54 +181,40 @@ function renderPopUpGroupEvent(event) {
                 $('<input type="datetime-local" name="end_date" value="' + dateToISO(event.obj.end_date) + '" required>')
             )
         )
-    )
-
-    $(".cd-popup #actionButton").html("Guardar").off()
-        .click(()=>{
-            console.log(event.obj)
-            $.ajax({
-                type: "POST",
-                url: base_url + 'api/event/edit/' + event.obj.id,
-                data: {
-                    name: $('#groupEventForm input[name="name"]').val(),
-                    description: $('#groupEventForm input[name="description"]').val(),
-                    date: $('#groupEventForm input[name="date"]').val(),
-                    location: $('#groupEventForm input[name="location"]').val(),
-                    start_date: $('#groupEventForm input[name="start_date"]').val(),
-                    end_date: $('#groupEventForm input[name="end_date"]').val(),
-                },
-                success: function(data) {
-                    console.log(data)
-                },
-                error: function(data) {
-                    console.log("Erro ao criar um evento de grupo:")
-                    console.log(data)
-                }
-            });
-        }
-    )
-    $(".cd-popup #closeButton").html("Fechar")
+    ).submit((e)=>{submitPopup()})
 
     $('.cd-message').html(
-        $('<div class="calendario-msg"></div>').append(form)
+        $('<div class="calendario-msg"></div>').append(form))
+
+    $('.cd-buttons').html('').append(
+        $('<li></li>')
+            .append(
+                $('<input type="submit" id="actionButton" value="Guardar" form="groupEventForm" />')
+                    .css("background", "#3e5d4f") ),
+        $('<li><a href="#" id="closeButton">Cancelar</a></li>')
+            .click( () => { $('.cd-popup').removeClass('is-visible') } )
     )
 }
 
 function renderPopUpSubmission(event) {
     let message = $('<div class="calendario-msg"></div>')
-    message.append("<h3>" + event.obj.nome + " (entrega)</h3>")
+    message.append("<h3>" + event.obj.nome + " (etapa do projeto)</h3>")
+    message.append("<p>" + event.obj.description + "</p>")
     message.append("<p>" + event.obj.description + "</p>")
 
-    $(".cd-popup #actionButton").html("Visitar Projeto").off().click(()=>{
-        window.location.href = base_url + "projects/project/" + event.obj.projeto_id
-    })
-    $(".cd-popup #closeButton").html("Fechar")
+    $('.cd-buttons').html('').append(
+        $('<li><a href="'+base_url + "projects/project/" + event.obj.projeto_id+'" id="actionButton">Visitar Projeto</a></li>')
+            .css("background", "#3e5d4f"),
+        $('<li><a href="#" id="closeButton">Cancelar</a></li>')
+            .click( () => { $('.cd-popup').removeClass('is-visible') } )
+    )
     
     $('.cd-message').html(message)
 }
 
 function renderPopUpAddEvent(){
     function dateToISO (date){
+        date.setHours(date.getHours()+1)
         isoStr = date.toISOString()
         return isoStr.substring(0,isoStr.length-1)
     }
@@ -256,7 +273,7 @@ function renderPopUpAddEvent(){
             .append(
                 $('<input type="submit" id="actionButton" value="Marcar Reunião" form="addGroupEventForm" />')
                     .css("background", "#3e5d4f") ),
-        $('<li><a href="#" id="closeButton">Fechar</a></li>')
+        $('<li><a href="#" id="closeButton">Cancelar</a></li>')
             .click( () => { $('.cd-popup').removeClass('is-visible') } )
     )
 }

@@ -419,7 +419,14 @@ class Api_Project extends REST_Controller {
     
         $this->TasksModel->updateTask($new_task, $id);
         $this->response($etapa, parent::HTTP_OK);
-        
+    }
+
+    public function updateTaskById_post($task_id) {
+        $name = htmlspecialchars($this->post('name'));
+        $description = htmlspecialchars($this->post("description"));
+
+        $this->TasksModel->updateTaskById(htmlspecialchars($task_id), $name, $description);
+        $this->response($etapa, parent::HTTP_OK);
     }
 
     //////////////////////////////////////////////////////////////

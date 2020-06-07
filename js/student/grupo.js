@@ -1,6 +1,6 @@
 $(document).ready(() => {
-    // setInterval(getTasks, 3000); 
-    // setInterval(getFich, 5000);
+    setInterval(getTasks, 3000); 
+    setInterval(getFich, 5000);
 
     const months = {
         "Janeiro":1,
@@ -105,11 +105,23 @@ $(document).ready(() => {
 
     $('body').on("click", ".editTask", function () {
         var task_id = $(this).attr("id");
-        createPopUpEdit(task_id);
+        console.log("aqui")
+        if ($(this).css("background-color") == "rgb(117, 167, 144)"){
+            updateTaskPopup(task_id, proj_name);
+            $(this).css("background-color", "white");
+        } else {
+            createPopUpEdit(task_id, proj_name);
+            $(this).css("background-color", "#75a790");
+        }  
 
-     });
+    });
 
-     disableTasksClose()
+    $("body").on("click", "#editTask-form-submit", function() {
+        var task_id = $(this).attr("class");
+        updateTaskById(task_id, $("input[name='tarefaName']").val(), $("textarea").val(), proj_name);
+    })
+
+    disableTasksClose()
 });
 
 function getFich() {
@@ -436,35 +448,55 @@ function insertTaskEndDate(task_id) {
     })
 }
 
-function createPopUpEdit(task_id) {
+function createPopUpEdit(task_id, proj_name) {
 	$.ajax({
 		type: "GET",
 		url: base_url + "api/getTaskById/" + task_id,
 		success: function (data) {
 			console.log(data)
-			var popup = '';
 
-			popup = popup + 
-				"<form id='editTask' action='javascript:void(0)'><div class='editTask_inputs'><h2>Editar tarefa</h2>" +
-				"<label class='form-label'>Nome:</label><input class='form-input-text' type='text' name='tarefaName'>" +
-				"<label class='form-label'>Descrição:</label><textarea class='form-text-area' type='text' name='tarefaDescription'>" +
-                "</textarea>" + "<label class='form-label-title'> Começo:" +
-                "</label><input class='form-input-date' type='datetime-local' name='startDate'>" +
-                "<label class='form-label-title'> Fim: " +
-                "</label><input class='form-input-date' type='datetime-local' name='doneDate'>";
-                
-            popup = popup + "</select></div><ul class='cd-buttons'><li><a href='#' id='editTask-form-submit'>" +
-                "Confirmar</a></li><li><a href='#' id='closeButton'>Cancelar</a></li></ul></form>" +
-                "<a class='cd-popup-close'></a></div></div>"
+            $(".cd-message").html("<form id='editTask' action='javascript:void(0)'></form>").append("<div class='editTask_inputs'>" +
+                "<h2>Tarefa para " + proj_name.substring(1, proj_name.length - 1) + "</h2>" +
+                "<h3>Nome</h3><input class='form-input-text' type='text' name='tarefaName' required>" +
+                "<h3>Descrição</h3><textarea class='form-text-area' type='text' name='tarefaDescription' id='tarefaDescription'>" +
+                "</textarea></div><div class='wrapper'><hr><input id='" + data.task[0].id + "' class='editTask' type='button' value='Editar Tarefa'>" +
+                "<input id='" + data.task[0].id + "' class='remove' type='button' value='Eliminar'></div>");
 
-			$(".popupAdd").remove();
-			$(".popupEdit").html(popup);
-			$(".cd-popup4").css('visibility', 'visible');
-			$(".cd-popup4").css('opacity', '1');
+            $("input[name='tarefaName']").val(data.task[0].name);
+            $("#tarefaDescription").val(data.task[0].description);
+
+            $(".cd-buttons").html('').append("<li><a href='#' id='editTask-form-submit'class='" + data.task[0].id + "'>" +
+            "Confirmar</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
+
+			$(".cd-popup").css('visibility', 'visible');
+            $(".cd-popup").css('opacity', '1');
+
+            $(".editTask").css("background-color", "#75a790");
 
 		},
 		error: function (data) {
 			console.log(data)
 		}
 	});
+}
+
+function updateTaskById(task_id, name, description, proj_name) {
+    $.ajax({
+        type: "POST",
+        url: base_url + "api/updateTaskById/" + task_id,
+        data: {name: name, description: description},
+        success: function(data) {
+            updateTaskPopup(task_id, proj_name);
+
+            if ($(".editTask").css("background-color") == "#75a790"){
+                $(".editTask").css("background-color", "white");
+            } else {
+                $(".editTask").css("background-color", "#75a790");
+            }
+        },
+        error: function(data) {
+            console.log("ups")
+            console.log(data)
+        }
+    })
 }

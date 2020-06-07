@@ -4,10 +4,7 @@
                                     /
   -------------------------------- */
 
-  .cd-popup,
-  .cd-popup2,
-  .cd-popup3,
-  .cd-popup4 {
+  .cd-popup {
     position: fixed;
     z-index: 100;
     left: 0;

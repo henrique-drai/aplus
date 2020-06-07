@@ -41,4 +41,10 @@ class TasksModel extends CI_Model {
     public function updateTask($data, $id){
         return $this->db->update("tarefa", $data, ['id' => $id]);
     }
+
+    public function updateTaskById($task_id, $name, $desc) {
+        $this->db->set(array('name' => $name, 'description' => $desc));
+        $this->db->where(array('id' => $task_id));
+        $this->db->update('tarefa');
+    }
 }

@@ -55,11 +55,11 @@ select {
     margin-left: 0 !important;
 }
 
-.infoTask_inputs {
+.infoTask_inputs, .editTask_inputs {
     text-align: initial;
 }
 
-.infoTask_inputs h2 {
+.infoTask_inputs h2, .editTask_inputs h2 {
     text-align: center;
 }
 

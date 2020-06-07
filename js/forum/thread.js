@@ -1,6 +1,6 @@
 $(document).ready(() => {
-    getInfo(localStorage.getItem("thread_id"));
-    setInterval(getInfo(localStorage.thread_id), 3000);
+    getInfo();
+    setInterval(getInfo, 3000);
 
     $('body').on("click", "#create_post_button", function() {
         addPopup($(".threadName").text());
@@ -89,10 +89,10 @@ function addPopup(thread_name) {
     "<li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
-function getInfo(id) {
+function getInfo() {
     $.ajax({
         type: "GET",
-        url: base_url + "api/getThread/" + id,
+        url: base_url + "api/getThread/" + localStorage.thread_id,
         success: function(data) {
             console.log(data);
             $(".threadName").empty();

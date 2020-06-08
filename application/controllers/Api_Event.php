@@ -83,7 +83,7 @@ class Api_Event extends REST_Controller {
 
       $this->load->model('EventModel');
 
-      $this->EventModel->insertMeeting($post, $grupo_id);
+      $this->EventModel->insertMeeting($post, htmlspecialchars($grupo_id));
        
       $this->response($post, parent::HTTP_OK);
     }

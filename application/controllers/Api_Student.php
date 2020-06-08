@@ -42,8 +42,8 @@ class Api_Student extends REST_Controller {
     public function getSearchStudent_get(){ 
         $query = '';
         $this->load->model('UserModel');
-        if($this->get("query")){
-            $query = $this->get("query");
+        if(htmlspecialchars($this->get("query"))){
+            $query = htmlspecialchars($this->get("query"));
         }
         $resultquery = $this->UserModel->getSearchStudent($query);
         $data["students"] = "";
@@ -58,11 +58,11 @@ class Api_Student extends REST_Controller {
 
     public function getSearchStudentNotInSubject_get(){ 
         $query = '';
-        $cadeiraid=$this->get("cadeiraid");
+        $cadeiraid=htmlspecialchars($this->get("cadeiraid"));
         $this->load->model('UserModel');
         $this->load->model('SubjectModel');
-        if($this->get("query")){
-            $query = $this->get("query");
+        if(htmlspecialchars($this->get("query"))){
+            $query = htmlspecialchars($this->get("query"));
         }
         $resultquery = $this->UserModel->getSearchStudent($query);
         $resultalunoscadeira = $this->SubjectModel->getAllStudentSubject($cadeiraid);

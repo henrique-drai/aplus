@@ -56,7 +56,7 @@ class Api_College extends REST_Controller {
 
     public function deleteCollege_delete(){
         $this->verify_admin();
-        $siglas = $this->delete('siglas');
+        $siglas = htmlspecialchars($this->delete('siglas'));
         $this->load->model('CollegeModel');
         $this->CollegeModel->deleteCollege($siglas);
     }

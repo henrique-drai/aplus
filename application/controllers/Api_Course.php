@@ -65,8 +65,8 @@ class Api_Course extends REST_Controller {
     public function getAllCollegesYearCourses_get(){ 
         $this->verify_admin();
 
-        $faculdade = $this->get('faculdade');
-        $ano = $this->get('anoletivo');
+        $faculdade = htmlspecialchars($this->get('faculdade'));
+        $ano = htmlspecialchars($this->get('anoletivo'));
         $this->load->model('CourseModel');
         $data["courses"] = $this->CourseModel->getCollegeYearCourses($faculdade, $ano);
         $this->response($data, parent::HTTP_OK);
@@ -76,7 +76,7 @@ class Api_Course extends REST_Controller {
     public function getAllCollegesCourses_get(){ 
         $this->verify_admin();
 
-        $faculdade = $this->get('faculdade');
+        $faculdade = htmlspecialchars($this->get('faculdade'));
         $this->load->model('CourseModel');
         $this->load->model('YearModel');
 
@@ -100,7 +100,7 @@ class Api_Course extends REST_Controller {
     public function getAllCoursesByYear_get(){ 
         $this->verify_admin();
 
-        $ano = $this->get('idyear');
+        $ano = htmlspecialchars($this->get('idyear'));
         $this->load->model('CourseModel');
         $data["courses"] = $this->CourseModel->getCoursesByYear($ano);
         $this->response($data, parent::HTTP_OK);
@@ -133,8 +133,8 @@ class Api_Course extends REST_Controller {
 
         $this->load->model('CourseModel');
         $data = Array(
-            "faculdade_id" => $this -> delete('idCollege'),
-            "code" => $this -> delete('code'),            
+            "faculdade_id" => htmlspecialchars($this -> delete('idCollege')),
+            "code" => htmlspecialchars($this -> delete('code')),            
         );
         $this -> CourseModel -> deleteCollegeCourse($data);
     }

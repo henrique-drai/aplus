@@ -77,7 +77,7 @@ class Api_Project extends REST_Controller {
 
         //Verificar se o id do professor guardado no token está associado à cadeira atraves da etapa - verify teacher
         
-        $etapa = $this->post('new_etapa');
+        $etapa = htmlspecialchars($this->post('new_etapa'));
 
 
         if ($this->verify_teacher($user_id,$this->post('projid'),"projeto") == true){
@@ -122,8 +122,8 @@ class Api_Project extends REST_Controller {
         $user_id = $this->session->userdata('id');
         //Verificar se o id do professor guardado no token está associado à cadeira
 
-        if ($this->verify_teacher($user_id,$this->post('projid'), "projeto") == true){
-            $etapa = $this->post('edited_etapa');
+        if ($this->verify_teacher($user_id, htmlspecialchars($this->post('projid')), "projeto") == true){
+            $etapa = htmlspecialchars($this->post('edited_etapa'));
             $id = htmlspecialchars($this->post('id'));
     
             $enunciado = '';
@@ -246,7 +246,7 @@ class Api_Project extends REST_Controller {
 
     public function criarGrupo_post(){
         $user_id = $this->session->userdata('id');
-        $cadeiraid = $this->post("cadeiraid");
+        $cadeiraid = htmlspecialchars($this->post("cadeiraid"));
 
         if($this->verify_studentInCadeira($user_id, $cadeiraid)==true){
             $datagrupo = Array(
@@ -278,7 +278,7 @@ class Api_Project extends REST_Controller {
         $user_id = $this->session->userdata('id');
         $proj_id = htmlspecialchars($this->post("projid"));
         $grupoid = htmlspecialchars($this->post("grupoid"));
-        $cadeiraid = $this->post("cadeiraid");
+        $cadeiraid = htmlspecialchars($this->post("cadeiraid"));
 
         if($this->verify_studentInCadeira($user_id, $cadeiraid)==true){
             $datagrupo = Array(
@@ -347,17 +347,17 @@ class Api_Project extends REST_Controller {
 
     public function submitRating_post(){
         
-        $myUser = $this->post('meuUser');
-        $group_id = $this->post('grupoId');
+        $myUser = htmlspecialchars($this->post('meuUser'));
+        $group_id = htmlspecialchars($this->post('grupoId'));
 
 
         if($this->verify_student($myUser, $group_id)){
 
             $data = Array(
                 "classificador_id"      => $myUser,
-                "classificado_id"     => $this->post('himUser'),
+                "classificado_id"     => htmlspecialchars($this->post('himUser')),
                 "grupo_id"              => $group_id,
-                "valor"              => $this->post('rating')
+                "valor"              => htmlspecialchars($this->post('rating'))
             );
            
             $this->GroupModel->insertClassification($data); 
@@ -403,23 +403,24 @@ class Api_Project extends REST_Controller {
     }
 
 
-    public function editTask_post(){ 
+    //DESCOMENTAR SE DER MERDA
+    // public function editTask_post(){ 
         
-        $task = $this->post('task');
-        $id = htmlspecialchars($this->post('id'));
+    //     $task = htmlspecialchars($this->post('task'));
+    //     $id = htmlspecialchars($this->post('id'));
          
-        $new_task = Array (
-            "grupo_id"          => htmlspecialchars($this->post('grupoid')),
-            "user_id"           => htmlspecialchars($this->post('userid')),
-            "name"              => htmlspecialchars($this->post('name')),
-            "description"       => htmlspecialchars($this->post('description')),
-            "start_date"        => htmlspecialchars($this->post('start')),
-            "done_date"         => htmlspecialchars($this->post('done')),
-        );
+    //     $new_task = Array (
+    //         "grupo_id"          => htmlspecialchars($this->post('grupoid')),
+    //         "user_id"           => htmlspecialchars($this->post('userid')),
+    //         "name"              => htmlspecialchars($this->post('name')),
+    //         "description"       => htmlspecialchars($this->post('description')),
+    //         "start_date"        => htmlspecialchars($this->post('start')),
+    //         "done_date"         => htmlspecialchars($this->post('done')),
+    //     );
     
-        $this->TasksModel->updateTask($new_task, $id);
-        $this->response($etapa, parent::HTTP_OK);
-    }
+    //     $this->TasksModel->updateTask($new_task, $id);
+    //     $this->response($etapa, parent::HTTP_OK);
+    // }
 
     public function updateTaskById_post($task_id) {
         $name = htmlspecialchars($this->post('name'));
@@ -690,7 +691,7 @@ class Api_Project extends REST_Controller {
         $user_id = $this->session->userdata('id');
         //Verificar se o id do professor guardado no token está associado à cadeira
 
-        if ($this->verify_teacher($user_id,$this->delete('projid'),"projeto") == true){
+        if ($this->verify_teacher($user_id, htmlspecialchars($this->delete('projid')),"projeto") == true){
             $proj_id = htmlspecialchars($this->delete('projid'));
             $data = $this->ProjectModel->removeProjectByID($proj_id);
 

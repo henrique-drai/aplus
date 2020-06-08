@@ -38,8 +38,8 @@ class Api_Teacher extends REST_Controller {
         $this->verify_admin();
         $query = '';
         $this->load->model('UserModel');
-        if($this->get("query")){
-            $query = $this->get("query");
+        if(htmlspecialchars($this->get("query"))){
+            $query = htmlspecialchars($this->get("query"));
         }
         $resultquery = $this->UserModel->getSearchTeacher($query);
         $data["teachers"] = "";

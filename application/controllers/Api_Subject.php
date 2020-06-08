@@ -90,7 +90,7 @@ class Api_Subject extends REST_Controller {
             $daysOfWeek = array("", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "");
             $days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
     
-            $data["hour"] = $this->EventModel->getHorarioDuvidasById($hour_id);
+            $data["hour"] = $this->EventModel->getHorarioDuvidasById(htmlspecialchars($hour_id));
     
             if(count($data["hour"]) > 0) {
                 $data["user"] = $this->UserModel->getUserById($data["hour"]->id_prof);
@@ -131,19 +131,19 @@ class Api_Subject extends REST_Controller {
         $user_id = $this->session->userdata('id');
 
         $flag = false;
-        if($role == "teacher") {
-            if($this->verify_teacher($user_id, $id, "cadeira")) {
+        if(htmlspecialchars($role) == "teacher") {
+            if($this->verify_teacher($user_id, htmlspecialchars($id), "cadeira")) {
                 $flag = true;
             }
-        } else if($role == "student") {
-            if($this->verify_student($user_id, $id)) {
+        } else if(htmlspecialchars($role) == "student") {
+            if($this->verify_student($user_id, htmlspecialchars($id))) {
                 $flag = true;
             }
         }
 
         if($flag == "true") {
-            $this->SubjectModel->insertDate($id, $user_id, $role);
-            $response = ['$cadeira' => $id, '$user' => $user_id];
+            $this->SubjectModel->insertDate(htmlspecialchars($id), $user_id, htmlspecialchars($role));
+            $response = ['$cadeira' => htmlspecialchars($id), '$user' => $user_id];
             $this->response($response, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
@@ -155,14 +155,14 @@ class Api_Subject extends REST_Controller {
 
     public function editSubject_post(){ 
         $this->verify_admin();
-        $id = $this->post('id');
+        $id = htmlspecialchars($this->post('id'));
 
         $data = Array(
-            "code"      => $this->post('codigo'),
-            "name"     => $this->post('nome'),
-            "sigla"  => $this->post('sigla'),
-            "semestre"  => $this->post('semestre'),
-            "description"  => $this->post('desc'),
+            "code"      => htmlspecialchars($this->post('codigo')),
+            "name"     => htmlspecialchars($this->post('nome')),
+            "sigla"  => htmlspecialchars($this->post('sigla')),
+            "semestre"  => htmlspecialchars($this->post('semestre')),
+            "description"  => htmlspecialchars($this->post('desc')),
         );
 
         $this->load->model('SubjectModel');
@@ -175,16 +175,16 @@ class Api_Subject extends REST_Controller {
     public function submitFileAreaCadeira_post(){
         $user_id = $this->session->userdata('id');
 
-        if ($this->verify_teacher($user_id,$this->post("cadeira_id"),"cadeira")){
+        if ($this->verify_teacher($user_id, htmlspecialchars($this->post("cadeira_id")),"cadeira")){
             $data_send = Array(
                "user_id"        =>  $user_id,
-               "cadeira_id"     =>  $this->post("cadeira_id"),
-               "url"            =>  $this->post("ficheiro_url"),     
+               "cadeira_id"     =>  htmlspecialchars($this->post("cadeira_id")),
+               "url"            =>  htmlspecialchars($this->post("ficheiro_url")),     
             );
 
             //ver se o ficheiro ja consta
 
-            $data["ficheiro_db"] = $this->SubjectModel->getFicheiroAreaByURLSub($this->post("ficheiro_url"), $this->post("cadeira_id"));
+            $data["ficheiro_db"] = $this->SubjectModel->getFicheiroAreaByURLSub(htmlspecialchars($this->post("ficheiro_url")), htmlspecialchars($this->post("cadeira_id")));
 
             if(empty($data["ficheiro_db"])){
                 $toReturn = $this->SubjectModel->submitFicheiroArea($data_send);
@@ -227,11 +227,11 @@ class Api_Subject extends REST_Controller {
     //////////////////////////////////////////////////////////////
 
     public function getCadeiras_get($user_id = null, $role) { 
-        if($user_id != $this->session->userdata('id')) {
+        if(htmlspecialchars($user_id) != $this->session->userdata('id')) {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
         }
 
-        $data["cadeiras_id"] = $this->SubjectModel->getCadeiras($user_id, $role);
+        $data["cadeiras_id"] = $this->SubjectModel->getCadeiras(htmlspecialchars($user_id), htmlspecialchars($role));
 
         $data["info"] = array();
         $data["curso"] = array();
@@ -250,11 +250,11 @@ class Api_Subject extends REST_Controller {
     }
 
     public function getCadeirasOrder_get($user_id = null, $role) { 
-        if($user_id != $this->session->userdata('id')) {
+        if(htmlspecialchars($user_id) != $this->session->userdata('id')) {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
         }
 
-        $data["cadeiras_id"] = $this->SubjectModel->getCadeirasOrder($user_id, $role);
+        $data["cadeiras_id"] = $this->SubjectModel->getCadeirasOrder(htmlspecialchars($user_id), htmlspecialchars($role));
 
         $data["info"] = array();
         $data["curso"] = array();
@@ -275,8 +275,8 @@ class Api_Subject extends REST_Controller {
     public function getHours_get($cadeira_id) { 
         $user_id =  $this->session->userdata('id');
 
-        if($this->verify_teacher($user_id, $cadeira_id, "cadeira")) {
-            $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
+        if($this->verify_teacher($user_id, htmlspecialchars($cadeira_id), "cadeira")) {
+            $data["hours"] = $this->SubjectModel->getHours(htmlspecialchars($cadeira_id));
 
             $data['user'] = array();
             for ($i=0; $i < count($data["hours"]); $i++) {
@@ -300,17 +300,17 @@ class Api_Subject extends REST_Controller {
 
         $flag = false;
         if(htmlspecialchars($this->get("role")) == "student") {
-            $flag = $this->verify_student($user_id, $cadeira_id);
+            $flag = $this->verify_student($user_id, htmlspecialchars($cadeira_id));
         } else if(htmlspecialchars($this->get("role") == "teacher")) {
-            $flag = $this->verify_teacher($user_id, $cadeira_id, "cadeira");
+            $flag = $this->verify_teacher($user_id, htmlspecialchars($cadeira_id), "cadeira");
         }
 
         if ($flag) {
-            $data["desc"] = $this->SubjectModel->getDescriptionById($cadeira_id);
-            $data["forum"] = $this->ForumModel->getForumByCadeiraID($cadeira_id);
-            $data["proj"] = $this->SubjectModel->getProj($cadeira_id);
-            $data["hours"] = $this->SubjectModel->getHours($cadeira_id);
-            $eventos = $this->EventModel->getStudentEvents($this->get("user_id"));
+            $data["desc"] = $this->SubjectModel->getDescriptionById(htmlspecialchars($cadeira_id));
+            $data["forum"] = $this->ForumModel->getForumByCadeiraID(htmlspecialchars($cadeira_id));
+            $data["proj"] = $this->SubjectModel->getProj(htmlspecialchars($cadeira_id));
+            $data["hours"] = $this->SubjectModel->getHours(htmlspecialchars($cadeira_id));
+            $eventos = $this->EventModel->getStudentEvents(htmlspecialchars($this->get("user_id")));
             
             $data['user'] = array();
             for ($i=0; $i < count($data["hours"]); $i++) {
@@ -339,9 +339,9 @@ class Api_Subject extends REST_Controller {
             $this->response(array(), parent::HTTP_NOT_FOUND); return null;
         }
 
-        if($this->verify_teacher($user_id, $cadeira_id, "cadeira")) {
-            $data["cadeira_id"] = $cadeira_id;
-            $data["users_id"] = $this->StudentListModel->getStudentsbyCadeiraID($cadeira_id);
+        if($this->verify_teacher($user_id, htmlspecialchars($cadeira_id), "cadeira")) {
+            $data["cadeira_id"] = htmlspecialchars($cadeira_id);
+            $data["users_id"] = $this->StudentListModel->getStudentsbyCadeiraID(htmlspecialchars($cadeira_id));
     
             $data["info"] = array();
             for($i=0; $i < count($data["users_id"]); $i++) {
@@ -396,9 +396,9 @@ class Api_Subject extends REST_Controller {
 
     public function getSubjectsByFilters_get(){ 
         $this->verify_admin();
-        $faculdade = $this->get('f'); 
-        $curso = $this->get('c');
-        $ano = $this->get('a');
+        $faculdade = htmlspecialchars($this->get('f')); 
+        $curso = htmlspecialchars($this->get('c'));
+        $ano = htmlspecialchars($this->get('a'));
         $data["courses"] = array(); 
         $data["subjects"] = array();
         if($faculdade != "" && $curso != "" && $ano != ""){
@@ -515,7 +515,7 @@ class Api_Subject extends REST_Controller {
 
     public function getFicheirosCadeira_get(){
         $user_id = $this->session->userdata('id');
-        $cadeira_id = $this->get("cadeira_id");
+        $cadeira_id = htmlspecialchars($this->get("cadeira_id"));
 
         if($this->verify_teacher($user_id, $cadeira_id, "cadeira") || $this->verify_student($user_id, $cadeira_id)){
             $data = $this->SubjectModel->getFicheirosCadeira($cadeira_id);
@@ -529,8 +529,8 @@ class Api_Subject extends REST_Controller {
     
     public function getAllCadeirasFaculdade_get(){
         $this->verify_admin();
-        $faculdade = $this->get('faculdade');
-        $ano = $this->get('anoletivo');
+        $faculdade = htmlspecialchars($this->get('faculdade'));
+        $ano = htmlspecialchars($this->get('anoletivo'));
         $this->load->model('CourseModel');
         $this->load->model('SubjectModel');
         $data["courses"] = $this->CourseModel->getCollegeYearCourses($faculdade, $ano);
@@ -545,7 +545,7 @@ class Api_Subject extends REST_Controller {
 
     public function getAllCadeirasByCourse_get(){
         $this->verify_admin();
-        $cursoid = $this->get('cursoid');
+        $cursoid = htmlspecialchars($this->get('cursoid'));
         $this->load->model('SubjectModel');
         $data["cadeiras"] = $this->SubjectModel->getSubjectsByCursoId($cursoid);
         $this->response($data, parent::HTTP_OK);
@@ -599,7 +599,7 @@ class Api_Subject extends REST_Controller {
     
     public function deleteSubject_delete(){ 
         $this->verify_admin();
-        $code = $this->delete('code');
+        $code = htmlspecialchars($this->delete('code'));
         $this->load->model('SubjectModel');
         $this->SubjectModel->deleteSubject($code);
     }

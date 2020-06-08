@@ -43,7 +43,7 @@ class Api_User extends REST_Controller {
 
     public function registerUser_post(){ 
         $this->verify_admin();
-        $email = $this->post('email');
+        $email = htmlspecialchars($this->post('email'));
 
         $data = Array(
             "name"      => htmlspecialchars($this->post('name')),
@@ -61,7 +61,7 @@ class Api_User extends REST_Controller {
         if($data["role"] == 'student'){
             $this->load->model('CourseModel');
             $this->load->model('SubjectModel');
-            $cursoid = $this->post('curso');
+            $cursoid = htmlspecialchars($this->post('curso'));
             $dataCursoUser = Array(
                 "user_id"    => $retrieved["user_id"],
                 "curso_id"   => $cursoid,               
@@ -71,7 +71,7 @@ class Api_User extends REST_Controller {
             foreach ($cadeiras as $cadeiraid){
                 $dataUserCadeira = Array(
                     "user_id" => $retrieved["user_id"],
-                    "cadeira_id" => $cadeiraid,
+                    "cadeira_id" => htmlspecialchars($cadeiraid),
                     "is_completed" => 0,
                 );
                 $this->SubjectModel->insertAlunoCadeira($dataUserCadeira);
@@ -79,7 +79,7 @@ class Api_User extends REST_Controller {
         }
         else if($data["role"] == 'teacher'){
             $this->load->model('SubjectModel');
-            $cadeiras = $this->post('cadeiras');
+            $cadeiras = htmlspecialchars($this->post('cadeiras'));
             foreach ($cadeiras as $cadeiraid){
                 $dataProf = Array(
                     "user_id"    => $retrieved["user_id"],
@@ -95,7 +95,7 @@ class Api_User extends REST_Controller {
 
     public function editUser_post(){ 
         $this->verify_admin();
-        $email = $this->post('oldemail');
+        $email = htmlspecialchars($this->post('oldemail'));
         $data = Array(
             "name"      => htmlspecialchars($this->post('name')),
             "surname"   => htmlspecialchars($this->post('surname')),
@@ -136,8 +136,8 @@ class Api_User extends REST_Controller {
         $this-> verify_request();
         $query = '';
         $this->load->model('UserModel');
-        if($this->get("query")){
-            $query = $this->get("query");
+        if(htmlspecialchars($this->get("query"))){
+            $query = htmlspecialchars($this->get("query"));
         }
         $resultquery = $this->UserModel->getSearchStudentTeachers($query);
         $data["users"] = "";
@@ -168,7 +168,7 @@ class Api_User extends REST_Controller {
             return null;
         }
 
-        $email = $this->delete('email');
+        $email = htmlspecialchars($this->delete('email'));
         $this->load->model('UserModel');
         $this->UserModel->deleteUser($email);
     }

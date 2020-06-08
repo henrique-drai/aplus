@@ -3,7 +3,7 @@
                 POPUP               /
                                     /
   -------------------------------- */
-
+  .cd-popup2,
   .cd-popup {
     position: fixed;
     z-index: 100;

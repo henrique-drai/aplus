@@ -25,29 +25,49 @@ class UploadsC extends CI_Controller {
 
             $path = './uploads/enunciados_files/';
 
+            // echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
+            echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
+
             if(!is_dir($path)){
                 mkdir($path, 0777, TRUE);
             } else {
                 chmod($path, 0777);
+                chmod("uploads/enunciados_files/" . $project_id . ".pdf", 0777);
             }
+
+            echo "cenas pelo meio";
+
+            echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
+
+            if(file_exists("uploads/enunciados_files/" . $project_id . ".pdf")) unlink("uploads/enunciados_files/" . $project_id . ".pdf");
+
+
+            echo "depois do unlink";
+            
+            clearstatcache();
+
+            echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
 
             $upload['upload_path'] = $path;
             $upload['allowed_types'] = 'pdf';
             $upload['file_name'] = $project_id;
             $upload['max_size'] = 5048;
             $upload['overwrite'] = true;
-    
+
             $this->load->library('upload', $upload);
+            
+            $this->upload->initialize($upload);
     
-            if ( ! $this->upload->do_upload('file_proj'))
+            if ( ! $this->upload->do_upload('file_projeto'))
             {
                 $error = array('error' => $this->upload->display_errors());
-                echo $error;
+                print_r($error);
                 // header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
             {
-                header("Location: ".base_url()."projects/project/".$project_id);
+                // header("Location: ".base_url()."projects/project/".$project_id);
+                echo "balengas";
             }
         } else {
             header("Location: ".base_url()."errors/403");
@@ -77,7 +97,7 @@ class UploadsC extends CI_Controller {
             if ( ! $this->upload->do_upload('file_etapa'))
             {
                 $error = array('error' => $this->upload->display_errors());
-                echo $error;
+                print_r($error);
                 // header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
@@ -114,7 +134,7 @@ class UploadsC extends CI_Controller {
             if ( ! $this->upload->do_upload('file_submit'))
             {
                 $error = array('error' => $this->upload->display_errors());
-                echo $error;
+                print_r($error);
                 // header("Location: ".base_url()."projects/project/".$project_id);
             }
             else

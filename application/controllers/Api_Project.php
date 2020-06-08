@@ -77,7 +77,7 @@ class Api_Project extends REST_Controller {
 
         //Verificar se o id do professor guardado no token está associado à cadeira atraves da etapa - verify teacher
         
-        $etapa = htmlspecialchars($this->post('new_etapa'));
+        $etapa = $this->post('new_etapa');
 
 
         if ($this->verify_teacher($user_id,$this->post('projid'),"projeto") == true){
@@ -123,7 +123,7 @@ class Api_Project extends REST_Controller {
         //Verificar se o id do professor guardado no token está associado à cadeira
 
         if ($this->verify_teacher($user_id, htmlspecialchars($this->post('projid')), "projeto") == true){
-            $etapa = htmlspecialchars($this->post('edited_etapa'));
+            $etapa = $this->post('edited_etapa');
             $id = htmlspecialchars($this->post('id'));
     
             $enunciado = '';

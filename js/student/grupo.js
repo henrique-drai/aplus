@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    setInterval(getTasks, 3000); 
+    // setInterval(getTasks, 3000); 
     setInterval(getFich, 5000);
 
     const months = {
@@ -316,16 +316,15 @@ function getTasks() {
         type: "GET",
         url: base_url + "api/getTasks/" + localStorage.grupo_id,
         success: function(data) {
-            console.log(data)
             $("#tab-gerir-tarefas").empty();
 
             if(data.tasks.length != 0) {
-                table = '';
                 html = [];
-                table = table + "<tr><th>Tarefa</th>" +
-                "<th>Membro Responsável</th><th>Completo</th><th>Tempo gasto</th><th></th></tr>";
+                html.push("<tr><th>Tarefa</th>" +
+                "<th>Membro Responsável</th><th>Completo</th><th>Tempo gasto</th><th></th></tr>");
 
                 for(var i=0; i < data.tasks.length; i++) {
+                    table = '';
                     if(data.tasks[i].user_id == 0) {
                         table = table + "<tr><td>" + data.tasks[i].name + "</td><td>Ainda não atribuído</td>";
                     } else {
@@ -344,14 +343,12 @@ function getTasks() {
                     }
 
                     table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + "' type='button' value='Opções'></td></tr>";
+                    html.push(table);
                 }
-
-                html.push(table);
                 
                 $('.container2').pagination({
 					dataSource: html,
 					pageSize: 5,
-					pageNumber: 1,
 					callback: function(data, pagination) {
 						$("#tab-gerir-tarefas").html(data);
 					}

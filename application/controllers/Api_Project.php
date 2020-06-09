@@ -233,10 +233,11 @@ class Api_Project extends REST_Controller {
 
     public function insertTask_post() { 
         $user_id = htmlspecialchars($this->post("user_id"));
+        $grupo_id = htmlspecialchars($this->post("grupo_id"));
 
-        if($this->verify_student($user_id, $grupo)==true){
+        if($this->verify_student($user_id, $grupo_id)==true){
             $data_send = Array (
-                "grupo_id"          => htmlspecialchars($this->post("grupo_id")),
+                "grupo_id"          => $grupo_id,
                 "name"              => htmlspecialchars($this->post("name")),
                 "description"       => htmlspecialchars($this->post("description")),
             );

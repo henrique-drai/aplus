@@ -281,11 +281,12 @@ function createPopUpAdd() {
     "Criar Tarefa</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
-function insertTask(taskName, taskDesc, taskMember) {
+function insertTask(taskName, taskDesc) {
     $.ajax({
         type: "POST",
         url: base_url + "api/insertTask",
-        data: {grupo_id: localStorage.grupo_id,
+        data: {user_id: localStorage.user_id,
+               grupo_id: localStorage.grupo_id,
                name: taskName,
                description: taskDesc},
         success: function(data) {
@@ -383,6 +384,7 @@ function deleteTaskById(id) {
     $.ajax({
         type: "DELETE",
         url: base_url + "api/deleteTaskById/" + id,
+        data: {grupo_id: localStorage.grupo_id},
         success: function (data) {
             $(".message").empty();
 
@@ -484,7 +486,7 @@ function updateTaskById(task_id, name, description, proj_name) {
     $.ajax({
         type: "POST",
         url: base_url + "api/updateTaskById/" + task_id,
-        data: {name: name, description: description},
+        data: {name: name, description: description, grupo_id: localStorage.grupo_id},
         success: function(data) {
             updateTaskPopup(task_id, proj_name);
 

@@ -232,16 +232,24 @@ class Api_Project extends REST_Controller {
     }
 
     public function insertTask_post() { 
-        $data_send = Array (
-            "grupo_id"          => htmlspecialchars($this->post("grupo_id")),
-            "name"              => htmlspecialchars($this->post("name")),
-            "description"       => htmlspecialchars($this->post("description")),
-        );
+        $user_id = htmlspecialchars($this->post("user_id"));
 
-        $this->load->model("TasksModel");
-        $data = $this->TasksModel->insertTask($data_send);
+        if($this->verify_student($user_id, $grupo)==true){
+            $data_send = Array (
+                "grupo_id"          => htmlspecialchars($this->post("grupo_id")),
+                "name"              => htmlspecialchars($this->post("name")),
+                "description"       => htmlspecialchars($this->post("description")),
+            );
 
-        $this->response($data, parent::HTTP_OK);
+            $this->load->model("TasksModel");
+            $data = $this->TasksModel->insertTask($data_send);
+
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
     }
 
     public function criarGrupo_post(){
@@ -423,11 +431,20 @@ class Api_Project extends REST_Controller {
     // }
 
     public function updateTaskById_post($task_id) {
-        $name = htmlspecialchars($this->post('name'));
-        $description = htmlspecialchars($this->post("description"));
+        $user_id = $this->session->userdata('id');
+        $grupo_id = htmlspecialchars($this->post("grupo_id"));
 
-        $this->TasksModel->updateTaskById(htmlspecialchars($task_id), $name, $description);
-        $this->response($etapa, parent::HTTP_OK);
+        if($this->verify_student($user_id, $group_id)) {
+            $name = htmlspecialchars($this->post('name'));
+            $description = htmlspecialchars($this->post("description"));
+
+            $this->TasksModel->updateTaskById(htmlspecialchars($task_id), $name, $description);
+            $this->response($etapa, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access!'];
+            $this->response($response, $status);
+        } 
     }
 
     //////////////////////////////////////////////////////////////
@@ -437,8 +454,8 @@ class Api_Project extends REST_Controller {
     
     public function getStudentsFromGroup_get(){
          
-        $grupo_id =  $this->htmlspecialchars(get('id'));
-        $classificador = $this->htmlspecialchars(get('classificador'));
+        $grupo_id =  htmlspecialchars($this->get('id'));
+        $classificador = tmlspecialchars($this->hget('classificador'));
 
         $projId =  $this->GroupModel->getProjectId($grupo_id);
 
@@ -798,10 +815,19 @@ class Api_Project extends REST_Controller {
     }
 
     public function deleteTaskById_delete($id){ 
-        $this->load->model("TasksModel");
-        $data = $this->TasksModel->deleteTaskById(htmlspecialchars($id));
-    
-        $this->response($data, parent::HTTP_OK);
+        $user_id = $this->session->userdata('id');
+        $group_id = htmlspecialchars($this->delete("grupo_id"));
+
+        if($this->verify_student($user_id, $group_id)){
+            $this->load->model("TasksModel");
+            $data = $this->TasksModel->deleteTaskById(htmlspecialchars($id));
+        
+            $this->response($data, parent::HTTP_OK);
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
         
     }
 

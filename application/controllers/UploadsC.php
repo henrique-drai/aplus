@@ -52,11 +52,14 @@ class UploadsC extends CI_Controller {
             $upload['allowed_types'] = 'pdf';
             $upload['file_name'] = $project_id;
             $upload['max_size'] = 5048;
-            $upload['overwrite'] = true;
+            // $upload['overwrite'] = true;
 
             $this->load->library('upload', $upload);
-            
+            $this->upload->overwrite = TRUE;
             $this->upload->initialize($upload);
+
+            $error = $this->upload->display_errors();
+            print_r($error);
     
             if ( ! $this->upload->do_upload('file_projeto'))
             {
@@ -67,7 +70,7 @@ class UploadsC extends CI_Controller {
             else
             {
                 // header("Location: ".base_url()."projects/project/".$project_id);
-                echo "balengas";
+                echo "balengas-nova-versao";
             }
         } else {
             header("Location: ".base_url()."errors/403");

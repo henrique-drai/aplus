@@ -226,3 +226,7 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     font-size: 12px;
     margin-top: -10px;
 }
+
+#groupEventForm i.delete-meeting {
+    cursor: pointer;
+}

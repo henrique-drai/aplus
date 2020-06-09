@@ -243,6 +243,7 @@ function renderPopUpAddEvent(){
                 end_date: dateISOtoSQL($('#addGroupEventForm input[name="end_date"]').val()),
             },
             success: function(data) {
+                console.log(data)
                 updateCalendario()
                 $('.cd-popup').removeClass('is-visible')
             },
@@ -305,7 +306,6 @@ function ajaxDeleteEventById(event_id){
         type: "DELETE",
         url: base_url + "api/event/" + event_id,
         success: function(data) {
-            //console.log(data)
             updateCalendario()
             $('.cd-popup').removeClass('is-visible')
         },

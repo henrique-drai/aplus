@@ -28,11 +28,15 @@ function updateNotificationPage(){
 }
 
 function renderNotificationPage(notifications){
-  function getDate(date){
-    const diff = Date.now() - new Date(date)
+  
+  function getDate(date)
+  {
+    const diff = new Date() - new Date(date)
 
+    if (diff < 1000*60*60) 
+      return "Há "+Math.floor(diff/1000/60)+" minutos"
     if (diff < 1000*60*60*24)
-        return "Há "+Math.floor(diff/1000/60/60)+" horas"
+      return "Há "+Math.floor(diff/1000/60/60)+" horas"
 
     return "Há "+Math.floor(diff/1000/60/60/24)+" dias"
   }

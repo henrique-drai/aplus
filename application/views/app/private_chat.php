@@ -17,6 +17,8 @@
     <h4 class="breadcrumb">
             <a href="<?php echo base_url(); ?>app/chat">Chat</a>
     </h4>
+    <!-- <div class="small-chat-icons"><i class='fa fa-wechat' ></i></div> -->
+
         <div id="all-chat">
         <div id="leftSideChat">           
         <div class="form-group">
@@ -31,6 +33,7 @@
         <div id="results-container" class="accordions">
         <div id="privateChat" class="accordion-item"></div>
         <div id="groupChat" class="accordion-item"></div>
+
         </div>
         </div>
         <div id="chat-container" class="container">

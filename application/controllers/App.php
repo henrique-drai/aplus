@@ -264,25 +264,28 @@ class App extends CI_Controller {
     }
 
     //app/chat/:chat_id
-    public function chat($chatType=null, $user_id = null){
+    public function chat($chatType=null, $user_id = null, $anything=null){
         $our_id = $this->session->userdata('id');
 
         $this->load->model('UserModel');
         $this->load->model('GroupModel');
 
         $data["base_url"] = base_url();
-        
+
+        if(!is_null($anything)) {
+            $this->load->view('errors/404', $data); return null;}
+
         if($chatType=="p"){
             $data["chatType"]=$chatType;
             if($this->UserModel->isValidUser($user_id)){
                 $data["user_id"] = $user_id;
-            }
+            }else{$this->load->view('errors/404', $data); return null;}
         }
         if($chatType=="g"){
             $data["chatType"]=$chatType;
             if($this->GroupModel->isValidGroup($user_id,$our_id)){
                 $data["user_id"] = $user_id;
-            }
+            }else{$this->load->view('errors/404', $data); return null;}
         } 
         
         $this->load->view('templates/head', $data);

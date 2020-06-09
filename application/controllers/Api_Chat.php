@@ -114,16 +114,23 @@ class Api_Chat extends REST_Controller {
     public function getChatGroupHistory_get(){
         $id = $this->session->userdata('id');
         $this->load->model('ChatModel');
+        $this->load->model('GroupModel');
+        $this->load->model('ProjectModel');
         $id_group = htmlspecialchars($this->get('id_group'));
         $resultquery = $this->ChatModel->getChatGroupHistory($id_group);
         $this->load->model('UserModel');
+        $grupo=$this->GroupModel->getGroupById($id_group);
+        array_push($grupo, $this->ProjectModel->getProjectByID($grupo[0]["projeto_id"]));
 
+        // print_r($grupo);
         $data['me']= $id ;
 
         $data['msg']=array();
         for($i=0; $i < count($resultquery); $i++) {
             array_push($data['msg'], array($resultquery[$i],$this->UserModel->getUserById($resultquery[$i]["user_id"])));
         }
+        array_push($data,$grupo[0]["name"]);
+        array_push($data,$grupo[1][0]["nome"]);
         if(empty($resultquery)){
             $data["msg"]="";
         }

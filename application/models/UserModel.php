@@ -161,7 +161,7 @@ class UserModel extends CI_Model {
     }
 
     public function getSearchTeacher($query){
-        $this->db->select("*");
+        $this->db->select("name,surname,picture,id");
         $this->db->where("role = 'teacher'");
         if($query != ''){
             $this->db->group_start();

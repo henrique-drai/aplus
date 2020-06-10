@@ -51,11 +51,11 @@ class UploadsC extends CI_Controller {
             $upload['upload_path'] = $path;
             $upload['allowed_types'] = 'pdf';
             $upload['file_name'] = $project_id;
-            // $upload['max_size'] = 5048;
-            // $upload['overwrite'] = true;
+            $upload['max_size'] = 5048;
+            $upload['overwrite'] = true;
 
             $this->load->library('upload', $upload);
-            $this->upload->overwrite = TRUE;
+            // $this->upload->overwrite = TRUE;
             $this->upload->initialize($upload);
 
             $error = $this->upload->display_errors();

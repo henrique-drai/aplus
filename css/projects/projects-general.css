@@ -332,13 +332,6 @@ label {
 
 /* botoes pop up */
 @media screen and (max-width: 750px) {
-    .wrapper input[type="button"] {
-        margin-left: auto;
-        width: 81px;
-        font-size: 12px;
-        margin-right: auto;
-    }
-
     .cd-popup-container{
         width: 95%;
     }
@@ -353,12 +346,15 @@ label {
 }
 
 
-@media screen and (max-width: 350px){
+@media screen and (max-width: 340px){
     .wrapper input[type="button"] {
-        margin-left: auto;
-        width: 70px;
-        font-size: 10px;
-        margin-right: auto;
+        width: 80px;
+        margin-right: 2px;
+        font-size: 12px;
+    }
+
+    .wrapper input {
+        margin: unset;
     }
 }
 
@@ -372,7 +368,7 @@ label {
 
     /* retirei  .gruposDIV p:nth-child(3), se for para meter o Chat voltar a meter*/
     .etapasDIV p:first-child, .etapasDIV p:nth-child(2), .etapasDIV p:nth-child(3), 
-    .gruposDIV p:first-child, .gruposDIV p:nth-child(2){
+    .gruposDIV p:first-child, .gruposDIV p:nth-child(2), .delete-p{
     /* , .gruposDIV p:nth-child(3){ */
         width:100%;
         text-align: center;

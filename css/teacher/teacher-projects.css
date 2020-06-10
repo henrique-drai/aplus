@@ -37,6 +37,19 @@ textarea:disabled{
     display: none;
 }
 
+.delete_img {
+    width: 25px;
+    cursor: pointer;
+}
+
+.delete_img:hover{
+    opacity: 0.6;
+}
+
+.delete-p{
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
 
 @media screen and (max-width: 660px) {
     #removeEnunciado img {
@@ -102,4 +115,10 @@ input.remove:hover {
     height: 310px !important;
 }
 
+@media screen and (max-width: 440px) {
+    .delete-p{
+        margin: 0;
+    }
+
+}
 

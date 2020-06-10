@@ -263,6 +263,12 @@ $(document).ready(() => {
     $("body").on("click", "#confirmFeedback", function(){
         submit_feedback($('textarea[name="feedback-text"]').val(), selected_etapa, $("#select_grupo_feedback :selected").val());
     })
+
+    //Remover Enunciado de uma etapa
+    $('body').on('click', '#removeEnunciado', function(e) {
+        etapa_clear_enunciado();
+        getEtapas(proj);
+    })
 })
 
 
@@ -596,6 +602,29 @@ function removeEnunciadoProj(){
     });
 }
 
+function etapa_clear_enunciado(){
+    const data = {
+        projid : parseInt(proj),
+        id : selected_etapa,
+    }
+
+    $.ajax({
+        type: "DELETE",
+        url: base_url + "api/removeEnunciadoEtapa/" + selected_etapa,
+        data: data,
+        success: function(data) {
+            console.log("Enunciado da etapa: "+ data + "removido");
+            $("#removeEnunciado").remove();
+            $("#enunciado_label").text("Não existe enunciado associado a esta etapa.");
+            // $("#div"+data).find('p').last().text("Não existe enunciado associado a esta etapa.");
+        },
+        error: function(data) {
+            console.log("Erro na API - Remover enunciado Etapa");
+            console.log(data);
+        }
+    });
+}
+
 //Funções sem chamada a api
 
 function makeEtapaTable(data){
@@ -764,7 +793,7 @@ function createEnunciadoEtapaPopup(){
     form = '<form enctype="multipart/form-data" accept-charset="utf-8" method="post" id="form-upload-etapa" action="'+base_url + 'UploadsC/uploadEnunciadoEtapa/' + proj + "/" + selected_etapa +'">' +
     '<br><input class="form-input-file" type="file" id="file_etapa" name="file_etapa" accept=".pdf">'+
     '<label for="file_etapa" class="input-label">'+
-    '<img id="file-img-etapa" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">'+
+    '<img id="file-img-etapa" class="file-img" src="'+base_url+'images/icons/upload-solid.png">'+
     '<span id="name-enunciado-etapa" class="span-name">Envie o ficheiro do enunciado</span></label>'+
     '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p></form>'
 

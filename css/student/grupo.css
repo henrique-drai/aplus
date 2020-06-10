@@ -197,7 +197,8 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     td:nth-of-type(1):before { content: "Tarefa"; font-weight: bold;}
     td:nth-of-type(2):before { content: "Membro"; font-weight: bold;}
     td:nth-of-type(3):before { content: "Completo"; font-weight: bold;}
-	td:nth-of-type(4):before { content: "Ver mais"; font-weight: bold;}
+    td:nth-of-type(4):before { content: "Tempo gasto"; font-weight: bold;}
+	td:nth-of-type(5):before { content: "Ver mais"; font-weight: bold;}
 }
 
 @media only screen and (max-width: 375px) {

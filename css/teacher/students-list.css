@@ -24,6 +24,12 @@ th, td {
     border-bottom: 1.5px solid #a5a5a5 !important;
 }
 
+@media only screen and (max-width: 1023px) {
+    #search_text_students {
+        width: 100%;
+    }
+}
+
 @media only screen and (max-width: 430px) {
     .popup {
         width: 80%;

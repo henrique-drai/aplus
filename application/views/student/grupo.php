@@ -5,8 +5,9 @@
 <script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 <?='<script>setGrupoId("'.$grupo["id"].'")</script>'?>
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/student/grupo.css"> 
-<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/calendario.css"> 
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/calendario.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 </head>
 
 <body>
@@ -60,4 +61,13 @@
         <!-- Pop up para o edit -->
         <div class="popupEdit"></div>
 
-        <?php $this->view('templates/popup'); ?>
+        <div class="cd-popup2" role="alert">
+            <div class="cd-popup-container">
+                <div class="cd-message"><!-- MENSAGEM --></div>
+                <ul class="cd-buttons">
+                    <li><a href="#" id="actionButton">Sim</a></li>
+                    <li><a href="#" id="closeButton">Não</a></li>
+                </ul>
+                <a class="cd-popup-close"></a>
+            </div>
+        </div>

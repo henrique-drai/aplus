@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    // setInterval(getTasks, 3000); 
+    setInterval(getTasks, 3000); 
     setInterval(getFich, 5000);
 
     const months = {
@@ -34,14 +34,17 @@ $(document).ready(() => {
 
     $("#newTarefa").click(function() {
         createPopUpAdd();
-        $(".cd-popup").css('visibility', 'visible');
-        $(".cd-popup").css('opacity', '1');
+        $(".cd-popup2").css('visibility', 'visible');
+        $(".cd-popup2").css('opacity', '1');
+
     })
 	
 	// close popup
-	$('body').on('click', '.cd-popup', function(){
-		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
+	$('body').on('click', '.cd-popup2', function(){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') || $(event.target).is('#closeButton') ){
             event.preventDefault();
+            $(".cd-popup2").css('visibility', 'hidden');
+            $(".cd-popup2").css('opacity', '0');
             $(".taskInfo").css("background-color", "white");
 		}
     });
@@ -70,8 +73,8 @@ $(document).ready(() => {
         $(".cd-buttons").html('').append("<li><a href='#' id='confirmRemove'>" +
             "Sim</a></li><li><a href='#' id='closeButton'>Não</a></li>");
 
-        $(".cd-popup").css('visibility', 'visible');
-        $(".cd-popup").css('opacity', '1');
+        $(".cd-popup2").css('visibility', 'visible');
+        $(".cd-popup2").css('opacity', '1');
     })
 
     $("body").on('click', '#confirmRemove', function(){
@@ -82,10 +85,10 @@ $(document).ready(() => {
         var task_id = $(this).attr("id");
         updateTaskPopup(task_id, proj_name);
 
-        if ($(this).css("background-color") == "#75a790"){
+        if ($(this).css("background-color") == "rgb(153, 156, 155)"){
             $(this).css("background-color", "white");
         } else {
-            $(this).css("background-color", "#75a790");
+            $(this).css("background-color", "rgb(153, 156, 155)");
         }        
     })
 
@@ -103,13 +106,12 @@ $(document).ready(() => {
 
     $('body').on("click", ".editTask", function () {
         var task_id = $(this).attr("id");
-        console.log("aqui")
-        if ($(this).css("background-color") == "rgb(117, 167, 144)"){
+        if ($(this).css("background-color") == "rgb(153, 156, 155)"){
             updateTaskPopup(task_id, proj_name);
             $(this).css("background-color", "white");
         } else {
             createPopUpEdit(task_id, proj_name);
-            $(this).css("background-color", "#75a790");
+            $(this).css("background-color", "rgb(153, 156, 155)");
         }  
 
     });
@@ -211,12 +213,12 @@ function updateTaskPopup(task_id, proj_name){
             }
 
             popup = popup + "<div class='wrapper'><hr><input id='" + data.task[0].id + "' class='editTask' type='button' value='Editar Tarefa'>" +
-                "<input id='" + data.task[0].id + "' class='remove' type='button' value='Eliminar'></div><a class='cd-popup-close'></a></div></div>";
+                "</div><a class='cd-popup-close'></a></div></div>";
         
             $(".cd-message").html(popup);
             $(".cd-buttons").html('');
-            $(".cd-popup").css('visibility', 'visible');
-            $(".cd-popup").css('opacity', '1');
+            $(".cd-popup2").css('visibility', 'visible');
+            $(".cd-popup2").css('opacity', '1');
 
         },
         error: function(data) {
@@ -291,8 +293,8 @@ function insertTask(taskName, taskDesc) {
             console.log("cool")
             $(".message").empty();
             
-            $(".cd-popup").css('visibility', 'hidden');
-            $(".cd-popup").css('opacity', '0');
+            $(".cd-popup2").css('visibility', 'hidden');
+            $(".cd-popup2").css('opacity', '0');
 
             getTasks();
             
@@ -319,7 +321,7 @@ function getTasks() {
             if(data.tasks.length != 0) {
                 html = [];
                 html.push("<tr><th>Tarefa</th>" +
-                "<th>Membro Responsável</th><th>Completo</th><th>Tempo gasto</th><th></th></tr>");
+                "<th>Membro Responsável</th><th>Completo</th><th>Tempo gasto</th><th></th><th></th></tr>");
 
                 for(var i=0; i < data.tasks.length; i++) {
                     table = '';
@@ -340,7 +342,8 @@ function getTasks() {
                         table = table + "<td>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + min + " minutos " + Math.abs(seconds) + " segundos</td>";
                     }
 
-                    table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + "' type='button' value='Opções'></td></tr>";
+                    table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + 
+                    "' type='button' value='Opções'></td><td><input id='" + data.tasks[i].id + "' class='remove' type='button' value='Eliminar'></td></tr>";
                     html.push(table);
                 }
                 
@@ -383,8 +386,8 @@ function deleteTaskById(id) {
         success: function (data) {
             $(".message").empty();
 
-            $(".cd-popup").css('visibility', 'hidden');
-            $(".cd-popup").css('opacity', '0');
+            $(".cd-popup2").css('visibility', 'hidden');
+            $(".cd-popup2").css('opacity', '0');
 
             getTasks();
             $(".message").html("Tarefa eliminada com sucesso!");
@@ -457,7 +460,7 @@ function createPopUpEdit(task_id, proj_name) {
                 "<h3>Nome</h3><input class='form-input-text' type='text' name='tarefaName' required>" +
                 "<h3>Descrição</h3><textarea class='form-text-area' type='text' name='tarefaDescription' id='tarefaDescription'>" +
                 "</textarea></div><div class='wrapper'><hr><input id='" + data.task[0].id + "' class='editTask' type='button' value='Editar Tarefa'>" +
-                "<input id='" + data.task[0].id + "' class='remove' type='button' value='Eliminar'></div>");
+                "</div>");
 
             $("input[name='tarefaName']").val(data.task[0].name);
             $("#tarefaDescription").val(data.task[0].description);
@@ -465,10 +468,10 @@ function createPopUpEdit(task_id, proj_name) {
             $(".cd-buttons").html('').append("<li><a href='#' id='editTask-form-submit'class='" + data.task[0].id + "'>" +
             "Confirmar</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 
-			$(".cd-popup").css('visibility', 'visible');
-            $(".cd-popup").css('opacity', '1');
+			$(".cd-popup2").css('visibility', 'visible');
+            $(".cd-popup2").css('opacity', '1');
 
-            $(".editTask").css("background-color", "#75a790");
+            $(".editTask").css("background-color", "rgb(153, 156, 155)");
 
 		},
 		error: function (data) {
@@ -485,10 +488,10 @@ function updateTaskById(task_id, name, description, proj_name) {
         success: function(data) {
             updateTaskPopup(task_id, proj_name);
 
-            if ($(".editTask").css("background-color") == "#75a790"){
+            if ($(".editTask").css("background-color") == "rgb(153, 156, 155)"){
                 $(".editTask").css("background-color", "white");
             } else {
-                $(".editTask").css("background-color", "#75a790");
+                $(".editTask").css("background-color", "rgb(153, 156, 155)");
             }
         },
         error: function(data) {

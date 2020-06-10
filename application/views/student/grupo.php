@@ -7,11 +7,11 @@
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/student/grupo.css"> 
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/calendario.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 </head>
 
 <body>
 <?php $this->view('templates/nav-menu'); ?>
+<?php $this->view('templates/popup'); ?>
     <main>
         <h4 class="breadcrumb">
             <a href="<?=$base_url?>app/student/grupos">Grupos</a> > Área de Grupo (<?=$grupo["name"]?>)

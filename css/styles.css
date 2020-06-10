@@ -41,6 +41,7 @@ input, select, textarea {
     border: none;
     border-left: 3px solid transparent;
     border-radius: 3px;
+    box-sizing: border-box;
     background-color: white;
     display: block;
     padding: 5px 10px;

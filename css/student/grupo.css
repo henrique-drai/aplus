@@ -228,3 +228,35 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 #groupEventForm i.delete-meeting {
     cursor: pointer;
 }
+#groupEventForm .people {
+    padding-left: 15px;
+}
+#groupEventForm .people .picture {
+    width: 25px;
+    margin-left: -10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+}
+#groupEventForm .people .number {
+    font-size: 13px;
+    margin: 6px;
+    display: inline-block;
+    vertical-align: top;
+}
+#groupEventForm .going {
+    margin: 10px 0px;
+}
+#groupEventForm .going input {
+    -webkit-appearance: radio;
+    display: inline-block;
+    margin-left: 0;
+    width: 11px;
+    position: relative;
+    top: 2px;
+}
+#groupEventForm .going label {
+    display: inline-block;
+    margin: 0px 10px;
+    font-size: 13px;
+    text-transform: uppercase;
+}

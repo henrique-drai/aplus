@@ -13,18 +13,6 @@ $(document).ready(() => {
 //Sets de conteudo gerais
     $("#entrega_h3").text("Entrega final:");
 
-    //inicializar os dois pickers
-    // const editpicker = new WindowDatePicker({
-    //     el: '#placeholder-picker-edit',
-    //     toggleEl: '#datepickeredit',
-    //     inputEl: '#datepickeredit',
-    //     type: 'DATEHOUR',
-    //     hourType: "24",
-    //     allowEmpty: "FALSE",
-    //     lang: "pt",
-    // });
-
-
 //Gets de conteudo
     showGroups(proj);
     getEtapas(proj);
@@ -111,6 +99,22 @@ $(document).ready(() => {
             }else{
                 $("#datepickeredit").css("border-left-color", "lawngreen");
             }
+        } else {
+            createInfoPopup(selected_etapa, name);
+            formStatus = null;
+            checkFormStatus();
+        }
+    })
+
+    //Feedback de uma etapa - mudar popup
+    $('body').on("click", "#feedbackEtapaButton", function(){
+        showPopup();
+        showGroups(proj);
+        var name = $("#etapa" + selected_etapa).find("p:first").text();
+        if(formStatus != 'feedback'){
+            createFeedbackPopup();
+            formStatus = 'feedback';
+            checkFormStatus();
         } else {
             createInfoPopup(selected_etapa, name);
             formStatus = null;
@@ -250,6 +254,21 @@ $(document).ready(() => {
         submit_edit_etapa(); 
     })
 
+    //FEEDBACK ETAPA - Select on change -> get submissoes
+    $("body").on("change", "#select_grupo_feedback", function(){
+        var grupo_id = $(this).val();
+        getSumbission(grupo_id, selected_etapa, proj);
+    })
+
+    $("body").on("click", "#confirmFeedback", function(){
+        submit_feedback($('textarea[name="feedback-text"]').val(), selected_etapa, $("#select_grupo_feedback :selected").val());
+    })
+
+    //Remover Enunciado de uma etapa
+    $('body').on('click', '#removeEnunciado', function(e) {
+        etapa_clear_enunciado();
+        getEtapas(proj);
+    })
 })
 
 
@@ -267,7 +286,7 @@ function setBackPage(href){
 }
 
 
-// Funções get - metem conteudo na pagina
+// Funções GET - metem conteudo na pagina
 
 function showGroups(proj_id) {
     $.ajax({
@@ -343,6 +362,46 @@ function getEtapas(proj_id){
     });
 }
 
+function getSumbission(grupo_id, etapa, proj){
+    const data = {
+        grupo_id : grupo_id,
+        etapa_id : etapa
+    }
+
+    $.ajax({
+        type: "GET",
+        url: base_url + "api/getSub",
+        data: data,
+        success: function(data) {
+            console.log(data)
+            if (data.length > 0){
+                var base_link = base_url + "uploads/submissions/" + proj + "/" + etapa + "/";
+                var extension = data[0]["submit_url"].split(".").pop();
+                $("#sub_url").html('<a target="_blank" href="'+base_link+grupo_id+'.'+extension+'">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
+                $("#confirmFeedback").show();
+                $("textarea[name='feedback-text']").prop("disabled", false);
+
+                if (data[0]["feedback"] == ""){
+                    $("#fb_content").text("Ainda não foi atribuido feedback a esta etapa.");
+                } else {
+                    $("#fb_content").text(data[0]["feedback"]);
+                }
+            } else {
+                $("#sub_url").text("Entrega ainda não foi submetida");
+                $("#fb_content").text("Ainda não foi atribuido feedback a esta etapa.");
+                $("textarea[name='feedback-text']").prop("disabled", true);
+                $("textarea[name='feedback-text']").val("");
+                // $("#errormsgfb").text("Não é possível atribuir feedback a uma etapa sem submissão")
+                // $("#errormsgfb").show().delay(1500).fadeOut();
+            }
+        },
+        error: function(data) {
+            console.log("Erro na API - Get Sumbission from Group in Etapa")
+            console.log(data)
+        }
+    });
+}
+
 
 //Funções POST
 function submit_new_enunciado(enunc){
@@ -392,6 +451,47 @@ function submit_new_etapa_enunciado(enunc){
         }
     });
 
+}
+
+function submit_feedback(feedback, etapa, grupo_id){
+    if (validate_feedback()){
+        const data = {
+            grupo_id : grupo_id,
+            etapa_id : etapa,
+            feedback : feedback
+        }
+
+        $.ajax({
+            type: "POST",
+            url: base_url + "api/insertFeedback",
+            data: data,
+            success: function(data) {
+                console.log(data);
+                // $("#successmsgfb").text("Feedback submetido com sucesso");
+                $("textarea[name='feedback-text']").val("");
+                $("#sub_url").text('Entrega ainda não foi submetida');
+                $("#fb_content").text("Ainda não foi atribuido feedback a esta etapa.");
+                // $("#successmsgfb").show().delay(2500).fadeOut();
+            },
+            error: function(data) {
+                console.log("Erro na API - Dar feedback");
+                // $("#errormsgfb").text("Erro ao submeter feedback");
+                // $("#errormsgfb").show().delay(2500).fadeOut();
+                console.log(data);
+            }
+        });
+    } else {
+        // if($("#select_grupo_feedback").val() == ""){
+        //     // $("#errormsgfb").text("Tem de selecionar um grupo válido");
+        // } else if($("textarea[name='feedback-text'").prop("disabled") == true){
+        //     // $("#errormsgfb").text("Não é possível atribuir feedback a uma etapa sem submissão")
+        // } else {
+        //     // $("#errormsgfb").text("Feedback tem de ser preenchido");
+        // }
+        //MSGS DE ERRO
+        // $("#errormsgfb").show().delay(2500).fadeOut();
+        return false;
+    }
 }
 
 function submit_etapa(){
@@ -497,6 +597,29 @@ function removeEnunciadoProj(){
         },
         error: function(data) {
             console.log("Erro na API - Remover enunciado Projeto");
+            console.log(data);
+        }
+    });
+}
+
+function etapa_clear_enunciado(){
+    const data = {
+        projid : parseInt(proj),
+        id : selected_etapa,
+    }
+
+    $.ajax({
+        type: "DELETE",
+        url: base_url + "api/removeEnunciadoEtapa/" + selected_etapa,
+        data: data,
+        success: function(data) {
+            console.log("Enunciado da etapa: "+ data + "removido");
+            $("#removeEnunciado").remove();
+            $("#enunciado_label").text("Não existe enunciado associado a esta etapa.");
+            // $("#div"+data).find('p').last().text("Não existe enunciado associado a esta etapa.");
+        },
+        error: function(data) {
+            console.log("Erro na API - Remover enunciado Etapa");
             console.log(data);
         }
     });
@@ -670,7 +793,7 @@ function createEnunciadoEtapaPopup(){
     form = '<form enctype="multipart/form-data" accept-charset="utf-8" method="post" id="form-upload-etapa" action="'+base_url + 'UploadsC/uploadEnunciadoEtapa/' + proj + "/" + selected_etapa +'">' +
     '<br><input class="form-input-file" type="file" id="file_etapa" name="file_etapa" accept=".pdf">'+
     '<label for="file_etapa" class="input-label">'+
-    '<img id="file-img-etapa" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">'+
+    '<img id="file-img-etapa" class="file-img" src="'+base_url+'images/icons/upload-solid.png">'+
     '<span id="name-enunciado-etapa" class="span-name">Envie o ficheiro do enunciado</span></label>'+
     '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p></form>'
 
@@ -685,7 +808,7 @@ function createEditPopup(name, data, desc){
     '<label class="form-label-title">Nome</label><input class="form-input-text" type="text" name="editetapaName" required>'+
     '<label class="form-label-title">Descrição</label>' +
     '<textarea class="form-text-area" type="text" name="editetapaDescription" required></textarea>'+
-    '<label class="form-label" id="date-picker-label">Data de entrega' +
+    '<label class="form-label-title" id="date-picker-label">Data de entrega' +
     '<input class="form-input-text" id="datepickeredit" name="editetapaDate" autocomplete="off" required>'+
     '<div id="placeholder-picker-edit"></div></label></form>' +
     '<div class="wrapper"><hr><input id="addEtapaEnunciado" class="addE" type="button" value="Enunciado">' +
@@ -730,6 +853,24 @@ function createEditPopup(name, data, desc){
 
 
     $(".cd-buttons").html('').append("<li><input form='etapa-form-edit' class='button-popup' id='newEtapaEDIT' type='submit' value='Confirmar'>" +
+    "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");
+}
+
+function createFeedbackPopup(){
+    form = '<form id="feedback-div" action="javascript:void(0)">'+
+    '<label class="form-label-title">Selecione o grupo</label>'+
+    '<select id="select_grupo_feedback" name="GrupoSelect"></select><label for="file" class="form-label-title">Entrega:</label>'+
+    '<p id="sub_url">Entrega ainda não foi submetida</p><label class="form-label-title">Feedback dado:</label>'+
+    '<p id="fb_content">Ainda não atribuiu feedback a esta etapa</p><label class="form-label-title">Dar feedback:</label>'+
+    '<textarea class="form-text-area" type="text" name="feedback-text" disabled required></textarea>'+
+    '<div class="wrapper"><hr><input id="addEtapaEnunciado" class="addE" type="button" value="Enunciado">' +
+    '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +
+    '<input id="feedbackEtapaButton" class="feedbackb" type="button" value="Feedback">' +
+    '<br></div>'
+
+
+    $(".cd-message").html(form);
+    $(".cd-buttons").html('').append("<li><input form='feedback-div' class='button-popup' id='confirmFeedback' type='submit' value='Confirmar'>" +
     "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
@@ -801,4 +942,11 @@ function checkFormStatus(){
         $(".feedbackb").css('background-color','white');
         $(".addE").css('background-color','white');
     }
+}
+
+function validate_feedback(){
+    if ($("textarea[name='feedback-text']").val() != '' && $("#select_grupo_feedback").val() != ''){
+        return true
+    }
+    return false;
 }

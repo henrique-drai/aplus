@@ -20,6 +20,7 @@ html, body {
     width: 100%;
     margin: 0px;
     padding: 0px;
+    height:100%;
     overflow-x: hidden;
     /* font-size-adjust:0.5; */
 }
@@ -27,7 +28,6 @@ body {
     display: flex;
     font-family: 'Poppins', sans-serif !important;
     background-color: #efefef;
-    height:100%;
     box-sizing: border-box;
 }
 main {
@@ -49,7 +49,10 @@ input, select, textarea {
 
 select {
     width:100%;
-    padding:5px;
+    background-image:linear-gradient(45deg, transparent 50%, gray 50%),linear-gradient(135deg, gray 50%, transparent 50%),linear-gradient(to right, #ccc, #ccc);
+    background-position:calc(100% - 6px) calc(1em + 2px),calc(100% - 1px) calc(1em + 2px),calc(100% - 1.2em) 0.5em;
+    background-size:5px 5px,5px 5px,1px 1.5em;
+    background-repeat: no-repeat;
 }
 
 input[type=button],input[type=submit]{

@@ -5,9 +5,15 @@
     background: #e9e9e9;
 }
 
-/* #addEnunciadoForm, #form-upload-etapa{
-    display: none;
-} */
+.cd-message form {
+    width:96%;
+}
+
+#popups > .cd-popup .cd-popup-container {
+    overflow: unset;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
 textarea:disabled{
     border-left-color:#333 !important;

@@ -21,7 +21,11 @@ class NotificationModel extends CI_Model {
   }
 
   public function delete($user_id, $notification_id){
-
     $this->db->delete('notification', array('user_id'=>$user_id, 'id'=>$notification_id));
   }
+
+  public function createMultiple($data) {
+    $this->db->insert_batch("notification", $data);
+  }
 }
+

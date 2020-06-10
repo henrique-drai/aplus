@@ -124,8 +124,12 @@ label {
     border-collapse: collapse;   
 }
 
-#etapa-form, #feedback-form, #etapa-form-edit{
+/* #etapa-form, #feedback-form, #etapa-form-edit{
     display: none;
+} */
+
+.span-name{
+    margin-left: 5px;
 }
 
 .form-input-file{
@@ -245,15 +249,15 @@ label {
 }
 
 
-.inputs-popup, .inputs-div{
+/* .cd-message{
     margin: 15px auto;
     width: 95%;
     padding: 10px;
-}
+} */
 
 
-.inputs-popup > h3, .inputs-popup > label,
-.inputs-div > h3, .inputs-div > label {
+.cd-message > h3, .cd-message > label,
+.cd-message > h3, .cd-message > label {
     text-align:left;
 }
 
@@ -261,11 +265,11 @@ label {
     text-align: center !important;
 }
 
-.inputs-popup > h3, .inputs-div > h3 {
+.cd-message > h3, .cd-message > h3 {
     color: #3e5d4f;
 }
 
-.inputs-popup > label, .inputs-div > label {
+.cd-message > label, .cd-message > label {
     color: black;
 }
 
@@ -301,6 +305,10 @@ label {
 
 #red-buttons li:first-child a{
     background-color: rgb(255, 72, 72);
+}
+
+.form-input-file{
+    width: unset !important;
 }
 
 

@@ -42,25 +42,27 @@ function renderCalendario(){
         {
             if (event.start_time.getDate() == day.getDate())
             {
-                let start, desc, end, time
                 let cell = $('<div class="cell"></div>')
 
                 switch(event.type)
                 {                    
                     case "group":
-                        start = $('<div class="start">'+getTimeString(new Date(event.obj.start_date))+'</div>')
-                        desc = $('<div class="desc">'+event.obj.name+'</div>')
-                        end = $('<div class="end">'+getTimeString(new Date(event.obj.end_date))+'</div>')
+                        cell.append(
+                            $('<div class="start">'+getTimeString(new Date(event.obj.start_date))+'</div>'),
+                            $('<div class="desc">'+event.obj.name+'</div>'),
+                            $('<div class="end">'+getTimeString(new Date(event.obj.end_date))+'</div>')
+                        )
                         break
 
                     case "submit":
-                        start = $('<div class="start">'+getTimeString(new Date(event.obj.deadline))+'</div>')
-                        desc = $('<div class="desc">'+event.obj.nome+' (Entrega)</div>')
+                        cell.append(
+                            $('<div class="start">'+getTimeString(new Date(event.obj.deadline))+'</div>'),
+                            $('<div class="desc">'+event.obj.nome+' (Entrega)</div>')
+                        )
                         break
                 }
 
-                const clickable = $("<div class='clickable' id='" + ctr + "'></div>")
-                cell.append(start,desc,end,clickable)
+                cell.append( $("<div class='clickable' id='" + ctr + "'></div>") )
                 cells.push(cell)
                 ctr+=1
             }
@@ -164,10 +166,13 @@ function renderPopUpGroupEvent(event) {
         });
     }
 
+    let delete_button = $('<i class="fa fa-trash" class="delete-meeting"></i>').click(()=>{
+        renderPopUpConfirmDeleteMeeting(event)
+    })
 
     let form = $('<form id="groupEventForm" action="javascript:void(0)"></form>').append(
-        '<h3>Editar Reunião</h3>',
-        '<label><b>Assunto</b></label>',
+        $('<h3> Editar Reunião </h3>').append(delete_button),
+        '<label><b> Assunto </b></label>',
         '<input type="text" name="name" value="' + event.obj.name + '" required>',
         '<label>Descrição</label>',
         '<input type="text" name="description" value="' + event.obj.description + '" >',
@@ -184,7 +189,7 @@ function renderPopUpGroupEvent(event) {
     ).submit((e)=>{submitPopup()})
 
     $('.cd-message').html(
-        $('<div class="calendario-msg"></div>').append(form))
+        $('<div class="calendario-msg"></div>').append(form) )
 
     $('.cd-buttons').html('').append(
         $('<li></li>')
@@ -203,8 +208,9 @@ function renderPopUpSubmission(event) {
     message.append("<p>" + event.obj.description + "</p>")
 
     $('.cd-buttons').html('').append(
-        $('<li><a href="'+base_url + "projects/project/" + event.obj.projeto_id+'" id="actionButton">Visitar Projeto</a></li>')
-            .css("background", "#3e5d4f"),
+        $('<li></li>').append(
+            $('<a href="'+base_url + "projects/project/" + event.obj.projeto_id+'" id="actionButton"> Visitar Projeto </a>')
+                .css("background", "#3e5d4f") ),
         $('<li><a href="#" id="closeButton">Cancelar</a></li>')
             .click( () => { $('.cd-popup').removeClass('is-visible') } )
     )
@@ -237,6 +243,7 @@ function renderPopUpAddEvent(){
                 end_date: dateISOtoSQL($('#addGroupEventForm input[name="end_date"]').val()),
             },
             success: function(data) {
+                console.log(data)
                 updateCalendario()
                 $('.cd-popup').removeClass('is-visible')
             },
@@ -278,13 +285,27 @@ function renderPopUpAddEvent(){
     )
 }
 
+function renderPopUpConfirmDeleteMeeting (event) {
+    let message = $('<div class="calendario-msg"></div>')
+    message.append("<h4>Tem a certeza que pretende desmarcar a seguinte reunião?</h4>")
+    message.append("<p>" + event.obj.name + "</p>")
+
+    $('.cd-buttons').html('').append(
+        $('<li><a href="#" id="actionButton"> Desmarcar </a></li>')
+            .click( () => { ajaxDeleteEventById(event.obj.evento_id) } ),
+        $('<li><a href="#" id="closeButton"> Cancelar </a></li>')
+            .click( () => { renderPopUpGroupEvent(event) } )
+    )
+    
+    $('.cd-message').html(message)
+}
+
 
 function ajaxDeleteEventById(event_id){
     $.ajax({
         type: "DELETE",
         url: base_url + "api/event/" + event_id,
         success: function(data) {
-            //console.log(data)
             updateCalendario()
             $('.cd-popup').removeClass('is-visible')
         },
@@ -309,24 +330,4 @@ function ajaxNotGoing(event_id){
             console.log(data)
         }
     })
-}
-
-function insertEvent(){
-    $.ajax({
-        type: "POST",
-        url: base_url + "api/grupo/"+localStorage.grupo_id+"/evento",
-        data: {
-            name: $('input[name="dateEvento"]').val(),
-            description: $('input[name="descEvento"]').val(),
-            date: $('input[name="dateEvento"]').val(),
-            location: $('input[name="localEvento"]').val()
-        },
-        success: function(data) {
-            
-        },
-        error: function(data) {
-            console.log("Erro ao criar um evento de grupo:")
-            console.log(data)
-        }
-    });
 }

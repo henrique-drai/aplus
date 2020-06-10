@@ -5,9 +5,9 @@
     background: #e9e9e9;
 }
 
-#addEnunciadoForm, #form-upload-etapa{
+/* #addEnunciadoForm, #form-upload-etapa{
     display: none;
-}
+} */
 
 textarea:disabled{
     border-left-color:#333 !important;
@@ -50,10 +50,14 @@ textarea:disabled{
     margin:unset;
 }
 
+.wrapper input{
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
 #top-file{
     margin:unset;
 }
-
 
 input.remove{
     background-color: #fc8982;
@@ -86,11 +90,10 @@ input.remove:hover {
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    /* left: 140px !important;
-    top: 10px !important;
-    position: absolute !important; */
-    /* width: 295px !important; */
 }
 
+.wdp-body {
+    height: 310px !important;
+}
 
 

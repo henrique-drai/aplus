@@ -24,11 +24,14 @@ class Api_Event extends REST_Controller {
 
       $this->load->model('EventModel');
 
-      if ($this->EventModel->userRelatedToEvent($user_id, $event_id)){
-        $this->EventModel->delete($event_id);
-      } 
+      // DESLIGUEI A PRIVACIDADE PARA DEIXAR APAGAR EVENTOS DE GRUPO
+      // if ($this->EventModel->userRelatedToEvent($user_id, $event_id)){
+      //   $this->EventModel->delete($event_id);
+      // } 
 
-      $this->response(array(), parent::HTTP_OK);
+      $this->EventModel->delete($event_id);
+
+      $this->response(array($event_id), parent::HTTP_OK);
     }
 
     public function event_post($event_id) {
@@ -53,7 +56,7 @@ class Api_Event extends REST_Controller {
       //   $this->EventModel->update($event_id, $post);
       // } 
 
-      $this->response(array(), parent::HTTP_OK);
+      $this->response($data, parent::HTTP_OK);
     }
 
     public function going_delete($event_id) { 
@@ -71,6 +74,9 @@ class Api_Event extends REST_Controller {
 
     // create
     public function meeting_post ($grupo_id) {
+      $user_id = $this->session->userdata('id');
+      $grupo_id = htmlspecialchars($grupo_id);
+      $data = array();
       $post = array (
         "name" => htmlspecialchars($this->post("name")),
         "description" => htmlspecialchars($this->post("description")),
@@ -78,15 +84,52 @@ class Api_Event extends REST_Controller {
         "start_date" => htmlspecialchars($this->post("start_date")),
         "end_date" => htmlspecialchars($this->post("end_date")),
       );
-
-      // TODO ver se o utilizador está no grupo
-
       $this->load->model('EventModel');
+      $this->load->model('GroupModel');
+      $this->load->model('NotificationModel');
+      date_default_timezone_set('Europe/Lisbon');
 
-      $this->EventModel->insertMeeting($post, htmlspecialchars($grupo_id));
-       
-      $this->response($post, parent::HTTP_OK);
+      if ($this->GroupModel->isValidGroup($grupo_id,$user_id)){
+        $evento_id = $this->EventModel->insertMeeting($post, $grupo_id); //criar evento e grupo_evento
+        
+        $students = $this->GroupModel->getStudents($grupo_id); //buscar pessoas do grupo
+        
+        $people = array(); //organizar info para inscrever os alunos na reunião
+        $notifications = array(); //escrever notificações
+        $curr_date = date('Y/m/d H:i:s', time());
+
+        foreach ($students as $key => $value) { 
+          array_push($people, array(
+            "evento_id" => $evento_id,
+            "user_id" => intval($value["user_id"])
+          ));
+        }
+        
+        $this->EventModel->multiplePeopleGoing($people); //inscrever alunos na reunião
+        
+        foreach ($students as $key => $value) {
+          if($user_id != intval($value["user_id"])){
+            array_push($notifications, Array(
+              "user_id" => intval($value["user_id"]),
+              "type" => "alert",
+              "title" => "Reunião de grupo agendada",
+              "content" => "Clica para saberes mais",
+              "link" => "app/grupo/" . $grupo_id,
+              "seen" => FALSE,
+              "date" => $curr_date
+            ));
+          }
+        }
+        $data = $notifications;
+
+        $this->NotificationModel->createMultiple($notifications); //enviar notificações para todos os alunos
+      } 
+
+      $this->response($data, parent::HTTP_OK);
     }
+
+    
+
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION

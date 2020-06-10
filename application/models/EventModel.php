@@ -115,6 +115,7 @@ class EventModel extends CI_Model { //evento & horario_duvidas
             "evento_id" => $evento_id,
             "grupo_id" => $grupo_id)
         );
+        return $evento_id;
     }
 
     public function userRelatedToEvent($user_id, $evento_id){
@@ -148,5 +149,9 @@ class EventModel extends CI_Model { //evento & horario_duvidas
     public function getEventById($id) {
         $query = $this->db->get_where('evento', array('id' => $id));
         return $query->result_array();
+    }
+
+    public function multiplePeopleGoing($data) {
+        $this->db->insert_batch("evento_user", $data);
     }
 }

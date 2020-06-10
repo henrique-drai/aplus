@@ -42,8 +42,6 @@ $(document).ready(() => {
 	$('body').on('click', '.cd-popup', function(){
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton') ){
             event.preventDefault();
-            $(this).css('visibility', 'hidden');
-            $(this).css('opacity', '0');
             $(".taskInfo").css("background-color", "white");
 		}
     });

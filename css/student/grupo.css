@@ -10,7 +10,8 @@
     text-decoration: none;
 }
 .clickable-title a:hover {
-    color: #999;
+    color: #666;
+    text-decoration: underline;
 }
 
 p.small-font {
@@ -219,11 +220,10 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     margin: 0px 4px -4px;
     cursor: pointer;
 }
-
-
-
-
 .fichNumb p {
     font-size: 12px;
     margin-top: -10px;
+}
+#groupEventForm i.delete-meeting {
+    cursor: pointer;
 }

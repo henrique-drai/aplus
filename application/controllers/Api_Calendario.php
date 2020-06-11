@@ -109,6 +109,10 @@ class Api_Calendario extends REST_Controller {
         $submissions = $this->EventModel->getFutureSubmissionsByGroupId($grupo_id);
         $teachers = $this->GroupModel->getTeachersByGroupId($grupo_id);
 
+        foreach ($group_events as $key => $value) {
+            $group_events[$key]["people_going"] = $this->EventModel->getPeopleGoing($value["evento_id"]);
+        }
+
         $data = Array(
             "group_events" => $group_events,
             "submissions" => $submissions,

@@ -140,6 +140,18 @@ class EventModel extends CI_Model { //evento & horario_duvidas
             'user_id' => $user_id,
         ));
     }
+    public function userIsGoing($user_id, $evento_id) {
+        $result = $this->db->get_where('evento_user', array(
+            'evento_id' => $evento_id,
+            'user_id' => $user_id,
+        ));
+        if ($result->num_rows() == 0){
+            $this->db->insert("evento_user", array(
+                'evento_id' => $evento_id,
+                'user_id' => $user_id,
+            ));
+        }
+    }
 
     public function getStudentEvents($user_id) {
         $query = $this->db->get_where('evento_user', array('user_id' => $user_id));
@@ -153,5 +165,14 @@ class EventModel extends CI_Model { //evento & horario_duvidas
 
     public function multiplePeopleGoing($data) {
         $this->db->insert_batch("evento_user", $data);
+    }
+
+    public function getPeopleGoing($evento_id) {
+        $evento_id = $this->db->escape($evento_id);
+        $query = "select eu.user_id, u.name, u.surname, u.role, u.picture 
+            from evento_user eu, user u
+            where u.id = eu.user_id
+            and eu.evento_id = $evento_id";
+        return $this->db->query($query)->result_array();
     }
 }

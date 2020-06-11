@@ -13,11 +13,11 @@ $(document).ready(()=>{
 function updateCalendario(){
   $.ajax({
       type: "GET",
-      url: base_url + "api/grupo/"+localStorage.grupo_id+"/calendario",
+      url: base_url + "api/grupo/" + localStorage.grupo_id + "/calendario",
       success: function(data) {
           setCalendario(data)
           renderCalendario()
-          // console.log(data)
+          console.log(data)
       },
       error: function(data) {
           console.log("Problema na API ao buscar o calendário.")
@@ -153,9 +153,11 @@ function renderPopUpGroupEvent(event) {
                 location: $('#groupEventForm input[name="location"]').val(),
                 start_date: dateISOtoSQL($('#groupEventForm input[name="start_date"]').val()),
                 end_date: dateISOtoSQL($('#groupEventForm input[name="end_date"]').val()),
+                going: $('input[name=going]:checked', '#groupEventForm').val(),
+                
             },
             success: function(data) {
-                //console.log(data)
+                // console.log(data)
                 updateCalendario()
                 $('.cd-popup').removeClass('is-visible')
             },
@@ -166,12 +168,54 @@ function renderPopUpGroupEvent(event) {
         });
     }
 
+    function renderPopUpConfirmDeleteMeeting (event) {
+        let message = $('<div class="calendario-msg"></div>')
+        message.append("<h4>Tem a certeza que pretende desmarcar a seguinte reunião?</h4>")
+        message.append("<p>" + event.obj.name + "</p>")
+    
+        $('.cd-buttons').html('').append(
+            $('<li><a href="#" id="actionButton"> Desmarcar </a></li>')
+                .click( () => { ajaxDeleteEventById(event.obj.evento_id) } ),
+            $('<li><a href="#" id="closeButton"> Cancelar </a></li>')
+                .click( () => { renderPopUpGroupEvent(event) } )
+        )
+        
+        $('.cd-message').html(message)
+    }
+
+    let going = $('<div class="going"></div>')
+    if (event.obj.people_going.find(elem => elem.user_id == localStorage.user_id)){
+        going.append(
+            $('<label><input type="radio" name="going" value="true" checked />Vou</label>'),
+            $('<label><input type="radio" name="going" value="false" />Não Vou</label>')
+        )
+    } else {
+        going.append(
+            $('<label><input type="radio" name="going" value="true" />Vou</label>'),
+            $('<label><input type="radio" name="going" value="false" checked />Não Vou</label>')
+        )
+    }
+
     let delete_button = $('<i class="fa fa-trash" class="delete-meeting"></i>').click(()=>{
         renderPopUpConfirmDeleteMeeting(event)
     })
 
+    let people_section = $('<div class="people"></div>')
+
+    event.obj.people_going.forEach(element => {
+        const _img = element.picture.length? element.user_id + element.picture :  "default.jpg"
+        const _src = base_url + "uploads/profile/" + _img
+        const _name = element.name + " " + element.surname
+        people_section.append('<img class="picture" src="'+_src+'" alt="'+_name+'" />')
+    });
+
+    const _temp = (event.obj.people_going.length === 1) ? " Pessoa Vai" : " Pessoas Vão"
+    people_section.append("<div class='number'>" + event.obj.people_going.length + _temp + "</div>")
+
     let form = $('<form id="groupEventForm" action="javascript:void(0)"></form>').append(
         $('<h3> Editar Reunião </h3>').append(delete_button),
+        people_section,
+        going,
         '<label><b> Assunto </b></label>',
         '<input type="text" name="name" value="' + event.obj.name + '" required>',
         '<label>Descrição</label>',
@@ -285,20 +329,7 @@ function renderPopUpAddEvent(){
     )
 }
 
-function renderPopUpConfirmDeleteMeeting (event) {
-    let message = $('<div class="calendario-msg"></div>')
-    message.append("<h4>Tem a certeza que pretende desmarcar a seguinte reunião?</h4>")
-    message.append("<p>" + event.obj.name + "</p>")
 
-    $('.cd-buttons').html('').append(
-        $('<li><a href="#" id="actionButton"> Desmarcar </a></li>')
-            .click( () => { ajaxDeleteEventById(event.obj.evento_id) } ),
-        $('<li><a href="#" id="closeButton"> Cancelar </a></li>')
-            .click( () => { renderPopUpGroupEvent(event) } )
-    )
-    
-    $('.cd-message').html(message)
-}
 
 
 function ajaxDeleteEventById(event_id){

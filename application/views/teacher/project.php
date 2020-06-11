@@ -19,6 +19,8 @@
 
 <main>
     <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>subjects">Cadeiras</a> > <a href="<?php echo base_url(); ?>subjects/subject/<?php echo $subject->code; ?>/<?php echo $year[0]["inicio"]; ?>"><?php echo $subject->name; ?></a> &gt; Projeto </h4>
+    <div id="successm" class="submit success">Mensagem de sucesso template</div>
+    <div id="errorm" class="submit error">Mensagem de erro template</div>
     <h1>Projeto: <?php echo $project[0]["nome"]; ?></h1>
     <p> 
         <?php echo $project[0]["description"]; ?>
@@ -37,7 +39,6 @@
 
     
     <input id="openEnunc" type="button" value="Adicionar enunciado">
-
 
     <!-- grupos -->
     <div class="container-header">

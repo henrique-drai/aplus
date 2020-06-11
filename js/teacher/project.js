@@ -123,12 +123,13 @@ $(document).ready(() => {
     })
 
     //Remover etapa do projeto - icon on click - criar popup
-    $('body').on('click', '.delete-p', function(){
+    // $('body').on('click', '.delete-p', function(){
+    $('body').on('click', '.delete_img', function(){
         formStatus = null;
         checkFormStatus();
         showPopup();
         selected_etapa = $(this).attr("id").replace("delete","");
-        // console.log(selected_etapa);
+        console.log(selected_etapa);
         createRemoveEtapaPopup();
     })
 
@@ -283,7 +284,7 @@ $(document).ready(() => {
     // REMOVER ETAPA - Confirmar
     $("body").on('click', "#confirmRemoveEtapa", function(){
         removeEtapa(selected_etapa);
-        getEtapas(proj);
+        // getEtapas(proj);
     })
     
 })
@@ -654,6 +655,7 @@ function removeEtapa(id){
         success: function(data) {
             console.log("mensagem de sucesso");
             hidePopup();
+            getEtapas(proj);
 
         },
         error: function(data) {
@@ -687,10 +689,11 @@ function makeEtapaTable(data){
             pClass = "p_up"
         }
 
-        array_etapa.push('<div class="etapasDIV" id="etapa' + json["id"] +'"><p><b>'+json["nome"]+'</b></p>'+
+        array_etapa.push('<div class="etapasDIV" id="etapa' + json["id"] +'">'+
+        '<p><img id="delete'+json["id"]+'"src="'+base_url+'images/icons/trash.png" class="delete_img"><b>'+json["nome"]+'</b></p>'+
         '<p class="'+pClass+'">'+ dateFormatter(date) +'</p>'+
         '<p><input class="moreInfoButtons" id="'+json["id"] +'" type="button" value="Opções"></input>'+
-        '</p><p class="delete-p" id="delete'+json["id"]+'"><img src="'+base_url+'images/icons/trash.png" class="delete_img"></p>'+
+        '</p>'+
         '</div><hr>');
 
         if (enunciado == ""){

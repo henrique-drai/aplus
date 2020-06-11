@@ -701,6 +701,62 @@ class Api_Project extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function export_get(){
+        $auth = $this->session->userdata('id');
+        $user = $this->UserModel->getUserById($auth);
+        $grupo_id = htmlspecialchars($this->get("grupo_id"));
+        $role = htmlspecialchars($this->get("role"));
+
+        if($user->role != $role){
+            $this->response(Array("msg"=>"No student rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        if($this->verify_student($user->id, $grupo_id)){         
+            $file = fopen('php://output','w');
+            $header = array("Tarefa", "Descrição", "Membro Responsável", "Data Início", "Data Fim");
+
+            $info = $this->TasksModel->getTarefas($grupo_id);
+            
+            $users = array();
+            for($i=0; $i < count($info); $i++) {
+                if($info[$i]['user_id'] == 0) {
+                    array_push($users, "Ainda não atribuído");
+                } else {
+                    array_push($users, $this->UserModel->getUserById($info[$i]['user_id']));
+                }
+            }
+
+            fputcsv($file, $header);
+            for($i=0; $i < count($info); $i++) {
+                if(isset($users[$i]->name)) {
+                    $nome = $users[$i]->name . " " . $users[$i]->surname;
+                    $dados = array($info[$i]['name'], 
+                        $info[$i]['description'], 
+                        $nome,
+                        $info[$i]['start_date'],
+                        $info[$i]['done_date']
+                    );
+                } else {
+                    $dados = array($info[$i]['name'], 
+                        $info[$i]['description'], 
+                        $users[$i],
+                        $info[$i]['start_date'],
+                        $info[$i]['done_date']
+                    );
+                }
+                fputcsv($file, $dados);
+            }
+            fclose($file);
+            exit;
+        } else {
+            $status = parent::HTTP_UNAUTHORIZED;
+            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+            $this->response($response, $status);
+        }
+        
+    }
+
     //////////////////////////////////////////////////////////////
     //                         DELETE
     //////////////////////////////////////////////////////////////

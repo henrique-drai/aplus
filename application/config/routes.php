@@ -62,6 +62,8 @@ $route['api/submitFileAreaGrupo']               = 'Api_Project/submitFileAreaGru
 $route['api/getFicheirosGrupo/(:num)']          = 'Api_Project/getFicheirosGrupo/$1';
 $route['api/removeFicheiroAreaGrupo/(:num)']    = 'Api_Project/removeFicheiroAreaGrupo/$1';
 
+$route['api/exportCSVTasks']                    = 'Api_Project/export';
+
 $route['api/getGroupMembers/(:num)']            = 'Api_Project/getGroupMembers/$1';
 $route['api/insertTask']                        = 'Api_Project/insertTask';
 $route['api/getTasks/(:num)']                   = 'Api_Project/getTasks/$1';

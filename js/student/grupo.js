@@ -122,6 +122,38 @@ $(document).ready(() => {
     })
 
     disableTasksClose()
+
+    // --------------------- EXPORT ----------------- //
+    $("#exportInfo").on("click", function(e) {
+        console.log("entrou")
+        e.preventDefault()
+        $.ajax({
+            type: "GET", 
+            url: base_url + "api/exportCSVTasks",
+            data:{role: "student", grupo_id: localStorage.grupo_id},
+            success:function(data){
+                var downloadLink = document.createElement("a");
+                var fileData = ['\ufeff'+data];   
+
+                var blobObject = new Blob(fileData,{
+                    type: "text/csv;charset=utf-8;"
+                });
+
+                var url = URL.createObjectURL(blobObject);
+                downloadLink.href = url;
+
+                downloadLink.download = "tarefas.csv";
+                
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            }, 
+            error: function(data) {
+                console.log("Erro:")
+                console.log(data)
+            }
+        })
+    })    
 });
 
 function getFich() {

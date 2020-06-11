@@ -52,6 +52,15 @@ select {
     float: right;
 }
 
+.buttons-container {
+    display: inline-flex;
+    margin-top: -8%;
+}
+
+#exportInfo {
+    margin-left: 5%;
+}
+
 .taskInfo {
     margin: unset !important;
 }
@@ -131,7 +140,9 @@ option[value=""] {
 
 @media only screen and (max-width: 770px) {
 	.message {
-		width: 65%;
+		width: 58%;
+        margin-right: -6% !important;
+        margin-top: 0% !important;
 	}
 }
 
@@ -206,7 +217,7 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 @media only screen and (max-width: 375px) {
     .message {
         width: 97%;
-        margin-top: 2%;
+        margin-top: -3%;
     }
 
     tr:first-child {

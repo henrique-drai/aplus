@@ -12,6 +12,7 @@ $route['api/agenda']                            = 'Api_Calendario/agenda';
 $route['api/event/group/(:num)']                = 'Api_Event/meeting/$1';
 $route['api/event/(:num)']                      = 'Api_Event/event/$1';
 $route['api/event/going/(:num)']                = 'Api_Event/going/$1';
+$route['api/event/invite/(:num)']               = 'Api_Event/invite/$1';
 
 $route['api/login']                             = 'Api_Authentication/login';
 $route['api/logout']                            = 'Api_Authentication/logout';

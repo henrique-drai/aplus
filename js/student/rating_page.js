@@ -10,7 +10,8 @@ $(document).ready(() => {
     $("body").on("click", ".toClassifyMember", function() {
         $(".value").text(1)
         $("#rate").val(1)
-        
+        $("#namePopup").remove()
+        $("#threadForm").prepend("<h3 id='namePopup'>Atribuir classificação -" +  $(this).text().split("-")[1] + "</h3>")
         $('#user_submit_rating').addClass('is-visible');
         userId = $(this).attr('id');
     })
@@ -34,11 +35,27 @@ $(document).ready(() => {
         submitRating(rating, userId);
         $("#user_submit_rating").removeClass('is-visible');
         getInfo(localStorage.grupo_id);
+        // groupName(localStorage.grupo_id);
     })
 
     rating();
 
 });
+
+// function groupName(){
+//     $.ajax({
+//         type: "GET",
+//         url: base_url + "api/submitRating",
+//         data: {idGrup: rating, meuUser: localStorage.user_id, himUser: user, grupoId: localStorage.grupo_id},
+//         success: function(data) {
+//             getInfo(localStorage.grupo_id);
+//         },
+//         error: function(data) {
+//             console.log("Erro na API:")
+//         }
+//     });
+//     $("#groupName").html("Grupo: " + grupo_id);
+// }
 
 
 function submitRating(rating, user){
@@ -65,8 +82,7 @@ function getInfo(grupo_id){
         url: base_url + "api/getStudentsFromGroup",
         data: {id: grupo_id, classificador: localStorage.user_id},
         success: function(data) {
-            $("#groupName").html("Grupo: " + grupo_id);
-            $("#cadeira").html("Cadeira: " + data.proj_name[0]['nome']);
+            $("#cadeira").html("Projeto: " + data.proj_name[0]['nome']);
 
             $(".classified").empty()
             $(".notClassified").empty()
@@ -110,7 +126,7 @@ function getInfo(grupo_id){
                 $(".notClassified").html(info2)
             }
             else{
-                $(".notClassified").html("Todos os membros do grupo já se encontram classificados");
+                $(".notClassified").html("Já se encontram classificados todos os membros do grupo");
             }
 
         },

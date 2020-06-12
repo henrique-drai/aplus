@@ -33,7 +33,6 @@
 
         <div class="cd-popup" role="alert">
 	        <div class="cd-popup-container">
-		        <p>Tem a certeza que deseja eliminar o ano letivo?</p>
                 <ul class="cd-buttons">
                     <li><a href="#" id="confirmRemove">Sim</a></li>
                     <li><a href="#" id="closeButton">Não</a></li>

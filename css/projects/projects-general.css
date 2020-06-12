@@ -4,48 +4,9 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.submit-msg {
-    display:none;
-    text-align: center;
-    width: 100%;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    position: relative;
-    margin-top: 10px;
-}
-
-.cd-popup-container .cd-popup-hide {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 30px;
-    height: 30px;
-    cursor:pointer;
-}
-
-.cd-popup-container .cd-popup-hide::before, .cd-popup-container .cd-popup-hide::after {
-    content: '';
-    position: absolute;
-    top: 12px;
-    width: 14px;
-    height: 3px;
-    background-color: #8f9cb5;
-}
 
 .form-input-text {
     background: #e9e9e9;
-}
-
-.cd-popup-container .cd-popup-hide::before {
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    left: 8px;
-}
-
-.cd-popup-container .cd-popup-hide::after {
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    right: 8px;
 }
 
 label {
@@ -64,7 +25,7 @@ label {
     background: rgba(106, 192, 66, 0.7);
 }
 
-.submit.error{
+.submit.error, #error-popup{
     background: rgb(255, 72, 72);
 }
 
@@ -198,6 +159,15 @@ label {
     padding:unset;
 }
 
+.cd-popup-container > .submit-msg, .cd-message > .submit-msg {
+    display:none;
+    text-align: center;
+    width: 100%;
+    padding: 8px;
+    position: relative;
+    margin-top: 10px;
+}
+
 #feedback-div > p{
     text-align: left;
 }
@@ -221,16 +191,13 @@ label {
 }
 
 
-
 #etapas-container input[type="button"],  #grupos-container input[type="button"] {
     margin:unset;
 }
 
-
 .overlay {
     overflow-y: scroll;
 }
-
 
 /* input type file */
 .input-label {
@@ -304,12 +271,14 @@ label {
 }
 
 .cd-buttons li:first-child a {
-    background-color: #3e5d4f !important;
+    background-color: #3e5d4f;
 }
 
-#red-buttons li:first-child a{
+#red-buttons li:first-child a, .red-a{
     background-color: rgb(255, 72, 72);
 }
+
+
 
 .form-input-file{
     width: unset !important;
@@ -317,8 +286,6 @@ label {
 
 
 /* date picker */
-
-
 
 .wdp .wdp-container .wdp-date-container ul li.wdp-active:before, .wdp .wdp-container .wdp-header, .wdp .wdp-container .wdp-hour-container .wdp-hour-el-container input{
     background: #3e5d4f !important;
@@ -370,10 +337,8 @@ label {
         flex-wrap: unset;
     }
 
-    /* retirei  .gruposDIV p:nth-child(3), se for para meter o Chat voltar a meter*/
     .etapasDIV p:first-child, .etapasDIV p:nth-child(2), .etapasDIV p:nth-child(3), 
     .gruposDIV p:first-child, .gruposDIV p:nth-child(2), .delete-p{
-    /* , .gruposDIV p:nth-child(3){ */
         width:100%;
         text-align: center;
     }

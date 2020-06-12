@@ -54,49 +54,9 @@
         </div>
 
         <div id="popups">
-
-        <div class="cd-popup2" id="popup-geral">
-            <div class="cd-popup-container" id="container-geral">
-                <div class="inputs-div">
-                    <h3>Etapa</h3>
-                    <h3>Descrição:</h3>
-                    <label></label>
-                    <h3>Enunciado: </h3>
-                    <label id="enunciado_label"></label>
-                    <h3>Submissão: </h3>
-                    <label id="sub_label"></label>
-                    <h3>Feedback: </h3>
-                    <label id="feedback_label"></label>
-                </div>
-                <div class="wrapper">
-                    <hr>
-                    <div id="erro-entrega" class="submit-msg">A data de entrega foi ultrapassada.</div>
-                    <div id="no-group-erro" class="submit-msg">Para fazer submissões é necessário estar inscrito num grupo.</div>
-                </div>
-
-                <div id="forms">
-                    <?php echo form_open_multipart('UploadsC/uploadSubmissao', 'id="form-submit-etapa"');?>
-               
-                        <input class="form-input-file" type="file" id="file_submit" name="file_submit" accept=".zip,.rar,.pdf,.docx">
-                        <label for="file_submit" class="input-label">
-                            <img id="file-img-submit" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
-                            <span id="name-file-submit">Submeter trabalho</span>
-                        </label>
-                        <p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>
-                    </form>
-                    
-                    <div id="enviado-sucesso" class="submit-msg">Etapa submetida com sucesso.</div>
-                    <div id="enviado-erro" class="submit-msg">Tem de selecionar um ficheiro.</div>
-                    <ul class="cd-buttons" id="ul-buttons">
-                        <!-- mudar tambem para button??? neste caso provavelmente não fica com full width se ficar la dentro... -->
-                        <li><a href="#" id="addSubmission">Submeter</a></li>
-                        <li><a href="#" id="closeButton-hide">Cancelar</a></li>
-                    </ul>
-                </div>
-                <a class="cd-popup-hide"></a>
-            </div>
+            <?php $this->view('templates/popup'); ?>
         </div>
-    
+            
     <br><br>
     </div>
     </main>

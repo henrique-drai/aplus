@@ -1,10 +1,7 @@
 <title>A+ for Students</title>
 <script>setPageName("memberRtg")</script>
 <script src="<?php echo $base_url; ?>js/student/rating_page.js"></script>
-
-
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/student/popup.css">
-
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 
 
@@ -16,15 +13,16 @@
 <?php $this->view('templates/nav-menu'); ?>
 
     <main>
-        <h4 class="breadcrumb">
-        <a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > <a href="<?php echo base_url(); ?>app/grupo/<?php echo $grupo[0]["id"]; ?>">Área de Grupo</a>
-         > Rating </h4>
-     
+
+    <h4 class="breadcrumb">
+        <a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > <a href="<?php echo base_url(); ?>app/grupo/<?php echo $grupo[0]["id"];?>">Área de Grupo (<?=$grupo[0]["name"]?>) > Rating</a>
+    </h4>
+
         <div class="container">
         
             <div class="header">
-                <h2 id="groupName">Grupo: </h2>
-                <h3 id="cadeira">Cadeira: </h2>
+                <h2><?=$grupo[0]["name"]?></h2>
+                <h3 id="cadeira">Projeto: </h2>
             </div>
 
             <br>

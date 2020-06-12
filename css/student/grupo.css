@@ -232,6 +232,12 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     margin: 0 4px -4px;
     cursor: pointer;
 }
+.agenda-section-title:after {
+    content: "Apagar";
+    font-size:  small; 
+   color:      red;
+   background: gray; 
+}
 .fichNumb p {
     font-size: 12px;
     margin-top: -10px;

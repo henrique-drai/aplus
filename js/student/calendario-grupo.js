@@ -145,10 +145,12 @@ function renderPopupGroupEvent(event) {
 
     let options_section = $('<div class="options"></div>').append(
         $('<span>Convidar Professor</span>').click(()=>{
+            saveState(event)
             renderPopupInviteTeachers(event)
         }),
         $('<span class="whitespace"> | </span>'),
         $('<span>Desmarcar Reunião</span>').click(()=>{
+            saveState(event)
             renderPopupConfirmDeleteMeeting(event)
         })
     )
@@ -202,8 +204,6 @@ function renderPopupGroupEvent(event) {
             .click( () => { $('.cd-popup').removeClass('is-visible') } )
     )
 
-
-
     function dateToISO (dateSQL){
         date = new Date(dateSQL)
         date.setHours(date.getHours()+1)
@@ -215,6 +215,14 @@ function renderPopupGroupEvent(event) {
         return date.slice(0, 19).replace('T', ' ')
     }
 
+    function saveState (event) {
+        event.obj.name = $('#groupEventForm input[name="name"]').val()
+        event.obj.description = $('#groupEventForm input[name="description"]').val()
+        event.obj.location = $('#groupEventForm input[name="location"]').val()
+        event.obj.start_date = dateISOtoSQL($('#groupEventForm input[name="start_date"]').val())
+        event.obj.end_date = dateISOtoSQL($('#groupEventForm input[name="end_date"]').val())
+    }
+
     function submitPopup() {
         $('#actionButton').prop("disabled", true).val("A PROCESSAR")
         $.ajax({
@@ -223,7 +231,6 @@ function renderPopupGroupEvent(event) {
             data: {
                 name: $('#groupEventForm input[name="name"]').val(),
                 description: $('#groupEventForm input[name="description"]').val(),
-                date: $('#groupEventForm input[name="date"]').val(),
                 location: $('#groupEventForm input[name="location"]').val(),
                 start_date: dateISOtoSQL($('#groupEventForm input[name="start_date"]').val()),
                 end_date: dateISOtoSQL($('#groupEventForm input[name="end_date"]').val()),

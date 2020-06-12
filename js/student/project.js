@@ -28,6 +28,17 @@ $(document).ready(() => {
     $('body').on('click', '.moreButton', function(){
         selected_etapa = $(this).attr("id");
         console.log(selected_etapa);
+        etapa_name = $("#etapa" + selected_etapa).find("p").find("b").text();
+
+        showPopup();
+        createSubmissionPopup(selected_etapa, etapa_name);
+        checkSubmission(grupo, selected_etapa, proj);
+
+        if ($(this).css("background-color") == "#75a790"){
+            $(this).css("background-color", "white");
+        } else {
+            $(this).css("background-color", "#75a790");
+        }
 
         // verificação de data - se a data de entrega da etapa ja tiver sido passada esconder o botao
         // data entrega
@@ -42,85 +53,73 @@ $(document).ready(() => {
         // data atual 
         var today = new Date();
 
-        $("#erro-entrega").hide();
-
-
         if (today > data_entrega_final){
-            $("#erro-entrega").show();
+            $("#error-popup").text("A data limite para submeter esta etapa foi ultrapassada.")
+            $("#error-popup").show()
             $("#form-submit-etapa").hide();
-            $("#ul-buttons").hide();
+            $(".cd-buttons").html('');
         } else {
             if(have_group){
                 $("#form-submit-etapa").show();
-                $("#ul-buttons").show();
+                $(".cd-buttons").html('').append("<li><input form='form-submit-etapa' class='button-popup' id='addSubmission' type='submit' value='Submeter'>" +
+                "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");
             } else {
-                $("#no-group-erro").show().delay(5000).fadeOut();
+                $("#error-popup").text("Inscreva-se num grupo para poder fazer submissões.")
+                $("#error-popup").show().delay(5000).fadeOut();
                 $("#form-submit-etapa").hide();
-                $("#ul-buttons").hide();
+                $(".cd-buttons").html('');
             }
-            $("#erro-entrega").hide();
-        }
-
-
-        $("#form-submit-etapa").attr('action', base_url + 'UploadsC/uploadSubmissao/' + proj + '/' + selected_etapa + '/' + grupo);
-
-        updateEtapaPopup(selected_etapa);
-
-        etapa_name = $("#etapa" + selected_etapa).find("p").find("b").text();
-
-        $(".cd-popup-container").find("h3:first").text("Etapa: '" + etapa_name + "'");
-
-        checkSubmission(grupo, selected_etapa, proj);
-
-        if ($(this).css("background-color") == "#75a790"){
-            $(this).css("background-color", "white");
-        } else {
-            $(this).css("background-color", "#75a790");
+            $("#error-popup").hide();
         }
 
     })
 
-    $('body').on("click", ".cd-popup2", function(event){
-        if( $(event.target).is('.cd-popup-hide') || $(event.target).is('#closeButton-hide') || $(event.target).is('.cd-popup2') ){
+    //POPUPS - Esconder
+    $('body').on('click', '.cd-popup', function(){
+        if($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') || $(event.target).is('#closeButton')){
             event.preventDefault();
-            $(this).hide();
+            hidePopup();
             $(".moreButton").css("background-color", "white");
+
+            // dps mudar isto
             $("#no-group-erro").hide();
-            $("#etapa-form-edit").hide();
-            $("#form-upload-etapa").hide();
             $("#erro-entrega").hide();
-            $("#form-submit-etapa").hide();
-		}
+            $("#error-popup").remove();
+        }
     })
 
+    // $("body").on("click", "#submitEtapa", function(){
+    //     $("#form-submit-etapa").show();
+    // })
 
-    $("body").on("click", "#submitEtapa", function(){
-        $("#form-submit-etapa").show();
-    })
-
-    $("#file_submit").on("change", function(){
-
+    // $("#file_submit").on("change", function(){
+    $("body").on("change", "#file_submit", function(){
         if($("#file_submit").val() != "") {
             $("#name-file-submit").text($("#file_submit").val().split('\\').pop());
             $("#file-img-submit").attr('src',base_url+"images/icons/check-solid.png");
         } else {
             $("#name-file-submit").text("Envie o ficheiro do enunciado");
             $("#file-img-submit").attr('src',base_url+"images/icons/upload-solid.png");
-            $("#enviado-erro").show().delay(1500).fadeOut();
+            $("#error-popup").text("Tem de selecionar um ficheiro");
+            $("#error-popup").show().delay(3000).fadeOut();
         }
 
     })
 
     $("body").on("click", "#addSubmission", function(e){
         if($("#file_submit").val() == ""){
-            $("#enviado-erro").show().delay(2500).fadeOut();
+            $("#error-popup").text("Tem de selecionar um ficheiro")
+            $("#error-popup").show().delay(3000).fadeOut();
+            e.preventDefault();
+            // $("#enviado-erro").show().delay(2500).fadeOut();
         } else {
             if($("#file_submit")[0].files[0].size < 5024000){
                 $("#form-submit-etapa")[0].submit();
                 submit_etapa($("#file_submit").val().split('\\').pop());
             } else {
-                $("#enviado-erro").text("Ficheiro ultrapassa o limite de 5MB");
-                $("#enviado-erro").show().delay(2500).fadeOut();
+                $("#error-popup").text("Ficheiro ultrapassa o limite de 5MB")
+                $("#error-popup").show().delay(3000).fadeOut();
+
                 $("#name-file-submit").text("Envie o ficheiro do enunciado");
                 $("#file-img-submit").attr('src',base_url+"images/icons/upload-solid.png");
                 $("#file_submit").val("");
@@ -380,22 +379,22 @@ function setEnunciado(url){
     enunciado_h4 = url;
 }
 
-function updateEtapaPopup(etapa_rec){
-    var etapa;
-    for (i=0; i<etapas_info_global.length; i++){
-        if(etapa_rec == etapas_info_global[i].id){
-            etapa = etapas_info_global[i];
-        }
-    }
+// function updateEtapaPopup(etapa_rec){
+//     var etapa;
+//     for (i=0; i<etapas_info_global.length; i++){
+//         if(etapa_rec == etapas_info_global[i].id){
+//             etapa = etapas_info_global[i];
+//         }
+//     }
 
-    console.log(etapa);
-    $(".cd-popup-container").find("label:first").text(etapa["description"]);
-    $("#enunciado_label").html(etapa["enunciado"]);
+//     console.log(etapa);
+//     $(".cd-popup-container").find("label:first").text(etapa["description"]);
+//     $("#enunciado_label").html(etapa["enunciado"]);
 
-    $("#popup-geral").css('visibility', 'visible');
-    $("#popup-geral").css('opacity', '1');
-    $("#popup-geral").show();
-}
+//     $("#popup-geral").css('visibility', 'visible');
+//     $("#popup-geral").css('opacity', '1');
+//     $("#popup-geral").show();
+// }
 
 function submit_etapa(file_name){
     const data = {
@@ -409,7 +408,8 @@ function submit_etapa(file_name){
         url: base_url + "api/submitEtapa",
         data: data,
         success: function(data) {
-            $("#enviado-sucesso").show(); //resolver a questao do refresh primeiro.
+            // msg de sucesso canto superior direito - session - como project teacher
+            // $("#enviado-sucesso").show(); //resolver a questao do refresh primeiro.
             console.log(data);
         },
         error: function(data) {
@@ -441,14 +441,6 @@ function checkSubmission(grupo, etapa, proj){
                     $("#feedback_label").text(data[0]["feedback"]);
                 }
                 $("#sub_label").html('<a target="_blank" href="'+base_link+grupo+'.'+extension+'">' + data[0]["submit_url"] + '</a>');
-                // $.get(base_link+grupo+'.'+extension)
-                //     .done(function(){
-                //         $("#sub_label").html('<a target="_blank" href="'+base_link+grupo+'.'+extension+'">' + data[0]["submit_url"] + '</a>');
-                //     })
-
-                //     .fail(function(){
-                //         $("#sub_label").text("O seu grupo ainda não submeteu uma entrega.");
-                //     })
             } else {
                 $("#sub_label").text("O seu grupo ainda não submeteu uma entrega.");
                 $("#feedback_label").text("Ainda não foi atribuido feedback a esta etapa.");
@@ -459,4 +451,43 @@ function checkSubmission(grupo, etapa, proj){
             console.log(data);
         }
     });
+}
+
+function showPopup(){
+    $(".cd-popup").css('visibility', 'visible');
+    $(".cd-popup").css('opacity', '1');
+}
+
+function hidePopup(){
+    $(".cd-popup").css('visibility', 'hidden');
+    $(".cd-popup").css('opacity', '0');
+    $("#error-popup").remove();
+}
+
+
+function createSubmissionPopup(etapa_rec, name){
+    var etapa;
+    for (i=0; i<etapas_info_global.length; i++){
+        if(etapa_rec == etapas_info_global[i].id){
+            etapa = etapas_info_global[i];
+        }
+    }
+
+    popup = '<h3>Etapa '+name+'</h3><h3>Descrição:</h3><label>'+etapa["description"]+'</label>'+
+    '<h3>Enunciado: </h3><label id="enunciado_label">'+etapa["enunciado"]+'</label>'+
+    '<h3>Submissão: </h3><label id="sub_label"></label> <h3>Feedback: </h3> <label id="feedback_label"></label>'+
+    '<div id="popup-form"></div>'
+
+    
+    form = '<br><form enctype="multipart/form-data" accept-charset="utf-8" method="post" id="form-submit-etapa" action="'+base_url + 'UploadsC/uploadSubmissao/' + proj + '/' + selected_etapa + '/' + grupo+'">' +
+    '<input class="form-input-file" type="file" id="file_submit" name="file_submit" accept=".zip,.rar,.pdf,.docx">'+
+    '<label for="file_submit" class="input-label"><img id="file-img-submit" src="'+base_url+'images/icons/upload-solid.png">'+
+    '<span id="name-file-submit">Submeter trabalho</span></label>'+
+    '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>'+
+    '</form>'
+
+    $("#error-popup").remove();
+    $(".cd-message").html(popup);
+    $("#popup-form").html(form);
+    $(".cd-message").after('<div id="error-popup" class="submit-msg">Mensagem de erro template</div>');
 }

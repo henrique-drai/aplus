@@ -19,7 +19,6 @@ textarea:disabled{
     border-left-color:#333 !important;
 }
 
-
 #removeEnunciado {
     margin-left: 115px;
     width: 30px;
@@ -47,12 +46,6 @@ textarea:disabled{
 .delete_img:hover{
     opacity: 0.6;
 }
-
-/* .delete-p{
-    margin-top: -10px;
-    margin-bottom: -10px;
-} */
-
 
 @media screen and (max-width: 660px) {
     #removeEnunciado img {
@@ -98,27 +91,12 @@ input.remove:hover {
 #openEnunc{
     margin:unset;
 }
-/* 
-.etapasDIVP p:first-child{
-    width:30%;
-}
-
-.etapasDIVP p:nth-child(2){
-    width:15%;
-}
-
-.etapasDIVP p:nth-child(3){
-    width: 35%;
-}
-
-.etapasDIVP p:nth-child(4){
-    width: 20%;
-} */
 
 
 #enunciado-form > #ul-buttons{
     display: block;
 }
+
 .wdp {
     position: fixed;
     top: 0 !important;
@@ -130,13 +108,4 @@ input.remove:hover {
     justify-content: center;
     align-items: center;
 }
-
-
-/* 
-@media screen and (max-width: 440px) {
-    .delete-p{
-        margin: 0;
-    }
-
-} */
 

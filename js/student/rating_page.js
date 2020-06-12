@@ -10,7 +10,8 @@ $(document).ready(() => {
     $("body").on("click", ".toClassifyMember", function() {
         $(".value").text(1)
         $("#rate").val(1)
-        
+        $("#namePopup").remove()
+        $("#threadForm").prepend("<h3 id='namePopup'>Atribuir classificação -" +  $(this).text().split("-")[1] + "</h3>")
         $('#user_submit_rating').addClass('is-visible');
         userId = $(this).attr('id');
     })
@@ -110,7 +111,7 @@ function getInfo(grupo_id){
                 $(".notClassified").html(info2)
             }
             else{
-                $(".notClassified").html("Todos os membros do grupo já se encontram classificados");
+                $(".notClassified").html("Já se encontram classificados todos os membros do grupo");
             }
 
         },

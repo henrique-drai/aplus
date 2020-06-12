@@ -12,7 +12,7 @@
 <?php $this->view('templates/nav-menu'); ?>    
     <main>
         <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Alunos</h4>
-        <br>
+        <!-- <br> -->
         <div class="form-group">
             <div class="input-group">
                 <h2>Procurar Alunos</h2>
@@ -67,7 +67,6 @@
         
         <div class="cd-popup" role="alert" id="users_admin_delete">
 	        <div class="cd-popup-container">
-		        <p>Tem a certeza que deseja eliminar o aluno?</p>
                 <ul class="cd-buttons">
                     <li><a href="#" id="confirmRemove">Sim</a></li>
                     <li><a href="#" id="closeButton">Não</a></li>

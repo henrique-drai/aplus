@@ -13,6 +13,16 @@ $(document).ready(() => {
 	$('body').on('click','#removeYearButton', function(event){
         event.preventDefault();
         ano = $(event.target).closest("tr");
+
+        var firstYear = ano.find("td:eq(0)").text()
+        var lastYear = ano.find("td:eq(1)").text()
+        $(".cd-popup-container > #toDel").remove()
+        
+        $(".cd-popup-container").prepend(
+            "<p id='toDel'>Tem a certeza que deseja eliminar o ano letivo " + firstYear + "/" + lastYear
+            + " ?</p>")
+
+
         $('.cd-popup').addClass('is-visible');
     });
     

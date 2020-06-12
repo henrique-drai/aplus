@@ -27,6 +27,26 @@ $(document).ready(() => {
 	$('body').on('click','.deleteCourse', function(event){
         event.preventDefault();
         cso = $(event.target).closest("tr");
+
+        const mq5 = window.matchMedia( "(min-width: 1490px)" );
+        $(".cd-popup-container > #toDel").remove()
+        
+
+        if (mq5.matches) {
+            cursoName = cso.find("td:eq(1)").text()
+            anoLetivo = cso.find("td:eq(2)").text()
+           
+            $(".cd-popup-container").prepend(
+                        "<p id='toDel'>Tem a certeza que deseja eliminar o curso " + cursoName + " (" + anoLetivo + ")" 
+                        + " ?</p>")
+        }
+        else{
+            $(".cd-popup-container").prepend(
+                "<p id='toDel'>Tem a certeza que deseja eliminar o curso ?</p>")
+        }
+        
+
+
         $('#courses_admin_delete').addClass('is-visible');
     });
     
@@ -71,6 +91,7 @@ $(document).ready(() => {
     $('body').on("click", ".editCourse",function() {
         event.preventDefault();
         User = $(event.target).closest("tr");
+        $(".cd-popup-container > #toDel").remove()
         $('#courses_admin_edit').addClass('is-visible');
         displayEditCourse()
     });
@@ -214,6 +235,7 @@ function submitRegister(){
             callback: function(data, pagination) {
                 $(".courses").remove();
                 $(".adminTable").append(data);
+
                 if (mq2.matches) {
 
                     $('.adminTable tr').find('td:eq(3)').remove();

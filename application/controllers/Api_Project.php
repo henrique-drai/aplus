@@ -456,7 +456,7 @@ class Api_Project extends REST_Controller {
     public function getStudentsFromGroup_get(){
          
         $grupo_id =  htmlspecialchars($this->get('id'));
-        $classificador = tmlspecialchars($this->hget('classificador'));
+        $classificador = htmlspecialchars($this->get('classificador'));
 
         $projId =  $this->GroupModel->getProjectId($grupo_id);
 

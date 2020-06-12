@@ -69,7 +69,7 @@ class UserModel extends CI_Model {
     }
 
     public function getSearchStudentTeachers($query){
-        $this->db->select("*");
+        $this->db->select("name, surname, picture, id");
         $status_condition = 'role != "admin"';
         $this->db->where($status_condition);
 

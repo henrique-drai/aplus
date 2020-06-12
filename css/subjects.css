@@ -152,7 +152,7 @@ select, textarea {
 }
 
 .add_event {
-    width: 30px;
+    width: 28px;
     margin-right: 2%;
     margin-bottom: -3%;
 }
@@ -162,7 +162,7 @@ select, textarea {
 }
 
 #message_hour_s {
-    width: 50%;
+    width: 60%;
     margin-top: 0;
 }
 
@@ -379,7 +379,6 @@ a { color: inherit; }
     }
 
     .add_event {
-        margin-left: 15px;
         margin-bottom: -10px !important;
     }
 

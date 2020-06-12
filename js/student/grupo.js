@@ -1,5 +1,4 @@
 $(document).ready(() => {
-    setInterval(getTasks, 3000); 
     setInterval(getFich, 5000);
 
     const months = {
@@ -58,23 +57,17 @@ $(document).ready(() => {
     })
 
     $("body").on("click", "#addTask-form-submit", function(){
-        var taskName = $('input[name="tarefaName"]').val();
-        var taskDesc = $('textarea[name="tarefaDescription"').val();
-        var taskMember = $('select').val();
+        var taskName = $('input[name="tarefaName"]').last().val();
+        var taskDesc = $('textarea[name="tarefaDescription"').last().val();
 
-        if(taskName != '' && taskMember != '') {
-            insertTask(taskName, taskDesc, taskMember);
+        if(taskName != '') {
+            insertTask(taskName, taskDesc);
         }
     })
 
     $("body").on("click", ".remove", function () {
         task_id = $(this).attr("id");
-        $(".cd-message").html("<p>Tem a certeza que deseja eliminar a tarefa?</p>");
-        $(".cd-buttons").html('').append("<li><a href='#' id='confirmRemove'>" +
-            "Sim</a></li><li><a href='#' id='closeButton'>Não</a></li>");
-
-        $(".cd-popup2").css('visibility', 'visible');
-        $(".cd-popup2").css('opacity', '1');
+        getTaskName(task_id);
     })
 
     $("body").on('click', '#confirmRemove', function(){
@@ -118,7 +111,7 @@ $(document).ready(() => {
 
     $("body").on("click", "#editTask-form-submit", function() {
         var task_id = $(this).attr("class");
-        updateTaskById(task_id, $("input[name='tarefaName']").val(), $("textarea").val(), proj_name);
+        updateTaskById(task_id, $('input[name="tarefaName"]').last().val(), $('textarea[name="tarefaDescription"').last().val(), proj_name);
     })
 
     disableTasksClose()
@@ -244,8 +237,12 @@ function updateTaskPopup(task_id, proj_name){
                 popup = popup + "<label>A tarefa ainda não foi terminada.</label></div>";
             }
 
-            popup = popup + "<div class='wrapper'><hr><input id='" + data.task[0].id + "' class='editTask' type='button' value='Editar Tarefa'>" +
+            if(data.task[0].done_date != "0000-00-00 00:00:00") {
+                popup = popup + "<a class='cd-popup-close'></a></div></div>";
+            } else {
+                popup = popup + "<div class='wrapper'><hr><input id='" + data.task[0].id + "' class='editTask' type='button' value='Editar Tarefa'>" +
                 "</div><a class='cd-popup-close'></a></div></div>";
+            }            
         
             $(".cd-message").html(popup);
             $(".cd-buttons").html('');
@@ -322,7 +319,6 @@ function insertTask(taskName, taskDesc) {
                name: taskName,
                description: taskDesc},
         success: function(data) {
-            console.log("cool")
             $(".message").empty();
             
             $(".cd-popup2").css('visibility', 'hidden');
@@ -348,6 +344,7 @@ function getTasks() {
         type: "GET",
         url: base_url + "api/getTasks/" + localStorage.grupo_id,
         success: function(data) {
+            $(".tasksTable p").remove();
             $("#tab-gerir-tarefas").empty();
 
             if(data.tasks.length != 0) {
@@ -367,10 +364,11 @@ function getTasks() {
                     if(data.tasks[i].done_date == "0000-00-00 00:00:00") {
                         table = table + "<td>Não</td><td>Ainda não terminado</td>";
                     } else {
-                        var day = data.task[0].done_date.substring(8, 10) - data.task[0].start_date.substring(8, 10);
-                        var hours = data.task[0].done_date.substring(11, 13) - data.task[0].start_date.substring(11, 13);
-                        var min = data.task[0].done_date.substring(14, 16) - data.task[0].start_date.substring(14, 16);
-                        var seconds = data.task[0].done_date.substring(17, 19) - data.task[0].start_date.substring(17, 19);
+                        console.log(data)
+                        var day = data.tasks[i].done_date.substring(8, 10) - data.tasks[i].start_date.substring(8, 10);
+                        var hours = data.tasks[i].done_date.substring(11, 13) - data.tasks[i].start_date.substring(11, 13);
+                        var min = data.tasks[i].done_date.substring(14, 16) - data.tasks[i].start_date.substring(14, 16);
+                        var seconds = data.tasks[i].done_date.substring(17, 19) - data.tasks[i].start_date.substring(17, 19);
                         table = table + "<td>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + min + " minutos " + Math.abs(seconds) + " segundos</td>";
                     }
 
@@ -388,7 +386,9 @@ function getTasks() {
                 })
                 
             } else {
-                $(".tasksTable").html("<p>Não existem tarefas.</p>");
+                $('.container2').empty();
+                $(".tasksTable p").remove();
+                $(".tasksTable").append("<p>Não existem tarefas.</p>");
                 
             }
         },
@@ -448,6 +448,7 @@ function insertTaskStartDate(task_id) {
             $(".startTask").append("<label><span class='startTask'>" + data + "</span></label>");
             $(".endTask").empty();
             $(".endTask").append("<input type='button' class='end_date_button' id='" + task_id + "' value='Terminar Tarefa'>");
+            $(".infoTask_inputs").append("<span class='time_spent'></span>");
         },
         error: function (data) {
             alert("Houve um erro a inserir a data-inicio da tarefa.")
@@ -471,6 +472,7 @@ function insertTaskEndDate(task_id) {
             var min = data.substring(14, 16) - $(".startTask").text().substring(14, 16);
             var seconds = data.substring(17, 19) - $(".startTask").text().substring(17, 19);
             $(".time_spent").append("<h3>Tempo gasto na tarefa</h3></label>" + day + " dia(s) " + hours + " hora(s) " + min + " minutos " + Math.abs(seconds) + " segundos " + "</label>");
+            $(".wrapper").remove();
         },
         error: function (data) {
             alert("Houve um erro a inserir a data-fim da tarefa.")
@@ -531,4 +533,24 @@ function updateTaskById(task_id, name, description, proj_name) {
             console.log(data)
         }
     })
+}
+
+function getTaskName(task_id) {
+    $.ajax({
+		type: "GET",
+		url: base_url + "api/getTaskById/" + task_id,
+		success: function (data) {
+            var name = data.task[0].name;
+            
+            $(".cd-message").html("<p>Tem a certeza que deseja eliminar a tarefa '" + name + "'?</p>");
+            $(".cd-buttons").html('').append("<li><a href='#' id='confirmRemove'>" +
+                "Sim</a></li><li><a href='#' id='closeButton'>Não</a></li>");
+
+            $(".cd-popup2").css('visibility', 'visible');
+            $(".cd-popup2").css('opacity', '1');
+		},
+		error: function (data) {
+			console.log(data)
+		}
+	});
 }

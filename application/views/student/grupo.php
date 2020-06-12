@@ -41,7 +41,7 @@
         <h2>Gestão de Tarefas</h2>
         <div class="buttons-container">
             <input id="newTarefa" type="button" value="Adicionar tarefa">
-            <input type="button" id="exportInfo" value="Exportar">
+            <input type="button" id="exportInfo" value="Exportar dados">
         </div>
 
         <div class="message"></div>

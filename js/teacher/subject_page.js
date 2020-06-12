@@ -3,7 +3,8 @@ var code
 
 $(document).ready(() => {
     insertLoggedDate(localStorage.cadeira_id);
-    getInfo(localStorage.cadeira_code);    
+    getInfo(localStorage.cadeira_code);   
+    localStorage.setItem("role", "teacher"); 
     $(".hours_inputs").hide();
 
     $("#edit_button").click(function() {
@@ -88,7 +89,7 @@ $(document).ready(() => {
 
     $("body").on("click", ".delete_img", function(){
         var id = $(this).attr("id");
-        $(".cd-message").html("<p>Tem a certeza que deseja eliminar a publicação?</p>");
+        $(".cd-message").html("<p>Tem a certeza que deseja eliminar o horário de dúvidas?</p>");
         $(".cd-buttons").html('').append("<li><a href='#' id='confirmRemove'>" +
             "Sim</a></li><li><a href='#' id='closeButton'>Não</a></li>");
         

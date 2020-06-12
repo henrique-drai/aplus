@@ -57,7 +57,7 @@
 }
 
 #show-files-div{
-    height: 400px;
+    height: auto;
     border: 0px;
     background:transparent;
 }

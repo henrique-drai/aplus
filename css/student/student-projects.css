@@ -10,16 +10,9 @@
     display: none;
 }
 
-#erro-entrega, #no-group-erro, #enviado-erro{
-    background: rgb(255, 72, 72);
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-
 #enviado-sucesso{
     background: rgba(106, 192, 66, 0.7);
 }
-
 
 .myGroupDiv {
     margin-bottom: 30px;

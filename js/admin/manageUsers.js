@@ -7,6 +7,21 @@ $(document).ready(() => {
     $('body').on('click','#deleteUser', function(event){
         event.preventDefault();
         User = $(event.target).closest("tr");
+        
+        var firstName = User.find("td:eq(1)").text()
+        var lastName = User.find("td:eq(2)").text()
+        $(".cd-popup-container > #toDel").remove()
+
+        if(window.location.href.split("/").slice(-1)=="students"){
+            $(".cd-popup-container").prepend(
+                "<p id='toDel'>Tem a certeza que deseja eliminar o(a) aluno(a) " + firstName + " " + lastName
+                 + " ?</p>")
+        }
+        else{
+            $(".cd-popup-container").prepend(
+                "<p id='toDel'>Tem a certeza que deseja eliminar o(a) professor(a) " + firstName + " " + lastName
+                 + " ?</p>")
+        }
         $('#users_admin_delete').addClass('is-visible');
     });
 
@@ -23,10 +38,17 @@ $(document).ready(() => {
         deleteUser(User);
     });
 
+    $(document).keyup(function(event){
+    	if(event.which=='27'){
+    		$('.cd-popup').removeClass('is-visible');
+	    }
+    });
+
     // POPUP Edit
     $('body').on("click", "#editUser",function() {
         event.preventDefault();
         User = $(event.target).closest("tr");
+        $(".cd-popup-container > #toDel").remove()
         $('#users_admin_edit').addClass('is-visible');
         displayEditUser();
     });

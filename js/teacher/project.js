@@ -131,7 +131,6 @@ $(document).ready(() => {
     })
 
     //Remover etapa do projeto - icon on click - criar popup
-    // $('body').on('click', '.delete-p', function(){
     $('body').on('click', '.delete_img', function(){
         formStatus = null;
         checkFormStatus();

@@ -13,6 +13,14 @@ $(document).ready(() => {
 	$('body').on('click','.deleteCollege', function(event){
         event.preventDefault();
         col = $(event.target).closest("tr");
+
+        var collegeName = col.find("td:eq(2)").text()
+        $(".cd-popup-container > #toDel").remove()
+
+
+        $(".cd-popup-container").prepend(
+                        "<p id='toDel'>Tem a certeza que deseja eliminar a(o) faculdade " + collegeName + " ?</p>")
+
         $('.cd-popup').addClass('is-visible');
     });
     

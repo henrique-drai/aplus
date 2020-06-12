@@ -1,5 +1,5 @@
 <title>A+ for Students</title>
-<script>setPageName("ficheiros")</script>
+<script>setPageName("memberRtg")</script>
 <script src="<?php echo $base_url; ?>js/student/rating_page.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/student/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">

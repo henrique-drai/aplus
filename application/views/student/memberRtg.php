@@ -14,7 +14,9 @@
 
     <main>
 
-    <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > <a href="<?php echo base_url(); ?>app/grupo/<?php echo $grupo[0]["id"];?>">Área de Grupo (<?=$grupo[0]["name"]?>) > Rating</a></h4>
+    <h4 class="breadcrumb">
+        <a href="<?php echo base_url(); ?>app/student/grupos">Grupos</a> > <a href="<?php echo base_url(); ?>app/grupo/<?php echo $grupo[0]["id"];?>">Área de Grupo (<?=$grupo[0]["name"]?>) > Rating</a>
+    </h4>
 
         <div class="container">
         

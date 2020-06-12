@@ -8,6 +8,9 @@ var formStatus = null;
 var etapas_info_global;
 var msg_sucesso;
 
+
+// date picker https://github.com/cevadtokatli/window-date-picker
+
 $(document).ready(() => {
 
 
@@ -25,13 +28,6 @@ $(document).ready(() => {
             }, 1000);
         }
 
-    // //Mensagem de sucesso
-    //     if(msg_sucesso != undefined){
-    //         $("#successm").text(msg_sucesso);
-    //         $("#successm").show().delay(3000).fadeOut();
-    //     }
-
-    //     msg_sucesso = undefined;
 
 //Criar Popups
 

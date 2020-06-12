@@ -241,108 +241,75 @@ function renderPopupGroupEvent(event) {
             }
         });
     }
+}
 
-    function renderPopupConfirmDeleteMeeting (event) {
+function renderPopupInviteTeachers (event) {
 
-        function ajaxDeleteEventById(event_id){
-            $.ajax({
-                type: "DELETE",
-                url: base_url + "api/event/" + event_id,
-                success: function(data) {
-                    updateCalendario()
-                    $('.cd-popup').removeClass('is-visible')
-                },
-                error: function(data) {
-                    console.log("Couldn't delete the event:")
-                    console.log(data)
-                }
-            })
-        }
+    function submitPopup(evento_id){       
 
-        let message = $('<div class="calendario-msg"></div>')
-        message.append("<h4>Tem a certeza que pretende desmarcar a seguinte reunião?</h4>")
-        message.append("<p>" + event.obj.name + "</p>")
-    
-        $('.cd-buttons').html('').append(
-            $('<li><a href="#" id="actionButton"> Desmarcar </a></li>')
-                .click( () => { ajaxDeleteEventById(event.obj.evento_id) } ),
-            $('<li><a href="#" id="closeButton"> Cancelar </a></li>')
-                .click( () => { renderPopupGroupEvent(event) } )
+        var ids = $.makeArray(
+            $('#inviteTeachersForm input:checked')
+                .map(function() {return this.name})
         )
-        
-        $('.cd-popup .cd-message').html(message)
-    }
 
-    function renderPopupInviteTeachers (event) {
-
-        function ajaxInviteToMeeting(event_id){
-
-            
-            var ids = $('#inviteTeachersForm input:checked').map(function() {
-                return this.name;
-            });
-
-            console.log(ids)
-            // $.ajax({
-            //     type: "DELETE",
-            //     url: base_url + "api/event/" + event_id,
-            //     success: function(data) {
-            //         updateCalendario()
-            //         $('.cd-popup').removeClass('is-visible')
-            //     },
-            //     error: function(data) {
-            //         console.log("Couldn't delete the event:")
-            //         console.log(data)
-            //     }
-            // })
-        }
-
-        var teachers = $('<div class="teachers"></div>')
-
-        calendario.teachers.forEach(teacher => {
-            if(! event.obj.people_going.find(person => person.user_id == teacher.user_id)) {
-
-                const _img = teacher.picture.length? teacher.user_id + teacher.picture :  "default.jpg"
-                const _src = base_url + "uploads/profile/" + _img
-                const _name = teacher.name + " " + teacher.surname
-
-                teachers.append(
-                    $('<div class="teacher"></div>').append(
-                        $('<input type="checkbox" name="'+teacher.user_id+'">'),
-                        $('<label for="' + teacher.user_id + '"> </label>').append(
-                            $('<img class="picture" src="'+_src+'" alt="'+_name+'" />'),
-                            $('<div>' + _name + '</div>')
-                        ),
-                        $('<div class="clickable"></div>')
-                            .click(()=>{
-                                let checkbox = $('#inviteTeachersForm input[name="'+teacher.user_id+'"]')
-                                checkbox.prop("checked", !checkbox.prop("checked"));
-                            }),
-                    )
-                )
+        $.ajax({
+            type: "POST",
+            url: base_url + "api/event/invite/" + evento_id,
+            data: {people: ids, grupo_id: localStorage.grupo_id},
+            success: function(data) {
+                console.log(data)
+                updateCalendario()
+                renderPopupGroupEvent(event)
+            },
+            error: function(data) {
+                console.log("Problem inviting people:")
+                console.log(data)
             }
         })
-
-        $('.cd-popup .cd-message').html(
-            $('<form id="inviteTeachersForm" action="javascript:void(0)" ></form>')
-                .append(
-                    "<h4>Selecione quem quer convidar:</h4>",
-                    "<div class='meeting'>" + event.obj.name + "</div>",
-                    teachers )
-                .submit((e)=>{
-                    e.preventDefault()
-                    ajaxInviteToMeeting(event)
-                })
-        )
-
-        $('.cd-buttons').html('').append(
-            $('<li></li>')
-                .append($('<input type="submit" form="inviteTeachersForm" value="Convidar" id="actionButton" />')
-                    .css("background", "#3e5d4f")),
-            $('<li><a href="#" id="closeButton"> Cancelar </a></li>')
-                .click( () => { renderPopupGroupEvent(event) } )
-        )
     }
+
+    var teachers = $('<div class="teachers"></div>')
+
+    calendario.teachers.forEach(teacher => {
+        if(! event.obj.people_going.find(person => person.user_id == teacher.user_id)) {
+
+            const _img = teacher.picture.length? teacher.user_id + teacher.picture :  "default.jpg"
+            const _src = base_url + "uploads/profile/" + _img
+            const _name = teacher.name + " " + teacher.surname
+
+            teachers.append(
+                $('<div class="teacher"></div>').append(
+                    $('<input type="checkbox" name="'+teacher.user_id+'">'),
+                    $('<label for="' + teacher.user_id + '"> </label>').append(
+                        $('<img class="picture" src="'+_src+'" alt="'+_name+'" />'),
+                        $('<div>' + _name + '</div>')
+                    ),
+                    $('<div class="clickable"></div>')
+                        .click(()=>{
+                            let checkbox = $('#inviteTeachersForm input[name="'+teacher.user_id+'"]')
+                            checkbox.prop("checked", !checkbox.prop("checked"));
+                        }),
+                )
+            )
+        }
+    })
+
+    $('.cd-popup .cd-message').html(
+        $('<form id="inviteTeachersForm" action="javascript:void(0)" ></form>')
+            .append(
+                "<h4>Selecione quem quer convidar:</h4>",
+                "<div class='meeting'>" + event.obj.name + "</div>",
+                teachers )
+            .submit((e)=>{submitPopup(event.obj.evento_id)})
+    )
+
+    $('.cd-buttons').html('').append(
+        $('<li></li>')
+            .append($('<input type="submit" form="inviteTeachersForm" value="Convidar" id="actionButton" />')
+                .css("background", "#3e5d4f")),
+        $('<li><a href="#" id="closeButton"> Cancelar </a></li>')
+            .click( () => { renderPopupGroupEvent(event) } )
+    )
 }
 
 
@@ -429,4 +396,35 @@ function renderPopupAddEvent(){
             }
         });
     }
+}
+
+function renderPopupConfirmDeleteMeeting (event) {
+
+    function ajaxDeleteEventById(event_id){
+        $.ajax({
+            type: "DELETE",
+            url: base_url + "api/event/" + event_id,
+            success: function(data) {
+                updateCalendario()
+                $('.cd-popup').removeClass('is-visible')
+            },
+            error: function(data) {
+                console.log("Couldn't delete the event:")
+                console.log(data)
+            }
+        })
+    }
+
+    let message = $('<div class="calendario-msg"></div>')
+    message.append("<h4>Tem a certeza que pretende desmarcar a seguinte reunião?</h4>")
+    message.append("<p>" + event.obj.name + "</p>")
+
+    $('.cd-buttons').html('').append(
+        $('<li><a href="#" id="actionButton"> Desmarcar </a></li>')
+            .click( () => { ajaxDeleteEventById(event.obj.evento_id) } ),
+        $('<li><a href="#" id="closeButton"> Cancelar </a></li>')
+            .click( () => { renderPopupGroupEvent(event) } )
+    )
+    
+    $('.cd-popup .cd-message').html(message)
 }

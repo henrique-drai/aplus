@@ -283,7 +283,7 @@ $(document).ready(() => {
             $("#cursoUser").css("display", "none");
             $("#cadeirasProf").css("display", "none");
             $("#registerUserFacul").val("");
-            $("#registerAnoUser").val("");
+            $("#registerAnoUser").first();
             $("#registerUserCurso").val("");
             $("#selectedCadeiras").css("display", "none");
             $(".selectedcadeiras").remove();
@@ -298,7 +298,7 @@ $(document).ready(() => {
             $("#selectedCadeiras").css("display", "none"); 
             $(".selectedcadeiras").remove();
             $("#registerUserFacul").val("");
-            $("#registerAnoUser").val("");
+            $("#registerAnoUser").first();
             $("#registerUserCurso").val("");
         }
         else if($(this).val()=="teacher"){
@@ -308,7 +308,7 @@ $(document).ready(() => {
             $("#registerAnoUser").css("display", "block");
             $("#cursoUser").css("display", "none");
             $("#registerUserFacul").val("");
-            $("#registerAnoUser").val("");
+            $("#registerAnoUser").first();
             $("#registerUserCurso").val("");
         }
     })
@@ -500,6 +500,7 @@ function submitRegister(){
                 success: function(data) {
                     $("input[type='text']").val("");
                     $("input[type='password']").val("");
+                    $("#register-form select[name='role']").val("admin");
                     $("#msgStatus").text("Utilizador registado com sucesso.");
                     $("#msgStatus").show().delay(2000).fadeOut();
                 },
@@ -523,6 +524,7 @@ function submitRegister(){
                 success: function(data) {
                     $("input[type='text']").val("");
                     $("input[type='password']").val("");
+                    $("#register-form select[name='role']").val("admin");
                     $("#msgStatus").text("Utilizador registado com sucesso.");
                     $("#msgStatus").show().delay(2000).fadeOut();
                     $("#register-form label[for='academicYearUser']").css("display", "none");
@@ -534,7 +536,7 @@ function submitRegister(){
                     $("#selectedCadeiras").css("display", "none"); 
                     $(".selectedcadeiras").remove();
                     $("#registerUserFacul").val("");
-                    $("#registerAnoUser").val("");
+                    $("#registerAnoUser").first();
                     $("#registerUserCurso").val("");
                 },
                 error: function(data) {
@@ -557,6 +559,7 @@ function submitRegister(){
                 success: function(data) {
                     $("input[type='text']").val("");
                     $("input[type='password']").val("");
+                    $("#register-form select[name='role']").val("admin");
                     $("#msgStatus").text("Utilizador registado com sucesso.");
                     $("#msgStatus").show().delay(2000).fadeOut();
                     $("#register-form label[for='academicYearUser']").css("display", "none");
@@ -568,7 +571,7 @@ function submitRegister(){
                     $("#selectedCadeiras").css("display", "none"); 
                     $(".selectedcadeiras").remove();
                     $("#registerUserFacul").val("");
-                    $("#registerAnoUser").val("");
+                    $("#registerAnoUser").first();
                     $("#registerUserCurso").val("");
                 },
                 error: function(data) {
@@ -705,9 +708,16 @@ function getAllSchoolYears(){
         type: "GET",
         url: base_url + "api/getAllSchoolYears",
         success: function(data) {
-            linhas='<option class="ano_letivo_user" value=""> Selecione um Ano Letivo </option>';
-            if(data.schoolYears.length>0){
-                for(i=0; i<data.schoolYears.length>0;i++){
+            if(data.schoolYears.length<3){
+                var linhas='<option class="ano_letivo_user" value=' + data.schoolYears[0].id +">" + data.schoolYears[0].inicio + '/' + data.schoolYears[0].fim + '</option>';
+                for(i=1; i<data.schoolYears.length;i++){
+                    linhas += '<option class="ano_letivo_user" value=' + data.schoolYears[i].id +">" + data.schoolYears[i].inicio + '/' + data.schoolYears[i].fim + '</option>'; 
+                }
+                $("#registerAnoUser").html(linhas);
+            }
+            else if (data.schoolYears.length>=3){
+                var linhas='<option class="ano_letivo_user" value=' + data.schoolYears[0].id +">" + data.schoolYears[0].inicio + '/' + data.schoolYears[0].fim + '</option>';
+                for(i=1; i<3;i++){
                     linhas += '<option class="ano_letivo_user" value=' + data.schoolYears[i].id +">" + data.schoolYears[i].inicio + '/' + data.schoolYears[i].fim + '</option>'; 
                 }
                 $("#registerAnoUser").html(linhas);

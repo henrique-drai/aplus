@@ -66,7 +66,7 @@
                         <div id="cadeiras">
                         </div>
                     </div>
-                    <input type="submit" id="register-form-submit">
+                    <input type="submit" id="register-form-submit" value="Criar Utilizador">
                 </form>
                 <div id="msgStatus">
                 </div>

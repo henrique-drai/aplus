@@ -61,6 +61,7 @@ class UserModel extends CI_Model {
 
     #Admin ver e dar manage nos Alunos
     public function getStudents(){
+        $this->db->select("name, surname, email");
         $this->db->where(array('role' => "student"));
         $this->db->order_by("name","asc");
         $query = $this->db->get("user");
@@ -120,6 +121,7 @@ class UserModel extends CI_Model {
     }
 
     public function getTeachers(){
+        $this->db->select("name, surname, email");
         $this->db->where(array('role' => "teacher"));
         $this->db->order_by("name","asc");
         $query = $this->db->get("user");
@@ -146,7 +148,7 @@ class UserModel extends CI_Model {
     }
 
     public function getSearchStudent($query){
-        $this->db->select("*");
+        $this->db->select("name, surname, email");
         $this->db->where("role = 'student'");
         if($query != ''){
             $this->db->group_start();
@@ -161,7 +163,7 @@ class UserModel extends CI_Model {
     }
 
     public function getSearchTeacher($query){
-        $this->db->select("name,surname,picture,id");
+        $this->db->select("name, surname, email");
         $this->db->where("role = 'teacher'");
         if($query != ''){
             $this->db->group_start();

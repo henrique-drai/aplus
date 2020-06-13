@@ -159,6 +159,10 @@ $route['api/getLastConvo']                      = 'Api_Chat/getLastConvo';
 # ROUTER.php
 $route['route/subject/(:num)']                  = 'Router/subjectById/$1';
 
+# OTHERS
+$route['upload/profilePic']                     = 'UploadsC/uploadProfilePic';
+$route['app/profile/edit']                      = 'App/editProfile';
+
 
 $route['default_controller'] = 'landing';
 $route['404_override'] = '';

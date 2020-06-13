@@ -216,6 +216,7 @@ class App extends CI_Controller {
     //app/profile/:user_id
     public function profile($user_id = null)
     {
+        $user_id = htmlspecialchars($user_id);
         $data["base_url"] = base_url();
         
         //verificar foi dado algum parâmetro
@@ -230,37 +231,25 @@ class App extends CI_Controller {
         if(is_null($data["user"])){
             $this->load->view('errors/404', $data); return null;}
 
-        $this->load->helper('form');
-
-        $this->load->view('templates/head', $data);
-        //escolher que página deve ser mostrada
-        switch ($this->session->userdata('id') == $user_id) {
-            case true:  $this->load->view('app/profile_edit', $data); break;
-            case false: $this->load->view('app/profile_show', $data); break;
-        }
+        $this->load->view('templates/head');
+        $this->load->view('app/profile_show', $data);
         $this->load->view('templates/footer');
     }
 
-    public function uploadProfilePic()
+    //app/profile/edit
+    public function editProfile()
     {
         $user_id = $this->session->userdata('id');
-        $upload['upload_path'] = './uploads/profile/';
-        $upload['allowed_types'] = 'jpg';
-        $upload['file_name'] = $user_id;
-        $upload['overwrite'] = true;
+        
+        $this->load->model('UserModel');
+        $this->load->helper('form');
+        
+        $data["base_url"] = base_url();
+        $data["user"] = $this->UserModel->getUserById($user_id);
 
-        $this->load->library('upload', $upload);
-
-        if ( ! $this->upload->do_upload('userfile'))
-        {
-            $error = array('error' => $this->upload->display_errors());
-            //print_r($error);
-            header("Location: ".base_url()."app/profile/".$user_id);
-        }
-        else
-        {
-            header("Location: ".base_url()."app/profile/".$user_id);
-        }
+        $this->load->view('templates/head');
+        $this->load->view('app/profile_edit', $data);
+        $this->load->view('templates/footer');
     }
 
     //app/chat/:chat_id

@@ -270,15 +270,13 @@ label {
     cursor: pointer;
 }
 
-.cd-buttons li:first-child a {
-    background-color: #3e5d4f;
+.cd-buttons > li:first-child a, .cd-buttons > li:first-child input {
+    background: #3e5d4f;
 }
 
-#red-buttons li:first-child a, .red-a{
-    background-color: rgb(255, 72, 72);
-}
-
-
+/* #red-buttons li:first-child a, .red-a{
+    background: rgb(255, 72, 72);
+} */
 
 .form-input-file{
     width: unset !important;

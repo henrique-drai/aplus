@@ -97,6 +97,19 @@ class Projects extends CI_Controller {
             $this->load->view('errors/404', $data); return null;
         }
 
+        $arr_msg = array (
+            "msg" => "",
+            "type" => "",
+        );
+
+        $data["msg"] = $this->session->userdata("result_msg");
+
+        if ($data["msg"] == ""){
+            $data["msg"] = $arr_msg;
+        }
+
+        $this->session->set_userdata('result_msg', $arr_msg);
+
         $this->load->helper('form');
 
         $this->load->view('templates/head', $data);

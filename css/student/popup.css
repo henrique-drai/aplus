@@ -191,22 +191,16 @@ input[type="range"]::-webkit-slider-thumb:active {
 }
 
 #subject {
-    font-size: 20px;
+    font-size: 21px;
 }
 
-#statusOn {
-    background-color: #8bffa7b0;
-    border-radius: 14px;
-    text-align: center;
-    margin-top: 7%;
-}
 
-#statusOff {
-    background-color: #ffc98bb0;
-    border-radius: 14px;
-    text-align: center;
-    margin-top: 7%;
+
+.noGroups {
+    margin-top: 3%;
 }
+/* ---------------------------------------------- */
+
 
 .groupC, .groupMembros {
     display: inline-block !important;
@@ -219,8 +213,58 @@ input[type="range"]::-webkit-slider-thumb:active {
     width: 20%;
 }
 
-.noGroups {
+
+.grupos{
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 3%;
 }
 
+.groupMembros{
+    min-height: 135px;
+    width: 320px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(4, 4, 4, 0.1) 0px 0px 5px 0px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    overflow: hidden;
+}
+#groupId {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 4px 6px 5px 17px
+    color: #928f8f;
+}
+
+#subject, #project, #groupId{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 5px 10px 5px 17px;
+}
+
+#subject{
+    font-size: 20px;
+    font-weight:bold;
+}
+
+#statusOff, #statusOn{
+    text-align:center;
+}
+
+#statusOn, #statusOff{
+    border-radius: 14px;
+    text-align: center;
+    margin-top: 7%;
+}
+
+#statusOn {
+    background-color: #8bffa7b0;
+}
+
+#statusOff {
+    background-color: #ffc98bb0;
+}
 

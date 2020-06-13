@@ -148,7 +148,7 @@
                 
 
                 <form id="teachersImport" action="javascript:void(0)" enctype="multipart/form-data">
-                        <input id="formInput" type='file' name='userfile' accept='.csv' >
+                        <input id="formInput" type='file' name='userfile' accept='.csv' required>
                         <input type='submit' id='importTeachers'  value='Importar'></input>
                 </form>
 

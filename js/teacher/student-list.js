@@ -13,6 +13,11 @@ $(document).ready(() => {
 			$(".adminTable").remove();
 		}
 	})
+
+	$("body").on("click", ".perfil", function() {
+		var id = $(this).attr("id");
+		window.location = base_url + "app/profile/" + id;
+	})
 })
 
 function showCourseStudents() {
@@ -23,12 +28,12 @@ function showCourseStudents() {
 		success: function (data) {
 			var linhas = [];
 			$("#students_list").empty();
-			linhas.push('<tr><th>Email</th><th>Nome</th><th>Apelido</th></tr>');
+			linhas.push('<tr><th>Email</th><th>Nome</th><th>Apelido</th><th></th></tr>');
 			if (data.users_id.length > 0) {
 				for (i = 0; i < data.users_id.length; i++) {
 		
 					linhas.push('<tr class="student_row"><td>' + data.info[i][0].email + '</td><td>' + data.info[i][0].name +
-						'</td><td>' + data.info[i][0].surname);
+						'</td><td>' + data.info[i][0].surname + "<td><input type='button' value='Ver perfil' class='perfil' id='" + data.info[i][0].id + "'></td>");
 				}
 
 				$('.container2').pagination({
@@ -70,11 +75,11 @@ function getSearchStudent(query){
 function makeStudentTable(data){
 	var linhas = [];
 	$("#students_list").empty();
-	linhas.push('<tr><th>Email</th><th>Nome</th><th>Apelido</th></tr>');
+	linhas.push('<tr><th>Email</th><th>Nome</th><th>Apelido</th><th></th></tr>');
 	if (data.length > 0) {
 		for (i = 0; i < data.length; i++) {
 			linhas.push('<tr class="student_row"><td>' + data[i].email + '</td><td>' + data[i].name +
-				'</td><td>' + data[i].surname);
+				'</td><td>' + data[i].surname + "<td><input type='button' value='Ver perfil' class='perfil' id='" + data[i].id + "'></td>");
 		}
 
 		$('.container2').pagination({

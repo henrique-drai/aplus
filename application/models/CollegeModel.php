@@ -8,6 +8,7 @@ class CollegeModel extends CI_Model {
     }
 
     public function getColleges(){
+        $this->db->order_by('name', 'ASC');
         $query = $this->db->get("faculdade");
         return $query->result_array();
     }

@@ -435,7 +435,7 @@ class Api_Project extends REST_Controller {
         $user_id = $this->session->userdata('id');
         $grupo_id = htmlspecialchars($this->post("grupo_id"));
 
-        if($this->verify_student($user_id, $group_id)) {
+        if($this->verify_student($user_id, $grupo_id)) {
             $name = htmlspecialchars($this->post('name'));
             $description = htmlspecialchars($this->post("description"));
 

@@ -13,6 +13,7 @@ $(document).ready(() => {
         hourType: "24",
         allowEmpty: "FALSE",
         lang: "pt",
+        orientation: true,
     });
 
 
@@ -63,6 +64,7 @@ $(document).ready(() => {
             hourType: "24",
             allowEmpty: "FALSE",
             lang: "pt",
+            orientation: true,
         });
     
 
@@ -276,11 +278,11 @@ function validate_descriptions(){
 
 function verifyallinputs(){
     if (!validateFormNumb()){
-        $("#errormsg").text("O número máximo de alunos por grupo tem de ser maior que o mínimo");
+        $("#errormsg").text("O número máximo de alunos tem de ser maior que o mínimo");
         $("#errormsg").show().delay(5000).fadeOut();
         return false;
     } else if (!validateAllDates()){
-        $("#errormsg").text("A data de cada etapa tem de ser preenchida e ser maior que a data atual");
+        $("#errormsg").text("A data de cada etapa tem de ser maior que a data atual");
         $("#errormsg").show().delay(5000).fadeOut();
         return false;
     } else if (!validate_descriptions()){

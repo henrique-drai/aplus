@@ -28,7 +28,7 @@ $(document).ready(() => {
     
     //open popup - REMOVER THREAD
 	$('body').on('click', '.remove_thread', function() {
-        $(".cd-message").html("<p>Tem a certeza que deseja eliminar o tópico?</p>");
+        $(".cd-message").html("<p>Tem a certeza que deseja eliminar o tópico '" + $(".threadName").text() + "'?</p>");
         $(".cd-buttons").html('').append("<li><a href='#' id='confirmRemoveThread'>" +
             "Sim</a></li><li><a href='#' id='closeButton'>Não</a></li>");
 
@@ -107,8 +107,12 @@ function getInfo() {
             if(data.posts.length == 0) {
                 $(".threads").append("<p>Não há nenhuma publicação neste tópico.</p>");
 
-                $(".add").html("<input type='button' id='create_post_button' value='Criar nova publicação'>");
+                if(localStorage.teachers_only == 0 || data.user.role == "teacher") {
+                    $(".add").html("<input type='button' id='create_post_button' value='Criar nova publicação'>");
                     addPopup(data.info.title);
+                } else {
+                    $(".threads").append("<p>Não tens permissão para publicar neste tópico.</p>");
+                }
             } else {
                 for(var i=0; i < data.posts.length; i++) {
                     $(".threads").append("<div class='post' id='" + data.posts[i].id + "'><div class='head'><p>" + data.users[i].name + " " + data.users[i].surname + "</p>" +

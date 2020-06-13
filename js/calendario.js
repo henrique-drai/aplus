@@ -238,8 +238,10 @@ function eventOnClickCalendario(){
                     getTimeString(new Date(event.obj.start_date)) + " - " +
                     getTimeString(new Date(event.obj.end_date)) + "</p>")
                 message.append("<p>Localização: " + event.obj.location + "</p>")
-                $(".cd-popup #actionButton").html("Apagar Evento").off()
-                    .click(()=>{ajaxDeleteEventById(event.obj.evento_id)})
+                // $(".cd-popup #actionButton").html("Apagar Evento").off()
+                //     .click(()=>{ajaxDeleteEventById(event.obj.evento_id)})
+                $(".cd-popup #actionButton").html("Não Vou").off()
+                    .click(()=>{ajaxNotGoing(event.obj.evento_id)})
                 break
             
             case "submit":

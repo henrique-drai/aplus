@@ -79,11 +79,11 @@ class Api_User extends REST_Controller {
         }
         else if($data["role"] == 'teacher'){
             $this->load->model('SubjectModel');
-            $cadeiras = htmlspecialchars($this->post('cadeiras'));
+            $cadeiras = $this->post('cadeiras');
             foreach ($cadeiras as $cadeiraid){
                 $dataProf = Array(
                     "user_id"    => $retrieved["user_id"],
-                    "cadeira_id"   => $cadeiraid,               
+                    "cadeira_id"   => htmlspecialchars($cadeiraid),               
                 );
                 $this->SubjectModel->insertProfCadeira($dataProf);
             }

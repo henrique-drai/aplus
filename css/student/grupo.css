@@ -229,33 +229,68 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 
 .add-event-icon {
     width: 25px;
-    margin: 0px 4px -4px;
+    margin: 0 4px -4px;
     cursor: pointer;
 }
 .fichNumb p {
     font-size: 12px;
     margin-top: -10px;
 }
-#groupEventForm i.delete-meeting {
-    cursor: pointer;
+#groupEventForm h3 {
+    margin-bottom: 0;
 }
+#groupEventForm .options span {
+    cursor: pointer;
+    font-size: 13px;
+    text-decoration: underline;
+}
+#groupEventForm .options span:hover {
+    color: #aaa;
+}
+#groupEventForm .options {
+    margin-bottom: 5px;
+}
+#groupEventForm .options .whitespace {
+    text-decoration: none;
+    margin: 0 10px;
+} 
 #groupEventForm .people {
     padding-left: 15px;
 }
 #groupEventForm .people .picture {
     width: 25px;
+    height: 25px;
     margin-left: -10px;
+    display: inline-block;
+    position: relative;
+}
+#groupEventForm .people .picture img {
+    width: 100%;
+    height: 100%;
     border-radius: 20px;
     border: 1px solid #ccc;
+}
+#groupEventForm .people .picture .label {
+    visibility: hidden;
+    position: absolute;
+    background: rgba(0,0,0,0.5);
+    padding: 0px 3px;
+    border-radius: 5px;
+    color: white;
+    top: 110%;
+    left: 50%;
+    z-index: 100;
+    min-width: 100px;
+    transform: translateX(-50%);
+}
+#groupEventForm .people .picture:hover .label {
+    visibility: visible;
 }
 #groupEventForm .people .number {
     font-size: 13px;
     margin: 6px;
     display: inline-block;
     vertical-align: top;
-}
-#groupEventForm .going {
-    margin: 10px 0px;
 }
 #groupEventForm .going input {
     -webkit-appearance: radio;
@@ -270,4 +305,49 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     margin: 0px 10px;
     font-size: 13px;
     text-transform: uppercase;
+}
+#inviteTeachersForm h4 {
+    margin-bottom: 0;
+}
+#inviteTeachersForm .meeting {
+    font-size: 13px;
+}
+#inviteTeachersForm .teachers {
+    margin: 15px 0 10px;
+}
+#inviteTeachersForm .teacher {
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    margin: 5px 0px;
+    position: relative;
+}
+#inviteTeachersForm .teacher:hover {
+    background: #eee;
+}
+#inviteTeachersForm input {
+    -webkit-appearance: checkbox;
+    width: unset;
+}
+#inviteTeachersForm label {
+    margin-top: 0;
+    padding-left: 5px;
+    display: flex;
+}
+#inviteTeachersForm label img {
+    width: 25px;
+    height: 25px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-right: 7px;
+}
+#inviteTeachersForm .teacher .clickable {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+#inviteTeachersForm .empty-msg {
+    font-size: 15px;
+    color: rgb(62, 93, 79);
 }

@@ -6,7 +6,10 @@ var etapa = {nome:'', desc:'', enunciado:'', data:''};
 var updated_enunc_etapa;
 var formStatus = null;
 var etapas_info_global;
-var msg_sucesso;
+var msg_res;
+
+
+// date picker https://github.com/cevadtokatli/window-date-picker
 
 $(document).ready(() => {
 
@@ -25,13 +28,12 @@ $(document).ready(() => {
             }, 1000);
         }
 
-    // //Mensagem de sucesso
-    //     if(msg_sucesso != undefined){
-    //         $("#successm").text(msg_sucesso);
-    //         $("#successm").show().delay(3000).fadeOut();
-    //     }
+        if(msg_res != undefined && msg_res != ""){
+            //Mensagens de sucesso e erro vindas do php
+            checkMsg();
+        }
 
-    //     msg_sucesso = undefined;
+
 
 //Criar Popups
 
@@ -313,6 +315,16 @@ function setProj(id){
 
 function setBackPage(href){
     back_page = href;
+}
+
+function setMsg(msg, type){
+
+    const arr = {
+        msg : msg,
+        type : type
+    }
+
+    msg_res = arr;
 }
 
 

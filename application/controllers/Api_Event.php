@@ -126,15 +126,56 @@ class Api_Event extends REST_Controller {
             ));
           }
         }
-        $data = $notifications;
 
         $this->NotificationModel->createMultiple($notifications); //enviar notificações para todos os alunos
       } 
 
-      $this->response($data, parent::HTTP_OK);
+      $this->response(array(), parent::HTTP_OK);
     }
 
-    
+    // para convidar profs para uma reunião
+    public function invite_post ($evento_id) {
+      //segurança
+      $post = $this->post("people");
+      $evento_id = htmlspecialchars($evento_id);
+      $grupo_id = htmlspecialchars($this->post("grupo_id"));
+
+      foreach ($post as $key => $value)
+        $post[$key] = htmlspecialchars($value);
+
+      $this->load->model('EventModel');
+      $this->load->model('NotificationModel');
+      date_default_timezone_set('Europe/Lisbon');
+
+      //inscrição
+      $evento_user = array();
+      foreach ($post as $key => $value) { 
+        array_push($evento_user, array(
+          "evento_id" => $evento_id,
+          "user_id" => $value
+        ));
+      }
+      $this->EventModel->multiplePeopleGoing($evento_user);
+
+      //notificação
+      $notification = array();
+      $curr_date = date('Y/m/d H:i:s', time());
+      foreach ($post as $key => $value) {
+        array_push($notification, Array(
+          "user_id" => $value,
+          "type" => "alert",
+          "title" => "Nova reunião no calendário",
+          "content" => "Clique para saber mais",
+          "link" => "app",
+          "seen" => FALSE,
+          "date" => $curr_date
+        ));
+      }
+
+      $this->NotificationModel->createMultiple($notification);
+
+      $this->response($evento_user, parent::HTTP_OK);
+    }
 
 
     //////////////////////////////////////////////////////////////

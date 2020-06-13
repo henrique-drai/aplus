@@ -143,12 +143,18 @@ img[alt="csv_example"] {
     font-weight: bold;
     text-decoration: none;
 }
-
+#selectedCadeiras h4 {
+    margin-bottom: 5px;
+    font-weight: 300;
+    font-size: 13px;
+}
 .selectedcadeiras{
-    border: solid 1px grey;
+    border-radius: 5px;
     display: inline-block;
-    margin: 3px;
-    padding: 5px;
+    margin: 2px;
+    padding: 0px 6px 1px;
+    font-size: 13px;
+    background: white;
 }
 
 .tirarCadeira .tooltiptext {
@@ -172,10 +178,11 @@ img[alt="csv_example"] {
 }
 
 #cadeiras{
-    border: solid 1px grey;
     max-width: 100%;
     min-width: 33%;
     padding: 3px;
+    background-color: #ddd;
+    border-radius: 5px;
 }
 
 /* Global style */

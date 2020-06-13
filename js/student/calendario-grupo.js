@@ -155,17 +155,18 @@ function renderPopupGroupEvent(event) {
         })
     )
 
-    let delete_button = $('<i class="fa fa-trash" class="delete-meeting"></i>').click(()=>{
-        renderPopupConfirmDeleteMeeting(event)
-    })
-
     let people_section = $('<div class="people"></div>')
 
     event.obj.people_going.forEach(element => {
         const _img = element.picture.length? element.user_id + element.picture :  "default.jpg"
         const _src = base_url + "uploads/profile/" + _img
         const _name = element.name + " " + element.surname
-        people_section.append('<img class="picture" src="'+_src+'" alt="'+_name+'" />')
+        people_section.append(
+            $('<div class="picture"></div>').append(
+                $('<img src="'+_src+'" alt="'+_name+'" />'),
+                $('<span class="label">' + _name + '</span>')
+            )
+        )
     });
 
     const _temp = (event.obj.people_going.length === 1) ? " Pessoa Vai" : " Pessoas Vão"
@@ -252,33 +253,13 @@ function renderPopupGroupEvent(event) {
 
 function renderPopupInviteTeachers (event) {
 
-    function submitPopup(evento_id){       
-
-        var ids = $.makeArray(
-            $('#inviteTeachersForm input:checked')
-                .map(function() {return this.name})
-        )
-
-        $.ajax({
-            type: "POST",
-            url: base_url + "api/event/invite/" + evento_id,
-            data: {people: ids, grupo_id: localStorage.grupo_id},
-            success: function(data) {
-                console.log(data)
-                updateCalendario()
-                renderPopupGroupEvent(event)
-            },
-            error: function(data) {
-                console.log("Problem inviting people:")
-                console.log(data)
-            }
-        })
-    }
-
     var teachers = $('<div class="teachers"></div>')
+
+    var is_empty = true
 
     calendario.teachers.forEach(teacher => {
         if(! event.obj.people_going.find(person => person.user_id == teacher.user_id)) {
+            is_empty = false
 
             const _img = teacher.picture.length? teacher.user_id + teacher.picture :  "default.jpg"
             const _src = base_url + "uploads/profile/" + _img
@@ -301,13 +282,16 @@ function renderPopupInviteTeachers (event) {
         }
     })
 
+    empty_msg = is_empty ? '<p class="empty-msg">Já convidou todos os professores!</p>' : ''
+
     $('.cd-popup .cd-message').html(
         $('<form id="inviteTeachersForm" action="javascript:void(0)" ></form>')
             .append(
                 "<h4>Selecione quem quer convidar:</h4>",
                 "<div class='meeting'>" + event.obj.name + "</div>",
-                teachers )
-            .submit((e)=>{submitPopup(event.obj.evento_id)})
+                teachers,
+                empty_msg )
+            .submit((e)=>{submitPopup(event)})
     )
 
     $('.cd-buttons').html('').append(
@@ -317,6 +301,34 @@ function renderPopupInviteTeachers (event) {
         $('<li><a href="#" id="closeButton"> Cancelar </a></li>')
             .click( () => { renderPopupGroupEvent(event) } )
     )
+
+    function submitPopup(event){       
+
+        var ids = $.makeArray(
+            $('#inviteTeachersForm input:checked')
+                .map(function() {return this.name})
+        )
+
+        ids.forEach((elem) => {
+            const teacher = calendario.teachers.find(person => person.user_id == elem)
+            event.obj.people_going.push(teacher)
+        })
+
+        $.ajax({
+            type: "POST",
+            url: base_url + "api/event/invite/" + event.obj.evento_id,
+            data: {people: ids, grupo_id: localStorage.grupo_id},
+            success: function(data) {
+                console.log(data)
+                updateCalendario()
+                renderPopupGroupEvent(event)
+            },
+            error: function(data) {
+                console.log("Problem inviting people:")
+                console.log(data)
+            }
+        })
+    }
 }
 
 

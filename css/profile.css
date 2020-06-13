@@ -2,6 +2,14 @@ main {
     margin: 0px -10px;
 }
 
+h1.page-title {
+    margin-bottom: 0;
+}
+a.profile-preview {
+    font-size: 14px;
+    color: #3e5d4f
+}
+
 .form-error-message {
     font-size: 10px;
     color: red;

@@ -16,6 +16,15 @@
     position: relative;
 }
 
+.submit-msg {
+    display:none;
+    text-align: center;
+    width: 100%;
+    padding: 4px;
+    position: relative;
+    margin-top: 10px;
+}
+
 
 #inputsduo {
     position: relative;

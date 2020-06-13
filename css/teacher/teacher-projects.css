@@ -9,6 +9,10 @@
     width:96%;
 }
 
+#newEtapa{
+    background: #3e5d4f;
+}
+
 #popups > .cd-popup .cd-popup-container {
     overflow: unset;
     overflow-y: auto;

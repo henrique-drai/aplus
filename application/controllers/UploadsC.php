@@ -38,14 +38,10 @@ class UploadsC extends CI_Controller {
             echo "cenas pelo meio";
 
             echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
-
             if(file_exists("uploads/enunciados_files/" . $project_id . ".pdf")) unlink("uploads/enunciados_files/" . $project_id . ".pdf");
-
-
-            echo "depois do unlink";
             
+            echo "depois do unlink";
             clearstatcache();
-
             echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
 
             $upload['upload_path'] = $path;
@@ -60,17 +56,34 @@ class UploadsC extends CI_Controller {
 
             $error = $this->upload->display_errors();
             print_r($error);
+
+            
+            // type == S -> msg de sucesso
+            // type == E -> msg de erro
     
             if ( ! $this->upload->do_upload('file_projeto'))
             {
-                $error = array('error' => $this->upload->display_errors());
-                print_r($error);
-                // header("Location: ".base_url()."projects/project/".$project_id);
+      
+                $arr_msg = array (
+                    "msg" => "Erro ao submeter ficheiro",
+                    "type" => "E",
+                );
+
+                $this->session->set_userdata('result_msg', $arr_msg);
+                header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
             {
-                // header("Location: ".base_url()."projects/project/".$project_id);
-                echo "balengas-nova-versao-sem-filemax";
+
+                $arr_msg = array (
+                    "msg" => "Ficheiro submetido com sucesso",
+                    "type" => "S",
+                );
+
+                $this->session->set_userdata('result_msg', $arr_msg);
+
+                header("Location: ".base_url()."projects/project/".$project_id);
+                // echo "balengas-nova-versao-sem-filemax";
             }
         } else {
             header("Location: ".base_url()."errors/403");

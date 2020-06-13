@@ -14,7 +14,7 @@ $picture = $base_url . $file . "?" . time();
     <div id="nav-menu-container">
         <div class="nav-menu-user-section">
             <div class="nav-menu-profile-picture">
-                <a href="<?=$base_url?>app/profile/<?=$this->session->id?>">
+                <a href="<?=$base_url?>app/profile/edit">
                     <img src="<?=$picture?>" alt="Profile Picture">
                     <div class="nav-menu-profile-picture-hover">
                         Edit

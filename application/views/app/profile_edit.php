@@ -8,7 +8,8 @@
     <?php $this->view('templates/nav-menu'); ?>
 
     <main>
-        <h1>Editar Perfil</h1>
+        <h1 class="page-title">Editar Perfil</h1>
+        <a href="<?=base_url()?>app/profile/<?=$user->id?>" class="profile-preview">Ver como colega</a>
         <div class="profile-edit">
             <h3>Editar informação:</h3>
             <form class="profile-edit-user" action="javascript:void(0)">
@@ -45,7 +46,7 @@
 
         <div class="picture-form">
             <h3>Alterar imagem de perfil:</h3>
-            <?php echo form_open_multipart('UploadsC/uploadProfilePic'); ?>
+            <?php echo form_open_multipart('upload/profilePic'); ?>
                 <input type="file" name="userfile">
                 <input type="submit" value="Carregar">
             </form>

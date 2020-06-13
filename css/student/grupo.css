@@ -259,9 +259,32 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 }
 #groupEventForm .people .picture {
     width: 25px;
+    height: 25px;
     margin-left: -10px;
+    display: inline-block;
+    position: relative;
+}
+#groupEventForm .people .picture img {
+    width: 100%;
+    height: 100%;
     border-radius: 20px;
     border: 1px solid #ccc;
+}
+#groupEventForm .people .picture .label {
+    visibility: hidden;
+    position: absolute;
+    background: rgba(0,0,0,0.5);
+    padding: 0px 3px;
+    border-radius: 5px;
+    color: white;
+    top: 110%;
+    left: 50%;
+    z-index: 100;
+    min-width: 100px;
+    transform: translateX(-50%);
+}
+#groupEventForm .people .picture:hover .label {
+    visibility: visible;
 }
 #groupEventForm .people .number {
     font-size: 13px;
@@ -323,4 +346,8 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     position: absolute;
     width: 100%;
     height: 100%;
+}
+#inviteTeachersForm .empty-msg {
+    font-size: 15px;
+    color: rgb(62, 93, 79);
 }

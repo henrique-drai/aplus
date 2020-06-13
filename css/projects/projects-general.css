@@ -346,3 +346,9 @@ label {
     }
 
 }
+
+@media screen and (max-width: 425px) {
+    .submit {
+        width: 100%;
+    }
+}

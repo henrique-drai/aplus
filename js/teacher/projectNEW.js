@@ -13,6 +13,7 @@ $(document).ready(() => {
         hourType: "24",
         allowEmpty: "FALSE",
         lang: "pt",
+        orientation: true,
     });
 
 
@@ -63,6 +64,7 @@ $(document).ready(() => {
             hourType: "24",
             allowEmpty: "FALSE",
             lang: "pt",
+            orientation: true,
         });
     
 

@@ -4,6 +4,7 @@ var etapas_info_global;
 var formStatus;
 var grupo;
 var have_group;
+var msg_res;
 
 $(document).ready(() => {
     getEtapas(proj);
@@ -21,6 +22,10 @@ $(document).ready(() => {
         }, 1000);
     }
 
+    if(msg_res != undefined && msg_res != ""){
+        //Mensagens de sucesso e erro vindas do php
+        checkMsg();
+    }
 
     showMyGroup(proj);
 
@@ -139,6 +144,16 @@ $(document).ready(() => {
 
 function setProj(id){
     proj = id;
+}
+
+function setMsg(msg, type){
+
+    const arr = {
+        msg : msg,
+        type : type
+    }
+
+    msg_res = arr;
 }
 
 
@@ -480,7 +495,7 @@ function createSubmissionPopup(etapa_rec, name){
 
     
     form = '<br><form enctype="multipart/form-data" accept-charset="utf-8" method="post" id="form-submit-etapa" action="'+base_url + 'UploadsC/uploadSubmissao/' + proj + '/' + selected_etapa + '/' + grupo+'">' +
-    '<input class="form-input-file" type="file" id="file_submit" name="file_submit" accept=".zip,.rar,.pdf,.docx">'+
+    '<input class="form-input-file" type="file" id="file_submit" name="file_submit" accept=".zip,.rar">'+
     '<label for="file_submit" class="input-label"><img id="file-img-submit" src="'+base_url+'images/icons/upload-solid.png">'+
     '<span id="name-file-submit">Submeter trabalho</span></label>'+
     '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>'+

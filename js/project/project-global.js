@@ -48,3 +48,16 @@ function strToDate(dtStr) {
     dateParts[2] = dateParts[2].split(" ")[0];
     return dateObject = new Date(dateParts[2], dateParts[1] - 1, +dateParts[0], timeParts[0], timeParts[1], timeParts[2]); 
 }
+
+
+function checkMsg(){
+    if (msg_res["msg"] != ""){
+        if(msg_res["type"] == "S"){
+            $("#successm").text(msg_res["msg"]);
+            $("#successm").show().delay(3000).fadeOut();
+        } else if(msg_res["type"] == "E") {
+            $("#errorm").text(msg_res["msg"]);
+            $("#errorm").show().delay(3000).fadeOut();
+        }
+    }
+}

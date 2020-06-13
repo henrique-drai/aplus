@@ -27,7 +27,7 @@
         </div>
 
         <div id="btnArea">
-            <input id="ficheiros" type="button" value="Ficheiros">
+            <input id="ficheiros" type="button" value="Área de Ficheiros">
             <div class="fichNumb"></div>
         </div>
 

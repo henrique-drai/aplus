@@ -1043,15 +1043,3 @@ function createRemoveEtapaPopup(name){
     $(".cd-buttons").html('').append("<li><a href='#' id='confirmRemoveEtapa' class='red-a'>" +
         "Sim</a></li><li><a href='#' id='closeButton'>Não</a></li>");
 }
-
-function checkMsg(){
-    if (msg_res["msg"] != ""){
-        if(msg_res["type"] == "S"){
-            $("#successm").text(msg_res["msg"]);
-            $("#successm").show().delay(3000).fadeOut();
-        } else if(msg_res["type"] == "E") {
-            $("#errorm").text(msg_res["msg"]);
-            $("#errorm").show().delay(3000).fadeOut();
-        }
-    }
-}

@@ -64,6 +64,8 @@ class UploadsC extends CI_Controller {
             if ( ! $this->upload->do_upload('file_projeto'))
             {
       
+                // $error = array('error' => $this->upload->display_errors());
+
                 $arr_msg = array (
                     "msg" => "Erro ao submeter ficheiro",
                     "type" => "E",
@@ -81,9 +83,7 @@ class UploadsC extends CI_Controller {
                 );
 
                 $this->session->set_userdata('result_msg', $arr_msg);
-
                 header("Location: ".base_url()."projects/project/".$project_id);
-                // echo "balengas-nova-versao-sem-filemax";
             }
         } else {
             header("Location: ".base_url()."errors/403");
@@ -112,12 +112,24 @@ class UploadsC extends CI_Controller {
 
             if ( ! $this->upload->do_upload('file_etapa'))
             {
-                $error = array('error' => $this->upload->display_errors());
-                print_r($error);
-                // header("Location: ".base_url()."projects/project/".$project_id);
+                // $error = array('error' => $this->upload->display_errors());
+                // print_r($error);
+                $arr_msg = array (
+                    "msg" => "Erro ao submeter ficheiro da etapa",
+                    "type" => "E",
+                );
+
+                $this->session->set_userdata('result_msg', $arr_msg);
+                header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
             {
+                $arr_msg = array (
+                    "msg" => "Ficheiro da etapa submetido com sucesso",
+                    "type" => "S",
+                );
+
+                $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
         } else {
@@ -137,24 +149,34 @@ class UploadsC extends CI_Controller {
             }
 
             $upload['upload_path'] = './uploads/submissions/' . strval($project_id) . '/' . strval($etapa_id) . '/';
-            $upload['allowed_types'] = 'zip|rar|pdf|docx';
+            $upload['allowed_types'] = 'zip|rar';
             $upload['file_name'] = $grupo_id;
             $upload['max_size'] = 5048;
             $upload['overwrite'] = true;
 
             $this->load->library('upload', $upload);
 
-            // embora esteja a ser feito overwrite, apagar à mao os ficheiros pertencentes ao grupo de 
-            // modo a evitar que existam ficheiros com diferentes extensoes na pasta a ocupar espaço.
+            if(file_exists("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".rar")) unlink("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".rar");
+            if(file_exists("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".zip")) unlink("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".zip");
 
             if ( ! $this->upload->do_upload('file_submit'))
             {
-                $error = array('error' => $this->upload->display_errors());
-                print_r($error);
-                // header("Location: ".base_url()."projects/project/".$project_id);
+                $arr_msg = array (
+                    "msg" => "Erro ao submeter a entrega",
+                    "type" => "E",
+                );
+
+                $this->session->set_userdata('result_msg', $arr_msg);
+                header("Location: ".base_url()."projects/project/".$project_id);
             }
             else
             {
+                $arr_msg = array (
+                    "msg" => "Entrega submetida com sucesso",
+                    "type" => "S",
+                );
+
+                $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
         } else {

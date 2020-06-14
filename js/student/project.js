@@ -87,17 +87,10 @@ $(document).ready(() => {
             $(".moreButton").css("background-color", "white");
 
             // dps mudar isto
-            $("#no-group-erro").hide();
-            $("#erro-entrega").hide();
             $("#error-popup").remove();
         }
     })
 
-    // $("body").on("click", "#submitEtapa", function(){
-    //     $("#form-submit-etapa").show();
-    // })
-
-    // $("#file_submit").on("change", function(){
     $("body").on("change", "#file_submit", function(){
         if($("#file_submit").val() != "") {
             $("#name-file-submit").text($("#file_submit").val().split('\\').pop());
@@ -116,7 +109,6 @@ $(document).ready(() => {
             $("#error-popup").text("Tem de selecionar um ficheiro")
             $("#error-popup").show().delay(3000).fadeOut();
             e.preventDefault();
-            // $("#enviado-erro").show().delay(2500).fadeOut();
         } else {
             if($("#file_submit")[0].files[0].size < 5024000){
                 $("#form-submit-etapa")[0].submit();
@@ -185,6 +177,7 @@ function showMyGroup(proj_id){
                 grupo = data["grupo"]["id"];
                 localStorage.setItem("grupo_id",grupo) //adicionei só para se alguem estiver a usar localstorage não dar porcaria
                 var names = '';
+                console.log(data["nomes"]);
                 for(var j=0; j < data["nomes"].length; j++) {
                     names = names + '<a href="'+ base_url +'app/profile/'+ data["nomes"][j][2] + '">' + data["nomes"][j][0] + " " + data["nomes"][j][1] + "</a> | ";
                 }
@@ -309,17 +302,6 @@ function makeEtapaDiv(data){
             newenunciado = "Não existe enunciado associado a esta etapa."
             removebut = ''
         } else {
-            // $.get(base_url + "uploads/enunciados_files/" + proj + "/" + json['id'] +".pdf")
-            // .done(function(){
-            //     console.log("ficheiro: " + json['id'] +".pdf existe")
-            //     removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
-            //     newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + json['id'] +".pdf'>" + enunciado + "</a>"
-            // })
-
-            // .fail(function(){
-            //     newenunciado = "Não existe enunciado associado a esta etapa."
-            //     removebut = ''
-            // })
             removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
             newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + json['id'] +".pdf'>" + enunciado + "</a>"
         }
@@ -373,43 +355,12 @@ function checkEnunciado(){
         //$("#enunciado_h4").text("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
         $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")
     }
-
-    // $.get(base_url + "uploads/enunciados_files/"+ proj+".pdf")
-    //     .done(function() { 
-    //         if (enunciado_h4 != ""){
-    //             $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h4 + "</a>");
-    //         } else {
-    //             $("#enunciado_h4").text("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
-    //         }
-
-    //         return true;
-    //     }).fail(function() { 
-    //         $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")
-    //         return false;
-    //     })
 }
 
 
 function setEnunciado(url){
     enunciado_h4 = url;
 }
-
-// function updateEtapaPopup(etapa_rec){
-//     var etapa;
-//     for (i=0; i<etapas_info_global.length; i++){
-//         if(etapa_rec == etapas_info_global[i].id){
-//             etapa = etapas_info_global[i];
-//         }
-//     }
-
-//     console.log(etapa);
-//     $(".cd-popup-container").find("label:first").text(etapa["description"]);
-//     $("#enunciado_label").html(etapa["enunciado"]);
-
-//     $("#popup-geral").css('visibility', 'visible');
-//     $("#popup-geral").css('opacity', '1');
-//     $("#popup-geral").show();
-// }
 
 function submit_etapa(file_name){
     const data = {
@@ -497,7 +448,7 @@ function createSubmissionPopup(etapa_rec, name){
     form = '<br><form enctype="multipart/form-data" accept-charset="utf-8" method="post" id="form-submit-etapa" action="'+base_url + 'UploadsC/uploadSubmissao/' + proj + '/' + selected_etapa + '/' + grupo+'">' +
     '<input class="form-input-file" type="file" id="file_submit" name="file_submit" accept=".zip,.rar">'+
     '<label for="file_submit" class="input-label"><img id="file-img-submit" src="'+base_url+'images/icons/upload-solid.png">'+
-    '<span id="name-file-submit">Submeter trabalho</span></label>'+
+    '<span id="name-file-submit">Submeter trabalho (.zip/.rar)</span></label>'+
     '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>'+
     '</form>'
 

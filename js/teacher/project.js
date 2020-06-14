@@ -509,19 +509,18 @@ function submit_feedback(feedback, etapa, grupo_id){
             data: data,
             success: function(data) {
                 console.log(data);
-                // $("#successmsgfb").text("Feedback submetido com sucesso");
                 // msg sucesso - canto superior direito - session
                 $("textarea[name='feedback-text']").val("");
                 $("#sub_url").text('Entrega ainda não foi submetida');
                 $("#fb_content").text("Ainda não foi atribuido feedback a esta etapa.");
-                // $("#successmsgfb").show().delay(2500).fadeOut();
+                location.reload()
             },
             error: function(data) {
                 console.log("Erro na API - Dar feedback");
-                //msg de erro - canto superior direito - session
-                // $("#errormsgfb").text("Erro ao submeter feedback");
-                // $("#errormsgfb").show().delay(2500).fadeOut();
                 console.log(data);
+                // location.reload();
+                $("#error-popup").text("Não foi possível atribuir feedback");
+                $("#error-popup").show().delay(3000).fadeOut();
             }
         });
     } else {
@@ -555,20 +554,14 @@ function submit_etapa(){
                 console.log(proj);
                 console.log(data);
                 // msg de sucesso canto superior direito - session
-                // msg_sucesso = "Etapa criada com sucesso";
-                // $("#successm").text("Etapa criada com sucesso");
-                // hidePopup();
-                // $(document).scrollTop();
-                // $("#sucessm").show().delay(3000).fadeOut();
-
-                setTimeout(function(){ 
-                    location.reload();
-                    //repensar esta logica -> meter mensagem de sucesso ao pe do titulo
-                }, 500); 
+                location.reload();
             },
             error: function(data) {
                 console.log("Erro na API - Submit Etapa");
                 console.log(data);
+                // location.reload();
+                $("#error-popup").text("Não foi possível submeter a etapa");
+                $("#error-popup").show().delay(3000).fadeOut();
             }
         });
     } else {
@@ -592,18 +585,15 @@ function submit_edit_etapa(){
             url: base_url + "api/editEtapa",
             data: data,
             success: function(data) {
-                //msg de sucesso canto superior direito - session
-                // $("#successmsg_editar").show();
-                setTimeout(function(){ 
-                    location.reload();
-                    //repensar esta logica -> meter mensagem de sucesso ao pe do titulo
-                }, 500); 
                 console.log(data);
-           
+                location.reload();
+                // msg de sucesso canto superior direito - session
             },
             error: function(data) {
                 console.log("Erro na API - Edit Etapa");
                 console.log(data);
+                $("#error-popup").text("Não foi possível editar a etapa");
+                $("#error-popup").show().delay(3000).fadeOut();
             }
         });
     } else {
@@ -648,6 +638,7 @@ function removeEnunciadoProj(){
             console.log("Enunciado do proj: "+ data + "removido");
             $("#removeEnunciadoProj").hide();
             $("#enunciado_h4").text('Este projeto não tem enunciado');
+           
         },
         error: function(data) {
             console.log("Erro na API - Remover enunciado Projeto");
@@ -670,7 +661,7 @@ function etapa_clear_enunciado(){
             console.log("Enunciado da etapa: "+ data + "removido");
             $("#removeEnunciado").remove();
             $("#enunciado_label").text("Não existe enunciado associado a esta etapa.");
-            // $("#div"+data).find('p').last().text("Não existe enunciado associado a esta etapa.");
+            // ainda nao sei como fazer esta msg de sucesso -> meter a frente do enunciado?
         },
         error: function(data) {
             console.log("Erro na API - Remover enunciado Etapa");
@@ -693,6 +684,7 @@ function removeEtapa(id){
             // msg de sucesso canto superior direito - session
             hidePopup();
             getEtapas(proj);
+            location.reload();
 
         },
         error: function(data) {

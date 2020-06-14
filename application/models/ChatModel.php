@@ -19,17 +19,17 @@ class ChatModel extends CI_Model { //provate_chat & private_chat_msg
         return $result;
     }
 
-    public function getChatHistory($session_id, $id_sender){
+    public function getChatHistory($session_id, $id_sender,$limit){
         $id_sender = $this->db->escape($id_sender);
 
-        $query = $this->db->query("SELECT * FROM private_msg WHERE (id_receiver=$session_id AND id_sender=$id_sender) OR (id_receiver=$id_sender AND id_sender=$session_id) ORDER BY date ASC");
+        $query = $this->db->query("SELECT * FROM private_msg WHERE (id_receiver=$session_id AND id_sender=$id_sender) OR (id_receiver=$id_sender AND id_sender=$session_id) ORDER BY date DESC LIMIT $limit");
         $result = $query->result_array();
         return $result;
     }
 
-    public function getChatGroupHistory($grupo_id){
+    public function getChatGroupHistory($grupo_id,$limit){
         $grupo_id = $this->db->escape($grupo_id);
-        $query = $this->db->query("SELECT * FROM grupo_msg WHERE grupo_id=$grupo_id ORDER BY date ASC");
+        $query = $this->db->query("SELECT * FROM grupo_msg WHERE grupo_id=$grupo_id ORDER BY date DESC LIMIT $limit");
         $result = $query->result_array();
         return $result;
     }

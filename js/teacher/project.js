@@ -3,7 +3,6 @@ var enunciado_h4
 var back_page
 var selected_etapa
 var etapa = {nome:'', desc:'', enunciado:'', data:''};
-var updated_enunc_etapa;
 var formStatus = null;
 var etapas_info_global;
 var msg_res;
@@ -52,7 +51,7 @@ $(document).ready(() => {
         createAddEnuncPopup();
     })
 
-    // CRIAR NOVA ETAPA - button -> mostrar popup (meter conteudo)
+    //CRIAR NOVA ETAPA - button -> mostrar popup (meter conteudo)
     $("body").on("click", "#opennewEtapa", function(){
         showPopup();
         createEtapaPopup();
@@ -292,7 +291,6 @@ $(document).ready(() => {
     //Remover Enunciado de uma etapa
     $('body').on('click', '#removeEnunciado', function(e) {
         etapa_clear_enunciado();
-        getEtapas(proj);
     })
 
     // REMOVER ETAPA - Confirmar
@@ -532,7 +530,7 @@ function submit_feedback(feedback, etapa, grupo_id){
             $("#error-popup").text("Preencha o feedback");
         }
         //MSGS DE ERRO
-        $("#error-popup").show().delay(2000).fadeOut();
+        $("#error-popup").show().delay(3000).fadeOut();
         return false;
     }
 }
@@ -659,9 +657,11 @@ function etapa_clear_enunciado(){
         data: data,
         success: function(data) {
             console.log("Enunciado da etapa: "+ data + "removido");
+            getEtapas(proj);
             $("#removeEnunciado").remove();
             $("#enunciado_label").text("Não existe enunciado associado a esta etapa.");
-            // ainda nao sei como fazer esta msg de sucesso -> meter a frente do enunciado?
+            $("#success-popup").text("Ficheiro removido com sucesso");
+            $("#success-popup").show().delay(3000).fadeOut();
         },
         error: function(data) {
             console.log("Erro na API - Remover enunciado Etapa");
@@ -850,7 +850,8 @@ function createInfoPopup(etapa_rec, name){
     }
 
     content = '<h3>Etapa "'+name+'"</h3><h3>Descrição:</h3><label>'+etapa["description"]+
-        '</label><h3>Enunciado: </h3><label id="enunciado_label">'+etapa["enunciado"]+'</label>' +
+        '</label><div id="success-popup" class="submit">Mensagem de sucesso template</div><h3>Enunciado: </h3>'+
+        '<label id="enunciado_label">'+etapa["enunciado"]+'</label>' +
         '<div id="popup-form"></div>'+
         '<div class="wrapper"><hr><input id="addEtapaEnunciado" class="addE" type="button" value="Enunciado">' +
         '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +
@@ -913,8 +914,7 @@ function createEditPopup(name, data, desc){
     });
 
     $('#datepickeredit').val(data);
-
-
+    editpicker.set(data);
 
     editpicker.el.addEventListener('wdp.change', () => {
         var data = dateFromPicker($("#datepickeredit").val());

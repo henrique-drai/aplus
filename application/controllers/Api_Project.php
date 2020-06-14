@@ -260,10 +260,9 @@ class Api_Project extends REST_Controller {
                 //update
                 $returned = $this->ProjectModel->updateSubmission($grupo, $etapa, $fich);
             }
-    
+            
             $data["fich"] = $fich;
             $data["result"] = $returned;
-    
             $this->response($data, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;

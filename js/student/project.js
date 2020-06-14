@@ -168,6 +168,7 @@ function showMyGroup(proj_id){
                 $("#form-submit-etapa").hide();
                 localStorage.setItem("grupo_id",0) //adicionei só para se alguem estiver a usar localstorage não dar porcaria
             } else {
+                
                 $("#grupo-name").text('Grupo ' + data["grupo"]["name"]);
                 $("#submitEtapa").prop('disabled', false);
                 $(".criarGrupo").css("display", "none");
@@ -177,13 +178,16 @@ function showMyGroup(proj_id){
                 grupo = data["grupo"]["id"];
                 localStorage.setItem("grupo_id",grupo) //adicionei só para se alguem estiver a usar localstorage não dar porcaria
                 var names = '';
-                console.log(data["nomes"]);
+                console.log(data);
                 for(var j=0; j < data["nomes"].length; j++) {
-                    names = names + '<a href="'+ base_url +'app/profile/'+ data["nomes"][j][2] + '">' + data["nomes"][j][0] + " " + data["nomes"][j][1] + "</a> | ";
+                    var _img = data["nomes"][j][3]!=""? data["nomes"][j][2] + data["nomes"][j][3] : "default.jpg";
+                    var _src = base_url + "uploads/profile/"+ _img; 
+                    var _name = data["nomes"][j][0] + data["nomes"][j][1]
+                    names = names + '<a class="groupmember" href="'+ base_url +'app/profile/'+ data["nomes"][j][2] + '">' + '<img class="groupMemberImg" src="'+_src+'" alt="' + _name +'">' + "<span class='memberName'>" + data["nomes"][j][0] + " " + data["nomes"][j][1] + "</span>" + "</a>";
                 }
-
+                // console.log(names.slice(0, -2));
                 $("#grupos-container").html('<div class="myGroupDiv" id="grupo'+grupo+'">' +
-                '<p><b>Membros do seu grupo: </b></p><p>'+ names.slice(0, -2) +'</p>' + 
+                '<p><b>Membros do seu grupo: </b></p><p>'+ names +'</p>' + 
                 '<p><input class="quitGroupButton" id=quit"'+grupo +'" type="button" value="Sair"></input></p>' + 
                 '</div><hr>');
             }

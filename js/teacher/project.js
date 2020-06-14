@@ -3,7 +3,6 @@ var enunciado_h4
 var back_page
 var selected_etapa
 var etapa = {nome:'', desc:'', enunciado:'', data:''};
-var updated_enunc_etapa;
 var formStatus = null;
 var etapas_info_global;
 var msg_res;
@@ -52,7 +51,7 @@ $(document).ready(() => {
         createAddEnuncPopup();
     })
 
-    // CRIAR NOVA ETAPA - button -> mostrar popup (meter conteudo)
+    //CRIAR NOVA ETAPA - button -> mostrar popup (meter conteudo)
     $("body").on("click", "#opennewEtapa", function(){
         showPopup();
         createEtapaPopup();
@@ -168,7 +167,7 @@ $(document).ready(() => {
         } else {
             $("#name-enunciado-proj").text("Envie o ficheiro do enunciado");
             $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
-            $("#error-popup").text("Tem de selecionar um ficheiro");
+            $("#error-popup").text("Selecione um ficheiro");
             $("#error-popup").show().delay(3000).fadeOut();
         }
     })
@@ -177,7 +176,7 @@ $(document).ready(() => {
     $("body").on("click", "#addEnunciado", function(e){
         enunc = $("#file_projeto").val().split('\\').pop();
         if (enunc.length == 0){
-            $("#error-popup").text("Tem de selecionar um ficheiro");
+            $("#error-popup").text("Selecione um ficheiro");
             $("#error-popup").show().delay(3000).fadeOut();
             e.preventDefault();
         } else {
@@ -231,7 +230,7 @@ $(document).ready(() => {
         } else {
             $("#name-enunciado-etapa").text("Envie o ficheiro do enunciado");
             $("#file-img-etapa").attr('src',base_url+"images/icons/upload-solid.png");
-            $("#error-popup").text("Tem de selecionar um ficheiro");
+            $("#error-popup").text("Selecione um ficheiro");
             $("#error-popup").show().delay(3000).fadeOut();
         }
     })
@@ -240,7 +239,7 @@ $(document).ready(() => {
     $('body').on("click", "#addEnuncEtapa", function(e){
         enunc = $("#file_etapa").val().split('\\').pop();
         if (enunc.length == 0){
-            $("#error-popup").text("Tem de selecionar um ficheiro");
+            $("#error-popup").text("Selecione um ficheiro");
             $("#error-popup").show().delay(3000).fadeOut();
             e.preventDefault();
         } else {
@@ -292,7 +291,6 @@ $(document).ready(() => {
     //Remover Enunciado de uma etapa
     $('body').on('click', '#removeEnunciado', function(e) {
         etapa_clear_enunciado();
-        getEtapas(proj);
     })
 
     // REMOVER ETAPA - Confirmar
@@ -509,31 +507,30 @@ function submit_feedback(feedback, etapa, grupo_id){
             data: data,
             success: function(data) {
                 console.log(data);
-                // $("#successmsgfb").text("Feedback submetido com sucesso");
                 // msg sucesso - canto superior direito - session
                 $("textarea[name='feedback-text']").val("");
                 $("#sub_url").text('Entrega ainda não foi submetida');
                 $("#fb_content").text("Ainda não foi atribuido feedback a esta etapa.");
-                // $("#successmsgfb").show().delay(2500).fadeOut();
+                location.reload()
             },
             error: function(data) {
                 console.log("Erro na API - Dar feedback");
-                //msg de erro - canto superior direito - session
-                // $("#errormsgfb").text("Erro ao submeter feedback");
-                // $("#errormsgfb").show().delay(2500).fadeOut();
                 console.log(data);
+                // location.reload();
+                $("#error-popup").text("Não foi possível atribuir feedback");
+                $("#error-popup").show().delay(3000).fadeOut();
             }
         });
     } else {
         if($("#select_grupo_feedback").val() == ""){
-            $("#error-popup").text("Tem de selecionar um grupo válido");
+            $("#error-popup").text("Selecione um grupo válido");
         } else if($("textarea[name='feedback-text'").prop("disabled") == true){
             $("#error-popup").text("Não é possível atribuir feedback a uma etapa sem submissão")
         } else {
-            $("#error-popup").text("Feedback tem de ser preenchido");
+            $("#error-popup").text("Preencha o feedback");
         }
         //MSGS DE ERRO
-        $("#error-popup").show().delay(2000).fadeOut();
+        $("#error-popup").show().delay(3000).fadeOut();
         return false;
     }
 }
@@ -555,20 +552,14 @@ function submit_etapa(){
                 console.log(proj);
                 console.log(data);
                 // msg de sucesso canto superior direito - session
-                // msg_sucesso = "Etapa criada com sucesso";
-                // $("#successm").text("Etapa criada com sucesso");
-                // hidePopup();
-                // $(document).scrollTop();
-                // $("#sucessm").show().delay(3000).fadeOut();
-
-                setTimeout(function(){ 
-                    location.reload();
-                    //repensar esta logica -> meter mensagem de sucesso ao pe do titulo
-                }, 500); 
+                location.reload();
             },
             error: function(data) {
                 console.log("Erro na API - Submit Etapa");
                 console.log(data);
+                // location.reload();
+                $("#error-popup").text("Não foi possível submeter a etapa");
+                $("#error-popup").show().delay(3000).fadeOut();
             }
         });
     } else {
@@ -592,18 +583,15 @@ function submit_edit_etapa(){
             url: base_url + "api/editEtapa",
             data: data,
             success: function(data) {
-                //msg de sucesso canto superior direito - session
-                // $("#successmsg_editar").show();
-                setTimeout(function(){ 
-                    location.reload();
-                    //repensar esta logica -> meter mensagem de sucesso ao pe do titulo
-                }, 500); 
                 console.log(data);
-           
+                location.reload();
+                // msg de sucesso canto superior direito - session
             },
             error: function(data) {
                 console.log("Erro na API - Edit Etapa");
                 console.log(data);
+                $("#error-popup").text("Não foi possível editar a etapa");
+                $("#error-popup").show().delay(3000).fadeOut();
             }
         });
     } else {
@@ -648,6 +636,7 @@ function removeEnunciadoProj(){
             console.log("Enunciado do proj: "+ data + "removido");
             $("#removeEnunciadoProj").hide();
             $("#enunciado_h4").text('Este projeto não tem enunciado');
+           
         },
         error: function(data) {
             console.log("Erro na API - Remover enunciado Projeto");
@@ -668,9 +657,11 @@ function etapa_clear_enunciado(){
         data: data,
         success: function(data) {
             console.log("Enunciado da etapa: "+ data + "removido");
+            getEtapas(proj);
             $("#removeEnunciado").remove();
             $("#enunciado_label").text("Não existe enunciado associado a esta etapa.");
-            // $("#div"+data).find('p').last().text("Não existe enunciado associado a esta etapa.");
+            $("#success-popup").text("Ficheiro removido com sucesso");
+            $("#success-popup").show().delay(3000).fadeOut();
         },
         error: function(data) {
             console.log("Erro na API - Remover enunciado Etapa");
@@ -693,6 +684,7 @@ function removeEtapa(id){
             // msg de sucesso canto superior direito - session
             hidePopup();
             getEtapas(proj);
+            location.reload();
 
         },
         error: function(data) {
@@ -858,7 +850,8 @@ function createInfoPopup(etapa_rec, name){
     }
 
     content = '<h3>Etapa "'+name+'"</h3><h3>Descrição:</h3><label>'+etapa["description"]+
-        '</label><h3>Enunciado: </h3><label id="enunciado_label">'+etapa["enunciado"]+'</label>' +
+        '</label><div id="success-popup" class="submit">Mensagem de sucesso template</div><h3>Enunciado: </h3>'+
+        '<label id="enunciado_label">'+etapa["enunciado"]+'</label>' +
         '<div id="popup-form"></div>'+
         '<div class="wrapper"><hr><input id="addEtapaEnunciado" class="addE" type="button" value="Enunciado">' +
         '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +
@@ -921,8 +914,7 @@ function createEditPopup(name, data, desc){
     });
 
     $('#datepickeredit').val(data);
-
-
+    editpicker.set(data);
 
     editpicker.el.addEventListener('wdp.change', () => {
         var data = dateFromPicker($("#datepickeredit").val());
@@ -974,7 +966,7 @@ function checkEntrega(dateOld){
 
 function verifyDates(data){
     if (data == ""){
-        $("#error-popup").text("Tem de preencher todos os campos");
+        $("#error-popup").text("Preencha todos os campos");
         return false;
     }
 
@@ -998,7 +990,7 @@ function validate_etapa_description(){
     if($("textarea[name='etapaDescription']").val() != ''){
         return true
     }
-    $("#error-popup").text("Tem de preencher todos os campos");
+    $("#error-popup").text("Preencha todos os campos");
     return false;
 }
 

@@ -21,12 +21,13 @@ label {
     color:rgb(255, 72, 72);
 }
 
-.submit.success{
+.submit.success, #success-popup{
     background: rgba(106, 192, 66, 0.7);
 }
 
 .submit.error, #error-popup{
     background: rgb(255, 72, 72);
+    color:white;
 }
 
 .submit{
@@ -40,14 +41,11 @@ label {
     float:right;
 }
 
-/* só apagar quando vir que ja nao uso em nenhuma pagina dos projetos */
-
-#errormsg, #errormsgfb, #errormsgenunc, #errormsgedit, #projenuncerror{
-    background: rgb(255, 72, 72);
-}
-
-#successmsg, #successmsgfb, #successmsgenunc, #successmsg_editar, #successmsg_criar, #projenuncsucc{
-    background: rgba(106, 192, 66, 0.7);
+#success-popup{
+    margin-top: 18px;
+    width:60%;
+    padding-top:1px;
+    padding-bottom:1px;
 }
 
 .container{
@@ -273,10 +271,6 @@ label {
 .cd-buttons > li:first-child a, .cd-buttons > li:first-child input {
     background: #3e5d4f;
 }
-
-/* #red-buttons li:first-child a, .red-a{
-    background: rgb(255, 72, 72);
-} */
 
 .form-input-file{
     width: unset !important;

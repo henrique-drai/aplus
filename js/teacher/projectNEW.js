@@ -266,10 +266,10 @@ function validateAllDates(){
 
 function validate_descriptions(){
     if($("textarea[name='projDescription']").val() == ''){
-        $("#errormsg").text("Descrição do projeto está vazia");
+        $("#errormsg").text("Preencha a descrição do projeto");
         return false;
     } else if($("textarea[name='etapaDescription']").val() == ''){
-        $("#errormsg").text("Descrição da etapa está vazia");
+        $("#errormsg").text("Preencha a descrição da etapa");
         return false;
     }
 

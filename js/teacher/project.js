@@ -168,7 +168,7 @@ $(document).ready(() => {
         } else {
             $("#name-enunciado-proj").text("Envie o ficheiro do enunciado");
             $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
-            $("#error-popup").text("Tem de selecionar um ficheiro");
+            $("#error-popup").text("Selecione um ficheiro");
             $("#error-popup").show().delay(3000).fadeOut();
         }
     })
@@ -177,7 +177,7 @@ $(document).ready(() => {
     $("body").on("click", "#addEnunciado", function(e){
         enunc = $("#file_projeto").val().split('\\').pop();
         if (enunc.length == 0){
-            $("#error-popup").text("Tem de selecionar um ficheiro");
+            $("#error-popup").text("Selecione um ficheiro");
             $("#error-popup").show().delay(3000).fadeOut();
             e.preventDefault();
         } else {
@@ -231,7 +231,7 @@ $(document).ready(() => {
         } else {
             $("#name-enunciado-etapa").text("Envie o ficheiro do enunciado");
             $("#file-img-etapa").attr('src',base_url+"images/icons/upload-solid.png");
-            $("#error-popup").text("Tem de selecionar um ficheiro");
+            $("#error-popup").text("Selecione um ficheiro");
             $("#error-popup").show().delay(3000).fadeOut();
         }
     })
@@ -240,7 +240,7 @@ $(document).ready(() => {
     $('body').on("click", "#addEnuncEtapa", function(e){
         enunc = $("#file_etapa").val().split('\\').pop();
         if (enunc.length == 0){
-            $("#error-popup").text("Tem de selecionar um ficheiro");
+            $("#error-popup").text("Selecione um ficheiro");
             $("#error-popup").show().delay(3000).fadeOut();
             e.preventDefault();
         } else {
@@ -525,11 +525,11 @@ function submit_feedback(feedback, etapa, grupo_id){
         });
     } else {
         if($("#select_grupo_feedback").val() == ""){
-            $("#error-popup").text("Tem de selecionar um grupo válido");
+            $("#error-popup").text("Selecione um grupo válido");
         } else if($("textarea[name='feedback-text'").prop("disabled") == true){
             $("#error-popup").text("Não é possível atribuir feedback a uma etapa sem submissão")
         } else {
-            $("#error-popup").text("Feedback tem de ser preenchido");
+            $("#error-popup").text("Preencha o feedback");
         }
         //MSGS DE ERRO
         $("#error-popup").show().delay(2000).fadeOut();
@@ -966,7 +966,7 @@ function checkEntrega(dateOld){
 
 function verifyDates(data){
     if (data == ""){
-        $("#error-popup").text("Tem de preencher todos os campos");
+        $("#error-popup").text("Preencha todos os campos");
         return false;
     }
 
@@ -990,7 +990,7 @@ function validate_etapa_description(){
     if($("textarea[name='etapaDescription']").val() != ''){
         return true
     }
-    $("#error-popup").text("Tem de preencher todos os campos");
+    $("#error-popup").text("Preencha todos os campos");
     return false;
 }
 

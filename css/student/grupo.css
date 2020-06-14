@@ -138,30 +138,16 @@ option[value=""] {
     margin-top: 1%;
 }
 
-@media only screen and (max-width: 770px) {
-	.message {
-		width: 58%;
-        margin-right: -6% !important;
-        margin-top: 0% !important;
-	}
+.message_error {
+    opacity: 0;
+    width: 100%;
+    background-color: rgb(255, 72, 72);
+    color: white;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
-@media only screen and (max-width: 430px) {
-    .popup {
-        width: 80%;
-    }
-
-    .message {
-        margin-top: -3%;
-        padding: 1.5%;
-        float: none;
-        width: 100%;
-    }
-
-    .taskinfo {
-        margin-top: 0 !important;
-    }
-    
+@media only screen and (max-width: 1020px) {
     tr:first-child {
         display: none;
     }
@@ -214,6 +200,40 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     td:nth-of-type(6):before { content: "Eliminar tarefa"; font-weight: bold;}
 }
 
+@media only screen and (max-width: 770px) {
+	.message {
+		width: 100%;
+        margin-right: -6% !important;
+        margin-top: 0% !important;
+        float: none;
+    }
+    
+    td:first-child {
+        margin-top: 23px;
+    }
+
+    .tasksTable {
+        margin-top: -4%;
+    }
+}
+
+@media only screen and (max-width: 430px) {
+    .popup {
+        width: 80%;
+    }
+
+    .message {
+        margin-top: -3%;
+        padding: 1.5%;
+        float: none;
+        width: 100%;
+    }
+
+    .taskinfo {
+        margin-top: 0 !important;
+    }
+}
+
 @media only screen and (max-width: 375px) {
     .message {
         width: 97%;
@@ -224,6 +244,16 @@ You could also use a data-* attribute and content for this. That way "bloats" th
         display: block;
         visibility: hidden;
         margin-bottom: -20%;
+    }
+
+    .tasksTable {
+        margin-top: -60%;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .tasksTable {
+        margin-top: -70%;
     }
 }
 

@@ -21,12 +21,13 @@ label {
     color:rgb(255, 72, 72);
 }
 
-.submit.success{
+.submit.success, #success-popup{
     background: rgba(106, 192, 66, 0.7);
 }
 
 .submit.error, #error-popup{
     background: rgb(255, 72, 72);
+    color:white;
 }
 
 .submit{
@@ -38,7 +39,13 @@ label {
     border-radius: 5px;
     position: relative;
     float:right;
-    color:white;
+}
+
+#success-popup{
+    margin-top: 18px;
+    width:60%;
+    padding-top:1px;
+    padding-bottom:1px;
 }
 
 .container{

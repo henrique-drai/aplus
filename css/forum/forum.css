@@ -35,6 +35,15 @@ select {
     opacity: 0;
 }
 
+.message_error {
+    opacity: 0;
+    width: 100%;
+    background-color: rgb(255, 72, 72);
+    color: white;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
 table, tr, td, th {
     border: none !important;
     background-color: #efefef;
@@ -70,7 +79,7 @@ h3 {
     text-align: initial;
 }
 
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 900px) {
     .popup {
         width: 80%;
     }
@@ -88,10 +97,6 @@ h3 {
 
     .thread_button {
         margin-top: -4% !important;
-    }
-    
-    tr:first-child {
-        display: none;
     }
 
     /* Force table to not be like tables anymore */

@@ -111,7 +111,7 @@ $(document).ready(() => {
             e.preventDefault();
         } else {
             if($("#file_submit")[0].files[0].size < 5024000){
-                $("#form-submit-etapa")[0].submit();
+                // $("#form-submit-etapa")[0].submit();
                 submit_etapa($("#file_submit").val().split('\\').pop());
             } else {
                 $("#error-popup").text("Ficheiro ultrapassa o limite de 5MB")

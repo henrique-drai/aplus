@@ -1,7 +1,7 @@
 $(document).ready(() => {
     getInfo(localStorage.getItem("forum_id"), localStorage.user_id);
     getThreads();
-    setInterval(getThreads, 3000); 
+    setInterval(getThreads, 30000); 
 
     $('body').on("click", '#add_button', function() {
         addPopup($(".forumName").text());
@@ -12,10 +12,15 @@ $(document).ready(() => {
     $('body').on("click", '#createThread-form-submit', function() {
         var name = $("input[type='text']").val();
         var desc = $("textarea").val();
-        insertThread(name, desc);
-        getThreads();
-        $(".cd-popup").css('visibility', 'hidden');
-        $(".cd-popup").css('opacity', '0');
+        if(name != '' && desc != '') {
+            insertThread(name, desc);
+            getThreads();
+            $(".cd-popup").css('visibility', 'hidden');
+            $(".cd-popup").css('opacity', '0');
+        } else {
+            $(".message_error").fadeTo(2000, 1);
+        }
+        
     })
 
     $("body").on("click", ".thread_button", function() {
@@ -68,7 +73,7 @@ function addPopup(forum_name) {
     "<label class='form-label'>Discussão:</label><textarea class='form-text-area' type='text' name='threadDescription' required>" + 
     "</textarea>");
     
-    $(".cd-buttons").html('').append("<li><a href='#' id='createThread-form-submit'>" +
+    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos</div><li><a href='#' id='createThread-form-submit'>" +
     "Criar Tópico</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
@@ -107,20 +112,17 @@ function getThreads() {
         url: base_url + "api/getAllByForumId/" + localStorage.forum_id,
         success: function(data) {
             linhas = [];
-            $(".threadList").empty();
+            $(".insertHere").empty();
             if(data.threads.length == 0) {
                 $(".threadTable p").remove();
                 $(".threadTable").append("<p>Ainda não existem tópicos no fórum.</p>");
             } else {
                 $(".threadTable p").remove();
-                linhas.push("<tr>" +
-                    "<th width='35%'>Assunto</th><th width='25%'>Criador</th>" +
-                    "<th width='25%'>Data</th><th width='15%'>Mais informação</th></tr>");
                 
                 for(var i=0; i < data.threads.length; i++) {
                     linhas.push("<tr><td>" + data.threads[i].title +
                         "</td><td>" + data.criadores[i].name + " " +data.criadores[i].surname +
-                        "</td><td>" + data.threads[i].date + "<td><input type='button' class='thread_button' id='" +
+                        "</td><td>" + getDate(data.threads[i].date) + "<td><input type='button' class='thread_button' id='" +
                         data.threads[i].id + "' value='Ver publicações'>");
                 }
 
@@ -129,7 +131,7 @@ function getThreads() {
 					pageSize: 5,
 					pageNumber: 1,
 					callback: function(data, pagination) {
-						$(".threadList").html(data);
+						$(".insertHere").html(data);
 					}
 				})
             }
@@ -139,6 +141,20 @@ function getThreads() {
             console.log(data)
         }
     })
+}
+
+function getDate(date){
+    const diff = Date.now() - new Date(date);
+
+    if (diff < 1000*60*60*24) {
+        if(diff - 3600000 < 1000*60*60) {
+            return "Há "+Math.round((diff - 3600000)/1000/60)+" minutos";
+        } else {
+            return "Há "+Math.floor(diff/1000/60/60)+" horas";
+        }
+    } else {
+        return "Há "+Math.floor(diff/1000/60/60/24)+" dias";
+    }
 }
 
 function insertThread(name, desc) {

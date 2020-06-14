@@ -62,6 +62,8 @@ $(document).ready(() => {
 
         if(taskName != '') {
             insertTask(taskName, taskDesc);
+        } else {
+            $(".message_error").fadeTo(2000, 1);
         }
     })
 
@@ -327,7 +329,7 @@ function createPopUpAdd() {
         "<label class='form-label'>Descrição:</label><textarea class='form-text-area' type='text' name='tarefaDescription'>" + 
         "</textarea>");
 
-    $(".cd-buttons").html('').append("<li><a href='#' id='addTask-form-submit'>" +
+    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos</div><li><a href='#' id='addTask-form-submit'>" +
     "Criar Tarefa</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 

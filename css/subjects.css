@@ -359,9 +359,18 @@ a { color: inherit; }
 //                            MEDIA
 ////////////////////////////////////////////////////////////// */
 
+@media only screen and (max-width: 1650px) {
+    .card_info_forum, .card_info_project {
+        width: 45%;
+    }
+}
+
 @media only screen and (max-width: 1250px) {
+    .grid {
+        display: block;
+    }
     .card_info_project, .card_info_forum {
-        width: 65%;
+        width: 39%;
     }
 }
 

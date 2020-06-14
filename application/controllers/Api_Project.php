@@ -675,7 +675,7 @@ class Api_Project extends REST_Controller {
                 $group_to_return["nomes"] = array();
                 for($i=0; $i< count($group_to_return["membros"]); $i++) {
                     $query = $this->UserModel->getUserById($group_to_return["membros"][$i]["user_id"]);
-                    array_push($group_to_return["nomes"], array($query->name, $query->surname, $group_to_return["membros"][$i]["user_id"]));
+                    array_push($group_to_return["nomes"], array($query->name, $query->surname, $group_to_return["membros"][$i]["user_id"], $query->picture));
                 }
             }
     

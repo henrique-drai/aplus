@@ -98,10 +98,6 @@ h3 {
     .thread_button {
         margin-top: -4% !important;
     }
-    
-    tr:first-child {
-        display: none;
-    }
 
     /* Force table to not be like tables anymore */
     table, thead, tbody, td, tr {

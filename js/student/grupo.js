@@ -62,6 +62,8 @@ $(document).ready(() => {
 
         if(taskName != '') {
             insertTask(taskName, taskDesc);
+        } else {
+            $(".message_error").fadeTo(2000, 1);
         }
     })
 
@@ -215,23 +217,24 @@ function updateTaskPopup(task_id, proj_name, tr_id){
                 popup = popup + "<label>" + data.task[0].description + "</label>";
             }
 
-            popup = popup + "<h3>Data de Início</h3>";
-
             if(data.task[0].start_date == "0000-00-00 00:00:00") {
+                popup = popup + "<div class='title'></div>";
                 popup = popup + "<span class='startTask'><input type='button' class='start_date_button' id='" + data.task[0].id + "' value='Iniciar Tarefa'></span>";
             } else {
+                popup = popup + "<h3>Data de Início</h3>";
                 popup = popup + "<label><span class='startTask'>" + data.task[0].start_date + "</span></label>";
             }
 
-            popup = popup + "<h3>Data de Fim</h3>";
             var completed = false;
             var time_spent = '';
 
             if(data.task[0].start_date == "0000-00-00 00:00:00") {
                 completed = false;
+                popup = popup + "<div class='title_end'></div>";
                 popup = popup + "<label><span class='endTask'>A tarefa ainda não foi começada.</span></label></div>";
             } else if(data.task[0].done_date != "0000-00-00 00:00:00") {
                 completed = true;
+                popup = popup + "<h3>Data de Fim</h3>";
                 var day = data.task[0].done_date.substring(8, 10) - data.task[0].start_date.substring(8, 10);
                 var hours = data.task[0].done_date.substring(11, 13) - data.task[0].start_date.substring(11, 13);
                 var min = data.task[0].done_date.substring(14, 16) - data.task[0].start_date.substring(14, 16);
@@ -241,6 +244,7 @@ function updateTaskPopup(task_id, proj_name, tr_id){
                 time_spent = day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos";
             } else if(data.task[0].user_id == localStorage.user_id){
                 completed = false;
+                popup = popup + "<div class='title_end'></div>";
                 popup = popup + "<span class='endTask'><input type='button' class='end_date_button' id='" + data.task[0].id + "' value='Terminar Tarefa'></span><span class='time_spent'></span></div>";
             } else {
                 completed = false;
@@ -325,7 +329,7 @@ function createPopUpAdd() {
         "<label class='form-label'>Descrição:</label><textarea class='form-text-area' type='text' name='tarefaDescription'>" + 
         "</textarea>");
 
-    $(".cd-buttons").html('').append("<li><a href='#' id='addTask-form-submit'>" +
+    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos</div><li><a href='#' id='addTask-form-submit'>" +
     "Criar Tarefa</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
@@ -462,6 +466,8 @@ function insertTaskStartDate(task_id) {
         success: function (data) {
             $(".startTask").empty();
             $(".member").empty();
+            $(".title").empty();
+            $(".title").append("<h3>Data de Início</h3>");
             $(".startTask").append("<label><span class='startTask'>" + data.data + "</span></label>");
             $(".endTask").empty();
             $(".endTask").append("<input type='button' class='end_date_button' id='" + task_id + "' value='Terminar Tarefa'>");
@@ -485,6 +491,7 @@ function insertTaskEndDate(task_id) {
         success: function (data) {
             console.log(data)
             $(".endTask").empty();
+            $(".title_end").empty();
             $(".endTask").append("<label>" + data + "</label>");
             var day = data.substring(8, 10) - $(".startTask").text().substring(8, 10);
             var hours = data.substring(11, 13) - $(".startTask").text().substring(11, 13);
@@ -492,6 +499,7 @@ function insertTaskEndDate(task_id) {
             var seconds = data.substring(17, 19) - $(".startTask").text().substring(17, 19);
             $(".time_spent").append("<h3>Tempo gasto na tarefa</h3></label>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos " + "</label>");
             $(".time_end").empty();
+            $(".title_end").append("<h3>Data de Fim</div>");
             $(".time_end").append(day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos")
             $(".wrapper").remove();
         },
@@ -518,7 +526,7 @@ function createPopUpEdit(task_id, proj_name, tr_id) {
                 "</div>");
 
             $("input[name='tarefaName']").val(data.task[0].name);
-            $("#tarefaDescription").val(data.task[0].description);
+            $("textarea[name=tarefaDescription]").val(data.task[0].description);
 
             $(".cd-buttons").html('').append("<li><a href='#' id='editTask-form-submit'class='" + data.task[0].id + "'>" +
             "Confirmar</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");

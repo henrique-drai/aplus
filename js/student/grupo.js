@@ -76,13 +76,15 @@ $(document).ready(() => {
 
     $('body').on('click', '.taskInfo', function(){
         var task_id = $(this).attr("id");
-        updateTaskPopup(task_id, proj_name);
+        var tr_id = $(this).parent().parent().attr("class");
+        updateTaskPopup(task_id, proj_name, tr_id);
+        $(this).css("background-color", "rgb(153, 156, 155)");
 
-        if ($(this).css("background-color") == "rgb(153, 156, 155)"){
-            $(this).css("background-color", "white");
-        } else {
-            $(this).css("background-color", "rgb(153, 156, 155)");
-        }        
+        // if ($(this).css("background-color") == "rgb(153, 156, 155)"){
+        //     $(this).css("background-color", "white");
+        // } else {
+            
+        // }        
     })
 
     $("body").on("click", ".start_date_button", function() {
@@ -99,11 +101,12 @@ $(document).ready(() => {
 
     $('body').on("click", ".editTask", function () {
         var task_id = $(this).attr("id");
+        var tr_id = $(this).parent().parent().attr("class");
         if ($(this).css("background-color") == "rgb(153, 156, 155)"){
             updateTaskPopup(task_id, proj_name);
             $(this).css("background-color", "white");
         } else {
-            createPopUpEdit(task_id, proj_name);
+            createPopUpEdit(task_id, proj_name, tr_id);
             $(this).css("background-color", "rgb(153, 156, 155)");
         }  
 
@@ -193,7 +196,7 @@ function disableTasksClose() {
 
 
 
-function updateTaskPopup(task_id, proj_name){
+function updateTaskPopup(task_id, proj_name, tr_id){
     $.ajax({
         type: "GET",
         url: base_url + "api/getTaskById/" + task_id,
@@ -221,19 +224,26 @@ function updateTaskPopup(task_id, proj_name){
             }
 
             popup = popup + "<h3>Data de Fim</h3>";
+            var completed = false;
+            var time_spent = '';
 
             if(data.task[0].start_date == "0000-00-00 00:00:00") {
+                completed = false;
                 popup = popup + "<label><span class='endTask'>A tarefa ainda não foi começada.</span></label></div>";
             } else if(data.task[0].done_date != "0000-00-00 00:00:00") {
+                completed = true;
                 var day = data.task[0].done_date.substring(8, 10) - data.task[0].start_date.substring(8, 10);
                 var hours = data.task[0].done_date.substring(11, 13) - data.task[0].start_date.substring(11, 13);
                 var min = data.task[0].done_date.substring(14, 16) - data.task[0].start_date.substring(14, 16);
                 var seconds = data.task[0].done_date.substring(17, 19) - data.task[0].start_date.substring(17, 19);
                 popup = popup + "<label>" + data.task[0].done_date + "</label><h3>Tempo gasto na tarefa</h3><label>" + 
-                        day + " dia(s) " + hours + " hora(s) " + min + " minutos " + Math.abs(seconds) + " segundos " + "</label></div>";
+                        day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</label></div>";
+                time_spent = day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos";
             } else if(data.task[0].user_id == localStorage.user_id){
+                completed = false;
                 popup = popup + "<span class='endTask'><input type='button' class='end_date_button' id='" + data.task[0].id + "' value='Terminar Tarefa'></span><span class='time_spent'></span></div>";
             } else {
+                completed = false;
                 popup = popup + "<label>A tarefa ainda não foi terminada.</label></div>";
             }
 
@@ -248,6 +258,15 @@ function updateTaskPopup(task_id, proj_name){
             $(".cd-buttons").html('');
             $(".cd-popup2").css('visibility', 'visible');
             $(".cd-popup2").css('opacity', '1');
+
+            var name = $(".member#" + data.task[0].id + " span").text();
+            $(".insertHere ." + tr_id).empty();
+            $(".insertHere ." + tr_id).append("<td>" + data.task[0].name + "</td>" +
+                "<td class='member' id='" + data.task[0].id + "'><span>" + name + "</span></td>" +
+                "<td>" + (completed ? "Sim" : "Não") + "</td><td class='time_end'>" + (time_spent == '' ? "Ainda não terminado" : time_spent) + "</td>" +
+                "<td><input class='taskInfo' id='" + data.task[0].id + "' type='button' value='Opções' style='background-color: rgb(153, 156, 155);'></td>" +
+                "<td><input id='" + data.task[0].id + "' class='remove' type='button' value='Eliminar'></td></tr>");
+            $(".taskInfo#" + data.task[0].id).css("background-color", "rgb(153, 156, 155)");
 
         },
         error: function(data) {
@@ -345,31 +364,29 @@ function getTasks() {
         url: base_url + "api/getTasks/" + localStorage.grupo_id,
         success: function(data) {
             $(".tasksTable p").remove();
-            $("#tab-gerir-tarefas").empty();
+            $(".insertHere").empty();
 
             if(data.tasks.length != 0) {
                 html = [];
-                html.push("<tr><th>Tarefa</th>" +
-                "<th>Membro Responsável</th><th>Completo</th><th>Tempo gasto</th><th></th><th></th></tr>");
 
                 for(var i=0; i < data.tasks.length; i++) {
                     table = '';
                     if(data.tasks[i].user_id == 0) {
-                        table = table + "<tr><td>" + data.tasks[i].name + "</td><td>Ainda não atribuído</td>";
+                        table = table + "<tr class='" + i + "'><td>" + data.tasks[i].name + "</td><td class='member' id='" + data.tasks[i].id + "'><span>Ainda não atribuído</span></td>";
                     } else {
-                        table = table + "<tr><td>" + data.tasks[i].name + "</td><td>" + data.members[i][0].name + " " + 
-                        data.members[i][0].surname + "</td>";
+                        table = table + "<tr class='" + i + "'><td>" + data.tasks[i].name + "</td><td class='member' id='" + data.tasks[i].id + "'><span>" + data.members[i][0].name + " " + 
+                        data.members[i][0].surname + "</span></td>";
                     }                    
 
                     if(data.tasks[i].done_date == "0000-00-00 00:00:00") {
-                        table = table + "<td>Não</td><td>Ainda não terminado</td>";
+                        table = table + "<td>Não</td class='time_end'><td>Ainda não terminado</td>";
                     } else {
                         console.log(data)
                         var day = data.tasks[i].done_date.substring(8, 10) - data.tasks[i].start_date.substring(8, 10);
                         var hours = data.tasks[i].done_date.substring(11, 13) - data.tasks[i].start_date.substring(11, 13);
                         var min = data.tasks[i].done_date.substring(14, 16) - data.tasks[i].start_date.substring(14, 16);
                         var seconds = data.tasks[i].done_date.substring(17, 19) - data.tasks[i].start_date.substring(17, 19);
-                        table = table + "<td>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + min + " minutos " + Math.abs(seconds) + " segundos</td>";
+                        table = table + "<td>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</td>";
                     }
 
                     table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + 
@@ -381,7 +398,7 @@ function getTasks() {
 					dataSource: html,
 					pageSize: 5,
 					callback: function(data, pagination) {
-						$("#tab-gerir-tarefas").html(data);
+						$(".insertHere").html(data);
 					}
                 })
                 
@@ -443,12 +460,14 @@ function insertTaskStartDate(task_id) {
         url: base_url + "api/insertTaskStartDate/" + task_id,
         data: {grupo_id: localStorage.grupo_id, user_id: localStorage.user_id},
         success: function (data) {
-            console.log(data)
             $(".startTask").empty();
-            $(".startTask").append("<label><span class='startTask'>" + data + "</span></label>");
+            $(".member").empty();
+            $(".startTask").append("<label><span class='startTask'>" + data.data + "</span></label>");
             $(".endTask").empty();
             $(".endTask").append("<input type='button' class='end_date_button' id='" + task_id + "' value='Terminar Tarefa'>");
             $(".infoTask_inputs").append("<span class='time_spent'></span>");
+            $(".member").append("<span>" + data.user + "</span>");
+            console.log("fixe");
         },
         error: function (data) {
             alert("Houve um erro a inserir a data-inicio da tarefa.")
@@ -471,7 +490,9 @@ function insertTaskEndDate(task_id) {
             var hours = data.substring(11, 13) - $(".startTask").text().substring(11, 13);
             var min = data.substring(14, 16) - $(".startTask").text().substring(14, 16);
             var seconds = data.substring(17, 19) - $(".startTask").text().substring(17, 19);
-            $(".time_spent").append("<h3>Tempo gasto na tarefa</h3></label>" + day + " dia(s) " + hours + " hora(s) " + min + " minutos " + Math.abs(seconds) + " segundos " + "</label>");
+            $(".time_spent").append("<h3>Tempo gasto na tarefa</h3></label>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos " + "</label>");
+            $(".time_end").empty();
+            $(".time_end").append(day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos")
             $(".wrapper").remove();
         },
         error: function (data) {
@@ -482,7 +503,7 @@ function insertTaskEndDate(task_id) {
     })
 }
 
-function createPopUpEdit(task_id, proj_name) {
+function createPopUpEdit(task_id, proj_name, tr_id) {
 	$.ajax({
 		type: "GET",
 		url: base_url + "api/getTaskById/" + task_id,
@@ -506,7 +527,6 @@ function createPopUpEdit(task_id, proj_name) {
             $(".cd-popup2").css('opacity', '1');
 
             $(".editTask").css("background-color", "rgb(153, 156, 155)");
-
 		},
 		error: function (data) {
 			console.log(data)

@@ -30,7 +30,15 @@
             <div class="message">Adicionado com sucesso!</div>
 
             <div class="threadTable">
-                <table class='threadList'></table>
+                <table class='threadList'>
+                    <thead>
+                        <th width='35%'>Assunto</th>
+                        <th width='25%'>Criador</th>
+                        <th width='25%'>Data</th>
+                        <th width='15%'>Mais informação</th>
+                    </thead>
+                    <tbody class="insertHere"></tbody>
+                </table>
                 <div class="container2"></div>
             </div>
 

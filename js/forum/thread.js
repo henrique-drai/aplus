@@ -10,9 +10,14 @@ $(document).ready(() => {
     
     $('body').on("click", '#createPost-form-submit', function() {
         var desc = $("textarea").val();
-        insertPost(desc);
-        $(".cd-popup").css('visibility', 'hidden');
-        $(".cd-popup").css('opacity', '0');
+        if(desc != '') {
+            insertPost(desc);
+            $(".cd-popup").css('visibility', 'hidden');
+            $(".cd-popup").css('opacity', '0');
+        } else {
+            $(".message_error").fadeTo(2000, 1);
+        }
+        
     })
 
     //open popup - REMOVER PUBLICAÇÃO
@@ -85,7 +90,7 @@ function addPopup(thread_name) {
     "<label class='form-label'>Conteúdo:</label>" +
     "<textarea class='form-text-area' type='text' name='threadDescription' required></textarea>");
     
-    $(".cd-buttons").html('').append("<li><a href='#' id='createPost-form-submit'>Criar Publicação</a></li>" +
+    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos</div><li><a href='#' id='createPost-form-submit'>Criar Publicação</a></li>" +
     "<li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
@@ -94,7 +99,6 @@ function getInfo() {
         type: "GET",
         url: base_url + "api/getThread/" + localStorage.thread_id,
         success: function(data) {
-            console.log(data);
             $(".threadName").empty();
             $(".add").empty();
             $(".threadDesc").empty();
@@ -109,7 +113,6 @@ function getInfo() {
 
                 if(localStorage.teachers_only == 0 || data.user.role == "teacher") {
                     $(".add").html("<input type='button' id='create_post_button' value='Criar nova publicação'>");
-                    addPopup(data.info.title);
                 } else {
                     $(".threads").append("<p>Não tens permissão para publicar neste tópico.</p>");
                 }
@@ -125,7 +128,6 @@ function getInfo() {
 
                 if(localStorage.teachers_only == 0 || data.user.role == "teacher") {
                     $(".add").html("<input type='button' id='create_post_button' value='Criar nova publicação'>");
-                    addPopup(data.info.title);
                 }
             }
 

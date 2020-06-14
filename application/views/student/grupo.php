@@ -44,7 +44,18 @@
         <div class="message"></div>
         
         <div class="tasksTable">
-            <table id='tab-gerir-tarefas'></table>
+            <table id='tab-gerir-tarefas'>
+                <thead>
+                    <th>Tarefa</th>
+                    <th>Membro Responsável</th>
+                    <th>Completo</th>
+                    <th>Tempo gasto</th>
+                    <th></th>
+                    <th></th>
+                </thead>
+                <tbody class="insertHere"></tbody>
+            </table>
+            
             <div class="container2"></div>
         </div>
 

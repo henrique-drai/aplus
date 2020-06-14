@@ -36,7 +36,7 @@
 
                 <div class="item4">
                     <div class="hours_header">
-                        <h2>Horário de Dúvidas</h2>
+                        <h2>Agendar Horário de Dúvidas</h2>
                     </div>
                     <div class="hours"></div>
                     <div class="message" id="message_hour_s">Adicionado ao calendário!</div>

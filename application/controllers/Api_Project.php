@@ -386,8 +386,10 @@ class Api_Project extends REST_Controller {
         $group_id = htmlspecialchars($this->post("grupo_id"));
 
         if($this->verify_student($user_id, $group_id)) {
-            $data = date("Y-m-d h:i:s");
-            $this->TasksModel->insertTaskDate($data, $user_id, htmlspecialchars($task_id), "start");
+            $data["data"] = date("Y-m-d h:i:s");
+            $tmp = $this->UserModel->getUserById($user_id);
+            $data["user"] = $tmp->name . " " . $tmp->surname;
+            $this->TasksModel->insertTaskDate($data["data"], $user_id, htmlspecialchars($task_id), "start");
             $this->response($data, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;

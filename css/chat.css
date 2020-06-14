@@ -17,6 +17,7 @@
 }
 
 .bodyChat{
+    height: 78%;
     overflow-y: auto;
 }
 

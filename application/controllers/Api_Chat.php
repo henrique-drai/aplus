@@ -94,9 +94,10 @@ class Api_Chat extends REST_Controller {
 
     public function getChatHistory_get(){
         $id = $this->session->userdata('id');
+        $limit=htmlspecialchars($this->get('limit'));
         $this->load->model('ChatModel');
         $id_sender = htmlspecialchars($this->get('id_sender'));
-        $resultquery = $this->ChatModel->getChatHistory($id,$id_sender);
+        $resultquery = $this->ChatModel->getChatHistory($id,$id_sender,$limit);
         $this->load->model('UserModel');
 
         $data['user']=$this->UserModel->getUserById($id_sender);
@@ -113,11 +114,12 @@ class Api_Chat extends REST_Controller {
 
     public function getChatGroupHistory_get(){
         $id = $this->session->userdata('id');
+        $limit=htmlspecialchars($this->get('limit'));
         $this->load->model('ChatModel');
         $this->load->model('GroupModel');
         $this->load->model('ProjectModel');
         $id_group = htmlspecialchars($this->get('id_group'));
-        $resultquery = $this->ChatModel->getChatGroupHistory($id_group);
+        $resultquery = $this->ChatModel->getChatGroupHistory($id_group,$limit);
         $this->load->model('UserModel');
         $grupo=$this->GroupModel->getGroupById($id_group);
         array_push($grupo, $this->ProjectModel->getProjectByID($grupo[0]["projeto_id"]));

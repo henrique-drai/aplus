@@ -65,7 +65,7 @@ class UploadsC extends CI_Controller {
             {
       
                 // $error = array('error' => $this->upload->display_errors());
-
+                // print_r($error);
                 $arr_msg = array (
                     "msg" => "Erro ao submeter ficheiro",
                     "type" => "E",
@@ -207,7 +207,6 @@ class UploadsC extends CI_Controller {
             {
                 $error = array('error' => $this->upload->display_errors());
                 header("Location: ".base_url()."app/ficheiros/".$grupo_id);
-                //check é feito em js para mostrar a mensagem de erro
             }  
             else
             {

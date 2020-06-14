@@ -150,7 +150,6 @@ label {
 
 .wrapper input[type="button"] {
     display: inline;
-    width: unset;
 }
 
 .cd-popup-container > div {

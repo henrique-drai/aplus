@@ -32,8 +32,6 @@ $(document).ready(() => {
             checkMsg();
         }
 
-
-
 //Criar Popups
 
     // REMOVER PROJETO - button -> mostrar popup (meter conteudo)

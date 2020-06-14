@@ -42,14 +42,14 @@ $(document).ready(() => {
     $('body').on("click", "#showDemo",function() {
         event.preventDefault();
         $("#removePadding").text("Formato ficheiro '.csv' de importação - Alunos ")
-        $('#csvExample').attr("src", path.replace("csv_example_prof.png", "csv_example.png"));
+        $('#csvExample').attr("src", path.replace("csv_teacher.png", "csv_student.png"));
         $("#csvExample").css("width","420px");
         $('#import_csv_style').addClass('is-visible');
     });
     $('body').on("click", "#showDemo2",function() {
         event.preventDefault();
         $("#removePadding").text("Formato ficheiro '.csv' de importação - Professores")
-        $('#csvExample').attr("src", path.replace("csv_example.png", "csv_example_prof1.png"));
+        $('#csvExample').attr("src", path.replace("csv_student.png", "csv_teacher.png"));
         $("#csvExample").css("width","529px");
 
         $('#import_csv_style').addClass('is-visible');

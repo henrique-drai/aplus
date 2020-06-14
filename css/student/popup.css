@@ -230,11 +230,8 @@ input[type="range"]::-webkit-slider-thumb:active {
     margin: 10px;
     overflow: hidden;
 }
+
 #groupId {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    padding: 4px 6px 5px 17px
     color: #928f8f;
 }
 
@@ -242,7 +239,7 @@ input[type="range"]::-webkit-slider-thumb:active {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
-    padding: 5px 10px 5px 17px;
+    padding: 5px 10px 0px 17px;
 }
 
 #subject{

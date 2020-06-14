@@ -1,3 +1,8 @@
+main {
+    padding: 0;
+    position: relative;
+}
+
 #mens_erro_user, #informacaoUsers{
     font-size: 13px;
     margin-left: 4px;
@@ -8,7 +13,8 @@
 #all-chat{
     width: 100%;
     display: inline-flex;
-    height: 89%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .accordion h4{
@@ -17,7 +23,8 @@
 }
 
 .bodyChat{
-    height: 78%;
+    height: calc(95% - 100px);
+    background: white;
     overflow-y: auto;
 }
 
@@ -33,8 +40,8 @@ li p{
     /* background: #f8f8f8 none repeat scroll 0 0; */
     /* float: left; */
     overflow: hidden;
-    width: 245px;
-    border-right: 1px solid #c4c4c4;
+    min-width: 220px;
+    border-left: 1px solid #c4c4c4;
     height: 105%;
 }
 
@@ -86,7 +93,7 @@ li p{
 
 #chat-container{
     /* float: left; */
-    width: 70%;
+    width: 100%;
 }
 
 .msg-history{
@@ -96,9 +103,11 @@ li p{
 
 .received-msg{
     /* display: inline-block; */
-    padding: 0 0 15px 10px;
+    padding: 0 0 15px 0;
     /* vertical-align: top;
     width: 92%; */
+    display: flex;
+    flex-direction: column;
 }
 
 .received-msg-width{
@@ -108,7 +117,7 @@ li p{
 
 .received-msg-width p{
     word-break: break-all;
-    background: #d4d4d4 none repeat scroll 0 0;
+    background: #eee none repeat scroll 0 0;
     border-radius: 3px;
     color: #2b2b2b;
     font-size: 14px;
@@ -142,8 +151,8 @@ li p{
 .time_date, .nameMsg{
     color: #747474;
     display: block;
-    font-size: 12px;
-    margin: 8px 0 0;
+    font-size: 11px;
+    margin: 2px 0 0;
 }
 
 .accordion h4{
@@ -156,7 +165,7 @@ li p{
 
 .chatter{
     width: 100%;
-    height: 60px;
+    /* height: 60px; */
     /* line-height: 60px;
     background: #f5f5f5; */
     border-bottom: 1px solid #c4c4c4;
@@ -224,7 +233,9 @@ li p{
   }
 
   #search_text_chat{
-    width: 90%;
+    width: 100%;
+    padding: 20px 8px;
+
     /* margin-top: 20px; */
     /* padding-bottom: 28px; */
     height: 28px;
@@ -232,7 +243,7 @@ li p{
 
   .accordions{
       /* margin-top: 28px; */
-      overflow-y: scroll;
+      overflow-y: auto;
       height: 85%;
       margin-top: 5%;
   }
@@ -254,7 +265,6 @@ li p{
 @media(max-width: 600px){
     #leftSideChat {
         overflow: hidden;
-        width: 85%;
         height: 70%;
         border-right: none;
         margin-left: auto;
@@ -269,7 +279,6 @@ li p{
         /* position: fixed; */
         /* right: -500px; */
         /* display: none; */
-        width: 90%;
         height: 90%;
     }  
 
@@ -279,9 +288,6 @@ li p{
         margin-left: 82%;
         font-size: 33px;
         color: black;
-    }
-    #search_text_chat{
-        width: 200px;
     }
     
     .chatter{

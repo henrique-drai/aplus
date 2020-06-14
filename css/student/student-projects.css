@@ -97,6 +97,28 @@
     border-radius: 3px;
 }
 
+.groupmember{
+    display: block;
+    position: relative;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+.memberName {
+    display: inline;
+    margin: 35px;
+    color: rgb(62, 93, 79);
+}
+
+.groupMemberImg{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    margin-right: 5px;
+    border-radius: 100px;
+    border: 1px solid #ccc;
+}
+
 @media screen and (max-width: 440px) {
     .myGroupDiv, .availableGroupsDiv{
         display: block;

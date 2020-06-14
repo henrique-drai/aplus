@@ -50,6 +50,15 @@ textarea {
     opacity: 0;
 }
 
+.message_error {
+    opacity: 0;
+    width: 100%;
+    background-color: rgb(255, 72, 72);
+    color: white;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
 .remove, .remove_thread {
     background-color: #fc8982;
     margin: unset !important;

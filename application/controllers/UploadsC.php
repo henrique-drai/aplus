@@ -162,7 +162,7 @@ class UploadsC extends CI_Controller {
             if ( ! $this->upload->do_upload('file_submit'))
             {
                 $arr_msg = array (
-                    "msg" => "Erro ao submeter a entrega",
+                    "msg" => "Erro ao submeter o trabalho",
                     "type" => "E",
                 );
 
@@ -172,7 +172,7 @@ class UploadsC extends CI_Controller {
             else
             {
                 $arr_msg = array (
-                    "msg" => "Entrega submetida com sucesso",
+                    "msg" => "Trabalho submetido com sucesso",
                     "type" => "S",
                 );
 

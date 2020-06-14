@@ -90,6 +90,20 @@ class Api_Project extends REST_Controller {
             );
     
             $data = $this->ProjectModel->insertEtapa($new_etapa);
+
+            if ($data){
+                $arr_msg = array (
+                    "msg" => "Etapa submetida com sucesso",
+                    "type" => "S",
+                );
+            } else {
+                $arr_msg = array (
+                    "msg" => "Erro ao submeter a etapa",
+                    "type" => "E",
+                );
+            }
+
+            $this->session->set_userdata('result_msg', $arr_msg);            
             $this->response($data, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
@@ -110,6 +124,20 @@ class Api_Project extends REST_Controller {
         if($this->verify_teacher($user_id, $etapa_id, "etapa") == true){
             $etapa_submit = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
             $data = $this->ProjectModel->insertFeedback($feedback, $etapa_submit->row()->id);
+
+            if ($data){
+                $arr_msg = array (
+                    "msg" => "Feedback submetido com sucesso",
+                    "type" => "S",
+                );
+            } else {
+                $arr_msg = array (
+                    "msg" => "Erro ao submeter o feedback",
+                    "type" => "E",
+                );
+            }
+
+            $this->session->set_userdata('result_msg', $arr_msg);
             $this->response($etapa_submit, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
@@ -144,7 +172,21 @@ class Api_Project extends REST_Controller {
                 "deadline"          => htmlspecialchars($etapa["data"]),
             );
     
-            $this->ProjectModel->updateEtapa($new_etapa, $id);
+            $data = $this->ProjectModel->updateEtapa($new_etapa, $id);
+
+            if ($data){
+                $arr_msg = array (
+                    "msg" => "Etapa editada com sucesso",
+                    "type" => "S",
+                );
+            } else {
+                $arr_msg = array (
+                    "msg" => "Erro ao editar a etapa",
+                    "type" => "E",
+                );
+            }
+
+            $this->session->set_userdata('result_msg', $arr_msg);
             $this->response($etapa, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
@@ -218,10 +260,9 @@ class Api_Project extends REST_Controller {
                 //update
                 $returned = $this->ProjectModel->updateSubmission($grupo, $etapa, $fich);
             }
-    
+            
             $data["fich"] = $fich;
             $data["result"] = $returned;
-    
             $this->response($data, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
@@ -386,8 +427,10 @@ class Api_Project extends REST_Controller {
         $group_id = htmlspecialchars($this->post("grupo_id"));
 
         if($this->verify_student($user_id, $group_id)) {
-            $data = date("Y-m-d h:i:s");
-            $this->TasksModel->insertTaskDate($data, $user_id, htmlspecialchars($task_id), "start");
+            $data["data"] = date("Y-m-d h:i:s");
+            $tmp = $this->UserModel->getUserById($user_id);
+            $data["user"] = $tmp->name . " " . $tmp->surname;
+            $this->TasksModel->insertTaskDate($data["data"], $user_id, htmlspecialchars($task_id), "start");
             $this->response($data, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
@@ -632,7 +675,7 @@ class Api_Project extends REST_Controller {
                 $group_to_return["nomes"] = array();
                 for($i=0; $i< count($group_to_return["membros"]); $i++) {
                     $query = $this->UserModel->getUserById($group_to_return["membros"][$i]["user_id"]);
-                    array_push($group_to_return["nomes"], array($query->name, $query->surname, $group_to_return["membros"][$i]["user_id"]));
+                    array_push($group_to_return["nomes"], array($query->name, $query->surname, $group_to_return["membros"][$i]["user_id"], $query->picture));
                 }
             }
     
@@ -786,6 +829,20 @@ class Api_Project extends REST_Controller {
 
         if ($this->verify_teacher($user_id,$id,"etapa") == true){
             $data = $this->ProjectModel->removeEtapaByID($id);
+
+            if ($data){
+                $arr_msg = array (
+                    "msg" => "Etapa removida com sucesso",
+                    "type" => "S",
+                );
+            } else {
+                $arr_msg = array (
+                    "msg" => "Erro ao remover a etapa",
+                    "type" => "E",
+                );
+            }
+
+            $this->session->set_userdata('result_msg', $arr_msg);
             $this->response($data, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;

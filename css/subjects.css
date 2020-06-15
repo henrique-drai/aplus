@@ -146,24 +146,29 @@ select, textarea {
 //                     HORÁRIO DE DÚVIDAS
 ////////////////////////////////////////////////////////////// */
 
-.hours div {
+.hour_element {
     display: inline-block;
-    width: 90%;
+    height: 60px;
+    margin-bottom: 2%;
 }
 
-.add_event {
-    width: 28px;
+.add_event, .remove_event {
+    width: 24px;
     margin-right: 2%;
     margin-bottom: -2%;
 }
 
-.add_event:hover {
+.add_event:hover, .remove_event:hover {
     cursor: pointer;
 }
 
-#message_hour_s {
+#message_hour_s, #message_hour_s_remove {
     width: 60%;
     margin-top: 0;
+}
+
+#message_hour_s_remove {
+    margin-top: -36px;
 }
 
 .delete_img {
@@ -254,6 +259,25 @@ select, textarea {
 .hours_buttons {
     display: none;
     margin-bottom: 1%;
+}
+
+.inputWithIcon input {
+    padding-left: 35px;
+    font-size: 0.7em;
+    margin-right: 5px !important;
+    width: 105px;
+    margin-top: 0 !important;
+}
+
+.inputWithIcon {
+    position: relative;
+}
+
+.inputWithIcon img {
+    position: absolute;
+    left: 0;
+    top: -3px;
+    padding: 6px 7px;
 }
 
 /* //////////////////////////////////////////////////////////////

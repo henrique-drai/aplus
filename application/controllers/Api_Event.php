@@ -177,6 +177,18 @@ class Api_Event extends REST_Controller {
       $this->response($evento_user, parent::HTTP_OK);
     }
 
+    public function removeEventByHourId_delete($hour_id) {
+      $this->load->model('EventModel');
+      $user_id = htmlspecialchars($this->delete("user_id"));
+      $cadeira_id = htmlspecialchars($this->delete("cadeira_id"));
+
+      if($this->verify_student($user_id, $cadeira_id)) {
+        $this->EventModel->deleteEventByHourId($hour_id);
+
+        $this->response(array($hour_id), parent::HTTP_OK);
+      }
+    }
+
 
     //////////////////////////////////////////////////////////////
     //                      AUTHENTICATION
@@ -190,4 +202,19 @@ class Api_Event extends REST_Controller {
             exit();
         }
     }
+
+    private function verify_student($user_id, $cadeira_id){
+      $this->load->model('StudentListModel');
+      $membros = $this->StudentListModel->getStudentsByCadeiraID($cadeira_id);
+
+      $flag_found = false;
+
+      for ($i=0; $i < count($membros); $i++){
+          if($user_id == $membros[$i]["user_id"]){
+              $flag_found = true;
+          }    
+      }
+
+      return $flag_found;
+  }
 }

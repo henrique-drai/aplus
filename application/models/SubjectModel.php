@@ -26,7 +26,8 @@ class SubjectModel extends CI_Model { //cadeira
                   where cadeira_id = ".$cadeira_id ."
                   and (name like '" . $string . "%'
                   or email like '" . $string . "%'
-                  or surname like '" . $string . "%')";
+                  or surname like '" . $string . "%'
+                  or CONCAT(name,' ', surname) like '" . $string ."%')";
         
         $data = $this->db->query($query);
         return $data->result_array();

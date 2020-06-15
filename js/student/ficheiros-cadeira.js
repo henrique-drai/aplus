@@ -21,13 +21,13 @@ $(document).ready(() => {
                 var array = [];
 
                 if(data.length == 0){
-                    array.push("Não existem ficheiros para mostrar");
+                    array.push("<p>Não existem ficheiros para mostrar</p>");
                 } else {
                     for (i=0; i<data.length; i++){
                         array.push('<div class="file-row" id="file-row-student">'
                         + '<p><a target="_blank" href="'+base_link+data[i]["url"]+'">' + data[i]["url"] + '</a></p>'
                         + '</div><hr>')
-                    }
+                    }          
                 }
 
 

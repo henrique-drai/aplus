@@ -10,7 +10,7 @@ $(document).ready(() => {
 			getSearchStudent(s);
 		}
 		else{
-			$(".adminTable").remove();
+			showCourseStudents();
 		}
 	})
 
@@ -46,6 +46,7 @@ function showCourseStudents() {
 				})
 			} else {
 				$("#students_list").css("display", "none");
+				$("#mens_sem_alunos").remove();
 				var mensagem = "<h4 id='mens_sem_alunos'>Não existe nenhum aluno nesta cadeira</h4>";
 				$("#msg-sem-alunos").append(mensagem)
 			} 
@@ -77,6 +78,8 @@ function makeStudentTable(data){
 	$("#students_list").empty();
 	linhas.push('<tr><th>Email</th><th>Nome</th><th>Apelido</th><th></th></tr>');
 	if (data.length > 0) {
+		$("#students_list").css("display", "table");
+		$("#mens_sem_alunos").remove();
 		for (i = 0; i < data.length; i++) {
 			linhas.push('<tr class="student_row"><td>' + data[i].email + '</td><td>' + data[i].name +
 				'</td><td>' + data[i].surname + "<td><input type='button' value='Ver perfil' class='perfil' id='" + data[i].id + "'></td>");
@@ -92,7 +95,8 @@ function makeStudentTable(data){
 		})
 	} else {
 		$("#students_list").css("display", "none");
-		var mensagem = "<h4 id='mens_sem_alunos'>Não existe nenhum aluno nesta cadeira</h4>";
+		$("#mens_sem_alunos").remove();
+		var mensagem = "<h4 id='mens_sem_alunos'>Não existe nenhum aluno nesta cadeira com o paramentro indicado</h4>";
 		$("#msg-sem-alunos").append(mensagem)
 	} 
 }

@@ -336,7 +336,6 @@ function renderPopupSubmission(event) {
     let message = $('<div class="calendario-msg"></div>')
     message.append("<h3>" + event.obj.nome + " (etapa do projeto)</h3>")
     message.append("<p>" + event.obj.description + "</p>")
-    message.append("<p>" + event.obj.description + "</p>")
 
     $('.cd-buttons').html('').append(
         $('<li></li>').append(

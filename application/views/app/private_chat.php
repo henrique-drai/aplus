@@ -14,12 +14,16 @@
 
     <main>
     
-    <h4 class="breadcrumb">
-            <a href="<?php echo base_url(); ?>app/chat">Chat</a>
-    </h4>
     <!-- <div class="small-chat-icons"><i class='fa fa-wechat' ></i></div> -->
 
         <div id="all-chat">
+        
+        <div id="chat-container" class="container">
+            <div class="headName"></div>
+            <div class="bodyChat"></div>
+            <div class="footSend"><div class="type-msg"><input type="text" id="write_msg" placeholder="Type a message"><img id="icon-send" class="icon-send"src="<?=$base_url?>images/icons/paper-airplane.png"> </div></div>
+        </div> 
+
         <div id="leftSideChat">           
         <div class="form-group">
             <div class="input-group">
@@ -36,11 +40,6 @@
 
         </div>
         </div>
-        <div id="chat-container" class="container">
-            <div class="headName"></div>
-            <div class="bodyChat"></div>
-            <div class="footSend"><div class="type-msg"><input type="text" id="write_msg" placeholder="Type a message"><img id="icon-send" class="icon-send"src="<?=$base_url?>images/icons/paper-airplane.png"> </div></div>
-        </div> 
         </div>
         <!--
 

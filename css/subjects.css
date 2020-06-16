@@ -245,25 +245,19 @@ h4 {
     border-left-color: salmon;
 }
 
-/* .remove_hour, .remove_hour img, .add_hour, .add_hour img{
-    width:30px;
-    border-radius: 15px;
+#remove_hour {
+    width: 11px;
+    margin-right: 1%;
 }
 
-.remove_hour, .add_hour{
+#remove_hour:hover {
     cursor: pointer;
-    height: 0%;
-    margin-top: -1%;
 }
 
-.remove_hour:hover, .add_hour:hover{
-    background-color:rgb(194, 194, 194);
+.dates, select, #label_day {
+    margin-left: 3%;
+    width: 90% !important;
 }
-
-.remove_hour {
-    margin-left: 1%;
-    visibility: hidden;
-} */
 
 #edit_button_hours {
     margin-bottom: -3px;

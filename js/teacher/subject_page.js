@@ -296,7 +296,7 @@ function setHours() {
             if(flag) {
                 for(var i=0; i < data['user'].length; i++) {
                     if(data.user[i].id == localStorage.user_id) {
-                        popup = popup + '<span><img scr="' + base_url + 'images/icons/delete.png"><h4>Horário ' + (count + 1) + '</h4></span>';
+                        popup = popup + '<h4><span><img id="remove_hour" src="' + base_url + 'images/delete.png"></span>Horário ' + (count + 1) + '</h4>';
                         popup = popup + '<div class="dates"><label class="form-label">Início:' +
                             '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
                             'name="start_time" min="09:00" max="18:00" value="' + 
@@ -305,7 +305,7 @@ function setHours() {
                             '<input type="time" class="form-input-number maxnuminput" id="' + count + '"' +
                             'name="end_time" min="09:00" max="18:00" value="' + 
                             data.hours[i].end_time.substring(0, 5) + '" required></label></div>' +
-                            '<label class="form-label">Dia da Semana:</label><select class="day" id="' + count + '">' +
+                            '<label class="form-label" id="label_day" >Dia da Semana:</label><select class="day" id="' + count + '">' +
                             '<option value="Segunda-feira">Segunda-feira</option>' +
                             '<option value="Terça-feira">Terça-feira</option>' +
                             '<option value="Quarta-feira">Quarta-feira</option>' +
@@ -325,14 +325,14 @@ function setHours() {
                     $(".maxnuminput").css("border-left-color", "#42d542");
                 }
             } else {
-                popup = popup + '<span><img scr="' + base_url + 'images/icons/delete.png"><h4>Horário ' + (count + 1) + '</h4></span>';
+                popup = popup + '<h4><span><img id="remove_hour" src="' + base_url + 'images/icons/delete.png"></span>Horário ' + (count + 1) + '</h4>';
                 popup = popup + '<div class="dates"><label class="form-label">Início:' +
                     '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
                     'name="start_time" min="09:00" max="18:00" required></label>' +
                     '<label class="form-label">Fim:' +
                     '<input type="time" class="form-input-number maxnuminput" id="' + count + '"' +
                     'name="end_time" min="09:00" max="18:00" required></label></div>' +
-                    '<label class="form-label">Dia da Semana:</label><select class="day" id="' + count + '">' +
+                    '<label class="form-label" id="label_day">Dia da Semana:</label><select class="day" id="' + count + '">' +
                     '<option value="Segunda-feira">Segunda-feira</option>' +
                     '<option value="Terça-feira">Terça-feira</option>' +
                     '<option value="Quarta-feira">Quarta-feira</option>' +

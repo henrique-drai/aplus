@@ -166,6 +166,24 @@ select, textarea {
 
 .dates label {
     width: 50% !important;
+    margin-top: -20px !important;
+}
+
+h4 {
+    text-align: left;
+}
+
+#add_hour_confirm {
+    background-color: #3e5d4f;
+}
+
+.message_error {
+    opacity: 0;
+    width: 100%;
+    background-color: rgb(255, 72, 72);
+    color: white;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
 .add_event, .remove_event {
@@ -227,7 +245,7 @@ select, textarea {
     border-left-color: salmon;
 }
 
-.remove_hour, .remove_hour img, .add_hour, .add_hour img{
+/* .remove_hour, .remove_hour img, .add_hour, .add_hour img{
     width:30px;
     border-radius: 15px;
 }
@@ -245,7 +263,7 @@ select, textarea {
 .remove_hour {
     margin-left: 1%;
     visibility: hidden;
-}
+} */
 
 #edit_button_hours {
     margin-bottom: -3px;

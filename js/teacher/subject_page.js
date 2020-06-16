@@ -296,7 +296,7 @@ function setHours() {
             if(flag) {
                 for(var i=0; i < data['user'].length; i++) {
                     if(data.user[i].id == localStorage.user_id) {
-                        popup = popup + '<h4>Horário ' + (count + 1) + '</h4>';
+                        popup = popup + '<span><img scr="' + base_url + 'images/icons/delete.png"><h4>Horário ' + (count + 1) + '</h4></span>';
                         popup = popup + '<div class="dates"><label class="form-label">Início:' +
                             '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
                             'name="start_time" min="09:00" max="18:00" value="' + 
@@ -325,7 +325,7 @@ function setHours() {
                     $(".maxnuminput").css("border-left-color", "#42d542");
                 }
             } else {
-                popup = popup + '<h4>Horário ' + (count + 1) + '</h4>';
+                popup = popup + '<span><img scr="' + base_url + 'images/icons/delete.png"><h4>Horário ' + (count + 1) + '</h4></span>';
                 popup = popup + '<div class="dates"><label class="form-label">Início:' +
                     '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
                     'name="start_time" min="09:00" max="18:00" required></label>' +
@@ -343,7 +343,7 @@ function setHours() {
 
             $(".cd-message").html(popup);
             $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos</div>" +
-                "<li><a href='#' class='add_hour'>" +
+                "<li><a href='#' id='add_hour_confirm'>" +
                 "Confirmar</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
             
             $(".cd-popup").css('visibility', 'visible');

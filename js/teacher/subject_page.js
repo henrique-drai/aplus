@@ -25,12 +25,7 @@ $(document).ready(() => {
     });
 
     $("#edit_button_hours").click(function() {
-        $(".hours").empty();
-        $(".hours_inputs").show();
-        $(".hours_buttons").css('display', 'inline-flex');
-
-        setHours(localStorage.getItem("cadeira_id"));
-        $("#edit_button_hours").hide();
+        setHours(localStorage.cadeira_id);
     })
 
     $(".add_hour").click(function() {
@@ -286,9 +281,11 @@ function setHours() {
         success: function(data) {
             var count = 0;
             var flag = false;
+            var popup = "<div class='infoTask_inputs'><h2>Editar Horários de Dúvidas</h2>" +
+            "<input type='button' class='add_hour_button' value='Adicionar Horário'>";
 
             for(var i=0; i < data['user'].length; i++) {
-                if(data.user[i].id == localStorage.getItem("user_id")) {
+                if(data.user[i].id == localStorage.user_id) {
                     flag= true;
                     break;
                 } else {
@@ -298,23 +295,23 @@ function setHours() {
 
             if(flag) {
                 for(var i=0; i < data['user'].length; i++) {
-                    if(data.user[i].id == localStorage.getItem("user_id")) {
-                        $(".hours_inputs").append('<div class="element"><p>' +
-                            '<label class="form-label">Início:</label>' +
+                    if(data.user[i].id == localStorage.user_id) {
+                        popup = popup + '<h4>Horário ' + (count + 1) + '</h4>';
+                        popup = popup + '<div class="dates"><label class="form-label">Início:' +
                             '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
                             'name="start_time" min="09:00" max="18:00" value="' + 
-                            data.hours[i].start_time.substring(0, 5) + '" required></p><p>' +
-                            '<label class="form-label">Fim:</label>' +
+                            data.hours[i].start_time.substring(0, 5) + '" required></label>' +
+                            '<label class="form-label">Fim:' +
                             '<input type="time" class="form-input-number maxnuminput" id="' + count + '"' +
                             'name="end_time" min="09:00" max="18:00" value="' + 
-                            data.hours[i].end_time.substring(0, 5) + '" required></p><p>' +
+                            data.hours[i].end_time.substring(0, 5) + '" required></label></div>' +
                             '<label class="form-label">Dia da Semana:</label><select class="day" id="' + count + '">' +
                             '<option value="Segunda-feira">Segunda-feira</option>' +
                             '<option value="Terça-feira">Terça-feira</option>' +
                             '<option value="Quarta-feira">Quarta-feira</option>' +
                             '<option value="Quinta-feira">Quinta-feira</option>' +
                             '<option value="Sexta-feira">Sexta-feira</option>' +
-                            '</select></p></div>');
+                            '</select></div>';
                         
                         count++;
                         for(var j=0; j < $(".day option").length; j++) {
@@ -326,29 +323,31 @@ function setHours() {
 
                     $(".minnuminput").css("border-left-color", "#42d542");
                     $(".maxnuminput").css("border-left-color", "#42d542");
-                    
-                    if($(".hours_inputs .element").length > 1) {
-                        $(".remove_hour").css('visibility','visible');
-                    }
-
-                    $("#save_button_hours").show();
                 }
             } else {
-                $(".hours_inputs").append('<div class="element"><p>' +
-                    '<label class="form-label">Início:</label>' +
+                popup = popup + '<h4>Horário ' + (count + 1) + '</h4>';
+                popup = popup + '<div class="dates"><label class="form-label">Início:' +
                     '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
-                    'name="start_time" min="09:00" max="18:00" required></p><p>' +
-                    '<label class="form-label">Fim:</label>' +
+                    'name="start_time" min="09:00" max="18:00" required></label>' +
+                    '<label class="form-label">Fim:' +
                     '<input type="time" class="form-input-number maxnuminput" id="' + count + '"' +
-                    'name="end_time" min="09:00" max="18:00" required></p><p>' +
+                    'name="end_time" min="09:00" max="18:00" required></label></div>' +
                     '<label class="form-label">Dia da Semana:</label><select class="day" id="' + count + '">' +
                     '<option value="Segunda-feira">Segunda-feira</option>' +
                     '<option value="Terça-feira">Terça-feira</option>' +
                     '<option value="Quarta-feira">Quarta-feira</option>' +
                     '<option value="Quinta-feira">Quinta-feira</option>' +
                     '<option value="Sexta-feira">Sexta-feira</option>' +
-                    '</select></p></div>');
+                    '</select><>/div>';
             }
+
+            $(".cd-message").html(popup);
+            $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos</div>" +
+                "<li><a href='#' class='add_hour'>" +
+                "Confirmar</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
+            
+            $(".cd-popup").css('visibility', 'visible');
+            $(".cd-popup").css('opacity', '1');
         },
         error: function(data) {
             alert("Houve um erro ao mostrar os horários de dúvidas.");

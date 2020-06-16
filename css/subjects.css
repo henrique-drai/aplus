@@ -150,6 +150,22 @@ select, textarea {
     display: inline-block;
     height: 60px;
     margin-bottom: 2%;
+    width: 100%;
+}
+
+.add_hour_button {
+    width: auto !important;
+}
+
+.dates {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dates label {
+    width: 50% !important;
 }
 
 .add_event, .remove_event {
@@ -174,6 +190,7 @@ select, textarea {
 .delete_img {
     width: 20px;
     margin-right: 1%;
+    margin-bottom: -3px;
 }
 
 .delete_img:hover {

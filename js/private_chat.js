@@ -5,30 +5,26 @@ var clicked_user="";
 var clicked_group="";
 var clicked_id="";
 var nomeGrupo="";
-var refreshIntervalIdHistory='';
-var refreshIntervalGroupIdHistory='';
+var refreshIntervalIdHistory=null;
+var refreshIntervalGroupIdHistory=null;
 var refreshIntervalIdRecent='';
 var refreshIntervalIdRecentGroup='';
 var flagScroll=false;
-var chat_is_active=false;
+var flagLimit=false;
 var limit = 30;
-var heightFromBottom = 0;
+var flagLoadedMsg =false;
 
 $(document).ready(() => {
     loadAccordion()
-    // window.history.pushState('','','../g/7171')
-    // console.log(chat_user_id);
-    // console.log(chatType);
 
     $(".bodyChat").scroll(function() {
         var heightFromTop = $(".bodyChat").scrollTop();
-        heightFromBottom = $(".bodyChat").prop('scrollHeight') - ($(".bodyChat").scrollTop() + $(".bodyChat").height());
-        if(heightFromTop ==0) {
-            limit+=20
+    
+        if(heightFromTop == 0 ) {
+            limit+=10
+            flagLimit=true
         }
-        // console.log(limit)  $(this).prop('scrollHeight') - ($(this).scrollTop() + $(this).height());
-        console.log(heightFromTop)
-        console.log(heightFromBottom)
+     
         });
         if(chat_user_id!=null&&chatType!=null){
             if(chatType=="p"){
@@ -47,9 +43,9 @@ $(document).ready(() => {
                 clicked_group=chat_user_id;
                 clicked_id=clicked_group
 
-                    refreshIntervalGroupIdHistory = setInterval(function(){
-                        getChatGroupHistory(chat_user_id,limit);
-                    }, 3000);
+                refreshIntervalGroupIdHistory = setInterval(function(){
+                    getChatGroupHistory(chat_user_id,limit);
+                }, 3000);
                 $('#write_msg').unbind("keydown");
                 bindEnterChatGroup();  //######################################
             }
@@ -154,17 +150,21 @@ function meiaNoite(hour){
 
 function bindPrivateChatLiClick(){
     $("#privateChat li").click(function() {
+        
+        clearInterval(refreshIntervalIdHistory);
+        clearInterval(refreshIntervalGroupIdHistory);
+        limit=30;
         $(".chatList li").removeClass("activeTwo")
         this.classList.toggle("activeTwo");
-
+        console.log("click privado")
         flagScroll=false
         var id_sender = $(this).attr("user_id");
         clicked_user = id_sender;
         clicked_id=clicked_user;
         window.history.pushState('','','/aplus/app/chat/p/'+id_sender)
+
         getChatHistory(id_sender,limit);
-        clearInterval(refreshIntervalIdHistory);
-        clearInterval(refreshIntervalGroupIdHistory);
+        
         $('#write_msg').unbind("keydown");
         bindEnterChat() //######################################
 
@@ -177,9 +177,12 @@ function bindPrivateChatLiClick(){
 
 function bindGroupLiClick(){
     $("#group li").click(function() {
+        clearInterval(refreshIntervalGroupIdHistory);
+        clearInterval(refreshIntervalIdHistory);
+        limit=30;
         $(".chatList li").removeClass("activeTwo")
-
         this.classList.toggle("activeTwo");
+        console.log("click Grupo")
         flagScroll=false
         var id_group = $(this).attr("group_id");
         // var id_projecto = $(this).attr("projecto_id");
@@ -188,9 +191,9 @@ function bindGroupLiClick(){
         clicked_group = id_group;
         clicked_id=clicked_group;
         nomeGrupo = $(this).text()
+
         getChatGroupHistory(id_group,limit);
-        clearInterval(refreshIntervalGroupIdHistory);
-        clearInterval(refreshIntervalIdHistory);
+
         $('#write_msg').unbind("keydown");
         bindEnterChatGroup();  //######################################
         refreshIntervalGroupIdHistory = setInterval(function(){
@@ -281,18 +284,18 @@ function makeUserListLastText(dataFromUser){
     var miliseconds = d.getTime();
     // console.log(dataFromUser)
     for (i=0;i<dataFromUser.users.length;i++){
-        var src=base_url+"uploads/profile/"+dataFromUser.users[i].id+"/"+dataFromUser.users[i].picture+"?"+miliseconds;
+        var src=base_url+"uploads/profile/"+dataFromUser.users[i].id+dataFromUser.users[i].picture+"?"+miliseconds;
         if(dataFromUser.users[i].picture==""){
             src=base_url+"uploads/profile/default.jpg"
         }
         if(clicked_id==dataFromUser.users[i].id){
-            users += '<li class="list-group-class activeTwo" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat"><img src='+src+' class="chat_profile" alt="Profile Picture"</img>' +
+            users += '<li class="list-group-class activeTwo" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat"><img src='+src+' class="chat_profile" alt="Profile Picture"></img>' +
             dataFromUser.users[i].name +' '+ dataFromUser.users[i].surname + '</div>'
            //  '<p>'+ dataFromUser.content[i].content +'</p></li>';
            incr++;
 
         }else{
-            users += '<li class="list-group-class" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat"><img src='+src+' class="chat_profile" alt="Profile Picture"</img>' +
+            users += '<li class="list-group-class" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat"><img src='+src+' class="chat_profile" alt="Profile Picture"></img>' +
             dataFromUser.users[i].name +' '+ dataFromUser.users[i].surname + '</div>'
            //  '<p>'+ dataFromUser.content[i].content +'</p></li>';
            incr++;
@@ -352,7 +355,6 @@ function makeUserListGroups(data){
     var incr = 0;
     for (i=0;i<data.length;i++){
         if(clicked_id==data[i][0].id){
-            // clicked_user="";
             groups += '<li class="list-group-class activeTwo" projeto_id='+data[i][1][0].projeto_id+' group_id='+ data[i][0].id +'> <div class="list-chat">Projeto ' + data[i][1][0].nome+' - Grupo '+data[i][0].name + '</div>'
             //  '<p>'+ dataFromUser.content[i].content +'</p></li>';
             incr++;
@@ -385,8 +387,22 @@ function getChatHistory(id_sender,limit){
             makeMsgHistory(data,id_sender);
             $(".headName").html('<div class="chatter"><h3>'+ data.user.name + ' ' + data.user.surname +'</h3></div>')
             $(".type-msg").css("display","block")
+           
+            if(data.msg.length==limit && flagLimit){
+                // console.log("123")
+                flagLoadedMsg=true
+                flagLimit=true
+        
+            }
+            if(flagLoadedMsg){
+                // console.log("flagtrue")
+                // setTimeout(function(){ $(".bodyChat").scrollTop(700) }, 200);
+                $(".bodyChat").scrollTop(700)
+                flagLoadedMsg=false
+            }
             if(flagScroll==false){
-                $(".bodyChat").scrollTop($(".bodyChat")[0].scrollHeight);
+                // console.log("entra privado")
+                setTimeout(function(){$(".bodyChat").scrollTop($(".bodyChat")[0].scrollHeight)},150);
                 flagScroll=true;
             }
             
@@ -396,7 +412,9 @@ function getChatHistory(id_sender,limit){
 
 function makeMsgHistory(data,id_sender){
     chatbox=''
-    data.msg.reverse()
+    if(data.msg){
+        data.msg.reverse();
+    }
     for (i=0;i<data.msg.length;i++){
         if(data.msg[i].id_sender == id_sender){
             chatbox+='<div class="received-msg"><div class="received-msg-width"><p>'+ data.msg[i].content +'</p><span class="time_date">'+ data.msg[i].date +'</span></div></div>'
@@ -421,11 +439,23 @@ function getChatGroupHistory(id_group,limit){
             $(".headName").html('<div class="chatter"><h3>'+ nomeGrupo +'</h3></div>')
             // bindEnterChatGroup()
             $(".type-msg").css("display","block")
-
             if(flagScroll==false){
-                $(".bodyChat").scrollTop($(".bodyChat")[0].scrollHeight);
+                // console.log("entra grupo")
+                setTimeout(function(){$(".bodyChat").scrollTop($(".bodyChat")[0].scrollHeight)},150);
                 flagScroll=true;
             }
+            
+            if(data.msg.length==limit && flagLimit){
+                // console.log("123")
+                flagLoadedMsg=true
+                flagLimit=false
+        
+            }
+            if(flagLoadedMsg){
+                setTimeout(function(){ $(".bodyChat").scrollTop(700) }, 200);
+                flagLoadedMsg=false
+            }
+          
            
             
 
@@ -433,8 +463,11 @@ function getChatGroupHistory(id_group,limit){
 
 function makeGroupMsgHistory(data){
     chatbox=''
-    data.msg.reverse();
-    for (i=0;i<data.msg.length;i++){
+    if(data.msg){
+        data.msg.reverse();
+    }
+    
+    for (i=0;i<data.msg.length;i++ ){
         // console.log(data.msg[i])
         if(data.msg[i][0].user_id == data.me){
             chatbox+='<div class="sent-msg"><div class="sent-msg-width"><p>'+ data.msg[i][0].content +'</p><span  class="time_date">'+ data.msg[i][0].date +'</span></div></div>'
@@ -444,14 +477,17 @@ function makeGroupMsgHistory(data){
         }
     }
     $(".bodyChat").html( '<div class="msg-history">'+chatbox+'</div>')
+
+    
 }
 
 function makeUserList(dataFromUser){
     users= '';
     var d = new Date();
     var miliseconds = d.getTime();
+    console.log(dataFromUser)
     for (i=0;i<dataFromUser.users.length;i++){
-        var src=base_url+"uploads/profile/"+dataFromUser.users[i].id+"/"+dataFromUser.users[i].picture+"?"+miliseconds;
+        var src=base_url+"uploads/profile/"+dataFromUser.users[i].id+dataFromUser.users[i].picture+"?"+miliseconds;
         if(dataFromUser.users[i].picture==""){
             src=base_url+"uploads/profile/default.jpg"
         }

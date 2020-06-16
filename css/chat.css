@@ -175,6 +175,7 @@ li p{
 .type-msg{
     border-top: 1px solid #c4c4c4;
     position: relative;
+    /* border-bottom: 1px solid #c4c4c4; */
 }
 
 .type-msg input {

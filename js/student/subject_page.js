@@ -18,11 +18,26 @@ $(document).ready(() => {
         window.location = base_url + "foruns/forum/" + $(this).attr("id");
     })
 
-    $("body").on("click", ".add_event", function() {
+    $("body").on("click", ".addE", function() {
         var hour_id = $(this).attr("id");
         localStorage.setItem("hour_" + hour_id, hour_id);
-        $("#" + hour_id + ".add_event").hide();
+        $("#" + hour_id + ".add_event").remove();
+        var image_url = base_url + "images/icons/remove_event.png";
+        $(".inputWithIcon#" + hour_id).empty();
+        $(".inputWithIcon#" + hour_id).append("<span><input type='button' class='remE' id='" + hour_id + "' value='Desmarcar'><img src='" + image_url + 
+        "' class='remove_event' id='" + hour_id + "'></span>");
         addEvent(hour_id);
+    })
+
+    $("body").on("click", ".remE", function() {
+        var hour_id = $(this).attr("id");
+        localStorage.setItem("hour_" + hour_id, hour_id);
+        $("#" + hour_id + ".remove_event").remove();
+        var image_url = base_url + "images/icons/add_event.png";
+        $(".inputWithIcon#" + hour_id).empty();
+        $(".inputWithIcon#" + hour_id).append("<span><input type='button' class='addE' id='" + hour_id + "' value='Marcar'><img src='" + image_url + 
+        "' class='add_event' id='" + hour_id + "'></span>");
+        removeEvent(hour_id);
     })
 
     $("body").on("click", ".filearea-button", function() {
@@ -85,7 +100,6 @@ function getInfo() {
                 }  
             }
 
-            var image_url = base_url + "images/icons/add_event.png";
             $(".hours").empty();
             if(data['hours'].length != 0) {
                 for(var i=0; i < data['user'].length; i++) {
@@ -104,16 +118,19 @@ function getInfo() {
                     }
                     
                     if(flag) {
-                        $(".hours").append("<div><p><b>" + 
+                        var image_url = base_url + "images/icons/remove_event.png";
+                        $(".hours").append("<div class='hour_element'><b>" + 
                         data.user[i].name + " " + data.user[i].surname + ":</b> " + 
                         data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
-                        data.hours[i].end_time.substring(0, 5) + "</p></div>");
+                        data.hours[i].end_time.substring(0, 5) + "<div class='inputWithIcon' id='" + data.hours[i].id + "'><span><input type='button' class='remE' id='" + data.hours[i].id + "' value='Desmarcar'><img src='" + image_url + 
+                        "' class='remove_event' id='" + data.hours[i].id + "'></span></div></div>");
                     } else {
-                        $(".hours").append("<div><p><span><img src='" + image_url + 
-                        "' class='add_event' id='" + data.hours[i].id + "'></span><b>" + 
+                        var image_url = base_url + "images/icons/add_event.png";
+                        $(".hours").append("<div class='hour_element'><b>" + 
                         data.user[i].name + " " + data.user[i].surname + ":</b> " + 
                         data.hours[i].day + " " + data.hours[i].start_time.substring(0, 5) + " - " + 
-                        data.hours[i].end_time.substring(0, 5) + "</p></div>");
+                        data.hours[i].end_time.substring(0, 5) + "<div class='inputWithIcon' id='" + data.hours[i].id + "'><span><input type='button' class='addE' id='" + data.hours[i].id + "' value='Marcar'><img src='" + image_url + 
+                        "' class='add_event' id='" + data.hours[i].id + "'></span></div></div>");
                     }         
                 }
             } else {
@@ -136,6 +153,25 @@ function addEvent(hours_id) {
             $("#message_hour_s").fadeTo(2000, 1);
             setTimeout(function() {
                 $("#message_hour_s").fadeTo(2000, 0);
+            }, 2000);
+        },
+        error: function(data) {
+            console.log(data)
+            console.log("ups")
+        }
+    })
+}
+
+function removeEvent(hours_id) {
+    $.ajax({
+        type: "DELETE",
+        url: base_url + "api/removeEvent/" + hours_id,
+        data: {cadeira_id: localStorage.cadeira_id, user_id: localStorage.user_id},
+        success: function(data) {
+            console.log(data)
+            $("#message_hour_s_remove").fadeTo(2000, 1);
+            setTimeout(function() {
+                $("#message_hour_s_remove").fadeTo(2000, 0);
             }, 2000);
         },
         error: function(data) {

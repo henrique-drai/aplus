@@ -40,6 +40,7 @@
                     </div>
                     <div class="hours"></div>
                     <div class="message" id="message_hour_s">Adicionado ao calendário!</div>
+                    <div class="message" id="message_hour_s_remove">Removido do calendário!</div>
                 </div>
             </div>
         </div>

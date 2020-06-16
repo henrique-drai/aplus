@@ -134,6 +134,10 @@ class EventModel extends CI_Model { //evento & horario_duvidas
         $this->db->delete('evento', array('id' => $id));
     }
 
+    public function deleteEventByHourId($hour_id) {
+        $this->db->delete('evento', array('horario_id' => $hour_id));
+    }
+
     public function notGoing($user_id, $evento_id) {
         $this->db->delete('evento_user', array(
             'evento_id' => $evento_id,

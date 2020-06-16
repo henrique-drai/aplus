@@ -26,7 +26,8 @@ class Api_Chat extends REST_Controller {
 
     public function sendMessageGroup_post(){
         $this->load->model('ChatModel');
-    
+        $this->load->model('NotificationModel');
+
         $data = Array(
             "content"     => htmlspecialchars($this->post('m')),
             "grupo_id"    => htmlspecialchars($this->post('id')),
@@ -34,11 +35,30 @@ class Api_Chat extends REST_Controller {
             "date"        => htmlspecialchars($this->post('t')),  
         );
         $this->ChatModel->sendMessageGroup($data);
+
+         //notificação
+        // $notification = array();
+        // $curr_date = date('Y/m/d H:i:s', time());
+        // foreach ($post as $key => $value) {
+        //     array_push($notification, Array(
+        //     "user_id" => $value,
+        //     "type" => "alert",
+        //     "title" => "Nova reunião no calendário",
+        //     "content" => "Clique para saber mais",
+        //     "link" => "app",
+        //     "seen" => FALSE,
+        //     "date" => $curr_date
+        //     ));
+        // }
+
+        // $this->NotificationModel->createMultiple($notification);
+
     }
 
     public function sendMessage_post(){
         $this->load->model('ChatModel');
-      
+        $this->load->model('NotificationModel');
+
         $data = Array(
             "content"     => htmlspecialchars($this->post('m')),
             "id_receiver" => htmlspecialchars($this->post('id')),
@@ -46,6 +66,26 @@ class Api_Chat extends REST_Controller {
             "date"        => htmlspecialchars($this->post('t')),  
         );
         $this->ChatModel->sendMessage($data);
+        $this->load->model('UserModel');
+
+        $user=$this->UserModel->getUserById($data["id_sender"]);
+        // print_r($user->name);
+        //notificação
+        $notification = array();
+        $curr_date = date('Y/m/d H:i:s', time());
+        array_push($notification, Array(
+            "user_id" => $data["id_receiver"],
+            "type" => "message",
+            "title" => "Mensagem de ".$user->name." ". $user->surname,
+            "content" => "Clique para saber mais",
+            "link" => "app/chat/p/".$data["id_sender"],
+            "seen" => FALSE,
+            "date" => $curr_date
+        ));
+    
+
+        $this->NotificationModel->createMultiple($notification);
+
     }
 
     //////////////////////////////////////////////////////////////

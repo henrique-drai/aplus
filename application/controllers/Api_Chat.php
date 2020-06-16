@@ -27,6 +27,9 @@ class Api_Chat extends REST_Controller {
     public function sendMessageGroup_post(){
         $this->load->model('ChatModel');
         $this->load->model('NotificationModel');
+        $this->load->model('GroupModel');
+        $this->load->model('UserModel');
+
 
         $data = Array(
             "content"     => htmlspecialchars($this->post('m')),
@@ -35,23 +38,31 @@ class Api_Chat extends REST_Controller {
             "date"        => htmlspecialchars($this->post('t')),  
         );
         $this->ChatModel->sendMessageGroup($data);
+        $grupo=$this->GroupModel->getGroupById($data["grupo_id"]);
+        $data["user_ids"] = $this->GroupModel->getStudents(htmlspecialchars($data["grupo_id"]));
+        $users = array();
+        for($i=0; $i < count($data["user_ids"]); $i++) {
+            array_push($users, $this->UserModel->getUserById($data["user_ids"][$i]["user_id"]));
+        }
+        // print_r($users);
 
-         //notificação
-        // $notification = array();
-        // $curr_date = date('Y/m/d H:i:s', time());
-        // foreach ($post as $key => $value) {
-        //     array_push($notification, Array(
-        //     "user_id" => $value,
-        //     "type" => "alert",
-        //     "title" => "Nova reunião no calendário",
-        //     "content" => "Clique para saber mais",
-        //     "link" => "app",
-        //     "seen" => FALSE,
-        //     "date" => $curr_date
-        //     ));
-        // }
 
-        // $this->NotificationModel->createMultiple($notification);
+        // notificação
+        $notification = array();
+        $curr_date = date('Y/m/d H:i:s', time());
+        for ($i=0; $i < count($users); $i++) {
+            array_push($notification, Array(
+            "user_id" => $users[$i]->id,
+            "type" => "alert",
+            "title" => "Nova mensagem do grupo ".$grupo[0]["name"],
+            "content" => "Clique para saber mais",
+            "link" => "app/chat/g/".$data["grupo_id"],
+            "seen" => FALSE,
+            "date" => $curr_date
+            ));
+        }
+
+        $this->NotificationModel->createMultiple($notification);
 
     }
 

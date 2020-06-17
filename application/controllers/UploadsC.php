@@ -8,14 +8,10 @@ class UploadsC extends CI_Controller {
     {
         parent::__construct();
         $this->load->helper('url');
+        if(is_null($this->session->userdata('role'))){ $this->load->view('errors/403'); }
         $this->load->model('ProjectModel');
     }
 
-    //      uploadsc/
-    public function index()
-    {
-
-    }
 
     //      uploadsc/uploadEnunciadoProjeto/:projeto_id
     public function uploadEnunciadoProjeto($project_id)

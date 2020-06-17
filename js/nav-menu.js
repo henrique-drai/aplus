@@ -17,6 +17,7 @@ $(document).ready(() => {
     $(".nav-menu-btn-logout").click(() => {endSession()})
     $("#nav-menu-toggle").click(()=>{toggleMenu()})
     $(".btn-notifications").click(()=>{toggleNotifications()})
+    
     updateNavMenuData()
     updateNotifications()
     setInterval(updateNotifications, 5000)
@@ -92,25 +93,27 @@ $(document).ready(() => {
 
         async function notificationSeen(id, callback=null){
             $.ajax({
-              type: "POST",
-              url: base_url + "api/notification/" + id,
-              success: function(data) {
-                console.log(data)
-                if(callback)
-                  callback()
-              },
-              error: function(data) {
-                console.log("Problema em api/notification/seen POST")
-              }
+                type: "POST",
+                url: base_url + "api/notification/" + id,
+                success: function(data) {
+                    console.log(data)
+                    if(callback)
+                        callback()
+                    },
+                error: function(data) {
+                    console.log("Problema em api/notification/seen POST")
+                    }
             })
-          }
+        }
     
-        function getDate(date){
-            const diff = Date.now() - new Date(date)
-    
+        function getDate(date) {
+            const diff = new Date() - new Date(date) + 3600000
+        
+            if (diff < 1000*60*60) 
+                return "Há "+Math.floor(diff/1000/60)+" minutos"
             if (diff < 1000*60*60*24)
                 return "Há "+Math.floor(diff/1000/60/60)+" horas"
-    
+        
             return "Há "+Math.floor(diff/1000/60/60/24)+" dias"
         }
     

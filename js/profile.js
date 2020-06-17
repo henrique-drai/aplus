@@ -48,7 +48,7 @@ $(document).ready(() => {
                 data: data,
                 success: function(data) {
                     console.log(data)
-                    // location.reload()
+                    location.reload()
                 },
                 error: function(data) {
                     console.log("Problema na API ao submeter a edição do utilizador.")

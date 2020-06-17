@@ -78,13 +78,13 @@ form.profile-edit-user input[type=submit]{
 
 .header {
     display: flex;
-    flex-wrap: wrap;
 }
 .header > img {
     width: 170px;
     height: 170px;
     border-radius: 200px;
     border: 1px solid #555;
+    background-color: #3e5d4f;
 }
 .header-info {
     padding: 10px 20px;
@@ -92,7 +92,7 @@ form.profile-edit-user input[type=submit]{
 }
 .header-info .name {
     font-weight: bold;
-    font-size: 30px;
+    font-size: 26px;
 }
 .header-info .gabinete{
     font-weight: 300;
@@ -101,7 +101,7 @@ form.profile-edit-user input[type=submit]{
 }
 .header-info .chat img{
     width: 20px;
-    margin: 0px 2px;
+    margin: -2px 2px;
 }
 .header-info .chat img:hover {
     opacity: 0.6;
@@ -111,4 +111,19 @@ form.profile-edit-user input[type=submit]{
     font-size: 14px;
     font-family: 'Poppins', sans-serif;
     margin: 0px;
+    white-space: pre-wrap;
+}
+@media(max-width: 767px) {
+    .header {
+        display: block;
+        text-align: center;
+    }
+    .header > img {
+        width: 120px;
+        height: 120px;
+        max-width: 90%;
+    }
+    .header hr {
+        max-width: 50%;
+    }
 }

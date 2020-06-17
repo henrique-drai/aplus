@@ -195,82 +195,86 @@ class Api_Project extends REST_Controller {
         }
     }
 
-    public function editEnunciado_post(){ 
-        $user_id = $this->session->userdata('id');
-        //Verificar se o id do professor guardado no token está associado à cadeira
+    // NAO APAGAR, DEIXAR COMENTADO
+    // COMENTEI PORQUE CONSEGUI FAZER DIRETAMENTE A CHAMADA AO MODELO QUE CHAMO AQUI NO UPLOAD
+    // POR CAUSA DE UM BUG NO FIREFOX.
 
-        $proj = htmlspecialchars($this->post('projid'));
-        $enunciado = htmlspecialchars($this->post('enunciado'));
+    // public function editEnunciado_post(){ 
+    //     $user_id = $this->session->userdata('id');
+    //     //Verificar se o id do professor guardado no token está associado à cadeira
 
-        if ($this->verify_teacher($user_id,$proj,"projeto") == true){
-            $res = $this->ProjectModel->updateProjEnunciado($enunciado, $proj);
-            $this->response($res, parent::HTTP_OK);            
-        } else {
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
-            $this->response($response, $status);
-        }
+    //     $proj = htmlspecialchars($this->post('projid'));
+    //     $enunciado = htmlspecialchars($this->post('enunciado'));
 
-    }
+    //     if ($this->verify_teacher($user_id,$proj,"projeto") == true){
+    //         $res = $this->ProjectModel->updateProjEnunciado($enunciado, $proj);
+    //         $this->response($res, parent::HTTP_OK);            
+    //     } else {
+    //         $status = parent::HTTP_UNAUTHORIZED;
+    //         $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+    //         $this->response($response, $status);
+    //     }
 
-    public function editEtapaEnunciado_post(){ 
-        $user_id = $this->session->userdata('id');
-        //Verificar se o id do professor guardado no token está associado à cadeira
+    // }
 
-        $etapa = htmlspecialchars($this->post('etapaid'));
-        $enunc = htmlspecialchars($this->post('enunciado'));
+    // public function editEtapaEnunciado_post(){ 
+    //     $user_id = $this->session->userdata('id');
+    //     //Verificar se o id do professor guardado no token está associado à cadeira
 
-        if($this->verify_teacher($user_id, $etapa, "etapa") == true){
-            $res = $this->ProjectModel->editEtapaEnunciado($enunc, $etapa);
-            $this->response($res, parent::HTTP_OK);
-        } else {
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
-            $this->response($response, $status);
-        }
-    }
+    //     $etapa = htmlspecialchars($this->post('etapaid'));
+    //     $enunc = htmlspecialchars($this->post('enunciado'));
+
+    //     if($this->verify_teacher($user_id, $etapa, "etapa") == true){
+    //         $res = $this->ProjectModel->editEtapaEnunciado($enunc, $etapa);
+    //         $this->response($res, parent::HTTP_OK);
+    //     } else {
+    //         $status = parent::HTTP_UNAUTHORIZED;
+    //         $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+    //         $this->response($response, $status);
+    //     }
+    // }
 
 
-    public function submitEtapa_post(){ 
+    // public function submitEtapa_post(){ 
 
-        $user_id = $this->session->userdata('id');
-        //Verificar se o id do aluno guardado no token está associado à cadeira e ao grupo.  - VERIFY ALUNO
+    //     $user_id = $this->session->userdata('id');
+    //     //Verificar se o id do aluno guardado no token está associado à cadeira e ao grupo.  - VERIFY ALUNO
 
-        //verificar se a submissão existe associada à etapa, projeto e grupo
-        //se existir, update, se nao existir, insert
+    //     //verificar se a submissão existe associada à etapa, projeto e grupo
+    //     //se existir, update, se nao existir, insert
 
-        $grupo = htmlspecialchars($this->post('grupo'));
-        $etapa = htmlspecialchars($this->post('etapa'));
-        $fich  = htmlspecialchars($this->post('ficheiro'));
+    //     $grupo = htmlspecialchars($this->post('grupo'));
+    //     $etapa = htmlspecialchars($this->post('etapa'));
+    //     $fich  = htmlspecialchars($this->post('ficheiro'));
 
-        if($this->verify_student($user_id, $grupo)==true){
-            $data_send = Array(
-                "grupo_id"            => $grupo,
-                "etapa_id"            => $etapa,
-                "submit_url"          => $fich,
-                "feedback"            => "",
-            );
+    //     if($this->verify_student($user_id, $grupo)==true){
+    //         $data_send = Array(
+    //             "grupo_id"            => $grupo,
+    //             "etapa_id"            => $etapa,
+    //             "submit_url"          => $fich,
+    //             "feedback"            => "",
+    //         );
     
-            $data["sub"] = $this->ProjectModel->getSubmission($grupo, $etapa);
+    //         $data["sub"] = $this->ProjectModel->getSubmission($grupo, $etapa);
     
-            if(empty($data["sub"]->row())){
-                //submit
-                $returned = $this->ProjectModel->submitEtapa($data_send);
-            } else {
-                //update
-                $returned = $this->ProjectModel->updateSubmission($grupo, $etapa, $fich);
-            }
+    //         if(empty($data["sub"]->row())){
+    //             //submit
+    //             $returned = $this->ProjectModel->submitEtapa($data_send);
+    //         } else {
+    //             //update
+    //             $returned = $this->ProjectModel->updateSubmission($grupo, $etapa, $fich);
+    //         }
 
-            $data["fich"] = $fich;
-            $data["result"] = $returned;
-            $this->response($data, parent::HTTP_OK);
-        } else {
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
-            $this->response($response, $status);
-        }
+    //         $data["fich"] = $fich;
+    //         $data["result"] = $returned;
+    //         $this->response($data, parent::HTTP_OK);
+    //     } else {
+    //         $status = parent::HTTP_UNAUTHORIZED;
+    //         $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+    //         $this->response($response, $status);
+    //     }
 
-    }
+    // }
 
     public function insertTask_post() { 
         $user_id = htmlspecialchars($this->post("user_id"));
@@ -357,42 +361,42 @@ class Api_Project extends REST_Controller {
     }
 
     
-    public function submitFileAreaGrupo_post(){
-        $user_id = $this->session->userdata('id');
-        $grupo_id = htmlspecialchars($this->post("grupo_id"));
-        $ficheiro_url = htmlspecialchars($this->post("ficheiro_url"));
+    // public function submitFileAreaGrupo_post(){
+    //     $user_id = $this->session->userdata('id');
+    //     $grupo_id = htmlspecialchars($this->post("grupo_id"));
+    //     $ficheiro_url = htmlspecialchars($this->post("ficheiro_url"));
 
-        //deviamos importar os models todos no constructor
-        $this->load->model("GroupModel");
+    //     //deviamos importar os models todos no constructor
+    //     $this->load->model("GroupModel");
 
-        if($this->verify_student($user_id, $grupo_id)){
+    //     if($this->verify_student($user_id, $grupo_id)){
 
-            $data_send = Array(
-                "grupo_id"      => $grupo_id,
-                "user_id"       => $user_id,
-                "url"           => $ficheiro_url,
-            );
+    //         $data_send = Array(
+    //             "grupo_id"      => $grupo_id,
+    //             "user_id"       => $user_id,
+    //             "url"           => $ficheiro_url,
+    //         );
 
-            //ver se o ficheiro existe
+    //         //ver se o ficheiro existe
 
-            $data["ficheiro_db"] = $this->GroupModel->getFicheiroGrupoByURLSub($ficheiro_url, $grupo_id);
+    //         $data["ficheiro_db"] = $this->GroupModel->getFicheiroGrupoByURLSub($ficheiro_url, $grupo_id);
 
-            if(empty($data["ficheiro_db"])){
-                $toReturn = $this->GroupModel->submit_ficheiro_areagrupo($data_send);
-            } else {
-                $toReturn = "Exists";
-            }
+    //         if(empty($data["ficheiro_db"])){
+    //             $toReturn = $this->GroupModel->submit_ficheiro_areagrupo($data_send);
+    //         } else {
+    //             $toReturn = "Exists";
+    //         }
 
-            $data["result"] = $toReturn;
-            $this->response($data, parent::HTTP_OK);
-        } else {
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
-            $this->response($response, $status);
-        }
+    //         $data["result"] = $toReturn;
+    //         $this->response($data, parent::HTTP_OK);
+    //     } else {
+    //         $status = parent::HTTP_UNAUTHORIZED;
+    //         $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+    //         $this->response($response, $status);
+    //     }
 
 
-    }
+    // }
 
 
     public function submitRating_post(){

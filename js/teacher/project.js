@@ -180,7 +180,7 @@ $(document).ready(() => {
         } else {
             if($("#file_projeto")[0].files[0].size < 5024000){
                 //msg de sucesso - reformular msgs de sucesso
-                submit_new_enunciado(enunc);
+                // submit_new_enunciado(enunc);
                 $("#enunciado-form")[0].submit();
                 console.log(enunc);
             } else {
@@ -243,7 +243,7 @@ $(document).ready(() => {
             e.preventDefault();
         } else {
             if($("#file_etapa")[0].files[0].size < 5024000){
-                submit_new_etapa_enunciado(enunc);
+                // submit_new_etapa_enunciado(enunc);
                 $("#form-upload-etapa")[0].submit();
             } else {
                 $("#error-popup").text("Ficheiro ultrapassa limite de 5MB");
@@ -444,56 +444,58 @@ function getSumbission(grupo_id, etapa, proj){
 
 
 //Funções POST
-function submit_new_enunciado(enunc){
-    console.log(base_url);
-    const data = {
-        projid : parseInt(proj),
-        enunciado : enunc,
-    }
 
-    $.ajax({
-        type: "POST",
-        url: base_url + "api/editEnunciado",
-        data: data,
-        success: function(data) {
-            console.log(data);
-            console.log(base_url + "uploads/enunciados_files/"+ proj);
-            $("#enunciado_h4").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf?"+new Date().getMilliseconds()+"'>" + data + "</a>");
-        },
-        error: function(data) {
-            console.log("Erro na API - Edit Enunciado");
-            console.log(data);
-        }
-    });
-}
+// passei a fazer isto no uploadsC devido a um conflito com o firefox.
+// function submit_new_enunciado(enunc){
+//     console.log(base_url);
+//     const data = {
+//         projid : parseInt(proj),
+//         enunciado : enunc,
+//     }
 
-function submit_new_etapa_enunciado(enunc){
-    console.log(enunc);
-    console.log(base_url);
-    const data = {
-        etapaid : selected_etapa,
-        enunciado : enunc,
-    }
+//     $.ajax({
+//         type: "POST",
+//         url: base_url + "api/editEnunciado",
+//         data: data,
+//         success: function(data) {
+//             console.log(data);
+//             console.log(base_url + "uploads/enunciados_files/"+ proj);
+//             $("#enunciado_h4").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf?"+new Date().getMilliseconds()+"'>" + data + "</a>");
+//         },
+//         error: function(data) {
+//             console.log("Erro na API - Edit Enunciado");
+//             console.log(data);
+//         }
+//     });
+// }
 
-    $.ajax({
-        type: "POST",
-        url: base_url + "api/editEtapaEnunciado",
-        data: data,
-        success: function(data) {
-            console.log(data);
-            $('#file_etapa').css("border-left-color", "rgb(124, 124, 124)");
-            var removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
-            $("#enunciado_label").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+ "/" + selected_etapa+".pdf'>" + data + "</a>" + removebut);
-            //MSG DE SUCESSO - canto superior direito - session           
-        },
-        error: function(data) {
-            console.log("Erro na API - Edit Etapa Enunciado");
-            //MSG DE ERRO - canto superior direito - session
-            console.log(data);
-        }
-    });
+// function submit_new_etapa_enunciado(enunc){
+//     console.log(enunc);
+//     console.log(base_url);
+//     const data = {
+//         etapaid : selected_etapa,
+//         enunciado : enunc,
+//     }
 
-}
+//     $.ajax({
+//         type: "POST",
+//         url: base_url + "api/editEtapaEnunciado",
+//         data: data,
+//         success: function(data) {
+//             console.log(data);
+//             $('#file_etapa').css("border-left-color", "rgb(124, 124, 124)");
+//             var removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
+//             $("#enunciado_label").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+ "/" + selected_etapa+".pdf'>" + data + "</a>" + removebut);
+//             //MSG DE SUCESSO - canto superior direito - session           
+//         },
+//         error: function(data) {
+//             console.log("Erro na API - Edit Etapa Enunciado");
+//             //MSG DE ERRO - canto superior direito - session
+//             console.log(data);
+//         }
+//     });
+
+// }
 
 function submit_feedback(feedback, etapa, grupo_id){
     if (validate_feedback()){

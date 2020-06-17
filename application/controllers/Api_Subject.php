@@ -172,35 +172,35 @@ class Api_Subject extends REST_Controller {
     }
 
 
-    public function submitFileAreaCadeira_post(){
-        $user_id = $this->session->userdata('id');
+    // public function submitFileAreaCadeira_post(){
+    //     $user_id = $this->session->userdata('id');
 
-        if ($this->verify_teacher($user_id, htmlspecialchars($this->post("cadeira_id")),"cadeira")){
-            $data_send = Array(
-               "user_id"        =>  $user_id,
-               "cadeira_id"     =>  htmlspecialchars($this->post("cadeira_id")),
-               "url"            =>  htmlspecialchars($this->post("ficheiro_url")),     
-            );
+    //     if ($this->verify_teacher($user_id, htmlspecialchars($this->post("cadeira_id")),"cadeira")){
+    //         $data_send = Array(
+    //            "user_id"        =>  $user_id,
+    //            "cadeira_id"     =>  htmlspecialchars($this->post("cadeira_id")),
+    //            "url"            =>  htmlspecialchars($this->post("ficheiro_url")),     
+    //         );
 
-            //ver se o ficheiro ja consta
+    //         //ver se o ficheiro ja consta
 
-            $data["ficheiro_db"] = $this->SubjectModel->getFicheiroAreaByURLSub(htmlspecialchars($this->post("ficheiro_url")), htmlspecialchars($this->post("cadeira_id")));
+    //         $data["ficheiro_db"] = $this->SubjectModel->getFicheiroAreaByURLSub(htmlspecialchars($this->post("ficheiro_url")), htmlspecialchars($this->post("cadeira_id")));
 
-            if(empty($data["ficheiro_db"])){
-                $toReturn = $this->SubjectModel->submitFicheiroArea($data_send);
-            } else {
-                $toReturn = "Exists";
-            }
+    //         if(empty($data["ficheiro_db"])){
+    //             $toReturn = $this->SubjectModel->submitFicheiroArea($data_send);
+    //         } else {
+    //             $toReturn = "Exists";
+    //         }
 
-            $data["result"] = $toReturn;
+    //         $data["result"] = $toReturn;
 
-            $this->response($data, parent::HTTP_OK);
-        } else {
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
-            $this->response($response, $status);
-        }
-    }
+    //         $this->response($data, parent::HTTP_OK);
+    //     } else {
+    //         $status = parent::HTTP_UNAUTHORIZED;
+    //         $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
+    //         $this->response($response, $status);
+    //     }
+    // }
 
     public function addStudentSubject_post(){
         $this->verify_admin();

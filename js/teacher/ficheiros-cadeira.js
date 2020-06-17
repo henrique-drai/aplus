@@ -10,7 +10,8 @@ $(document).ready(() => {
             e.preventDefault();
         } else {
             if($("#file_submit")[0].files[0].size < 5024000){
-                submit_ficheiro(cadeira, $("#file_submit").val().split('\\').pop());  
+                // submit_ficheiro(cadeira, $("#file_submit").val().split('\\').pop());  
+                console.log("vai ser enviado o ficheiro")
             } else {
                 $(".error-file").text("O ficheiro ultrapassa o limite máximo de 5MB");
                 $(".error-file").show();
@@ -44,27 +45,27 @@ function setCadeira(id){
     cadeira = id;
 }
 
-function submit_ficheiro(cadeira_id, ficheiro){
+// function submit_ficheiro(cadeira_id, ficheiro){
 
-    const data = {
-        cadeira_id : cadeira_id,
-        ficheiro_url : ficheiro,
-    }
+//     const data = {
+//         cadeira_id : cadeira_id,
+//         ficheiro_url : ficheiro,
+//     }
 
-    $.ajax({
-        type: "POST",
-        url: base_url + "api/submitFileAreaCadeira",
-        data: data,
-        success: function(data) {
-            console.log(data)
-            $("#success").show();
-        },
-        error: function(data) {
-            console.log("Erro na API - Submit File Para Area da Cadeira");
-            console.log(data);
-        }
-    });
-}
+//     $.ajax({
+//         type: "POST",
+//         url: base_url + "api/submitFileAreaCadeira",
+//         data: data,
+//         success: function(data) {
+//             console.log(data)
+//             $("#success").show();
+//         },
+//         error: function(data) {
+//             console.log("Erro na API - Submit File Para Area da Cadeira");
+//             console.log(data);
+//         }
+//     });
+// }
 
 
 function get_ficheiros(cadeira_id){

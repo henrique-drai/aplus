@@ -8,6 +8,7 @@ class UploadsC extends CI_Controller {
     {
         parent::__construct();
         $this->load->helper('url');
+        $this->load->model('ProjectModel');
     }
 
     //      uploadsc/
@@ -51,13 +52,11 @@ class UploadsC extends CI_Controller {
             $upload['overwrite'] = true;
 
             $this->load->library('upload', $upload);
-            // $this->upload->overwrite = TRUE;
             $this->upload->initialize($upload);
 
             $error = $this->upload->display_errors();
             print_r($error);
 
-            
             // type == S -> msg de sucesso
             // type == E -> msg de erro
     
@@ -76,12 +75,13 @@ class UploadsC extends CI_Controller {
             }
             else
             {
-
                 $arr_msg = array (
                     "msg" => "Ficheiro submetido com sucesso",
                     "type" => "S",
                 );
 
+                $enunciado = $this->upload->data('client_name');
+                $this->ProjectModel->updateProjEnunciado($enunciado, $project_id);
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
@@ -129,6 +129,8 @@ class UploadsC extends CI_Controller {
                     "type" => "S",
                 );
 
+                $enunciado = $this->upload->data('client_name');
+                $this->ProjectModel->editEtapaEnunciado($enunciado, $etapa_id);
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
@@ -176,6 +178,24 @@ class UploadsC extends CI_Controller {
                     "type" => "S",
                 );
 
+                $fich = $this->upload->data('client_name');
+                $sub = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
+
+                if(empty($sub->row())){
+                    //submit
+                    $data_send = Array(
+                        "grupo_id"            => $grupo_id,
+                        "etapa_id"            => $etapa_id,
+                        "submit_url"          => $fich,
+                        "feedback"            => "",
+                    );
+
+                    $this->ProjectModel->submitEtapa($data_send);
+                } else {
+                    //update
+                    $this->ProjectModel->updateSubmission($grupo_id, $etapa_id, $fich);
+                }
+
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
@@ -210,6 +230,19 @@ class UploadsC extends CI_Controller {
             }  
             else
             {
+                //registar ficheiro na bd e cenas
+                $this->load->model('GroupModel');
+                $fich = $this->upload->data('client_name');
+                $res = $this->GroupModel->getFicheiroGrupoByURLSub($fich, $grupo_id);
+                if(empty($res)){
+                    $data_send = Array(
+                        "grupo_id"      => $grupo_id,
+                        "user_id"       => $user_id,
+                        "url"           => $fich,
+                    );
+                    $this->GroupModel->submit_ficheiro_areagrupo($data_send);
+                }
+
                 header("Location: ".base_url()."app/ficheiros/".$grupo_id);
             }
         } else {
@@ -254,6 +287,18 @@ class UploadsC extends CI_Controller {
             }  
             else
             {
+                $this->load->model('SubjectModel');
+                $fich = $this->upload->data('client_name');
+                $res = $this->SubjectModel->getFicheiroAreaByURLSub($fich, $cadeira_id);
+                if(empty($res)){
+                    $data_send = Array(
+                        "user_id"        =>  $user_id,
+                        "cadeira_id"     =>  $cadeira_id,
+                        "url"            =>  $fich,     
+                     );
+                     
+                    $this->SubjectModel->submitFicheiroArea($data_send);
+                }
                 header("Location: ".base_url()."subjects/ficheiros/".$cadeira_code.'/'.$year);
             }
         } else {

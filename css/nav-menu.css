@@ -13,6 +13,7 @@
     top: 0px;
     left: 0px;
     width: 220px;
+    height: 100%;
     transition: 0.5s;
     overflow-y: scroll;
     scrollbar-width: none;

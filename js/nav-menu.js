@@ -76,11 +76,13 @@ $(document).ready(() => {
             type: "GET",
             url: base_url + "api/notifications/new",
             success: function(data) {
-                if(data.length)
+                if(data.length) {
                     $("#nav-menu-hook .alert").removeClass("hidden").text(data.length)
-                else
-                    $("#nav-menu-hook .alert").addClass("hidden")  
-    
+                    $("#mobile-navbar .alert").removeClass("hidden").text(data.length)
+                } else {
+                    $("#nav-menu-hook .alert").addClass("hidden")
+                    $("#mobile-navbar .alert").addClass("hidden")  
+                }
                 renderNotifications(data)
             },
             error: function(data) {

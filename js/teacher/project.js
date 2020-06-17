@@ -926,7 +926,6 @@ function createEditPopup(name, data, desc){
         }
     });
 
-
     $(".cd-buttons").html('').append("<li><input form='etapa-form-edit' class='button-popup' id='newEtapaEDIT' type='submit' value='Confirmar'>" +
     "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }

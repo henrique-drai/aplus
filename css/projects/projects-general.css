@@ -5,6 +5,15 @@
 }
 
 
+.gruposDIV a {
+    color: rgb(62, 93, 79);
+    text-decoration: none;
+}
+
+.gruposDIV a:hover{
+    color: rgb(0, 177, 77);
+}
+
 .form-input-text {
     background: #e9e9e9;
 }
@@ -25,7 +34,7 @@ label {
     background: rgba(106, 192, 66, 0.7);
 }
 
-.submit.error, #error-popup{
+.submit.error, #error-popup, #errormsg{
     background: rgb(255, 72, 72);
     color:white;
 }
@@ -127,6 +136,7 @@ label {
 
 .etapasDIV p:first-child{
     width:45%;
+    font-size: 17px;
 }
 
 .etapasDIV p:nth-child(2){
@@ -149,7 +159,8 @@ label {
 }
 
 .wrapper input[type="button"] {
-    display: inline;
+    width: unset;
+    display: inline; 
 }
 
 .cd-popup-container > div {

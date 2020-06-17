@@ -38,7 +38,8 @@
             </p>
 
             <p>
-                <label class="form-label">Etapas:</label>
+                <!-- <label class="form-label">Etapas:</label> -->
+                <h3>Etapas:</h3>
                 <label id="addEtapa"><img src="<?php echo $base_url; ?>/images/add.png"></label>
             </p>
 

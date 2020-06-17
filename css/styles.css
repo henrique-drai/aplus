@@ -50,10 +50,11 @@ input, select, textarea {
 
 select {
     width:100%;
-    background-image:linear-gradient(45deg, transparent 50%, gray 50%),linear-gradient(135deg, gray 50%, transparent 50%),linear-gradient(to right, #ccc, #ccc);
-    background-position:calc(100% - 6px) calc(1em + 2px),calc(100% - 1px) calc(1em + 2px),calc(100% - 1.2em) 0.5em;
-    background-size:5px 5px,5px 5px,1px 1.5em;
+    background-image:linear-gradient(45deg, transparent 50%, #3e5d4f 50%),linear-gradient(135deg, #3e5d4f 50%, transparent 50%),linear-gradient(to right, #ccc, #ccc);
+    background-position: calc(99% - 13px) calc(1em + 2px),calc(99% - 7px) calc(1em + 2px),calc(99% - 2em) 0.5em;
+    background-size:6px 6px,6px 6px,1px 1.5em;
     background-repeat: no-repeat;
+    margin:auto;
 }
 
 input[type=button],input[type=submit]{

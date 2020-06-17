@@ -203,8 +203,8 @@ class Api_Project extends REST_Controller {
         $enunciado = htmlspecialchars($this->post('enunciado'));
 
         if ($this->verify_teacher($user_id,$proj,"projeto") == true){
-            $this->ProjectModel->updateProjEnunciado($enunciado, $proj);
-            $this->response($enunciado, parent::HTTP_OK);            
+            $res = $this->ProjectModel->updateProjEnunciado($enunciado, $proj);
+            $this->response($res, parent::HTTP_OK);            
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
             $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
@@ -221,8 +221,8 @@ class Api_Project extends REST_Controller {
         $enunc = htmlspecialchars($this->post('enunciado'));
 
         if($this->verify_teacher($user_id, $etapa, "etapa") == true){
-            $this->ProjectModel->editEtapaEnunciado($enunc, $etapa);
-            $this->response($enunc, parent::HTTP_OK);
+            $res = $this->ProjectModel->editEtapaEnunciado($enunc, $etapa);
+            $this->response($res, parent::HTTP_OK);
         } else {
             $status = parent::HTTP_UNAUTHORIZED;
             $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];

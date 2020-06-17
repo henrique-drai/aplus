@@ -181,6 +181,7 @@ $(document).ready(() => {
             if($("#file_projeto")[0].files[0].size < 5024000){
                 //msg de sucesso - reformular msgs de sucesso
                 submit_new_enunciado(enunc);
+                $("#enunciado-form")[0].submit();
                 console.log(enunc);
             } else {
                 $("#error-popup").text("Ficheiro ultrapassa o limite máximo de 5MB");
@@ -243,6 +244,7 @@ $(document).ready(() => {
         } else {
             if($("#file_etapa")[0].files[0].size < 5024000){
                 submit_new_etapa_enunciado(enunc);
+                $("#form-upload-etapa")[0].submit();
             } else {
                 $("#error-popup").text("Ficheiro ultrapassa limite de 5MB");
                 $("#error-popup").show().delay(3000).fadeOut();
@@ -443,6 +445,7 @@ function getSumbission(grupo_id, etapa, proj){
 
 //Funções POST
 function submit_new_enunciado(enunc){
+    console.log(base_url);
     const data = {
         projid : parseInt(proj),
         enunciado : enunc,
@@ -466,6 +469,7 @@ function submit_new_enunciado(enunc){
 
 function submit_new_etapa_enunciado(enunc){
     console.log(enunc);
+    console.log(base_url);
     const data = {
         etapaid : selected_etapa,
         enunciado : enunc,
@@ -794,7 +798,7 @@ function createAddEnuncPopup(){
 
     $(".cd-message").html(popup);
     $(".cd-message").after('<div id="error-popup" class="submit-msg">Mensagem de erro template</div>');
-    $(".cd-buttons").html('').append("<li><input form='enunciado-form' class='button-popup' id='addEnunciado' type='submit' value='Confirmar'>" +
+    $(".cd-buttons").html('').append("<li><input class='button-popup' id='addEnunciado' type='submit' value='Confirmar'>" +
         "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
@@ -805,7 +809,7 @@ function createEtapaPopup(){
     '<label class="form-label">Nome</label><input class="form-input-text" type="text" name="etapaName" required>'+
     '<label class="form-label">Descrição</label><textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>'+
     '<label class="form-label" id="date-picker-label">Data de entrega'+
-    '<input class="form-input-text" id="datepickernew" name="etapaDate" autocomplete="off" required></label>'+
+    '<input class="form-input-text" id="datepickernew" name="etapaDate" autocomplete="off" readonly="readonly" required></label>'+
     '</form><div id="placeholder-picker-new"></div>' 
 
     $(".cd-message").html(content);
@@ -873,7 +877,7 @@ function createEnunciadoEtapaPopup(){
     $("#popup-form").html(form);
     $("#error-popup").remove();
     $(".cd-message").after('<div id="error-popup" class="submit-msg">Mensagem de erro template</div>');
-    $(".cd-buttons").html('').append("<li><input form='form-upload-etapa' class='button-popup' id='addEnuncEtapa' type='submit' value='Confirmar'>" +
+    $(".cd-buttons").html('').append("<li><input class='button-popup' id='addEnuncEtapa' type='submit' value='Confirmar'>" +
     "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
@@ -884,7 +888,7 @@ function createEditPopup(name, data, desc){
     '<label class="form-label-title">Descrição</label>' +
     '<textarea class="form-text-area" type="text" name="editetapaDescription" required></textarea>'+
     '<label class="form-label-title" id="date-picker-label">Data de entrega' +
-    '<input class="form-input-text" id="datepickeredit" name="editetapaDate" autocomplete="off" required>'+
+    '<input class="form-input-text" id="datepickeredit" name="editetapaDate" autocomplete="off" readonly="readonly" required>'+
     '<div id="placeholder-picker-edit"></div></label></form>' +
     '<div class="wrapper"><hr><input id="addEtapaEnunciado" class="addE" type="button" value="Enunciado">' +
     '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +

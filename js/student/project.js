@@ -66,7 +66,7 @@ $(document).ready(() => {
         } else {
             if(have_group){
                 $("#form-submit-etapa").show();
-                $(".cd-buttons").html('').append("<li><input form='form-submit-etapa' class='button-popup' id='addSubmission' type='submit' value='Submeter'>" +
+                $(".cd-buttons").html('').append("<li><input class='button-popup' id='addSubmission' type='submit' value='Submeter'>" +
                 "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");
             } else {
                 $("#error-popup").text("Inscreva-se num grupo para poder fazer submissões.")
@@ -111,8 +111,8 @@ $(document).ready(() => {
             e.preventDefault();
         } else {
             if($("#file_submit")[0].files[0].size < 5024000){
-                // $("#form-submit-etapa")[0].submit();
                 submit_etapa($("#file_submit").val().split('\\').pop());
+                $("#form-submit-etapa")[0].submit();
             } else {
                 $("#error-popup").text("Ficheiro ultrapassa o limite de 5MB")
                 $("#error-popup").show().delay(3000).fadeOut();

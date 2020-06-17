@@ -33,7 +33,7 @@ $(document).ready(() => {
              '<label class="form-label">Nome'+
              '<input class="form-input-text" type="text" name="etapaName" required></label>'+
              '<label class="form-label" id="date-picker-label">Data de entrega' +
-             '<input class="form-input-text" id="datepicker'+ etapanum +'" name="etapaDate" autocomplete="off" required>' +
+             '<input class="form-input-text" id="datepicker'+ etapanum +'" name="etapaDate" autocomplete="off" readonly="readonly" required>' +
              '<div id="placeholder-picker'+etapanum+'"></div>' +
              '</label>' +
              '</div> ' + 

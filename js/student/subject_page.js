@@ -109,7 +109,7 @@ function getInfo() {
                             for(var j=0; j < data['evento'].length; j++) {
                                 if(data['evento'][j][0].horario_id != data.hours[i].id) {
                                     flag = false;
-                                } else {
+                                } else if(data["evento"][j][0].end_date < new Date() && data['evento'][j][0].horario_id != data.hours[i].id){
                                     flag = true;
                                     break;
                                 }

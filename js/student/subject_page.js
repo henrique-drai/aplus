@@ -107,16 +107,20 @@ function getInfo() {
                     if (data["evento"]) {
                         if(data["evento"].length > 0) {
                             for(var j=0; j < data['evento'].length; j++) {
+                                console.log(data.hours[i].id)
+                                console.log(data["evento"][j][0].end_date)
                                 if(data['evento'][j][0].horario_id != data.hours[i].id) {
                                     flag = false;
-                                } else if(data["evento"][j][0].end_date < new Date() && data['evento'][j][0].horario_id != data.hours[i].id){
+                                } else if(new Date(data["evento"][j][0].end_date) > new Date() && data['evento'][j][0].horario_id == data.hours[i].id){
+                                    console.log("entrou")
                                     flag = true;
                                     break;
                                 }
                             }
                         }
                     }
-                    
+                    console.log(flag)
+                    console.log(new Date())
                     if(flag) {
                         var image_url = base_url + "images/icons/remove_event.png";
                         $(".hours").append("<div class='hour_element'><b>" + 

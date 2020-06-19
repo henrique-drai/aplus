@@ -80,13 +80,7 @@ $(document).ready(() => {
         var task_id = $(this).attr("id");
         var tr_id = $(this).parent().parent().attr("class");
         updateTaskPopup(task_id, proj_name, tr_id);
-        $(this).css("background-color", "rgb(153, 156, 155)");
-
-        // if ($(this).css("background-color") == "rgb(153, 156, 155)"){
-        //     $(this).css("background-color", "white");
-        // } else {
-            
-        // }        
+        $(this).css("background-color", "rgb(153, 156, 155)");      
     })
 
     $("body").on("click", ".start_date_button", function() {
@@ -131,7 +125,7 @@ $(document).ready(() => {
             data:{role: "student", grupo_id: localStorage.grupo_id},
             success:function(data){
                 var downloadLink = document.createElement("a");
-                var fileData = ['\ufeff'+data];   
+                var fileData = ['\ufeff'+data];
 
                 var blobObject = new Blob(fileData,{
                     type: "text/csv;charset=utf-8;"
@@ -267,7 +261,7 @@ function updateTaskPopup(task_id, proj_name, tr_id){
             $(".insertHere ." + tr_id).empty();
             $(".insertHere ." + tr_id).append("<td>" + data.task[0].name + "</td>" +
                 "<td class='member' id='" + data.task[0].id + "'><span>" + name + "</span></td>" +
-                "<td>" + (completed ? "Sim" : "Não") + "</td><td class='time_end'>" + (time_spent == '' ? "Ainda não terminado" : time_spent) + "</td>" +
+                "<td  class='final'>" + (completed ? "Sim" : "Não") + "</td><td class='time_end'>" + (time_spent == '' ? "Ainda não terminado" : time_spent) + "</td>" +
                 "<td><input class='taskInfo' id='" + data.task[0].id + "' type='button' value='Opções' style='background-color: rgb(153, 156, 155);'></td>" +
                 "<td><input id='" + data.task[0].id + "' class='remove' type='button' value='Eliminar'></td></tr>");
             $(".taskInfo#" + data.task[0].id).css("background-color", "rgb(153, 156, 155)");
@@ -383,14 +377,14 @@ function getTasks() {
                     }                    
 
                     if(data.tasks[i].done_date == "0000-00-00 00:00:00") {
-                        table = table + "<td>Não</td class='time_end'><td>Ainda não terminado</td>";
+                        table = table + "<td class='final'>Não</td class='time_end'><td>Ainda não terminado</td>";
                     } else {
                         console.log(data)
                         var day = data.tasks[i].done_date.substring(8, 10) - data.tasks[i].start_date.substring(8, 10);
                         var hours = data.tasks[i].done_date.substring(11, 13) - data.tasks[i].start_date.substring(11, 13);
                         var min = data.tasks[i].done_date.substring(14, 16) - data.tasks[i].start_date.substring(14, 16);
                         var seconds = data.tasks[i].done_date.substring(17, 19) - data.tasks[i].start_date.substring(17, 19);
-                        table = table + "<td>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</td>";
+                        table = table + "<td class='final'>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</td>";
                     }
 
                     table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + 
@@ -502,6 +496,8 @@ function insertTaskEndDate(task_id) {
             $(".title_end").append("<h3>Data de Fim</div>");
             $(".time_end").append(day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos")
             $(".wrapper").remove();
+            $(".final").empty()
+            $(".final").append("Sim");
         },
         error: function (data) {
             alert("Houve um erro a inserir a data-fim da tarefa.")

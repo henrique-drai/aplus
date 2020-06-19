@@ -15,3 +15,5 @@
         <a href="<?=base_url()?>">Login</a>
     </main>
 </body>
+
+<?php die; ?>

@@ -27,8 +27,10 @@
         </div>
 
         <div id="btnArea">
+            
             <input id="ficheiros" type="button" value="Área de Ficheiros">
             <div class="fichNumb"></div>
+            <a href="<?=$base_url."app/chat/g/".$grupo["id"]?>" class="std-btn">Chat de Grupo</a>
         </div>
 
         <h2>Agenda <img src="<?=base_url()?>images/icons/add_event.png" alt="Add Event" class="add-event-icon"></h2>

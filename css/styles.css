@@ -36,7 +36,7 @@ main {
     box-sizing: border-box;
     overflow-y: auto;
 }
-input, select, textarea {
+input, select, textarea, a.std-btn {
     text-align: left;
     border: none;
     border-left: 3px solid transparent;
@@ -57,16 +57,25 @@ select {
     margin:auto;
 }
 
-input[type=button],input[type=submit]{
+input[type=button],
+input[type=submit],
+a.std-btn{
     margin: 20px auto;
     border: 1px solid #3e5d4f;
     text-align: center;
     cursor:pointer;
     font-weight: bold;
 }
+a.std-btn {
+    text-decoration: none;
+    color: black;
+    font-size: 13px;
+    width: max-content;
+}
 
 input[type=button]:hover,
-input[type=submit]:hover {
+input[type=submit]:hover,
+a.std-btn:hover {
     background-color: #eee;
 }
 

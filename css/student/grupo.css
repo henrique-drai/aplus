@@ -108,6 +108,10 @@ input.remove:hover {
     margin-left: 0 !important;
 }
 
+td {
+    mso-number-format:"#,##0.00"
+}
+
 table, tr, td, th {
     border: none !important;
     background-color: #efefef;

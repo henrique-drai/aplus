@@ -19,6 +19,7 @@
     <?php $this->view('templates/nav-menu'); ?>
 
     <main>
+    <br>
         <div class="header">
             <img src="<?=$picture?>" alt="Profile Picture">
             <div class="header-info">

@@ -46,15 +46,6 @@
                     </div>
                     <div class="hours"></div>
 
-                    <div class="hours_buttons">
-                        <label class="add_hour"><img src="<?php echo $base_url; ?>images/add.png"></label>
-                        <label class="remove_hour"><img src="<?php echo $base_url; ?>images/close.png"></label>
-                        <br>
-                    </div>
-
-                    <div class="hours_inputs"></div>
-                    <input type="button" id="save_button_hours" value="Guardar">
-
                     <div class="message" id="message_hour">Editado com sucesso!</div>
 
                     <?php $this->view('templates/popup'); ?>

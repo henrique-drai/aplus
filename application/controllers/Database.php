@@ -6,10 +6,11 @@ class Database extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->load->helper('url');
+        if(is_null($this->session->userdata('role'))){ $this->load->view('errors/403'); }
     }
 
     public function index() {
-        $this->load->helper('url');
         $data["base_url"] = base_url();
         $this->load->view('templates/head', $data);
         $this->load->view('database', $data);

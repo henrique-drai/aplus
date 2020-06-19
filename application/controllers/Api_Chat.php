@@ -30,9 +30,10 @@ class Api_Chat extends REST_Controller {
         $this->load->model('GroupModel');
         $this->load->model('UserModel');
 
+        $content = htmlspecialchars($this->post('m'));
 
         $data = Array(
-            "content"     => htmlspecialchars($this->post('m')),
+            "content"     => $content,
             "grupo_id"    => htmlspecialchars($this->post('id')),
             "user_id"     => $this->session->userdata('id'),
             "date"        => htmlspecialchars($this->post('t')),  
@@ -50,18 +51,21 @@ class Api_Chat extends REST_Controller {
         // notificação
         $notification = array();
         $curr_date = date('Y/m/d H:i:s', time());
+        $abbreviation = (strlen($content) >= 40) ?  substr($content, 0, 40) . "..." : $content;
+        $title = "Nova mensagem do grupo ".$grupo[0]["name"];
         for ($i=0; $i < count($users); $i++) {
             array_push($notification, Array(
             "user_id" => $users[$i]->id,
-            "type" => "alert",
-            "title" => "Nova mensagem do grupo ".$grupo[0]["name"],
-            "content" => "Clique para saber mais",
+            "type" => "message",
+            "title" => $title,
+            "content" => $abbreviation,
             "link" => "app/chat/g/".$data["grupo_id"],
             "seen" => FALSE,
             "date" => $curr_date
             ));
         }
 
+        $this->NotificationModel->deleteByTitle($title);
         $this->NotificationModel->createMultiple($notification);
 
     }
@@ -70,8 +74,10 @@ class Api_Chat extends REST_Controller {
         $this->load->model('ChatModel');
         $this->load->model('NotificationModel');
 
+        $content = htmlspecialchars($this->post('m'));
+
         $data = Array(
-            "content"     => htmlspecialchars($this->post('m')),
+            "content"     => $content,
             "id_receiver" => htmlspecialchars($this->post('id')),
             "id_sender"   => $this->session->userdata('id'),
             "date"        => htmlspecialchars($this->post('t')),  
@@ -82,21 +88,20 @@ class Api_Chat extends REST_Controller {
         $user=$this->UserModel->getUserById($data["id_sender"]);
         // print_r($user->name);
         //notificação
-        $notification = array();
         $curr_date = date('Y/m/d H:i:s', time());
-        array_push($notification, Array(
-            "user_id" => $data["id_receiver"],
-            "type" => "message",
-            "title" => "Mensagem de ".$user->name." ". $user->surname,
-            "content" => "Clique para saber mais",
-            "link" => "app/chat/p/".$data["id_sender"],
-            "seen" => FALSE,
-            "date" => $curr_date
-        ));
+        $abbreviation = (strlen($content) >= 40) ?  substr($content, 0, 40) . "..." : $content;
+        
+        $notification = array(
+                "user_id" => $data["id_receiver"],
+                "type" => "message",
+                "title" => "Mensagem de ".$user->name." ". $user->surname,
+                "content" => $abbreviation,
+                "link" => "app/chat/p/".$data["id_sender"],
+                "seen" => FALSE,
+                "date" => $curr_date
+        );
     
-
-        $this->NotificationModel->createMultiple($notification);
-
+        $this->NotificationModel->chatNotification($notification);
     }
 
     //////////////////////////////////////////////////////////////

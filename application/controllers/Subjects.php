@@ -8,6 +8,7 @@ class Subjects extends CI_Controller {
     {
         parent::__construct();
         $this->load->helper('url');
+        if(is_null($this->session->userdata('role'))){ $this->load->view('errors/403'); }
         $this->load->helper('form');
         $this->load->model('SubjectModel');
         $this->load->model('StudentListModel');
@@ -19,11 +20,6 @@ class Subjects extends CI_Controller {
     public function index()
     {
         $data["base_url"] = base_url();
-        
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
 
         $this->load->view('templates/head', $data);
 
@@ -45,17 +41,12 @@ class Subjects extends CI_Controller {
 
         $this->load->model('YearModel');
         $this->load->model('CourseModel');
-        
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
 
         //verificar se o ano letivo existe e é valido
         $ano_letivo = $this->YearModel->getYearByInicio($year);
 
         if(is_null($ano_letivo)){
-            $this->load->view('errors/404', $data); return null;
+            $this->load->view('errors/404', $data);
         }
 
         //usar ano letivo na query para ir buscar a cadeira cujo code = subject code
@@ -65,7 +56,7 @@ class Subjects extends CI_Controller {
 
         //verificar se o objeto existe
         if(is_null($data["subject"])){
-            $this->load->view('errors/404', $data); return null;
+            $this->load->view('errors/404', $data);
         }
 
         $data["year"] = $year;
@@ -88,17 +79,12 @@ class Subjects extends CI_Controller {
         $data["base_url"] = base_url();
         $this->load->model('YearModel');
         $this->load->model('CourseModel');
-        
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
 
         //verificar se o ano letivo existe e é valido
         $ano_letivo = $this->YearModel->getYearByInicio($year);
 
         if(is_null($ano_letivo)){
-            $this->load->view('errors/404', $data); return null;
+            $this->load->view('errors/404', $data);
         }
 
         //usar ano letivo na query para ir buscar a cadeira cujo code = subject code
@@ -108,7 +94,7 @@ class Subjects extends CI_Controller {
 
         //verificar se o objeto existe
         if(is_null($data["subject"])){ 
-            $this->load->view('errors/404', $data); return null;
+            $this->load->view('errors/404', $data);
         }
 
         $data["year"] = $year;
@@ -133,16 +119,11 @@ class Subjects extends CI_Controller {
         $this->load->model('YearModel');
         $this->load->model('CourseModel');
         
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
-
         //verificar se o ano letivo existe e é valido
         $ano_letivo = $this->YearModel->getYearByInicio($year);
 
         if(is_null($ano_letivo)){
-            $this->load->view('errors/404', $data); return null;
+            $this->load->view('errors/404', $data);
         }
 
         //usar ano letivo na query para ir buscar a cadeira cujo code = subject code
@@ -152,7 +133,7 @@ class Subjects extends CI_Controller {
 
         //verificar se o objeto existe
         if(is_null($data["subject"])){
-            $this->load->view('errors/404', $data); return null;
+            $this->load->view('errors/404', $data);
         }
 
         $data["year"] = $year;

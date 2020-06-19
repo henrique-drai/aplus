@@ -107,11 +107,11 @@ class UserModel extends CI_Model {
     }
 
     public function updateUser($data){
-        if(isset($data["name"]))
+        if(is_null($data["name"]))
             {$this->db->set('name', $data["name"]);}
-        if(isset($data["surname"]))
+        if(is_null($data["surname"]))
             {$this->db->set('surname', $data["surname"]);}
-        if(isset($data["password"]))
+        if(is_null($data["password"]))
             {$this->db->set('password', md5($data["password"]));}
         
         $this->db->set('description', $data["description"]);

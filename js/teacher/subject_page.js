@@ -31,7 +31,7 @@ $(document).ready(() => {
         var count = $(".minnuminput").last().attr("id");
         count++;
 
-        var popup = '<div id="' + count + '"><h4><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/icons/delete.png"></span>Horário <span class="count">' + (count + 1) + '</span></h4>';
+        var popup = '<div id="' + count + '"><h4><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/delete.png"></span>Horário <span class="count">' + (count + 1) + '</span></h4>';
         popup = popup + '<div class="dates"><label class="form-label">Início:' +
             '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
             'name="start_time" min="09:00" max="18:00" required></label>' +

@@ -761,6 +761,7 @@ class Api_Project extends REST_Controller {
 
         if($this->verify_student($user->id, $grupo_id)){         
             $file = fopen('php://output','w');
+            // fputs($file, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
             $header = array("Tarefa", "Descrição", "Membro Responsável", "Data Início", "Data Fim");
 
             $info = $this->TasksModel->getTarefas($grupo_id);

@@ -39,15 +39,16 @@
     cursor: pointer;
 }
 #calendario-hook .cell .start {
-    font-weight: bold;
+    text-decoration: underline;
     font-size: 13px;
 }
 #calendario-hook .cell .desc {
-    font-size: 13px;
+    font-size: 11px;
     font-weight: bold;
     margin: 5px 0px;
 }
 #calendario-hook .cell .end {
+    text-decoration: underline;
     font-size: 13px;
 }
 #calendario-hook .cell .clickable {

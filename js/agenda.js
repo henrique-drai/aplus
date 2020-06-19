@@ -21,7 +21,7 @@ function renderAgenda(){
     
     for(const event of agenda.events)
     {
-      if (event.start_time.getDate() == day.getDate())
+      if (event.start_time.toDateString() == day.toDateString())
       {
         let cell = $('<div class="cell"></div>')
 

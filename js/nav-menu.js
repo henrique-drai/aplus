@@ -124,9 +124,11 @@ $(document).ready(() => {
         }
         else {
             let divs = []
-            
+            var ctr = 0
             for (const n of notifications) {
                 let img
+                ctr += 1
+                if (ctr > 5) break
     
                 switch(n.type){
                     case "message":

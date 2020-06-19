@@ -77,7 +77,7 @@ function renderCalendario(){
 
         for(const event of calendario.events)
         {
-            if (event.start_time.getDate() == day.getDate())
+            if (event.start_time.toDateString() == day.toDateString())
             {
                 let cell = $('<div class="cell"></div>')
 

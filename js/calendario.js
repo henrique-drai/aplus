@@ -21,7 +21,7 @@ function renderCalendario(){
 
         for(const event of calendario.events)
         {
-            if (event.start_time.getDate() == day.getDate())
+            if (event.start_time.toDateString() == day.toDateString())
             {
                 let start, desc, end, time
                 let cell = $('<div class="cell"></div>')
@@ -32,7 +32,6 @@ function renderCalendario(){
                         start = $('<div class="start">'+getClassTimeString(event.obj.start_time)+'</div>')
                         desc = $('<div class="desc">'+event.obj.sigla+' ('+event.obj.type+')</div>')
                         end = $('<div class="end">'+getClassTimeString(event.obj.end_time)+'</div>')
-                        //cell.css("background-color",calendario.cores[event.obj.cadeira_id])
                         cell.css("background-color", event.obj.color)
                         break
 
@@ -98,7 +97,8 @@ function updateCalendario(){
         success: function(data) {
             setCalendario(data)
             renderCalendario()
-            //console.log(data)
+            // console.log(data)
+            // console.log(calendario)
         },
         error: function(data) {
             console.log("Problema na API ao buscar o calendário.")
@@ -108,8 +108,6 @@ function updateCalendario(){
 }
 
 function setCalendario(data){
-
-    console.log(data)
 
     function translateWeekDay(name){
         for (const day of week_days){
@@ -147,8 +145,9 @@ function setCalendario(data){
     for (const ge of data.group_events)
         calendario.events.push({start_time: new Date(ge.start_date), type: "group", obj: ge})
 
-    for (const s of data.submissions)
+    for (const s of data.submissions){
         calendario.events.push({start_time: new Date(s.deadline), type: "submit", obj: s})
+    }
 
     calendario.events.sort((x,y)=>(x.start_time.getTime() - y.start_time.getTime()))
 }
@@ -190,6 +189,8 @@ function getRandomColor(){
 
 function eventOnClickCalendario(){
     $('#calendario-hook').on('click', '.cell .clickable', function(event){
+        console.log(event.target.id)
+        console.log(calendario.events)
         event = calendario.events[parseInt(event.target.id)]
         
         let message = $('<div class="calendario-msg"></div>')

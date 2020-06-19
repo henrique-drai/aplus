@@ -354,9 +354,8 @@ function checkEntrega(dateOld){
 function checkEnunciado(){
 
     if (enunciado_h4 != ""){
-        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h4 + "</a>");
+        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ enunciado_h4 +">" + enunciado_h4 + "</a>");
     } else {
-        //$("#enunciado_h4").text("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
         $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")
     }
 }
@@ -365,29 +364,6 @@ function checkEnunciado(){
 function setEnunciado(url){
     enunciado_h4 = url;
 }
-
-// function submit_etapa(file_name){
-//     const data = {
-//         grupo : grupo,
-//         etapa : selected_etapa,
-//         ficheiro : file_name
-//     }
-
-//     $.ajax({
-//         type: "POST",
-//         url: base_url + "api/submitEtapa",
-//         data: data,
-//         success: function(data) {
-//             // msg de sucesso canto superior direito - session - como project teacher
-//             // $("#enviado-sucesso").show(); //resolver a questao do refresh primeiro.
-//             console.log(data);
-//         },
-//         error: function(data) {
-//             console.log("Erro na API - Submit etapa");
-//             console.log(data);
-//         }
-//     });
-// }
 
 function checkSubmission(grupo, etapa, proj){
     const data = {

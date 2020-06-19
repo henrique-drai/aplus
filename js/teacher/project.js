@@ -734,7 +734,7 @@ function makeEtapaTable(data){
             removebut = ''
         } else {
             removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
-            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + json['id'] +".pdf'>" + enunciado + "</a>"
+            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + enunciado + "'>" + enunciado + "</a>"
         }
 
         var obj = {
@@ -767,7 +767,7 @@ function makeEtapaTable(data){
 function checkEnunciado(){
     //enunciado h4 é setted através do registo da bd associado ao proj
     if (enunciado_h4 != ""){
-        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h4 + "</a>");
+        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ enunciado_h4 +"'>" + enunciado_h4 + "</a>");
         $("#openEnunc").val("Editar Enunciado");
     } else {
         $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")

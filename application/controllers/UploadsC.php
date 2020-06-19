@@ -22,35 +22,19 @@ class UploadsC extends CI_Controller {
 
             $path = './uploads/enunciados_files/';
 
-            // echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
-
             if(!is_dir($path)){
                 mkdir($path, 0777, TRUE);
             } else {
                 chmod($path, 0777);
-                // chmod("uploads/enunciados_files/" . $project_id . ".pdf", 0777);
             }
-
-            // echo "cenas pelo meio";
-            // echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
-
-            if(file_exists("uploads/enunciados_files/" . $project_id . ".pdf")) unlink("uploads/enunciados_files/" . $project_id . ".pdf");
-            
-            // echo "depois do unlink";
-            clearstatcache();
-            // echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
 
             $upload['upload_path'] = $path;
             $upload['allowed_types'] = 'pdf';
             $upload['file_name'] = $project_id;
             $upload['max_size'] = 5048;
-            // $upload['overwrite'] = true;
-
+        
             $this->load->library('upload', $upload);
             $this->upload->initialize($upload);
-
-            $error = $this->upload->display_errors();
-            print_r($error);
 
             // type == S -> msg de sucesso
             // type == E -> msg de erro
@@ -75,10 +59,13 @@ class UploadsC extends CI_Controller {
                     "type" => "S",
                 );
 
-                $enunciado = $this->upload->data('file_name');
-                rename("uploads/enunciados_files/" . $enunciado . ".pdf", "uploads/enunciados_files/" . $project_id . ".pdf");
+                $enunciado = $this->upload->data('raw_name');
+                $ext = $this->upload->data('file_ext');
+
+                $name_enunciado = $enunciado . '_' . time() . $ext;
+                rename("uploads/enunciados_files/" . $enunciado . ".pdf", "uploads/enunciados_files/" . $name_enunciado);
                 
-                $this->ProjectModel->updateProjEnunciado($enunciado, $project_id);
+                $this->ProjectModel->updateProjEnunciado($name_enunciado, $project_id);
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
@@ -103,7 +90,6 @@ class UploadsC extends CI_Controller {
             $upload['allowed_types'] = 'pdf';
             $upload['file_name'] = $etapa_id;
             $upload['max_size'] = 5048;
-            $upload['overwrite'] = true;
 
             $this->load->library('upload', $upload);
 
@@ -126,8 +112,13 @@ class UploadsC extends CI_Controller {
                     "type" => "S",
                 );
 
-                $enunciado = $this->upload->data('client_name');
-                $this->ProjectModel->editEtapaEnunciado($enunciado, $etapa_id);
+                $enunciado = $this->upload->data('raw_name');
+                $ext = $this->upload->data('file_ext');
+
+                $name_enunciado = $enunciado . '_' . time() . $ext;
+                rename("uploads/enunciados_files/" . $project_id . "/" . $enunciado . ".pdf", "uploads/enunciados_files/" . $project_id . "/" . $name_enunciado);
+                
+                $this->ProjectModel->editEtapaEnunciado($name_enunciado, $etapa_id);
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }

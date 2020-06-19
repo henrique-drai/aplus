@@ -1,17 +1,17 @@
 <title>A+ for Teachers</title>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/window-date-picker.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/teacher/teacher-projects.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/projects/projects-general.css">
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/window-date-picker.min.css">
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/teacher/teacher-projects.css">
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/pagination-min.css">
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/popup.css">
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/projects/projects-general.css">
+<script src="<?=$base_url?>js/window-date-picker.min.js"></script>
+<script src="<?=$base_url?>js/pagination.min.js"></script>
+<script src="<?=$base_url?>js/project/project-global.js"></script>
+<script src="<?=$base_url?>js/teacher/project.js"></script>
 <script>setPageName("subjects")</script>
-<script src="<?php echo $base_url; ?>js/window-date-picker.min.js"></script>
-<script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
-<script src="<?php echo $base_url; ?>js/project/project-global.js"></script>
-<script src="<?php echo $base_url; ?>js/teacher/project.js"></script>
 <script>setProj("<?php echo $project[0]["id"]; ?>")</script>
 <script>setEnunciado("<?php echo addslashes($project[0]["enunciado_url"]); ?>")</script>
-<script>setBackPage("<?php echo $base_url; ?>" + "subjects/subject/" + "<?php echo $subject->code; ?>/<?php echo $year[0]["inicio"]; ?>")</script>
+<script>setBackPage("<?=$base_url?>" + "subjects/subject/" + "<?php echo $subject->code; ?>/<?php echo $year[0]["inicio"]; ?>")</script>
 <script>setMsg("<?php echo $msg["msg"]; ?>", "<?php echo $msg["type"]; ?>")</script>
 </head>
 

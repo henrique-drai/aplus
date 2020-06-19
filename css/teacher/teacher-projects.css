@@ -104,17 +104,3 @@ input.remove:hover {
 #enunciado-form > #ul-buttons{
     display: block;
 }
-
-.wdp {
-    position: fixed;
-    top: 0 !important;
-    left: 0 !important;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    background:rgba(0,0,0,.3)
-}
-

@@ -23,29 +23,28 @@ class UploadsC extends CI_Controller {
             $path = './uploads/enunciados_files/';
 
             // echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
-            echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
 
             if(!is_dir($path)){
                 mkdir($path, 0777, TRUE);
             } else {
                 chmod($path, 0777);
-                chmod("uploads/enunciados_files/" . $project_id . ".pdf", 0777);
+                // chmod("uploads/enunciados_files/" . $project_id . ".pdf", 0777);
             }
 
-            echo "cenas pelo meio";
+            // echo "cenas pelo meio";
+            // echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
 
-            echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
             if(file_exists("uploads/enunciados_files/" . $project_id . ".pdf")) unlink("uploads/enunciados_files/" . $project_id . ".pdf");
             
-            echo "depois do unlink";
+            // echo "depois do unlink";
             clearstatcache();
-            echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
+            // echo substr(sprintf('%o', fileperms("uploads/enunciados_files/" . $project_id . ".pdf")), -4);
 
             $upload['upload_path'] = $path;
             $upload['allowed_types'] = 'pdf';
             $upload['file_name'] = $project_id;
             $upload['max_size'] = 5048;
-            $upload['overwrite'] = true;
+            // $upload['overwrite'] = true;
 
             $this->load->library('upload', $upload);
             $this->upload->initialize($upload);
@@ -76,7 +75,9 @@ class UploadsC extends CI_Controller {
                     "type" => "S",
                 );
 
-                $enunciado = $this->upload->data('client_name');
+                $enunciado = $this->upload->data('file_name');
+                rename("uploads/enunciados_files/" . $enunciado . ".pdf", "uploads/enunciados_files/" . $project_id . ".pdf");
+                
                 $this->ProjectModel->updateProjEnunciado($enunciado, $project_id);
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);

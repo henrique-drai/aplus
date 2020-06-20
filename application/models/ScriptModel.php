@@ -38,13 +38,13 @@ class ScriptModel extends CI_Model {
       return $this->db->insert_id();
   }
 
-  public function projeto($cadeira_id, $nome, $description, $min_elementos, $max_elementos, $enunciado_url) {
-      $this->db->insert("projeto", Array("cadeira_id"=> $cadeira_id, "nome"=>$nome, "description"=>$description, "min_elementos"=>$min_elementos, "max_elementos"=>$max_elementos, "enunciado_url"=>$enunciado_url));
+  public function projeto($cadeira_id, $nome, $description, $min_elementos, $max_elementos, $enunciado_url, $enunciado_original) {
+      $this->db->insert("projeto", Array("cadeira_id"=> $cadeira_id, "nome"=>$nome, "description"=>$description, "min_elementos"=>$min_elementos, "max_elementos"=>$max_elementos, "enunciado_url"=>$enunciado_url, "enunciado_original"=>$enunciado_original));
       return $this->db->insert_id();
   }
 
-  public function etapa($projeto_id, $deadline, $enunciado_url, $nome, $description) {
-      $this->db->insert("etapa", Array("projeto_id"=> $projeto_id, "deadline"=>$deadline, "enunciado_url"=>$enunciado_url, "nome"=>$nome, "description"=>$description));
+  public function etapa($projeto_id, $deadline, $enunciado_url, $enunciado_original, $nome, $description) {
+      $this->db->insert("etapa", Array("projeto_id"=> $projeto_id, "deadline"=>$deadline, "enunciado_url"=>$enunciado_url, "enunciado_original"=>$enunciado_original, "nome"=>$nome, "description"=>$description));
       return $this->db->insert_id();
   }
 
@@ -90,8 +90,8 @@ class ScriptModel extends CI_Model {
     return $this->db->insert_id();
   }  
 
-  public function etapa_submit($grupo_id, $etapa_id, $submit_url) {
-    $this->db->insert("etapa_submit", Array("grupo_id"=>$grupo_id, "etapa_id"=>$etapa_id, "submit_url"=>$submit_url));
+  public function etapa_submit($grupo_id, $etapa_id, $submit_url, $submit_original) {
+    $this->db->insert("etapa_submit", Array("grupo_id"=>$grupo_id, "etapa_id"=>$etapa_id, "submit_url"=>$submit_url, "submit_original"=>$submit_original));
     return $this->db->insert_id();
   }  
 }

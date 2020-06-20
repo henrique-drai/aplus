@@ -1678,22 +1678,22 @@ function large_script($m) {
 
     
     $projeto = array();
-    $projeto["1"] = $m->projeto($cadeira["1"], "Evolução da Ciência", "Relatório sobre a seleção natural.", 1, 2, "");
-    $projeto["2"] = $m->projeto($cadeira["63"], "Cadastro Predial do Município", "Fazer um relatório onde exploram o cadastro predial do vosso município.", 1, 2, "");
-    $projeto["3"] = $m->projeto($cadeira["83"], "Spotipy em Haskell", "Implementem o Spotipy em Haskell.", 1, 2, "");
-    $projeto["4"] = $m->projeto($cadeira["88"], "A matemática na natureza", "Os objetivos deste projeto são óbvios, no need to describe them.", 1, 3, "");
-    $projeto["5"] = $m->projeto($cadeira["88"], "Projeto Final", "Os objetivos deste projeto não são tão óbvios.", 1, 3, "");
+    $projeto["1"] = $m->projeto($cadeira["1"], "Evolução da Ciência", "Relatório sobre a seleção natural.", 1, 2, "", "");
+    $projeto["2"] = $m->projeto($cadeira["63"], "Cadastro Predial do Município", "Fazer um relatório onde exploram o cadastro predial do vosso município.", 1, 2, "", "");
+    $projeto["3"] = $m->projeto($cadeira["83"], "Spotipy em Haskell", "Implementem o Spotipy em Haskell.", 1, 2, "", "");
+    $projeto["4"] = $m->projeto($cadeira["88"], "A matemática na natureza", "Os objetivos deste projeto são óbvios, no need to describe them.", 1, 3, "", "");
+    $projeto["5"] = $m->projeto($cadeira["88"], "Projeto Final", "Os objetivos deste projeto não são tão óbvios.", 1, 3, "", "");
 
     $etapa = array();
-    $etapa["1"] = $m->etapa($projeto["3"], "2020-06-06 23:00:00", "", "Pesquisa", "Façam pesquisa sobre o Spotipy.");
-    $etapa["2"] = $m->etapa($projeto["3"], "2020-05-06 23:00:00", "", "Planeamento", "Façam pesquisa sobre como programar em Haskell.");
-    $etapa["3"] = $m->etapa($projeto["3"], "2020-07-21 23:55:00", "", "Implementação", "Implementar o Spotipy em Haskell.");
-    $etapa["4"] = $m->etapa($projeto["1"], "2020-06-06 23:00:00", "", "Pesquisa", "Pesquisar sobre Charles Darwin.");
-    $etapa["5"] = $m->etapa($projeto["1"], "2020-06-21 23:55:00", "", "Implementação", "Fazer relatório.");
-    $etapa["6"] = $m->etapa($projeto["2"], "2020-06-06 23:00:00", "", "Pesquisa", "Procurar cadástro de Almada.");
-    $etapa["7"] = $m->etapa($projeto["2"], "2020-06-21 23:55:00", "", "Implementação", "Fazer relatório.");
-    $etapa["8"] = $m->etapa($projeto["4"], "2020-05-21 23:55:00", "", "Fazer continhas", "Esta etapa já acabou.");
-    $etapa["9"] = $m->etapa($projeto["5"], "2020-06-21 23:55:00", "", "Fazer continhas outra vez", "Esta etapa ainda não acabou.");
+    $etapa["1"] = $m->etapa($projeto["3"], "2020-06-06 23:00:00", "", "", "Pesquisa", "Façam pesquisa sobre o Spotipy.");
+    $etapa["2"] = $m->etapa($projeto["3"], "2020-05-06 23:00:00", "", "", "Planeamento", "Façam pesquisa sobre como programar em Haskell.");
+    $etapa["3"] = $m->etapa($projeto["3"], "2020-07-21 23:55:00", "", "", "Implementação", "Implementar o Spotipy em Haskell.");
+    $etapa["4"] = $m->etapa($projeto["1"], "2020-06-06 23:00:00", "", "", "Pesquisa", "Pesquisar sobre Charles Darwin.");
+    $etapa["5"] = $m->etapa($projeto["1"], "2020-06-21 23:55:00", "", "", "Implementação", "Fazer relatório.");
+    $etapa["6"] = $m->etapa($projeto["2"], "2020-06-06 23:00:00", "", "", "Pesquisa", "Procurar cadástro de Almada.");
+    $etapa["7"] = $m->etapa($projeto["2"], "2020-06-21 23:55:00", "", "", "Implementação", "Fazer relatório.");
+    $etapa["8"] = $m->etapa($projeto["4"], "2020-05-21 23:55:00", "", "", "Fazer continhas", "Esta etapa já acabou.");
+    $etapa["9"] = $m->etapa($projeto["5"], "2020-06-21 23:55:00", "", "", "Fazer continhas outra vez", "Esta etapa ainda não acabou.");
 
     $grupo = array();
     $grupo["1"] = $m->grupo($projeto["3"], "gangdogpl");
@@ -1713,7 +1713,7 @@ function large_script($m) {
       Array("user_id"=> $aluno["14"],  "grupo_id"=>$grupo["4"]),
     ));
 
-    $m->etapa_submit($grupo["1"], $etapa["1"], "URL-FALSO-HEHE-XD.pdf");
+    $m->etapa_submit($grupo["1"], $etapa["1"], "URL-FALSO-HEHE-XD.pdf", "url-original-falso.pdf");
 
     $horario = array();
     $horario["1"] = $m->horario_duvidas($cadeira["83"], $prof["7"], "11:30:00", "13:00:00", "Segunda-feira");

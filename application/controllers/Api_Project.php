@@ -45,6 +45,7 @@ class Api_Project extends REST_Controller {
                 "max_elementos"       => htmlspecialchars($this->post("groups_max")),
                 "description"         => htmlspecialchars($this->post("projDescription")),
                 "enunciado_url"       => htmlspecialchars($this->post("file")),
+                "enunciado_original"  => "",
             );
             
             $dataEtapa = $this->post("listetapas");
@@ -57,6 +58,7 @@ class Api_Project extends REST_Controller {
                     "nome"              => htmlspecialchars($dataEtapa[$i]["nome"]),
                     "description"       => htmlspecialchars($dataEtapa[$i]["desc"]),
                     "enunciado_url"     => htmlspecialchars($dataEtapa[$i]["enunciado"]),
+                    "enunciado_original"=> "",
                     "deadline"          => htmlspecialchars($dataEtapa[$i]["data"]),
                 );
     
@@ -86,6 +88,7 @@ class Api_Project extends REST_Controller {
                 "nome"              => htmlspecialchars($etapa["nome"]),
                 "description"       => htmlspecialchars($etapa["desc"]),
                 "enunciado_url"     => htmlspecialchars($etapa["enunciado"]),
+                "enunciado_original"=> "",
                 "deadline"          => htmlspecialchars($etapa["data"]),
             );
     

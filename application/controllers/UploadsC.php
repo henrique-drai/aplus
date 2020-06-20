@@ -141,7 +141,7 @@ class UploadsC extends CI_Controller {
             }
 
             $upload['upload_path'] = './uploads/submissions/' . strval($project_id) . '/' . strval($etapa_id) . '/';
-            $upload['allowed_types'] = 'zip|rar';
+            $upload['allowed_types'] = 'zip|rar|pdf|docx';
             $upload['file_name'] = $grupo_id;
             $upload['max_size'] = 5048;
             $upload['overwrite'] = true;

@@ -281,6 +281,7 @@ function makeEtapaDiv(data){
     for (i=0; i<data.length; i++){
         json = data[i];
         var enunciado = json["enunciado_url"];
+        var enunciado_original = json["enunciado_original"];
 
 
         var d1 = json["deadline"].split(" ");
@@ -309,7 +310,7 @@ function makeEtapaDiv(data){
             removebut = ''
         } else {
             removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
-            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + json['id'] +".pdf'>" + enunciado + "</a>"
+            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + enunciado + "'>" + enunciado_original + "</a>"
         }
 
 
@@ -432,9 +433,9 @@ function createSubmissionPopup(etapa_rec, name){
 
     
     form = '<br><form enctype="multipart/form-data" accept-charset="utf-8" method="post" id="form-submit-etapa" action="'+base_url + 'UploadsC/uploadSubmissao/' + proj + '/' + selected_etapa + '/' + grupo+'">' +
-    '<input class="form-input-file" type="file" id="file_submit" name="file_submit" accept=".zip,.rar">'+
+    '<input class="form-input-file" type="file" id="file_submit" name="file_submit" accept=".zip,.rar,.pdf,.docx">'+
     '<label for="file_submit" class="input-label"><img id="file-img-submit" src="'+base_url+'images/icons/upload-solid.png">'+
-    '<span id="name-file-submit">Submeter trabalho (.zip/.rar)</span></label>'+
+    '<span id="name-file-submit">Submeter trabalho</span></label>'+
     '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>'+
     '</form>'
 

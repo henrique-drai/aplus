@@ -200,7 +200,7 @@ function renderPopupGroupEvent(event) {
         $('<li></li>')
             .append(
                 $('<input type="submit" id="actionButton" value="Guardar" form="groupEventForm" />')
-                    .css("background", "#3e5d4f") ),
+                    .css("background", "#154e5a")),
         $('<li><a href="#" id="closeButton">Cancelar</a></li>')
             .click( () => { $('.cd-popup').removeClass('is-visible') } )
     )
@@ -305,7 +305,7 @@ function renderPopupAddEvent(){
         $('<li></li>')
             .append(
                 $('<input type="submit" id="actionButton" value="Marcar Reunião" form="addGroupEventForm" />')
-                    .css("background", "#3e5d4f") ),
+                    .css("background", "#154e5a")),
         $('<li><a href="#" id="closeButton">Cancelar</a></li>')
             .click( () => { $('.cd-popup').removeClass('is-visible') } )
     )
@@ -422,7 +422,7 @@ function renderPopupInviteTeachers (event) {
     $('.cd-popup .cd-buttons').html('').append(
         $('<li></li>')
             .append($('<input type="submit" form="inviteTeachersForm" value="Convidar" id="actionButton" />')
-                .css("background", "#3e5d4f")),
+                .css("background", "#154e5a")),
         $('<li><a href="#" id="closeButton"> Cancelar </a></li>')
             .click( () => { renderPopupGroupEvent(event) } )
     )
@@ -464,7 +464,7 @@ function renderPopupSubmission(event) {
     $('.cd-popup .cd-buttons').html('').append(
         $('<li></li>').append(
             $('<a href="'+base_url + "projects/project/" + event.obj.projeto_id+'" id="actionButton"> Visitar Projeto </a>')
-                .css("background", "#3e5d4f") ),
+                .css("background", "#154e5a")),
         $('<li><a href="#" id="closeButton">Cancelar</a></li>')
             .click( () => { $('.cd-popup').removeClass('is-visible') } )
     )

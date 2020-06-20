@@ -518,7 +518,7 @@ function createPopUpEdit(task_id, proj_name, tr_id) {
                 "<h2>Tarefa para " + proj_name.substring(1, proj_name.length - 1) + "</h2>" +
                 "<h3>Nome</h3><input class='form-input-text' type='text' name='tarefaName' required>" +
                 "<h3>Descrição</h3><textarea class='form-text-area' type='text' name='tarefaDescription' id='tarefaDescription'>" +
-                "</textarea></div><div class='wrapper'><hr><input id='" + data.task[0].id + "' class='editTask' type='button' value='Editar Tarefa'>" +
+                "</textarea></div><div class='wrapper'><hr><input id='" + data.task[0].id + "' class='editTask' type='button' value='Voltar'>" +
                 "</div>");
 
             $("input[name='tarefaName']").val(data.task[0].name);

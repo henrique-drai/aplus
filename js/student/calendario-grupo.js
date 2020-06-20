@@ -55,7 +55,7 @@ function updateCalendario(){
 
         for (const event of calendario.events){
             //eliminar repetições
-            if (!calendario.days.length || calendario.days.slice(-1)[0].getDate() != event.start_time.getDate()){
+            if (!calendario.days.length || calendario.days.slice(-1)[0].toDateString() != event.start_time.toDateString()){
                 calendario.days.push(event.start_time)
             }
         }
@@ -64,13 +64,13 @@ function updateCalendario(){
 
 
 function renderCalendario(){
-    // console.log(calendario)
+    console.log(calendario)
     let cols = []
     let ctr = 0
 
     for (const day of calendario.days){
         let head_day = $('<div class="day">'+day.getDate()+'</div>')
-        let head_week = $('<div class="week">'+week_days[day.getDay()].sigla+'</div>')
+        let head_week = $('<div class="week">'+global_months[day.getMonth()].sigla+'</div>')
         let head = $('<div class="hcell"></div>').append(head_day,head_week)
 
         let cells = []

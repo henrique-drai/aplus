@@ -55,7 +55,7 @@ input, select, textarea {
 
 select {
     width:100%;
-    background-image:linear-gradient(45deg, transparent 50%, #3e5d4f 50%),linear-gradient(135deg, #3e5d4f 50%, transparent 50%),linear-gradient(to right, #ccc, #ccc);
+    background-image:linear-gradient(45deg, transparent 50%, #15435a 50%),linear-gradient(135deg, #15435a 50%, transparent 50%),linear-gradient(to right, #ccc, #ccc);
     background-position: calc(99% - 13px) calc(1em + 2px),calc(99% - 7px) calc(1em + 2px),calc(99% - 2em) 0.5em;
     background-size:6px 6px,6px 6px,1px 1.5em;
     background-repeat: no-repeat;
@@ -66,7 +66,7 @@ input[type=button],
 input[type=submit],
 a.std-btn{
     margin: 20px auto;
-    border: 1px solid #3e5d4f;
+    border: 1px solid #15435a;
     text-align: center;
     cursor:pointer;
     font-weight: bold;
@@ -87,7 +87,7 @@ a.std-btn:hover {
 /* pseudo classes - não adicionei para o select porque não sei como estão a usar @david */
 
 input:focus, textarea:focus{
-    outline-color: #3e5d4f;
+    outline-color: #15435a;
 }
 
 input:required:valid, textarea:required:valid{
@@ -101,7 +101,7 @@ input:required, textarea:required {
 label {
     display: block;
     margin-top: 15px;
-    color: #3e5d4f;
+    color: #15435a;
 }
 table {
     background-color: white;

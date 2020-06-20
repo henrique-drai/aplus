@@ -32,14 +32,14 @@ function renderCalendario(){
                         start = $('<div class="start">'+getClassTimeString(event.obj.start_time)+'</div>')
                         desc = $('<div class="desc">'+event.obj.sigla+' ('+event.obj.type+')</div>')
                         end = $('<div class="end">'+getClassTimeString(event.obj.end_time)+'</div>')
-                        cell.css("background-color", event.obj.color)
+                        cell.css("background-color", applyAlphaChannel(event.obj.color))
                         break
 
                     case "duvidas":
                         start = $('<div class="start">'+getClassTimeString(event.obj.start_time)+'</div>')
                         desc = $('<div class="desc">'+event.obj.sigla+' (Dúvidas)</div>')
                         end = $('<div class="end">'+getClassTimeString(event.obj.end_time)+'</div>')
-                        cell.css("background-color", event.obj.color)
+                        cell.css("background-color", applyAlphaChannel(event.obj.color))
                         break
                     
                     case "group":
@@ -87,7 +87,15 @@ function renderCalendario(){
 
     $("#calendario-hook").append(inner)
 
-    
+    function applyAlphaChannel(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        let rgb = result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : {r: null, g: null, b: null};
+        return "rgba("+rgb.r+","+rgb.g+","+rgb.b+", 0.65)"
+    }
 }
 
 function updateCalendario(){

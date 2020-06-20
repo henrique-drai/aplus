@@ -216,7 +216,7 @@ label {
     line-height: 30px;
     width: 240px;
     display: block;
-    border: 2px solid #3e5d4f;
+    border: 2px solid #15435a;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -246,7 +246,7 @@ label {
 }
 
 .cd-message > h3, .cd-message > h3 {
-    color: #3e5d4f;
+    color: #15435a;
 }
 
 .cd-message > label, .cd-message > label {
@@ -267,7 +267,7 @@ label {
     border: unset !important;
     margin:unset !important;
     padding:unset !important;
-    background-color: #3e5d4f !important;
+    background-color: #15435a !important;
     display: block;
     height: 60px;
     line-height: 60px;
@@ -280,7 +280,7 @@ label {
 }
 
 .cd-buttons > li:first-child a, .cd-buttons > li:first-child input {
-    background: #3e5d4f;
+    background: #15435a;
 }
 
 .form-input-file{
@@ -291,7 +291,7 @@ label {
 /* date picker */
 
 .wdp .wdp-container .wdp-date-container ul li.wdp-active:before, .wdp .wdp-container .wdp-header, .wdp .wdp-container .wdp-hour-container .wdp-hour-el-container input{
-    background: #3e5d4f !important;
+    background: #15435a !important;
     cursor: pointer;
 }
 

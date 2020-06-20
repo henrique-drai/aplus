@@ -3,7 +3,7 @@ h1.page-title {
 }
 a.profile-preview {
     font-size: 14px;
-    color: #3e5d4f
+    color: #15435a
 }
 
 .form-error-message {
@@ -80,7 +80,7 @@ form.profile-edit-user input[type=submit]{
     height: 170px;
     border-radius: 200px;
     border: 1px solid #555;
-    background-color: #3e5d4f;
+    background-color: #15435a;
 }
 .header-info {
     padding: 10px 20px;

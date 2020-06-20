@@ -16,6 +16,21 @@ const week_days = [
     {id:6, sigla:"sab", name:"Sábado"},
 ]
 
+const global_months = [
+    {id:0, sigla:"jan", name:"Janeiro"},
+    {id:1, sigla:"fev", name:"Fevereiro"},
+    {id:2, sigla:"mar", name:"Março"},
+    {id:3, sigla:"abr", name:"Abril"},
+    {id:4, sigla:"mai", name:"Maio"},
+    {id:5, sigla:"jun", name:"Junho"},
+    {id:6, sigla:"jul", name:"Julho"},
+    {id:7, sigla:"ago", name:"Agosto"},
+    {id:8, sigla:"set", name:"Setembro"},
+    {id:9, sigla:"out", name:"Outubro"},
+    {id:10, sigla:"nov", name:"Novembro"},
+    {id:11, sigla:"dez", name:"Dezembro"},
+]
+
 function setBaseUrl(value) {
     base_url = value;
 }

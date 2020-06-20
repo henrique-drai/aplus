@@ -9,7 +9,7 @@
   margin: 8px 0px;
   display: flex;
   align-items: center;
-  background-color: #3e5d4f;
+  background-color: #15435a;
   border-radius: 3px;
   overflow: hidden;
   border: 1px solid #aaa;
@@ -68,7 +68,7 @@
 }
 #all_noti-inner .content {
   font-size: 10px;
-  color: #3e5d4f;
+  color: #15435a;
 }
 #all_noti-inner .date {
   font-size: 10px;

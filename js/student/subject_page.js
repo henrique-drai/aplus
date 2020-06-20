@@ -74,7 +74,7 @@ function getInfo() {
                 $(".summary").append("<p>" + data.desc[0].description + "</p>");
             }
 
-            var image_url = base_url + "images/subjects/project_pattern.jpg";
+            var image_url = base_url + "images/subjects/project_pattern.png";
             $(".projetos").empty();
             if(data.proj.length == 0) {
                 $(".projetos").append("<p>Ainda não existem projetos para a cadeira</p>");

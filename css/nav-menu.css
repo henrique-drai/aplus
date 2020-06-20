@@ -5,7 +5,7 @@
     height: 40px;
     top: 0;
     left: 0;
-    background-color: #3e5d4f;
+    background-color: #154e5a;
     z-index: 200;
     color: white;
 }
@@ -47,7 +47,7 @@
     -ms-overflow-style: none;
 }
 #nav-menu-hook {
-    background-color: #3e5d4f;
+    background-color: #154e5a;
     width: 220px;
     min-width: 220px;
     min-height: 100%;
@@ -235,7 +235,7 @@
     text-align: left;
     font-size: 12px;
     display: flex;
-    border-top: 1px solid #3e5d4f;
+    border-top: 1px solid #154e5a;
 }
 #nav-menu-agenda .cell .time {
     min-width: 40px;
@@ -292,7 +292,7 @@
 }
 .nav-notifications .content {
     font-size: 10px;
-    color: #3e5d4f;
+    color: #154e5a;
 }
 .nav-notifications .date {
     font-size: 10px;

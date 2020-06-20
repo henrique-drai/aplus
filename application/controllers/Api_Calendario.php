@@ -62,6 +62,47 @@ class Api_Calendario extends REST_Controller {
         $this->response($data, parent::HTTP_OK);
     }
 
+    public function export_get(){
+        @header("Content-type: text/x-csv");
+        @header("Content-Disposition: attachment; filename=calendario.csv");
+        @header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        echo "\xEF\xBB\xBF";
+
+        $user_id = $this->session->userdata('id');
+
+        $this->load->model('UserModel');
+        $this->load->model('EventModel');
+
+        $user = $this->UserModel->getUserById($user_id);
+        
+        $file = fopen('php://output','w');
+        $header = array("Subject","Start Date","Start Time","End Date","End Time","All day event","Description","Location");
+
+        $duvidas = array();
+
+        $events = $this->EventModel->getFutureEventsByUserId($user_id);
+        $submissions = $this->EventModel->getFutureSubmissionsByUserId($user_id);
+
+        fputcsv($file, $header);
+        foreach($events as $e){
+            $start_date = date("m-d-Y",strtotime($e["start_date"]));
+            $start_time = date("h:i A",strtotime($e["start_date"]));
+            $end_date = date("m-d-Y",strtotime($e["start_date"]));
+            $end_time = date("h:i A",strtotime($e["start_date"])); 
+            $dados = array($e["name"],$start_date,$start_time,$end_date,$end_time,"False",$e["description"],$e["location"]);
+            fputcsv($file, $dados);
+        }
+        foreach($submissions as $s){
+            $date = date("m-d-Y",strtotime($s["deadline"]));
+            $time = date("h:i A",strtotime($s["deadline"]));
+            $subject = $s["nome"] . " (Data de Entrega)";
+            $dados = array($subject,$date,$time,$date,$time,"False",$s["description"],"Área de Grupo no A+");
+            fputcsv($file, $dados);
+        }
+        fclose($file);
+        exit;
+    }
+
     public function agenda_get() {
         $user_id = $this->session->userdata('id');
 

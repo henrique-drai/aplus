@@ -105,3 +105,10 @@
         display: inline-block;
     }
 }
+
+.link-export-calendario {
+    text-align: center;
+    font-size: 11px;
+    margin: -20px 0px 20px;
+    display: block;
+}

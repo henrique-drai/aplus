@@ -6,6 +6,7 @@ https://codeigniter.com/userguide3/general/routing.html
 */
 
 $route['api/calendario']                        = 'Api_Calendario/calendario';
+$route['api/calendario/export']                 = 'Api_Calendario/export';
 $route['api/grupo/(:num)/calendario']           = 'Api_Calendario/grupo/$1';
 $route['api/agenda']                            = 'Api_Calendario/agenda';
 

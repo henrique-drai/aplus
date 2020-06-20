@@ -16,7 +16,7 @@ function printNavBarLinks(pages){
 $(document).ready(() => {
     $(".nav-menu-btn-logout").click(() => {endSession()})
     $("#nav-menu-toggle").click(()=>{toggleMenu()})
-    $(".btn-notifications").click(()=>{toggleNotifications()})
+    $("#nav-menu-hook .btn-notifications").click(()=>{toggleNotifications()})
     
     updateNavMenuData()
     updateNotifications()

@@ -39,8 +39,9 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
         return $this->db->delete("etapa", array("id" => $id));
     }
 
-    public function updateProjEnunciado($enunciado, $proj_id){
+    public function updateProjEnunciado($enunciado, $enunciado_original, $proj_id){
         $this->db->set('enunciado_url', $enunciado);
+        $this->db->set('enunciado_original', $enunciado_original);
         $this->db->where('id', $proj_id);
         $this->db->update("projeto");
         return $this->db->affected_rows(); 
@@ -48,6 +49,7 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
 
     public function clearEnuncEtapa($id){
         $this->db->set('enunciado_url', '');
+        $this->db->set('enunciado_original', '');
         $this->db->where('id', $id);
         $this->db->update("etapa");
         return $this->db->affected_rows(); 
@@ -64,8 +66,9 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
         return $this->db->affected_rows(); 
     }
 
-    public function editEtapaEnunciado($enunciado, $etapa){
+    public function editEtapaEnunciado($enunciado, $enunciado_original, $etapa){
         $this->db->set('enunciado_url', $enunciado);
+        $this->db->set('enunciado_original', $enunciado_original);
         $this->db->where('id', $etapa);
         $this->db->update("etapa");
         return $this->db->affected_rows();
@@ -83,8 +86,9 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
         return $this->db->insert_id();
     }
 
-    public function updateSubmission($grupo, $etapa, $ficheiro){
+    public function updateSubmission($grupo, $etapa, $ficheiro, $ficheiro_original){
         $this->db->set('submit_url', $ficheiro);
+        $this->db->set('submit_original', $ficheiro_original);
         $this->db->where('grupo_id', $grupo);
         $this->db->where('etapa_id', $etapa);
         $this->db->update("etapa_submit");

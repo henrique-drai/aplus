@@ -747,7 +747,8 @@ class Api_Project extends REST_Controller {
         $proj = htmlspecialchars($this->delete('projid'));
 
         if($this->verify_teacher($user_id, $proj, "projeto") == true){
-            unlink("uploads/enunciados_files/" . $proj . "/" . $id . ".pdf");
+            $etapa = $this->ProjectModel->getEtapaByID($id)->result_array();
+            unlink("uploads/enunciados_files/" . $proj . "/" . $etapa[0]["enunciado_url"]);
             $this->ProjectModel->clearEnuncEtapa($id);
             $this->response($id, parent::HTTP_OK);
         } else {

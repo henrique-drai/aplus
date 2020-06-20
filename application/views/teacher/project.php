@@ -11,6 +11,7 @@
 <script>setPageName("subjects")</script>
 <script>setProj("<?php echo $project[0]["id"]; ?>")</script>
 <script>setEnunciado("<?php echo addslashes($project[0]["enunciado_url"]); ?>")</script>
+<script>setEnunciadoOriginal("<?php echo addslashes($project[0]["enunciado_original"]); ?>")</script>
 <script>setBackPage("<?=$base_url?>" + "subjects/subject/" + "<?php echo $subject->code; ?>/<?php echo $year[0]["inicio"]; ?>")</script>
 <script>setMsg("<?php echo $msg["msg"]; ?>", "<?php echo $msg["type"]; ?>")</script>
 </head>

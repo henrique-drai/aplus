@@ -61,11 +61,12 @@ class UploadsC extends CI_Controller {
 
                 $enunciado = $this->upload->data('raw_name');
                 $ext = $this->upload->data('file_ext');
+                $enunciado_original = $this->upload->data('client_name');
 
                 $name_enunciado = $enunciado . '_' . time() . $ext;
                 rename("uploads/enunciados_files/" . $enunciado . ".pdf", "uploads/enunciados_files/" . $name_enunciado);
                 
-                $this->ProjectModel->updateProjEnunciado($name_enunciado, $project_id);
+                $this->ProjectModel->updateProjEnunciado($name_enunciado, $enunciado_original, $project_id);
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
@@ -114,11 +115,12 @@ class UploadsC extends CI_Controller {
 
                 $enunciado = $this->upload->data('raw_name');
                 $ext = $this->upload->data('file_ext');
+                $enunciado_original = $this->upload->data('client_name');
 
                 $name_enunciado = $enunciado . '_' . time() . $ext;
                 rename("uploads/enunciados_files/" . $project_id . "/" . $enunciado . ".pdf", "uploads/enunciados_files/" . $project_id . "/" . $name_enunciado);
                 
-                $this->ProjectModel->editEtapaEnunciado($name_enunciado, $etapa_id);
+                $this->ProjectModel->editEtapaEnunciado($name_enunciado, $enunciado_original, $etapa_id);
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
@@ -146,8 +148,12 @@ class UploadsC extends CI_Controller {
 
             $this->load->library('upload', $upload);
 
-            if(file_exists("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".rar")) unlink("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".rar");
-            if(file_exists("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".zip")) unlink("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".zip");
+            foreach (glob("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id ."*.*") as $filename) {
+                unlink($filename);
+            }
+
+            // if(file_exists("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".rar")) unlink("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".rar");
+            // if(file_exists("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".zip")) unlink("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".zip");
 
             if ( ! $this->upload->do_upload('file_submit'))
             {
@@ -166,6 +172,11 @@ class UploadsC extends CI_Controller {
                     "type" => "S",
                 );
 
+                $enunciado = $this->upload->data('raw_name');
+                $ext = $this->upload->data('file_ext');
+                $name_enunciado = $enunciado . '_' . time() . $ext;
+
+                rename("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $enunciado . $ext, "uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $name_enunciado);
                 $fich = $this->upload->data('client_name');
                 $sub = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
 
@@ -174,14 +185,15 @@ class UploadsC extends CI_Controller {
                     $data_send = Array(
                         "grupo_id"            => $grupo_id,
                         "etapa_id"            => $etapa_id,
-                        "submit_url"          => $fich,
+                        "submit_url"          => $name_enunciado,
+                        "submit_original"     => $fich,
                         "feedback"            => "",
                     );
 
                     $this->ProjectModel->submitEtapa($data_send);
                 } else {
                     //update
-                    $this->ProjectModel->updateSubmission($grupo_id, $etapa_id, $fich);
+                    $this->ProjectModel->updateSubmission($grupo_id, $etapa_id, $name_enunciado, $fich);
                 }
 
                 $this->session->set_userdata('result_msg', $arr_msg);

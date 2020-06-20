@@ -1,4 +1,6 @@
-var proj;  
+var proj;
+var enunciado_h4;
+var enunciado_original;
 var selected_etapa;
 var etapas_info_global;
 var formStatus;
@@ -14,7 +16,7 @@ $(document).ready(() => {
 
     //ENUNCIADO PROJETO --- 
 
-    //verificar se o enunciado do projeto existe na diretoria 
+    //verificar se o enunciado do projeto existe 
     
     if(checkEnunciado()){
         setInterval(function(){
@@ -353,8 +355,8 @@ function checkEntrega(dateOld){
 // Este tem uma pequena alteração porque nao usa o button
 function checkEnunciado(){
 
-    if (enunciado_h4 != ""){
-        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ enunciado_h4 +">" + enunciado_h4 + "</a>");
+    if (enunciado_h4 != "" && enunciado_original != ""){
+        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ enunciado_h4 +"'>" + enunciado_original + "</a>");
     } else {
         $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")
     }
@@ -363,6 +365,10 @@ function checkEnunciado(){
 
 function setEnunciado(url){
     enunciado_h4 = url;
+}
+
+function setEnunciadoOriginal(url){
+    enunciado_original = url;
 }
 
 function checkSubmission(grupo, etapa, proj){
@@ -386,7 +392,7 @@ function checkSubmission(grupo, etapa, proj){
                 } else {
                     $("#feedback_label").text(data[0]["feedback"]);
                 }
-                $("#sub_label").html('<a target="_blank" href="'+base_link+grupo+'.'+extension+'">' + data[0]["submit_url"] + '</a>');
+                $("#sub_label").html('<a target="_blank" href="'+base_link+data[0]["submit_url"]+'">' + data[0]["submit_original"] + '</a>');
             } else {
                 $("#sub_label").text("O seu grupo ainda não submeteu uma entrega.");
                 $("#feedback_label").text("Ainda não foi atribuido feedback a esta etapa.");

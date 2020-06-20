@@ -1,5 +1,6 @@
 var proj
 var enunciado_h4
+var enunciado_original
 var back_page
 var selected_etapa
 var etapa = {nome:'', desc:'', enunciado:'', data:''};
@@ -325,6 +326,9 @@ function setMsg(msg, type){
     msg_res = arr;
 }
 
+function setEnunciadoOriginal(url){
+    enunciado_original = url;
+}
 
 // Funções GET - metem conteudo na pagina
 
@@ -417,7 +421,7 @@ function getSumbission(grupo_id, etapa, proj){
             if (data.length > 0){
                 var base_link = base_url + "uploads/submissions/" + proj + "/" + etapa + "/";
                 var extension = data[0]["submit_url"].split(".").pop();
-                $("#sub_url").html('<a target="_blank" href="'+base_link+grupo_id+'.'+extension+'">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
+                $("#sub_url").html('<a target="_blank" href="'+base_link+data[0]["submit_url"]+'">' + data[0]["submit_original"] + '</a>');
                 $("#confirmFeedback").show();
                 $("textarea[name='feedback-text']").prop("disabled", false);
 
@@ -444,59 +448,6 @@ function getSumbission(grupo_id, etapa, proj){
 
 
 //Funções POST
-
-// passei a fazer isto no uploadsC devido a um conflito com o firefox.
-// function submit_new_enunciado(enunc){
-//     console.log(base_url);
-//     const data = {
-//         projid : parseInt(proj),
-//         enunciado : enunc,
-//     }
-
-//     $.ajax({
-//         type: "POST",
-//         url: base_url + "api/editEnunciado",
-//         data: data,
-//         success: function(data) {
-//             console.log(data);
-//             console.log(base_url + "uploads/enunciados_files/"+ proj);
-//             $("#enunciado_h4").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf?"+new Date().getMilliseconds()+"'>" + data + "</a>");
-//         },
-//         error: function(data) {
-//             console.log("Erro na API - Edit Enunciado");
-//             console.log(data);
-//         }
-//     });
-// }
-
-// function submit_new_etapa_enunciado(enunc){
-//     console.log(enunc);
-//     console.log(base_url);
-//     const data = {
-//         etapaid : selected_etapa,
-//         enunciado : enunc,
-//     }
-
-//     $.ajax({
-//         type: "POST",
-//         url: base_url + "api/editEtapaEnunciado",
-//         data: data,
-//         success: function(data) {
-//             console.log(data);
-//             $('#file_etapa').css("border-left-color", "rgb(124, 124, 124)");
-//             var removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
-//             $("#enunciado_label").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+ "/" + selected_etapa+".pdf'>" + data + "</a>" + removebut);
-//             //MSG DE SUCESSO - canto superior direito - session           
-//         },
-//         error: function(data) {
-//             console.log("Erro na API - Edit Etapa Enunciado");
-//             //MSG DE ERRO - canto superior direito - session
-//             console.log(data);
-//         }
-//     });
-
-// }
-
 function submit_feedback(feedback, etapa, grupo_id){
     if (validate_feedback()){
         const data = {
@@ -706,6 +657,7 @@ function makeEtapaTable(data){
     for (i=0; i<data.length; i++){
         json = data[i];
         var enunciado = json["enunciado_url"];
+        var enunciado_original = json["enunciado_original"];
 
         var d1 = json["deadline"].split(" ");
         var date_full = d1[0].split("-");
@@ -734,7 +686,7 @@ function makeEtapaTable(data){
             removebut = ''
         } else {
             removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
-            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + enunciado + "'>" + enunciado + "</a>"
+            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + enunciado + "'>" + enunciado_original + "</a>"
         }
 
         var obj = {
@@ -766,8 +718,8 @@ function makeEtapaTable(data){
 
 function checkEnunciado(){
     //enunciado h4 é setted através do registo da bd associado ao proj
-    if (enunciado_h4 != ""){
-        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ enunciado_h4 +"'>" + enunciado_h4 + "</a>");
+    if (enunciado_h4 != "" && enunciado_original != ""){
+        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ enunciado_h4 +"'>" + enunciado_original + "</a>");
         $("#openEnunc").val("Editar Enunciado");
     } else {
         $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")

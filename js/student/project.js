@@ -41,10 +41,10 @@ $(document).ready(() => {
         createSubmissionPopup(selected_etapa, etapa_name);
         checkSubmission(grupo, selected_etapa, proj);
 
-        if ($(this).css("background-color") == "#75a790"){
+        if ($(this).css("background-color") == "#999C9B") {
             $(this).css("background-color", "white");
         } else {
-            $(this).css("background-color", "#75a790");
+            $(this).css("background-color", "#999C9B");
         }
 
         // verificação de data - se a data de entrega da etapa ja tiver sido passada esconder o botao

@@ -439,6 +439,18 @@ a { color: inherit; }
 //                            MEDIA
 ////////////////////////////////////////////////////////////// */
 
+@media only screen and (max-height: 800px) {
+    .infoTask_inputs {
+        max-height: 355px;
+    }
+}
+
+@media only screen and (max-height: 650px) {
+    .infoTask_inputs {
+        max-height: 185px;
+    }
+}
+
 @media only screen and (max-width: 1650px) {
     .card_info_forum, .card_info_project {
         width: 45%;

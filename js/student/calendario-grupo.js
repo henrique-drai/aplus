@@ -236,9 +236,9 @@ function renderPopupGroupEvent(event) {
     }
 
     function saveState (event) {
-        event.obj.name = $('#groupEventForm input[name="name"]').val()
-        event.obj.description = $('#groupEventForm input[name="description"]').val()
-        event.obj.location = $('#groupEventForm input[name="location"]').val()
+        event.obj.name = escapeHtml($('#groupEventForm input[name="name"]').val())
+        event.obj.description = escapeHtml($('#groupEventForm input[name="description"]').val())
+        event.obj.location = escapeHtml($('#groupEventForm input[name="location"]').val())
         event.obj.start_date = datepickerToDate(editEventStartDate.get())
         event.obj.end_date = datepickerToDate(editEventEndDate.get())
     }

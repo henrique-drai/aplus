@@ -75,7 +75,10 @@ form.profile-edit-user input[type=submit]{
 .header {
     display: flex;
 }
-.header > img {
+.header .picture {
+    text-align: center;
+}
+.header .picture img {
     width: 170px;
     height: 170px;
     border-radius: 200px;

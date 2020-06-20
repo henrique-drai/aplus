@@ -180,6 +180,15 @@ class App extends CI_Controller {
         $this->load->model('UserModel');
         
         $data["user"] = $this->UserModel->getUserById($user_id);
+        $ratings = $this->UserModel->getMyRatings($user_id);
+        $ctr = 0;
+        foreach ($ratings as $key => $value) {
+            $ctr = $ctr + $value["valor"];
+        }
+        if(count($ratings) > 0){
+            $data["rating"] = bcdiv($ctr, count($ratings), 1);
+        }
+        
         
         //verificar se o user existe
         if(is_null($data["user"])){

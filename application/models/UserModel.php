@@ -16,6 +16,11 @@ class UserModel extends CI_Model {
         return $query->row();
     }
 
+    public function getMyRatings($user_id) {
+        $query = $this->db->get_where('member_classification', array('classificado_id' => $user_id));
+        return $query->result_array();
+    }
+
     public function userIsRelatedToGroup($user_id, $grupo_id) {
         $grupo_id = $this->db->escape($grupo_id);
         $result = $this->db->query("select * 

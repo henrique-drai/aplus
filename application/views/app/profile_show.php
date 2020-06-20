@@ -21,7 +21,11 @@
     <main>
     <br>
         <div class="header">
-            <img src="<?=$picture?>" alt="Profile Picture">
+            <div class="picture">
+                <img src="<?=$picture?>" alt="Profile Picture">
+                <div class="rating"><?=(isset($rating))? $rating.' <i class="fa fa-star"></i>' : ""?></div>
+            </div>
+            
             <div class="header-info">
                 <div class="name">
                     <?=$user->name." ". $user->surname?>

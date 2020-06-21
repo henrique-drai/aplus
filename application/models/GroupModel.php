@@ -85,7 +85,7 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
     }
 
     public function getFicheiroGrupoByURLSub($ficheiro_url, $grupo_id){
-        return $this->db->get_where("ficheiros_grupo", array("url" => $ficheiro_url, "grupo_id" => $grupo_id))->row();
+        return $this->db->get_where("ficheiros_grupo", array("url_original" => $ficheiro_url, "grupo_id" => $grupo_id))->row();
     }
 
     public function submit_ficheiro_areagrupo($data){
@@ -108,5 +108,11 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
 
     public function verifyGroupStudent($user_id, $group_id){
         return $this->db->get_where("grupo_aluno", array("user_id" => $user_id, "grupo_id" => $group_id))->row();
+    }
+
+    public function change_ficheiro_areagrupo_url($name_enunciado, $grupo_id){
+        $this->db->set("url", $name_enunciado);
+        $this->db->where("grupo_id", $grupo_id);
+        $this->db->update("ficheiros_grupo");
     }
 }

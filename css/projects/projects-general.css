@@ -12,7 +12,7 @@
 }
 
 .gruposDIV a:hover{
-    color: rgb(0, 177, 77);
+    color: rgb(20, 118, 167);
 }
 
 .form-input-text {
@@ -228,7 +228,7 @@ label {
 
 .input-label:hover{
     color: rgba(0, 0, 0, 0.842);
-    border-color: rgb(85, 150, 120);
+    border-color: rgb(20, 118, 167);
 }
 
 .input-label img {

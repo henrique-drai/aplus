@@ -71,7 +71,7 @@ function get_ficheiros_grupo(grupo){
                     }
 
                     array.push('<div class="file-row" id="file-row-teacher">'
-                    + '<p><a target="_blank" href="'+base_link+data["ficheiros"][i]["url"]+'">' + data["ficheiros"][i]["url"] + '</a></p>'
+                    + '<p><a target="_blank" href="'+base_link+data["ficheiros"][i]["url"]+'">' + data["ficheiros"][i]["url_original"] + '</a></p>'
                     + '<p><a href="'+base_url+ 'app/profile/' + data["ficheiros"][i]["user_id"]+'">'+name+ '</a></p>'
                     + '<p><img id="'+data["ficheiros"][i]["id"]+'" src="'+base_url+'images/icons/trash.png" class="delete_img"></p></div><hr>');
                 }

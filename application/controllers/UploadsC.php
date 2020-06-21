@@ -14,8 +14,9 @@ class UploadsC extends CI_Controller {
 
 
     //      uploadsc/uploadEnunciadoProjeto/:projeto_id
-    public function uploadEnunciadoProjeto($project_id)
+    public function uploadEnunciadoProjeto($project_id_par)
     {
+        $project_id = htmlspecialchars($project_id_par);
         $user_id = $this->session->userdata('id');
 
         if($this->verify_teacher($user_id, $project_id, "projeto")){
@@ -41,9 +42,6 @@ class UploadsC extends CI_Controller {
     
             if ( ! $this->upload->do_upload('file_projeto'))
             {
-      
-                // $error = array('error' => $this->upload->display_errors());
-                // print_r($error);
                 $arr_msg = array (
                     "msg" => "Erro ao submeter ficheiro",
                     "type" => "E",
@@ -77,8 +75,10 @@ class UploadsC extends CI_Controller {
 
     }
 
-    public function uploadEnunciadoEtapa($project_id, $etapa_id)
+    public function uploadEnunciadoEtapa($project_id_par, $etapa_id_par)
     {
+        $project_id = htmlspecialchars($project_id_par);
+        $etapa_id = htmlspecialchars($etapa_id_par);
         $user_id = $this->session->userdata('id');
    
         if($this->verify_teacher($user_id, $project_id, "projeto")){
@@ -96,8 +96,6 @@ class UploadsC extends CI_Controller {
 
             if ( ! $this->upload->do_upload('file_etapa'))
             {
-                // $error = array('error' => $this->upload->display_errors());
-                // print_r($error);
                 $arr_msg = array (
                     "msg" => "Erro ao submeter ficheiro da etapa",
                     "type" => "E",
@@ -130,8 +128,11 @@ class UploadsC extends CI_Controller {
     }
 
     // submit de alunos para etapa
-    public function uploadSubmissao($project_id, $etapa_id, $grupo_id)
+    public function uploadSubmissao($project_id_par, $etapa_id_par, $grupo_id_par)
     {
+        $grupo_id = htmlspecialchars($grupo_id_par);
+        $project_id = htmlspecialchars($project_id_par);
+        $etapa_id = htmlspecialchars($etapa_id_par);
         $user_id = $this->session->userdata('id');
 
         if($this->verify_student($user_id, $grupo_id)){
@@ -148,12 +149,9 @@ class UploadsC extends CI_Controller {
 
             $this->load->library('upload', $upload);
 
-            foreach (glob("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id ."*.*") as $filename) {
-                unlink($filename);
-            }
-
-            // if(file_exists("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".rar")) unlink("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".rar");
-            // if(file_exists("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".zip")) unlink("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id . ".zip");
+            // foreach (glob("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id ."*.*") as $filename) {
+            //     unlink($filename);
+            // }
 
             if ( ! $this->upload->do_upload('file_submit'))
             {
@@ -206,8 +204,9 @@ class UploadsC extends CI_Controller {
 
 
     // submit de alunos para area de grupo - to do
-    public function uploadFicheirosGrupo($grupo_id)
+    public function uploadFicheirosGrupo($grupo_id_par)
     {
+        $grupo_id = htmlspecialchars($grupo_id_par);
         $user_id = $this->session->userdata('id');
 
         if($this->verify_student($user_id, $grupo_id)){
@@ -230,6 +229,13 @@ class UploadsC extends CI_Controller {
             }  
             else
             {
+
+                $enunciado = $this->upload->data('raw_name');
+                $ext = $this->upload->data('file_ext');
+                $name_enunciado = $enunciado . '_' . time() . $ext;
+
+                rename("uploads/grupo_files/" . $grupo_id . '/' . $enunciado . $ext, "uploads/grupo_files/" . $grupo_id . '/' . $name_enunciado);
+
                 //registar ficheiro na bd e cenas
                 $this->load->model('GroupModel');
                 $fich = $this->upload->data('client_name');
@@ -238,9 +244,12 @@ class UploadsC extends CI_Controller {
                     $data_send = Array(
                         "grupo_id"      => $grupo_id,
                         "user_id"       => $user_id,
-                        "url"           => $fich,
+                        "url"           => $name_enunciado,
+                        "url_original"  => $fich,
                     );
                     $this->GroupModel->submit_ficheiro_areagrupo($data_send);
+                } else {
+                    $this->GroupModel->change_ficheiro_areagrupo_url($name_enunciado, $grupo_id);
                 }
 
                 header("Location: ".base_url()."app/ficheiros/".$grupo_id);
@@ -251,9 +260,11 @@ class UploadsC extends CI_Controller {
     }
 
     // submit de professor para area de ficheiros da cadeira - to do
-    public function uploadFicheirosCadeira($cadeira_id, $cadeira_code, $year)
+    public function uploadFicheirosCadeira($cadeira_id_par, $cadeira_code_par, $year_par)
     {
-
+        $cadeira_id = htmlspecialchars($cadeira_id_par);
+        $cadeira_code = htmlspecialchars($cadeira_code_par);
+        $year = htmlspecialchars($year_par);
         $user_id = $this->session->userdata('id');
 
         if($this->verify_teacher($user_id, $cadeira_id, "cadeira")){
@@ -287,6 +298,13 @@ class UploadsC extends CI_Controller {
             }  
             else
             {
+
+                $enunciado = $this->upload->data('raw_name');
+                $ext = $this->upload->data('file_ext');
+                $name_enunciado = $enunciado . '_' . time() . $ext;
+
+                rename("uploads/cadeira_files/" . $cadeira_id . '/' . $enunciado . $ext, "uploads/cadeira_files/" . $cadeira_id . '/' . $name_enunciado);
+
                 $this->load->model('SubjectModel');
                 $fich = $this->upload->data('client_name');
                 $res = $this->SubjectModel->getFicheiroAreaByURLSub($fich, $cadeira_id);
@@ -294,11 +312,15 @@ class UploadsC extends CI_Controller {
                     $data_send = Array(
                         "user_id"        =>  $user_id,
                         "cadeira_id"     =>  $cadeira_id,
-                        "url"            =>  $fich,     
+                        "url"            =>  $name_enunciado,
+                        "url_original"   =>  $fich,    
                      );
                      
                     $this->SubjectModel->submitFicheiroArea($data_send);
+                } else {
+                    $this->SubjectModel->changeFicheirosAreaURL($name_enunciado, $cadeira_id);
                 }
+
                 header("Location: ".base_url()."subjects/ficheiros/".$cadeira_code.'/'.$year);
             }
         } else {

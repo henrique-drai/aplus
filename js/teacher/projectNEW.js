@@ -46,9 +46,9 @@ $(document).ready(() => {
 
         $('.etapa').last().after(etapa);     
         $('.etapa').last().change(function(){
-            var name = $(this).find('input[name="etapaName"]').val();
-            var desc = $(this).find('textarea[name="etapaDescription"]').val();
-            var data = $(this).find('input[name="etapaDate"]').val();
+            var name = escapeHtml($(this).find('input[name="etapaName"]').val());
+            var desc = escapeHtml($(this).find('textarea[name="etapaDescription"]').val());
+            var data = escapeHtml($(this).find('input[name="etapaDate"]').val());
             var enunc = '';
             var newid = parseInt(pid.replace("etapa",""));
 
@@ -120,9 +120,9 @@ $(document).ready(() => {
 
 
     $("#etapa1").change(function(){
-        var name = $(this).find('input[name="etapaName"]').val();
-        var desc = $(this).find('textarea[name="etapaDescription"]').val();
-        var data = $(this).find('input[name="etapaDate"]').val();
+        var name = escapeHtml($(this).find('input[name="etapaName"]').val());
+        var desc = escapeHtml($(this).find('textarea[name="etapaDescription"]').val());
+        var data = escapeHtml($(this).find('input[name="etapaDate"]').val());
         var enunc = '';
 
         
@@ -298,10 +298,10 @@ function submitProject(){
     if (verifyallinputs()){
 
         const data = {
-            projName:        $("#projForm input[name='projName']").val(),
-            groups_min:      $("#projForm input[name='groups_min']").val(),
-            groups_max:      $("#projForm input[name='groups_max']").val(),
-            projDescription: $("#projForm textarea[name='projDescription']").val(),
+            projName:        escapeHtml($("#projForm input[name='projName']").val()),
+            groups_min:      escapeHtml($("#projForm input[name='groups_min']").val()),
+            groups_max:      escapeHtml($("#projForm input[name='groups_max']").val()),
+            projDescription: escapeHtml($("#projForm textarea[name='projDescription']").val()),
             file:            '',
             cadeira_id:      subject_id,
             listetapas:      etapas,

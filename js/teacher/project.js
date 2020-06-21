@@ -160,7 +160,7 @@ $(document).ready(() => {
     //ADICIONAR ENUNCIADO - File Input
     $("body").on('change', "#file_projeto", function(){
         if($("#file_projeto").val() != ""){
-            $("#name-enunciado-proj").text($("#file_projeto").val().split('\\').pop());
+            $("#name-enunciado-proj").text(escapeHtml($("#file_projeto").val().split('\\').pop()));
             $("#file-img").attr('src',base_url+"images/icons/check-solid.png");
             //msg de sucesso - "enunciado adicionado com sucesso -> session php com o valor da msg"
         } else {
@@ -173,7 +173,7 @@ $(document).ready(() => {
 
     //ADICIONAR ENUNCIADO - Confimar 
     $("body").on("click", "#addEnunciado", function(e){
-        enunc = $("#file_projeto").val().split('\\').pop();
+        enunc = escapeHtml($("#file_projeto").val().split('\\').pop());
         if (enunc.length == 0){
             $("#error-popup").text("Selecione um ficheiro");
             $("#error-popup").show().delay(3000).fadeOut();
@@ -200,8 +200,8 @@ $(document).ready(() => {
 
     //on change mudar a etapa (variavel) - NOVA ETAPA
     $("body").on("change", "#etapa-form", function(){
-        var name = $(this).find('input[name="etapaName"]').val();
-        var desc = $(this).find('textarea[name="etapaDescription"]').val();
+        var name = escapeHtml($(this).find('input[name="etapaName"]').val());
+        var desc = escapeHtml($(this).find('textarea[name="etapaDescription"]').val());
         var data = dateFromPicker($(this).find('input[name="etapaDate"]').val());
         var enunc = '';
         
@@ -225,7 +225,7 @@ $(document).ready(() => {
     //on change selecionar ficheiro - input - ADICIONAR ENUNCIADO ETAPA
     $("body").on("change", "#file_etapa", function(){
         if($("#file_etapa").val() != ""){
-            $("#name-enunciado-etapa").text($("#file_etapa").val().split('\\').pop());
+            $("#name-enunciado-etapa").text(escapeHtml($("#file_etapa").val().split('\\').pop()));
             $("#file-img-etapa").attr('src',base_url+"images/icons/check-solid.png");
         } else {
             $("#name-enunciado-etapa").text("Envie o ficheiro do enunciado");
@@ -237,7 +237,7 @@ $(document).ready(() => {
 
     //ADICIONAR ENUNCIADO ETAPA - Confirmar
     $('body').on("click", "#addEnuncEtapa", function(e){
-        enunc = $("#file_etapa").val().split('\\').pop();
+        enunc = escapeHtml($("#file_etapa").val().split('\\').pop());
         if (enunc.length == 0){
             $("#error-popup").text("Selecione um ficheiro");
             $("#error-popup").show().delay(3000).fadeOut();
@@ -258,8 +258,8 @@ $(document).ready(() => {
 
     //On change editar etapa -> editar etapa
     $("body").on("change", "#etapa-form-edit", function(){
-        var name = $(this).find('input[name="editetapaName"]').val();
-        var desc = $(this).find('textarea[name="editetapaDescription"]').val();
+        var name = escapeHtml($(this).find('input[name="editetapaName"]').val());
+        var desc = escapeHtml($(this).find('textarea[name="editetapaDescription"]').val());
         var data = dateFromPicker($(this).find('input[name="editetapaDate"]').val());
         
         etapa['nome'] = name;
@@ -281,12 +281,12 @@ $(document).ready(() => {
 
     //FEEDBACK ETAPA - Select on change -> get submissoes
     $("body").on("change", "#select_grupo_feedback", function(){
-        var grupo_id = $(this).val();
+        var grupo_id = escapeHtml($(this).val());
         getSumbission(grupo_id, selected_etapa, proj);
     })
 
     $("body").on("click", "#confirmFeedback", function(){
-        submit_feedback($('textarea[name="feedback-text"]').val(), selected_etapa, $("#select_grupo_feedback :selected").val());
+        submit_feedback(escapeHtml($('textarea[name="feedback-text"]').val()), selected_etapa, escapeHtml($("#select_grupo_feedback :selected").val()));
     })
 
     //Remover Enunciado de uma etapa

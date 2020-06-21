@@ -95,7 +95,7 @@ $(document).ready(() => {
 
     $("body").on("change", "#file_submit", function(){
         if($("#file_submit").val() != "") {
-            $("#name-file-submit").text($("#file_submit").val().split('\\').pop());
+            $("#name-file-submit").text(escapeHtml($("#file_submit").val().split('\\').pop()));
             $("#file-img-submit").attr('src',base_url+"images/icons/check-solid.png");
         } else {
             $("#name-file-submit").text("Envie o ficheiro do enunciado");

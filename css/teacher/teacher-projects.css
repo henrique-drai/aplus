@@ -104,3 +104,11 @@ input.remove:hover {
 #enunciado-form > #ul-buttons{
     display: block;
 }
+
+#placeholder-picker-new .wdp-header{
+    padding: 10px 15px 10px 25px;
+}
+
+#placeholder-picker-new {
+    overflow-y: hidden;
+}

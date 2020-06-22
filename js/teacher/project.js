@@ -786,6 +786,10 @@ function createEtapaPopup(){
     etapapicker.el.addEventListener('wdp.change', () => {
         var data = dateFromPicker($("#datepickernew").val());
 
+        if(!$("#footer-dpnew").length){
+            $("#placeholder-picker-new .wdp-container").append("<div id='footer-dpnew' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+        }
+
         etapa['data'] = data;
 
         if (!verifyDates(data)){
@@ -795,6 +799,11 @@ function createEtapaPopup(){
         }
 
     });    
+
+
+    $("body").on("click", "#hidedatepicker", function(){
+        etapapicker.close();
+    })
 }
 
 function createInfoPopup(etapa_rec, name){
@@ -869,13 +878,18 @@ function createEditPopup(name, data, desc){
         orientation: true,
     });
 
-    $('#datepickeredit').val(data);
     editpicker.set(data);
+    if (editpicker.value!=null){
+        $("#placeholder-picker-edit .wdp-container").append("<div id='footer-dpedit' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+    }
 
     editpicker.el.addEventListener('wdp.change', () => {
         var data = dateFromPicker($("#datepickeredit").val());
 
         etapa['data'] = data;
+        if(!$("#footer-dpedit").length){
+            $("#placeholder-picker-edit .wdp-container").append("<div id='footer-dpedit' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+        }
 
         if (!verifyDates(data)){
             $("#datepickeredit").css("border-left-color", "red");
@@ -883,6 +897,10 @@ function createEditPopup(name, data, desc){
             $("#datepickeredit").css("border-left-color", "lawngreen");
         }
     });
+
+    $("body").on("click", "#hidedatepicker", function(){
+        editpicker.close();
+    })
 
     $(".cd-buttons").html('').append("<li><input form='etapa-form-edit' class='button-popup' id='newEtapaEDIT' type='submit' value='Confirmar'>" +
     "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");

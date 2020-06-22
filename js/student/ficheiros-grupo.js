@@ -93,29 +93,6 @@ function get_ficheiros_grupo(grupo){
     });
 }
 
-// function submit_ficheiro_grupo(grupo_id, ficheiro){
-
-//     const data = {
-//         grupo_id : grupo_id,
-//         ficheiro_url : ficheiro,
-//     }
-
-//     $.ajax({
-//         type: "POST",
-//         url: base_url + "api/submitFileAreaGrupo",
-//         data: data,
-//         success: function(data) {
-//             $("#success").show();
-//             console.log(data)
-//         },
-//         error: function(data) {
-//             console.log("Erro na API - Submit File Para Area do Grupo");
-//             console.log(data);
-//         }
-//     });
-
-// }
-
 function removeFicheiro(grupo_id, ficheiro_id){
 
     const data = {

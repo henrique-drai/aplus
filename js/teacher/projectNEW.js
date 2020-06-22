@@ -17,6 +17,8 @@ $(document).ready(() => {
     });
 
 
+
+
     $("#projForm")[0].reset(); //se voltarem para a pagina depois de preenchido o form a info desaparece
 
     //definir um numero que nunca se repita para id de cada etapa
@@ -71,14 +73,15 @@ $(document).ready(() => {
 
         newpicker.el.addEventListener('wdp.change', () => {
 
-            console.log($(this))
-
             var newid = parseInt(pid.replace("etapa",""));
-
             var data = dateFromPicker($("#datepicker" + newid).val());
 
-            console.log(data);
-
+            console.log("footer-dpicknew"+newid)
+            if(!$("#footer-dpicknew"+newid).length){
+                console.log("footer-dpicknew"+newid)
+                $("#placeholder-picker" + newid + " .wdp-container").append("<div id='footer-dpicknew"+newid+"' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+            }
+  
             if (!verifyDates(data))
                 $("#datepicker" + newid).css("border-left-color", "red");
             else
@@ -94,6 +97,10 @@ $(document).ready(() => {
 
             insertIntoEtapas(newid, name, desc, enunc, datains);
         });
+
+        $("body").on("click", "#hidedatepicker", function(){
+            newpicker.close();
+        })
     
 
         refreshEtapasTitle();
@@ -133,9 +140,9 @@ $(document).ready(() => {
     picker.el.addEventListener('wdp.change', () => {
         var data = dateFromPicker($("#datepicker1").val());
 
-
-        console.log(data);
-        console.log(verifyDates(data))
+        if(!$("#footer-dpicker").length){
+            $("#placeholder-picker1 .wdp-container").append("<div id='footer-dpicker' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+        }
 
         if (!verifyDates(data))
             $("#datepicker1").css("border-left-color", "red");
@@ -152,6 +159,9 @@ $(document).ready(() => {
         insertIntoEtapas(1, name, desc, enunc, datains);
     });
 
+    $("body").on("click", "#hidedatepicker", function(){
+        picker.close();
+    })
 
     $("#maxnuminput").keyup(function(){
         validateFormNumb();

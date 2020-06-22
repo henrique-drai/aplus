@@ -78,7 +78,7 @@ class Api_Project extends REST_Controller {
                   array_push($notifications, Array(
                     "user_id" => intval($value["user_id"]),
                     "type" => "alert",
-                    "title" => "Novo projeto da cadeira ".$cadeira_name." criado",
+                    "title" => "Novo projeto da cadeira '".$cadeira_name."' criado",
                     "content" => "Clica para saberes mais",
                     "link" => "app/projects/project/" . $proj_id,
                     "seen" => FALSE,
@@ -150,6 +150,37 @@ class Api_Project extends REST_Controller {
         if($this->verify_teacher($user_id, $etapa_id, "etapa") == true){
             $etapa_submit = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
             $data = $this->ProjectModel->insertFeedback($feedback, $etapa_submit->row()->id);
+
+            //alunos do grupo
+            $this->load->model('NotificationModel');
+            $students = $this->GroupModel->getStudents($grupo_id);
+
+            $etapa = $this->ProjectModel->getEtapaByID($etapa_id)->result_array();
+
+            $etapa_name = $etapa[0]["nome"];
+            $proj = $this->ProjectModel->getProjectByID($etapa[0]["projeto_id"]);
+
+            $proj_name = $proj[0]["nome"];
+            $proj_id = $proj[0]["id"];
+
+            $notifications = array(); //escrever notificações
+            $curr_date = date('Y/m/d H:i:s', time());
+    
+            foreach ($students as $key => $value) {
+                if($user_id != intval($value["user_id"])){
+                    array_push($notifications, Array(
+                    "user_id" => intval($value["user_id"]),
+                    "type" => "alert",
+                    "title" => "Feedback atribuido à etapa '".$etapa_name."' do projeto '".$proj_name."'",
+                    "content" => "Clica para saberes mais",
+                    "link" => "app/projects/project/" . $proj_id,
+                    "seen" => FALSE,
+                    "date" => $curr_date
+                    ));
+                }
+            }
+
+            $this->NotificationModel->createMultiple($notifications); //enviar notificações para todos os alunos
 
             if ($data){
                 $arr_msg = array (

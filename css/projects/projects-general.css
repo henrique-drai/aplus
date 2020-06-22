@@ -8,11 +8,12 @@
 .gruposDIV a {
     color: #15435a;
     text-decoration: none;
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .gruposDIV a:hover{
     color: rgb(20, 118, 167);
+    text-decoration: underline;
 }
 
 .form-input-text {
@@ -43,9 +44,9 @@ label {
 .submit{
     display:none;
     text-align: center;
-    width: 30%;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    width: 40%;
+    padding-top: 10px;
+    padding-bottom: 10px;
     border-radius: 5px;
     position: relative;
     float:right;
@@ -232,6 +233,7 @@ label {
 }
 
 .input-label img {
+    margin-right: 5px;
     width: 12px;
 }
 

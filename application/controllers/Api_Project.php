@@ -32,14 +32,15 @@ class Api_Project extends REST_Controller {
 
     public function createProject_post(){ 
         $user_id = $this->session->userdata('id');
+        $this->load->model('NotificationModel');
         //Verificar se o id do professor guardado no token está associado à cadeira
         //tabela que liga cadeira a user
 
-
-        if ($this->verify_teacher($user_id,htmlspecialchars($this->post("cadeira_id")),"cadeira") == true){
+        $cadeira_id = htmlspecialchars($this->post("cadeira_id"));
+        if ($this->verify_teacher($user_id,$cadeira_id,"cadeira") == true){
 
             $dataProj = Array(
-                "cadeira_id"          => htmlspecialchars($this->post("cadeira_id")),
+                "cadeira_id"          => $cadeira_id,
                 "nome"                => htmlspecialchars($this->post("projName")),
                 "min_elementos"       => htmlspecialchars($this->post("groups_min")),
                 "max_elementos"       => htmlspecialchars($this->post("groups_max")),
@@ -64,7 +65,29 @@ class Api_Project extends REST_Controller {
     
                 $this->ProjectModel->insertEtapa($newEtapa);
             }
+
+            //alunos da cadeira
+            $students =  $this->SubjectModel->getAllStudentSubject($cadeira_id);
+            $cadeira_name =  $this->SubjectModel->getCadeiraInfo($cadeira_id)[0]["name"];
+
+            $notifications = array(); //escrever notificações
+            $curr_date = date('Y/m/d H:i:s', time());
     
+            foreach ($students as $key => $value) {
+                if($user_id != intval($value["user_id"])){
+                  array_push($notifications, Array(
+                    "user_id" => intval($value["user_id"]),
+                    "type" => "alert",
+                    "title" => "Novo projeto da cadeira ".$cadeira_name." criado",
+                    "content" => "Clica para saberes mais",
+                    "link" => "app/projects/project/" . $proj_id,
+                    "seen" => FALSE,
+                    "date" => $curr_date
+                  ));
+                }
+            }
+
+            $this->NotificationModel->createMultiple($notifications); //enviar notificações para todos os alunos
     
             $this->response($proj_id, parent::HTTP_OK);
         } else {

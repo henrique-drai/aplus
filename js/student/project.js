@@ -117,7 +117,6 @@ $(document).ready(() => {
             e.preventDefault();
         } else {
             if($("#file_submit")[0].files[0].size < 5024000){
-                // submit_etapa($("#file_submit").val().split('\\').pop());
                 $("#form-submit-etapa")[0].submit();
             } else {
                 $("#error-popup").text("Ficheiro ultrapassa o limite de 5MB")
@@ -141,7 +140,7 @@ $(document).ready(() => {
     
     // ESCONDER POPUP AO CLICAR
     $("body").on("click", "#closeError", function(){
-        $("#error-popup").hide();
+        $("#error-popup").fadeTo(2000, 0);
     })
     
 

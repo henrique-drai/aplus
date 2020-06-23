@@ -29,11 +29,11 @@ $(document).ready(() => {
     
             let data = {}
     
-            if(name != "")
+            if(name.length)
                 data.name = name
-            if(surname != "")
+            if(surname.length)
                 data.surname = surname
-            if(password != "")
+            if(password.length)
                 data.password = password
     
             data.description = $(".profile-edit-user textarea").val()

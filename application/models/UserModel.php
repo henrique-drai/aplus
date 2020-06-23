@@ -16,6 +16,13 @@ class UserModel extends CI_Model {
         return $query->row();
     }
 
+    public function getSomeValuesUser($id){
+        $this->db->select("name, surname, id, picture, email");
+        $this->db->where(array('id' => $id));
+        $query = $this->db->get("user");
+        return $query->row();
+    }
+
     public function getMyRatings($user_id) {
         $query = $this->db->get_where('member_classification', array('classificado_id' => $user_id));
         return $query->result_array();

@@ -31,6 +31,8 @@ $(document).ready(() => {
         window.location = base_url + "app/ficheiros/" + localStorage.grupo_id;
     })
 
+    groupMembers(id);
+
     $("#newTarefa").click(function() {
         createPopUpAdd();
         $(".cd-popup2").css('visibility', 'visible');
@@ -117,7 +119,7 @@ $(document).ready(() => {
 
     // --------------------- EXPORT ----------------- //
     $("#exportInfo").on("click", function(e) {
-        console.log("entrou")
+        // console.log("entrou")
         e.preventDefault()
         $.ajax({
             type: "GET", 
@@ -173,7 +175,7 @@ function disableTasksClose() {
 			grupo_id: localStorage.grupo_id
 		},
 		success: function (data) {
-            console.log(data.date)
+            // console.log(data.date)
             
             if (new Date(data.date) < Date.now()){
                 $("#newTarefa").remove();
@@ -197,7 +199,7 @@ function updateTaskPopup(task_id, proj_name, tr_id){
         type: "GET",
         url: base_url + "api/getTaskById/" + task_id,
         success: function(data) {
-            console.log(data)
+            // console.log(data)
             var popup = '';
 
             popup = popup +                 
@@ -379,7 +381,7 @@ function getTasks() {
                     if(data.tasks[i].done_date == "0000-00-00 00:00:00") {
                         table = table + "<td class='final'>Não</td class='time_end'><td>Ainda não terminado</td>";
                     } else {
-                        console.log(data)
+                        // console.log(data)
                         var day = data.tasks[i].done_date.substring(8, 10) - data.tasks[i].start_date.substring(8, 10);
                         var hours = data.tasks[i].done_date.substring(11, 13) - data.tasks[i].start_date.substring(11, 13);
                         var min = data.tasks[i].done_date.substring(14, 16) - data.tasks[i].start_date.substring(14, 16);
@@ -483,7 +485,6 @@ function insertTaskEndDate(task_id) {
         url: base_url + "api/insertTaskEndDate/" + task_id,
         data: {grupo_id: localStorage.grupo_id, user_id: localStorage.user_id},
         success: function (data) {
-            console.log(data)
             $(".endTask").empty();
             $(".title_end").empty();
             $(".endTask").append("<label>" + data + "</label>");
@@ -512,7 +513,7 @@ function createPopUpEdit(task_id, proj_name, tr_id) {
 		type: "GET",
 		url: base_url + "api/getTaskById/" + task_id,
 		success: function (data) {
-			console.log(data)
+			// console.log(data)
 
             $(".cd-message").html("<form id='editTask' action='javascript:void(0)'></form>").append("<div class='editTask_inputs'>" +
                 "<h2>Tarefa para " + proj_name.substring(1, proj_name.length - 1) + "</h2>" +
@@ -577,4 +578,26 @@ function getTaskName(task_id) {
 			console.log(data)
 		}
 	});
+}
+
+function groupMembers(group_id){;
+    $.ajax({
+        type: "GET",
+        url: base_url + "api/getGroupMembers/" + group_id,
+        data: {group_id: group_id},
+        success: function(data) {
+            console.log(data);
+            var names = '';
+            for(var j=0; j < data["users"].length; j++) {
+                var _img = data["users"][j]["picture"]!=""? data["users"][j]["id"] + data["users"][j]["picture"] : "default.jpg";
+                var _src = base_url + "uploads/profile/"+ _img; 
+                var _name = data["users"][j]["name"] + data["users"][j]["surname"]
+                names = names + '<a class="groupmember" href="'+ base_url +'app/profile/'+ data["users"][j]["id"] + '">' + '<img class="groupMemberImg" src="'+_src+'" alt="' + _name +'">' + "<span class='memberName'>" + data["users"][j]["name"] + " " + data["users"][j]["surname"] + "</span>" + "</a>";
+            }
+            $(".GroupMembers").html('<br><h3>Membros do grupo</h3>' + '<p>'+ names +'</p>');
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
 }

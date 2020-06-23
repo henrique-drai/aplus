@@ -195,6 +195,17 @@ label {
     word-wrap: break-word;
 }
 
+#enunciado_h4 a{
+    color:#15435a;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+#enunciado_h4 a:hover{
+    color: rgb(20, 118, 167);
+    text-decoration: underline;
+}
+
 #enunciado_label a{
     width: 100%;
     word-wrap: break-word;

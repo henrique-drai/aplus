@@ -25,7 +25,7 @@ class Api_User extends REST_Controller {
     
     public function user_post(){ 
         $data = Array(
-            "id" => htmlspecialchars($this->session->userdata('id')),
+            "id" => $this->session->userdata('id'),
             "name" => htmlspecialchars($this->post('name')),
             "surname" => htmlspecialchars($this->post('surname')),
             "password" => htmlspecialchars($this->post('password')),

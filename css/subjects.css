@@ -50,8 +50,13 @@ input {
     margin-left: 0% !important;
 }
 
-select, textarea {
+textarea {
     border-left: 3px solid #42d542;
+}
+
+select {
+    border-left: 3px solid #e9e9e9;
+    background-color: #e9e9e9;
 }
 
 .grid {
@@ -168,6 +173,7 @@ select, textarea {
 .dates label {
     width: 50% !important;
     margin-top: -20px !important;
+    margin-right: 2%;
 }
 
 h4 {

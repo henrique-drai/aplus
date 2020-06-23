@@ -216,8 +216,18 @@ function insertIntoEtapas(id, name, desc, enunc, data){
 
 
 function validateFormNumb(){
-    if($("#minnuminput").val() != '' && $("#maxnuminput").val() != ''){
+
+    if($("#minnuminput").val() < 0){
+        $("#errormsg").text("Insira números válidos");
+        $("#minnuminput").css("border-left-color", "red");
+        return false;
+    } else if ($("#maxnuminput").val() < 0){
+        $("#errormsg").text("Insira números válidos");
+        $("#maxnuminput").css("border-left-color", "red");
+        return false;
+    } else if($("#minnuminput").val() != '' && $("#maxnuminput").val() != ''){
         if(parseInt($("#minnuminput").val()) >= parseInt($("#maxnuminput").val())){
+            $("#errormsg").text("Número minimo deve ser menor que máximo");
             $("#minnuminput").css("border-left-color", "red");
             $("#maxnuminput").css("border-left-color", "red");
             return false;
@@ -229,11 +239,13 @@ function validateFormNumb(){
     }
 
     if($("#minnuminput").val() == ''){
+        $("#errormsg").text("Preencha todos os parametros");
         $("#minnuminput").css("border-left-color", "red");
         return false;
     }
 
     if($("#maxnuminput").val() == ''){
+        $("#errormsg").text("Preencha todos os parametros");
         $("#maxnuminput").css("border-left-color", "red");
         return false;
     }
@@ -288,7 +300,6 @@ function validate_descriptions(){
 
 function verifyallinputs(){
     if (!validateFormNumb()){
-        $("#errormsg").text("O número máximo de alunos tem de ser maior que o mínimo");
         $("#errormsg").show().delay(5000).fadeOut();
         return false;
     } else if (!validateAllDates()){

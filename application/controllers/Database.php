@@ -11,9 +11,8 @@ class Database extends CI_Controller {
     }
 
     public function index() {
-        $data["base_url"] = base_url();
-        $this->load->view('templates/head', $data);
-        $this->load->view('database', $data);
+        $this->load->view('templates/head');
+        $this->load->view('database');
         $this->load->view('templates/footer'); 
     }
 
@@ -29,11 +28,5 @@ class Database extends CI_Controller {
         $this->load->model('ScriptModel');
         $this->load->helper('large_script');
         large_script($this->ScriptModel);
-    }
-
-    public function smart_script() {
-        $this->load->model('SmartModel');
-        $this->load->helper('smart_script');
-        smart_script($this->SmartModel);
     }
 }

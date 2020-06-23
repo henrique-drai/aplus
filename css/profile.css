@@ -85,6 +85,10 @@ form.profile-edit-user input[type=submit]{
     border: 1px solid #555;
     background-color: #15435a;
 }
+.header .rating .empty {
+    font-size: 11px;
+    text-transform: uppercase;
+}
 .header-info {
     padding: 10px 20px;
     align-self: center;

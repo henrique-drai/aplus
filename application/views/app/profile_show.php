@@ -23,7 +23,10 @@
         <div class="header">
             <div class="picture">
                 <img src="<?=$picture?>" alt="Profile Picture">
-                <div class="rating"><?=(isset($rating))? $rating.' <i class="fa fa-star"></i>' : ""?></div>
+                <div class="rating">
+                    <?=(isset($rating))? $rating.' <i class="fa fa-star"></i>' : null ?>
+                    <?=(!isset($rating) && $user->role == "student")? '<div class="empty">Classificação Pendente</div>' : null ?>
+                </div>
             </div>
             
             <div class="header-info">
@@ -45,4 +48,5 @@
                 </div>
             </div>
         </div>
+        <a class="std-btn" href="<?=base_url()?>app/profile/edit">Editar</a>
     </main>

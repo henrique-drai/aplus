@@ -86,10 +86,8 @@ $(document).ready(() => {
         $('.infoTask_inputs input').each(function(index){
             if($(this).css('border-left-color') == 'rgb(255, 0, 0)') {
                 flag = false;
-                console.log($(this))
                 return false;
             } else {
-                console.log($(this).css('border-left-color'))
                 flag = true;
             }
         })
@@ -186,8 +184,6 @@ function getInfo() {
         url: base_url + "api/getCadeira/" + id,
         data: {role: "teacher", user_id: localStorage.user_id},
         success: function(data) {
-            console.log(data);
-
             var color = convertHex(data.desc[0].color, 52);
 
             $("#subject_title").empty();
@@ -443,6 +439,6 @@ function convertHex(hex,opacity){
 
 function refreshHours() {
     $('h4').each(function(index){
-        $(this).find(".count").text(index);
+        $(this).find(".count").text(index.toString());
     })
 }

@@ -119,7 +119,7 @@ class Api_Project extends REST_Controller {
 
             if ($data){
                 $arr_msg = array (
-                    "msg" => "Etapa submetida com sucesso",
+                    "msg" => "Etapa criada com sucesso",
                     "type" => "S",
                 );
             } else {

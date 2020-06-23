@@ -62,7 +62,8 @@ $(document).ready(() => {
 
         if (today > data_entrega_final){
             $("#error-popup").text("A data limite para submeter esta etapa foi ultrapassada.")
-            $("#error-popup").show()
+            $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+            $("#error-popup").show();
             $("#form-submit-etapa").hide();
             $(".cd-buttons").html('');
         } else {
@@ -72,7 +73,8 @@ $(document).ready(() => {
                 "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");
             } else {
                 $("#error-popup").text("Inscreva-se num grupo para poder fazer submissões.")
-                $("#error-popup").show().delay(5000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
                 $("#form-submit-etapa").hide();
                 $(".cd-buttons").html('');
             }
@@ -101,15 +103,17 @@ $(document).ready(() => {
             $("#name-file-submit").text("Envie o ficheiro do enunciado");
             $("#file-img-submit").attr('src',base_url+"images/icons/upload-solid.png");
             $("#error-popup").text("Tem de selecionar um ficheiro");
-            $("#error-popup").show().delay(3000).fadeOut();
+            $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+            $("#error-popup").show();
         }
 
     })
 
     $("body").on("click", "#addSubmission", function(e){
         if($("#file_submit").val() == ""){
-            $("#error-popup").text("Tem de selecionar um ficheiro")
-            $("#error-popup").show().delay(3000).fadeOut();
+            $("#error-popup").text("Tem de selecionar um ficheiro");
+            $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+            $("#error-popup").show();
             e.preventDefault();
         } else {
             if($("#file_submit")[0].files[0].size < 5024000){
@@ -117,7 +121,8 @@ $(document).ready(() => {
                 $("#form-submit-etapa")[0].submit();
             } else {
                 $("#error-popup").text("Ficheiro ultrapassa o limite de 5MB")
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
 
                 $("#name-file-submit").text("Envie o ficheiro do enunciado");
                 $("#file-img-submit").attr('src',base_url+"images/icons/upload-solid.png");
@@ -131,6 +136,12 @@ $(document).ready(() => {
     $("body").on("click", "#areagrupo", function() {
         showMyGroup(proj);
         window.location = base_url + "app/grupo/" + grupo;
+    })
+
+    
+    // ESCONDER POPUP AO CLICAR
+    $("body").on("click", "#closeError", function(){
+        $("#error-popup").hide();
     })
     
 

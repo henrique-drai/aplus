@@ -12,7 +12,7 @@ $(document).ready(() => {
             $("#file-img").attr('src',base_url+"images/icons/check-solid.png");
             //msg de sucesso - "enunciado adicionado com sucesso -> session php com o valor da msg"
         } else {
-            $("#name-enunciado-proj").text("Envie o ficheiro a importar");
+            $("#name-enunciado-proj").text("Enviar ficheiro .csv");
             $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
             $("#error-popup").text("Selecione um ficheiro");
             $("#error-popup").show().delay(3000).fadeOut();
@@ -23,10 +23,9 @@ $(document).ready(() => {
             if($("#file").val() != ""){
                 $("#name-enunciado-proj").text(escapeHtml($("#file").val().split('\\').pop()));
                 $("#file-img").attr('src',base_url+"images/icons/check-solid.png");
-                console.log($("#file-img").attr('src'))
                 //msg de sucesso - "enunciado adicionado com sucesso -> session php com o valor da msg"
             } else {
-                $("#name-enunciado-proj").text("Envie o ficheiro a importar");
+                $("#name-enunciado-proj").text("Enviar ficheiro .csv");
                 $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
                 $("#error-popup").text("Selecione um ficheiro");
                 $("#error-popup").show().delay(3000).fadeOut();
@@ -160,6 +159,8 @@ $(document).ready(() => {
                 $("#importSuccess").html("Ficheiro importado com sucesso");
                 $("#importSuccess").show().delay(2000).fadeOut();
                 $("#file").val("");
+                $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+                $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
 },
             error: function(data) {
                 $("#importError").html("Erro a importar ficheiro");
@@ -174,9 +175,6 @@ $(document).ready(() => {
 
 // PRECISA DE SER SUBMIT?!?
     $("#importFromCsv").submit(function(e) {
-
-        console.log("lol")
-
 
         const info = {
             college:        $("#collegesDisplay").val(),
@@ -196,14 +194,16 @@ $(document).ready(() => {
                 $("#importSuccess").html("Ficheiro importado com sucesso");
                 $("#importSuccess").show().delay(2000).fadeOut();
                 $("#file").val("");
-                $(".fa-upload").show()
-                $(".js-fileName").text("Escolher ficheiro")
+                $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+                $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
                 
             },
             error: function(data) {
                 $("#importError").html("Erro a importar ficheiro");
                 $("#importError").show().delay(2000).fadeOut();
                 $("#myfile").val("");
+                $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+                $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
             },
             cache: false,
             contentType: false,
@@ -494,9 +494,9 @@ function getYears(){
             var option = "<option class='years'>Selecione um Ano Letivo</option>";
 
             for (i=0; i<data.schoolYears.length; i++){
-                if(data.schoolYears[i].inicio>=new Date().getFullYear()){
+                // if(data.schoolYears[i].inicio>=new Date().getFullYear()){
                     option+= "<option value='" + data.schoolYears[i].id + "'>"+ data.schoolYears[i].inicio  + "</option>"
-                }
+                // }
             }
             $("#yearsDisplay").html(option)
             $("#yearsDisplay1").html(option)
@@ -700,7 +700,7 @@ function getCursosFaculdade2(ano, faculdade){
                 +"<input type='file' name='userfile' id='file' class='input-file' accept='.csv' required>"
                 +"<label for='file' class='input-label'>"
                 +"<img id='file-img' class='file-img' src="+ base_url+ "images/icons/upload-solid.png>"
-                +"<span id='name-enunciado-proj' class='span-name'>Envie o ficheiro a importar</span></label>"
+                +"<span id='name-enunciado-proj' class='span-name'>Enviar ficheiro .csv</span></label>"
             
 
 

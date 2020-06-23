@@ -92,12 +92,13 @@
 }
 
 .file-row p:first-child {
-    width: 55%;
+    width: 45%;
     text-align: left;
 }
 
 .file-row p:nth-child(2) {
-    width: 30%;
+    width: 50%;
+    text-align: left;
 }
 
 .file-row p:nth-child(3) {

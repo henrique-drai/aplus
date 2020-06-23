@@ -156,10 +156,10 @@
 
 
                 <form id="teachersImport" action="javascript:void(0)" enctype="multipart/form-data">
-                    <input class="form-input-file" type="file" id="file_projeto" name="userfile" title="Escolher enunciado" accept=".csv">
+                    <input class="form-input-file" type="file" id="file_projeto" name="userfile" title="Escolher enunciado" required accept=".csv">
                     <label for="file_projeto" class="input-label">
                     <img id="file-img" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
-                    <span id="name-enunciado-proj" class="span-name">Envie o ficheiro a importar</span></label>
+                    <span id="name-enunciado-proj" class="span-name">Enviar ficheiro .csv</span></label>
                     <input type='submit' id='importTeachers'  value='Importar'></input>
                 </form>
 

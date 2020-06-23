@@ -109,7 +109,7 @@ $(document).ready(() => {
         }
     
         function getDate(date) {
-            const diff = new Date() - new Date(date) + 3600000
+            const diff = new Date() - new Date(date.replace(" ","T")) + 3600000
         
             if (diff < 1000*60*60) 
                 return "Há "+Math.floor(diff/1000/60)+" minutos"

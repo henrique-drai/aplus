@@ -1,17 +1,24 @@
-<?php if(strlen($this->session->userdata('std-message'))): ?>
+<?php
+  $class = strlen($this->session->userdata('std-message')) ? "visible " : "";
+  $class .= $this->session->userdata('std-message-type');
+?>
 
-<div id="std-message" class="<?=$this->session->userdata('std-message-type')?>">
+<div id="std-message" class="<?=$class?>">
   <div class="content"> <?=$this->session->userdata('std-message')?> </div>
   <div class="close"> <i class="fa fa-times" aria-hidden="true"></i> </div>
 </div>
 
-<?php endif;
+<?php
 $this->session->set_userdata('std-message', "");
 $this->session->set_userdata('std-message-type', "");
 ?>
 
 <style>
+  #std-message.visible {
+    visibility: visible;
+  }
   #std-message {
+    visibility: hidden;
     color: white;
     position: fixed;
     bottom: 0;
@@ -21,6 +28,7 @@ $this->session->set_userdata('std-message-type', "");
     padding: 8px;
     box-sizing: border-box;
     font-size: 15px;
+    z-index: 300;
   }
   #std-message.error { background-color: rgb(255, 72, 72); }
   #std-message.success { background-color: rgb(14, 183, 2); }
@@ -37,7 +45,7 @@ $this->session->set_userdata('std-message-type', "");
 <script>
   $(document).ready(()=>{
     $("#std-message .close").click((e)=>{
-      $("#std-message").css("visibility","hidden")
+      $("#std-message").removeClass("visible")
     })
   })
 </script>

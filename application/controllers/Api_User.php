@@ -37,6 +37,9 @@ class Api_User extends REST_Controller {
 
         $this->UserModel->updateUser($data);
 
+        $this->session->set_userdata('std-message', "O seu perfil foi atualizado.");
+        $this->session->set_userdata('std-message-type', "success");
+
         $this->response($data, parent::HTTP_OK);
     }
 

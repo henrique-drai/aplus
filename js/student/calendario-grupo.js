@@ -265,8 +265,17 @@ function renderPopupGroupEvent(event) {
                     //console.log(data)
                     updateCalendario()
                     $('.cd-popup').removeClass('is-visible')
+
+                    $("#std-message .content").text("A reunião foi atualizada.")
+                    $("#std-message").addClass("visible")
+                    $("#std-message").removeClass("error")
+                    $("#std-message").addClass("success")
                 },
                 error: function(data) {
+                    $("#std-message .content").text("Os dados que preencheu são inválidos.")
+                    $("#std-message").addClass("visible")
+                    $("#std-message").removeClass("sucess")
+                    $("#std-message").addClass("error")
                     console.log("Erro ao marcar reunião:")
                     console.log(data)
                 }
@@ -361,8 +370,17 @@ function renderPopupAddEvent(){
                     //console.log(data)
                     updateCalendario()
                     $('.cd-popup').removeClass('is-visible')
+
+                    $("#std-message .content").text("A reunião foi adicionada à agenda de grupo.")
+                    $("#std-message").addClass("visible")
+                    $("#std-message").removeClass("error")
+                    $("#std-message").addClass("success")
                 },
                 error: function(data) {
+                    $("#std-message .content").text("Os dados que preencheu são inválidos.")
+                    $("#std-message").addClass("visible")
+                    $("#std-message").removeClass("sucess")
+                    $("#std-message").addClass("error")
                     console.log("Erro ao marcar reunião:")
                     console.log(data)
                 }
@@ -447,6 +465,11 @@ function renderPopupInviteTeachers (event) {
                 //console.log(data)
                 updateCalendario()
                 renderPopupGroupEvent(event)
+
+                $("#std-message .content").text("O convite foi enviado.")
+                $("#std-message").addClass("visible")
+                $("#std-message").removeClass("error")
+                $("#std-message").addClass("success")
             },
             error: function(data) {
                 console.log("Problem inviting people:")
@@ -482,6 +505,10 @@ function renderPopupConfirmDeleteMeeting (event) {
             success: function(data) {
                 updateCalendario()
                 $('.cd-popup').removeClass('is-visible')
+                $("#std-message .content").text("A reunião foi cancelada.")
+                $("#std-message").addClass("visible")
+                $("#std-message").removeClass("error")
+                $("#std-message").addClass("success")
             },
             error: function(data) {
                 console.log("Couldn't delete the event:")

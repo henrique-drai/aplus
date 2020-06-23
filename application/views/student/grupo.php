@@ -12,10 +12,10 @@
 </head>
 
 <body>
-<?php $this->view('templates/nav-menu'); ?>
-<?php $this->view('templates/popup'); ?>
-<div id="placeholder-picker-start"></div>
-<div id="placeholder-picker-end"></div>
+    <?php $this->view('templates/nav-menu'); ?>
+    <?php $this->view('templates/popup'); ?>
+    <div id="placeholder-picker-start"></div>
+    <div id="placeholder-picker-end"></div>
     <main>
         <h4 class="breadcrumb">
             <a href="<?=$base_url?>app/student/grupos">Grupos</a> > Área de Grupo (<?=$grupo["name"]?>)
@@ -86,5 +86,5 @@
             </div>
         </div>
 
-        <div class="GroupMembers">
-        <div>
+        <div class="GroupMembers"></div>
+</main>

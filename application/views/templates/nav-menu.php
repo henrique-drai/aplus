@@ -25,7 +25,7 @@ $picture = $base_url . $file . "?" . time();
                 <?=$this->session->name . " " . $this->session->surname?>
             </div>
             <div class="nav-menu-btn-logout nav-menu-btn">
-                Sair
+                Terminar Sessão
             </div>
             <div class="btn-notifications nav-menu-btn">
                 <img src="<?=$base_url?>images/icons/bell.png" alt="">

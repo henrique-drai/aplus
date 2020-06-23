@@ -98,7 +98,7 @@
                 <th>Sigla</th>
                 <th>Semestre</th>
                 <th>Descrição</th> 
-                <th>Editar</th>
+                <th class="editarSubjectHTML">Editar</th>
                 <th>Apagar</th></tr>
             </table>
         </div> 

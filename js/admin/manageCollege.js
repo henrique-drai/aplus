@@ -19,7 +19,7 @@ $(document).ready(() => {
 
 
         $(".cd-popup-container").prepend(
-                        "<p id='toDel'>Tem a certeza que deseja eliminar a(o) faculdade " + collegeName + " ?</p>")
+                        "<p id='toDel'>Tem a certeza que deseja eliminar a(o) faculdade '" + collegeName + "' ?</p>")
 
         $('.cd-popup').addClass('is-visible');
     });

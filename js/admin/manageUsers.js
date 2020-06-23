@@ -14,13 +14,13 @@ $(document).ready(() => {
 
         if(window.location.href.split("/").slice(-1)=="students"){
             $(".cd-popup-container").prepend(
-                "<p id='toDel'>Tem a certeza que deseja eliminar o(a) aluno(a) " + firstName + " " + lastName
-                 + " ?</p>")
+                "<p id='toDel'>Tem a certeza que deseja eliminar o(a) aluno(a) '" + firstName + " " + lastName
+                 + "' ?</p>")
         }
         else{
             $(".cd-popup-container").prepend(
-                "<p id='toDel'>Tem a certeza que deseja eliminar o(a) professor(a) " + firstName + " " + lastName
-                 + " ?</p>")
+                "<p id='toDel'>Tem a certeza que deseja eliminar o(a) professor(a) '" + firstName + " " + lastName
+                 + "' ?</p>")
         }
         $('#users_admin_delete').addClass('is-visible');
     });

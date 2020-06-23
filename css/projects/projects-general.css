@@ -300,6 +300,10 @@ label {
     width: unset !important;
 }
 
+#closeError{
+    margin-left:5px;
+}
+
 
 /* date picker */
 

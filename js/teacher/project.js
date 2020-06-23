@@ -98,8 +98,7 @@ $(document).ready(() => {
         var name = $("#etapa" + selected_etapa).find("p:first").text();
         if(formStatus != 'edit'){
             var data = $("#etapa" + selected_etapa).find("p:nth-child(2)").text();
-            var desc = $(".cd-message").find("label:first").text();
-            createEditPopup(name, data, desc);
+            createEditPopup(name, data, selected_etapa);
             formStatus = 'edit';
             checkFormStatus();
             if (!verifyDates(dateFromPicker(data))){
@@ -167,7 +166,8 @@ $(document).ready(() => {
             $("#name-enunciado-proj").text("Envie o ficheiro do enunciado");
             $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
             $("#error-popup").text("Selecione um ficheiro");
-            $("#error-popup").show().delay(3000).fadeOut();
+            $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+            $("#error-popup").show();
         }
     })
 
@@ -176,7 +176,8 @@ $(document).ready(() => {
         enunc = escapeHtml($("#file_projeto").val().split('\\').pop());
         if (enunc.length == 0){
             $("#error-popup").text("Selecione um ficheiro");
-            $("#error-popup").show().delay(3000).fadeOut();
+            $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+            $("#error-popup").show();
             e.preventDefault();
         } else {
             if($("#file_projeto")[0].files[0].size < 5024000){
@@ -186,7 +187,8 @@ $(document).ready(() => {
                 console.log(enunc);
             } else {
                 $("#error-popup").text("Ficheiro ultrapassa o limite máximo de 5MB");
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
                 e.preventDefault();
             }
         }
@@ -240,7 +242,8 @@ $(document).ready(() => {
         enunc = escapeHtml($("#file_etapa").val().split('\\').pop());
         if (enunc.length == 0){
             $("#error-popup").text("Selecione um ficheiro");
-            $("#error-popup").show().delay(3000).fadeOut();
+            $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+            $("#error-popup").show();
             e.preventDefault();
         } else {
             if($("#file_etapa")[0].files[0].size < 5024000){
@@ -248,7 +251,8 @@ $(document).ready(() => {
                 $("#form-upload-etapa")[0].submit();
             } else {
                 $("#error-popup").text("Ficheiro ultrapassa limite de 5MB");
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
                 $("#file-img-etapa").attr('src',base_url+"images/icons/upload-solid.png");
                 $("#file_etapa").val("");
                 e.preventDefault();
@@ -298,6 +302,11 @@ $(document).ready(() => {
     $("body").on('click', "#confirmRemoveEtapa", function(){
         removeEtapa(selected_etapa);
         // getEtapas(proj);
+    })
+
+    // ESCONDER POPUP AO CLICAR
+    $("body").on("click", "#closeError", function(){
+        $("#error-popup").hide();
     })
     
 })
@@ -440,7 +449,8 @@ function getSumbission(grupo_id, etapa, proj){
                 $("textarea[name='feedback-text']").prop("disabled", true);
                 $("textarea[name='feedback-text']").val("");
                 $("#error-popup").text("Não é possível atribuir feedback a uma etapa sem submissão");
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
             }
         },
         error: function(data) {
@@ -477,7 +487,8 @@ function submit_feedback(feedback, etapa, grupo_id){
                 console.log(data);
                 // location.reload();
                 $("#error-popup").text("Não foi possível atribuir feedback");
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
             }
         });
     } else {
@@ -489,7 +500,8 @@ function submit_feedback(feedback, etapa, grupo_id){
             $("#error-popup").text("Preencha o feedback");
         }
         //MSGS DE ERRO
-        $("#error-popup").show().delay(3000).fadeOut();
+        $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+        $("#error-popup").show();
         return false;
     }
 }
@@ -518,7 +530,8 @@ function submit_etapa(){
                 console.log(data);
                 // location.reload();
                 $("#error-popup").text("Não foi possível submeter a etapa");
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
             }
         });
     } else {
@@ -550,12 +563,14 @@ function submit_edit_etapa(){
                 console.log("Erro na API - Edit Etapa");
                 console.log(data);
                 $("#error-popup").text("Não foi possível editar a etapa");
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
             }
         });
     } else {
         //msg de erro
-        $("#error-popup").show().delay(3000).fadeOut();
+        $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+        $("#error-popup").show();
         return false;
     }
 }
@@ -848,7 +863,14 @@ function createEnunciadoEtapaPopup(){
     "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
-function createEditPopup(name, data, desc){
+function createEditPopup(name, data, etapa_rec){
+    for (i=0; i<etapas_info_global.length; i++){
+        if(etapa_rec == etapas_info_global[i].id){
+            etapa = etapas_info_global[i];
+        }
+    }
+    
+
     form = '<form id="etapa-form-edit" action="javascript:void(0)">' +
     '<label id="etapa-label-edit" class="form-label-title">Editar etapa '+name+':</label>' +
     '<label class="form-label-title">Nome</label><input class="form-input-text" type="text" name="editetapaName" required>'+
@@ -866,9 +888,9 @@ function createEditPopup(name, data, desc){
     $("#error-popup").remove();
     $(".cd-message").after('<div id="error-popup" class="submit-msg">Mensagem de erro template</div>');
     $('.cd-message input[name="editetapaName"]').val(name);
-    $('.cd-message textarea[name="editetapaDescription"]').val(desc);
+    $('.cd-message textarea[name="editetapaDescription"]').val(etapa["description"]);
     etapa['nome'] = name;
-    etapa['desc'] = desc;
+    etapa['desc'] = etapa["description"];
     etapa['data'] = dateFromPicker(data);
 
     const editpicker = new WindowDatePicker({

@@ -634,7 +634,7 @@ class Api_Project extends REST_Controller {
         $data["user_ids"] = $this->GroupModel->getStudents(htmlspecialchars($group_id));
         $data["users"] = array();
         for($i=0; $i < count($data["user_ids"]); $i++) {
-            array_push($data["users"], $this->UserModel->getUserById($data["user_ids"][$i]["user_id"]));
+            array_push($data["users"], $this->UserModel->getSomeValuesUser($data["user_ids"][$i]["user_id"]));
         }
 
         $this->response($data, parent::HTTP_OK);

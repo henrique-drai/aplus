@@ -30,7 +30,7 @@ function updateCalendario(){
       success: function(data) {
           setCalendario(data)
           renderCalendario()
-          console.log(data)
+          //console.log(data)
       },
       error: function(data) {
           console.log("Problema na API ao buscar o calendário.")
@@ -44,10 +44,10 @@ function updateCalendario(){
         calendario.events = []
         
         for (const ge of data.group_events)
-            calendario.events.push({start_time: new Date(ge.start_date), type: "group", obj: ge})
+            calendario.events.push({start_time: new Date(ge.start_date.replace(" ","T")), type: "group", obj: ge})
 
         for (const s of data.submissions)
-            calendario.events.push({start_time: new Date(s.deadline), type: "submit", obj: s})
+            calendario.events.push({start_time: new Date(s.deadline.replace(" ","T")), type: "submit", obj: s})
 
         calendario.events.sort((x,y)=>(x.start_time.getTime() - y.start_time.getTime()))
 
@@ -64,7 +64,7 @@ function updateCalendario(){
 
 
 function renderCalendario(){
-    console.log(calendario)
+    //console.log(calendario)
     let cols = []
     let ctr = 0
 
@@ -232,7 +232,7 @@ function renderPopupGroupEvent(event) {
     function datepickerToDate (datepicker){
         let [date, time] = datepicker.value.split(" ")
         let [day, month, year] = date.split("/")
-        return year+"/"+month+"/"+day+" "+time+":00"
+        return year+"-"+month+"-"+day+"T"+time+":00"
     }
 
     function saveState (event) {
@@ -253,7 +253,7 @@ function renderPopupGroupEvent(event) {
             going: $('input[name=going]:checked', '#groupEventForm').val(),
         }
 
-        if (new Date(post.start_date) > new Date() && new Date(post.start_date) < new Date(post.end_date)){
+        if (new Date(post.start_date.replace(" ","T")) > new Date() && new Date(post.start_date.replace(" ","T")) < new Date(post.end_date.replace(" ","T"))){
             $("#editEventStartDate").css("border-left", "3px solid lawngreen")
             $("#editEventEndDate").css("border-left", "3px solid lawngreen")
             $('#actionButton').prop("disabled", true).val("A PROCESSAR").css("background", "#aab")
@@ -262,7 +262,7 @@ function renderPopupGroupEvent(event) {
                 url: base_url + 'api/event/' + event.obj.evento_id,
                 data: post,
                 success: function(data) {
-                    console.log(data)
+                    //console.log(data)
                     updateCalendario()
                     $('.cd-popup').removeClass('is-visible')
                 },
@@ -320,7 +320,7 @@ function renderPopupAddEvent(){
         lang: "pt",
         orientation: true,
     })
-    addEventStartDate.set(new Date().getTime() + 3600000) // uma hora à frente
+    addEventStartDate.set(new Date().getTime() + 60000) // uma hora à frente
 
     const addEventEndDate = new WindowDatePicker({
         el: '#placeholder-picker-end',
@@ -332,12 +332,12 @@ function renderPopupAddEvent(){
         lang: "pt",
         orientation: true,
     })
-    addEventEndDate.set(new Date().getTime() + 7200000) // duas horas à frente
+    addEventEndDate.set(new Date().getTime() + 3660000) // duas horas à frente
 
     function datepickerToDate (datepicker){
         let [date, time] = datepicker.value.split(" ")
         let [day, month, year] = date.split("/")
-        return year+"/"+month+"/"+day+" "+time+":00"
+        return year+"-"+month+"-"+day+"T"+time+":00"
     }
 
     function submitPopup() {
@@ -358,7 +358,7 @@ function renderPopupAddEvent(){
                 url: base_url + 'api/event/group/' + localStorage.grupo_id,
                 data: post,
                 success: function(data) {
-                    console.log(data)
+                    //console.log(data)
                     updateCalendario()
                     $('.cd-popup').removeClass('is-visible')
                 },
@@ -444,7 +444,7 @@ function renderPopupInviteTeachers (event) {
             url: base_url + "api/event/invite/" + event.obj.evento_id,
             data: {people: ids, grupo_id: localStorage.grupo_id},
             success: function(data) {
-                console.log(data)
+                //console.log(data)
                 updateCalendario()
                 renderPopupGroupEvent(event)
             },

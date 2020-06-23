@@ -6,6 +6,33 @@ $(document).ready(() => {
     getYears();
     getColleges();
 
+    $("body").on('change', "#file_projeto", function(){
+        if($("#file_projeto").val() != ""){
+            $("#name-enunciado-proj").text(escapeHtml($("#file_projeto").val().split('\\').pop()));
+            $("#file-img").attr('src',base_url+"images/icons/check-solid.png");
+            //msg de sucesso - "enunciado adicionado com sucesso -> session php com o valor da msg"
+        } else {
+            $("#name-enunciado-proj").text("Envie o ficheiro a importar");
+            $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
+            $("#error-popup").text("Selecione um ficheiro");
+            $("#error-popup").show().delay(3000).fadeOut();
+        }
+    })
+
+    $("body").on('change', "#file", function(){
+            if($("#file").val() != ""){
+                $("#name-enunciado-proj").text(escapeHtml($("#file").val().split('\\').pop()));
+                $("#file-img").attr('src',base_url+"images/icons/check-solid.png");
+                console.log($("#file-img").attr('src'))
+                //msg de sucesso - "enunciado adicionado com sucesso -> session php com o valor da msg"
+            } else {
+                $("#name-enunciado-proj").text("Envie o ficheiro a importar");
+                $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
+                $("#error-popup").text("Selecione um ficheiro");
+                $("#error-popup").show().delay(3000).fadeOut();
+            }
+        })
+
 
     // ##############################################################################
     

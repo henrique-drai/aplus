@@ -256,6 +256,9 @@ h4 {
 }
 
 .remove_hour {
+    position: relative;
+    top: 7px;
+    float: left;
     width: 11px;
     margin-right: 1%;
 }

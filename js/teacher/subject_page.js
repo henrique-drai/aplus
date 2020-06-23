@@ -31,7 +31,7 @@ $(document).ready(() => {
         var count = $(".minnuminput").last().attr("id");
         count++;
 
-        var popup = '<div id="' + count + '"><h4><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/delete.png"></span>Horário <span class="count">' + (count + 1) + '</span></h4>';
+        var popup = '<div id="' + count + '"><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/delete.png"></span><h4>Horário ' + (count + 1) + '</h4>';
         popup = popup + '<div class="dates"><label class="form-label">Início:' +
             '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
             'name="start_time" min="09:00" max="18:00" required></label>' +
@@ -93,10 +93,7 @@ $(document).ready(() => {
         })
 
         if(flag == false) {
-            $(".message_error").fadeTo(2000, 1);
-            setTimeout(function() {
-                $(".message_error").fadeTo(2000, 0);
-            }, 2000);
+            $(".message_error").css('opacity', '1');
         } else {
             for(var i=0; i <= $(".minnuminput").last().attr("id"); i++) {
                 const data = {
@@ -152,6 +149,10 @@ $(document).ready(() => {
             $(this).css('opacity', '0');
 		}
     });
+
+    $("body").on("click", "#closeError", function(){
+        $(".message_error").css('opacity', '0');
+    })
 })
 
 function setID(newid){
@@ -278,7 +279,7 @@ function setHours() {
             if(flag) {
                 for(var i=0; i < data['user'].length; i++) {
                     if(data.user[i].id == localStorage.user_id) {
-                        popup = popup + '<div id="' + count + '"><h4><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/delete.png"></span>Horário <span class="count">' + (count + 1) + '<span></h4>';
+                        popup = popup + '<div id="' + count + '"><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/delete.png"></span><h4>Horário ' + (count + 1) + '</h4>';
                         popup = popup + '<div class="dates"><label class="form-label">Início:' +
                             '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
                             'name="start_time" min="09:00" max="18:00" value="' + 
@@ -307,7 +308,7 @@ function setHours() {
                     $(".maxnuminput").css("border-left-color", "#42d542");
                 }
             } else {
-                popup = popup + '<div id="' + count + '"><h4><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/icons/delete.png"></span>Horário <span class="count">' + (count + 1) + '</span></h4>';
+                popup = popup + '<div id="' + count + '"><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/icons/delete.png"></span><h4>Horário ' + (count + 1) + '</h4>';
                 popup = popup + '<div class="dates"><label class="form-label">Início:' +
                     '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
                     'name="start_time" min="09:00" max="18:00" required></label>' +
@@ -324,7 +325,7 @@ function setHours() {
             }
 
             $(".cd-message").html(popup);
-            $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos</div>" +
+            $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos  <i id='closeError' class='fa fa-times' aria-hidden='true'></i></div>" +
                 "<li><a href='#' id='add_hour_confirm'>" +
                 "Confirmar</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
             
@@ -439,6 +440,6 @@ function convertHex(hex,opacity){
 
 function refreshHours() {
     $('h4').each(function(index){
-        $(this).find(".count").text(index.toString());
+        $(this).text('Horário ' + index.toString());
     })
 }

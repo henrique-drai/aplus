@@ -37,8 +37,8 @@ $(document).ready(() => {
             anoLetivo = cso.find("td:eq(2)").text()
            
             $(".cd-popup-container").prepend(
-                        "<p id='toDel'>Tem a certeza que deseja eliminar o curso " + cursoName + " (" + anoLetivo + ")" 
-                        + " ?</p>")
+                        "<p id='toDel'>Tem a certeza que deseja eliminar o curso '" + cursoName + " (" + anoLetivo + ")" 
+                        + "' ?</p>")
         }
         else{
             $(".cd-popup-container").prepend(

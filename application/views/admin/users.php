@@ -127,16 +127,18 @@
                 
                 <select id="studentsOrTeachers"">
                         <option>Selecione um Privilégio</option>
-                        <option value='teachers'>Professores (cadeiras dadas)</option>
-                        <option value='students'>Alunos (respetivo curso)</option>
+                        <option value='teachers'>Professores (cadeiras lecionadas)</option>
+                        <option value='students'>Alunos (de um respetivo curso)</option>
                 </select>
 
 
                 <form id="importFromCsv" action="javascript:void(0)" enctype="multipart/form-data">                
+                    <br id="bk">
+
                     <select id="collegesDisplay1" name="colleges">
                     </select>
 
-                    <br>
+                    <br id="bk">
 
                     <select id="yearsDisplay1" name="years">
                     </select>
@@ -146,11 +148,23 @@
 
                 </form>
                 
-
+<!-- 
                 <form id="teachersImport" action="javascript:void(0)" enctype="multipart/form-data">
                         <input id="formInput" type='file' name='userfile' accept='.csv' required>
                         <input type='submit' id='importTeachers'  value='Importar'></input>
+                </form> -->
+
+
+
+                <form id="teachersImport" action="javascript:void(0)" enctype="multipart/form-data">
+                    <input class="form-input-file" type="file" id="file_projeto" name="userfile" title="Escolher enunciado" accept=".csv">
+                    <label for="file_projeto" class="input-label">
+                    <img id="file-img" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
+                    <span id="name-enunciado-proj" class="span-name">Envie o ficheiro a importar</span></label>
+                    <input type='submit' id='importTeachers'  value='Importar'></input>
                 </form>
+
+
 
                 <br>
 
@@ -163,7 +177,76 @@
                 
             </div>
 
+            <style>
+                form#importFromCsv {
+                    display: none;
+                }
+                .cd-message form {
+                    width: 96%;
+                }
+                .form-input-file {
+                    width: 0.1px;
+                    height: 0.1px;
+                    opacity: 0;
+                    overflow: hidden;
+                    /* position: absolute; */
+                    z-index: -1;
+                }
+                .input-label {
+                    margin: 0 auto;
+                    text-align: center;
+                    color: black;
+                    line-height: 30px;
+                    display: block;
+                    border: 2px solid #15435a;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    padding: 0 5px;
+                    cursor: pointer;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    text-align: center !important;
 
+                }
+                .input-label img {
+                    margin-right: 5px;
+                    width: 12px;
+                }   
+                .span-name {
+                    margin-left: 5px;
+                }
+
+            </style>
+            <script>
+            $("body").on('change', "#file_projeto", function(){
+                if($("#file_projeto").val() != ""){
+                    $("#name-enunciado-proj").text(escapeHtml($("#file_projeto").val().split('\\').pop()));
+                    $("#file-img").attr('src',base_url+"images/icons/check-solid.png");
+                    //msg de sucesso - "enunciado adicionado com sucesso -> session php com o valor da msg"
+                } else {
+                    $("#name-enunciado-proj").text("Envie o ficheiro a importar");
+                    $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
+                    $("#error-popup").text("Selecione um ficheiro");
+                    $("#error-popup").show().delay(3000).fadeOut();
+                }
+            })
+
+            $("body").on('change', "#file", function(){
+                    console.log("lol")
+                    if($("#file").val() != ""){
+                        $("#name-enunciado-proj").text(escapeHtml($("#file").val().split('\\').pop()));
+                        $("#file-img").attr('src',base_url+"images/icons/check-solid.png");
+                        console.log($("#file-img").attr('src'))
+                        //msg de sucesso - "enunciado adicionado com sucesso -> session php com o valor da msg"
+                    } else {
+                        $("#name-enunciado-proj").text("Envie o ficheiro a importar");
+                        $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
+                        $("#error-popup").text("Selecione um ficheiro");
+                        $("#error-popup").show().delay(3000).fadeOut();
+                    }
+                })
+            </script>
 <!-- ################################################################################################# -->
 
             <!-- <div class="admin-users-window">

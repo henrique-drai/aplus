@@ -17,6 +17,8 @@ $(document).ready(() => {
                 $("#teachersImport").css("display","none")
                 $("#collegesDisplay1").css("display","block")
                 $("#yearsDisplay1").css("display","block")
+                $("#bk").css("display","block")
+                $("#importFromCsv").css("display","block")
 
                 
             }
@@ -24,6 +26,10 @@ $(document).ready(() => {
                 $("#collegesDisplay1").css("display","none")
                 $("#yearsDisplay1").css("display","none")
                 $("#teachersImport").css("display","block")
+                $("#bk").css("display","none")
+                $("#collegesDisplay1").css("display","none")
+                $("#importFromCsv").css("display","none")
+
             }
         }
         else{
@@ -140,7 +146,9 @@ $(document).ready(() => {
     
 
 // PRECISA DE SER SUBMIT?!?
-    $("#importToCourse").submit(function(e) {
+    $("#importFromCsv").submit(function(e) {
+
+        console.log("lol")
 
 
         const info = {
@@ -654,33 +662,24 @@ function getCursosFaculdade2(ano, faculdade){
 
                 // +"<input type='file' id='myfile' name='file' class='input-file' accept='.csv' required >"
 
+                // +"<input type='file' name='userfile' id='file' class='input-file' accept='.csv' required>"
+                // +"<label for='file' class='btn btn-tertiary js-labelFile'>"
+                // +"<i class='fa fa-upload'></i>"
+                // + "<span class='js-fileName'>Escolher ficheiro</span>"
+                // +"</label>"
+                // +"</div>"
+
+                
                 +"<input type='file' name='userfile' id='file' class='input-file' accept='.csv' required>"
-                +"<label for='file' class='btn btn-tertiary js-labelFile'>"
-                +"<i class='fa fa-upload'></i>"
-                + "<span class='js-fileName'>Escolher ficheiro</span>"
-                +"</label>"
-                +"</div>"
+                +"<label for='file' class='input-label'>"
+                +"<img id='file-img' class='file-img' src="+ base_url+ "images/icons/upload-solid.png>"
+                +"<span id='name-enunciado-proj' class='span-name'>Envie o ficheiro a importar</span></label>"
+            
+
+
                 )
 
-                $('.input-file').each(function() {
-                    var $input = $(this),
-                        $label = $input.next('.js-labelFile'),
-                        labelVal = $label.html();
-                    
-                    $input.on('change', function(element) {
-                        var fileName = '';
-                        if (element.target.value) fileName = element.target.value.split('\\').pop();
-
-                        if(fileName ){
-                            $label.addClass('has-file').find('.js-fileName').html(fileName); 
-                            $(".fa-upload").hide()
-                        }
-                        else{
-                            $label.removeClass('has-file').html(labelVal);
-                        }
-                    });
-                });
-                
+            
                 
                 $("#importFromCsv").append("<input type='submit' id='importToCourse'  value='Importar'></input>")               
             }

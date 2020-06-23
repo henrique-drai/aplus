@@ -173,6 +173,9 @@ select {
 .dates label {
     width: 50% !important;
     margin-top: -20px !important;
+}
+
+.dates label:first-child {
     margin-right: 2%;
 }
 
@@ -607,6 +610,24 @@ a { color: inherit; }
 
     .semestre1 a, .semestre2 a {
         margin-left: 0;
+    }
+
+    .dates {
+        display: block;
+        margin-top: -20px;
+    }
+
+    .dates label {
+        width: 100% !important;
+        margin-top: 5px !important;
+    }
+
+    label {
+        margin-top: 5px !important;
+    }
+
+    .add_hour_button {
+        width: 100% !important;
     }
 }
 

@@ -173,6 +173,11 @@ $(document).ready(() => {
 
     $("#createProjectButton").click(() => submitProject());
 
+    // ESCONDER POPUP AO CLICAR
+    $("body").on("click", "#closeError", function(){
+        $("#errormsg").hide();
+    })
+
 })
 
 
@@ -219,15 +224,18 @@ function validateFormNumb(){
 
     if($("#minnuminput").val() < 0){
         $("#errormsg").text("Insira números válidos");
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
         $("#minnuminput").css("border-left-color", "red");
         return false;
     } else if ($("#maxnuminput").val() < 0){
         $("#errormsg").text("Insira números válidos");
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
         $("#maxnuminput").css("border-left-color", "red");
         return false;
     } else if($("#minnuminput").val() != '' && $("#maxnuminput").val() != ''){
         if(parseInt($("#minnuminput").val()) >= parseInt($("#maxnuminput").val())){
             $("#errormsg").text("Número minimo deve ser menor que máximo");
+            $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
             $("#minnuminput").css("border-left-color", "red");
             $("#maxnuminput").css("border-left-color", "red");
             return false;
@@ -240,12 +248,14 @@ function validateFormNumb(){
 
     if($("#minnuminput").val() == ''){
         $("#errormsg").text("Preencha todos os parametros");
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
         $("#minnuminput").css("border-left-color", "red");
         return false;
     }
 
     if($("#maxnuminput").val() == ''){
         $("#errormsg").text("Preencha todos os parametros");
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
         $("#maxnuminput").css("border-left-color", "red");
         return false;
     }
@@ -289,9 +299,11 @@ function validateAllDates(){
 function validate_descriptions(){
     if($("textarea[name='projDescription']").val() == ''){
         $("#errormsg").text("Preencha a descrição do projeto");
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
         return false;
     } else if($("textarea[name='etapaDescription']").val() == ''){
         $("#errormsg").text("Preencha a descrição da etapa");
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
         return false;
     }
 
@@ -300,14 +312,15 @@ function validate_descriptions(){
 
 function verifyallinputs(){
     if (!validateFormNumb()){
-        $("#errormsg").show().delay(5000).fadeOut();
+        $("#errormsg").show();
         return false;
     } else if (!validateAllDates()){
         $("#errormsg").text("A data de cada etapa tem de ser maior que a data atual");
-        $("#errormsg").show().delay(5000).fadeOut();
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+        $("#errormsg").show();
         return false;
     } else if (!validate_descriptions()){
-        $("#errormsg").show().delay(5000).fadeOut();
+        $("#errormsg").show();
         return false;
     }
 

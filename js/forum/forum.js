@@ -1,7 +1,7 @@
 $(document).ready(() => {
     getInfo(localStorage.getItem("forum_id"), localStorage.user_id);
     getThreads();
-    setInterval(getThreads, 30000); 
+    // setInterval(getThreads, 30000); 
 
     $('body').on("click", '#add_button', function() {
         addPopup($(".forumName").text());

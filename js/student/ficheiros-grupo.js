@@ -66,7 +66,7 @@ function get_ficheiros_grupo(grupo){
                     var name = "";
                     for (j=0; j<data["nomes"].length; j++){
                         if(data["ficheiros"][i]["user_id"] == data["nomes"][j][2]){
-                            name = data["nomes"][j][0] + data["nomes"][j][1]; 
+                            name = data["nomes"][j][0] + " " + data["nomes"][j][1]; 
                         }
                     }
 

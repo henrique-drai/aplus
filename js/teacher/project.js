@@ -395,9 +395,13 @@ function getEtapas(proj_id){
         url: base_url + "api/getAllEtapas/" + proj_id,
         data: data_proj,
         success: function(data) {
+            var d1 = data["data_final"].split(" ");
+            var date_full = d1[0].split("-");
+            var hours_full = d1[1].split(":");
+            var date = new Date(date_full[0], date_full[1]-1, date_full[2], hours_full[0], hours_full[1], hours_full[2]);
+            checkEntrega(date);
             makeEtapaTable(data["etapas"]);
             // console.log(data["data_final"]);
-            checkEntrega(data["data_final"]);
         },
         error: function(data) {
             console.log("Erro na API - Get Etapa")

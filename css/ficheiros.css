@@ -80,6 +80,17 @@
     text-align: center;
 }
 
+.file-row p > a{
+    color:#15435a;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.file-row p > a:hover{
+    color: rgb(20, 118, 167);
+    text-decoration: underline;
+}
+
 .file-row p:first-child {
     width: 55%;
     text-align: left;

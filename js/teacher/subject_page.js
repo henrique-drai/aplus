@@ -29,9 +29,15 @@ $(document).ready(() => {
 
     $("body").on("click", ".add_hour_button", function() {
         var count = $(".minnuminput").last().attr("id");
+        var popup = '';
         count++;
 
-        var popup = '<div id="' + count + '"><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/delete.png"></span><h4>Horário ' + (count + 1) + '</h4>';
+        if(count == 0) {
+            popup = popup + '<div id="' + count + '"><h4>Horário ' + (count + 1) + '</h4>';
+        } else {
+            popup = popup + '<div id="' + count + '"><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/icons/delete.png"></span><h4>Horário ' + (count + 1) + '</h4>';
+        }
+       
         popup = popup + '<div class="dates"><label class="form-label">Início:' +
             '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
             'name="start_time" min="09:00" max="18:00" required></label>' +
@@ -277,9 +283,15 @@ function setHours() {
             }
 
             if(flag) {
+                console.log(count)
                 for(var i=0; i < data['user'].length; i++) {
                     if(data.user[i].id == localStorage.user_id) {
-                        popup = popup + '<div id="' + count + '"><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/delete.png"></span><h4>Horário ' + (count + 1) + '</h4>';
+                        if(count == 0) {
+                            popup = popup + '<div id="' + count + '"><h4>Horário ' + (count + 1) + '</h4>';
+                        } else {
+                            popup = popup + '<div id="' + count + '"><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/icons/delete.png"></span><h4>Horário ' + (count + 1) + '</h4>';
+                        }
+                        
                         popup = popup + '<div class="dates"><label class="form-label">Início:' +
                             '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
                             'name="start_time" min="09:00" max="18:00" value="' + 
@@ -308,7 +320,12 @@ function setHours() {
                     $(".maxnuminput").css("border-left-color", "#42d542");
                 }
             } else {
-                popup = popup + '<div id="' + count + '"><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/icons/delete.png"></span><h4>Horário ' + (count + 1) + '</h4>';
+                if(count == 0) {
+                    popup = popup + '<div id="' + count + '"><h4>Horário ' + (count + 1) + '</h4>';
+                } else {
+                    popup = popup + '<div id="' + count + '"><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/icons/delete.png"></span><h4>Horário ' + (count + 1) + '</h4>';
+                }
+
                 popup = popup + '<div class="dates"><label class="form-label">Início:' +
                     '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
                     'name="start_time" min="09:00" max="18:00" required></label>' +

@@ -1,7 +1,7 @@
 $(document).ready(() => {
     getInfo(localStorage.getItem("forum_id"), localStorage.user_id);
     getThreads();
-    // setInterval(getThreads, 30000); 
+    setInterval(getThreads, 30000); 
 
     $('body').on("click", '#add_button', function() {
         addPopup($(".forumName").text());
@@ -62,6 +62,10 @@ $(document).ready(() => {
             }
         });
     })
+
+    $("body").on("click", "#closeError", function() {
+        $(".message_error").fadeTo(2000, 0);
+    })
 })
 
 function addPopup(forum_name) {
@@ -72,7 +76,7 @@ function addPopup(forum_name) {
     "<label class='form-label'>Discussão:</label><textarea class='form-text-area' type='text' name='threadDescription' required>" + 
     "</textarea>");
     
-    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos</div><li><a href='#' id='createThread-form-submit'>" +
+    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos  <i id='closeError' class='fa fa-times' aria-hidden='true'></i></div><li><a href='#' id='createThread-form-submit'>" +
     "Criar Tópico</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 

@@ -81,6 +81,10 @@ $(document).ready(() => {
             }
         });
     })
+
+    $("body").on("click", "#closeError", function() {
+        $(".message_error").fadeTo(2000, 0);
+    })
 })
 
 function addPopup(thread_name) {
@@ -90,7 +94,7 @@ function addPopup(thread_name) {
     "<label class='form-label'>Conteúdo:</label>" +
     "<textarea class='form-text-area' type='text' name='threadDescription' required></textarea>");
     
-    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos</div><li><a href='#' id='createPost-form-submit'>Criar Publicação</a></li>" +
+    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos  <i id='closeError' class='fa fa-times' aria-hidden='true'></i></div><li><a href='#' id='createPost-form-submit'>Criar Publicação</a></li>" +
     "<li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 

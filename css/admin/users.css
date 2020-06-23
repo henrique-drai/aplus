@@ -284,3 +284,7 @@ form#importFromCsv {
 .span-name {
     margin-left: 5px;
 }
+
+#PesquisarAlunos, #PesquisarProfessores{
+    display: inline-block;
+}

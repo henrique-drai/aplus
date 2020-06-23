@@ -6,6 +6,14 @@ $(document).ready(() => {
     getYears();
     getColleges();
 
+    $("body").on("click","#PesquisarAlunos", function(){
+        window.location.href = base_url + "app/admin/students";
+    });
+
+    $("body").on("click","#PesquisarProfessores", function(){
+        window.location.href = base_url + "app/admin/teachers";
+    });
+
     $("body").on('change', "#file_projeto", function(){
         if($("#file_projeto").val() != ""){
             $("#name-enunciado-proj").text(escapeHtml($("#file_projeto").val().split('\\').pop()));

@@ -278,6 +278,10 @@ function ajaxDeleteEventById(event_id){
             //console.log(data)
             updateCalendario()
             $('.cd-popup').removeClass('is-visible')
+            $("#std-message .content").text("O evento foi cancelado.")
+            $("#std-message").addClass("visible")
+            $("#std-message").removeClass("error")
+            $("#std-message").addClass("success")
         },
         error: function(data) {
             console.log("Couldn't delete the event:")
@@ -294,6 +298,10 @@ function ajaxNotGoing(event_id){
             //console.log(data)
             updateCalendario()
             $('.cd-popup').removeClass('is-visible')
+            $("#std-message .content").text("O evento foi atualizado.")
+            $("#std-message").addClass("visible")
+            $("#std-message").removeClass("error")
+            $("#std-message").addClass("success")
         },
         error: function(data) {
             console.log("Couldn't cancel event:")

@@ -233,7 +233,7 @@ $(document).ready(() => {
             $("#name-enunciado-etapa").text("Envie o ficheiro do enunciado");
             $("#file-img-etapa").attr('src',base_url+"images/icons/upload-solid.png");
             $("#error-popup").text("Selecione um ficheiro");
-            $("#error-popup").show().delay(3000).fadeOut();
+            $("#error-popup").show();
         }
     })
 
@@ -306,7 +306,7 @@ $(document).ready(() => {
 
     // ESCONDER POPUP AO CLICAR
     $("body").on("click", "#closeError", function(){
-        $("#error-popup").hide();
+        $("#error-popup").fadeTo(2000, 0);
     })
     
 })
@@ -536,7 +536,7 @@ function submit_etapa(){
         });
     } else {
         //msg de erro
-        $("#error-popup").show().delay(3000).fadeOut();
+        $("#error-popup").show();
         return false;
     }
 }

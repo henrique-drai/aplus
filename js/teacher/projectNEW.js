@@ -175,7 +175,7 @@ $(document).ready(() => {
 
     // ESCONDER POPUP AO CLICAR
     $("body").on("click", "#closeError", function(){
-        $("#errormsg").hide();
+        $("#errormsg").fadeTo(2000, 0);
     })
 
 })

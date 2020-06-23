@@ -343,7 +343,9 @@ class UploadsC extends CI_Controller {
         if ( ! $this->upload->do_upload('userfile'))
         {
             $error = array('error' => $this->upload->display_errors());
-            header("Location: ".base_url()."app/profile/".$user_id);
+            $this->session->set_userdata('std-message', "O formato escolhido não é suportado.");
+            $this->session->set_userdata('std-message-type', "error");
+            header("Location: ".base_url()."app/profile/edit");
         }
         else
         {
@@ -351,6 +353,8 @@ class UploadsC extends CI_Controller {
             $ext = $this->upload->data('file_ext');
             $this->UserModel->updatePicture($user_id, $ext);
             $this->session->set_userdata('picture', $ext);
+            $this->session->set_userdata('std-message', "A sua imagem de perfil foi atualizada.");
+            $this->session->set_userdata('std-message-type', "success");
             header("Location: ".base_url()."app/profile/".$user_id);
         }
     }

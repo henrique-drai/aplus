@@ -1,6 +1,8 @@
 <title><?php echo $subject->name; ?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/window-date-picker.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/subjects.css">
 <script>setPageName("subjects")</script>
+<script src="<?php echo $base_url; ?>js/window-date-picker.min.js"></script>
 <script src="<?php echo $base_url; ?>js/teacher/subject_page.js"></script>
 <script>setID(<?php echo $subject->id; ?>)</script>
 <script>setCode("<?php echo $subject->code; ?>")</script>

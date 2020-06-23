@@ -75,11 +75,13 @@ class Api_Admin extends REST_Controller {
             $email = $column[2];
             
             $idUser = $this -> UserModel -> getUserByEmailRA($column[2])[0]['id'];
+           
 
             $data = Array(
                 "user_id"      => $idUser,
                 "curso_id"   => $courseId,               
             );
+            
 
             if($this -> CourseModel -> userInCourse($idUser, $courseId) == 0){
                 $this -> CourseModel -> insertAlunoCurso($data);

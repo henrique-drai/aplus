@@ -99,6 +99,10 @@ h3 {
         margin-top: -4% !important;
     }
 
+    .insertHere td:first-child {
+        margin-top: 54px;
+    }
+
     /* Force table to not be like tables anymore */
     table, thead, tbody, td, tr {
         display: block;
@@ -114,6 +118,10 @@ h3 {
     tr {
       margin: 0 0 1rem 0 !important;
       border-bottom: 1px solid #a5a5a5 !important;
+    }
+
+    tr:not(:first-child) {
+        margin: -35px 0 1rem 0 !important;
     }
     
     td {
@@ -152,16 +160,10 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 
     .message {
         width: 97%;
-        margin-top: 2%;
+        margin-top: -3%;
     }
 
     .remove {
         width: 100%;
-    }
-
-    tr:first-child {
-        display: block;
-        visibility: hidden;
-        margin-bottom: -20% !important;
     }
 }

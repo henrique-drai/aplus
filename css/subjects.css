@@ -256,6 +256,9 @@ h4 {
 }
 
 .remove_hour {
+    position: relative;
+    top: 7px;
+    float: left;
     width: 11px;
     margin-right: 1%;
 }
@@ -329,6 +332,10 @@ h4 {
     overflow-y: scroll;
     scrollbar-color: darkgrey #ddd;
     scrollbar-width: thin;
+}
+
+.infoTask_inputs h4:first-child {
+    margin-left: 17px;
 }
 
 .infoTask_inputs::-webkit-scrollbar {
@@ -586,12 +593,20 @@ a { color: inherit; }
     #message_hour_s {
         width: 100%;
     }
+
+    .infoTask_inputs h4:first-child {
+        margin-left: 11px;
+    }
 }
 
 @media only screen and (max-width: 375px) {
     .card_info_project, .card_info_forum, .card_info {
         width: 100%;
         margin-top: 2%;
+    }
+
+    .infoTask_inputs h4:first-child {
+        margin-left: 9px;
     }
 
     textarea {
@@ -634,6 +649,10 @@ a { color: inherit; }
 @media only screen and (max-width: 320px) {
     .message {
         width: 100%;
+    }
+
+    .infoTask_inputs h4:first-child {
+        margin-left: 7px;
     }
 
     #save_button_hours {

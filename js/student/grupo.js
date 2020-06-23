@@ -316,6 +316,10 @@ function checkClosedProject(){
             console.log("Erro na API:")
         }
     });
+
+    $("body").on("click", "#closeError", function() {
+        $(".message_error").fadeTo(2000, 0);
+    })
 }
 
 function createPopUpAdd() {
@@ -325,7 +329,7 @@ function createPopUpAdd() {
         "<label class='form-label'>Descrição:</label><textarea class='form-text-area' type='text' name='tarefaDescription'>" + 
         "</textarea>");
 
-    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos</div><li><a href='#' id='addTask-form-submit'>" +
+    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos  <i id='closeError' class='fa fa-times' aria-hidden='true'></i></div><li><a href='#' id='addTask-form-submit'>" +
     "Criar Tarefa</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 

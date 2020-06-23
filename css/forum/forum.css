@@ -23,6 +23,10 @@ select {
     background-color: #15435a;
 }
 
+#closeError:hover {
+    cursor: pointer;
+}
+
 .message {
     background-color: rgba(106, 192, 66, 0.7);
     text-align: center;
@@ -40,6 +44,7 @@ select {
     width: 100%;
     background-color: rgb(255, 72, 72);
     color: white;
+    text-align: center;
     padding-top: 2px;
     padding-bottom: 2px;
 }

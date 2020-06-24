@@ -140,7 +140,7 @@ $(document).ready(() => {
     
     // ESCONDER POPUP AO CLICAR
     $("body").on("click", "#closeError", function(){
-        $("#error-popup").fadeTo(2000, 0);
+        $("#error-popup").fadeOut();
     })
     
 

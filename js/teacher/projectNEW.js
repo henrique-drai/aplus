@@ -175,7 +175,7 @@ $(document).ready(() => {
 
     // ESCONDER POPUP AO CLICAR
     $("body").on("click", "#closeError", function(){
-        $("#errormsg").fadeTo(2000, 0);
+        $("#errormsg").fadeOut();
     })
 
 })
@@ -296,7 +296,7 @@ function validateAllDates(){
     return true;
 }
 
-function validate_descriptions(){
+function validate_descriptions_names(){
     if($("textarea[name='projDescription']").val() == ''){
         $("#errormsg").text("Preencha a descrição do projeto");
         $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
@@ -305,7 +305,11 @@ function validate_descriptions(){
         $("#errormsg").text("Preencha a descrição da etapa");
         $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
         return false;
-    }
+    } else if($("input[name='projName']").val() == ""){
+        $("#errormsg").text("Preencha o nome do projeto");
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+        return false;
+    } 
 
     return true;
 }
@@ -319,7 +323,7 @@ function verifyallinputs(){
         $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
         $("#errormsg").show();
         return false;
-    } else if (!validate_descriptions()){
+    } else if (!validate_descriptions_names()){
         $("#errormsg").show();
         return false;
     }
@@ -347,7 +351,7 @@ function submitProject(){
             url: base_url + "api/createProject",
             data: data,
             success: function(data) {
-                console.log(data);
+                
                 var newpage = project_page + data.toString();
                 window.location.assign(newpage);
 
@@ -355,6 +359,12 @@ function submitProject(){
             error: function(data) {
                 console.log("Erro na API:")
                 console.log(data)
+                if(data["responseJSON"]["nameExists"]){
+                    $("#errormsg").text("Já existe um projeto com este nome.");
+                    $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                    $("#errormsg").show();
+                    $("#projForm input[name='projName']").val("");
+                }
             }
         });
     

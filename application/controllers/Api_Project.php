@@ -39,9 +39,19 @@ class Api_Project extends REST_Controller {
         $cadeira_id = htmlspecialchars($this->post("cadeira_id"));
         if ($this->verify_teacher($user_id,$cadeira_id,"cadeira") == true){
 
+            $name_proj = htmlspecialchars($this->post("projName"));
+            $nameExists = $this->ProjectModel->getProjectByCadeiraIdName($cadeira_id, $name_proj);
+
+            if($nameExists){
+                $data["nameExists"] = true;
+                $this->response($data, parent::HTTP_CONFLICT);
+            }
+
+            $data["nameExists"] = false;
+
             $dataProj = Array(
                 "cadeira_id"          => $cadeira_id,
-                "nome"                => htmlspecialchars($this->post("projName")),
+                "nome"                => $name_proj,
                 "min_elementos"       => htmlspecialchars($this->post("groups_min")),
                 "max_elementos"       => htmlspecialchars($this->post("groups_max")),
                 "description"         => htmlspecialchars($this->post("projDescription")),

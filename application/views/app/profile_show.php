@@ -48,5 +48,6 @@
                 </div>
             </div>
         </div>
-        <a class="std-btn" href="<?=base_url()?>app/profile/edit">Editar</a>
+        <?=($user->id == $this->session->userdata('id'))? '<a class="std-btn" href="'.base_url().'app/profile/edit">Editar</a>' : null ?>
+        
     </main>

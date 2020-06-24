@@ -14,7 +14,8 @@
     <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Utilizadores</h4>
 
         <h1>Utilizadores</h1>
-
+        <input type="button" id="PesquisarAlunos" value="Pesquisar Alunos">
+        <input type="button" id="PesquisarProfessores" value="Pesquisar Professores">
         <section class="flex-section">
             
             <div class="admin-users-window">

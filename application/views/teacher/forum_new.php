@@ -34,6 +34,10 @@
                     </select>
                 </p>
 
+                <div class='message_error'>
+                    Preencha todos os campos  <i id='closeError' class='fa fa-times' aria-hidden='true'></i>
+                </div>
+
                 <div class="btn-wrap">
                     <input type="submit" id="createForumButton" value="Criar">
                 </div>

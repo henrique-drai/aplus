@@ -35,6 +35,10 @@ input[type="datetime-local"], select {
     text-align: center;
 }
 
+#closeError:hover {
+    cursor: pointer;
+}
+
 select {
     border-left: 3px solid #ff0000;
 }
@@ -145,6 +149,33 @@ option[value=""] {
     color: white;
     padding-top: 2px;
     padding-bottom: 2px;
+}
+
+.groupMemberImg{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    margin-right: 5px;
+    border-radius: 100px;
+    border: 1px solid #ccc;
+}
+
+.memberName {
+    display: inline;
+    margin: 35px;
+    color: #15435a;
+    font-weight: 600;
+}
+
+.memberName:hover{
+    color: rgb(20, 118, 167);
+    text-decoration: underline;
+}
+
+.groupmember{
+    position: relative;
+    margin-bottom: 10px;
+    text-decoration: none;
 }
 
 @media only screen and (max-width: 1020px) {

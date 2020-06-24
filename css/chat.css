@@ -35,6 +35,9 @@ li p{
     word-break: break-all;
     max-height: 60px;
 }
+.bodyChat:empty {
+    display: none;
+}
 
 #leftSideChat{
     /* background: #f8f8f8 none repeat scroll 0 0; */
@@ -175,7 +178,6 @@ li p{
 .type-msg{
     border-top: 1px solid #c4c4c4;
     position: relative;
-    /* border-bottom: 1px solid #c4c4c4; */
 }
 
 .type-msg input {
@@ -289,6 +291,10 @@ li p{
         margin-left: 82%;
         font-size: 33px;
         color: black;
+    }
+    
+    .type-msg{
+        border-bottom: 1px solid #c4c4c4;
     }
     
     .chatter{

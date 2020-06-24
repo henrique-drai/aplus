@@ -98,6 +98,11 @@ class ProjectModel extends CI_Model { //projeto & etapa & tarefa & etapa_submit
     public function getMaxElementsGroup($proj_id){
         return $this->db->get_where("projeto", array("id" => $proj_id)) -> result_array(); 
     }
+
+    public function getProjectByCadeiraIdName($cadeiraid, $name){
+        $query = $this->db->get_where("projeto", array("cadeira_id" => $cadeiraid, "nome" => $name));
+        return $query->row();
+    }
 }
 
 

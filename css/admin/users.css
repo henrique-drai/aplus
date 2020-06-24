@@ -39,8 +39,10 @@ input{
     color: #333;
 }
 
-
-
+#file_grupos_admin{
+    width: 100%;
+    background-color: transparent;
+}
 
 
 

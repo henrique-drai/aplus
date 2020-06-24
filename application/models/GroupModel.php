@@ -115,4 +115,8 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
         $this->db->where("grupo_id", $grupo_id);
         $this->db->update("ficheiros_grupo");
     }
+
+    public function confirmNameInProject($proj_id, $groupName){
+        return $this->db->get_where("grupo", array("projeto_id" => $proj_id, "name" => $groupName))->row();
+    }
 }

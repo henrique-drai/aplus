@@ -1,5 +1,5 @@
 <title>A+ for Admins</title>
-<script>setPageName("home")</script>
+<script>setPageName("utilizadores")</script>
 <script src="<?php echo $base_url; ?>js/admin/users.js"></script>
 <script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">

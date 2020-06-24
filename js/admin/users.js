@@ -154,7 +154,6 @@ $(document).ready(() => {
 
         e.preventDefault();    
         var formData = new FormData(this);
-
         // CONTINUAR A PARTIR DAQUI
         // FAZER O AJAX -> CONTROLLER -> MODEL
 

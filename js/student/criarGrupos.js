@@ -58,7 +58,14 @@ function createGroup(proj_id){
         url: base_url + "api/criarGrupo/" + proj_id,
         data: data,
         success: function(data) {
-            showMyGroup(proj_id)
+            if(data.groupExist == true){
+                $("#msgStatus").text("Já existe um grupo com o mesmo nome.");
+                $("#msgStatus").show().delay(5000).fadeOut();
+                showMyGroup(proj_id);
+            }
+            else{
+                showMyGroup(proj_id);
+            }
         },
         error: function(data) {
             $("#msgStatus").text("Não foi possivel criar o grupo");

@@ -193,7 +193,54 @@ class Api_Admin extends REST_Controller {
 
     }
 
+    public function importGroups_post(){
+        $auth = $this->session->userdata('id');
+        $user = $this->UserModel->getUserById($auth);
 
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        $this->load->helper('url');
+        $count_files = $_FILES["userfile"]['tmp_name'];
+        $file  = fopen($count_files, 'r');
+
+        fgetcsv($file, 0, ","); 
+        $this->load->model('ProjectModel');
+        $this->load->model('GroupModel');
+        while (($column = fgetcsv($file, 0, ",")) !== FALSE) {
+            $idAnoLetivo    = $this->YearModel->getYearByInicio($column[3])->id;
+            $idFaculdade    = $this->CollegeModel->getCollegeBySigla($column[0])->id;
+            $idCurso        = $this->CourseModel->getCourseByFaculdadeAnoNome($idFaculdade, $idAnoLetivo, $column[1])->id;
+            $idUser         = $this->UserModel->getUserByEmail($column[6])->id;
+            $idCadeira      = $this->SubjectModel->getSubjectsByCursoIdName($idCurso, $column[2])->id;
+            $idProjeto      = $this->ProjectModel->getProjectByCadeiraIdName($idCadeira, $column[4])->id;
+            $grupo          = $this->GroupModel->confirmNameInProject($idProjeto, $column[5]);
+            if(!$grupo){
+                $datagrupo = Array(
+                    "name" => $column[5],
+                    "projeto_id" => $idProjeto,
+                );
+                $retrieved = $this->GroupModel->createGroup($datagrupo);
+
+                $datagrupoaluno = Array(
+                    "grupo_id" => $retrieved["grupo"],
+                    "user_id" => $idUser,
+                );
+
+                $addeduser = $this->GroupModel->addElementGroup($datagrupoaluno);
+            }    
+            else{
+                $datagrupoaluno = Array(
+                    "grupo_id" => $grupo->id,
+                    "user_id" => $idUser,
+                );
+
+                $addeduser = $this->GroupModel->addElementGroup($datagrupoaluno);
+            }
+        }
+    }
 
 
 

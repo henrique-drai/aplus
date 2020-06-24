@@ -25,6 +25,10 @@ $(document).ready(() => {
             "href": base_url + "app/admin/users",
             "name": "Utilizadores"
         },
+        "imports": {
+            "href": base_url + "app/admin/imports",
+            "name": "Importar Dados"
+        },
         "chat": {
             "href": base_url + "app/chat",
             "name": "Chat"

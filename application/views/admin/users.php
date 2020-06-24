@@ -126,7 +126,7 @@
                             
                 </label>
                 
-                <select id="studentsOrTeachers"">
+                <select id="studentsOrTeachers">
                         <option>Selecione um Privilégio</option>
                         <option value='teachers'>Professores (cadeiras lecionadas)</option>
                         <option value='students'>Alunos (de um respetivo curso)</option>
@@ -161,7 +161,7 @@
                     <label for="file_projeto" class="input-label">
                     <img id="file-img" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
                     <span id="name-enunciado-proj" class="span-name">Enviar ficheiro .csv</span></label>
-                    <input type='submit' id='importTeachers'  value='Importar'></input>
+                    <input type='submit' id='importTeachers'  value='Importar'>
                 </form>
 
 

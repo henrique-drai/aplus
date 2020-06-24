@@ -13,7 +13,7 @@
 <body>
 <?php $this->view('templates/nav-menu'); ?>
     <main>   
-        <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Professores</h4>
+        <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > <a href="<?php echo base_url(); ?>app/admin/users">Utilizadores</a> > Professores</h4>
         <!-- <br> -->
         <div class="form-group">
             <div class="input-group">

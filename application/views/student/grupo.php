@@ -4,6 +4,8 @@
 <script src="<?=$base_url?>js/student/grupo.js"></script>
 <script src="<?=$base_url?>js/student/calendario-grupo.js"></script>
 <script src="<?=$base_url?>js/pagination.min.js"></script>
+<script src="<?=$base_url?>js/student/criarGrupos.js"></script>
+
 <?='<script>setGrupoId("'.$grupo["id"].'")</script>'?>
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/window-date-picker.min.css">
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/student/grupo.css"> 
@@ -30,10 +32,18 @@
         </div>
 
         <div id="btnArea">
-            
-            <input id="ficheiros" type="button" value="Área de Ficheiros">
-            <div class="fichNumb"></div>
-            <a href="<?=$base_url."app/chat/g/".$grupo["id"]?>" class="std-btn">Chat de Grupo</a>
+            <div class='btnForArea'>
+                <input id="ficheiros" type="button" value="Área de Ficheiros">
+                <div class="fichNumb"></div>
+            </div>
+            <div class='btnForArea'>
+                <a href="<?=$base_url."app/chat/g/".$grupo["id"]?>" class="std-btn">Chat de Grupo</a>
+            </div>
+            <!-- <div class='btnForArea' id='position3'>
+            </div> -->
+            <div class='btnForArea'>
+                <a id="linkParaProjeto" href="<?=$base_url?>projects/project/<?=$info->projeto_id?>"><input class="quitGroupButton" id='quit"<?=$grupo["id"]?>"' type="button" value="Sair do Grupo"></input></a>
+            </div>
         </div>
 
         <h2>Agenda <img src="<?=base_url()?>images/icons/add_event.png" alt="Add Event" class="add-event-icon"></h2>

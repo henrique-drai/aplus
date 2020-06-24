@@ -834,7 +834,7 @@ class Api_Project extends REST_Controller {
     public function leaveMyGroup_delete(){ 
         $user_id = $this->session->userdata('id');
         $group_id = htmlspecialchars($this->delete("grupo_id"));
-        $proj_id = htmlspecialchars($this->get("proj_id"));
+        // $proj_id = htmlspecialchars($this->get("proj_id"));
         
         if($this->verify_student($user_id, $group_id)==true){
             $this->load->model("GroupModel");

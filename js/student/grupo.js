@@ -297,11 +297,12 @@ function checkClosedProject(){
                 
             if(new Date(data.date)<Date.now()){
                 if(new Date(data.date).addDays(5)<Date.now()){
-                    $("#btnArea").append("<input disabled type='button' value='Classificar Membros'> \
-                        <p class='small-font'>A data limite foi ultrapassada.<p>")
+                    $("#btnArea>div:eq(1)").after("<div class='btnForArea'><input disabled type='button' value='Classificar Membros'> \
+                        <p class='small-font'>A data limite foi ultrapassada.<p></div>")
                 }
                 else{
-                    $("#btnArea").append("<input id='ratingmembros' type='button' value='Classificar Membros'>")
+                    $("#btnArea>div:eq(1)").after("<input id='ratingmembros' type='button' value='Classificar Membros'>")
+
                 }
                 // $("#btnArea").append("<input id='ratingmembros' type='button' value='Rating Membros'>")
             }

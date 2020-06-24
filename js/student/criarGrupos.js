@@ -3,7 +3,7 @@ var proj;
 $(document).ready(() => {
     $('body').on('click', '.quitGroupButton', function(){
         var groupid = $(this).attr("id").split('"')[1];
-        leaveGroup(proj, groupid);
+        leaveGroup(groupid);
     })
 
     $('body').on('click', '#criarGrupo_button', function(){
@@ -30,10 +30,10 @@ $(document).ready(() => {
     })
 });
 
-function leaveGroup(proj_id, groupid){
+function leaveGroup(groupid){
     $.ajax({
         type: "DELETE",
-        url: base_url + "api/leaveMyGroup/" + proj_id,
+        url: base_url + "api/leaveMyGroup/",
         data: {grupo_id: groupid},
         success: function(data) {
             location.reload();

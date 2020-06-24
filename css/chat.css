@@ -186,7 +186,8 @@ li p{
     color: #4c4c4c;
     font-size: 15px;
     min-height: 48px;
-    width: 95%;
+    width: 100%;
+    padding: 5px 40px 5px 10px;
 }
 
 .icon-send{
@@ -282,7 +283,7 @@ li p{
         /* position: fixed; */
         /* right: -500px; */
         /* display: none; */
-        height: 90%;
+        height: 80%;
     }  
 
     .small-chat-icons{
@@ -300,6 +301,7 @@ li p{
     .chatter{
         /* border-top: 3px solid #c4c4c4; */
     }
+    
     
 }
 

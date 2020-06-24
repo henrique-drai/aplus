@@ -16,17 +16,9 @@ class Database extends CI_Controller {
         $this->load->view('templates/footer'); 
     }
 
-    public function small_script() {
+    public function run() {
         $this->load->model('ScriptModel');
-        $this->load->helper('small_script');
-        small_script($this->ScriptModel);
-        $this->load->helper('large_script');
-        large_script($this->ScriptModel);
-    }
-
-    public function large_script() {
-        $this->load->model('ScriptModel');
-        $this->load->helper('large_script');
-        large_script($this->ScriptModel);
+        $this->load->helper('database');
+        database($this->ScriptModel);
     }
 }

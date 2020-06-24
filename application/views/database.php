@@ -5,21 +5,14 @@
     <main style="width: 100%; text-align: center;">
     
       <h2>Scripts:</h2>
-      <input type="button" value="Correr os 2 scripts de uma vez" id="btn-small">
-      <input type="button" value="Correr apenas o large_script" id="btn-large">
+      <input type="button" value="Ye boiiiiiiiii" id="btn-run">
       <div id="msg-box"></div>
 
-
       <script>
-        $("#btn-small").click((event)=>{
+        $("#btn-run").click((event)=>{
           event.preventDefault()
           $("#msg-box").html("A processar o pedido...")
-          $.get( "<?=base_url()?>database/small_script", function(data) {$("#msg-box").html(data)});
-        })
-        $("#btn-large").click((event)=>{
-          event.preventDefault()
-          $("#msg-box").html("A processar o pedido...")
-          $.get( "<?=base_url()?>database/large_script", function(data) {$("#msg-box").html(data)});
+          $.get( "<?=base_url()?>database/run", function(data) {$("#msg-box").html(data)});
         })
       </script>
     </main>

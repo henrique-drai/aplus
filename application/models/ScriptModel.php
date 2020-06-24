@@ -5,6 +5,11 @@ class ScriptModel extends CI_Model {
     $this->db->insert_batch($table, $array);
   }
 
+  public function admin($name, $surname, $email, $password, $description) {
+    $this->db->delete("user", ['email' => $email]);
+    $this->db->insert("user", Array("name"=>$name, "surname"=>$surname, "email"=>$email, "role"=>"admin", "password"=>md5($password), "description"=>$description));
+  }
+
   public function student($name, $surname, $email, $password, $description) {
     $this->db->delete("user", ['email' => $email]);
     $this->db->insert("user", Array("name"=>$name, "surname"=>$surname, "email"=>$email, "role"=>"student", "password"=>md5($password), "description"=>$description));

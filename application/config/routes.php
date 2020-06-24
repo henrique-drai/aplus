@@ -143,6 +143,7 @@ $route['api/importX']                           = 'Api_Admin/importX';
 $route['api/exportSpecific']                    = 'Api_Admin/exportSpecific';
 $route['api/importStudentsCourse']              = 'Api_Admin/importStudentsCourse';
 $route['api/importTeachersSubjects']            = 'Api_Admin/importTeachersSubjects';
+$route['api/importUcClasses']                   = 'Api_Admin/importUcClasses';
 
 
 ##chat##

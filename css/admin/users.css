@@ -275,6 +275,7 @@ form#importFromCsv {
     border-radius: 4px;
     font-size: 14px;
     text-align: center !important;
+    background-color: white;
 
 }
 .input-label img {

@@ -53,7 +53,7 @@ class Api_Chat extends REST_Controller {
         for ($i=0; $i < count($users); $i++) {
             array_push($notification, Array(
             "user_id" => $users[$i]->id,
-            "type" => "alert",
+            "type" => "message",
             "title" => "Nova mensagem do grupo ".$grupo[0]["name"],
             "content" => "Clique para saber mais",
             "link" => "app/chat/g/".$data["grupo_id"],

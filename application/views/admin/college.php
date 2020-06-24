@@ -13,7 +13,7 @@
     <main>
         <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Faculdades</h4>
 
-        <br><h2>Registar Faculdade</h2>
+        <h2>Registar Faculdade</h2>
         
         <form id="register-faculdade-form" action="javascript:void(0)">
         <p>

@@ -175,7 +175,7 @@ $(document).ready(() => {
 
     // ESCONDER POPUP AO CLICAR
     $("body").on("click", "#closeError", function(){
-        $("#errormsg").hide();
+        $("#errormsg").fadeTo(2000, 0);
     })
 
 })
@@ -233,7 +233,7 @@ function validateFormNumb(){
         $("#maxnuminput").css("border-left-color", "red");
         return false;
     } else if($("#minnuminput").val() != '' && $("#maxnuminput").val() != ''){
-        if(parseInt($("#minnuminput").val()) >= parseInt($("#maxnuminput").val())){
+        if(parseInt($("#minnuminput").val()) > parseInt($("#maxnuminput").val())){
             $("#errormsg").text("Número minimo deve ser menor que máximo");
             $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
             $("#minnuminput").css("border-left-color", "red");

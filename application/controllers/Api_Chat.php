@@ -54,15 +54,17 @@ class Api_Chat extends REST_Controller {
         $abbreviation = (strlen($content) >= 40) ?  substr($content, 0, 40) . "..." : $content;
         $title = "Nova mensagem do grupo ".$grupo[0]["name"];
         for ($i=0; $i < count($users); $i++) {
-            array_push($notification, Array(
-            "user_id" => $users[$i]->id,
-            "type" => "message",
-            "title" => $title,
-            "content" => $abbreviation,
-            "link" => "app/chat/g/".$data["grupo_id"],
-            "seen" => FALSE,
-            "date" => $curr_date
-            ));
+            if($this->session->userdata('id')!=$users[$i]->id){
+                array_push($notification, Array(
+                "user_id" => $users[$i]->id,
+                "type" => "message",
+                "title" => $title,
+                "content" => $abbreviation,
+                "link" => "app/chat/g/".$data["grupo_id"],
+                "seen" => FALSE,
+                "date" => $curr_date
+                ));
+            }
         }
 
         $this->NotificationModel->deleteByTitle($title);
@@ -100,8 +102,9 @@ class Api_Chat extends REST_Controller {
                 "seen" => FALSE,
                 "date" => $curr_date
         );
-    
-        $this->NotificationModel->chatNotification($notification);
+        if($this->session->userdata('id')!=htmlspecialchars($this->post('id'))){
+            $this->NotificationModel->chatNotification($notification);
+        }
     }
 
     //////////////////////////////////////////////////////////////

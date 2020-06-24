@@ -509,7 +509,7 @@ function sendMessage(msg, time){
         data: {m:msg,id:clicked_user,t:time},
         success: function() {
             flagScroll=false;
-            getChatHistory(clicked_user);
+            getChatHistory(clicked_user,limit);
     
     }})};
 
@@ -520,6 +520,6 @@ function sendMessageGroup(msg, time){
         data: {m:msg,id:clicked_group,t:time},
         success: function() {
             flagScroll=false;
-            getChatGroupHistory(clicked_group);
+            getChatGroupHistory(clicked_group,limit);
     
     }})};

@@ -52,6 +52,39 @@ $(document).ready(() => {
             '<option value="Sexta-feira">Sexta-feira</option>' +
             '</select></div>';
 
+        const taskpicker = new WindowDatePicker({
+            el: '#placeholder-picker-new',
+            toggleEl: '#datepickernew',
+            inputEl: '#datepickernew',
+            type: 'HOUR',
+            hourType: "24",
+            allowEmpty: "FALSE",
+            lang: "pt",
+            orientation: true,
+        });
+    
+        //evento - date picker popup new etapa
+        taskpicker.el.addEventListener('wdp.change', () => {
+            var data = dateFromPicker($("#datepicker1").val());
+    
+            if(!$("#footer-dpnew").length){
+                $("#placeholder-picker-new .wdp-container").append("<div id='footer-dpnew' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+            }
+    
+            task['data'] = data;
+    
+            if (!verifyDates(data)){
+                $("#datepicker1").css("border-left-color", "red");
+            } else {
+                $("#datepicker1").css("border-left-color", "lawngreen");
+            }
+    
+        });    
+    
+        $("body").on("click", "#hidedatepicker", function(){
+            taskpicker.close();
+        })
+
         $(".infoTask_inputs").append(popup);
     })
 
@@ -348,6 +381,40 @@ function setHours() {
             
             $(".cd-popup").css('visibility', 'visible');
             $(".cd-popup").css('opacity', '1');
+
+
+            const taskpicker = new WindowDatePicker({
+                el: '#placeholder-picker1',
+                toggleEl: '#datepicker1',
+                inputEl: '#datepicker1',
+                type: 'HOUR',
+                hourType: "24",
+                allowEmpty: "FALSE",
+                lang: "pt",
+                orientation: true,
+            });
+        
+            //evento - date picker popup new etapa
+            taskpicker.el.addEventListener('wdp.change', () => {
+                var data = dateFromPicker($("#datepicker1").val());
+        
+                if(!$("#footer-dpnew").length){
+                    $("#placeholder-picker-new .wdp-container").append("<div id='footer-dpnew' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+                }
+        
+                task['data'] = data;
+        
+                if (!verifyDates(data)){
+                    $("#datepicker1").css("border-left-color", "red");
+                } else {
+                    $("#datepicker1").css("border-left-color", "lawngreen");
+                }
+        
+            });    
+        
+            $("body").on("click", "#hidedatepicker", function(){
+                taskpicker.close();
+            })
         },
         error: function(data) {
             console.log("Houve um erro ao mostrar os horários de dúvidas.");

@@ -48,6 +48,6 @@
                 </div>
             </div>
         </div>
-        <?=($user->id == $this->session->userdata('id'))? '<a class="std-btn" href="<?=base_url()?>app/profile/edit">Editar</a>' : null ?>
+        <?=($user->id == $this->session->userdata('id'))? '<a class="std-btn" href="'.base_url().'app/profile/edit">Editar</a>' : null ?>
         
     </main>

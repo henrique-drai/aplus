@@ -15,7 +15,7 @@
     <?php $this->view('templates/nav-menu'); ?>
     <main>
         <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Cursos</h4>
-        <br><h2>Registar Curso</h2>
+        <h2>Registar Curso</h2>
 
         <form id="register-cursos-form" action="javascript:void(0)">
         <div class="double_input">

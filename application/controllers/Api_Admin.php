@@ -154,8 +154,6 @@ class Api_Admin extends REST_Controller {
     }
 
 
-
-
     //////////////////////////////////////////////////////////////
     //                           POST
     //////////////////////////////////////////////////////////////
@@ -188,7 +186,42 @@ class Api_Admin extends REST_Controller {
                 $idCadeira      = $this->SubjectModel->getSubjectsByCursoIdName($idCurso, $column[6])->id;
 
                 $this->SubjectModel->registerProfCadeira($idUser, $idCadeira);
-                  
+        }
+    }
+
+    public function importUcClasses_post(){
+
+        $auth = $this->session->userdata('id');
+        $user = $this->UserModel->getUserById($auth);
+
+        if($user->role != "admin"){
+            $this->response(Array("msg"=>"No admin rights."), parent::HTTP_UNAUTHORIZED);
+            return null;
+        }
+
+        $this->load->helper('url');
+        $count_files = $_FILES["userfile"]['tmp_name'];
+        $file  = fopen($count_files, 'r');
+
+           // Skip first line
+        fgetcsv($file, 0, ","); 
+        while (($column = fgetcsv($file, 0, ",")) !== FALSE) {
+
+            $idUser         = $this->UserModel->getUserByEmail($column[0])->id;
+            $idAnoLetivo    = $this->YearModel->getYearByInicio($column[1])->id;
+
+            $idFaculdade    = $this->CollegeModel->getCollegeBySigla($column[2])->id;
+
+            $idCurso        = $this->CourseModel->getCourseByFaculdadeAnoNome($idFaculdade, $idAnoLetivo, $column[3])->id;
+            $idCadeira      = $this->SubjectModel->getSubjectsByCursoIdName($idCurso, $column[4])->id;
+
+            $data = Array(
+                "user_id" => $idUser,
+                "cadeira_id" => $idCadeira,
+                "is_completed"      => 0,
+                "last_visited"         => "",
+            );
+            $this -> SubjectModel->insertUpdate($data);
         }
 
     }

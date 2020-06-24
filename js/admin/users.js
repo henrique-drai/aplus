@@ -17,11 +17,11 @@ $(document).ready(() => {
     $("body").on('change', "#file_projeto", function(){
         if($("#file_projeto").val() != ""){
             $("#name-enunciado-proj").text(escapeHtml($("#file_projeto").val().split('\\').pop()));
-            $("#file-img").attr('src',base_url+"images/icons/check-solid.png");
+            $("#file-img-2").attr('src',base_url+"images/icons/check-solid.png");
             //msg de sucesso - "enunciado adicionado com sucesso -> session php com o valor da msg"
         } else {
             $("#name-enunciado-proj").text("Enviar ficheiro .csv");
-            $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
+            $("#file-img-2").attr('src',base_url+"images/icons/upload-solid.png");
             $("#error-popup").text("Selecione um ficheiro");
             $("#error-popup").show().delay(3000).fadeOut();
         }
@@ -30,11 +30,11 @@ $(document).ready(() => {
     $("body").on('change', "#file", function(){
             if($("#file").val() != ""){
                 $("#name-enunciado-proj").text(escapeHtml($("#file").val().split('\\').pop()));
-                $("#file-img").attr('src',base_url+"images/icons/check-solid.png");
+                $("#file-img-2").attr('src',base_url+"images/icons/check-solid.png");
                 //msg de sucesso - "enunciado adicionado com sucesso -> session php com o valor da msg"
             } else {
                 $("#name-enunciado-proj").text("Enviar ficheiro .csv");
-                $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
+                $("#file-img-2").attr('src',base_url+"images/icons/upload-solid.png");
                 $("#error-popup").text("Selecione um ficheiro");
                 $("#error-popup").show().delay(3000).fadeOut();
             }
@@ -44,17 +44,20 @@ $(document).ready(() => {
     // ##############################################################################
     
     $("#studentsOrTeachers").change(function(){
-        
-        if($("#studentsOrTeachers").val()!="Selecione um Privilégio" ){
 
-            if($("#studentsOrTeachers").val()=="students"){
+        $("#file_projeto").val("")
+        $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+        $("#file-img-2").attr('src',base_url+"images/icons/upload-solid.png");
+        
+        if($("#studentsOrTeachers").val()!=0){
+
+            if($("#studentsOrTeachers").val()=="students") {
                 $("#teachersImport").css("display","none")
                 $("#collegesDisplay1").css("display","block")
                 $("#yearsDisplay1").css("display","block")
                 $("#bk").css("display","block")
                 $("#importFromCsv").css("display","block")
 
-                
             }
             else{
                 $("#collegesDisplay1").css("display","none")
@@ -151,32 +154,64 @@ $(document).ready(() => {
 
 
     $("#teachersImport").submit(function(e) {
+        if($("#studentsOrTeachers").val()=="teachers"){
+            e.preventDefault();    
+            var formData = new FormData(this);
 
-        e.preventDefault();    
-        var formData = new FormData(this);
-        // CONTINUAR A PARTIR DAQUI
-        // FAZER O AJAX -> CONTROLLER -> MODEL
+            $.ajax({
+                url: base_url + "api/importTeachersSubjects",
+                type: 'POST',
+                headers: {"Authorization": localStorage.token},
+                data: formData,
+                success: function (data) {
+                    $("#importSuccess").html("Ficheiro importado com sucesso");
+                    $("#importSuccess").show().delay(2000).fadeOut();
+                    $("#file").val("");
+                    $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+                    $("#file-img-2").attr('src',base_url+"images/icons/upload-solid.png");
+                    $("#file_projeto").val("")
+                },
+                error: function(data) {
+                    $("#importError").html("Erro a importar ficheiro");
+                    $("#importError").show().delay(2000).fadeOut();
+                    $("#file_projeto").val("")
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        }
 
-        $.ajax({
-            url: base_url + "api/importTeachersSubjects",
-            type: 'POST',
-            headers: {"Authorization": localStorage.token},
-            data: formData,
-            success: function (data) {
-                $("#importSuccess").html("Ficheiro importado com sucesso");
-                $("#importSuccess").show().delay(2000).fadeOut();
-                $("#file").val("");
-                $("#name-enunciado-proj").text("Enviar ficheiro .csv");
-                $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
-},
-            error: function(data) {
-                $("#importError").html("Erro a importar ficheiro");
-                $("#importError").show().delay(2000).fadeOut();
-},
-            cache: false,
-            contentType: false,
-            processData: false
-        });
+        else if($("#studentsOrTeachers").val()=="uc&classes"){
+
+            e.preventDefault();    
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: base_url + "api/importUcClasses",
+                type: 'POST',
+                headers: {"Authorization": localStorage.token},
+                data: formData,
+                success: function (data) {
+                    $("#importSuccess").html("Ficheiro importado com sucesso");
+                    $("#importSuccess").show().delay(2000).fadeOut();
+                    $("#file").val("");
+                    $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+                    $("#file-img-2").attr('src',base_url+"images/icons/upload-solid.png");
+                    $("#file_projeto").val("")
+                },
+                error: function(data) {
+                    $("#importError").html("Erro a importar ficheiro");
+                    $("#importError").show().delay(2000).fadeOut();
+                    $("#file_projeto").val("")
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+           
+        }
+        
     });
     
 
@@ -202,7 +237,7 @@ $(document).ready(() => {
                 $("#importSuccess").show().delay(2000).fadeOut();
                 $("#file").val("");
                 $("#name-enunciado-proj").text("Enviar ficheiro .csv");
-                $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
+                $("#file-img-2").attr('src',base_url+"images/icons/upload-solid.png");
                 
             },
             error: function(data) {
@@ -210,7 +245,7 @@ $(document).ready(() => {
                 $("#importError").show().delay(2000).fadeOut();
                 $("#myfile").val("");
                 $("#name-enunciado-proj").text("Enviar ficheiro .csv");
-                $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
+                $("#file-img-2").attr('src',base_url+"images/icons/upload-solid.png");
             },
             cache: false,
             contentType: false,
@@ -706,7 +741,7 @@ function getCursosFaculdade2(ano, faculdade){
                 
                 +"<input type='file' name='userfile' id='file' class='input-file' accept='.csv' required>"
                 +"<label for='file' class='input-label'>"
-                +"<img id='file-img' class='file-img' src="+ base_url+ "images/icons/upload-solid.png>"
+                +"<img id='file-img-2' class='file-img' src="+ base_url+ "images/icons/upload-solid.png>"
                 +"<span id='name-enunciado-proj' class='span-name'>Enviar ficheiro .csv</span></label>"
             
 

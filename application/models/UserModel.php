@@ -16,6 +16,18 @@ class UserModel extends CI_Model {
         return $query->row();
     }
 
+    public function getSomeValuesUser($id){
+        $this->db->select("name, surname, id, picture, email");
+        $this->db->where(array('id' => $id));
+        $query = $this->db->get("user");
+        return $query->row();
+    }
+
+    public function getMyRatings($user_id) {
+        $query = $this->db->get_where('member_classification', array('classificado_id' => $user_id));
+        return $query->result_array();
+    }
+
     public function userIsRelatedToGroup($user_id, $grupo_id) {
         $grupo_id = $this->db->escape($grupo_id);
         $result = $this->db->query("select * 
@@ -107,11 +119,11 @@ class UserModel extends CI_Model {
     }
 
     public function updateUser($data){
-        if(isset($data["name"]))
+        if(strlen($data["name"]))
             {$this->db->set('name', $data["name"]);}
-        if(isset($data["surname"]))
+        if(strlen($data["surname"]))
             {$this->db->set('surname', $data["surname"]);}
-        if(isset($data["password"]))
+        if(strlen($data["password"]))
             {$this->db->set('password', md5($data["password"]));}
         
         $this->db->set('description', $data["description"]);

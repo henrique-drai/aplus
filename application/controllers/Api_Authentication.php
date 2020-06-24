@@ -31,6 +31,8 @@ class Api_Authentication extends REST_Controller {
                 "surname" => $user->surname,
                 "role" => $user->role,
                 "picture" => $user->picture,
+                "std-message" => "", // conteúno do alerta
+                "std-message-type" => "", // error or success
             );
 
             $this->session->set_userdata($session_data);

@@ -10,7 +10,8 @@ $(document).ready(() => {
             e.preventDefault();
         } else {
             if($("#file_submit")[0].files[0].size < 5024000){
-                submit_ficheiro(cadeira, $("#file_submit").val().split('\\').pop());  
+                // submit_ficheiro(cadeira, $("#file_submit").val().split('\\').pop());  
+                console.log("vai ser enviado o ficheiro")
             } else {
                 $(".error-file").text("O ficheiro ultrapassa o limite máximo de 5MB");
                 $(".error-file").show();
@@ -44,29 +45,6 @@ function setCadeira(id){
     cadeira = id;
 }
 
-function submit_ficheiro(cadeira_id, ficheiro){
-
-    const data = {
-        cadeira_id : cadeira_id,
-        ficheiro_url : ficheiro,
-    }
-
-    $.ajax({
-        type: "POST",
-        url: base_url + "api/submitFileAreaCadeira",
-        data: data,
-        success: function(data) {
-            console.log(data)
-            $("#success").show();
-        },
-        error: function(data) {
-            console.log("Erro na API - Submit File Para Area da Cadeira");
-            console.log(data);
-        }
-    });
-}
-
-
 function get_ficheiros(cadeira_id){
     const data = {
         cadeira_id : cadeira_id,
@@ -86,7 +64,7 @@ function get_ficheiros(cadeira_id){
             } else {
                 for (i=0; i<data.length; i++){
                     array.push('<div class="file-row" id="file-row-teacher">'
-                    + '<p><a target="_blank" href="'+base_link+data[i]["url"]+'">' + data[i]["url"] + '</a></p>'
+                    + '<p><a target="_blank" href="'+base_link+data[i]["url"]+'">' + data[i]["url_original"] + '</a></p>'
                     + '<p><img id="'+data[i]["id"]+'" src="'+base_url+'images/icons/trash.png" class="delete_img"></p></div><hr>');
                 }
             }

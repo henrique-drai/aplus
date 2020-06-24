@@ -10,7 +10,8 @@ $(document).ready(() => {
             e.preventDefault();
         } else {
             if($("#file_submit")[0].files[0].size < 5024000){
-                submit_ficheiro_grupo(grupo, $("#file_submit").val().split('\\').pop());   
+                // submit_ficheiro_grupo(grupo, $("#file_submit").val().split('\\').pop());   
+                console.log("vai ser enviado o ficheiro")
             } else {
                 $(".error-file").text("O ficheiro ultrapassa o limite máximo de 5MB");
                 $(".error-file").show();
@@ -65,12 +66,12 @@ function get_ficheiros_grupo(grupo){
                     var name = "";
                     for (j=0; j<data["nomes"].length; j++){
                         if(data["ficheiros"][i]["user_id"] == data["nomes"][j][2]){
-                            name = data["nomes"][j][0] + data["nomes"][j][1]; 
+                            name = data["nomes"][j][0] + " " + data["nomes"][j][1]; 
                         }
                     }
 
                     array.push('<div class="file-row" id="file-row-teacher">'
-                    + '<p><a target="_blank" href="'+base_link+data["ficheiros"][i]["url"]+'">' + data["ficheiros"][i]["url"] + '</a></p>'
+                    + '<p><a target="_blank" href="'+base_link+data["ficheiros"][i]["url"]+'">' + data["ficheiros"][i]["url_original"] + '</a></p>'
                     + '<p><a href="'+base_url+ 'app/profile/' + data["ficheiros"][i]["user_id"]+'">'+name+ '</a></p>'
                     + '<p><img id="'+data["ficheiros"][i]["id"]+'" src="'+base_url+'images/icons/trash.png" class="delete_img"></p></div><hr>');
                 }
@@ -90,29 +91,6 @@ function get_ficheiros_grupo(grupo){
             console.log(data);
         }
     });
-}
-
-function submit_ficheiro_grupo(grupo_id, ficheiro){
-
-    const data = {
-        grupo_id : grupo_id,
-        ficheiro_url : ficheiro,
-    }
-
-    $.ajax({
-        type: "POST",
-        url: base_url + "api/submitFileAreaGrupo",
-        data: data,
-        success: function(data) {
-            $("#success").show();
-            console.log(data)
-        },
-        error: function(data) {
-            console.log("Erro na API - Submit File Para Area do Grupo");
-            console.log(data);
-        }
-    });
-
 }
 
 function removeFicheiro(grupo_id, ficheiro_id){

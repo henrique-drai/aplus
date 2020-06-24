@@ -6,12 +6,14 @@
 
 
 .gruposDIV a {
-    color: rgb(62, 93, 79);
+    color: #15435a;
     text-decoration: none;
+    font-weight: 600;
 }
 
 .gruposDIV a:hover{
-    color: rgb(0, 177, 77);
+    color: rgb(20, 118, 167);
+    text-decoration: underline;
 }
 
 .form-input-text {
@@ -42,9 +44,9 @@ label {
 .submit{
     display:none;
     text-align: center;
-    width: 30%;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    width: 40%;
+    padding-top: 10px;
+    padding-bottom: 10px;
     border-radius: 5px;
     position: relative;
     float:right;
@@ -193,6 +195,17 @@ label {
     word-wrap: break-word;
 }
 
+#enunciado_h4 a{
+    color:#15435a;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+#enunciado_h4 a:hover{
+    color: rgb(20, 118, 167);
+    text-decoration: underline;
+}
+
 #enunciado_label a{
     width: 100%;
     word-wrap: break-word;
@@ -215,7 +228,7 @@ label {
     line-height: 30px;
     width: 240px;
     display: block;
-    border: 2px solid #3e5d4f;
+    border: 2px solid #15435a;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -227,10 +240,11 @@ label {
 
 .input-label:hover{
     color: rgba(0, 0, 0, 0.842);
-    border-color: rgb(85, 150, 120);
+    border-color: rgb(20, 118, 167);
 }
 
 .input-label img {
+    margin-right: 5px;
     width: 12px;
 }
 
@@ -245,7 +259,7 @@ label {
 }
 
 .cd-message > h3, .cd-message > h3 {
-    color: #3e5d4f;
+    color: #15435a;
 }
 
 .cd-message > label, .cd-message > label {
@@ -266,7 +280,7 @@ label {
     border: unset !important;
     margin:unset !important;
     padding:unset !important;
-    background-color: #3e5d4f !important;
+    background-color: #15435a !important;
     display: block;
     height: 60px;
     line-height: 60px;
@@ -279,18 +293,22 @@ label {
 }
 
 .cd-buttons > li:first-child a, .cd-buttons > li:first-child input {
-    background: #3e5d4f;
+    background: #15435a;
 }
 
 .form-input-file{
     width: unset !important;
 }
 
+#closeError{
+    margin-left:5px;
+}
+
 
 /* date picker */
 
 .wdp .wdp-container .wdp-date-container ul li.wdp-active:before, .wdp .wdp-container .wdp-header, .wdp .wdp-container .wdp-hour-container .wdp-hour-el-container input{
-    background: #3e5d4f !important;
+    background: #15435a !important;
     cursor: pointer;
 }
 

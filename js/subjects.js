@@ -94,7 +94,7 @@ function semester(n, data) {
     for(var i = 0; i < data.cadeiras_id.length; i++) {
         var url = base_url + "subjects/subject/" + data.info[i][0].code + "/" + data.year[0].inicio;
         var color = convertHex(data.info[i][0].color, 52);
-        var image_url = base_url + "uploads/pattern.jpg";
+        var image_url = base_url + "images/subjects/pattern.png";
 
         if(n == 0) {
             if(data.info[i][0].semestre == 0) {

@@ -4,8 +4,7 @@ var code
 $(document).ready(() => {
     insertLoggedDate(localStorage.cadeira_id);
     getInfo(localStorage.cadeira_code);   
-    localStorage.setItem("role", "teacher"); 
-    $(".hours_inputs").hide();
+    localStorage.setItem("role", "teacher");
 
     $("#edit_button").click(function() {
         var content = $(".summary p").text();
@@ -28,58 +27,72 @@ $(document).ready(() => {
         setHours(localStorage.cadeira_id);
     })
 
-    $(".add_hour").click(function() {
+    $("body").on("click", ".add_hour_button", function() {
         var count = $(".minnuminput").last().attr("id");
+        var popup = '';
         count++;
-        $("#save_button_hours").hide();
 
-        const hour = "<div class='element'><p><label class='form-label'>Início:</label>" +
+        if(count == 0) {
+            popup = popup + '<div id="' + count + '"><h4>Horário ' + (count + 1) + '</h4>';
+        } else {
+            popup = popup + '<div id="' + count + '"><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/icons/delete.png"></span><h4>Horário ' + (count + 1) + '</h4>';
+        }
+       
+        popup = popup + '<div class="dates"><label class="form-label">Início:' +
             '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
-            'name="start_time" min="09:00" max="18:00" required></p><p>' +
-            '<label class="form-label">Fim:</label>' +
+            'name="start_time" min="09:00" max="18:00" required></label>' +
+            '<label class="form-label">Fim:' +
             '<input type="time" class="form-input-number maxnuminput" id="' + count + '"' +
-            'name="end_time" min="09:00" max="18:00" required></p><p>' +
-            '<label class="form-label">Dia da Semana:</label><select class="day" id="' + count + '">' +
+            'name="end_time" min="09:00" max="18:00" required></label></div>' +
+            '<label class="form-label" id="label_day">Dia da Semana:</label><select class="day" id="' + count + '">' +
             '<option value="Segunda-feira">Segunda-feira</option>' +
             '<option value="Terça-feira">Terça-feira</option>' +
             '<option value="Quarta-feira">Quarta-feira</option>' +
             '<option value="Quinta-feira">Quinta-feira</option>' +
-            '<option value="Sexta-feira">Sexta-feira</option></select></p></div>';
+            '<option value="Sexta-feira">Sexta-feira</option>' +
+            '</select></div>';
 
-        $(".hours_inputs").append(hour);
-        $(".remove_hour").css('visibility','visible');
+        const taskpicker = new WindowDatePicker({
+            el: '#placeholder-picker-new',
+            toggleEl: '#datepickernew',
+            inputEl: '#datepickernew',
+            type: 'HOUR',
+            hourType: "24",
+            allowEmpty: "FALSE",
+            lang: "pt",
+            orientation: true,
+        });
+    
+        //evento - date picker popup new etapa
+        taskpicker.el.addEventListener('wdp.change', () => {
+            var data = dateFromPicker($("#datepicker1").val());
+    
+            if(!$("#footer-dpnew").length){
+                $("#placeholder-picker-new .wdp-container").append("<div id='footer-dpnew' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+            }
+    
+            task['data'] = data;
+    
+            if (!verifyDates(data)){
+                $("#datepicker1").css("border-left-color", "red");
+            } else {
+                $("#datepicker1").css("border-left-color", "lawngreen");
+            }
+    
+        });    
+    
+        $("body").on("click", "#hidedatepicker", function(){
+            taskpicker.close();
+        })
+
+        $(".infoTask_inputs").append(popup);
     })
 
-    $(".remove_hour").click(function() {
-        var count = $(".minnuminput").last().attr("id");
-        const data = {
-            'cadeira_id': localStorage.getItem('cadeira_id'),
-            'start_time': $("#" + count+ ".minnuminput").val(),
-            'end_time': $("#" + count + ".maxnuminput").val(),
-            'day': $("#" + count + ".day").val(),
-        }
-        removeHours(data);
+    $("body").on("click", ".remove_hour", function() {
+        var count = $(this).attr("id");
+        $("#" + count).remove();
 
-        $(".hours_inputs > .element").last().remove();
-
-        var flag = true;
-        var count = $(".minnuminput").last().attr("id");
-
-        for (var i=0; i <= count; i++) {
-            if($("#" + i + ".minnuminput").css("border-left-color") == 'rgb(66, 213, 66)') {
-                flag = flag && true;
-            } else {
-                flag = flag && false;
-            }
-        }
-
-        if (flag) {
-            $("#save_button_hours").show();
-        }
-
-        if($(".hours_inputs .element").length == 1) {
-            $(".remove_hour").css('visibility','hidden');
-        }
+        refreshHours();
     })
 
     $("body").on("click", ".delete_img", function(){
@@ -96,8 +109,6 @@ $(document).ready(() => {
         })
     })
 
-   
-
     $("body").on("keyup", ".maxnuminput", function(){
         var id = $(this).attr("id");
         validateFormNumb(id);
@@ -108,24 +119,35 @@ $(document).ready(() => {
         validateFormNumb(id);
     })
 
-    $("body").on("click", "#save_button_hours", function() {
-        $(".hours p").remove();
-        for(var i=0; i <= $(".minnuminput").last().attr("id"); i++) {
-            const data = {
-                'user_id': localStorage.getItem('user_id'),
-                'cadeira_id': localStorage.getItem('cadeira_id'),
-                'start_time': $("#" + i + ".minnuminput").val(),
-                'end_time': $("#" + i + ".maxnuminput").val(),
-                'day': $("#" + i + ".day").val(),
+    $("body").on("click", "#add_hour_confirm", function() {
+        var flag = false;
+
+        $('.infoTask_inputs input').each(function(index){
+            if($(this).css('border-left-color') == 'rgb(255, 0, 0)') {
+                flag = false;
+                return false;
+            } else {
+                flag = true;
             }
-            saveHours(data);
-        }
-        
-        $(".hours_buttons").hide();
-        $(".hours_inputs").hide();
-        $(".hours_inputs .element").remove();
-        $("#edit_button_hours").show();
-        $("#save_button_hours").hide();
+        })
+
+        if(flag == false) {
+            $(".message_error").css('opacity', '1');
+        } else {
+            for(var i=0; i <= $(".minnuminput").last().attr("id"); i++) {
+                const data = {
+                    'user_id': localStorage.getItem('user_id'),
+                    'cadeira_id': localStorage.getItem('cadeira_id'),
+                    'start_time': $("#" + i + ".minnuminput").val(),
+                    'end_time': $("#" + i + ".maxnuminput").val(),
+                    'day': $("#" + i + ".day").val(),
+                }
+                saveHours(data);
+            }
+            
+            $(".cd-popup").css('visibility', 'hidden');
+            $(".cd-popup").css('opacity', '0');
+        }        
     })
 
     var link = location.href.split(localStorage.cadeira_code);
@@ -166,6 +188,10 @@ $(document).ready(() => {
             $(this).css('opacity', '0');
 		}
     });
+
+    $("body").on("click", "#closeError", function(){
+        $(".message_error").css('opacity', '0');
+    })
 })
 
 function setID(newid){
@@ -181,14 +207,12 @@ function setCode(newcode){
 function validateFormNumb(id){
     if($("#" + id + ".minnuminput").val() != '' && $("#" + id +".maxnuminput").val() != ''){
         if($("#" + id +".maxnuminput").val() <= $("#" + id + ".minnuminput").val()){
-            $("#" + id + ".minnuminput").css("border-left-color", "salmon");
-            $("#" + id +".maxnuminput").css("border-left-color", "salmon");
-            $("#save_button_hours").hide();
+            $("#" + id + ".minnuminput").css("border-left-color", "red");
+            $("#" + id +".maxnuminput").css("border-left-color", "red");
             return false;
         } else {
             $("#" + id + ".minnuminput").css("border-left-color", "#42d542");
             $("#" + id +".maxnuminput").css("border-left-color", "#42d542");
-            $("#save_button_hours").show();
             return true;
         }
     }
@@ -200,8 +224,6 @@ function getInfo() {
         url: base_url + "api/getCadeira/" + id,
         data: {role: "teacher", user_id: localStorage.user_id},
         success: function(data) {
-            console.log(data);
-
             var color = convertHex(data.desc[0].color, 52);
 
             $("#subject_title").empty();
@@ -212,7 +234,7 @@ function getInfo() {
                 $(".summary").append("<p>" + data.desc[0].description + "</p>");
             }
 
-            var image_url = base_url + "images/subjects/project_pattern.jpg";
+            var image_url = base_url + "images/subjects/project_pattern.png";
             $(".projetos").empty();
             if(data.proj.length == 0) {
                 $(".projetos").append("<p>Ainda não existem projetos para a cadeira</p>");
@@ -252,7 +274,7 @@ function getInfo() {
             }
         },
         error: function(data) {
-            alert("Houve um erro ao ir buscar a informação da cadeira.");
+            console.log("Houve um erro ao ir buscar a informação da cadeira.");
         }
     });
 }
@@ -269,7 +291,7 @@ function insertText($text) {
             }, 2000);
         },
         error: function(data) {
-            alert("Houve um erro ao inserir o texto.");
+            console.log("Houve um erro ao inserir o texto.");
         }
     })
 }
@@ -281,8 +303,8 @@ function setHours() {
         success: function(data) {
             var count = 0;
             var flag = false;
-            var popup = "<div class='infoTask_inputs'><h2>Editar Horários de Dúvidas</h2>" +
-            "<input type='button' class='add_hour_button' value='Adicionar Horário'>";
+            var popup = "<h2>Editar Horários de Dúvidas</h2>" +
+            "<input type='button' class='add_hour_button' value='Adicionar Horário'><div class='infoTask_inputs'>";
 
             for(var i=0; i < data['user'].length; i++) {
                 if(data.user[i].id == localStorage.user_id) {
@@ -294,9 +316,15 @@ function setHours() {
             }
 
             if(flag) {
+                console.log(count)
                 for(var i=0; i < data['user'].length; i++) {
                     if(data.user[i].id == localStorage.user_id) {
-                        popup = popup + '<h4><span><img id="remove_hour" src="' + base_url + 'images/delete.png"></span>Horário ' + (count + 1) + '</h4>';
+                        if(count == 0) {
+                            popup = popup + '<div id="' + count + '"><h4>Horário ' + (count + 1) + '</h4>';
+                        } else {
+                            popup = popup + '<div id="' + count + '"><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/icons/delete.png"></span><h4>Horário ' + (count + 1) + '</h4>';
+                        }
+                        
                         popup = popup + '<div class="dates"><label class="form-label">Início:' +
                             '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
                             'name="start_time" min="09:00" max="18:00" value="' + 
@@ -325,7 +353,12 @@ function setHours() {
                     $(".maxnuminput").css("border-left-color", "#42d542");
                 }
             } else {
-                popup = popup + '<h4><span><img id="remove_hour" src="' + base_url + 'images/icons/delete.png"></span>Horário ' + (count + 1) + '</h4>';
+                if(count == 0) {
+                    popup = popup + '<div id="' + count + '"><h4>Horário ' + (count + 1) + '</h4>';
+                } else {
+                    popup = popup + '<div id="' + count + '"><span><img class="remove_hour" id="' + count + '" src="' + base_url + 'images/icons/delete.png"></span><h4>Horário ' + (count + 1) + '</h4>';
+                }
+
                 popup = popup + '<div class="dates"><label class="form-label">Início:' +
                     '<input type="time" class="form-input-number minnuminput" id="' + count + '"' +
                     'name="start_time" min="09:00" max="18:00" required></label>' +
@@ -338,19 +371,53 @@ function setHours() {
                     '<option value="Quarta-feira">Quarta-feira</option>' +
                     '<option value="Quinta-feira">Quinta-feira</option>' +
                     '<option value="Sexta-feira">Sexta-feira</option>' +
-                    '</select><>/div>';
+                    '</select></div>';
             }
 
             $(".cd-message").html(popup);
-            $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos</div>" +
+            $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos  <i id='closeError' class='fa fa-times' aria-hidden='true'></i></div>" +
                 "<li><a href='#' id='add_hour_confirm'>" +
                 "Confirmar</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
             
             $(".cd-popup").css('visibility', 'visible');
             $(".cd-popup").css('opacity', '1');
+
+
+            const taskpicker = new WindowDatePicker({
+                el: '#placeholder-picker1',
+                toggleEl: '#datepicker1',
+                inputEl: '#datepicker1',
+                type: 'HOUR',
+                hourType: "24",
+                allowEmpty: "FALSE",
+                lang: "pt",
+                orientation: true,
+            });
+        
+            //evento - date picker popup new etapa
+            taskpicker.el.addEventListener('wdp.change', () => {
+                var data = dateFromPicker($("#datepicker1").val());
+        
+                if(!$("#footer-dpnew").length){
+                    $("#placeholder-picker-new .wdp-container").append("<div id='footer-dpnew' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+                }
+        
+                task['data'] = data;
+        
+                if (!verifyDates(data)){
+                    $("#datepicker1").css("border-left-color", "red");
+                } else {
+                    $("#datepicker1").css("border-left-color", "lawngreen");
+                }
+        
+            });    
+        
+            $("body").on("click", "#hidedatepicker", function(){
+                taskpicker.close();
+            })
         },
         error: function(data) {
-            alert("Houve um erro ao mostrar os horários de dúvidas.");
+            console.log("Houve um erro ao mostrar os horários de dúvidas.");
         }
     })
 }
@@ -376,7 +443,7 @@ function getHours($id) {
             
         },
         error: function(data) {
-            alert("Houve um erro a ir buscar os horários de dúvidas.");
+            console.log("Houve um erro a ir buscar os horários de dúvidas.");
         }
     })
 }
@@ -395,7 +462,7 @@ function saveHours(data) {
             getHours(id);
         },
         error: function(data) {
-            alert("Houve um erro ao inserir as novas datas.")
+            console.log("Houve um erro ao inserir as novas datas.")
         }
     })
 }
@@ -409,7 +476,7 @@ function removeHours(data) {
             console.log("apagou");
         },
         error: function(data) {
-            alert("Houve um erro a remover a data.")
+            console.log("Houve um erro a remover a data.")
         }
     })
 }
@@ -425,7 +492,7 @@ function deleteHourById(id) {
             $(".cd-popup").css('opacity', '0');
         },
         error: function(data) {
-            alert("Houve um erro a remover a data.")
+            console.log("Houve um erro a remover a data.")
         }
     })
 }
@@ -438,7 +505,7 @@ function insertLoggedDate(id) {
             console.log(data)
         },
         error: function(data) {
-            alert("Houve um erro ao ir buscar a informação das cadeiras lecionadas.");
+            console.log("Houve um erro ao ir buscar a informação das cadeiras lecionadas.");
         }
     })
 }
@@ -453,4 +520,10 @@ function convertHex(hex,opacity){
     result = 'rgba('+r+','+g+','+b+','+opacity/100+')';
     return result;
 
+}
+
+function refreshHours() {
+    $('h4').each(function(index){
+        $(this).text('Horário ' + index.toString());
+    })
 }

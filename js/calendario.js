@@ -21,7 +21,7 @@ function renderCalendario(){
 
         for(const event of calendario.events)
         {
-            if (event.start_time.getDate() == day.getDate())
+            if (event.start_time.toDateString() == day.toDateString())
             {
                 let start, desc, end, time
                 let cell = $('<div class="cell"></div>')
@@ -32,15 +32,14 @@ function renderCalendario(){
                         start = $('<div class="start">'+getClassTimeString(event.obj.start_time)+'</div>')
                         desc = $('<div class="desc">'+event.obj.sigla+' ('+event.obj.type+')</div>')
                         end = $('<div class="end">'+getClassTimeString(event.obj.end_time)+'</div>')
-                        //cell.css("background-color",calendario.cores[event.obj.cadeira_id])
-                        cell.css("background-color", event.obj.color)
+                        cell.css("background-color", applyAlphaChannel(event.obj.color))
                         break
 
                     case "duvidas":
                         start = $('<div class="start">'+getClassTimeString(event.obj.start_time)+'</div>')
                         desc = $('<div class="desc">'+event.obj.sigla+' (Dúvidas)</div>')
                         end = $('<div class="end">'+getClassTimeString(event.obj.end_time)+'</div>')
-                        cell.css("background-color", event.obj.color)
+                        cell.css("background-color", applyAlphaChannel(event.obj.color))
                         break
                     
                     case "group":
@@ -88,7 +87,15 @@ function renderCalendario(){
 
     $("#calendario-hook").append(inner)
 
-    
+    function applyAlphaChannel(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        let rgb = result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : {r: null, g: null, b: null};
+        return "rgba("+rgb.r+","+rgb.g+","+rgb.b+", 0.65)"
+    }
 }
 
 function updateCalendario(){
@@ -98,7 +105,8 @@ function updateCalendario(){
         success: function(data) {
             setCalendario(data)
             renderCalendario()
-            //console.log(data)
+            // console.log(data)
+            // console.log(calendario)
         },
         error: function(data) {
             console.log("Problema na API ao buscar o calendário.")
@@ -108,8 +116,6 @@ function updateCalendario(){
 }
 
 function setCalendario(data){
-
-    console.log(data)
 
     function translateWeekDay(name){
         for (const day of week_days){
@@ -147,8 +153,9 @@ function setCalendario(data){
     for (const ge of data.group_events)
         calendario.events.push({start_time: new Date(ge.start_date), type: "group", obj: ge})
 
-    for (const s of data.submissions)
+    for (const s of data.submissions){
         calendario.events.push({start_time: new Date(s.deadline), type: "submit", obj: s})
+    }
 
     calendario.events.sort((x,y)=>(x.start_time.getTime() - y.start_time.getTime()))
 }
@@ -190,6 +197,8 @@ function getRandomColor(){
 
 function eventOnClickCalendario(){
     $('#calendario-hook').on('click', '.cell .clickable', function(event){
+        console.log(event.target.id)
+        console.log(calendario.events)
         event = calendario.events[parseInt(event.target.id)]
         
         let message = $('<div class="calendario-msg"></div>')
@@ -269,6 +278,10 @@ function ajaxDeleteEventById(event_id){
             //console.log(data)
             updateCalendario()
             $('.cd-popup').removeClass('is-visible')
+            $("#std-message .content").text("O evento foi cancelado.")
+            $("#std-message").addClass("visible")
+            $("#std-message").removeClass("error")
+            $("#std-message").addClass("success")
         },
         error: function(data) {
             console.log("Couldn't delete the event:")
@@ -285,6 +298,10 @@ function ajaxNotGoing(event_id){
             //console.log(data)
             updateCalendario()
             $('.cd-popup').removeClass('is-visible')
+            $("#std-message .content").text("O evento foi atualizado.")
+            $("#std-message").addClass("visible")
+            $("#std-message").removeClass("error")
+            $("#std-message").addClass("success")
         },
         error: function(data) {
             console.log("Couldn't cancel event:")

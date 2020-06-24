@@ -6,6 +6,40 @@ $(document).ready(() => {
     getYears();
     getColleges();
 
+    $("body").on("click","#PesquisarAlunos", function(){
+        window.location.href = base_url + "app/admin/students";
+    });
+
+    $("body").on("click","#PesquisarProfessores", function(){
+        window.location.href = base_url + "app/admin/teachers";
+    });
+
+    $("body").on('change', "#file_projeto", function(){
+        if($("#file_projeto").val() != ""){
+            $("#name-enunciado-proj").text(escapeHtml($("#file_projeto").val().split('\\').pop()));
+            $("#file-img").attr('src',base_url+"images/icons/check-solid.png");
+            //msg de sucesso - "enunciado adicionado com sucesso -> session php com o valor da msg"
+        } else {
+            $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+            $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
+            $("#error-popup").text("Selecione um ficheiro");
+            $("#error-popup").show().delay(3000).fadeOut();
+        }
+    })
+
+    $("body").on('change', "#file", function(){
+            if($("#file").val() != ""){
+                $("#name-enunciado-proj").text(escapeHtml($("#file").val().split('\\').pop()));
+                $("#file-img").attr('src',base_url+"images/icons/check-solid.png");
+                //msg de sucesso - "enunciado adicionado com sucesso -> session php com o valor da msg"
+            } else {
+                $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+                $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
+                $("#error-popup").text("Selecione um ficheiro");
+                $("#error-popup").show().delay(3000).fadeOut();
+            }
+        })
+
 
     // ##############################################################################
     
@@ -17,6 +51,8 @@ $(document).ready(() => {
                 $("#teachersImport").css("display","none")
                 $("#collegesDisplay1").css("display","block")
                 $("#yearsDisplay1").css("display","block")
+                $("#bk").css("display","block")
+                $("#importFromCsv").css("display","block")
 
                 
             }
@@ -24,6 +60,10 @@ $(document).ready(() => {
                 $("#collegesDisplay1").css("display","none")
                 $("#yearsDisplay1").css("display","none")
                 $("#teachersImport").css("display","block")
+                $("#bk").css("display","none")
+                $("#collegesDisplay1").css("display","none")
+                $("#importFromCsv").css("display","none")
+
             }
         }
         else{
@@ -42,14 +82,14 @@ $(document).ready(() => {
     $('body').on("click", "#showDemo",function() {
         event.preventDefault();
         $("#removePadding").text("Formato ficheiro '.csv' de importação - Alunos ")
-        $('#csvExample').attr("src", path.replace("csv_example_prof.png", "csv_example.png"));
+        $('#csvExample').attr("src", path.replace("csv_teacher.png", "csv_student.png"));
         $("#csvExample").css("width","420px");
         $('#import_csv_style').addClass('is-visible');
     });
     $('body').on("click", "#showDemo2",function() {
         event.preventDefault();
         $("#removePadding").text("Formato ficheiro '.csv' de importação - Professores")
-        $('#csvExample').attr("src", path.replace("csv_example.png", "csv_example_prof1.png"));
+        $('#csvExample').attr("src", path.replace("csv_student.png", "csv_teacher.png"));
         $("#csvExample").css("width","529px");
 
         $('#import_csv_style').addClass('is-visible');
@@ -127,6 +167,8 @@ $(document).ready(() => {
                 $("#importSuccess").html("Ficheiro importado com sucesso");
                 $("#importSuccess").show().delay(2000).fadeOut();
                 $("#file").val("");
+                $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+                $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
 },
             error: function(data) {
                 $("#importError").html("Erro a importar ficheiro");
@@ -140,8 +182,7 @@ $(document).ready(() => {
     
 
 // PRECISA DE SER SUBMIT?!?
-    $("#importToCourse").submit(function(e) {
-
+    $("#importFromCsv").submit(function(e) {
 
         const info = {
             college:        $("#collegesDisplay").val(),
@@ -161,14 +202,16 @@ $(document).ready(() => {
                 $("#importSuccess").html("Ficheiro importado com sucesso");
                 $("#importSuccess").show().delay(2000).fadeOut();
                 $("#file").val("");
-                $(".fa-upload").show()
-                $(".js-fileName").text("Escolher ficheiro")
+                $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+                $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
                 
             },
             error: function(data) {
                 $("#importError").html("Erro a importar ficheiro");
                 $("#importError").show().delay(2000).fadeOut();
                 $("#myfile").val("");
+                $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+                $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
             },
             cache: false,
             contentType: false,
@@ -459,9 +502,9 @@ function getYears(){
             var option = "<option class='years'>Selecione um Ano Letivo</option>";
 
             for (i=0; i<data.schoolYears.length; i++){
-                if(data.schoolYears[i].inicio>=new Date().getFullYear()){
+                // if(data.schoolYears[i].inicio>=new Date().getFullYear()){
                     option+= "<option value='" + data.schoolYears[i].id + "'>"+ data.schoolYears[i].inicio  + "</option>"
-                }
+                // }
             }
             $("#yearsDisplay").html(option)
             $("#yearsDisplay1").html(option)
@@ -654,33 +697,24 @@ function getCursosFaculdade2(ano, faculdade){
 
                 // +"<input type='file' id='myfile' name='file' class='input-file' accept='.csv' required >"
 
+                // +"<input type='file' name='userfile' id='file' class='input-file' accept='.csv' required>"
+                // +"<label for='file' class='btn btn-tertiary js-labelFile'>"
+                // +"<i class='fa fa-upload'></i>"
+                // + "<span class='js-fileName'>Escolher ficheiro</span>"
+                // +"</label>"
+                // +"</div>"
+
+                
                 +"<input type='file' name='userfile' id='file' class='input-file' accept='.csv' required>"
-                +"<label for='file' class='btn btn-tertiary js-labelFile'>"
-                +"<i class='fa fa-upload'></i>"
-                + "<span class='js-fileName'>Escolher ficheiro</span>"
-                +"</label>"
-                +"</div>"
+                +"<label for='file' class='input-label'>"
+                +"<img id='file-img' class='file-img' src="+ base_url+ "images/icons/upload-solid.png>"
+                +"<span id='name-enunciado-proj' class='span-name'>Enviar ficheiro .csv</span></label>"
+            
+
+
                 )
 
-                $('.input-file').each(function() {
-                    var $input = $(this),
-                        $label = $input.next('.js-labelFile'),
-                        labelVal = $label.html();
-                    
-                    $input.on('change', function(element) {
-                        var fileName = '';
-                        if (element.target.value) fileName = element.target.value.split('\\').pop();
-
-                        if(fileName ){
-                            $label.addClass('has-file').find('.js-fileName').html(fileName); 
-                            $(".fa-upload").hide()
-                        }
-                        else{
-                            $label.removeClass('has-file').html(labelVal);
-                        }
-                    });
-                });
-                
+            
                 
                 $("#importFromCsv").append("<input type='submit' id='importToCourse'  value='Importar'></input>")               
             }

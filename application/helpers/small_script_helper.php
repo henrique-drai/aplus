@@ -115,16 +115,16 @@ function small_script($m) {
 
     $m->thread_post($thread1_id, $prof1_id, "Não concordo com esse post", "2020-04-13 11:00:00");
 
-    $projeto1_id = $m->projeto($cadeira1_id, "Evolução da Ciência", "Texto que descreve este projeto científico.", 1, 2, "");
-    $projeto2_id = $m->projeto($cadeira1_id, "História das Artes", "Ninguém quer saber quando escolhe artes, mas pronto", 3, 4, "");
-    $projeto3_id = $m->projeto($cadeira2_id, "Inteligência Artificial", "Quando não percebes o código que escreveste...", 2, 6, "");
+    $projeto1_id = $m->projeto($cadeira1_id, "Evolução da Ciência", "Texto que descreve este projeto científico.", 1, 2, "", "");
+    $projeto2_id = $m->projeto($cadeira1_id, "História das Artes", "Ninguém quer saber quando escolhe artes, mas pronto", 3, 4, "", "");
+    $projeto3_id = $m->projeto($cadeira2_id, "Inteligência Artificial", "Quando não percebes o código que escreveste...", 2, 6, "", "");
 
-    $etapa1_id = $m->etapa($projeto1_id, "2020-05-14 23:00:00", "", "Pesquisa", "Façam pesquisa no StackOverflow.");
-    $etapa2_id = $m->etapa($projeto1_id, "2020-05-21 23:55:00", "", "Implementação", "Copiem o código do StackOverflow.");
-    $etapa1_id = $m->etapa($projeto2_id, "2020-05-14 23:00:00", "", "Pesquisa2", "Façam pesquisa no StackOverflow.");
-    $etapa2_id = $m->etapa($projeto2_id, "2020-05-21 23:55:00", "", "Implementação2", "Copiem o código do StackOverflow.");
-    $etapa1_id = $m->etapa($projeto3_id, "2020-05-14 23:00:00", "", "Pesquisa3", "Façam pesquisa no StackOverflow.");
-    $etapa2_id = $m->etapa($projeto3_id, "2020-05-21 23:55:00", "", "Implementação3", "Copiem o código do StackOverflow.");
+    $etapa1_id = $m->etapa($projeto1_id, "2020-05-14 23:00:00", "", "", "Pesquisa", "Façam pesquisa no StackOverflow.");
+    $etapa2_id = $m->etapa($projeto1_id, "2020-05-21 23:55:00", "", "", "Implementação", "Copiem o código do StackOverflow.");
+    $etapa1_id = $m->etapa($projeto2_id, "2020-05-14 23:00:00", "", "", "Pesquisa2", "Façam pesquisa no StackOverflow.");
+    $etapa2_id = $m->etapa($projeto2_id, "2020-05-21 23:55:00", "", "", "Implementação2", "Copiem o código do StackOverflow.");
+    $etapa1_id = $m->etapa($projeto3_id, "2020-05-14 23:00:00", "", "", "Pesquisa3", "Façam pesquisa no StackOverflow.");
+    $etapa2_id = $m->etapa($projeto3_id, "2020-05-21 23:55:00", "", "", "Implementação3", "Copiem o código do StackOverflow.");
 
     $grupo1_id = $m->grupo($projeto1_id, "1");
     $grupo2_id = $m->grupo($projeto1_id, "2");
@@ -139,7 +139,7 @@ function small_script($m) {
       Array("user_id"=> $aluno5_id,  "grupo_id"=>$grupo3_id),
     ));
 
-    $m->etapa_submit($grupo3_id, $etapa1_id, "URL-FALSO-HEHE-XD");
+    $m->etapa_submit($grupo3_id, $etapa1_id, "URL-FALSO-HEHE-XD.pdf", "url-original-falso.pdf");
 
     $evento1_id = $m->evento("2020-05-30 11:00:00", "2020-05-30 12:30:00", "Reunião de Grupo", "Discutir o modelo da base de dados. 1", "FCUL");
     $evento2_id = $m->evento("2020-06-16 12:10:00", "2020-06-16 14:30:00", "Horário de dúvidas", "Horário de dúvidas com o(a) professor(a) José Cecílio 1", "6.3.45");

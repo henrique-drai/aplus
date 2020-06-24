@@ -1,10 +1,16 @@
 $(document).ready(() => {
+    $("#closeError").click(function() {
+        $(".message_error").fadeTo(2000, 0);
+    })
+
     $("#createForumButton").click(function() {
         var name = $("input[name='forumName']").val();
         var desc = $("textarea[name='forumDescription']").val();
         var teachers_only = $("select").val();
         if(name != '' && desc != '') {
             insertForum(name, desc, (teachers_only == "Sim") ? 1 : 0);
+        } else {
+            $(".message_error").fadeTo(2000, 1);
         }
     })
 })

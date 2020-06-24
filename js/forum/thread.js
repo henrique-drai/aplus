@@ -81,6 +81,10 @@ $(document).ready(() => {
             }
         });
     })
+
+    $("body").on("click", "#closeError", function() {
+        $(".message_error").fadeTo(2000, 0);
+    })
 })
 
 function addPopup(thread_name) {
@@ -90,7 +94,7 @@ function addPopup(thread_name) {
     "<label class='form-label'>Conteúdo:</label>" +
     "<textarea class='form-text-area' type='text' name='threadDescription' required></textarea>");
     
-    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos</div><li><a href='#' id='createPost-form-submit'>Criar Publicação</a></li>" +
+    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos  <i id='closeError' class='fa fa-times' aria-hidden='true'></i></div><li><a href='#' id='createPost-form-submit'>Criar Publicação</a></li>" +
     "<li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
@@ -143,7 +147,7 @@ function getInfo() {
 }
 
 function getDate(date){
-    const diff = Date.now() - new Date(date);
+    const diff = Date.now() - parseISOSimple(date);
 
     if (diff < 1000*60*60*24) {
         if(diff - 3600000 < 1000*60*60) {
@@ -154,6 +158,11 @@ function getDate(date){
     } else {
         return "Há "+Math.floor(diff/1000/60/60/24)+" dias";
     }
+}
+
+function parseISOSimple(s) {
+    var b = s.split(/\D/);
+    return new Date(b[0],b[1]-1,b[2],b[3],b[4],b[5]);
 }
 
 function insertPost(desc) {

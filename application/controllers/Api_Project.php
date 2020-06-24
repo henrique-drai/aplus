@@ -32,19 +32,21 @@ class Api_Project extends REST_Controller {
 
     public function createProject_post(){ 
         $user_id = $this->session->userdata('id');
+        $this->load->model('NotificationModel');
         //Verificar se o id do professor guardado no token está associado à cadeira
         //tabela que liga cadeira a user
 
-
-        if ($this->verify_teacher($user_id,htmlspecialchars($this->post("cadeira_id")),"cadeira") == true){
+        $cadeira_id = htmlspecialchars($this->post("cadeira_id"));
+        if ($this->verify_teacher($user_id,$cadeira_id,"cadeira") == true){
 
             $dataProj = Array(
-                "cadeira_id"          => htmlspecialchars($this->post("cadeira_id")),
+                "cadeira_id"          => $cadeira_id,
                 "nome"                => htmlspecialchars($this->post("projName")),
                 "min_elementos"       => htmlspecialchars($this->post("groups_min")),
                 "max_elementos"       => htmlspecialchars($this->post("groups_max")),
                 "description"         => htmlspecialchars($this->post("projDescription")),
                 "enunciado_url"       => htmlspecialchars($this->post("file")),
+                "enunciado_original"  => "",
             );
             
             $dataEtapa = $this->post("listetapas");
@@ -57,12 +59,35 @@ class Api_Project extends REST_Controller {
                     "nome"              => htmlspecialchars($dataEtapa[$i]["nome"]),
                     "description"       => htmlspecialchars($dataEtapa[$i]["desc"]),
                     "enunciado_url"     => htmlspecialchars($dataEtapa[$i]["enunciado"]),
+                    "enunciado_original"=> "",
                     "deadline"          => htmlspecialchars($dataEtapa[$i]["data"]),
                 );
     
                 $this->ProjectModel->insertEtapa($newEtapa);
             }
+
+            //alunos da cadeira
+            $students =  $this->SubjectModel->getAllStudentSubject($cadeira_id);
+            $cadeira_name =  $this->SubjectModel->getCadeiraInfo($cadeira_id)[0]["name"];
+
+            $notifications = array(); //escrever notificações
+            $curr_date = date('Y/m/d H:i:s', time());
     
+            foreach ($students as $key => $value) {
+                if($user_id != intval($value["user_id"])){
+                  array_push($notifications, Array(
+                    "user_id" => intval($value["user_id"]),
+                    "type" => "alert",
+                    "title" => "Novo projeto da cadeira '".$cadeira_name."' criado",
+                    "content" => "Clica para saberes mais",
+                    "link" => "app/projects/project/" . $proj_id,
+                    "seen" => FALSE,
+                    "date" => $curr_date
+                  ));
+                }
+            }
+
+            $this->NotificationModel->createMultiple($notifications); //enviar notificações para todos os alunos
     
             $this->response($proj_id, parent::HTTP_OK);
         } else {
@@ -86,6 +111,7 @@ class Api_Project extends REST_Controller {
                 "nome"              => htmlspecialchars($etapa["nome"]),
                 "description"       => htmlspecialchars($etapa["desc"]),
                 "enunciado_url"     => htmlspecialchars($etapa["enunciado"]),
+                "enunciado_original"=> "",
                 "deadline"          => htmlspecialchars($etapa["data"]),
             );
     
@@ -93,7 +119,7 @@ class Api_Project extends REST_Controller {
 
             if ($data){
                 $arr_msg = array (
-                    "msg" => "Etapa submetida com sucesso",
+                    "msg" => "Etapa criada com sucesso",
                     "type" => "S",
                 );
             } else {
@@ -124,6 +150,37 @@ class Api_Project extends REST_Controller {
         if($this->verify_teacher($user_id, $etapa_id, "etapa") == true){
             $etapa_submit = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
             $data = $this->ProjectModel->insertFeedback($feedback, $etapa_submit->row()->id);
+
+            //alunos do grupo
+            $this->load->model('NotificationModel');
+            $students = $this->GroupModel->getStudents($grupo_id);
+
+            $etapa = $this->ProjectModel->getEtapaByID($etapa_id)->result_array();
+
+            $etapa_name = $etapa[0]["nome"];
+            $proj = $this->ProjectModel->getProjectByID($etapa[0]["projeto_id"]);
+
+            $proj_name = $proj[0]["nome"];
+            $proj_id = $proj[0]["id"];
+
+            $notifications = array(); //escrever notificações
+            $curr_date = date('Y/m/d H:i:s', time());
+    
+            foreach ($students as $key => $value) {
+                if($user_id != intval($value["user_id"])){
+                    array_push($notifications, Array(
+                    "user_id" => intval($value["user_id"]),
+                    "type" => "alert",
+                    "title" => "Feedback atribuido à etapa '".$etapa_name."' do projeto '".$proj_name."'",
+                    "content" => "Clica para saberes mais",
+                    "link" => "app/projects/project/" . $proj_id,
+                    "seen" => FALSE,
+                    "date" => $curr_date
+                    ));
+                }
+            }
+
+            $this->NotificationModel->createMultiple($notifications); //enviar notificações para todos os alunos
 
             if ($data){
                 $arr_msg = array (
@@ -193,83 +250,6 @@ class Api_Project extends REST_Controller {
             $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
             $this->response($response, $status);
         }
-    }
-
-    public function editEnunciado_post(){ 
-        $user_id = $this->session->userdata('id');
-        //Verificar se o id do professor guardado no token está associado à cadeira
-
-        $proj = htmlspecialchars($this->post('projid'));
-        $enunciado = htmlspecialchars($this->post('enunciado'));
-
-        if ($this->verify_teacher($user_id,$proj,"projeto") == true){
-            $this->ProjectModel->updateProjEnunciado($enunciado, $proj);
-            $this->response($enunciado, parent::HTTP_OK);            
-        } else {
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
-            $this->response($response, $status);
-        }
-
-    }
-
-    public function editEtapaEnunciado_post(){ 
-        $user_id = $this->session->userdata('id');
-        //Verificar se o id do professor guardado no token está associado à cadeira
-
-        $etapa = htmlspecialchars($this->post('etapaid'));
-        $enunc = htmlspecialchars($this->post('enunciado'));
-
-        if($this->verify_teacher($user_id, $etapa, "etapa") == true){
-            $this->ProjectModel->editEtapaEnunciado($enunc, $etapa);
-            $this->response($enunc, parent::HTTP_OK);
-        } else {
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
-            $this->response($response, $status);
-        }
-    }
-
-
-    public function submitEtapa_post(){ 
-
-        $user_id = $this->session->userdata('id');
-        //Verificar se o id do aluno guardado no token está associado à cadeira e ao grupo.  - VERIFY ALUNO
-
-        //verificar se a submissão existe associada à etapa, projeto e grupo
-        //se existir, update, se nao existir, insert
-
-        $grupo = htmlspecialchars($this->post('grupo'));
-        $etapa = htmlspecialchars($this->post('etapa'));
-        $fich  = htmlspecialchars($this->post('ficheiro'));
-
-        if($this->verify_student($user_id, $grupo)==true){
-            $data_send = Array(
-                "grupo_id"            => $grupo,
-                "etapa_id"            => $etapa,
-                "submit_url"          => $fich,
-                "feedback"            => "",
-            );
-    
-            $data["sub"] = $this->ProjectModel->getSubmission($grupo, $etapa);
-    
-            if(empty($data["sub"]->row())){
-                //submit
-                $returned = $this->ProjectModel->submitEtapa($data_send);
-            } else {
-                //update
-                $returned = $this->ProjectModel->updateSubmission($grupo, $etapa, $fich);
-            }
-
-            $data["fich"] = $fich;
-            $data["result"] = $returned;
-            $this->response($data, parent::HTTP_OK);
-        } else {
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
-            $this->response($response, $status);
-        }
-
     }
 
     public function insertTask_post() { 
@@ -356,45 +336,6 @@ class Api_Project extends REST_Controller {
         }
     }
 
-    
-    public function submitFileAreaGrupo_post(){
-        $user_id = $this->session->userdata('id');
-        $grupo_id = htmlspecialchars($this->post("grupo_id"));
-        $ficheiro_url = htmlspecialchars($this->post("ficheiro_url"));
-
-        //deviamos importar os models todos no constructor
-        $this->load->model("GroupModel");
-
-        if($this->verify_student($user_id, $grupo_id)){
-
-            $data_send = Array(
-                "grupo_id"      => $grupo_id,
-                "user_id"       => $user_id,
-                "url"           => $ficheiro_url,
-            );
-
-            //ver se o ficheiro existe
-
-            $data["ficheiro_db"] = $this->GroupModel->getFicheiroGrupoByURLSub($ficheiro_url, $grupo_id);
-
-            if(empty($data["ficheiro_db"])){
-                $toReturn = $this->GroupModel->submit_ficheiro_areagrupo($data_send);
-            } else {
-                $toReturn = "Exists";
-            }
-
-            $data["result"] = $toReturn;
-            $this->response($data, parent::HTTP_OK);
-        } else {
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'msg' => 'Unauthorized Access! '];
-            $this->response($response, $status);
-        }
-
-
-    }
-
-
     public function submitRating_post(){
         
         $myUser = htmlspecialchars($this->post('meuUser'));
@@ -427,6 +368,7 @@ class Api_Project extends REST_Controller {
         $group_id = htmlspecialchars($this->post("grupo_id"));
 
         if($this->verify_student($user_id, $group_id)) {
+            date_default_timezone_set("Europe/Lisbon");
             $data["data"] = date("Y-m-d h:i:s");
             $tmp = $this->UserModel->getUserById($user_id);
             $data["user"] = $tmp->name . " " . $tmp->surname;
@@ -444,6 +386,7 @@ class Api_Project extends REST_Controller {
         $group_id = htmlspecialchars($this->post("grupo_id"));
 
         if($this->verify_student($user_id, $group_id)) {
+            date_default_timezone_set("Europe/Lisbon");
             $data = date("Y-m-d h:i:s");
             $this->TasksModel->insertTaskDate($data, $user_id, htmlspecialchars($task_id), "end");
             $this->response($data, parent::HTTP_OK);
@@ -691,7 +634,7 @@ class Api_Project extends REST_Controller {
         $data["user_ids"] = $this->GroupModel->getStudents(htmlspecialchars($group_id));
         $data["users"] = array();
         for($i=0; $i < count($data["user_ids"]); $i++) {
-            array_push($data["users"], $this->UserModel->getUserById($data["user_ids"][$i]["user_id"]));
+            array_push($data["users"], $this->UserModel->getSomeValuesUser($data["user_ids"][$i]["user_id"]));
         }
 
         $this->response($data, parent::HTTP_OK);
@@ -757,6 +700,7 @@ class Api_Project extends REST_Controller {
 
         if($this->verify_student($user->id, $grupo_id)){         
             $file = fopen('php://output','w');
+            // fputs($file, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
             $header = array("Tarefa", "Descrição", "Membro Responsável", "Data Início", "Data Fim");
 
             $info = $this->TasksModel->getTarefas($grupo_id);
@@ -859,7 +803,8 @@ class Api_Project extends REST_Controller {
         $proj = htmlspecialchars($this->delete('projid'));
 
         if($this->verify_teacher($user_id, $proj, "projeto") == true){
-            unlink("uploads/enunciados_files/" . $proj . "/" . $id . ".pdf");
+            $etapa = $this->ProjectModel->getEtapaByID($id)->result_array();
+            unlink("uploads/enunciados_files/" . $proj . "/" . $etapa[0]["enunciado_url"]);
             $this->ProjectModel->clearEnuncEtapa($id);
             $this->response($id, parent::HTTP_OK);
         } else {

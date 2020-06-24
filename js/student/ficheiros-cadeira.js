@@ -25,7 +25,7 @@ $(document).ready(() => {
                 } else {
                     for (i=0; i<data.length; i++){
                         array.push('<div class="file-row" id="file-row-student">'
-                        + '<p><a target="_blank" href="'+base_link+data[i]["url"]+'">' + data[i]["url"] + '</a></p>'
+                        + '<p><a target="_blank" href="'+base_link+data[i]["url"]+'">' + data[i]["url_original"] + '</a></p>'
                         + '</div><hr>')
                     }          
                 }

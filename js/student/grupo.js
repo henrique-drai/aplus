@@ -31,6 +31,8 @@ $(document).ready(() => {
         window.location = base_url + "app/ficheiros/" + localStorage.grupo_id;
     })
 
+    groupMembers(id);
+
     $("#newTarefa").click(function() {
         createPopUpAdd();
         $(".cd-popup2").css('visibility', 'visible');
@@ -80,13 +82,7 @@ $(document).ready(() => {
         var task_id = $(this).attr("id");
         var tr_id = $(this).parent().parent().attr("class");
         updateTaskPopup(task_id, proj_name, tr_id);
-        $(this).css("background-color", "rgb(153, 156, 155)");
-
-        // if ($(this).css("background-color") == "rgb(153, 156, 155)"){
-        //     $(this).css("background-color", "white");
-        // } else {
-            
-        // }        
+        $(this).css("background-color", "rgb(153, 156, 155)");      
     })
 
     $("body").on("click", ".start_date_button", function() {
@@ -123,7 +119,7 @@ $(document).ready(() => {
 
     // --------------------- EXPORT ----------------- //
     $("#exportInfo").on("click", function(e) {
-        console.log("entrou")
+        // console.log("entrou")
         e.preventDefault()
         $.ajax({
             type: "GET", 
@@ -131,7 +127,7 @@ $(document).ready(() => {
             data:{role: "student", grupo_id: localStorage.grupo_id},
             success:function(data){
                 var downloadLink = document.createElement("a");
-                var fileData = ['\ufeff'+data];   
+                var fileData = ['\ufeff'+data];
 
                 var blobObject = new Blob(fileData,{
                     type: "text/csv;charset=utf-8;"
@@ -179,7 +175,7 @@ function disableTasksClose() {
 			grupo_id: localStorage.grupo_id
 		},
 		success: function (data) {
-            console.log(data.date)
+            // console.log(data.date)
             
             if (new Date(data.date) < Date.now()){
                 $("#newTarefa").remove();
@@ -203,7 +199,7 @@ function updateTaskPopup(task_id, proj_name, tr_id){
         type: "GET",
         url: base_url + "api/getTaskById/" + task_id,
         success: function(data) {
-            console.log(data)
+            // console.log(data)
             var popup = '';
 
             popup = popup +                 
@@ -267,7 +263,7 @@ function updateTaskPopup(task_id, proj_name, tr_id){
             $(".insertHere ." + tr_id).empty();
             $(".insertHere ." + tr_id).append("<td>" + data.task[0].name + "</td>" +
                 "<td class='member' id='" + data.task[0].id + "'><span>" + name + "</span></td>" +
-                "<td>" + (completed ? "Sim" : "Não") + "</td><td class='time_end'>" + (time_spent == '' ? "Ainda não terminado" : time_spent) + "</td>" +
+                "<td  class='final'>" + (completed ? "Sim" : "Não") + "</td><td class='time_end'>" + (time_spent == '' ? "Ainda não terminado" : time_spent) + "</td>" +
                 "<td><input class='taskInfo' id='" + data.task[0].id + "' type='button' value='Opções' style='background-color: rgb(153, 156, 155);'></td>" +
                 "<td><input id='" + data.task[0].id + "' class='remove' type='button' value='Eliminar'></td></tr>");
             $(".taskInfo#" + data.task[0].id).css("background-color", "rgb(153, 156, 155)");
@@ -320,6 +316,10 @@ function checkClosedProject(){
             console.log("Erro na API:")
         }
     });
+
+    $("body").on("click", "#closeError", function() {
+        $(".message_error").fadeTo(2000, 0);
+    })
 }
 
 function createPopUpAdd() {
@@ -329,7 +329,7 @@ function createPopUpAdd() {
         "<label class='form-label'>Descrição:</label><textarea class='form-text-area' type='text' name='tarefaDescription'>" + 
         "</textarea>");
 
-    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos</div><li><a href='#' id='addTask-form-submit'>" +
+    $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos  <i id='closeError' class='fa fa-times' aria-hidden='true'></i></div><li><a href='#' id='addTask-form-submit'>" +
     "Criar Tarefa</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
@@ -383,14 +383,14 @@ function getTasks() {
                     }                    
 
                     if(data.tasks[i].done_date == "0000-00-00 00:00:00") {
-                        table = table + "<td>Não</td class='time_end'><td>Ainda não terminado</td>";
+                        table = table + "<td class='final'>Não</td class='time_end'><td>Ainda não terminado</td>";
                     } else {
-                        console.log(data)
+                        // console.log(data)
                         var day = data.tasks[i].done_date.substring(8, 10) - data.tasks[i].start_date.substring(8, 10);
                         var hours = data.tasks[i].done_date.substring(11, 13) - data.tasks[i].start_date.substring(11, 13);
                         var min = data.tasks[i].done_date.substring(14, 16) - data.tasks[i].start_date.substring(14, 16);
                         var seconds = data.tasks[i].done_date.substring(17, 19) - data.tasks[i].start_date.substring(17, 19);
-                        table = table + "<td>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</td>";
+                        table = table + "<td class='final'>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</td>";
                     }
 
                     table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + 
@@ -489,7 +489,6 @@ function insertTaskEndDate(task_id) {
         url: base_url + "api/insertTaskEndDate/" + task_id,
         data: {grupo_id: localStorage.grupo_id, user_id: localStorage.user_id},
         success: function (data) {
-            console.log(data)
             $(".endTask").empty();
             $(".title_end").empty();
             $(".endTask").append("<label>" + data + "</label>");
@@ -502,6 +501,8 @@ function insertTaskEndDate(task_id) {
             $(".title_end").append("<h3>Data de Fim</div>");
             $(".time_end").append(day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos")
             $(".wrapper").remove();
+            $(".final").empty()
+            $(".final").append("Sim");
         },
         error: function (data) {
             alert("Houve um erro a inserir a data-fim da tarefa.")
@@ -516,13 +517,13 @@ function createPopUpEdit(task_id, proj_name, tr_id) {
 		type: "GET",
 		url: base_url + "api/getTaskById/" + task_id,
 		success: function (data) {
-			console.log(data)
+			// console.log(data)
 
             $(".cd-message").html("<form id='editTask' action='javascript:void(0)'></form>").append("<div class='editTask_inputs'>" +
                 "<h2>Tarefa para " + proj_name.substring(1, proj_name.length - 1) + "</h2>" +
                 "<h3>Nome</h3><input class='form-input-text' type='text' name='tarefaName' required>" +
                 "<h3>Descrição</h3><textarea class='form-text-area' type='text' name='tarefaDescription' id='tarefaDescription'>" +
-                "</textarea></div><div class='wrapper'><hr><input id='" + data.task[0].id + "' class='editTask' type='button' value='Editar Tarefa'>" +
+                "</textarea></div><div class='wrapper'><hr><input id='" + data.task[0].id + "' class='editTask' type='button' value='Voltar'>" +
                 "</div>");
 
             $("input[name='tarefaName']").val(data.task[0].name);
@@ -581,4 +582,26 @@ function getTaskName(task_id) {
 			console.log(data)
 		}
 	});
+}
+
+function groupMembers(group_id){;
+    $.ajax({
+        type: "GET",
+        url: base_url + "api/getGroupMembers/" + group_id,
+        data: {group_id: group_id},
+        success: function(data) {
+            console.log(data);
+            var names = '';
+            for(var j=0; j < data["users"].length; j++) {
+                var _img = data["users"][j]["picture"]!=""? data["users"][j]["id"] + data["users"][j]["picture"] : "default.jpg";
+                var _src = base_url + "uploads/profile/"+ _img; 
+                var _name = data["users"][j]["name"] + data["users"][j]["surname"]
+                names = names + '<a class="groupmember" href="'+ base_url +'app/profile/'+ data["users"][j]["id"] + '">' + '<img class="groupMemberImg" src="'+_src+'" alt="' + _name +'">' + "<span class='memberName'>" + data["users"][j]["name"] + " " + data["users"][j]["surname"] + "</span>" + "</a>";
+            }
+            $(".GroupMembers").html('<br><h3>Membros do grupo</h3>' + '<p>'+ names +'</p>');
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
 }

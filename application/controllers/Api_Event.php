@@ -34,6 +34,7 @@ class Api_Event extends REST_Controller {
       $this->response(array($event_id), parent::HTTP_OK);
     }
 
+    // edit meeting
     public function event_post($event_id) {
       $event_id = htmlspecialchars($event_id);
 
@@ -48,21 +49,23 @@ class Api_Event extends REST_Controller {
       $user_id = $this->session->userdata('id');
 
       $this->load->model('EventModel');
+      $this->load->model('GroupModel');
 
-      //TODO PRIVACIDADE (comment abaixo)
-      $this->EventModel->update($event_id, $post);
+      $grupo_id = $this->EventModel->getGroupId($event_id)->grupo_id;
 
-      // if ($this->EventModel->userRelatedToEvent($user_id, $event_id)){
-      //   $this->EventModel->update($event_id, $post);
-      // } 
-
-      if ($this->post("going") == "true") {
-        $this->EventModel->userIsGoing($user_id, $event_id);
+      if ($this->GroupModel->isValidGroup($grupo_id, $user_id)){
+        $this->EventModel->update($event_id, $post);
+        if ($this->post("going") == "true") {
+          $this->EventModel->userIsGoing($user_id, $event_id);
+        } else {
+          $this->EventModel->notGoing($user_id, $event_id);
+        }
+        $this->response(array("OK"), parent::HTTP_OK);
       } else {
-        $this->EventModel->notGoing($user_id, $event_id);
+        $this->response(array("PERMISSION DENIED"), parent::HTTP_OK);
       }
 
-      $this->response(array("going" => $this->post("going")), parent::HTTP_OK);
+      
     }
 
     public function going_delete($event_id) { 

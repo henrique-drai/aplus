@@ -8,9 +8,9 @@
         <!-- <img src="<?=$base_url?>images/logo.png" id="imgLogo"> -->
         <form id="login-form" action="javascript:void(0)">
             <label for="email">Email</label>
-            <input type="text" name="email" value="admin@mail">
+            <input type="text" name="email" value="">
             <label for="password">Password</label>
-            <input type="password" name="password" value="admin">
+            <input type="password" name="password" value="">
             <div class="error-msg">A combinação que inseriu é inválida.</div>
             <input type="submit" id="login-form-submit" value="Login">
         </form>

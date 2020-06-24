@@ -14,7 +14,7 @@ select {
 }
 
 #newEtapa{
-    background: #3e5d4f;
+    background: #15435a;
 }
 
 #popups > .cd-popup .cd-popup-container {
@@ -105,16 +105,10 @@ input.remove:hover {
     display: block;
 }
 
-.wdp {
-    position: fixed;
-    top: 0 !important;
-    left: 0 !important;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    background:rgba(0,0,0,.3)
+#placeholder-picker-new .wdp-header{
+    padding: 10px 15px 10px 25px;
 }
 
+#placeholder-picker-new {
+    overflow-y: hidden;
+}

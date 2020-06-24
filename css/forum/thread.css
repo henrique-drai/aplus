@@ -5,7 +5,7 @@
 }
 
 .head {
-    background-color: #3e5d4f;
+    background-color: #15435a;
     border-radius: 5px 5px 0px 0px;
 }
 
@@ -35,7 +35,11 @@ textarea {
 }
 
 #createPost-form-submit {
-    background-color: #3e5d4f;
+    background-color: #15435a;
+}
+
+#closeError:hover {
+    cursor: pointer;
 }
 
 .message {

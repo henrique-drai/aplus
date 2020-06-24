@@ -27,15 +27,26 @@
 }
 
 .myGroupDiv p:first-child, .availableGroupsDiv p:first-child {
-    width: 36%;
+    width: 40%;
 }
 
 .myGroupDiv p:nth-child(2), .availableGroupsDiv p:nth-child(2){
-    width: 50%;
+    width: 40%;
 }
 
 .myGroupDiv p:nth-child(3),.availableGroupsDiv p:nth-child(3) {
     width: 14%;
+}
+
+.availableGroupsDiv p:nth-child(2) > a {
+    color:#15435a;
+    text-decoration:none;
+    font-weight: 600;
+}
+
+.availableGroupsDiv p:nth-child(2) > a:hover{
+    color: rgb(20, 118, 167);
+    text-decoration: underline;
 }
 
 #criarGrupo_button{
@@ -104,10 +115,17 @@
     text-decoration: none;
 }
 
+
 .memberName {
     display: inline;
     margin: 35px;
-    color: rgb(62, 93, 79);
+    color: #15435a;
+    font-weight: 600;
+}
+
+.memberName:hover{
+    color: rgb(20, 118, 167);
+    text-decoration: underline;
 }
 
 .groupMemberImg{

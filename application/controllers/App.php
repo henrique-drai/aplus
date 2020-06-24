@@ -7,7 +7,10 @@ class App extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+
         $this->load->helper('url');
+        if(is_null($this->session->userdata('role'))){ $this->load->view('errors/403'); }
+
         $this->load->helper('form');
     }
 
@@ -15,11 +18,6 @@ class App extends CI_Controller {
     public function index()
     {
         $data["base_url"] = base_url();
-        
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
 
         $this->load->view('templates/head', $data);
 
@@ -39,11 +37,6 @@ class App extends CI_Controller {
         if (! file_exists(APPPATH.'views/student/'.$page.'.php')){show_404();}
 
         $data["base_url"] = base_url();
-        
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
 
         $this->load->view('templates/head', $data);
         $this->load->view('student/'.$page, $data);
@@ -56,11 +49,6 @@ class App extends CI_Controller {
         if (! file_exists(APPPATH.'views/teacher/'.$page.'.php')){show_404();}
 
         $data["base_url"] = base_url();
-        
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
 
         $this->load->view('templates/head', $data);
         $this->load->view('teacher/'.$page, $data);
@@ -71,11 +59,6 @@ class App extends CI_Controller {
     public function students($page = 'home') {
 
         $data["base_url"] = base_url();
-
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
 
         $this->load->view('templates/head', $data);
         //escolher que página deve ser mostrada
@@ -89,16 +72,11 @@ class App extends CI_Controller {
     //app/grupo/:grupoid - done
     public function grupo($grupo_id = null){
         $this->load->model('GroupModel');
-
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403'); return null;
-        }
         
         //verificar se o grupo id está vazio ou se o grupo nao existe - usar get grupo by id
         $grupos = $this->GroupModel->getGroupById($grupo_id);
 
-        if(empty($grupos)){$this->load->view('errors/404'); return null;}
+        if(empty($grupos)){$this->load->view('errors/404'); }
 
         $grupo = $grupos[0];
 
@@ -111,7 +89,7 @@ class App extends CI_Controller {
             $this->load->view('student/grupo', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->load->view('errors/403'); return null;
+            $this->load->view('errors/403');
         }
     }
 
@@ -119,18 +97,13 @@ class App extends CI_Controller {
     public function rating($grupo_id = null){
         $data["base_url"] = base_url();
 
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
-
         $this->load->model('GroupModel');
         //verificar se o grupo id é null - usar get grupo by id
 
         $data["grupo"] = $this->GroupModel->getGroupById($grupo_id);
 
         if(empty($data["grupo"])){
-            $this->load->view('errors/404', $data); return null;
+            $this->load->view('errors/404', $data);
         }
 
         $this->load->view('templates/head', $data);
@@ -146,18 +119,13 @@ class App extends CI_Controller {
     public function ficheiros($grupo_id = null){
         $data["base_url"] = base_url();
 
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
-
         $this->load->model('GroupModel');
         //verificar se o grupo id é null - usar get grupo by id
 
         $data["grupo"] = $this->GroupModel->getGroupById($grupo_id);
 
         if(empty($data["grupo"])){
-            $this->load->view('errors/404', $data); return null;
+            $this->load->view('errors/404', $data);
         }
 
         $this->load->view('templates/head', $data);
@@ -172,14 +140,9 @@ class App extends CI_Controller {
     //app/admin
     public function admin($page = 'home')
     {
-        if (! file_exists(APPPATH.'views/admin/'.$page.'.php')){show_404();}
+        if (! file_exists(APPPATH.'views/admin/'.$page.'.php')){$this->load->view('errors/404', $data);}
 
         $data["base_url"] = base_url();
-        
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
 
         $this->load->view('templates/head', $data);
         $this->load->view('admin/'.$page, $data);
@@ -190,19 +153,10 @@ class App extends CI_Controller {
      public function adminsubject($subject_id = null){
         $data["base_url"] = base_url();
 
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
-
         $this->load->model('SubjectModel');
         //verificar se o grupo id é null - usar get grupo by id
 
         $data["subject"] = $this->SubjectModel->getSubjectByID($subject_id);
-
-        if(empty($data["subject"])){
-            $this->load->view('errors/404', $data); return null;
-        }
 
         $this->load->view('templates/head', $data);
         //escolher que página deve ser mostrada
@@ -221,15 +175,24 @@ class App extends CI_Controller {
         
         //verificar foi dado algum parâmetro
         if(is_null($user_id)) {
-            $this->load->view('errors/404', $data); return null;}
+            $this->load->view('errors/404', $data);}
 
         $this->load->model('UserModel');
         
         $data["user"] = $this->UserModel->getUserById($user_id);
+        $ratings = $this->UserModel->getMyRatings($user_id);
+        $ctr = 0;
+        foreach ($ratings as $key => $value) {
+            $ctr = $ctr + $value["valor"];
+        }
+        if(count($ratings) > 0){
+            $data["rating"] = bcdiv($ctr, count($ratings), 1);
+        }
+        
         
         //verificar se o user existe
         if(is_null($data["user"])){
-            $this->load->view('errors/404', $data); return null;}
+            $this->load->view('errors/404', $data);}
 
         $this->load->view('templates/head');
         $this->load->view('app/profile_show', $data);
@@ -262,19 +225,19 @@ class App extends CI_Controller {
         $data["base_url"] = base_url();
 
         if(!is_null($anything)) {
-            $this->load->view('errors/404', $data); return null;}
+            $this->load->view('errors/404', $data);}
 
         if($chatType=="p"){
             $data["chatType"]=$chatType;
             if($this->UserModel->isValidUser($user_id)){
                 $data["user_id"] = $user_id;
-            }else{$this->load->view('errors/404', $data); return null;}
+            }else{$this->load->view('errors/404', $data);}
         }
         if($chatType=="g"){
             $data["chatType"]=$chatType;
             if($this->GroupModel->isValidGroup($user_id,$our_id)){
                 $data["user_id"] = $user_id;
-            }else{$this->load->view('errors/404', $data); return null;}
+            }else{$this->load->view('errors/404', $data);}
         } 
         
         $this->load->view('templates/head', $data);

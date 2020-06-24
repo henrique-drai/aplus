@@ -17,6 +17,8 @@ $(document).ready(() => {
     });
 
 
+
+
     $("#projForm")[0].reset(); //se voltarem para a pagina depois de preenchido o form a info desaparece
 
     //definir um numero que nunca se repita para id de cada etapa
@@ -33,7 +35,7 @@ $(document).ready(() => {
              '<label class="form-label">Nome'+
              '<input class="form-input-text" type="text" name="etapaName" required></label>'+
              '<label class="form-label" id="date-picker-label">Data de entrega' +
-             '<input class="form-input-text" id="datepicker'+ etapanum +'" name="etapaDate" autocomplete="off" required>' +
+             '<input class="form-input-text" id="datepicker'+ etapanum +'" name="etapaDate" autocomplete="off" readonly="readonly" required>' +
              '<div id="placeholder-picker'+etapanum+'"></div>' +
              '</label>' +
              '</div> ' + 
@@ -46,9 +48,9 @@ $(document).ready(() => {
 
         $('.etapa').last().after(etapa);     
         $('.etapa').last().change(function(){
-            var name = $(this).find('input[name="etapaName"]').val();
-            var desc = $(this).find('textarea[name="etapaDescription"]').val();
-            var data = $(this).find('input[name="etapaDate"]').val();
+            var name = escapeHtml($(this).find('input[name="etapaName"]').val());
+            var desc = escapeHtml($(this).find('textarea[name="etapaDescription"]').val());
+            var data = escapeHtml($(this).find('input[name="etapaDate"]').val());
             var enunc = '';
             var newid = parseInt(pid.replace("etapa",""));
 
@@ -71,14 +73,15 @@ $(document).ready(() => {
 
         newpicker.el.addEventListener('wdp.change', () => {
 
-            console.log($(this))
-
             var newid = parseInt(pid.replace("etapa",""));
-
             var data = dateFromPicker($("#datepicker" + newid).val());
 
-            console.log(data);
-
+            console.log("footer-dpicknew"+newid)
+            if(!$("#footer-dpicknew"+newid).length){
+                console.log("footer-dpicknew"+newid)
+                $("#placeholder-picker" + newid + " .wdp-container").append("<div id='footer-dpicknew"+newid+"' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+            }
+  
             if (!verifyDates(data))
                 $("#datepicker" + newid).css("border-left-color", "red");
             else
@@ -94,6 +97,10 @@ $(document).ready(() => {
 
             insertIntoEtapas(newid, name, desc, enunc, datains);
         });
+
+        $("body").on("click", "#hidedatepicker", function(){
+            newpicker.close();
+        })
     
 
         refreshEtapasTitle();
@@ -120,9 +127,9 @@ $(document).ready(() => {
 
 
     $("#etapa1").change(function(){
-        var name = $(this).find('input[name="etapaName"]').val();
-        var desc = $(this).find('textarea[name="etapaDescription"]').val();
-        var data = $(this).find('input[name="etapaDate"]').val();
+        var name = escapeHtml($(this).find('input[name="etapaName"]').val());
+        var desc = escapeHtml($(this).find('textarea[name="etapaDescription"]').val());
+        var data = escapeHtml($(this).find('input[name="etapaDate"]').val());
         var enunc = '';
 
         
@@ -133,9 +140,9 @@ $(document).ready(() => {
     picker.el.addEventListener('wdp.change', () => {
         var data = dateFromPicker($("#datepicker1").val());
 
-
-        console.log(data);
-        console.log(verifyDates(data))
+        if(!$("#footer-dpicker").length){
+            $("#placeholder-picker1 .wdp-container").append("<div id='footer-dpicker' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+        }
 
         if (!verifyDates(data))
             $("#datepicker1").css("border-left-color", "red");
@@ -152,6 +159,9 @@ $(document).ready(() => {
         insertIntoEtapas(1, name, desc, enunc, datains);
     });
 
+    $("body").on("click", "#hidedatepicker", function(){
+        picker.close();
+    })
 
     $("#maxnuminput").keyup(function(){
         validateFormNumb();
@@ -162,6 +172,11 @@ $(document).ready(() => {
     })
 
     $("#createProjectButton").click(() => submitProject());
+
+    // ESCONDER POPUP AO CLICAR
+    $("body").on("click", "#closeError", function(){
+        $("#errormsg").fadeTo(2000, 0);
+    })
 
 })
 
@@ -206,8 +221,21 @@ function insertIntoEtapas(id, name, desc, enunc, data){
 
 
 function validateFormNumb(){
-    if($("#minnuminput").val() != '' && $("#maxnuminput").val() != ''){
+
+    if($("#minnuminput").val() < 0){
+        $("#errormsg").text("Insira números válidos");
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+        $("#minnuminput").css("border-left-color", "red");
+        return false;
+    } else if ($("#maxnuminput").val() < 0){
+        $("#errormsg").text("Insira números válidos");
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+        $("#maxnuminput").css("border-left-color", "red");
+        return false;
+    } else if($("#minnuminput").val() != '' && $("#maxnuminput").val() != ''){
         if(parseInt($("#minnuminput").val()) >= parseInt($("#maxnuminput").val())){
+            $("#errormsg").text("Número minimo deve ser menor que máximo");
+            $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
             $("#minnuminput").css("border-left-color", "red");
             $("#maxnuminput").css("border-left-color", "red");
             return false;
@@ -219,11 +247,15 @@ function validateFormNumb(){
     }
 
     if($("#minnuminput").val() == ''){
+        $("#errormsg").text("Preencha todos os parametros");
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
         $("#minnuminput").css("border-left-color", "red");
         return false;
     }
 
     if($("#maxnuminput").val() == ''){
+        $("#errormsg").text("Preencha todos os parametros");
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
         $("#maxnuminput").css("border-left-color", "red");
         return false;
     }
@@ -267,9 +299,11 @@ function validateAllDates(){
 function validate_descriptions(){
     if($("textarea[name='projDescription']").val() == ''){
         $("#errormsg").text("Preencha a descrição do projeto");
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
         return false;
     } else if($("textarea[name='etapaDescription']").val() == ''){
         $("#errormsg").text("Preencha a descrição da etapa");
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
         return false;
     }
 
@@ -278,15 +312,15 @@ function validate_descriptions(){
 
 function verifyallinputs(){
     if (!validateFormNumb()){
-        $("#errormsg").text("O número máximo de alunos tem de ser maior que o mínimo");
-        $("#errormsg").show().delay(5000).fadeOut();
+        $("#errormsg").show();
         return false;
     } else if (!validateAllDates()){
         $("#errormsg").text("A data de cada etapa tem de ser maior que a data atual");
-        $("#errormsg").show().delay(5000).fadeOut();
+        $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+        $("#errormsg").show();
         return false;
     } else if (!validate_descriptions()){
-        $("#errormsg").show().delay(5000).fadeOut();
+        $("#errormsg").show();
         return false;
     }
 
@@ -298,10 +332,10 @@ function submitProject(){
     if (verifyallinputs()){
 
         const data = {
-            projName:        $("#projForm input[name='projName']").val(),
-            groups_min:      $("#projForm input[name='groups_min']").val(),
-            groups_max:      $("#projForm input[name='groups_max']").val(),
-            projDescription: $("#projForm textarea[name='projDescription']").val(),
+            projName:        escapeHtml($("#projForm input[name='projName']").val()),
+            groups_min:      escapeHtml($("#projForm input[name='groups_min']").val()),
+            groups_max:      escapeHtml($("#projForm input[name='groups_max']").val()),
+            projDescription: escapeHtml($("#projForm textarea[name='projDescription']").val()),
             file:            '',
             cadeira_id:      subject_id,
             listetapas:      etapas,

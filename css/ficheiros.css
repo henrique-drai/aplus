@@ -16,7 +16,7 @@
 .file-div {
     width: 100%;
     height: 100px;
-    background: #3e5d4f90;
+    background: rgba(21, 78, 90, 0.60);
     opacity: 1;
     border: 2px dashed white;
     text-align: center;
@@ -24,7 +24,7 @@
 }
 
 #upload-file-div:hover{
-    background: #3e5d4f75;
+    background: rgba(21, 78, 90, 0.50);
 }
 
 .file-text {
@@ -80,13 +80,25 @@
     text-align: center;
 }
 
+.file-row p > a{
+    color:#15435a;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.file-row p > a:hover{
+    color: rgb(20, 118, 167);
+    text-decoration: underline;
+}
+
 .file-row p:first-child {
-    width: 55%;
+    width: 45%;
     text-align: left;
 }
 
 .file-row p:nth-child(2) {
-    width: 30%;
+    width: 50%;
+    text-align: left;
 }
 
 .file-row p:nth-child(3) {

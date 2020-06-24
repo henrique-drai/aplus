@@ -8,14 +8,9 @@ class Projects extends CI_Controller {
     {
         parent::__construct();
         $this->load->helper('url');
+        if(is_null($this->session->userdata('role'))){ $this->load->view('errors/403'); }
         $this->load->model('ProjectModel');
         $this->load->model('SubjectModel');
-    }
-
-    //      projects/
-    public function index()
-    {
-
     }
 
     //      projects/new/:subject_code/:year
@@ -23,11 +18,6 @@ class Projects extends CI_Controller {
     {
 
         $data["base_url"] = base_url();
-        
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
 
         $this->load->model('YearModel');
 
@@ -35,7 +25,7 @@ class Projects extends CI_Controller {
         $ano_letivo = $this->YearModel->getYearByInicio($year);
 
         if(is_null($ano_letivo)){
-            $this->load->view('errors/404', $data); return null;
+            $this->load->view('errors/404', $data);
         }
 
         //usar ano letivo na query para ir buscar a cadeira cujo code = subject code
@@ -45,7 +35,7 @@ class Projects extends CI_Controller {
 
         //verificar se o objeto existe
         if(is_null($data["subject"])){
-            $this->load->view('errors/404', $data); return null;
+            $this->load->view('errors/404', $data);
         }
 
         $data["year"] = $year;
@@ -57,7 +47,7 @@ class Projects extends CI_Controller {
             $this->load->view('teacher/projectsNEW',$data);
             $this->load->view('templates/footer');  
         } else {
-            $this->load->view('errors/403', $data); return null;
+            $this->load->view('errors/403', $data);
         }
     }
 
@@ -65,18 +55,13 @@ class Projects extends CI_Controller {
     public function project($project_id = null)
     {
         $data["base_url"] = base_url();
-        
-        //verificar se a pessoa fez login
-        if(is_null($this->session->userdata('role'))){
-            $this->load->view('errors/403', $data); return null;
-        }
 
         //buscar a info sobre o projeto
         $data["project"] = $this->ProjectModel->getProjectByID($project_id);
 
         //verificar se o objeto associado ao projeto existe
         if(empty($data["project"])){
-            $this->load->view('errors/404', $data); return null;
+            $this->load->view('errors/404', $data);
         }
 
         $this->load->model('YearModel');
@@ -94,7 +79,7 @@ class Projects extends CI_Controller {
     
         //verificar se o objeto existe
         if(is_null($data["subject"])){
-            $this->load->view('errors/404', $data); return null;
+            $this->load->view('errors/404', $data);
         }
 
         $arr_msg = array (
@@ -121,17 +106,5 @@ class Projects extends CI_Controller {
         }
         
         $this->load->view('templates/footer');  
-    }
-
-    //      projects/rating/:project_id
-    public function rating($project_id)
-    {
-        
-    }
-
-    //      projects/chat/:project_id
-    public function chat($project_id)
-    {
-        
     }
 }

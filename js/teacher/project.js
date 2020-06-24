@@ -1,5 +1,6 @@
 var proj
 var enunciado_h4
+var enunciado_original
 var back_page
 var selected_etapa
 var etapa = {nome:'', desc:'', enunciado:'', data:''};
@@ -97,8 +98,7 @@ $(document).ready(() => {
         var name = $("#etapa" + selected_etapa).find("p:first").text();
         if(formStatus != 'edit'){
             var data = $("#etapa" + selected_etapa).find("p:nth-child(2)").text();
-            var desc = $(".cd-message").find("label:first").text();
-            createEditPopup(name, data, desc);
+            createEditPopup(name, data, selected_etapa);
             formStatus = 'edit';
             checkFormStatus();
             if (!verifyDates(dateFromPicker(data))){
@@ -159,32 +159,36 @@ $(document).ready(() => {
     //ADICIONAR ENUNCIADO - File Input
     $("body").on('change', "#file_projeto", function(){
         if($("#file_projeto").val() != ""){
-            $("#name-enunciado-proj").text($("#file_projeto").val().split('\\').pop());
+            $("#name-enunciado-proj").text(escapeHtml($("#file_projeto").val().split('\\').pop()));
             $("#file-img").attr('src',base_url+"images/icons/check-solid.png");
             //msg de sucesso - "enunciado adicionado com sucesso -> session php com o valor da msg"
         } else {
             $("#name-enunciado-proj").text("Envie o ficheiro do enunciado");
             $("#file-img").attr('src',base_url+"images/icons/upload-solid.png");
             $("#error-popup").text("Selecione um ficheiro");
-            $("#error-popup").show().delay(3000).fadeOut();
+            $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+            $("#error-popup").show();
         }
     })
 
     //ADICIONAR ENUNCIADO - Confimar 
     $("body").on("click", "#addEnunciado", function(e){
-        enunc = $("#file_projeto").val().split('\\').pop();
+        enunc = escapeHtml($("#file_projeto").val().split('\\').pop());
         if (enunc.length == 0){
             $("#error-popup").text("Selecione um ficheiro");
-            $("#error-popup").show().delay(3000).fadeOut();
+            $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+            $("#error-popup").show();
             e.preventDefault();
         } else {
             if($("#file_projeto")[0].files[0].size < 5024000){
                 //msg de sucesso - reformular msgs de sucesso
-                submit_new_enunciado(enunc);
+                // submit_new_enunciado(enunc);
+                $("#enunciado-form")[0].submit();
                 console.log(enunc);
             } else {
                 $("#error-popup").text("Ficheiro ultrapassa o limite máximo de 5MB");
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
                 e.preventDefault();
             }
         }
@@ -198,8 +202,8 @@ $(document).ready(() => {
 
     //on change mudar a etapa (variavel) - NOVA ETAPA
     $("body").on("change", "#etapa-form", function(){
-        var name = $(this).find('input[name="etapaName"]').val();
-        var desc = $(this).find('textarea[name="etapaDescription"]').val();
+        var name = escapeHtml($(this).find('input[name="etapaName"]').val());
+        var desc = escapeHtml($(this).find('textarea[name="etapaDescription"]').val());
         var data = dateFromPicker($(this).find('input[name="etapaDate"]').val());
         var enunc = '';
         
@@ -223,29 +227,32 @@ $(document).ready(() => {
     //on change selecionar ficheiro - input - ADICIONAR ENUNCIADO ETAPA
     $("body").on("change", "#file_etapa", function(){
         if($("#file_etapa").val() != ""){
-            $("#name-enunciado-etapa").text($("#file_etapa").val().split('\\').pop());
+            $("#name-enunciado-etapa").text(escapeHtml($("#file_etapa").val().split('\\').pop()));
             $("#file-img-etapa").attr('src',base_url+"images/icons/check-solid.png");
         } else {
             $("#name-enunciado-etapa").text("Envie o ficheiro do enunciado");
             $("#file-img-etapa").attr('src',base_url+"images/icons/upload-solid.png");
             $("#error-popup").text("Selecione um ficheiro");
-            $("#error-popup").show().delay(3000).fadeOut();
+            $("#error-popup").show();
         }
     })
 
     //ADICIONAR ENUNCIADO ETAPA - Confirmar
     $('body').on("click", "#addEnuncEtapa", function(e){
-        enunc = $("#file_etapa").val().split('\\').pop();
+        enunc = escapeHtml($("#file_etapa").val().split('\\').pop());
         if (enunc.length == 0){
             $("#error-popup").text("Selecione um ficheiro");
-            $("#error-popup").show().delay(3000).fadeOut();
+            $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+            $("#error-popup").show();
             e.preventDefault();
         } else {
             if($("#file_etapa")[0].files[0].size < 5024000){
-                submit_new_etapa_enunciado(enunc);
+                // submit_new_etapa_enunciado(enunc);
+                $("#form-upload-etapa")[0].submit();
             } else {
                 $("#error-popup").text("Ficheiro ultrapassa limite de 5MB");
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
                 $("#file-img-etapa").attr('src',base_url+"images/icons/upload-solid.png");
                 $("#file_etapa").val("");
                 e.preventDefault();
@@ -255,8 +262,8 @@ $(document).ready(() => {
 
     //On change editar etapa -> editar etapa
     $("body").on("change", "#etapa-form-edit", function(){
-        var name = $(this).find('input[name="editetapaName"]').val();
-        var desc = $(this).find('textarea[name="editetapaDescription"]').val();
+        var name = escapeHtml($(this).find('input[name="editetapaName"]').val());
+        var desc = escapeHtml($(this).find('textarea[name="editetapaDescription"]').val());
         var data = dateFromPicker($(this).find('input[name="editetapaDate"]').val());
         
         etapa['nome'] = name;
@@ -278,12 +285,12 @@ $(document).ready(() => {
 
     //FEEDBACK ETAPA - Select on change -> get submissoes
     $("body").on("change", "#select_grupo_feedback", function(){
-        var grupo_id = $(this).val();
+        var grupo_id = escapeHtml($(this).val());
         getSumbission(grupo_id, selected_etapa, proj);
     })
 
     $("body").on("click", "#confirmFeedback", function(){
-        submit_feedback($('textarea[name="feedback-text"]').val(), selected_etapa, $("#select_grupo_feedback :selected").val());
+        submit_feedback(escapeHtml($('textarea[name="feedback-text"]').val()), selected_etapa, escapeHtml($("#select_grupo_feedback :selected").val()));
     })
 
     //Remover Enunciado de uma etapa
@@ -295,6 +302,11 @@ $(document).ready(() => {
     $("body").on('click', "#confirmRemoveEtapa", function(){
         removeEtapa(selected_etapa);
         // getEtapas(proj);
+    })
+
+    // ESCONDER POPUP AO CLICAR
+    $("body").on("click", "#closeError", function(){
+        $("#error-popup").fadeTo(2000, 0);
     })
     
 })
@@ -323,6 +335,9 @@ function setMsg(msg, type){
     msg_res = arr;
 }
 
+function setEnunciadoOriginal(url){
+    enunciado_original = url;
+}
 
 // Funções GET - metem conteudo na pagina
 
@@ -389,9 +404,13 @@ function getEtapas(proj_id){
         url: base_url + "api/getAllEtapas/" + proj_id,
         data: data_proj,
         success: function(data) {
+            var d1 = data["data_final"].split(" ");
+            var date_full = d1[0].split("-");
+            var hours_full = d1[1].split(":");
+            var date = new Date(date_full[0], date_full[1]-1, date_full[2], hours_full[0], hours_full[1], hours_full[2]);
+            checkEntrega(date);
             makeEtapaTable(data["etapas"]);
             // console.log(data["data_final"]);
-            checkEntrega(data["data_final"]);
         },
         error: function(data) {
             console.log("Erro na API - Get Etapa")
@@ -415,7 +434,7 @@ function getSumbission(grupo_id, etapa, proj){
             if (data.length > 0){
                 var base_link = base_url + "uploads/submissions/" + proj + "/" + etapa + "/";
                 var extension = data[0]["submit_url"].split(".").pop();
-                $("#sub_url").html('<a target="_blank" href="'+base_link+grupo_id+'.'+extension+'">' + data[0]["submit_url"] + '</a>'); //tratar url - exemplo no checkEnunciado
+                $("#sub_url").html('<a target="_blank" href="'+base_link+data[0]["submit_url"]+'">' + data[0]["submit_original"] + '</a>');
                 $("#confirmFeedback").show();
                 $("textarea[name='feedback-text']").prop("disabled", false);
 
@@ -430,7 +449,8 @@ function getSumbission(grupo_id, etapa, proj){
                 $("textarea[name='feedback-text']").prop("disabled", true);
                 $("textarea[name='feedback-text']").val("");
                 $("#error-popup").text("Não é possível atribuir feedback a uma etapa sem submissão");
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
             }
         },
         error: function(data) {
@@ -442,55 +462,6 @@ function getSumbission(grupo_id, etapa, proj){
 
 
 //Funções POST
-function submit_new_enunciado(enunc){
-    const data = {
-        projid : parseInt(proj),
-        enunciado : enunc,
-    }
-
-    $.ajax({
-        type: "POST",
-        url: base_url + "api/editEnunciado",
-        data: data,
-        success: function(data) {
-            console.log(data);
-            console.log(base_url + "uploads/enunciados_files/"+ proj);
-            $("#enunciado_h4").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf?"+new Date().getMilliseconds()+"'>" + data + "</a>");
-        },
-        error: function(data) {
-            console.log("Erro na API - Edit Enunciado");
-            console.log(data);
-        }
-    });
-}
-
-function submit_new_etapa_enunciado(enunc){
-    console.log(enunc);
-    const data = {
-        etapaid : selected_etapa,
-        enunciado : enunc,
-    }
-
-    $.ajax({
-        type: "POST",
-        url: base_url + "api/editEtapaEnunciado",
-        data: data,
-        success: function(data) {
-            console.log(data);
-            $('#file_etapa').css("border-left-color", "rgb(124, 124, 124)");
-            var removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
-            $("#enunciado_label").html("<a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+ "/" + selected_etapa+".pdf'>" + data + "</a>" + removebut);
-            //MSG DE SUCESSO - canto superior direito - session           
-        },
-        error: function(data) {
-            console.log("Erro na API - Edit Etapa Enunciado");
-            //MSG DE ERRO - canto superior direito - session
-            console.log(data);
-        }
-    });
-
-}
-
 function submit_feedback(feedback, etapa, grupo_id){
     if (validate_feedback()){
         const data = {
@@ -516,7 +487,8 @@ function submit_feedback(feedback, etapa, grupo_id){
                 console.log(data);
                 // location.reload();
                 $("#error-popup").text("Não foi possível atribuir feedback");
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
             }
         });
     } else {
@@ -528,7 +500,8 @@ function submit_feedback(feedback, etapa, grupo_id){
             $("#error-popup").text("Preencha o feedback");
         }
         //MSGS DE ERRO
-        $("#error-popup").show().delay(3000).fadeOut();
+        $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+        $("#error-popup").show();
         return false;
     }
 }
@@ -557,12 +530,13 @@ function submit_etapa(){
                 console.log(data);
                 // location.reload();
                 $("#error-popup").text("Não foi possível submeter a etapa");
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
             }
         });
     } else {
         //msg de erro
-        $("#error-popup").show().delay(3000).fadeOut();
+        $("#error-popup").show();
         return false;
     }
 }
@@ -589,12 +563,14 @@ function submit_edit_etapa(){
                 console.log("Erro na API - Edit Etapa");
                 console.log(data);
                 $("#error-popup").text("Não foi possível editar a etapa");
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
             }
         });
     } else {
         //msg de erro
-        $("#error-popup").show().delay(3000).fadeOut();
+        $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+        $("#error-popup").show();
         return false;
     }
 }
@@ -700,6 +676,7 @@ function makeEtapaTable(data){
     for (i=0; i<data.length; i++){
         json = data[i];
         var enunciado = json["enunciado_url"];
+        var enunciado_original = json["enunciado_original"];
 
         var d1 = json["deadline"].split(" ");
         var date_full = d1[0].split("-");
@@ -728,7 +705,7 @@ function makeEtapaTable(data){
             removebut = ''
         } else {
             removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
-            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + json['id'] +".pdf'>" + enunciado + "</a>"
+            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + enunciado + "'>" + enunciado_original + "</a>"
         }
 
         var obj = {
@@ -760,8 +737,8 @@ function makeEtapaTable(data){
 
 function checkEnunciado(){
     //enunciado h4 é setted através do registo da bd associado ao proj
-    if (enunciado_h4 != ""){
-        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h4 + "</a>");
+    if (enunciado_h4 != "" && enunciado_original != ""){
+        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ enunciado_h4 +"'>" + enunciado_original + "</a>");
         $("#openEnunc").val("Editar Enunciado");
     } else {
         $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")
@@ -794,7 +771,7 @@ function createAddEnuncPopup(){
 
     $(".cd-message").html(popup);
     $(".cd-message").after('<div id="error-popup" class="submit-msg">Mensagem de erro template</div>');
-    $(".cd-buttons").html('').append("<li><input form='enunciado-form' class='button-popup' id='addEnunciado' type='submit' value='Confirmar'>" +
+    $(".cd-buttons").html('').append("<li><input class='button-popup' id='addEnunciado' type='submit' value='Confirmar'>" +
         "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
@@ -805,7 +782,7 @@ function createEtapaPopup(){
     '<label class="form-label">Nome</label><input class="form-input-text" type="text" name="etapaName" required>'+
     '<label class="form-label">Descrição</label><textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>'+
     '<label class="form-label" id="date-picker-label">Data de entrega'+
-    '<input class="form-input-text" id="datepickernew" name="etapaDate" autocomplete="off" required></label>'+
+    '<input class="form-input-text" id="datepickernew" name="etapaDate" autocomplete="off" readonly="readonly" required></label>'+
     '</form><div id="placeholder-picker-new"></div>' 
 
     $(".cd-message").html(content);
@@ -828,6 +805,10 @@ function createEtapaPopup(){
     etapapicker.el.addEventListener('wdp.change', () => {
         var data = dateFromPicker($("#datepickernew").val());
 
+        if(!$("#footer-dpnew").length){
+            $("#placeholder-picker-new .wdp-container").append("<div id='footer-dpnew' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+        }
+
         etapa['data'] = data;
 
         if (!verifyDates(data)){
@@ -837,6 +818,11 @@ function createEtapaPopup(){
         }
 
     });    
+
+
+    $("body").on("click", "#hidedatepicker", function(){
+        etapapicker.close();
+    })
 }
 
 function createInfoPopup(etapa_rec, name){
@@ -873,18 +859,25 @@ function createEnunciadoEtapaPopup(){
     $("#popup-form").html(form);
     $("#error-popup").remove();
     $(".cd-message").after('<div id="error-popup" class="submit-msg">Mensagem de erro template</div>');
-    $(".cd-buttons").html('').append("<li><input form='form-upload-etapa' class='button-popup' id='addEnuncEtapa' type='submit' value='Confirmar'>" +
+    $(".cd-buttons").html('').append("<li><input class='button-popup' id='addEnuncEtapa' type='submit' value='Confirmar'>" +
     "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
-function createEditPopup(name, data, desc){
+function createEditPopup(name, data, etapa_rec){
+    for (i=0; i<etapas_info_global.length; i++){
+        if(etapa_rec == etapas_info_global[i].id){
+            etapa = etapas_info_global[i];
+        }
+    }
+    
+
     form = '<form id="etapa-form-edit" action="javascript:void(0)">' +
     '<label id="etapa-label-edit" class="form-label-title">Editar etapa '+name+':</label>' +
     '<label class="form-label-title">Nome</label><input class="form-input-text" type="text" name="editetapaName" required>'+
     '<label class="form-label-title">Descrição</label>' +
     '<textarea class="form-text-area" type="text" name="editetapaDescription" required></textarea>'+
     '<label class="form-label-title" id="date-picker-label">Data de entrega' +
-    '<input class="form-input-text" id="datepickeredit" name="editetapaDate" autocomplete="off" required>'+
+    '<input class="form-input-text" id="datepickeredit" name="editetapaDate" autocomplete="off" readonly="readonly" required>'+
     '<div id="placeholder-picker-edit"></div></label></form>' +
     '<div class="wrapper"><hr><input id="addEtapaEnunciado" class="addE" type="button" value="Enunciado">' +
     '<input id="editEtapaButton" class="editb" type="button" value="Editar">' +
@@ -895,9 +888,9 @@ function createEditPopup(name, data, desc){
     $("#error-popup").remove();
     $(".cd-message").after('<div id="error-popup" class="submit-msg">Mensagem de erro template</div>');
     $('.cd-message input[name="editetapaName"]').val(name);
-    $('.cd-message textarea[name="editetapaDescription"]').val(desc);
+    $('.cd-message textarea[name="editetapaDescription"]').val(etapa["description"]);
     etapa['nome'] = name;
-    etapa['desc'] = desc;
+    etapa['desc'] = etapa["description"];
     etapa['data'] = dateFromPicker(data);
 
     const editpicker = new WindowDatePicker({
@@ -911,13 +904,18 @@ function createEditPopup(name, data, desc){
         orientation: true,
     });
 
-    $('#datepickeredit').val(data);
     editpicker.set(data);
+    if (editpicker.value!=null){
+        $("#placeholder-picker-edit .wdp-container").append("<div id='footer-dpedit' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+    }
 
     editpicker.el.addEventListener('wdp.change', () => {
         var data = dateFromPicker($("#datepickeredit").val());
 
         etapa['data'] = data;
+        if(!$("#footer-dpedit").length){
+            $("#placeholder-picker-edit .wdp-container").append("<div id='footer-dpedit' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
+        }
 
         if (!verifyDates(data)){
             $("#datepickeredit").css("border-left-color", "red");
@@ -925,6 +923,10 @@ function createEditPopup(name, data, desc){
             $("#datepickeredit").css("border-left-color", "lawngreen");
         }
     });
+
+    $("body").on("click", "#hidedatepicker", function(){
+        editpicker.close();
+    })
 
     $(".cd-buttons").html('').append("<li><input form='etapa-form-edit' class='button-popup' id='newEtapaEDIT' type='submit' value='Confirmar'>" +
     "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");

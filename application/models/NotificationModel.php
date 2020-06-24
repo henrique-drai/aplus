@@ -27,5 +27,14 @@ class NotificationModel extends CI_Model {
   public function createMultiple($data) {
     $this->db->insert_batch("notification", $data);
   }
+
+  public function chatNotification($data) {
+    $this->db->delete('notification', array('title' => $data["title"]));
+    $this->db->insert("notification", $data);
+  }
+
+  public function deleteByTitle($title) {
+    $this->db->delete('notification', array('title' => $title));
+  }
 }
 

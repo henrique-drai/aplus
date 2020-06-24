@@ -1,22 +1,25 @@
 <title>A+ for Students</title>
 <script>setPageName("grupo")</script>
+<script src="<?=$base_url?>js/window-date-picker.min.js"></script>
 <script src="<?=$base_url?>js/student/grupo.js"></script>
 <script src="<?=$base_url?>js/student/calendario-grupo.js"></script>
-<script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
+<script src="<?=$base_url?>js/pagination.min.js"></script>
 <?='<script>setGrupoId("'.$grupo["id"].'")</script>'?>
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/window-date-picker.min.css">
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/student/grupo.css"> 
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/calendario.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/pagination-min.css">
+<link rel="stylesheet" type="text/css" href="<?=$base_url?>css/pagination-min.css">
 </head>
 
 <body>
-<?php $this->view('templates/nav-menu'); ?>
-<?php $this->view('templates/popup'); ?>
+    <?php $this->view('templates/nav-menu'); ?>
+    <?php $this->view('templates/popup'); ?>
+    <div id="placeholder-picker-start"></div>
+    <div id="placeholder-picker-end"></div>
     <main>
         <h4 class="breadcrumb">
             <a href="<?=$base_url?>app/student/grupos">Grupos</a> > Área de Grupo (<?=$grupo["name"]?>)
         </h4>
-        
         <div class="clickable-title">
             <a href="<?=$base_url?>route/subject/<?=$info->cadeira_id?>">
                 <h2><?=$info->name?></h2>
@@ -27,8 +30,10 @@
         </div>
 
         <div id="btnArea">
+            
             <input id="ficheiros" type="button" value="Área de Ficheiros">
             <div class="fichNumb"></div>
+            <a href="<?=$base_url."app/chat/g/".$grupo["id"]?>" class="std-btn">Chat de Grupo</a>
         </div>
 
         <h2>Agenda <img src="<?=base_url()?>images/icons/add_event.png" alt="Add Event" class="add-event-icon"></h2>
@@ -80,3 +85,6 @@
                 <a class="cd-popup-close"></a>
             </div>
         </div>
+
+        <div class="GroupMembers"></div>
+</main>

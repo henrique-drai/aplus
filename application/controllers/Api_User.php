@@ -18,7 +18,6 @@ class Api_User extends REST_Controller {
         $this->verify_request();
     }
 
-
     //////////////////////////////////////////////////////////////
     //                           POST
     //////////////////////////////////////////////////////////////
@@ -26,7 +25,7 @@ class Api_User extends REST_Controller {
     
     public function user_post(){ 
         $data = Array(
-            "id" => htmlspecialchars($this->session->userdata('id')),
+            "id" => $this->session->userdata('id'),
             "name" => htmlspecialchars($this->post('name')),
             "surname" => htmlspecialchars($this->post('surname')),
             "password" => htmlspecialchars($this->post('password')),
@@ -37,6 +36,9 @@ class Api_User extends REST_Controller {
         $this->load->model('UserModel');
 
         $this->UserModel->updateUser($data);
+
+        $this->session->set_userdata('std-message', "O seu perfil foi atualizado.");
+        $this->session->set_userdata('std-message-type', "success");
 
         $this->response($data, parent::HTTP_OK);
     }

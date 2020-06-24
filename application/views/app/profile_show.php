@@ -19,8 +19,16 @@
     <?php $this->view('templates/nav-menu'); ?>
 
     <main>
+    <br>
         <div class="header">
-            <img src="<?=$picture?>" alt="Profile Picture">
+            <div class="picture">
+                <img src="<?=$picture?>" alt="Profile Picture">
+                <div class="rating">
+                    <?=(isset($rating))? $rating.' <i class="fa fa-star"></i>' : null ?>
+                    <?=(!isset($rating) && $user->role == "student")? '<div class="empty">Classificação Pendente</div>' : null ?>
+                </div>
+            </div>
+            
             <div class="header-info">
                 <div class="name">
                     <?=$user->name." ". $user->surname?>
@@ -40,4 +48,6 @@
                 </div>
             </div>
         </div>
+        <?=($user->id == $this->session->userdata('id'))? '<a class="std-btn" href="'.base_url().'app/profile/edit">Editar</a>' : null ?>
+        
     </main>

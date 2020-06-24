@@ -16,7 +16,7 @@ function loadHome() {
             $("#subjects-hook").empty();
 
             if(data.cadeiras_id.length != 0) {
-                var image_url = base_url + "uploads/pattern.jpg";
+                var image_url = base_url + "images/subjects/pattern.png";
                 $("#subjects-hook").append("<div class='cadeiras'></div>");
 
                 for(var i = 0; i < 3; i++) {

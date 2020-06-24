@@ -1,4 +1,6 @@
-var proj;  
+var proj;
+var enunciado_h4;
+var enunciado_original;
 var selected_etapa;
 var etapas_info_global;
 var formStatus;
@@ -14,7 +16,7 @@ $(document).ready(() => {
 
     //ENUNCIADO PROJETO --- 
 
-    //verificar se o enunciado do projeto existe na diretoria 
+    //verificar se o enunciado do projeto existe 
     
     if(checkEnunciado()){
         setInterval(function(){
@@ -39,10 +41,10 @@ $(document).ready(() => {
         createSubmissionPopup(selected_etapa, etapa_name);
         checkSubmission(grupo, selected_etapa, proj);
 
-        if ($(this).css("background-color") == "#75a790"){
+        if ($(this).css("background-color") == "#999C9B") {
             $(this).css("background-color", "white");
         } else {
-            $(this).css("background-color", "#75a790");
+            $(this).css("background-color", "#999C9B");
         }
 
         // verificação de data - se a data de entrega da etapa ja tiver sido passada esconder o botao
@@ -60,17 +62,19 @@ $(document).ready(() => {
 
         if (today > data_entrega_final){
             $("#error-popup").text("A data limite para submeter esta etapa foi ultrapassada.")
-            $("#error-popup").show()
+            $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+            $("#error-popup").show();
             $("#form-submit-etapa").hide();
             $(".cd-buttons").html('');
         } else {
             if(have_group){
                 $("#form-submit-etapa").show();
-                $(".cd-buttons").html('').append("<li><input form='form-submit-etapa' class='button-popup' id='addSubmission' type='submit' value='Submeter'>" +
+                $(".cd-buttons").html('').append("<li><input class='button-popup' id='addSubmission' type='submit' value='Submeter'>" +
                 "</li><li><a href='#' id='closeButton'>Cancelar</a></li>");
             } else {
                 $("#error-popup").text("Inscreva-se num grupo para poder fazer submissões.")
-                $("#error-popup").show().delay(5000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
                 $("#form-submit-etapa").hide();
                 $(".cd-buttons").html('');
             }
@@ -93,29 +97,31 @@ $(document).ready(() => {
 
     $("body").on("change", "#file_submit", function(){
         if($("#file_submit").val() != "") {
-            $("#name-file-submit").text($("#file_submit").val().split('\\').pop());
+            $("#name-file-submit").text(escapeHtml($("#file_submit").val().split('\\').pop()));
             $("#file-img-submit").attr('src',base_url+"images/icons/check-solid.png");
         } else {
             $("#name-file-submit").text("Envie o ficheiro do enunciado");
             $("#file-img-submit").attr('src',base_url+"images/icons/upload-solid.png");
             $("#error-popup").text("Tem de selecionar um ficheiro");
-            $("#error-popup").show().delay(3000).fadeOut();
+            $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+            $("#error-popup").show();
         }
 
     })
 
     $("body").on("click", "#addSubmission", function(e){
         if($("#file_submit").val() == ""){
-            $("#error-popup").text("Tem de selecionar um ficheiro")
-            $("#error-popup").show().delay(3000).fadeOut();
+            $("#error-popup").text("Tem de selecionar um ficheiro");
+            $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+            $("#error-popup").show();
             e.preventDefault();
         } else {
             if($("#file_submit")[0].files[0].size < 5024000){
-                // $("#form-submit-etapa")[0].submit();
-                submit_etapa($("#file_submit").val().split('\\').pop());
+                $("#form-submit-etapa")[0].submit();
             } else {
                 $("#error-popup").text("Ficheiro ultrapassa o limite de 5MB")
-                $("#error-popup").show().delay(3000).fadeOut();
+                $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
+                $("#error-popup").show();
 
                 $("#name-file-submit").text("Envie o ficheiro do enunciado");
                 $("#file-img-submit").attr('src',base_url+"images/icons/upload-solid.png");
@@ -129,6 +135,12 @@ $(document).ready(() => {
     $("body").on("click", "#areagrupo", function() {
         showMyGroup(proj);
         window.location = base_url + "app/grupo/" + grupo;
+    })
+
+    
+    // ESCONDER POPUP AO CLICAR
+    $("body").on("click", "#closeError", function(){
+        $("#error-popup").fadeTo(2000, 0);
     })
     
 
@@ -178,14 +190,12 @@ function showMyGroup(proj_id){
                 grupo = data["grupo"]["id"];
                 localStorage.setItem("grupo_id",grupo) //adicionei só para se alguem estiver a usar localstorage não dar porcaria
                 var names = '';
-                console.log(data);
                 for(var j=0; j < data["nomes"].length; j++) {
                     var _img = data["nomes"][j][3]!=""? data["nomes"][j][2] + data["nomes"][j][3] : "default.jpg";
                     var _src = base_url + "uploads/profile/"+ _img; 
                     var _name = data["nomes"][j][0] + data["nomes"][j][1]
                     names = names + '<a class="groupmember" href="'+ base_url +'app/profile/'+ data["nomes"][j][2] + '">' + '<img class="groupMemberImg" src="'+_src+'" alt="' + _name +'">' + "<span class='memberName'>" + data["nomes"][j][0] + " " + data["nomes"][j][1] + "</span>" + "</a>";
                 }
-                // console.log(names.slice(0, -2));
                 $("#grupos-container").html('<div class="myGroupDiv" id="grupo'+grupo+'">' +
                 '<p><b>Membros do seu grupo: </b></p><p>'+ names +'</p>' + 
                 '<p><input class="quitGroupButton" id=quit"'+grupo +'" type="button" value="Sair"></input></p>' + 
@@ -262,8 +272,12 @@ function getEtapas(proj_id){
         url: base_url + "api/getAllEtapas/" + proj_id,
         data: data_proj,
         success: function(data) {
+            var d1 = data["data_final"].split(" ");
+            var date_full = d1[0].split("-");
+            var hours_full = d1[1].split(":");
+            var date = new Date(date_full[0], date_full[1]-1, date_full[2], hours_full[0], hours_full[1], hours_full[2]);
+            checkEntrega(date);
             makeEtapaDiv(data["etapas"]);
-            checkEntrega(data["data_final"]);
         },
         error: function(data) {
             console.log("Erro na API - Get Etapa")
@@ -279,6 +293,7 @@ function makeEtapaDiv(data){
     for (i=0; i<data.length; i++){
         json = data[i];
         var enunciado = json["enunciado_url"];
+        var enunciado_original = json["enunciado_original"];
 
 
         var d1 = json["deadline"].split(" ");
@@ -307,7 +322,7 @@ function makeEtapaDiv(data){
             removebut = ''
         } else {
             removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
-            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + json['id'] +".pdf'>" + enunciado + "</a>"
+            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + enunciado + "'>" + enunciado_original + "</a>"
         }
 
 
@@ -353,10 +368,9 @@ function checkEntrega(dateOld){
 // Este tem uma pequena alteração porque nao usa o button
 function checkEnunciado(){
 
-    if (enunciado_h4 != ""){
-        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + enunciado_h4 + "</a>");
+    if (enunciado_h4 != "" && enunciado_original != ""){
+        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ enunciado_h4 +"'>" + enunciado_original + "</a>");
     } else {
-        //$("#enunciado_h4").text("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ proj+".pdf'>" + proj + ".pdf </a>");
         $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")
     }
 }
@@ -366,27 +380,8 @@ function setEnunciado(url){
     enunciado_h4 = url;
 }
 
-function submit_etapa(file_name){
-    const data = {
-        grupo : grupo,
-        etapa : selected_etapa,
-        ficheiro : file_name
-    }
-
-    $.ajax({
-        type: "POST",
-        url: base_url + "api/submitEtapa",
-        data: data,
-        success: function(data) {
-            // msg de sucesso canto superior direito - session - como project teacher
-            // $("#enviado-sucesso").show(); //resolver a questao do refresh primeiro.
-            console.log(data);
-        },
-        error: function(data) {
-            console.log("Erro na API - Submit etapa");
-            console.log(data);
-        }
-    });
+function setEnunciadoOriginal(url){
+    enunciado_original = url;
 }
 
 function checkSubmission(grupo, etapa, proj){
@@ -410,7 +405,7 @@ function checkSubmission(grupo, etapa, proj){
                 } else {
                     $("#feedback_label").text(data[0]["feedback"]);
                 }
-                $("#sub_label").html('<a target="_blank" href="'+base_link+grupo+'.'+extension+'">' + data[0]["submit_url"] + '</a>');
+                $("#sub_label").html('<a target="_blank" href="'+base_link+data[0]["submit_url"]+'">' + data[0]["submit_original"] + '</a>');
             } else {
                 $("#sub_label").text("O seu grupo ainda não submeteu uma entrega.");
                 $("#feedback_label").text("Ainda não foi atribuido feedback a esta etapa.");
@@ -450,9 +445,9 @@ function createSubmissionPopup(etapa_rec, name){
 
     
     form = '<br><form enctype="multipart/form-data" accept-charset="utf-8" method="post" id="form-submit-etapa" action="'+base_url + 'UploadsC/uploadSubmissao/' + proj + '/' + selected_etapa + '/' + grupo+'">' +
-    '<input class="form-input-file" type="file" id="file_submit" name="file_submit" accept=".zip,.rar">'+
+    '<input class="form-input-file" type="file" id="file_submit" name="file_submit" accept=".zip,.rar,.pdf,.docx">'+
     '<label for="file_submit" class="input-label"><img id="file-img-submit" src="'+base_url+'images/icons/upload-solid.png">'+
-    '<span id="name-file-submit">Submeter trabalho (.zip/.rar)</span></label>'+
+    '<span id="name-file-submit">Submeter trabalho</span></label>'+
     '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>'+
     '</form>'
 

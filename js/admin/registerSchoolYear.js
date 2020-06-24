@@ -19,8 +19,8 @@ $(document).ready(() => {
         $(".cd-popup-container > #toDel").remove()
         
         $(".cd-popup-container").prepend(
-            "<p id='toDel'>Tem a certeza que deseja eliminar o ano letivo " + firstYear + "/" + lastYear
-            + " ?</p>")
+            "<p id='toDel'>Tem a certeza que deseja eliminar o ano letivo '" + firstYear + "/" + lastYear
+            + "' ?</p>")
 
 
         $('.cd-popup').addClass('is-visible');

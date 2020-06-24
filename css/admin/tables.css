@@ -5,7 +5,8 @@
 }
 
 .adminTable td {
-    padding: 0px 13px;
+    padding: 5px 13px;
+    font-size: 14px;
 }
 
 /* .container h2 {
@@ -13,12 +14,12 @@
 } */
 
 .adminTable th{
-    background-color: #939393;
+    background-color: #ccc;
     padding: 15px 0px;
 }
 
 .adminTable tr:hover{
-    background-color: #ccc
+    background-color: #eee
 }
 
 #student-container.adminTable td, #student-container .adminTable th,
@@ -28,7 +29,7 @@
 }
 
 #suggestedDate {
-    background-color:#3e5d4f38;
+    background-color:#15435a38;
     opacity: 0.8;
 }
 

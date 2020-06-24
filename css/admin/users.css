@@ -108,7 +108,7 @@ select{
     margin-left: 3%;
     font-size: 10px;
     text-transform: uppercase;
-    color: #3e5d4f;
+    color: #15435a;
     vertical-align: middle;
 }
 
@@ -126,7 +126,7 @@ select{
 }
 
 #closePopUp {
-    background: #3e5d4f;
+    background: #15435a;
 }
 
 img[alt="csv_example"] {
@@ -244,3 +244,47 @@ select#coursesDisplay1 {
 }
 
 
+
+
+form#importFromCsv {
+    display: none;
+}
+.cd-message form {
+    width: 96%;
+}
+.form-input-file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    /* position: absolute; */
+    z-index: -1;
+}
+.input-label {
+    margin: 0 auto;
+    text-align: center;
+    color: black;
+    line-height: 30px;
+    display: block;
+    border: 2px solid #15435a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center !important;
+
+}
+.input-label img {
+    margin-right: 5px;
+    width: 12px;
+}   
+.span-name {
+    margin-left: 5px;
+}
+
+#PesquisarAlunos, #PesquisarProfessores{
+    display: inline-block;
+}

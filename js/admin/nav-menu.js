@@ -21,13 +21,9 @@ $(document).ready(() => {
             "href": base_url + "app/admin/subjects",
             "name": "Cadeiras"
         },
-        "teachers": {
-            "href": base_url + "app/admin/teachers",
-            "name": "Professores"
-        },
-        "students": {
-            "href": base_url + "app/admin/students",
-            "name": "Alunos"
+        "utilizadores": {
+            "href": base_url + "app/admin/users",
+            "name": "Utilizadores"
         },
         "chat": {
             "href": base_url + "app/chat",

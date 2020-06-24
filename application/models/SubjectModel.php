@@ -237,7 +237,7 @@ class SubjectModel extends CI_Model { //cadeira
 
 
     public function getFicheiroAreaByURLSub($url, $cadeira_id){
-        return $this->db->get_where("ficheiros_cadeira", array('url' => $url, "cadeira_id" => $cadeira_id))->row();
+        return $this->db->get_where("ficheiros_cadeira", array('url_original' => $url, "cadeira_id" => $cadeira_id))->row();
     }
 
     public function submitFicheiroArea($data){
@@ -299,5 +299,11 @@ class SubjectModel extends CI_Model { //cadeira
         return $data;
     }
 
+
+    public function changeFicheirosAreaURL($name_enunciado, $cadeira_id){
+        $this->db->set("url", $name_enunciado);
+        $this->db->where("cadeira_id", $cadeira_id);
+        $this->db->update("ficheiros_cadeira");
+    }
 
 }

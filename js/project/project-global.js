@@ -58,11 +58,10 @@ function checkMsg(){
     if (msg_res["msg"] != ""){
         if(msg_res["type"] == "S"){
             $("#successm").text(msg_res["msg"]);
-            $("#successm").show().delay(4000).fadeOut();
+            $("#successm").show().delay(10000).fadeOut();
         } else if(msg_res["type"] == "E") {
             $("#errorm").text(msg_res["msg"]);
-            $("#errorm").show().delay(4000).fadeOut();
+            $("#errorm").show().delay(10000).fadeOut();
         }
     }
 }
-

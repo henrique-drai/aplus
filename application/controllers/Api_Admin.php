@@ -215,16 +215,13 @@ class Api_Admin extends REST_Controller {
             $idCurso        = $this->CourseModel->getCourseByFaculdadeAnoNome($idFaculdade, $idAnoLetivo, $column[3])->id;
             $idCadeira      = $this->SubjectModel->getSubjectsByCursoIdName($idCurso, $column[4])->id;
 
-
-            echo "<br>" . $column[0] ;
-            echo "<br>" . $column[1] ;
-            echo "<br>" . $column[2] ;
-            echo "<br>" . $column[3] ;
-            echo "<br>" . $column[4] ;
-
-            echo "<br>";
-
-
+            $data = Array(
+                "user_id" => $idUser,
+                "cadeira_id" => $idCadeira,
+                "is_completed"      => 0,
+                "last_visited"         => "",
+            );
+            $this -> SubjectModel->insertUpdate($data);
         }
 
     }

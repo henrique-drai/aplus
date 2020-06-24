@@ -193,17 +193,17 @@ $(document).ready(() => {
                 headers: {"Authorization": localStorage.token},
                 data: formData,
                 success: function (data) {
-                    // $("#importSuccess").html("Ficheiro importado com sucesso");
-                    // $("#importSuccess").show().delay(2000).fadeOut();
-                    // $("#file").val("");
-                    // $("#name-enunciado-proj").text("Enviar ficheiro .csv");
-                    // $("#file-img-2").attr('src',base_url+"images/icons/upload-solid.png");
-                    // $("#file_projeto").val("")
+                    $("#importSuccess").html("Ficheiro importado com sucesso");
+                    $("#importSuccess").show().delay(2000).fadeOut();
+                    $("#file").val("");
+                    $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+                    $("#file-img-2").attr('src',base_url+"images/icons/upload-solid.png");
+                    $("#file_projeto").val("")
                 },
                 error: function(data) {
-                    // $("#importError").html("Erro a importar ficheiro");
-                    // $("#importError").show().delay(2000).fadeOut();
-                    // $("#file_projeto").val("")
+                    $("#importError").html("Erro a importar ficheiro");
+                    $("#importError").show().delay(2000).fadeOut();
+                    $("#file_projeto").val("")
                 },
                 cache: false,
                 contentType: false,

@@ -182,7 +182,7 @@ class SubjectModel extends CI_Model { //cadeira
                 'user_id ='     => $data['user_id'],
                 'cadeira_id ='  => $data["cadeira_id"],
                 'is_completed ='         => $data["is_completed"],
-                'image_url ='         => $data["image_url"]
+                'last_visited ='         => $data["last_visited"]
             ));
             return $this->db->update('aluno_cadeira', $data);
         }

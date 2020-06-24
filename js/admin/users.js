@@ -154,7 +154,6 @@ $(document).ready(() => {
 
 
     $("#teachersImport").submit(function(e) {
-
         if($("#studentsOrTeachers").val()=="teachers"){
             e.preventDefault();    
             var formData = new FormData(this);
@@ -182,6 +181,7 @@ $(document).ready(() => {
                 processData: false
             });
         }
+
         else if($("#studentsOrTeachers").val()=="uc&classes"){
 
             e.preventDefault();    
@@ -193,17 +193,17 @@ $(document).ready(() => {
                 headers: {"Authorization": localStorage.token},
                 data: formData,
                 success: function (data) {
-                    // $("#importSuccess").html("Ficheiro importado com sucesso");
-                    // $("#importSuccess").show().delay(2000).fadeOut();
-                    // $("#file").val("");
-                    // $("#name-enunciado-proj").text("Enviar ficheiro .csv");
-                    // $("#file-img-2").attr('src',base_url+"images/icons/upload-solid.png");
-                    // $("#file_projeto").val("")
+                    $("#importSuccess").html("Ficheiro importado com sucesso");
+                    $("#importSuccess").show().delay(2000).fadeOut();
+                    $("#file").val("");
+                    $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+                    $("#file-img-2").attr('src',base_url+"images/icons/upload-solid.png");
+                    $("#file_projeto").val("")
                 },
                 error: function(data) {
-                    // $("#importError").html("Erro a importar ficheiro");
-                    // $("#importError").show().delay(2000).fadeOut();
-                    // $("#file_projeto").val("")
+                    $("#importError").html("Erro a importar ficheiro");
+                    $("#importError").show().delay(2000).fadeOut();
+                    $("#file_projeto").val("")
                 },
                 cache: false,
                 contentType: false,
@@ -211,6 +211,34 @@ $(document).ready(() => {
             });
            
         }
+        else if($("#studentsOrTeachers").val()=="groups"){
+            e.preventDefault();    
+            var formData = new FormData(this);
+            $.ajax({
+                url: base_url + "api/importGroups",
+                type: 'POST',
+                headers: {"Authorization": localStorage.token},
+                data: formData,
+                success: function (data) {
+                    $("#importSuccess").html("Ficheiro importado com sucesso");
+                    $("#importSuccess").show().delay(2000).fadeOut();
+                    $("#file").val("");
+                    $("#name-enunciado-proj").text("Enviar ficheiro .csv");
+                    $("#file-img-2").attr('src',base_url+"images/icons/upload-solid.png");
+                    $("#file_projeto").val("")
+                },
+                error: function(data) {
+                    $("#importError").html("Erro a importar ficheiro");
+                    $("#importError").show().delay(2000).fadeOut();
+                    $("#file_projeto").val("")
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+
+        }
+
         
     });
     

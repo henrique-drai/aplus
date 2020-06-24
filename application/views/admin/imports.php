@@ -1,5 +1,5 @@
 <title>A+ for Admins</title>
-<script>setPageName("home")</script>
+<script>setPageName("imports")</script>
 
 <script src="<?php echo $base_url; ?>js/admin/users.js"></script>
 <script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
@@ -13,21 +13,8 @@
 <body>
 <?php $this->view('templates/nav-menu'); ?>
     <main>
-        <h1>Importar Grupos</h1>
-
-        <form id="gruposImport" action="javascript:void(0)" enctype="multipart/form-data">
-            <input class="form-input-file" type="file" id="file_grupos_admin" name="userfile" title="Inserir Grupos" required accept=".csv">
-            <label for="file_projeto" class="input-label">
-            <img id="file-img" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
-            <span id="GruposCSVFile" class="span-name">Enviar ficheiro .csv</span></label>
-            <input type='submit' id='importGrupos' value='Importar Grupos'>
-        </form>
-        <div id="error-popup">
-        </div>
-
-
-
-
+    <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Importar Dados</h4>
+        <h1>Funções de Importar</h1>
 
 
 <!------------------------------------ COLUNA 1 ------------------------------------------------------------------->
@@ -96,7 +83,7 @@
                         <option value='teachers'>Professores (cadeiras lecionadas)</option>
                         <option value='students'>Alunos (de um respetivo curso)</option>
                         <option value='uc&classes'>Unidades curriculares (e respetivas turmas)</option>
-
+                        <option value='groups'>Grupos (e seus elementos)</option>
                 </select>
 
 

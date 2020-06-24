@@ -277,23 +277,33 @@ class Api_Project extends REST_Controller {
     public function criarGrupo_post(){
         $user_id = $this->session->userdata('id');
         $cadeiraid = htmlspecialchars($this->post("cadeiraid"));
+        $projectid = htmlspecialchars($this->post("projid"));
+        $nomeGrupo = htmlspecialchars($this->post("nomeGrupo"));
 
         if($this->verify_studentInCadeira($user_id, $cadeiraid)==true){
-            $datagrupo = Array(
-                "name" => htmlspecialchars($this->post("nomeGrupo")),
-                "projeto_id" => htmlspecialchars($this->post("projid")),
-            );
-    
             $this->load->model("GroupModel");
-            $retrieved = $this->GroupModel->createGroup($datagrupo);
-    
-            $datagrupoaluno = Array(
-                "grupo_id" => $retrieved["grupo"],
-                "user_id" => $user_id,
-            );
-    
-            $addeduser = $this->GroupModel->addElementGroup($datagrupoaluno);
-            $this->response(json_encode($retrieved), parent::HTTP_OK);
+            $grupoExists = $this->GroupModel->confirmNameInProject($projectid, $nomeGrupo);
+            if($grupoExists){
+                $data["groupExist"] = True;
+                $this->response($data, parent::HTTP_OK);
+            }
+            else{
+                $datagrupo = Array(
+                    "name" => $nomeGrupo,
+                    "projeto_id" => $projectid,
+                );
+
+                $retrieved = $this->GroupModel->createGroup($datagrupo);
+
+                $datagrupoaluno = Array(
+                    "grupo_id" => $retrieved["grupo"],
+                    "user_id" => $user_id,
+                );
+
+                $addeduser = $this->GroupModel->addElementGroup($datagrupoaluno);
+                $this->response(json_encode($retrieved), parent::HTTP_OK);
+            }
+                
         }
         else{
             $status = parent::HTTP_UNAUTHORIZED;

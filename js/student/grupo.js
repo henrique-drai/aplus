@@ -180,8 +180,11 @@ function disableTasksClose() {
             if (new Date(data.date) < Date.now()){
                 $("#newTarefa").remove();
                 
-                $('.tasksTable thead tr th:last').remove(); 
-                $(".tasksTable th:last-child, .tasksTable td:last-child").remove();           
+                //$('.tasksTable thead tr th:last').remove(); 
+                //$(".tasksTable th:last-child, .tasksTable td:last-child").remove(); 
+                
+                $('table tr').find('td:eq(5),th:eq(5)').remove();
+                $('table tr').find('td:eq(6),th:eq(6)').remove();
             		
             }
         },

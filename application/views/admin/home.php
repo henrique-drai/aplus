@@ -19,10 +19,9 @@
                     <br>
                     Alunos: <span id="hook-num_students"></span>
                 </div>
-                <div class="admin-stats-btn">
-                    
-                    <a href="<?php echo $base_url; ?>app/admin/users"><div>Gerir</div></a>
-                </div>
+
+                <a class="std-btn" href="<?php echo $base_url; ?>app/admin/users">Gerir</a>
+
             </div>
 
             <div class="admin-stats-window" id="unis-hook">
@@ -30,9 +29,7 @@
                 <div class="admin-stats-content">
                     Faculdades: <span id="hook-num_colleges"></span>
                 </div>
-                <div class="admin-stats-btn">
-                <a href="<?php echo $base_url; ?>app/admin/college"><div>Gerir</div></a>
-                </div>
+                <a class="std-btn" href="<?php echo $base_url; ?>app/admin/college">Gerir</a>
             </div>
 
 
@@ -41,9 +38,7 @@
                 <div class="admin-stats-content">
                     Cursos: <span id="hook-num_courses"></span>
                 </div>
-                <div class="admin-stats-btn">
-                <a href="<?php echo $base_url; ?>app/admin/registerCourses"><div>Gerir</div></a>
-                </div>
+                <a class="std-btn" href="<?php echo $base_url; ?>app/admin/registerCourses">Gerir</a>
             </div>
 
 
@@ -52,9 +47,7 @@
                 <div class="admin-stats-content">
                     Ano Letivo: <span id="hook-num_academicYear"></span>
                 </div>
-                <div class="admin-stats-btn">
-                <a href="<?php echo $base_url; ?>app/admin/anoLetivo"><div>Gerir</div></a>
-                </div>
+                <a class="std-btn" href="<?php echo $base_url; ?>app/admin/anoLetivo">Gerir</a>
             </div>
 
             <div class="admin-stats-window" id="subjects-hook">
@@ -62,9 +55,7 @@
                 <div class="admin-stats-content">
                     Unidades Curriculares: <span id="hook-num_subjects"></span>
                 </div>
-                <div class="admin-stats-btn">
-                <a href="<?php echo $base_url; ?>app/admin/subjects"><div>Gerir</div></a>
-                </div>
+                <a class="std-btn" href="<?php echo $base_url; ?>app/admin/subjects">Gerir</a>
             </div>
         </section>
     </main>

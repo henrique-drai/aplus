@@ -1,5 +1,5 @@
 <title>A+ for Admins</title>
-<script>setPageName("teachers")</script>
+<script>setPageName("utilizadores")</script>
 
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/admin-users.css">

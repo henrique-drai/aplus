@@ -1,6 +1,11 @@
 $(document).ready(() => {
     setInterval(getFich, 5000);
 
+    $('body').on('click', '.quitGroupButton', function(){
+        var groupid = $(this).attr("id").split('"')[1];
+        leaveGroupPage(groupid);
+    })
+
     const months = {
         "Janeiro":1,
         "Fevereiro":2,
@@ -149,6 +154,14 @@ $(document).ready(() => {
         })
     })    
 });
+
+function leaveGroupPage(groupid){
+    $.ajax({
+        type: "DELETE",
+        url: base_url + "api/leaveMyGroup",
+        data: {grupo_id: groupid},
+    });
+}
 
 function getFich() {
     $.ajax({

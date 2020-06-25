@@ -172,7 +172,7 @@
     text-align: center;
     color: #ccc;
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 11px;
     cursor: pointer;
 }
 .nav-menu-btn:hover {
@@ -299,7 +299,7 @@
     text-align: center;
 }
 .nav-notifications .nothing {
-    font-size: 12px;
+    font-size: 11px;
     color: white;
     text-align: center;
 }

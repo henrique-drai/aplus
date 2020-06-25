@@ -43,7 +43,7 @@ class Api_Chat extends REST_Controller {
         $data["user_ids"] = $this->GroupModel->getStudents(htmlspecialchars($data["grupo_id"]));
         $users = array();
         for($i=0; $i < count($data["user_ids"]); $i++) {
-            array_push($users, $this->UserModel->getUserById($data["user_ids"][$i]["user_id"]));
+            array_push($users, $this->UserModel->getSomeValuesUser($data["user_ids"][$i]["user_id"]));
         }
         // print_r($users);
 
@@ -87,7 +87,7 @@ class Api_Chat extends REST_Controller {
         $this->ChatModel->sendMessage($data);
         $this->load->model('UserModel');
 
-        $user=$this->UserModel->getUserById($data["id_sender"]);
+        $user=$this->UserModel->getSomeValuesUser($data["id_sender"]);
         // print_r($user->name);
         //notificação
         $curr_date = date('Y/m/d H:i:s', time());
@@ -139,11 +139,11 @@ class Api_Chat extends REST_Controller {
 
         for($i=0; $i < count($resultquery); $i++) {
             if($resultquery[$i]["sender"]!=$id && !in_array($resultquery[$i]["sender"], $compArray)){
-                $tmp = $this->UserModel->getUserById($resultquery[$i]["sender"]);
+                $tmp = $this->UserModel->getSomeValuesUser($resultquery[$i]["sender"]);
                 array_push($data["users"], $tmp);
                 array_push($compArray,$resultquery[$i]["sender"]);
             }elseif ($resultquery[$i]["sender"]==$id && !in_array($resultquery[$i]["receiver"], $compArray)) {
-                $tmp = $this->UserModel->getUserById($resultquery[$i]["receiver"]);
+                $tmp = $this->UserModel->getSomeValuesUser($resultquery[$i]["receiver"]);
                 array_push($data["users"], $tmp);
                 array_push($compArray,$resultquery[$i]["receiver"]);
             }
@@ -159,7 +159,8 @@ class Api_Chat extends REST_Controller {
         $resultquery = $this->ChatModel->getChatHistory($id,$id_sender,$limit);
         $this->load->model('UserModel');
 
-        $data['user']=$this->UserModel->getUserById($id_sender);
+        $data['user']=$this->UserModel->getSomeValuesUser($id_sender);
+        
         $data['msg']=array();
 
         if(empty($resultquery)){
@@ -188,7 +189,7 @@ class Api_Chat extends REST_Controller {
 
         $data['msg']=array();
         for($i=0; $i < count($resultquery); $i++) {
-            array_push($data['msg'], array($resultquery[$i],$this->UserModel->getUserById($resultquery[$i]["user_id"])));
+            array_push($data['msg'], array($resultquery[$i],$this->UserModel->getSomeValuesUser($resultquery[$i]["user_id"])));
         }
         array_push($data,$grupo[0]["name"]);
         array_push($data,$grupo[1][0]["nome"]);

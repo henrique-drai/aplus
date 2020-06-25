@@ -23,16 +23,16 @@
                 <form id="register-form" action="javascript:void(0)">
                     <div class="double_input">
                         <label for="name">
-                            Nome:<input type="text" name="name"></label>
+                            Nome:<input type="text" name="name" required=""></label>
                         <label for="surname">
-                            Apelido:<input type="text" name="surname"></label>
+                            Apelido:<input type="text" name="surname" required=""></label>
                     </div>
                     <div class="double_input">
                         <label for="email">
-                            Email:<input type="text" name="email"></label>
+                            Email:<input type="text" name="email" required=""></label>
                         
                         <label for="password">
-                            Password:<input type="password" name="password"></label>                
+                            Password:<input type="password" name="password" required=""></label>                
                     </div>
                     <div>
                     <label for="role">Privilégio:</label>

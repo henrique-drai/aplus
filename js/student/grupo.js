@@ -590,7 +590,6 @@ function groupMembers(group_id){;
         url: base_url + "api/getGroupMembers/" + group_id,
         data: {group_id: group_id},
         success: function(data) {
-            console.log(data);
             var names = '';
             for(var j=0; j < data["users"].length; j++) {
                 var _img = data["users"][j]["picture"]!=""? data["users"][j]["id"] + data["users"][j]["picture"] : "default.jpg";

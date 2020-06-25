@@ -331,6 +331,12 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     }
 }
 
+@media only screen and (max-width: 350px) {
+    .groupmember {
+        display:block;
+    }
+}
+
 .add-event-icon {
     width: 25px;
     margin: 0 4px -4px;

@@ -245,9 +245,6 @@ select#coursesDisplay1 {
     }
 }
 
-
-
-
 form#importFromCsv {
     display: none;
 }

@@ -116,10 +116,10 @@ $(document).ready(() => {
             $("#error-popup").show();
             e.preventDefault();
         } else {
-            if($("#file_submit")[0].files[0].size < 5024000){
+            if($("#file_submit")[0].files[0].size < 2024000){
                 $("#form-submit-etapa")[0].submit();
             } else {
-                $("#error-popup").text("Ficheiro ultrapassa o limite de 5MB")
+                $("#error-popup").text("Ficheiro ultrapassa o limite de 2MB")
                 $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
                 $("#error-popup").show();
 
@@ -448,7 +448,7 @@ function createSubmissionPopup(etapa_rec, name){
     '<input class="form-input-file" type="file" id="file_submit" name="file_submit" accept=".zip,.rar,.pdf,.docx">'+
     '<label for="file_submit" class="input-label"><img id="file-img-submit" src="'+base_url+'images/icons/upload-solid.png">'+
     '<span id="name-file-submit">Submeter trabalho</span></label>'+
-    '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>'+
+    '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 2MB</b></p>'+
     '</form>'
 
     $("#error-popup").remove();

@@ -17,7 +17,7 @@
     <h1>Área de ficheiros da cadeira "<?php echo $subject->name; ?>"<h1>
 
     <h3>Enviar um ficheiro:</h3>
-    <p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>
+    <p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 2MB</b></p>
     <div class="container" id="container-upload">
         <?php echo form_open_multipart('UploadsC/uploadFicheirosCadeira', 'id="form-submit-cadeira"');?>
             <div class="file-div" id="upload-file-div">

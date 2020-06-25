@@ -87,8 +87,6 @@ function getInfo(grupo_id){
             $(".classified").empty()
             $(".notClassified").empty()
 
-            console.log(data)
-
             if(data.class.length != 0 ){
 
                 var info ="";

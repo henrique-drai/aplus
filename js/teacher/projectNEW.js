@@ -44,7 +44,6 @@ $(document).ready(() => {
              '</div> '
         
         etapas.push({id:etapanum, nome:'', desc:'', enunc:'', data:''});
-        console.log(etapas);
 
         $('.etapa').last().after(etapa);     
         $('.etapa').last().change(function(){
@@ -76,9 +75,9 @@ $(document).ready(() => {
             var newid = parseInt(pid.replace("etapa",""));
             var data = dateFromPicker($("#datepicker" + newid).val());
 
-            console.log("footer-dpicknew"+newid)
+
             if(!$("#footer-dpicknew"+newid).length){
-                console.log("footer-dpicknew"+newid)
+
                 $("#placeholder-picker" + newid + " .wdp-container").append("<div id='footer-dpicknew"+newid+"' class='datepickerfooter'><input id='hidedatepicker' type='button' value='Confirmar'></div>");
             }
   
@@ -86,8 +85,6 @@ $(document).ready(() => {
                 $("#datepicker" + newid).css("border-left-color", "red");
             else
                 $("#datepicker" + newid).css("border-left-color", "lawngreen");
-
-            console.log(newid);
 
             var name = etapas[newid-1].nome;
             var desc = etapas[newid-1].desc;
@@ -116,8 +113,6 @@ $(document).ready(() => {
                 etapas.splice(i,1);
             }
         }
-
-        console.log(etapas);
         
         $(this).parent().remove();
 
@@ -201,7 +196,6 @@ function insertIntoEtapas(id, name, desc, enunc, data){
 
     newDate = dateFromPicker(data);
 
-    console.log(id + " " + name +" " + desc + " " + enunc + " " + newDate);
     for (i=0; i<etapas.length; i++){
         if(etapas[i].id == id){
             etapas[i].nome = name;
@@ -210,8 +204,6 @@ function insertIntoEtapas(id, name, desc, enunc, data){
             etapas[i].enunciado = enunc;
         }
     }
-
-    console.log(etapas);
 
     if (!verifyDates(newDate))
         $("#datepicker" + id).css("border-left-color", "red");
@@ -266,8 +258,6 @@ function validateFormNumb(){
 function verifyDates(data){
     // var dmaior = new Date(data);
     var dmaior = new Date(data);
-    
-    console.log(dmaior);
 
     var today = new Date();
 
@@ -288,7 +278,6 @@ function verifyDates(data){
 function validateAllDates(){
     for (i=0; i<etapas.length; i++){
         if (!verifyDates(etapas[i].data)){
-            console.log(etapas[i].data);
             return false;
         }
     }
@@ -358,7 +347,6 @@ function submitProject(){
             },
             error: function(data) {
                 console.log("Erro na API:")
-                console.log(data)
                 if(data["responseJSON"]["nameExists"]){
                     $("#errormsg").text("Já existe um projeto com este nome.");
                     $("#errormsg").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');

@@ -75,7 +75,8 @@
                 <label for="data">Importar Informação: 
                             <a href="#" id="showDemo">Alunos</a>
                             <a href="#" id="showDemo2">Professores</a>
-                            
+                            <a href="#" id="showDemo3">Unidades Curriculares</a>
+                            <a href="#" id="showDemo4">Grupos</a>
                 </label>
 
                 <select id="studentsOrTeachers">
@@ -129,6 +130,7 @@
         <div class="cd-popup" role="alert" id="import_csv_style">
             <div class="cd-popup-container">
                 <p id="removePadding">Formato ficheiro ".csv" para importação</p>
+                <p id="mobileMsg"></p>
                 <img id="csvExample" src="<?=base_url()?>images/csv_student.png" alt="csv_example">
                 <ul class="cd-buttons">
                     <li id="fullW"><a href="#" id="closePopUp">Fechar</a></li>

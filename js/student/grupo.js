@@ -199,7 +199,6 @@ function updateTaskPopup(task_id, proj_name, tr_id){
         type: "GET",
         url: base_url + "api/getTaskById/" + task_id,
         success: function(data) {
-            // console.log(data)
             var popup = '';
 
             popup = popup +                 
@@ -466,15 +465,14 @@ function insertTaskStartDate(task_id) {
         data: {grupo_id: localStorage.grupo_id, user_id: localStorage.user_id},
         success: function (data) {
             $(".startTask").empty();
-            $(".member").empty();
+            $("#" + task_id + ".member").empty();
             $(".title").empty();
             $(".title").append("<h3>Data de Início</h3>");
             $(".startTask").append("<label><span class='startTask'>" + data.data + "</span></label>");
             $(".endTask").empty();
             $(".endTask").append("<input type='button' class='end_date_button' id='" + task_id + "' value='Terminar Tarefa'>");
             $(".infoTask_inputs").append("<span class='time_spent'></span>");
-            $(".member").append("<span>" + data.user + "</span>");
-            console.log("fixe");
+            $("#" + task_id + ".member").append("<span>" + data.user + "</span>");
         },
         error: function (data) {
             alert("Houve um erro a inserir a data-inicio da tarefa.")
@@ -591,7 +589,6 @@ function groupMembers(group_id){;
         url: base_url + "api/getGroupMembers/" + group_id,
         data: {group_id: group_id},
         success: function(data) {
-            console.log(data);
             var names = '';
             for(var j=0; j < data["users"].length; j++) {
                 var _img = data["users"][j]["picture"]!=""? data["users"][j]["id"] + data["users"][j]["picture"] : "default.jpg";

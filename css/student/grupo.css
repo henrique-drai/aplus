@@ -196,8 +196,12 @@ option[value=""] {
 }
 
 @media only screen and (max-width: 1020px) {
-    tr:first-child {
+    /* tr:first-child {
         display: none;
+    } */
+
+    .insertHere td:first-child {
+        margin-top: 54px;
     }
 
     /* Force table to not be like tables anymore */
@@ -215,6 +219,10 @@ option[value=""] {
     tr {
       margin: 0 0 1rem 0;
       border-bottom: 1px solid #a5a5a5 !important;
+    }
+
+    tr:not(:first-child) {
+        margin: -35px 0 1rem 0 !important;
     }
     
     td {
@@ -254,6 +262,22 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     }
 }
 
+@media only screen and (max-width: 1020px) {
+    .tasksTable {
+        margin-top: -50px;
+    }
+
+    .tasksTable p {
+        margin-top: 50px;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .tasksTable {
+        margin-top: -60px;
+    }
+}
+
 @media only screen and (max-width: 700px) {
     #btnArea{
         display: inline-block;
@@ -267,13 +291,9 @@ You could also use a data-* attribute and content for this. That way "bloats" th
         margin-top: 0% !important;
         float: none;
     }
-    
-    td:first-child {
-        margin-top: 23px;
-    }
 
     .tasksTable {
-        margin-top: -4%;
+        margin-top: -50px;
     }
 }
 
@@ -300,20 +320,20 @@ You could also use a data-* attribute and content for this. That way "bloats" th
         margin-top: -3%;
     }
 
-    tr:first-child {
-        display: block;
-        visibility: hidden;
-        margin-bottom: -20%;
-    }
-
     .tasksTable {
-        margin-top: -60%;
+        margin-top: -10%;
     }
 }
 
 @media only screen and (max-width: 320px) {
     .tasksTable {
-        margin-top: -70%;
+        margin-top: -16%;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .groupmember {
+        display:block;
     }
 }
 

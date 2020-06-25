@@ -343,8 +343,8 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     cursor: pointer;
 }
 .fichNumb p, .btnForArea p{
-    font-size: 12px;
-    margin-top: -10px;
+    font-size: 11px;
+    margin-top: -3px;
 }
 #groupEventForm h3 {
     margin-bottom: 0;

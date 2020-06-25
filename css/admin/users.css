@@ -19,7 +19,7 @@ input{
 .admin-users-window-export{
     padding: 20px;
     box-sizing: border-box;
-    width: 33%;
+    width: 49%;
     display: inline-block;
     vertical-align: top;
 }
@@ -106,7 +106,7 @@ select{
     color:rgba(106, 192, 66, 0.7);
 }
 
-#showDemo, #showDemo2 {
+#showDemo, #showDemo2, #showDemo3, #showDemo4 {
     margin-left: 3%;
     font-size: 10px;
     text-transform: uppercase;
@@ -290,4 +290,9 @@ form#importFromCsv {
 
 #PesquisarAlunos, #PesquisarProfessores{
     display: inline-block;
+}
+
+#mobileMsg{
+    display: none;
+    font-size: 15px;
 }

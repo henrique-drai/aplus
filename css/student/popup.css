@@ -265,3 +265,11 @@ input[type="range"]::-webkit-slider-thumb:active {
     background-color: #ffc98bb0;
 }
 
+.groupMemberImg {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    margin-right: 5px;
+    border-radius: 100px;
+    border: 1px solid #ccc;
+}

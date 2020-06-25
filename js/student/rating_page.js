@@ -88,12 +88,13 @@ function getInfo(grupo_id){
             $(".notClassified").empty()
 
             if(data.class.length != 0 ){
+                console.log(data.class)
                 var info ="";
                 for(var i=0; i < data.class.length; i++) {
                     if(data.class[i].id != localStorage.user_id){
                         info+="<p class='classifiedMember' id=" + data.class[i].id + ">" + data.class[i].id 
-                                + " - " + data.class[i].name
-                                + " | Rate: " + data.rate[i]
+                                + " - " + data.class[i].name + " " + data.class[i].surname 
+                                + " | " + data.rate[i] + " <i class='fa fa-star'></i>"
                                 + "</p>";
 
                     
@@ -101,10 +102,10 @@ function getInfo(grupo_id){
                        
                         // info+= "<img src='http://localhost/aplus/uploads/profile/" + data.class[i].id + ".jpg'" + ">"
                        
-                        //  info+="<img src='http://localhost/aplus/uploads/profile/" + "default"+ ".jpg'" + ">"
+                        //  info+="<img class='groupMemberImg  ' src='http://localhost/aplus/uploads/profile/" + "default"+ ".jpg'" + ">"
                         // + "<p class='classifiedMember' id=" + data.class[i].id + ">" + data.class[i].id 
                         // + " - " + data.class[i].name
-                        // + " | Rate: " + data.rate[i]
+                        // + " | " + data.rate[i] + " <i class='fa fa-star'></i>"
                         // + "</p>";
 
                     }   
@@ -120,7 +121,7 @@ function getInfo(grupo_id){
                 for(var i=0; i < data.notClass.length; i++) {
                     if(data.notClass[i].id != localStorage.user_id){
                         info2+="<p class='toClassifyMember' id=" + data.notClass[i].id + ">"
-                                + data.notClass[i].id + " - " + data.notClass[i].name + "</p>";
+                                + data.notClass[i].id + " - " + data.notClass[i].name + " " + data.notClass[i].name + "</p>";
                     }
                 }
                 $(".notClassified").html(info2)

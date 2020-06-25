@@ -180,13 +180,13 @@ $(document).ready(() => {
             $("#error-popup").show();
             e.preventDefault();
         } else {
-            if($("#file_projeto")[0].files[0].size < 5024000){
+            if($("#file_projeto")[0].files[0].size < 2024000){
                 //msg de sucesso - reformular msgs de sucesso
                 // submit_new_enunciado(enunc);
                 $("#enunciado-form")[0].submit();
                 console.log(enunc);
             } else {
-                $("#error-popup").text("Ficheiro ultrapassa o limite máximo de 5MB");
+                $("#error-popup").text("Ficheiro ultrapassa o limite máximo de 2MB");
                 $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
                 $("#error-popup").show();
                 e.preventDefault();
@@ -246,11 +246,11 @@ $(document).ready(() => {
             $("#error-popup").show();
             e.preventDefault();
         } else {
-            if($("#file_etapa")[0].files[0].size < 5024000){
+            if($("#file_etapa")[0].files[0].size < 2024000){
                 // submit_new_etapa_enunciado(enunc);
                 $("#form-upload-etapa")[0].submit();
             } else {
-                $("#error-popup").text("Ficheiro ultrapassa limite de 5MB");
+                $("#error-popup").text("Ficheiro ultrapassa limite de 2MB");
                 $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
                 $("#error-popup").show();
                 $("#file-img-etapa").attr('src',base_url+"images/icons/upload-solid.png");
@@ -766,7 +766,7 @@ function createAddEnuncPopup(){
     '<label for="file_projeto" class="input-label">' +
     '<img id="file-img" class="file-img" src="'+base_url+'images/icons/upload-solid.png">' +
     '<span id="name-enunciado-proj" class="span-name">Envie o ficheiro do enunciado</span></label>' +
-    '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p>' +
+    '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 2MB</b></p>' +
     '</form>'
 
     $(".cd-message").html(popup);
@@ -854,7 +854,7 @@ function createEnunciadoEtapaPopup(){
     '<label for="file_etapa" class="input-label">'+
     '<img id="file-img-etapa" class="file-img" src="'+base_url+'images/icons/upload-solid.png">'+
     '<span id="name-enunciado-etapa" class="span-name">Envie o ficheiro do enunciado</span></label>'+
-    '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 5MB</b></p></form>'
+    '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 2MB</b></p></form>'
 
     $("#popup-form").html(form);
     $("#error-popup").remove();

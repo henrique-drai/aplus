@@ -32,7 +32,7 @@ class UploadsC extends CI_Controller {
             $upload['upload_path'] = $path;
             $upload['allowed_types'] = 'pdf';
             $upload['file_name'] = $project_id;
-            $upload['max_size'] = 5048;
+            $upload['max_size'] = 2048;
         
             $this->load->library('upload', $upload);
             $this->upload->initialize($upload);
@@ -90,7 +90,7 @@ class UploadsC extends CI_Controller {
             $upload['upload_path'] = './uploads/enunciados_files/' . strval($project_id) . '/';
             $upload['allowed_types'] = 'pdf';
             $upload['file_name'] = $etapa_id;
-            $upload['max_size'] = 5048;
+            $upload['max_size'] = 2048;
 
             $this->load->library('upload', $upload);
 
@@ -144,7 +144,7 @@ class UploadsC extends CI_Controller {
             $upload['upload_path'] = './uploads/submissions/' . strval($project_id) . '/' . strval($etapa_id) . '/';
             $upload['allowed_types'] = 'zip|rar|pdf|docx';
             $upload['file_name'] = $grupo_id;
-            $upload['max_size'] = 5048;
+            $upload['max_size'] = 2048;
             $upload['overwrite'] = true;
 
             $this->load->library('upload', $upload);
@@ -217,7 +217,7 @@ class UploadsC extends CI_Controller {
 
             $upload['upload_path'] = './uploads/grupo_files/' . strval($grupo_id) . '/';
             $upload['allowed_types'] = 'zip|rar|pdf|docx';
-            $upload['max_size'] = 5048;
+            $upload['max_size'] = 2048;
             $upload['overwrite'] = true;
 
             $this->load->library('upload', $upload);

@@ -9,11 +9,11 @@ $(document).ready(() => {
             $(".success-file").hide();
             e.preventDefault();
         } else {
-            if($("#file_submit")[0].files[0].size < 5024000){
+            if($("#file_submit")[0].files[0].size < 2024000){
                 // submit_ficheiro_grupo(grupo, $("#file_submit").val().split('\\').pop());   
                 console.log("vai ser enviado o ficheiro")
             } else {
-                $(".error-file").text("O ficheiro ultrapassa o limite máximo de 5MB");
+                $(".error-file").text("O ficheiro ultrapassa o limite máximo de 2MB");
                 $(".error-file").show();
                 $(".default-file").hide()
                 $(".success-file").hide();

@@ -50,7 +50,8 @@
 }
 
 #criarGrupo_button{
-    width: 30px;
+    width: 22px;
+    margin: 0px 0px -4px 3px;
     border-radius: 15px;
 }
 

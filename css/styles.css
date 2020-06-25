@@ -2,7 +2,7 @@
 * {
     /* Cross browser compatibility things */
     -moz-appearance: none;
-    -webkit-appearance: none;
+    -webkit-appearance: none;    
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -13,7 +13,17 @@
 }
 
 h1{
-    font-size:28px;
+    font-size: 24px;
+}
+h2{
+    font-size: 21px;
+}
+h3{
+    font-size: 17px;
+}
+h4{    
+    font-size: 14px;
+
 }
 
 html, body {
@@ -22,6 +32,7 @@ html, body {
     padding: 0px;
     height:100%;
     overflow-x: hidden;
+    font-size: 14px;
     /* font-size-adjust:0.5; */
 }
 body {
@@ -48,9 +59,9 @@ input, select, textarea, a.std-btn {
     font-family: 'Poppins', sans-serif;
 }
 
-input, select, textarea {
+input, select, textarea, a.std-btn {
     /* sim é estupido meter este font-size mas é o valor default que já tinha, meti pq no firefox ficava lixado */
-    font-size:13.3333px; 
+    font-size: 11px;
 }
 
 select {
@@ -74,7 +85,6 @@ a.std-btn{
 a.std-btn {
     text-decoration: none;
     color: black;
-    font-size: 13px;
     width: max-content;
 }
 

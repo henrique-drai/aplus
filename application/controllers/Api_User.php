@@ -55,44 +55,52 @@ class Api_User extends REST_Controller {
             "role"      => htmlspecialchars($this->post('role')),
         );
 
-        $this->load->model('UserModel');
+        $user = $this->UserModel->getUserByEmail($email);
+        if($user){
+            $data["userExists"] = true;
+            $this->response($data, parent::HTTP_CONFLICT);
+        }
+        else{  
+            $this->load->model('UserModel');
      
-        $retrieved = $this->UserModel->registerUser($data);
-        
-
-        if($data["role"] == 'student'){
-            $this->load->model('CourseModel');
-            $this->load->model('SubjectModel');
-            $cursoid = htmlspecialchars($this->post('curso'));
-            $dataCursoUser = Array(
-                "user_id"    => $retrieved["user_id"],
-                "curso_id"   => $cursoid,               
-            );
-            $this->CourseModel->insertAlunoCurso($dataCursoUser);
-            $cadeiras = $this->post('cadeiras');
-            foreach ($cadeiras as $cadeiraid){
-                $dataUserCadeira = Array(
-                    "user_id" => $retrieved["user_id"],
-                    "cadeira_id" => htmlspecialchars($cadeiraid),
-                    "is_completed" => 0,
-                );
-                $this->SubjectModel->insertAlunoCadeira($dataUserCadeira);
-            }
-        }
-        else if($data["role"] == 'teacher'){
-            $this->load->model('SubjectModel');
-            $cadeiras = $this->post('cadeiras');
-            foreach ($cadeiras as $cadeiraid){
-                $dataProf = Array(
+            $retrieved = $this->UserModel->registerUser($data);
+            
+            if($data["role"] == 'student'){
+                $this->load->model('CourseModel');
+                $this->load->model('SubjectModel');
+                $cursoid = htmlspecialchars($this->post('curso'));
+                $dataCursoUser = Array(
                     "user_id"    => $retrieved["user_id"],
-                    "cadeira_id"   => htmlspecialchars($cadeiraid),               
+                    "curso_id"   => $cursoid,               
                 );
-                $this->SubjectModel->insertProfCadeira($dataProf);
+                $this->CourseModel->insertAlunoCurso($dataCursoUser);
+                $cadeiras = $this->post('cadeiras');
+                foreach ($cadeiras as $cadeiraid){
+                    $dataUserCadeira = Array(
+                        "user_id" => $retrieved["user_id"],
+                        "cadeira_id" => htmlspecialchars($cadeiraid),
+                        "is_completed" => 0,
+                    );
+                    $this->SubjectModel->insertAlunoCadeira($dataUserCadeira);
+                }
             }
+            else if($data["role"] == 'teacher'){
+                $this->load->model('SubjectModel');
+                $cadeiras = $this->post('cadeiras');
+                foreach ($cadeiras as $cadeiraid){
+                    $dataProf = Array(
+                        "user_id"    => $retrieved["user_id"],
+                        "cadeira_id"   => htmlspecialchars($cadeiraid),               
+                    );
+                    $this->SubjectModel->insertProfCadeira($dataProf);
+                }
+            }
+
+
+            $this->response(json_encode($retrieved), parent::HTTP_OK);
+
         }
-
-
-        $this->response(json_encode($retrieved), parent::HTTP_OK);
+        
     }
 
     public function editUser_post(){ 

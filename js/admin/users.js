@@ -665,8 +665,14 @@ function submitRegister(){
                     $("#msgStatus").show().delay(2000).fadeOut();
                 },
                 error: function(data) {
-                    $("#msgErro").text("Não foi possivel registar o utilizador.");
-                    $("#msgErro").show().delay(2000).fadeOut();
+                    if(data["responseJSON"]["userExists"]){
+                        $("#msgErro").text("Email indicado já está em uso.");
+                        $("#msgErro").show().delay(2000).fadeOut();
+                    }
+                    else{   
+                        $("#msgErro").text("Não foi possivel registar o utilizador.");
+                        $("#msgErro").show().delay(2000).fadeOut();
+                    }
                 }
             });
         }
@@ -700,7 +706,12 @@ function submitRegister(){
                     $("#registerUserCurso").val("");
                 },
                 error: function(data) {
-                    $("#msgErro").text("Não foi possivel registar o utilizador.");
+                    if(data["responseJSON"]["userExists"]){
+                        $("#msgErro").text("Email indicado já está em uso.");
+                    }
+                    else{   
+                        $("#msgErro").text("Não foi possivel registar o utilizador.");
+                    }
                     $("#msgErro").show().delay(2000).fadeOut();
                 }
             });
@@ -735,8 +746,14 @@ function submitRegister(){
                     $("#registerUserCurso").val("");
                 },
                 error: function(data) {
-                    $("#msgErro").text("Não foi possivel registar o utilizador.");
-                    $("#msgErro").show().delay(2000).fadeOut();
+                    if(data["responseJSON"]["userExists"]){
+                        $("#msgErro").text("Email indicado já está em uso.");
+                        $("#msgErro").show().delay(2000).fadeOut();
+                    }
+                    else{   
+                        $("#msgErro").text("Não foi possivel registar o utilizador.");
+                        $("#msgErro").show().delay(2000).fadeOut();
+                    }
                 }
             });
         }
@@ -745,7 +762,6 @@ function submitRegister(){
             $("#msgErro").show().delay(2000).fadeOut();
         }
     }
-    
 }
 
 

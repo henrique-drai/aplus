@@ -126,13 +126,13 @@ $(document).ready(() => {
         const mq = window.matchMedia( "(max-width: 640px)" );
         if (mq.matches) {
             $("#removePadding").text("Formato ficheiro '.csv' de importação - Alunos ");
-            $('#csvExample').attr("src", path.replace("csv_teacher.png", "csv_student.png"));
+            $('#csvExample').attr("src", path.replace(path.split("/").slice(-1), "csv_student.png"));
             $("#csvExample").css("width","");
             $('#import_csv_style').addClass('is-visible');
         }
         else{
             $("#removePadding").text("Formato ficheiro '.csv' de importação - Alunos ");
-            $('#csvExample').attr("src", path.replace("csv_teacher.png", "csv_student.png"));
+            $('#csvExample').attr("src", path.replace(path.split("/").slice(-1), "csv_student.png"));
             $("#csvExample").css("width","420px");
             $('#import_csv_style').addClass('is-visible');
         }
@@ -145,12 +145,12 @@ $(document).ready(() => {
         const mq = window.matchMedia( "(max-width: 640px)" );
         if (mq.matches) {
             $("#removePadding").text("Formato ficheiro '.csv' de importação - Professores")
-            $('#csvExample').attr("src", path.replace("csv_student.png", "csv_teacher.png"));
+            $('#csvExample').attr("src", path.replace(path.split("/").slice(-1), "csv_teacher.png"));
             $('#import_csv_style').addClass('is-visible');
         }
         else{
             $("#removePadding").text("Formato ficheiro '.csv' de importação - Professores")
-            $('#csvExample').attr("src", path.replace("csv_student.png", "csv_teacher.png"));
+            $('#csvExample').attr("src", path.replace(path.split("/").slice(-1), "csv_teacher.png"));
             $("#csvExample").css("width","529px");
 
             $('#import_csv_style').addClass('is-visible');
@@ -161,11 +161,22 @@ $(document).ready(() => {
         event.preventDefault();
         $('#csvExample').css("display","inline-block");
         $("#mobileMsg").css("display","none");
-        $("#removePadding").text("Formato ficheiro '.csv' de importação - Unidades Curriculares")
-        // $('#csvExample').attr("src", path.replace("csv_student.png", "csv_teacher.png"));
-        $("#csvExample").css("width","529px");
+        const mq = window.matchMedia( "(max-width: 640px)" );
+        if (mq.matches) {
+            $("#removePadding").text("Formato ficheiro '.csv' de importação - Unidades Curriculares")
+            $('#csvExample').css("display","none");
+            $("#mobileMsg").css("display","block");
+            $("#mobileMsg").text("Email do Aluno,Ano Letivo,Siglas da Faculdade,Nome do Curso,Nome da Cadeira")
 
-        $('#import_csv_style').addClass('is-visible');
+            $('#import_csv_style').addClass('is-visible');
+        }
+        else{
+            $("#removePadding").text("Formato ficheiro '.csv' de importação - Unidades Curriculares")
+            $('#csvExample').attr("src", path.replace(path.split("/").slice(-1), "csv_uc_turmas.png"));
+            $("#csvExample").css("width","529px");
+
+            $('#import_csv_style').addClass('is-visible');
+        }
     });
     $('body').on("click", "#showDemo4",function() {
         event.preventDefault();
@@ -181,7 +192,7 @@ $(document).ready(() => {
         }
         else{
             $("#removePadding").text("Formato ficheiro '.csv' de importação - Grupos")
-            $('#csvExample').attr("src", path.replace("csv_student.png", "csv_grupos.png"));
+            $('#csvExample').attr("src", path.replace(path.split("/").slice(-1), "csv_grupos.png"));
             $("#csvExample").css("width","750px");
 
             $(".cd-popup-container").css("max-width","800px")
@@ -225,6 +236,7 @@ $(document).ready(() => {
         }
 
     }) ;
+
     $("#yearsDisplay").change(function(){
         if($("#yearsDisplay").val()!="Selecione um Ano Letivo" && $("#collegesDisplay").val()!="Selecione uma Faculdade"){
             getCursosFaculdade($("#yearsDisplay").val(), $("#collegesDisplay").val());
@@ -418,11 +430,7 @@ $(document).ready(() => {
     
                         }
             })
-        }
-        else if(value == "studentsUC"){
-            console.log("lol")
-        }
-       
+        }       
     })
 
     
@@ -820,7 +828,8 @@ function submitRegister(){
 
 
 function getCursosFaculdade(ano, faculdade){
-
+    $("#coursesDisplay").remove();
+    $("#exportInfo2").remove();
     const data = {
         faculdade:          faculdade,
         anoletivo:          ano,
@@ -836,7 +845,6 @@ function getCursosFaculdade(ano, faculdade){
                 for (i=0; i<data.courses.length; i++){
                     option+= "<option value='" + data.courses[i].id + "'>"+ data.courses[i].name  + "</option>"
                 }
-                console.log(12)
                 $("#export2Csv").append("<select id='coursesDisplay' name='courses'></select>")
                 $("#coursesDisplay").html(option)
                 $("#export2Csv").append("<input type='submit' id='exportInfo2' value='Exportar'>")

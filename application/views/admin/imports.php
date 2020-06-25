@@ -39,9 +39,9 @@
                 
                     <input type="submit" id="exportInfo" value="Exportar">
                 </form>
-
+                <br>
                 <form id="export2Csv" action="javascript:void(0)">
-                        
+                    
                     <select id="collegesDisplay" name="colleges">
                     </select>
 
@@ -53,6 +53,7 @@
 
                     <div id="collegeStatus">
                     </div>
+                    <br>
                 </form>
 
                 <br>

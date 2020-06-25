@@ -385,9 +385,9 @@ function getChatHistory(id_sender,limit){
         data: {id_sender,limit},
         success: function(data) {
             makeMsgHistory(data,id_sender);
-            $(".headName").html('<div class="chatter"><h3>'+ data.user.name + ' ' + data.user.surname +'</h3></div>')
+            $(".headName").html('<div class="chatter"><a class="profile_chat" href="'+ base_url +'app/profile/'+ data.user.id +'"><h3 class="memberName">'+ data.user.name + ' ' + data.user.surname +'</h3></a></div>')
             $(".type-msg").css("display","block")
-           
+            // href="'+ base_url +'app/profile/'+ data["users"][j]["id"] + '">'
             if(data.msg.length==limit && flagLimit){
                 // console.log("123")
                 flagLoadedMsg=true
@@ -436,7 +436,7 @@ function getChatGroupHistory(id_group,limit){
             makeGroupMsgHistory(data);
             nomeGrupo = "Projeto " + data[0] + " - Grupo " + data[1];
 
-            $(".headName").html('<div class="chatter"><h3>'+ nomeGrupo +'</h3></div>')
+            $(".headName").html('<div class="chatter"><a href="'+ base_url +'app/profile/'+ data.user.id +'"><h3>'+ nomeGrupo +'</h3></a></div>')
             // bindEnterChatGroup()
             $(".type-msg").css("display","block")
             if(flagScroll==false){

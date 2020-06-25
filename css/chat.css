@@ -10,6 +10,22 @@ main {
 .mens_erro_conversas{
     margin-left: 6px;
 }
+
+.memberName {
+    display: inline;
+    /* margin: 35px; */
+    color: #15435a;
+}
+
+.memberName:hover{
+    color: rgb(20, 118, 167);
+    text-decoration: underline;
+}
+
+.profile_chat{
+    text-decoration: none;
+}
+
 #all-chat{
     width: 100%;
     display: inline-flex;

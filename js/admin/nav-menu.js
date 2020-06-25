@@ -19,7 +19,7 @@ $(document).ready(() => {
         },  
         "subjects": {
             "href": base_url + "app/admin/subjects",
-            "name": "Cadeiras"
+            "name": "Unidades Curriculares"
         },
         "utilizadores": {
             "href": base_url + "app/admin/users",
@@ -27,7 +27,7 @@ $(document).ready(() => {
         },
         "imports": {
             "href": base_url + "app/admin/imports",
-            "name": "Importar Dados"
+            "name": "Exportar/Importar Dados"
         },
         "chat": {
             "href": base_url + "app/chat",

@@ -193,8 +193,10 @@ function disableTasksClose() {
             if (new Date(data.date) < Date.now()){
                 $("#newTarefa").remove();
                 
-                $('.tasksTable thead tr th:last').remove(); 
-                $(".tasksTable th:last-child, .tasksTable td:last-child").remove();           
+                
+                $('table tr').find('td:eq(5),th:eq(5)').remove();
+                //apaga botao de opçoes
+               // $('table tr').find('td:eq(4),th:eq(4)').remove();
             		
             }
         },

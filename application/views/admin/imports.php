@@ -14,7 +14,7 @@
 <?php $this->view('templates/nav-menu'); ?>
     <main>
     <h4 class="breadcrumb"><a href="<?php echo base_url(); ?>app">Painel de Controlo</a> > Importar Dados</h4>
-        <h1>Funções de Importar</h1>
+        <h1>Funções de Exportar/Importar</h1>
 
 
 <!------------------------------------ COLUNA 1 ------------------------------------------------------------------->

@@ -78,7 +78,7 @@ label {
     margin-top: -42px;
 }
 
-#addEtapa:hover, .labelRemove img:hover{
+#addEtapa img:hover, .labelRemove img:hover{
     background-color:rgb(194, 194, 194);
 }
 

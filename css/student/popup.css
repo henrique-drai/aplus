@@ -25,6 +25,7 @@
 
 
 .toClassifyMember {
+    text-decoration: underline;
     cursor: pointer;
     width: 25%;
 }
@@ -273,3 +274,4 @@ input[type="range"]::-webkit-slider-thumb:active {
     border-radius: 100px;
     border: 1px solid #ccc;
 }
+

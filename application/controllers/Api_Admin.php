@@ -325,7 +325,7 @@ class Api_Admin extends REST_Controller {
         $role = htmlspecialchars($this -> get("role"));
         
         $file = fopen('php://output','w');
-        $header = array("Name", "Surname", "Email","Role", "Password");
+        $header = array("Name", "Surname", "Email");
 
         if($role == "student"){
             $info = $this -> UserModel -> getStudents();
@@ -339,7 +339,7 @@ class Api_Admin extends REST_Controller {
 
         fputcsv($file, $header);
         foreach($info as $user){
-            $dados = array($user['name'], $user['surname'],$user['email'],$user['role'],$user['password']);
+            $dados = array($user['name'], $user['surname'],$user['email']);
             fputcsv($file, $dados);
         }
         fclose($file);
@@ -358,7 +358,7 @@ class Api_Admin extends REST_Controller {
         }
   
         $file = fopen('php://output','w');
-        $header = array("Name", "Surname", "Email","Role", "Password");
+        $header = array("Name", "Surname", "Email");
 
         // $college = $this -> get('college');        
         // $year = $this -> get('year');           
@@ -370,7 +370,7 @@ class Api_Admin extends REST_Controller {
         for($i=0; $i<count($data["students"]);$i++){
 
             $path = $this -> UserModel -> getUserById($data["students"][$i]['user_id']);
-            $dados = array($path -> name, $path -> surname,$path -> email, $path -> role, $path -> password);
+            $dados = array($path -> name, $path -> surname,$path -> email);
             fputcsv($file, $dados);
         }
         fclose($file);

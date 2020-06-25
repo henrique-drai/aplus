@@ -375,7 +375,7 @@ function checkClosedProject(){
                         <p class='small-font'>A data limite foi ultrapassada.<p></div>")
                 }
                 else{
-                    $("#btnArea>div:eq(1)").after("<input id='ratingmembros' type='button' value='Classificar Membros'>")
+                    $("#btnArea>div:eq(1)").after("<div class='btnForArea'><input id='ratingmembros' type='button' value='Classificar Membros'></div>")
 
                 }
                 // $("#btnArea").append("<input id='ratingmembros' type='button' value='Rating Membros'>")

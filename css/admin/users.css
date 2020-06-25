@@ -90,6 +90,11 @@ select{
     border-radius: 3px;
 }
 
+#collegeStatus{
+    margin-top:10px;
+    display: none;
+}
+
 #msgStatus, #importSuccess{
     background-color: rgba(106, 192, 66, 0.7);
     text-align: center;

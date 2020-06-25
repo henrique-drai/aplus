@@ -6,6 +6,43 @@ $(document).ready(() => {
     getYears();
     getColleges();
 
+     
+
+    $('#exportSelect').on('change', function() {
+
+        if(this.value == "studentsUC"){
+
+            $("#collegesDisplay").val("Selecione uma Faculdade")
+            $("#yearsDisplay").val("Selecione um Ano Letivo")
+
+
+            // dar display block
+            $("#collegesDisplay").css("display","block");
+            $("#yearsDisplay").css("display","block");
+            $("#coursesDisplay").css("display","block");
+            $("#exportInfo").css("display","none");
+            
+
+        }
+        else if(this.value == 0){
+            $("#exportInfo").css("display","none")
+
+        }
+        else{
+            
+            // dar display none
+
+            $("#collegesDisplay").css("display","none");
+            $("#yearsDisplay").css("display","none");
+            $("#coursesDisplay").css("display","none");
+            $("#exportInfo").css("display","block");
+            $("#exportInfo2").css("display","none");
+            
+        }
+    
+    });
+
+
     $("body").on("click","#PesquisarAlunos", function(){
         window.location.href = base_url + "app/admin/students";
     });
@@ -89,13 +126,13 @@ $(document).ready(() => {
         const mq = window.matchMedia( "(max-width: 640px)" );
         if (mq.matches) {
             $("#removePadding").text("Formato ficheiro '.csv' de importação - Alunos ");
-            $('#csvExample').attr("src", path.replace("csv_teacher.png", "csv_student.png"));
+            $('#csvExample').attr("src", path.replace(path.split("/").slice(-1), "csv_student.png"));
             $("#csvExample").css("width","");
             $('#import_csv_style').addClass('is-visible');
         }
         else{
             $("#removePadding").text("Formato ficheiro '.csv' de importação - Alunos ");
-            $('#csvExample').attr("src", path.replace("csv_teacher.png", "csv_student.png"));
+            $('#csvExample').attr("src", path.replace(path.split("/").slice(-1), "csv_student.png"));
             $("#csvExample").css("width","420px");
             $('#import_csv_style').addClass('is-visible');
         }
@@ -108,12 +145,12 @@ $(document).ready(() => {
         const mq = window.matchMedia( "(max-width: 640px)" );
         if (mq.matches) {
             $("#removePadding").text("Formato ficheiro '.csv' de importação - Professores")
-            $('#csvExample').attr("src", path.replace("csv_student.png", "csv_teacher.png"));
+            $('#csvExample').attr("src", path.replace(path.split("/").slice(-1), "csv_teacher.png"));
             $('#import_csv_style').addClass('is-visible');
         }
         else{
             $("#removePadding").text("Formato ficheiro '.csv' de importação - Professores")
-            $('#csvExample').attr("src", path.replace("csv_student.png", "csv_teacher.png"));
+            $('#csvExample').attr("src", path.replace(path.split("/").slice(-1), "csv_teacher.png"));
             $("#csvExample").css("width","529px");
 
             $('#import_csv_style').addClass('is-visible');
@@ -124,11 +161,22 @@ $(document).ready(() => {
         event.preventDefault();
         $('#csvExample').css("display","inline-block");
         $("#mobileMsg").css("display","none");
-        $("#removePadding").text("Formato ficheiro '.csv' de importação - Unidades Curriculares")
-        // $('#csvExample').attr("src", path.replace("csv_student.png", "csv_teacher.png"));
-        $("#csvExample").css("width","529px");
+        const mq = window.matchMedia( "(max-width: 640px)" );
+        if (mq.matches) {
+            $("#removePadding").text("Formato ficheiro '.csv' de importação - Unidades Curriculares")
+            $('#csvExample').css("display","none");
+            $("#mobileMsg").css("display","block");
+            $("#mobileMsg").text("Email do Aluno,Ano Letivo,Siglas da Faculdade,Nome do Curso,Nome da Cadeira")
 
-        $('#import_csv_style').addClass('is-visible');
+            $('#import_csv_style').addClass('is-visible');
+        }
+        else{
+            $("#removePadding").text("Formato ficheiro '.csv' de importação - Unidades Curriculares")
+            $('#csvExample').attr("src", path.replace(path.split("/").slice(-1), "csv_uc_turmas.png"));
+            $("#csvExample").css("width","529px");
+
+            $('#import_csv_style').addClass('is-visible');
+        }
     });
     $('body').on("click", "#showDemo4",function() {
         event.preventDefault();
@@ -144,12 +192,16 @@ $(document).ready(() => {
         }
         else{
             $("#removePadding").text("Formato ficheiro '.csv' de importação - Grupos")
-            $('#csvExample').attr("src", path.replace("csv_student.png", "csv_grupos.png"));
+            $('#csvExample').attr("src", path.replace(path.split("/").slice(-1), "csv_grupos.png"));
             $("#csvExample").css("width","750px");
 
             $(".cd-popup-container").css("max-width","800px")
             $('#import_csv_style').addClass('is-visible');
         }
+
+
+
+      
         
     });
 
@@ -184,6 +236,7 @@ $(document).ready(() => {
         }
 
     }) ;
+
     $("#yearsDisplay").change(function(){
         if($("#yearsDisplay").val()!="Selecione um Ano Letivo" && $("#collegesDisplay").val()!="Selecione uma Faculdade"){
             getCursosFaculdade($("#yearsDisplay").val(), $("#collegesDisplay").val());
@@ -339,40 +392,45 @@ $(document).ready(() => {
 
 
     $("#exportCsv").on("submit", function(e) {
-        e.preventDefault()
-        $.ajax({
-            type: "GET", 
-            url: base_url + "api/saveCSV",
-            data:{role:$("#exportCsv select").val()},
-            success:function(data){
-            
-                    var downloadLink = document.createElement("a");
-                    var fileData = ['\ufeff'+data];   
 
-                    var blobObject = new Blob(fileData,{
-                        type: "text/csv;charset=utf-8;"
-                    });
+        var value = $("#exportCsv select").val()
 
-                    var url = URL.createObjectURL(blobObject);
-                    downloadLink.href = url;
-                    var role = $("#exportCsv select").val();
-
-                    if(role=="student"){
-                        downloadLink.download = "students.csv";
-                    }
-                    else if(role=="teacher"){
-                        downloadLink.download = "teachers.csv";
-                    }
-                    else{
-                        downloadLink.download = "studentsTeachers.csv";
-                    }
-                    
-                    document.body.appendChild(downloadLink);
-                    downloadLink.click();
-                    document.body.removeChild(downloadLink);
-
-                    }
-        })
+        if(value == "student" || value == "teacher" || value=="studentsTeachers" ){
+            e.preventDefault()
+            $.ajax({
+                type: "GET", 
+                url: base_url + "api/saveCSV",
+                data:{role:$("#exportCsv select").val()},
+                success:function(data){
+                
+                        var downloadLink = document.createElement("a");
+                        var fileData = ['\ufeff'+data];   
+    
+                        var blobObject = new Blob(fileData,{
+                            type: "text/csv;charset=utf-8;"
+                        });
+    
+                        var url = URL.createObjectURL(blobObject);
+                        downloadLink.href = url;
+                        var role = $("#exportCsv select").val();
+    
+                        if(role=="student"){
+                            downloadLink.download = "students.csv";
+                        }
+                        else if(role=="teacher"){
+                            downloadLink.download = "teachers.csv";
+                        }
+                        else{
+                            downloadLink.download = "studentsTeachers.csv";
+                        }
+                        
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click();
+                        document.body.removeChild(downloadLink);
+    
+                        }
+            })
+        }       
     })
 
     
@@ -770,7 +828,8 @@ function submitRegister(){
 
 
 function getCursosFaculdade(ano, faculdade){
-
+    $("#coursesDisplay").remove();
+    $("#exportInfo2").remove();
     const data = {
         faculdade:          faculdade,
         anoletivo:          ano,
@@ -786,7 +845,6 @@ function getCursosFaculdade(ano, faculdade){
                 for (i=0; i<data.courses.length; i++){
                     option+= "<option value='" + data.courses[i].id + "'>"+ data.courses[i].name  + "</option>"
                 }
-           
                 $("#export2Csv").append("<select id='coursesDisplay' name='courses'></select>")
                 $("#coursesDisplay").html(option)
                 $("#export2Csv").append("<input type='submit' id='exportInfo2' value='Exportar'>")

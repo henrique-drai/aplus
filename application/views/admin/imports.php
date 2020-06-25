@@ -109,7 +109,6 @@
 
 
                 <form id="importFromCsv" action="javascript:void(0)" enctype="multipart/form-data">                
-                    <br id="bk">
 
                     <select id="collegesDisplay1" name="colleges">
                     </select>

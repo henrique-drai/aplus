@@ -25,6 +25,7 @@
 
 
 .toClassifyMember {
+    text-decoration: underline;
     cursor: pointer;
     width: 25%;
 }

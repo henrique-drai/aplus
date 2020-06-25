@@ -159,7 +159,7 @@
                 <form id="teachersImport" action="javascript:void(0)" enctype="multipart/form-data">
                     <input class="form-input-file" type="file" id="file_projeto" name="userfile" title="Escolher enunciado" required accept=".csv">
                     <label for="file_projeto" class="input-label">
-                    <img id="file-img" class="file-img" src="<?php echo base_url(); ?>images/icons/upload-solid.png">
+                    <img id="file-img" class="file-img" src="images/icons/upload-solid.png">
                     <span id="name-enunciado-proj" class="span-name">Enviar ficheiro .csv</span></label>
                     <input type='submit' id='importTeachers'  value='Importar'>
                 </form>
@@ -213,7 +213,7 @@
         <div class="cd-popup" role="alert" id="import_csv_style">
             <div class="cd-popup-container">
                 <p id="removePadding">Formato ficheiro ".csv" para importação</p>
-                <img id="csvExample" src="<?=base_url()?>images/csv_student.png" alt="csv_example">
+                <img id="csvExample" src="images/csv_student.png" alt="csv_example">
                 <ul class="cd-buttons">
                     <li id="fullW"><a href="#" id="closePopUp">Fechar</a></li>
                 </ul>

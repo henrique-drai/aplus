@@ -253,6 +253,9 @@ select#coursesDisplay1 {
 form#importFromCsv {
     display: none;
 }
+#importFromCsv{
+    margin-top: 20px;
+}
 .cd-message form {
     width: 96%;
 }

@@ -28,9 +28,11 @@
                     <label for="data">Exportar dados:</label>
                         
                         <select name="role">
-                            <option value="student">Alunos</option>
-                            <option value="teacher">Professores</option>
+                            <option value="student">Todos os Alunos</option>
+                            <option value="teacher">Todos os Professores</option>
                             <option value="studentsTeachers">Alunos + Professores</option>
+                            <option value='studentsCourse'>Alunos (de um respetivo curso)</option>
+
                         </select>
                 </p><p>
                     <input type="submit" id="exportInfo" value="Exportar">
@@ -89,7 +91,6 @@
 
 
                 <form id="importFromCsv" action="javascript:void(0)" enctype="multipart/form-data">                
-                    <br id="bk">
 
                     <select id="collegesDisplay1" name="colleges">
                     </select>

@@ -2,7 +2,7 @@ h1.page-title {
     margin-bottom: 0;
 }
 a.profile-preview {
-    font-size: 14px;
+    font-size: 13px;
     color: #15435a
 }
 
@@ -20,11 +20,7 @@ a.profile-preview {
     padding-left: 0px;
     margin: auto;
 }
-.picture-form input[type=submit] {
-    border: 1px solid #aaa;
-    border-radius: 5px;
-    background-color: white;
-}
+
 
 
 

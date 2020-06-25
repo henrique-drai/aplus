@@ -6,6 +6,43 @@ $(document).ready(() => {
     getYears();
     getColleges();
 
+     
+
+    $('#exportSelect').on('change', function() {
+
+        if(this.value == "studentsUC"){
+
+            $("#collegesDisplay").val("Selecione uma Faculdade")
+            $("#yearsDisplay").val("Selecione um Ano Letivo")
+
+
+            // dar display block
+            $("#collegesDisplay").css("display","block");
+            $("#yearsDisplay").css("display","block");
+            $("#coursesDisplay").css("display","block");
+            $("#exportInfo").css("display","none");
+            
+
+        }
+        else if(this.value == 0){
+            $("#exportInfo").css("display","none")
+
+        }
+        else{
+            
+            // dar display none
+
+            $("#collegesDisplay").css("display","none");
+            $("#yearsDisplay").css("display","none");
+            $("#coursesDisplay").css("display","none");
+            $("#exportInfo").css("display","block");
+            $("#exportInfo2").css("display","none");
+            
+        }
+    
+    });
+
+
     $("body").on("click","#PesquisarAlunos", function(){
         window.location.href = base_url + "app/admin/students";
     });
@@ -150,6 +187,10 @@ $(document).ready(() => {
             $(".cd-popup-container").css("max-width","800px")
             $('#import_csv_style').addClass('is-visible');
         }
+
+
+
+      
         
     });
 
@@ -339,40 +380,49 @@ $(document).ready(() => {
 
 
     $("#exportCsv").on("submit", function(e) {
-        e.preventDefault()
-        $.ajax({
-            type: "GET", 
-            url: base_url + "api/saveCSV",
-            data:{role:$("#exportCsv select").val()},
-            success:function(data){
-            
-                    var downloadLink = document.createElement("a");
-                    var fileData = ['\ufeff'+data];   
 
-                    var blobObject = new Blob(fileData,{
-                        type: "text/csv;charset=utf-8;"
-                    });
+        var value = $("#exportCsv select").val()
 
-                    var url = URL.createObjectURL(blobObject);
-                    downloadLink.href = url;
-                    var role = $("#exportCsv select").val();
-
-                    if(role=="student"){
-                        downloadLink.download = "students.csv";
-                    }
-                    else if(role=="teacher"){
-                        downloadLink.download = "teachers.csv";
-                    }
-                    else{
-                        downloadLink.download = "studentsTeachers.csv";
-                    }
-                    
-                    document.body.appendChild(downloadLink);
-                    downloadLink.click();
-                    document.body.removeChild(downloadLink);
-
-                    }
-        })
+        if(value == "student" || value == "teacher" || value=="studentsTeachers" ){
+            e.preventDefault()
+            $.ajax({
+                type: "GET", 
+                url: base_url + "api/saveCSV",
+                data:{role:$("#exportCsv select").val()},
+                success:function(data){
+                
+                        var downloadLink = document.createElement("a");
+                        var fileData = ['\ufeff'+data];   
+    
+                        var blobObject = new Blob(fileData,{
+                            type: "text/csv;charset=utf-8;"
+                        });
+    
+                        var url = URL.createObjectURL(blobObject);
+                        downloadLink.href = url;
+                        var role = $("#exportCsv select").val();
+    
+                        if(role=="student"){
+                            downloadLink.download = "students.csv";
+                        }
+                        else if(role=="teacher"){
+                            downloadLink.download = "teachers.csv";
+                        }
+                        else{
+                            downloadLink.download = "studentsTeachers.csv";
+                        }
+                        
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click();
+                        document.body.removeChild(downloadLink);
+    
+                        }
+            })
+        }
+        else if(value == "studentsUC"){
+            console.log("lol")
+        }
+       
     })
 
     
@@ -786,7 +836,7 @@ function getCursosFaculdade(ano, faculdade){
                 for (i=0; i<data.courses.length; i++){
                     option+= "<option value='" + data.courses[i].id + "'>"+ data.courses[i].name  + "</option>"
                 }
-           
+                console.log(12)
                 $("#export2Csv").append("<select id='coursesDisplay' name='courses'></select>")
                 $("#coursesDisplay").html(option)
                 $("#export2Csv").append("<input type='submit' id='exportInfo2' value='Exportar'>")

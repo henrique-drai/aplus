@@ -3,8 +3,9 @@
 
 <script src="<?php echo $base_url; ?>js/admin/users.js"></script>
 <script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/admin/users.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>css/popup.css">
+
 
 
 
@@ -24,21 +25,39 @@
                 <div class="title">Exportar</div>                  
                 
                 <form id="exportCsv">
-                <p>
+                
                     <label for="data">Exportar dados:</label>
                         
-                        <select name="role">
-                            <option value="student">Alunos</option>
-                            <option value="teacher">Professores</option>
-                            <option value="studentsTeachers">Alunos + Professores</option>
+                        <select name="role" id="exportSelect">
+                            <option value="0">Selecione uma opção</option>
+                            <option value="studentsUC">Alunos respetivo curso</option>
+                            <option value="student">Todos os Alunos</option>
+                            <option value="teacher">Todos os Professores</option>
+                            <option value="studentsTeachers">Todos os Alunos e Professores</option>
+
                         </select>
-                </p><p>
+                
                     <input type="submit" id="exportInfo" value="Exportar">
+                </form>
+
+                <form id="export2Csv" action="javascript:void(0)">
+                        
+                    <select id="collegesDisplay" name="colleges">
+                    </select>
+
+                    <br>
+
+                    <select id="yearsDisplay" name="years">
+                    </select>
+
+
+                    <div id="collegeStatus">
+                    </div>
                 </form>
 
                 <br>
                 
-                <form id="export2Csv" action="javascript:void(0)">
+                <!-- <form id="export2Csv" action="javascript:void(0)">
 
                         <div class="title">Exportar</div>
 
@@ -54,8 +73,8 @@
 
 
                             <div id="collegeStatus">
-                            </div>                    
-                </form>
+                            </div>
+                </form> -->
         </div>
 
 

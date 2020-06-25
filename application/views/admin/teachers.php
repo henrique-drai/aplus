@@ -8,6 +8,7 @@
 
 <script src="<?php echo $base_url; ?>js/admin/manageUsers.js"></script>
 <script src="<?php echo $base_url; ?>js/pagination.min.js"></script>
+<script>setPageType("teachers")</script>
 </head>
 
 <body>

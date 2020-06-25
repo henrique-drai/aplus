@@ -1,5 +1,6 @@
 var User
 var responsive = 0; 
+var page_type;
 
 $(document).ready(() => {
     $("body").on("click", "#editUser-form-submit", () => editUser());    
@@ -61,8 +62,8 @@ $(document).ready(() => {
 		}
     });
 
-
-    if (page_name=="students"){
+    if (page_type=="students"){
+        
         $("#search_text_students").keyup(function(event){
             var s = $(this).val();
             if(s == '*'){
@@ -80,7 +81,7 @@ $(document).ready(() => {
                 $(".paginationjs").remove();
             }
         })
-    } else if (page_name=="teachers") {
+    } else if (page_type=="teachers") {
         $("#search_text_profs").keyup(function(event){
             var s = $(this).val();
             if(s=="*"){
@@ -107,14 +108,14 @@ function deleteUser(linha){
         url: base_url + "api/deleteUser",
         data: {email: linha.find("td:eq(0)").text()},
         success: function() {
-            if (page_name=="students"){
+            if (page_type=="students"){
                 if($("#search_text_students").val()=="*"){
                     getAllStudents();
                 }
                 else{
                     getSearchStudent($("#search_text_students").val());
                 }   
-            } else if (page_name=="teachers") {
+            } else if (page_type=="teachers") {
                 if($("#search_text_profs").val()=="*"){
                     getAllTeachers();
                 }
@@ -159,7 +160,7 @@ function editUser(){
             $("#msgStatus").text("Utilizador editado com sucesso");
             $("#msgStatus").show().delay(5000).fadeOut();
 
-            if (page_name=="students"){
+            if (page_type=="students"){
                 if($("#search_text_students").val()=="*"){
                     getAllStudents();
                 }
@@ -171,7 +172,7 @@ function editUser(){
                 $("#users_admin_edit").removeClass('is-visible');
                 
                 
-            } else if (page_name=="teachers") {
+            } else if (page_type=="teachers") {
                 if($("#search_text_profs").val()=="*"){
                     getAllTeachers();
                 }
@@ -401,3 +402,6 @@ function makeTeacherTable(data){
 
 
 
+function setPageType(type){
+    page_type = type;
+}

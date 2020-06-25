@@ -199,7 +199,6 @@ function updateTaskPopup(task_id, proj_name, tr_id){
         type: "GET",
         url: base_url + "api/getTaskById/" + task_id,
         success: function(data) {
-            // console.log(data)
             var popup = '';
 
             popup = popup +                 

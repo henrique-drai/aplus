@@ -1,6 +1,11 @@
 $(document).ready(() => {
     setInterval(getFich, 5000);
 
+    $('body').on('click', '.quitGroupButton', function(){
+        var groupid = $(this).attr("id").split('"')[1];
+        leaveGroupPage(groupid);
+    })
+
     const months = {
         "Janeiro":1,
         "Fevereiro":2,
@@ -150,6 +155,14 @@ $(document).ready(() => {
     })    
 });
 
+function leaveGroupPage(groupid){
+    $.ajax({
+        type: "DELETE",
+        url: base_url + "api/leaveMyGroup",
+        data: {grupo_id: groupid},
+    });
+}
+
 function getFich() {
     $.ajax({
 		type: "GET",
@@ -180,8 +193,10 @@ function disableTasksClose() {
             if (new Date(data.date) < Date.now()){
                 $("#newTarefa").remove();
                 
-                $('.tasksTable thead tr th:last').remove(); 
-                $(".tasksTable th:last-child, .tasksTable td:last-child").remove();           
+                
+                $('table tr').find('td:eq(5),th:eq(5)').remove();
+                //apaga botao de opçoes
+               // $('table tr').find('td:eq(4),th:eq(4)').remove();
             		
             }
         },

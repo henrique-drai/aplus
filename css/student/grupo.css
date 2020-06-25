@@ -278,9 +278,9 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     }
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 430px) {
     #btnArea{
-        display: inline-block;
+        display: block;
     }
 }
 
@@ -338,7 +338,7 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 }
 
 .add-event-icon {
-    width: 25px;
+    width: 23px;
     margin: 0 4px -4px;
     cursor: pointer;
 }

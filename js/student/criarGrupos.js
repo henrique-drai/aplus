@@ -33,7 +33,7 @@ $(document).ready(() => {
 function leaveGroup(groupid){
     $.ajax({
         type: "DELETE",
-        url: base_url + "api/leaveMyGroup/",
+        url: base_url + "api/leaveMyGroup",
         data: {grupo_id: groupid},
         success: function(data) {
             location.reload();

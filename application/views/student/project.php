@@ -32,8 +32,8 @@
         <br><br>
     </p>
     <div class="container">
-        <h3 id="entrega_h3"></h3>
-        <h3 id="enunciado_h4"></h3>
+        <h4 id="entrega_h3"></h4>
+        <h4 id="enunciado_h4"></h4>
         <div class="container-header">
             <br><br>
             <!-- mudar depois para o novo botao da ines s -->

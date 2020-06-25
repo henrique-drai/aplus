@@ -78,7 +78,7 @@
 
 <!-- ################################################################################################# -->
 
-            <div class="admin-users-window-export">
+            <!-- <div class="admin-users-window-export">
                 <div class="title">Exportar</div>                  
                 
                 <form id="exportCsv">
@@ -147,7 +147,7 @@
                     <div id="collegeStatus1">
                     </div>
 
-                </form>
+                </form> -->
                 
 <!-- 
                 <form id="teachersImport" action="javascript:void(0)" enctype="multipart/form-data">
@@ -155,7 +155,7 @@
                         <input type='submit' id='importTeachers'  value='Importar'></input>
                 </form> -->
 
-
+<!-- 
                 <form id="teachersImport" action="javascript:void(0)" enctype="multipart/form-data">
                     <input class="form-input-file" type="file" id="file_projeto" name="userfile" title="Escolher enunciado" required accept=".csv">
                     <label for="file_projeto" class="input-label">
@@ -175,7 +175,7 @@
                 </div>
 
                 
-            </div>
+            </div> -->
 
             
      
@@ -209,7 +209,7 @@
 
         </section>
 
-
+<!-- 
         <div class="cd-popup" role="alert" id="import_csv_style">
             <div class="cd-popup-container">
                 <p id="removePadding">Formato ficheiro ".csv" para importação</p>
@@ -219,7 +219,7 @@
                 </ul>
                 <a class="cd-popup-close"></a>
             </div>
-        </div>
+        </div> -->
 
     
     </main>

@@ -544,6 +544,10 @@ function submit_etapa(){
 function submit_edit_etapa(){
     if (verifyDates(etapa["data"])){
 
+        if (etapa["enunciado"] == 'Não existe enunciado associado a esta etapa.'){
+            etapa["enunciado"] = '';
+        }
+
         const data = {
             projid : parseInt(proj),
             edited_etapa : etapa,
@@ -700,6 +704,8 @@ function makeEtapaTable(data){
         '</p>'+
         '</div><hr>');
 
+        console.log(enunciado);
+
         if (enunciado == ""){
             newenunciado = "Não existe enunciado associado a esta etapa."
             removebut = ''
@@ -707,6 +713,8 @@ function makeEtapaTable(data){
             removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
             newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + enunciado + "'>" + enunciado_original + "</a>"
         }
+
+        console.log(removebut)
 
         var obj = {
             id: json["id"],
@@ -827,7 +835,7 @@ function createEtapaPopup(){
 
 function createInfoPopup(etapa_rec, name){
     var etapa;
-    for (i=0; i<etapas_info_global.length; i++){
+    for (i=0; i<etapas_info_global.length; i++){ 
         if(etapa_rec == etapas_info_global[i].id){
             etapa = etapas_info_global[i];
         }

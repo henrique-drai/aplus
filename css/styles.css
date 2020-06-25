@@ -76,7 +76,7 @@ select {
 input[type=button],
 input[type=submit],
 a.std-btn{
-    margin: 20px auto;
+    margin: 10px auto;
     border: 1px solid #15435a;
     text-align: center;
     cursor:pointer;

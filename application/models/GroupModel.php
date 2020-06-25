@@ -43,6 +43,10 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
     public function getGroupById($group_id){
         return $this->db->get_where("grupo", array("id" => $group_id)) -> result_array();
     }
+
+    public function userInGroup($group_id,$user_id){
+        return $this->db->get_where("grupo_aluno", array("grupo_id" => $group_id, "user_id" =>$user_id)) -> row();
+    }
     
     public function leaveGroup($user_id, $group_id){
         $this->db->where("user_id", $user_id);

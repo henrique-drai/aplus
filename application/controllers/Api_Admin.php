@@ -248,8 +248,11 @@ class Api_Admin extends REST_Controller {
             $idCurso        = $this->CourseModel->getCourseByFaculdadeAnoNome($idFaculdade, $idAnoLetivo, $column[1])->id;
             $idUser         = $this->UserModel->getUserByEmail($column[6])->id;
             $idCadeira      = $this->SubjectModel->getSubjectsByCursoIdName($idCurso, $column[2])->id;
-            $idProjeto      = $this->ProjectModel->getProjectByCadeiraIdName($idCadeira, $column[4])->id;
+            $projeto        = $this->ProjectModel->getProjectByCadeiraIdName($idCadeira, $column[4]);
+            $idProjeto      = $projeto->id;
+            $maxProjeto     = $projeto->max_elementos;
             $grupo          = $this->GroupModel->confirmNameInProject($idProjeto, $column[5]);
+
             if(!$grupo){
                 $datagrupo = Array(
                     "name" => $column[5],
@@ -265,12 +268,17 @@ class Api_Admin extends REST_Controller {
                 $addeduser = $this->GroupModel->addElementGroup($datagrupoaluno);
             }    
             else{
-                $datagrupoaluno = Array(
+                $userInGroup    = $this->GroupModel->userInGroup($grupo->id,$idUser);
+                $grupoElements  = $this->GroupModel->countElements($grupo->id);
+                if($grupoElements <= $maxProjeto && !$userInGroup){
+                    $datagrupoaluno = Array(
                     "grupo_id" => $grupo->id,
                     "user_id" => $idUser,
-                );
+                    );
 
-                $addeduser = $this->GroupModel->addElementGroup($datagrupoaluno);
+                    $addeduser = $this->GroupModel->addElementGroup($datagrupoaluno);
+                }
+                
             }
         }
     }

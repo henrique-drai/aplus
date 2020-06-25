@@ -21,12 +21,12 @@ $(document).ready(() => {
         "Dezembro":12
     }
 
-    getTasks();
     getFich();
 
     const id = localStorage.grupo_id;
     var task_id;
     var proj_name = $("#project_name").text();
+    var mediaFlag = true;
 
     $("body").on("click", "#ratingmembros", function() {
         window.location = base_url + "app/rating/" + localStorage.grupo_id;
@@ -52,6 +52,7 @@ $(document).ready(() => {
             $(".cd-popup2").css('visibility', 'hidden');
             $(".cd-popup2").css('opacity', '0');
             $(".taskInfo").css("background-color", "white");
+            $(".taskInfoDetails").css("background-color", "white");
 		}
     });
 
@@ -90,6 +91,12 @@ $(document).ready(() => {
         $(this).css("background-color", "rgb(153, 156, 155)");      
     })
 
+    $('body').on('click', '.taskInfoDetails', function() {
+        var task_id = $(this).attr("id");
+        detailsTaskPopup(task_id, proj_name);
+        $(this).css("background-color", "rgb(153, 156, 155)");  
+    })
+
     $("body").on("click", ".start_date_button", function() {
         var task_id = $(this).attr("id");
         insertTaskStartDate(task_id);
@@ -120,7 +127,7 @@ $(document).ready(() => {
         updateTaskById(task_id, $('input[name="tarefaName"]').last().val(), $('textarea[name="tarefaDescription"').last().val(), proj_name);
     })
 
-    disableTasksClose()
+    disableTasksClose(mediaFlag)
 
     // --------------------- EXPORT ----------------- //
     $("#exportInfo").on("click", function(e) {
@@ -180,7 +187,7 @@ function getFich() {
 	});
 }
 
-function disableTasksClose() {
+function disableTasksClose(mediaFlag) {
 	$.ajax({
 		type: "GET",
 		url: base_url + "api/getProjectStatus",
@@ -188,16 +195,11 @@ function disableTasksClose() {
 			grupo_id: localStorage.grupo_id
 		},
 		success: function (data) {
-            // console.log(data.date)
             
             if (new Date(data.date) < Date.now()){
-                $("#newTarefa").remove();
-                
-                
-                $('table tr').find('td:eq(5),th:eq(5)').remove();
-                //apaga botao de opçoes
-               // $('table tr').find('td:eq(4),th:eq(4)').remove();
-            		
+                getTasks(false, mediaFlag);	
+            } else {
+                getTasks(true, mediaFlag);
             }
         },
 		error: function (data) {
@@ -207,7 +209,65 @@ function disableTasksClose() {
 	});
 }
 
+function detailsTaskPopup(task_id, proj_name) {
+    $.ajax({
+        type: "GET",
+        url: base_url + "api/getTaskById/" + task_id,
+        success: function(data) {
+            var popup = '';
 
+            popup = popup +                 
+                "<div class='infoTask_inputs'><h2>Tarefa para " + proj_name.substring(1, proj_name.length - 1) + "</h2>" +
+                "<h3>Nome</h3><label>" + data.task[0].name + "</label>" +
+                "<h3>Descrição</h3>";
+                
+            if(data.task[0].description == "") {
+                popup = popup + "<label>Não tem descrição.</label>"
+            } else {
+                popup = popup + "<label>" + data.task[0].description + "</label>";
+            }
+
+            if(data.task[0].start_date == "0000-00-00 00:00:00") {
+                popup = popup + "<h3>Data de Início</h3>";
+                popup = popup + "<span class='startTask'><label>Tarefa não iniciada.</label></span>";
+            } else {
+                popup = popup + "<h3>Data de Início</h3>";
+                popup = popup + "<label><span class='startTask'>" + data.task[0].start_date + "</span></label>";
+            }
+
+            var time_spent = '';
+
+            if(data.task[0].start_date == "0000-00-00 00:00:00") {
+                popup = popup + "<h3>Data de Fim</h3>";
+                popup = popup + "<label><span class='endTask'>A tarefa não terminada.</span></label></div>";
+            } else if(data.task[0].done_date != "0000-00-00 00:00:00") {
+                popup = popup + "<h3>Data de Fim</h3>";
+                var day = data.task[0].done_date.substring(8, 10) - data.task[0].start_date.substring(8, 10);
+                var hours = data.task[0].done_date.substring(11, 13) - data.task[0].start_date.substring(11, 13);
+                var min = data.task[0].done_date.substring(14, 16) - data.task[0].start_date.substring(14, 16);
+                var seconds = data.task[0].done_date.substring(17, 19) - data.task[0].start_date.substring(17, 19);
+                popup = popup + "<label>" + data.task[0].done_date + "</label><h3>Tempo gasto na tarefa</h3><label>" + 
+                        day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</label></div>";
+                time_spent = day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos";
+            } else if(data.task[0].user_id == localStorage.user_id){
+                popup = popup + "<h3>Data de Fim</h3>";
+                popup = popup + "<label>Tarefa não terminada.</label><span class='time_spent'></span></div>";
+            } else {
+                popup = popup + "<label>A tarefa não foi terminada.</label></div>";
+            }
+
+            popup = popup + "<a class='cd-popup-close'></a></div></div>";         
+        
+            $(".cd-message").html(popup);
+            $(".cd-buttons").html('');
+            $(".cd-popup2").css('visibility', 'visible');
+            $(".cd-popup2").css('opacity', '1');
+        },
+        error: function(data) {
+            console.log(data)
+        }
+    });
+}
 
 function updateTaskPopup(task_id, proj_name, tr_id){
     $.ajax({
@@ -362,7 +422,7 @@ function insertTask(taskName, taskDesc) {
             $(".cd-popup2").css('visibility', 'hidden');
             $(".cd-popup2").css('opacity', '0');
 
-            getTasks();
+            getTasks(true, mediaFlag);
             
             $(".message").html("Tarefa adicionada com sucesso!");
             $(".message").fadeTo(2000, 1);
@@ -377,7 +437,7 @@ function insertTask(taskName, taskDesc) {
     });
 }
 
-function getTasks() {
+function getTasks(flag, mediaFlag) {
     $.ajax({
         type: "GET",
         url: base_url + "api/getTasks/" + localStorage.grupo_id,
@@ -385,54 +445,110 @@ function getTasks() {
             $(".tasksTable p").remove();
             $(".insertHere").empty();
 
-            if(data.tasks.length != 0) {
-                html = [];
-
-                for(var i=0; i < data.tasks.length; i++) {
-                    table = '';
-                    if(data.tasks[i].user_id == 0) {
-                        table = table + "<tr class='" + i + "'><td>" + data.tasks[i].name + "</td><td class='member' id='" + data.tasks[i].id + "'><span>Ainda não atribuído</span></td>";
-                    } else {
-                        table = table + "<tr class='" + i + "'><td>" + data.tasks[i].name + "</td><td class='member' id='" + data.tasks[i].id + "'><span>" + data.members[i][0].name + " " + 
-                        data.members[i][0].surname + "</span></td>";
-                    }                    
-
-                    if(data.tasks[i].done_date == "0000-00-00 00:00:00") {
-                        table = table + "<td class='final'>Não</td class='time_end'><td>Ainda não terminado</td>";
-                    } else {
-                        // console.log(data)
-                        var day = data.tasks[i].done_date.substring(8, 10) - data.tasks[i].start_date.substring(8, 10);
-                        var hours = data.tasks[i].done_date.substring(11, 13) - data.tasks[i].start_date.substring(11, 13);
-                        var min = data.tasks[i].done_date.substring(14, 16) - data.tasks[i].start_date.substring(14, 16);
-                        var seconds = data.tasks[i].done_date.substring(17, 19) - data.tasks[i].start_date.substring(17, 19);
-                        table = table + "<td class='final'>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</td>";
+            if(flag) {
+                if(data.tasks.length != 0) {
+                    html = [];
+    
+                    for(var i=0; i < data.tasks.length; i++) {
+                        table = '';
+                        if(data.tasks[i].user_id == 0) {
+                            table = table + "<tr class='" + i + "'><td>" + data.tasks[i].name + "</td><td class='member' id='" + data.tasks[i].id + "'><span>Ainda não atribuído</span></td>";
+                        } else {
+                            table = table + "<tr class='" + i + "'><td>" + data.tasks[i].name + "</td><td class='member' id='" + data.tasks[i].id + "'><span>" + data.members[i][0].name + " " + 
+                            data.members[i][0].surname + "</span></td>";
+                        }                    
+    
+                        if(data.tasks[i].done_date == "0000-00-00 00:00:00") {
+                            table = table + "<td class='final'>Não</td class='time_end'><td>Ainda não terminado</td>";
+                        } else {
+                            // console.log(data)
+                            var day = data.tasks[i].done_date.substring(8, 10) - data.tasks[i].start_date.substring(8, 10);
+                            var hours = data.tasks[i].done_date.substring(11, 13) - data.tasks[i].start_date.substring(11, 13);
+                            var min = data.tasks[i].done_date.substring(14, 16) - data.tasks[i].start_date.substring(14, 16);
+                            var seconds = data.tasks[i].done_date.substring(17, 19) - data.tasks[i].start_date.substring(17, 19);
+                            table = table + "<td class='final'>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</td>";
+                        }
+    
+                        table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + 
+                        "' type='button' value='Opções'></td><td><input id='" + data.tasks[i].id + "' class='remove' type='button' value='Eliminar'></td></tr>";
+                        html.push(table);
                     }
-
-                    table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + 
-                    "' type='button' value='Opções'></td><td><input id='" + data.tasks[i].id + "' class='remove' type='button' value='Eliminar'></td></tr>";
-                    html.push(table);
+                    
+                    $('.container2').pagination({
+                        dataSource: html,
+                        pageSize: 5,
+                        callback: function(data, pagination) {
+                            $(".insertHere").html(data);
+                        }
+                    })
+                    
+                } else {
+                    $('.container2').empty();
+                    $(".tasksTable p").remove();
+                    $(".tasksTable").append("<p>Não existem tarefas.</p>");
                 }
-                
-                $('.container2').pagination({
-					dataSource: html,
-					pageSize: 5,
-					callback: function(data, pagination) {
-						$(".insertHere").html(data);
-					}
-                })
-                
             } else {
-                $('.container2').empty();
-                $(".tasksTable p").remove();
-                $(".tasksTable").append("<p>Não existem tarefas.</p>");
-                
+                $("#newTarefa").remove();
+                if(data.tasks.length != 0) {
+                    html = [];
+    
+                    for(var i=0; i < data.tasks.length; i++) {
+                        table = '';
+                        if(data.tasks[i].user_id == 0) {
+                            table = table + "<tr class='" + i + "'><td>" + data.tasks[i].name + "</td><td class='member' id='" + data.tasks[i].id + "'><span>Ainda não atribuído</span></td>";
+                        } else {
+                            table = table + "<tr class='" + i + "'><td>" + data.tasks[i].name + "</td><td class='member' id='" + data.tasks[i].id + "'><span>" + data.members[i][0].name + " " + 
+                            data.members[i][0].surname + "</span></td>";
+                        }                    
+    
+                        if(data.tasks[i].done_date == "0000-00-00 00:00:00") {
+                            table = table + "<td class='final'>Não</td class='time_end'><td>Ainda não terminado</td>";
+                        } else {
+                            // console.log(data)
+                            var day = data.tasks[i].done_date.substring(8, 10) - data.tasks[i].start_date.substring(8, 10);
+                            var hours = data.tasks[i].done_date.substring(11, 13) - data.tasks[i].start_date.substring(11, 13);
+                            var min = data.tasks[i].done_date.substring(14, 16) - data.tasks[i].start_date.substring(14, 16);
+                            var seconds = data.tasks[i].done_date.substring(17, 19) - data.tasks[i].start_date.substring(17, 19);
+                            table = table + "<td class='final'>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</td>";
+                        }
+    
+                        table = table + "<td><input class='taskInfoDetails' id='" + data.tasks[i].id + 
+                        "' type='button' value='Detalhes'></td><td></td></tr>";
+                        html.push(table);
+                    }
+                    
+                    $('.container2').pagination({
+                        dataSource: html,
+                        pageSize: 5,
+                        callback: function(data, pagination) {
+                            $(".insertHere").html(data);
+                        }
+                    })
+
+                    var media = window.matchMedia("(max-width: 1020px)");
+                    removeLastTD(media, mediaFlag);
+                    media.addListener(removeLastTD);
+                    
+                } else {
+                    $('.container2').empty();
+                    $(".tasksTable p").remove();
+                    $(".tasksTable").append("<p>Não existem tarefas.</p>");
+                }
             }
+            
         },
         error: function(data) {
             console.log("Erro na API:")
             console.log(data)
         }
     });
+}
+
+function removeLastTD(media, mediaFlag) {
+    if(media.matches && mediaFlag) {
+        $("#tab-gerir-tarefas td:last-child").remove();
+        mediaFlag = false;
+    }
 }
 
 
@@ -457,7 +573,7 @@ function deleteTaskById(id) {
             $(".cd-popup2").css('visibility', 'hidden');
             $(".cd-popup2").css('opacity', '0');
 
-            getTasks();
+            getTasks(true, mediaFlag);
             $(".message").html("Tarefa eliminada com sucesso!");
             $(".message").fadeTo(2000, 1);
             setTimeout(function () {

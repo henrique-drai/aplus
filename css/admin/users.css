@@ -10,7 +10,7 @@ input{
 
 .admin-users-window {
     padding: 20px;
-    width: 66%;
+    width: 100%;
     box-sizing: border-box;
     display: inline-block;
     vertical-align: top;

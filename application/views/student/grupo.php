@@ -4,7 +4,6 @@
 <script src="<?=$base_url?>js/student/grupo.js"></script>
 <script src="<?=$base_url?>js/student/calendario-grupo.js"></script>
 <script src="<?=$base_url?>js/pagination.min.js"></script>
-<script src="<?=$base_url?>js/student/criarGrupos.js"></script>
 
 <?='<script>setGrupoId("'.$grupo["id"].'")</script>'?>
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/window-date-picker.min.css">

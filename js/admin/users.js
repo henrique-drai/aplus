@@ -84,18 +84,73 @@ $(document).ready(() => {
 
     $('body').on("click", "#showDemo",function() {
         event.preventDefault();
-        $("#removePadding").text("Formato ficheiro '.csv' de importação - Alunos ")
-        $('#csvExample').attr("src", path.replace("csv_teacher.png", "csv_student.png"));
-        $("#csvExample").css("width","420px");
-        $('#import_csv_style').addClass('is-visible');
+        $('#csvExample').css("display","inline-block");
+        $("#mobileMsg").css("display","none");
+        const mq = window.matchMedia( "(max-width: 640px)" );
+        if (mq.matches) {
+            $("#removePadding").text("Formato ficheiro '.csv' de importação - Alunos ");
+            $('#csvExample').attr("src", path.replace("csv_teacher.png", "csv_student.png"));
+            $("#csvExample").css("width","");
+            $('#import_csv_style').addClass('is-visible');
+        }
+        else{
+            $("#removePadding").text("Formato ficheiro '.csv' de importação - Alunos ");
+            $('#csvExample').attr("src", path.replace("csv_teacher.png", "csv_student.png"));
+            $("#csvExample").css("width","420px");
+            $('#import_csv_style').addClass('is-visible');
+        }
+        
     });
     $('body').on("click", "#showDemo2",function() {
         event.preventDefault();
-        $("#removePadding").text("Formato ficheiro '.csv' de importação - Professores")
-        $('#csvExample').attr("src", path.replace("csv_student.png", "csv_teacher.png"));
+        $('#csvExample').css("display","inline-block");
+        $("#mobileMsg").css("display","none");
+        const mq = window.matchMedia( "(max-width: 640px)" );
+        if (mq.matches) {
+            $("#removePadding").text("Formato ficheiro '.csv' de importação - Professores")
+            $('#csvExample').attr("src", path.replace("csv_student.png", "csv_teacher.png"));
+            $('#import_csv_style').addClass('is-visible');
+        }
+        else{
+            $("#removePadding").text("Formato ficheiro '.csv' de importação - Professores")
+            $('#csvExample').attr("src", path.replace("csv_student.png", "csv_teacher.png"));
+            $("#csvExample").css("width","529px");
+
+            $('#import_csv_style').addClass('is-visible');
+        }
+    });
+
+    $('body').on("click", "#showDemo3",function() {
+        event.preventDefault();
+        $('#csvExample').css("display","inline-block");
+        $("#mobileMsg").css("display","none");
+        $("#removePadding").text("Formato ficheiro '.csv' de importação - Unidades Curriculares")
+        // $('#csvExample').attr("src", path.replace("csv_student.png", "csv_teacher.png"));
         $("#csvExample").css("width","529px");
 
         $('#import_csv_style').addClass('is-visible');
+    });
+    $('body').on("click", "#showDemo4",function() {
+        event.preventDefault();
+        $('#csvExample').css("display","inline-block");
+        $("#mobileMsg").css("display","none");
+        const mq = window.matchMedia( "(max-width: 640px)" );
+        if (mq.matches) {
+            $("#removePadding").text("Formato ficheiro '.csv' de importação - Grupos");
+            $('#csvExample').css("display","none");
+            $("#mobileMsg").css("display","block");
+            $("#mobileMsg").text("Siglas da Faculdade,Nome do Curso,Nome da Cadeira,Ano Letivo,Nome do Projeto,Nome do Grupo,Email do Aluno")
+            $('#import_csv_style').addClass('is-visible');
+        }
+        else{
+            $("#removePadding").text("Formato ficheiro '.csv' de importação - Grupos")
+            $('#csvExample').attr("src", path.replace("csv_student.png", "csv_grupos.png"));
+            $("#csvExample").css("width","750px");
+
+            $(".cd-popup-container").css("max-width","800px")
+            $('#import_csv_style').addClass('is-visible');
+        }
+        
     });
 
 

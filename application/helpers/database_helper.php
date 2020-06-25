@@ -1679,7 +1679,7 @@ function database($m) {
     $etapa["5"] = $m->etapa($projeto["1"], "2020-06-21 23:55:00", "", "", "Implementação", "Fazer relatório. Isto não é um enunciado, mas sim uma descrição genérica.");
     $etapa["6"] = $m->etapa($projeto["2"], "2020-06-06 23:00:00", "", "", "Pesquisa", "Procurar cadastro de Almada. Isto não é um enunciado, mas sim uma descrição genérica.");
     $etapa["7"] = $m->etapa($projeto["2"], "2020-06-24 23:55:00", "", "", "Implementação", "Fazer relatório. Isto não é um enunciado, mas sim uma descrição genérica.");
-    $etapa["8"] = $m->etapa($projeto["4"], "2020-05-21 23:55:00", "", "", "Fazer continhas", "Esta etapa já acabou. Isto não é um enunciado, mas sim uma descrição genérica.");
+    $etapa["8"] = $m->etapa($projeto["4"], "2020-06-24 23:55:00", "", "", "Fazer continhas", "Esta etapa já acabou. Isto não é um enunciado, mas sim uma descrição genérica.");
     $etapa["9"] = $m->etapa($projeto["5"], "2020-06-21 23:55:00", "", "", "Fazer continhas outra vez", "Esta etapa ainda não acabou. Isto não é um enunciado, mas sim uma descrição genérica.");
 
     $grupo = array();

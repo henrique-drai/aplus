@@ -90,7 +90,7 @@ class Api_Project extends REST_Controller {
                     "type" => "alert",
                     "title" => "Novo projeto da cadeira '".$cadeira_name."' criado",
                     "content" => "Clica para saberes mais",
-                    "link" => "app/projects/project/" . $proj_id,
+                    "link" => "projects/project/" . $proj_id,
                     "seen" => FALSE,
                     "date" => $curr_date
                   ));
@@ -183,7 +183,7 @@ class Api_Project extends REST_Controller {
                     "type" => "alert",
                     "title" => "Feedback atribuido à etapa '".$etapa_name."' do projeto '".$proj_name."'",
                     "content" => "Clica para saberes mais",
-                    "link" => "app/projects/project/" . $proj_id,
+                    "link" => "projects/project/" . $proj_id,
                     "seen" => FALSE,
                     "date" => $curr_date
                     ));

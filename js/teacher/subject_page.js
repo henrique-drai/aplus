@@ -177,7 +177,7 @@ function validateFormNumb(id){
             $("#" + id + ".minnuminput").css("border-left-color", "red");
             $("#" + id +".maxnuminput").css("border-left-color", "red");
             return false;
-        } else {
+        } else if($("#" + id + ".minnuminput").val() < $("#" + id +".maxnuminput").val() < "20:00" && "09:00" < $("#" + id + ".minnuminput").val() < $("#" + id +".maxnuminput").val()){
             $("#" + id + ".minnuminput").css("border-left-color", "#42d542");
             $("#" + id +".maxnuminput").css("border-left-color", "#42d542");
             return true;
@@ -272,6 +272,7 @@ function setHours() {
             var flag = false;
             var popup = "<h2>Editar Horários de Dúvidas</h2>" +
             "<input type='button' class='add_hour_button' value='Adicionar Horário'><div class='infoTask_inputs'>";
+            popup = popup + '<p>Os horários são válidos das 9h00 às 20h00.</p>';
 
             for(var i=0; i < data['user'].length; i++) {
                 if(data.user[i].id == localStorage.user_id) {
@@ -283,7 +284,6 @@ function setHours() {
             }
 
             if(flag) {
-                console.log(count)
                 for(var i=0; i < data['user'].length; i++) {
                     if(data.user[i].id == localStorage.user_id) {
                         if(count == 0) {
@@ -301,19 +301,16 @@ function setHours() {
                             'name="end_time" min="09:00" max="18:00" value="' + 
                             data.hours[i].end_time.substring(0, 5) + '" required></label></div>' +
                             '<label class="form-label" id="label_day" >Dia da Semana:</label><select class="day" id="' + count + '">' +
-                            '<option value="Segunda-feira">Segunda-feira</option>' +
-                            '<option value="Terça-feira">Terça-feira</option>' +
-                            '<option value="Quarta-feira">Quarta-feira</option>' +
-                            '<option value="Quinta-feira">Quinta-feira</option>' +
-                            '<option value="Sexta-feira">Sexta-feira</option>' +
+                            '<option value="Segunda-feira" ' + (data.hours[i].day == "Segunda-feira" ? "selected" : "") + '>Segunda-feira</option>' +
+                            '<option value="Terça-feira" ' + (data.hours[i].day == "Terça-feira" ? "selected" : "") + '>Terça-feira</option>' +
+                            '<option value="Quarta-feira" ' + (data.hours[i].day == "Quarta-feira" ? "selected" : "") + '>Quarta-feira</option>' +
+                            '<option value="Quinta-feira" ' + (data.hours[i].day == "Quinta-feira" ? "selected" : "") + '>Quinta-feira</option>' +
+                            '<option value="Sexta-feira" ' + (data.hours[i].day == "Sexta-feira" ? "selected" : "") + '>Sexta-feira</option>' +
                             '</select></div>';
                         
+                        $(".cd-message").html(popup);
+
                         count++;
-                        for(var j=0; j < $(".day option").length; j++) {
-                            if($(".day option")[j].value == data.hours[i].day) {
-                                $(".day option[value='" + data.hours[i].day + "']").last().attr("selected", "selected");
-                            }
-                        }
                     }
 
                     $(".minnuminput").css("border-left-color", "#42d542");
@@ -339,9 +336,10 @@ function setHours() {
                     '<option value="Quinta-feira">Quinta-feira</option>' +
                     '<option value="Sexta-feira">Sexta-feira</option>' +
                     '</select></div>';
+
+                $(".cd-message").html(popup);
             }
 
-            $(".cd-message").html(popup);
             $(".cd-buttons").html('').append("<div class='message_error'>Preencha todos os campos  <i id='closeError' class='fa fa-times' aria-hidden='true'></i></div>" +
                 "<li><a href='#' id='add_hour_confirm'>" +
                 "Confirmar</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");

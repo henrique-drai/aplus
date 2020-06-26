@@ -177,7 +177,7 @@ function validateFormNumb(id){
             $("#" + id + ".minnuminput").css("border-left-color", "red");
             $("#" + id +".maxnuminput").css("border-left-color", "red");
             return false;
-        } else {
+        } else if($("#" + id + ".minnuminput").val() < $("#" + id +".maxnuminput").val() < "20:00" && "09:00" < $("#" + id + ".minnuminput").val() < $("#" + id +".maxnuminput").val()){
             $("#" + id + ".minnuminput").css("border-left-color", "#42d542");
             $("#" + id +".maxnuminput").css("border-left-color", "#42d542");
             return true;
@@ -272,6 +272,7 @@ function setHours() {
             var flag = false;
             var popup = "<h2>Editar Horários de Dúvidas</h2>" +
             "<input type='button' class='add_hour_button' value='Adicionar Horário'><div class='infoTask_inputs'>";
+            popup = popup + '<p>Os horários são válidos das 9h00 às 20h00.</p>';
 
             for(var i=0; i < data['user'].length; i++) {
                 if(data.user[i].id == localStorage.user_id) {
@@ -308,15 +309,6 @@ function setHours() {
                             '</select></div>';
                         
                         $(".cd-message").html(popup);
-                        
-                        // for(var j=0; j < $("#" + count + " > .day option").length; j++) {
-                        //     if($("#" + count + " > .day option")[j].value == data.hours[i].day) {
-                        //         $("#" + count + ".day").val(data.hours[i].day);
-                        //         // $("#" + count + " > .day option[value='" + data.hours[i].day + "']").prop("selected", true);
-                        //         // $("#" + count + " > .day option[value='" + data.hours[i].day + "']").attr("selected", "selected");
-                        //         console.log( $("#" + count + ".day").val())
-                        //     }
-                        // }
 
                         count++;
                     }

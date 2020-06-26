@@ -379,7 +379,6 @@ class Api_Project extends REST_Controller {
             $this->response($response, $status);
         }
 
-
       
     }
 
@@ -477,9 +476,9 @@ class Api_Project extends REST_Controller {
             $userId = $data["students"][$i]['user_id'];
             
             if($userId != $classificador){
-                $nota = $this->GroupModel->getClassVal($grupo_id, $userId); 
+                $nota = $this->GroupModel->getClassVal($grupo_id, $classificador, $userId); 
 
-                if(isset($nota)) {
+                if(isset($nota)) {  
                     array_push($data["class"], $this->UserModel->getUserById($userId));
                     array_push($data["rate"], $nota->valor);
                 }

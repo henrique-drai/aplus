@@ -32,8 +32,8 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
         return $this->db->query($query)->row();
     }
 
-    public function getClassVal($grupo_id, $userId){
-        return $this->db->get_where("member_classification", array("grupo_id" => $grupo_id, "classificado_id" => $userId)) -> row();
+    public function getClassVal($grupo_id, $classificador, $userId){
+        return $this->db->get_where("member_classification", array("grupo_id" => $grupo_id, "classificador_id" => $classificador,"classificado_id" => $userId)) -> row();
     }
 
     public function insertClassification($data){

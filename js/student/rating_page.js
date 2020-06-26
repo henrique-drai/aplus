@@ -88,7 +88,7 @@ function getInfo(grupo_id){
             $(".notClassified").empty()
 
             if(data.class.length != 0 ){
-                console.log(data.class)
+
                 var info ="";
                 for(var i=0; i < data.class.length; i++) {
                     if(data.class[i].id != localStorage.user_id){
@@ -121,7 +121,7 @@ function getInfo(grupo_id){
                 for(var i=0; i < data.notClass.length; i++) {
                     if(data.notClass[i].id != localStorage.user_id){
                         info2+="<p class='toClassifyMember' id=" + data.notClass[i].id + ">"
-                                + data.notClass[i].id + " - " + data.notClass[i].name + " " + data.notClass[i].name + "</p>";
+                                + data.notClass[i].id + " - " + data.notClass[i].name + " " + data.notClass[i].surname + "</p>";
                     }
                 }
                 $(".notClassified").html(info2)

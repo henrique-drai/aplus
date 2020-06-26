@@ -49,7 +49,7 @@ $(document).ready(() => {
                 $('#write_msg').unbind("keydown");
                 bindEnterChatGroup();  //######################################
             }
-        }else{
+        }else if (chat_user_id==null&&chatType==null){
             loadRecentChat()   
 
         }

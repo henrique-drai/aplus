@@ -187,7 +187,7 @@ function validateFormNumb(id){
             $("#" + id + ".minnuminput").css("border-left-color", "red");
             $("#" + id +".maxnuminput").css("border-left-color", "red");
             return false;
-        } else if($("#" + id + ".minnuminput").val() < $("#" + id +".maxnuminput").val() < "20:00" && "09:00" < $("#" + id + ".minnuminput").val() < $("#" + id +".maxnuminput").val()){
+        } else if($("#" + id + ".minnuminput").val() < $("#" + id +".maxnuminput").val() && $("#" + id +".maxnuminput").val() < "20:00" && "09:00" < $("#" + id + ".minnuminput").val()){
             $("#" + id + ".minnuminput").css("border-left-color", "#42d542");
             $("#" + id +".maxnuminput").css("border-left-color", "#42d542");
             return true;

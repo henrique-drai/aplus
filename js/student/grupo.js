@@ -69,7 +69,7 @@ $(document).ready(() => {
         var taskDesc = $('textarea[name="tarefaDescription"').last().val();
 
         if(taskName != '') {
-            insertTask(taskName, taskDesc);
+            insertTask(taskName, taskDesc, mediaFlag);
         } else {
             $(".message_error").fadeTo(2000, 1);
         }
@@ -81,7 +81,7 @@ $(document).ready(() => {
     })
 
     $("body").on('click', '#confirmRemove', function(){
-        deleteTaskById(task_id);
+        deleteTaskById(task_id, mediaFlag);
     })
 
     $('body').on('click', '.taskInfo', function(){
@@ -408,7 +408,7 @@ function createPopUpAdd() {
     "Criar Tarefa</a></li><li><a href='#' id='closeButton'>Cancelar</a></li>");
 }
 
-function insertTask(taskName, taskDesc) {
+function insertTask(taskName, taskDesc, mediaFlag) {
     $.ajax({
         type: "POST",
         url: base_url + "api/insertTask",
@@ -562,7 +562,7 @@ function setGrupoId(id){
     localStorage.grupo_id=id
 }
 
-function deleteTaskById(id) {
+function deleteTaskById(id, mediaFlag) {
     $.ajax({
         type: "DELETE",
         url: base_url + "api/deleteTaskById/" + id,

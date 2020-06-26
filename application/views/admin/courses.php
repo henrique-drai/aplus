@@ -64,11 +64,11 @@
             <div id="msgStatusEditar">
             </div>
             <table class="adminTable" id="show_courses">
-                <tr><th>Código de Curso</th>
+                <tr><th id="codeCourseRemove">Código de Curso</th>
                 <th>Nome</th>
-                <th>Ano Letivo</th>
-                <th>Descrição</th>
-                <th>Editar</th>
+                <th id="anoCourseRemove">Ano Letivo</th>
+                <th id="DescCourseRemove">Descrição</th>
+                <th id="EditarCourseRemove">Editar</th>
                 <th>Eliminar</th>
             </table>
         </div>

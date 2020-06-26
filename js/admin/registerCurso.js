@@ -216,12 +216,12 @@ function submitRegister(){
 
         for (i=0; i<data.courses.length; i++){
             courses.push('<tr class="courses">' +
-                '<td>'+ data.courses[i].code +'</td>' +
+                '<td class="codeRemovetd">'+ data.courses[i].code +'</td>' +
                 '<td>'+ data.courses[i].name +'</td>' +
-                '<td>'+ data.years[i] + '</td>' +
-                "<td>" + data.courses[i].description + "</td>" +
+                '<td class="anoRemovetd">'+ data.years[i] + '</td>' +
+                "<td class='descRemovetd'>" + data.courses[i].description + "</td>" +
 
-                "<td><input class='editCourse' type='button' value='Editar'></td>"
+                "<td class='editCourseRemovetd'><input class='editCourse' type='button' value='Editar'></td>"
                 + "<td><input class='deleteCourse' type='button' value='Eliminar'></td>"
                 + '</tr>')
         }
@@ -237,21 +237,22 @@ function submitRegister(){
                 $(".adminTable").append(data);
 
                 if (mq2.matches) {
-
-                    $('.adminTable tr').find('td:eq(3)').remove();
+                    $('.descRemovetd').remove();
+                    $('.editCourseRemovetd').remove();
 
                     if(mq.matches){
-                        $('.adminTable tr').find('td:eq(0)').remove();
-                        $('.adminTable tr').find('td:eq(2)').remove();
+                        $('.anoRemovetd').remove();
+                        $('.codeRemovetd').remove();
                     }            
                 } 
             }
         })  
         if (mq2.matches) {
-            $('.adminTable tr').find('th:eq(3)').remove();
+            $('#EditarCourseRemove').remove();
+            $('#DescCourseRemove').remove();
             if(mq.matches){
-                $('.adminTable tr').find('th:eq(0)').remove();
-                $('.adminTable tr').find('th:eq(2)').remove();
+                $('#anoCourseRemove').remove();
+                $('#codeCourseRemove').remove();
             }
         }
         $(".adminTable").css("display", "table");

@@ -100,7 +100,7 @@ li p{
 
 #chatList{
     padding: 0px 0px 0px 0px;
-    overflow-y: auto
+    /* overflow-y: auto */
 }
 #chatList1{
     margin: 0;

@@ -436,7 +436,7 @@ function getChatGroupHistory(id_group,limit){
             makeGroupMsgHistory(data);
             nomeGrupo = "Projeto " + data[0] + " - Grupo " + data[1];
 
-            $(".headName").html('<div class="chatter"><a href="'+ base_url +'app/profile/'+ data.user.id +'"><h3>'+ nomeGrupo +'</h3></a></div>')
+            $(".headName").html('<div class="chatter"><h3>'+ nomeGrupo +'</h3></div>')
             // bindEnterChatGroup()
             $(".type-msg").css("display","block")
             if(flagScroll==false){

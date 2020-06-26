@@ -12,7 +12,7 @@ main {
 }
 
 .memberName {
-    display: inline;
+    /* display: inline; */
     /* margin: 35px; */
     color: #15435a;
 }
@@ -112,7 +112,8 @@ li p{
 
 #chat-container{
     /* float: left; */
-    width: 100%;
+    width: 70%;
+
 }
 
 .msg-history{
@@ -184,11 +185,14 @@ li p{
 
 .chatter{
     width: 100%;
+    color: #15435a;
+
     /* height: 60px; */
     /* line-height: 60px;
     background: #f5f5f5; */
     border-bottom: 1px solid #c4c4c4;
     text-align: center;
+    /* padding: 10px 0px; */
 }
 
 .type-msg{
@@ -289,6 +293,7 @@ li p{
         border-right: none;
         margin-left: auto;
         margin-right: auto;
+        margin-top: 15px;
     }
     #all-chat {
         display: contents;
@@ -300,6 +305,7 @@ li p{
         /* right: -500px; */
         /* display: none; */
         height: 80%;
+        width: 100%;
     }  
 
     .small-chat-icons{
@@ -324,6 +330,8 @@ li p{
 @media(max-width: 600px) and (max-height:1100px){
     #leftSideChat{
         height: 53%;
+        margin-top: 15px;
+
     }
     .msg-history{
         padding: 10px 10px 0 10px;

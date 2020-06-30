@@ -2,13 +2,18 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
+// echo realpath('./../../vendor/autoload.php');
+// require 'C:\xampp\htdocs\aplus\vendor\autoload.php';
 	
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
 
 
 class UploadsC extends CI_Controller {
+
+    public $s3;
+    public $bucketName;
 
     public function __construct()
     {
@@ -17,24 +22,21 @@ class UploadsC extends CI_Controller {
         if(is_null($this->session->userdata('role'))){ $this->load->view('errors/403'); }
         $this->load->model('ProjectModel');
 
-        $bucketName = 'plusa';
+        $this->bucketName = 'plusa';
         $IAM_KEY = 'AKIAVFIHVJAOIQ3CYTWP';
         $IAM_SECRET = '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';
         
-        try {
-            $s3 = S3Client::factory(
-                array(
-                    'credentials' => array(
-                        'key' => $IAM_KEY,
-                        'secret' => $IAM_SECRET
-                    ),
-                    'version' => 'latest',
-                    'region'  => 'eu-west-3'
-                )
-            );
-        } catch (Exception $e) {
-            die("Error: " . $e->getMessage());
-        }
+        $this -> s3 = S3Client::factory(
+            array(
+                'credentials' => array(
+                    'key' => $IAM_KEY,
+                    'secret' => $IAM_SECRET
+                ),
+                'version' => 'latest',
+                'region'  => 'eu-west-3'
+            )
+        );
+        
 
     }
 
@@ -42,6 +44,7 @@ class UploadsC extends CI_Controller {
     //      uploadsc/uploadEnunciadoProjeto/:projeto_id
     public function uploadEnunciadoProjeto($project_id_par)
     {
+
         $project_id = htmlspecialchars($project_id_par);
         $user_id = $this->session->userdata('id');
 
@@ -49,23 +52,24 @@ class UploadsC extends CI_Controller {
 
             // MUDAR NOME $_FILES
 
-            $realName = basename($_FILES["fileToUpload"]['name']);
+            $realName = basename($_FILES["file_projeto"]['name']);
             $allowed = array('pdf');
             $ext = pathinfo($realName, PATHINFO_EXTENSION);
             if (!in_array($ext, $allowed)) {
                 echo 'file type not supported, error';
             }
 
-            $keyName = 'enunciados_files/' . $project_id . $ext;
+            $keyName = 'enunciados_files/' . $project_id . "." . $ext;
             $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
 
             try {
                 // Uploaded:
-                $file = $_FILES["fileToUpload"]['tmp_name'];
-        
-                $s3->putObject(
+                $file = $_FILES["file_projeto"]['tmp_name'];
+
+
+                $this->s3->putObject(
                     array(
-                        'Bucket'=>$bucketName,
+                        'Bucket'=> $this -> bucketName,
                         'Key' =>  $keyName,
                         'SourceFile' => $file,
                         'StorageClass' => 'REDUCED_REDUNDANCY'
@@ -88,7 +92,7 @@ class UploadsC extends CI_Controller {
                 "type" => "S",
             );
 
-            $name_enunciado = $project_id . $ext;
+            $name_enunciado = $project_id . "." . $ext;
 
             $this->ProjectModel->updateProjEnunciado($name_enunciado, $realName, $project_id);
             $this->session->set_userdata('result_msg', $arr_msg);
@@ -115,24 +119,24 @@ class UploadsC extends CI_Controller {
 
 
 
-            $realName = basename($_FILES["fileToUpload"]['name']);
+            $realName = basename($_FILES["file_etapa"]['name']);
             $allowed = array('pdf');
             $ext = pathinfo($realName, PATHINFO_EXTENSION);
             if (!in_array($ext, $allowed)) {
                 echo 'file type not supported, error';
             }
 
-            $keyName = 'enunciados_files/' . $project_id . "/" . $etapa_id . $ext;
+            $keyName = 'enunciados_files/' . $project_id . "/" . $etapa_id . "." . $ext;
             $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
 
 
             try {
                 // Uploaded:
-                $file = $_FILES["fileToUpload"]['tmp_name'];
+                $file = $_FILES["file_etapa"]['tmp_name'];
         
-                $s3->putObject(
+                 $this->s3->putObject(
                     array(
-                        'Bucket'=>$bucketName,
+                        'Bucket'=>$this->bucketName,
                         'Key' =>  $keyName,
                         'SourceFile' => $file,
                         'StorageClass' => 'REDUCED_REDUNDANCY'
@@ -155,7 +159,7 @@ class UploadsC extends CI_Controller {
                 "type" => "S",
             );
 
-            $name_enunciado = $project_id . $ext;
+            $name_enunciado = $project_id . "." . $ext;
 
             $this->ProjectModel->editEtapaEnunciado($name_enunciado, $realName, $etapa_id);
             $this->session->set_userdata('result_msg', $arr_msg);
@@ -181,24 +185,24 @@ class UploadsC extends CI_Controller {
         if($this->verify_student($user_id, $grupo_id)){
 
 
-            $realName = basename($_FILES["fileToUpload"]['name']);
+            $realName = basename($_FILES["file_submit"]['name']);
             $allowed = array('zip', 'rar', 'pdf', 'docx');
             $ext = pathinfo($realName, PATHINFO_EXTENSION);
             if (!in_array($ext, $allowed)) {
                 echo 'file type not supported, error';
             }
 
-            $keyName = 'submissions/' . $project_id . "/" . $etapa_id . "/" . $grupo_id . $ext;
+            $keyName = 'submissions/' . $project_id . "/" . $etapa_id . "/" . $grupo_id . "." . $ext;
             $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
 
 
             try {
                 // Uploaded:
-                $file = $_FILES["fileToUpload"]['tmp_name'];
+                $file = $_FILES["file_submit"]['tmp_name'];
         
-                $s3->putObject(
+                 $this->s3->putObject(
                     array(
-                        'Bucket'=>$bucketName,
+                        'Bucket'=>$this->bucketName,
                         'Key' =>  $keyName,
                         'SourceFile' => $file,
                         'StorageClass' => 'REDUCED_REDUNDANCY'
@@ -225,7 +229,7 @@ class UploadsC extends CI_Controller {
             );
 
 
-            $name_enunciado = $project_id . $ext;
+            $name_enunciado = $project_id . "." . $ext;
             $sub = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
 
             if(empty($sub->row())){
@@ -264,7 +268,7 @@ class UploadsC extends CI_Controller {
 
         if($this->verify_student($user_id, $grupo_id)){
 
-            $realName = basename($_FILES["fileToUpload"]['name']);
+            $realName = basename($_FILES["file_submit"]['name']);
             $allowed = array('zip', 'rar', 'pdf', 'docx');
             $ext = pathinfo($realName, PATHINFO_EXTENSION);
             if (!in_array($ext, $allowed)) {
@@ -276,11 +280,11 @@ class UploadsC extends CI_Controller {
 
             try {
                 // Uploaded:
-                $file = $_FILES["fileToUpload"]['tmp_name'];
+                $file = $_FILES["file_submit"]['tmp_name'];
         
-                $s3->putObject(
+                 $this->s3->putObject(
                     array(
-                        'Bucket'=>$bucketName,
+                        'Bucket'=>$this->bucketName,
                         'Key' =>  $keyName,
                         'SourceFile' => $file,
                         'StorageClass' => 'REDUCED_REDUNDANCY'
@@ -332,7 +336,7 @@ class UploadsC extends CI_Controller {
                 header("Location: ".base_url()."errors/404");
             }
 
-            $realName = basename($_FILES["fileToUpload"]['name']);
+            $realName = basename($_FILES["file_submit"]['name']);
             $allowed = array('zip', 'rar', 'pdf', 'docx');
             $ext = pathinfo($realName, PATHINFO_EXTENSION);
             if (!in_array($ext, $allowed)) {
@@ -344,11 +348,11 @@ class UploadsC extends CI_Controller {
 
             try {
                 // Uploaded:
-                $file = $_FILES["fileToUpload"]['tmp_name'];
+                $file = $_FILES["file_submit"]['tmp_name'];
         
-                $s3->putObject(
+                 $this->s3->putObject(
                     array(
-                        'Bucket'=>$bucketName,
+                        'Bucket'=>$this->bucketName,
                         'Key' =>  $keyName,
                         'SourceFile' => $file,
                         'StorageClass' => 'REDUCED_REDUNDANCY'
@@ -386,24 +390,24 @@ class UploadsC extends CI_Controller {
     {
         $user_id = $this->session->userdata('id');
 
-        $realName = basename($_FILES["fileToUpload"]['name']);
+        $realName = basename($_FILES["userfile"]['name']);
         $allowed = array('jpeg', 'jpg', 'png');
         $ext = pathinfo($realName, PATHINFO_EXTENSION);
         if (!in_array($ext, $allowed)) {
             echo 'file type not supported, error';
         }
 
-        $keyName = 'profile/' . $user_id . $ext;
+        $keyName = 'profile/' . $user_id . "." . $ext;
         $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
 
 
         try {
             // Uploaded:
-            $file = $_FILES["fileToUpload"]['tmp_name'];
+            $file = $_FILES["userfile"]['tmp_name'];
     
-            $s3->putObject(
+             $this->s3->putObject(
                 array(
-                    'Bucket'=>$bucketName,
+                    'Bucket'=>$this->bucketName,
                     'Key' =>  $keyName,
                     'SourceFile' => $file,
                     'StorageClass' => 'REDUCED_REDUNDANCY'
@@ -456,4 +460,5 @@ class UploadsC extends CI_Controller {
             return true;
         }
     }
+
 }

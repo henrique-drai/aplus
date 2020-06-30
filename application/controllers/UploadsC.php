@@ -2,6 +2,12 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+require '../vendor/autoload.php';
+	
+use Aws\S3\S3Client;
+use Aws\S3\Exception\S3Exception;
+
+
 class UploadsC extends CI_Controller {
 
     public function __construct()
@@ -10,6 +16,26 @@ class UploadsC extends CI_Controller {
         $this->load->helper('url');
         if(is_null($this->session->userdata('role'))){ $this->load->view('errors/403'); }
         $this->load->model('ProjectModel');
+
+        $bucketName = 'plusa';
+        $IAM_KEY = 'AKIAVFIHVJAOIQ3CYTWP';
+        $IAM_SECRET = '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';
+        
+        try {
+            $s3 = S3Client::factory(
+                array(
+                    'credentials' => array(
+                        'key' => $IAM_KEY,
+                        'secret' => $IAM_SECRET
+                    ),
+                    'version' => 'latest',
+                    'region'  => 'eu-west-3'
+                )
+            );
+        } catch (Exception $e) {
+            die("Error: " . $e->getMessage());
+        }
+
     }
 
 
@@ -21,27 +47,33 @@ class UploadsC extends CI_Controller {
 
         if($this->verify_teacher($user_id, $project_id, "projeto")){
 
-            $path = './uploads/enunciados_files/';
+            // MUDAR NOME $_FILES
 
-            if(!is_dir($path)){
-                mkdir($path, 0777, TRUE);
-            } else {
-                chmod($path, 0777);
+            $realName = basename($_FILES["fileToUpload"]['name']);
+            $allowed = array('pdf');
+            $ext = pathinfo($realName, PATHINFO_EXTENSION);
+            if (!in_array($ext, $allowed)) {
+                echo 'file type not supported, error';
             }
 
-            $upload['upload_path'] = $path;
-            $upload['allowed_types'] = 'pdf';
-            $upload['file_name'] = $project_id;
-            $upload['max_size'] = 2048;
-        
-            $this->load->library('upload', $upload);
-            $this->upload->initialize($upload);
+            $keyName = 'enunciados_files/' . $project_id . $ext;
+            $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
 
-            // type == S -> msg de sucesso
-            // type == E -> msg de erro
-    
-            if ( ! $this->upload->do_upload('file_projeto'))
-            {
+            try {
+                // Uploaded:
+                $file = $_FILES["fileToUpload"]['tmp_name'];
+        
+                $s3->putObject(
+                    array(
+                        'Bucket'=>$bucketName,
+                        'Key' =>  $keyName,
+                        'SourceFile' => $file,
+                        'StorageClass' => 'REDUCED_REDUNDANCY'
+                    )
+                );
+        
+            } catch (Exception $e) {
+
                 $arr_msg = array (
                     "msg" => "Erro ao submeter ficheiro",
                     "type" => "E",
@@ -50,24 +82,22 @@ class UploadsC extends CI_Controller {
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
-            else
-            {
-                $arr_msg = array (
-                    "msg" => "Ficheiro submetido com sucesso",
-                    "type" => "S",
-                );
 
-                $enunciado = $this->upload->data('raw_name');
-                $ext = $this->upload->data('file_ext');
-                $enunciado_original = $this->upload->data('client_name');
+            $arr_msg = array (
+                "msg" => "Ficheiro submetido com sucesso",
+                "type" => "S",
+            );
 
-                $name_enunciado = $enunciado . '_' . time() . $ext;
-                rename("uploads/enunciados_files/" . $enunciado . ".pdf", "uploads/enunciados_files/" . $name_enunciado);
-                
-                $this->ProjectModel->updateProjEnunciado($name_enunciado, $enunciado_original, $project_id);
-                $this->session->set_userdata('result_msg', $arr_msg);
-                header("Location: ".base_url()."projects/project/".$project_id);
-            }
+            $name_enunciado = $project_id . $ext;
+
+            $this->ProjectModel->updateProjEnunciado($name_enunciado, $realName, $project_id);
+            $this->session->set_userdata('result_msg', $arr_msg);
+            header("Location: ".base_url()."projects/project/".$project_id);
+        
+            
+            // VERIFICAR O LINK PARA IR BUSCAR O FICHEIRO - QQ COISA METER ISTO NA SESSION
+            echo "<a href='" . $pathInS3 . "' > Link </a>";
+        
         } else {
             header("Location: ".base_url()."errors/403");
         }
@@ -82,20 +112,35 @@ class UploadsC extends CI_Controller {
         $user_id = $this->session->userdata('id');
    
         if($this->verify_teacher($user_id, $project_id, "projeto")){
-            
-            if(!is_dir('./uploads/enunciados_files/' . strval($project_id) . '/')){
-                mkdir('./uploads/enunciados_files/' . strval($project_id) . '/', 0777, TRUE);
+
+
+
+            $realName = basename($_FILES["fileToUpload"]['name']);
+            $allowed = array('pdf');
+            $ext = pathinfo($realName, PATHINFO_EXTENSION);
+            if (!in_array($ext, $allowed)) {
+                echo 'file type not supported, error';
             }
 
-            $upload['upload_path'] = './uploads/enunciados_files/' . strval($project_id) . '/';
-            $upload['allowed_types'] = 'pdf';
-            $upload['file_name'] = $etapa_id;
-            $upload['max_size'] = 2048;
+            $keyName = 'enunciados_files/' . $project_id . "/" . $etapa_id . $ext;
+            $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
 
-            $this->load->library('upload', $upload);
 
-            if ( ! $this->upload->do_upload('file_etapa'))
-            {
+            try {
+                // Uploaded:
+                $file = $_FILES["fileToUpload"]['tmp_name'];
+        
+                $s3->putObject(
+                    array(
+                        'Bucket'=>$bucketName,
+                        'Key' =>  $keyName,
+                        'SourceFile' => $file,
+                        'StorageClass' => 'REDUCED_REDUNDANCY'
+                    )
+                );
+        
+            } catch (Exception $e) {
+
                 $arr_msg = array (
                     "msg" => "Erro ao submeter ficheiro da etapa",
                     "type" => "E",
@@ -104,24 +149,22 @@ class UploadsC extends CI_Controller {
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
-            else
-            {
-                $arr_msg = array (
-                    "msg" => "Ficheiro da etapa submetido com sucesso",
-                    "type" => "S",
-                );
 
-                $enunciado = $this->upload->data('raw_name');
-                $ext = $this->upload->data('file_ext');
-                $enunciado_original = $this->upload->data('client_name');
+            $arr_msg = array (
+                "msg" => "Ficheiro da etapa submetido com sucesso",
+                "type" => "S",
+            );
 
-                $name_enunciado = $enunciado . '_' . time() . $ext;
-                rename("uploads/enunciados_files/" . $project_id . "/" . $enunciado . ".pdf", "uploads/enunciados_files/" . $project_id . "/" . $name_enunciado);
-                
-                $this->ProjectModel->editEtapaEnunciado($name_enunciado, $enunciado_original, $etapa_id);
-                $this->session->set_userdata('result_msg', $arr_msg);
-                header("Location: ".base_url()."projects/project/".$project_id);
-            }
+            $name_enunciado = $project_id . $ext;
+
+            $this->ProjectModel->editEtapaEnunciado($name_enunciado, $realName, $etapa_id);
+            $this->session->set_userdata('result_msg', $arr_msg);
+            header("Location: ".base_url()."projects/project/".$project_id);
+                  
+            // VERIFICAR O LINK PARA IR BUSCAR O FICHEIRO - QQ COISA METER ISTO NA SESSION 
+            echo "<a href='" . $pathInS3 . "' > Link </a>";
+
+
         } else {
             header("Location: ".base_url()."errors/403");
         }
@@ -137,24 +180,35 @@ class UploadsC extends CI_Controller {
 
         if($this->verify_student($user_id, $grupo_id)){
 
-            if(!is_dir('./uploads/submissions/' . strval($project_id) . '/' . strval($etapa_id) . '/')){
-                mkdir('./uploads/submissions/' . strval($project_id) . '/' . strval($etapa_id) . '/', 0777, TRUE);
+
+            $realName = basename($_FILES["fileToUpload"]['name']);
+            $allowed = array('zip', 'rar', 'pdf', 'docx');
+            $ext = pathinfo($realName, PATHINFO_EXTENSION);
+            if (!in_array($ext, $allowed)) {
+                echo 'file type not supported, error';
             }
 
-            $upload['upload_path'] = './uploads/submissions/' . strval($project_id) . '/' . strval($etapa_id) . '/';
-            $upload['allowed_types'] = 'zip|rar|pdf|docx';
-            $upload['file_name'] = $grupo_id;
-            $upload['max_size'] = 2048;
-            $upload['overwrite'] = true;
+            $keyName = 'submissions/' . $project_id . "/" . $etapa_id . "/" . $grupo_id . $ext;
+            $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
 
-            $this->load->library('upload', $upload);
 
-            // foreach (glob("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id ."*.*") as $filename) {
-            //     unlink($filename);
-            // }
+            try {
+                // Uploaded:
+                $file = $_FILES["fileToUpload"]['tmp_name'];
+        
+                $s3->putObject(
+                    array(
+                        'Bucket'=>$bucketName,
+                        'Key' =>  $keyName,
+                        'SourceFile' => $file,
+                        'StorageClass' => 'REDUCED_REDUNDANCY'
+                    )
+                );
 
-            if ( ! $this->upload->do_upload('file_submit'))
-            {
+                
+        
+            } catch (Exception $e) {
+
                 $arr_msg = array (
                     "msg" => "Erro ao submeter o trabalho",
                     "type" => "E",
@@ -163,40 +217,39 @@ class UploadsC extends CI_Controller {
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
-            else
-            {
-                $arr_msg = array (
-                    "msg" => "Trabalho submetido com sucesso",
-                    "type" => "S",
+
+
+            $arr_msg = array (
+                "msg" => "Trabalho submetido com sucesso",
+                "type" => "S",
+            );
+
+
+            $name_enunciado = $project_id . $ext;
+            $sub = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
+
+            if(empty($sub->row())){
+                //submit
+                $data_send = Array(
+                    "grupo_id"            => $grupo_id,
+                    "etapa_id"            => $etapa_id,
+                    "submit_url"          => $name_enunciado,
+                    "submit_original"     => $realName,
+                    "feedback"            => "",
                 );
 
-                $enunciado = $this->upload->data('raw_name');
-                $ext = $this->upload->data('file_ext');
-                $name_enunciado = $enunciado . '_' . time() . $ext;
-
-                rename("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $enunciado . $ext, "uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $name_enunciado);
-                $fich = $this->upload->data('client_name');
-                $sub = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
-
-                if(empty($sub->row())){
-                    //submit
-                    $data_send = Array(
-                        "grupo_id"            => $grupo_id,
-                        "etapa_id"            => $etapa_id,
-                        "submit_url"          => $name_enunciado,
-                        "submit_original"     => $fich,
-                        "feedback"            => "",
-                    );
-
-                    $this->ProjectModel->submitEtapa($data_send);
-                } else {
-                    //update
-                    $this->ProjectModel->updateSubmission($grupo_id, $etapa_id, $name_enunciado, $fich);
-                }
-
-                $this->session->set_userdata('result_msg', $arr_msg);
-                header("Location: ".base_url()."projects/project/".$project_id);
+                $this->ProjectModel->submitEtapa($data_send);
+            } else {
+                //update
+                $this->ProjectModel->updateSubmission($grupo_id, $etapa_id, $name_enunciado, $realName);
             }
+
+            $this->session->set_userdata('result_msg', $arr_msg);
+            header("Location: ".base_url()."projects/project/".$project_id);
+                  
+            // VERIFICAR O LINK PARA IR BUSCAR O FICHEIRO - QQ COISA METER ISTO NA SESSION
+            echo "<a href='" . $pathInS3 . "' > Link </a>";
+
         } else {
             header("Location: ".base_url()."errors/403");
         }
@@ -211,49 +264,48 @@ class UploadsC extends CI_Controller {
 
         if($this->verify_student($user_id, $grupo_id)){
 
-            if(!is_dir('./uploads/grupo_files/' . strval($grupo_id) . '/')){
-                mkdir('./uploads/grupo_files/' . strval($grupo_id) . '/', 0777, TRUE);
+            $realName = basename($_FILES["fileToUpload"]['name']);
+            $allowed = array('zip', 'rar', 'pdf', 'docx');
+            $ext = pathinfo($realName, PATHINFO_EXTENSION);
+            if (!in_array($ext, $allowed)) {
+                echo 'file type not supported, error';
             }
 
-            $upload['upload_path'] = './uploads/grupo_files/' . strval($grupo_id) . '/';
-            $upload['allowed_types'] = 'zip|rar|pdf|docx';
-            $upload['max_size'] = 2048;
-            $upload['overwrite'] = true;
+            $keyName = 'grupo_files/' . $grupo_id . "/" .  $realName;
+            $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
 
-            $this->load->library('upload', $upload);
-
-            if ( ! $this->upload->do_upload("file_submit"))
-            {
+            try {
+                // Uploaded:
+                $file = $_FILES["fileToUpload"]['tmp_name'];
+        
+                $s3->putObject(
+                    array(
+                        'Bucket'=>$bucketName,
+                        'Key' =>  $keyName,
+                        'SourceFile' => $file,
+                        'StorageClass' => 'REDUCED_REDUNDANCY'
+                    )
+                );
+            } catch (Exception $e) {
                 $error = array('error' => $this->upload->display_errors());
                 header("Location: ".base_url()."app/ficheiros/".$grupo_id);
-            }  
-            else
-            {
-
-                $enunciado = $this->upload->data('raw_name');
-                $ext = $this->upload->data('file_ext');
-                $name_enunciado = $enunciado . '_' . time() . $ext;
-
-                rename("uploads/grupo_files/" . $grupo_id . '/' . $enunciado . $ext, "uploads/grupo_files/" . $grupo_id . '/' . $name_enunciado);
-
-                //registar ficheiro na bd e cenas
-                $this->load->model('GroupModel');
-                $fich = $this->upload->data('client_name');
-                $res = $this->GroupModel->getFicheiroGrupoByURLSub($fich, $grupo_id);
-                if(empty($res)){
-                    $data_send = Array(
-                        "grupo_id"      => $grupo_id,
-                        "user_id"       => $user_id,
-                        "url"           => $name_enunciado,
-                        "url_original"  => $fich,
-                    );
-                    $this->GroupModel->submit_ficheiro_areagrupo($data_send);
-                } else {
-                    $this->GroupModel->change_ficheiro_areagrupo_url($name_enunciado, $grupo_id);
-                }
-
-                header("Location: ".base_url()."app/ficheiros/".$grupo_id);
             }
+
+            $this->load->model('GroupModel');
+            $res = $this->GroupModel->getFicheiroGrupoByURLSub($realName, $grupo_id);
+
+            if(empty($res)){
+                $data_send = Array(
+                    "grupo_id"      => $grupo_id,
+                    "user_id"       => $user_id,
+                    "url"           => $realName,
+                    "url_original"  => $realName,
+                );
+                $this->GroupModel->submit_ficheiro_areagrupo($data_send);
+            } else {
+                $this->GroupModel->change_ficheiro_areagrupo_url($realName, $grupo_id);
+            }
+            header("Location: ".base_url()."app/ficheiros/".$grupo_id);
         } else {
             header("Location: ".base_url()."errors/403");
         }
@@ -280,49 +332,50 @@ class UploadsC extends CI_Controller {
                 header("Location: ".base_url()."errors/404");
             }
 
-            if(!is_dir('./uploads/cadeira_files/' . strval($cadeira_id) . '/')){
-                mkdir('./uploads/cadeira_files/' . strval($cadeira_id) . '/', 0777, TRUE);
+            $realName = basename($_FILES["fileToUpload"]['name']);
+            $allowed = array('zip', 'rar', 'pdf', 'docx');
+            $ext = pathinfo($realName, PATHINFO_EXTENSION);
+            if (!in_array($ext, $allowed)) {
+                echo 'file type not supported, error';
             }
 
-            $upload['upload_path'] = './uploads/cadeira_files/' . strval($cadeira_id) . '/';
-            $upload['allowed_types'] = 'zip|rar|pdf|docx';
-            $upload['max_size'] = 5048;
-            $upload['overwrite'] = true;
+            $keyName = 'cadeira_files/' . $cadeira_id . "/" .  $realName;
+            $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
 
-            $this->load->library('upload', $upload);
-
-            if ( ! $this->upload->do_upload("file_submit"))
-            {
+            try {
+                // Uploaded:
+                $file = $_FILES["fileToUpload"]['tmp_name'];
+        
+                $s3->putObject(
+                    array(
+                        'Bucket'=>$bucketName,
+                        'Key' =>  $keyName,
+                        'SourceFile' => $file,
+                        'StorageClass' => 'REDUCED_REDUNDANCY'
+                    )
+                );
+            } catch (Exception $e) {
                 $error = array('error' => $this->upload->display_errors());
                 header("Location: ".base_url()."subjects/ficheiros/".$cadeira_code.'/'.$year);
-            }  
-            else
-            {
-
-                $enunciado = $this->upload->data('raw_name');
-                $ext = $this->upload->data('file_ext');
-                $name_enunciado = $enunciado . '_' . time() . $ext;
-
-                rename("uploads/cadeira_files/" . $cadeira_id . '/' . $enunciado . $ext, "uploads/cadeira_files/" . $cadeira_id . '/' . $name_enunciado);
-
-                $this->load->model('SubjectModel');
-                $fich = $this->upload->data('client_name');
-                $res = $this->SubjectModel->getFicheiroAreaByURLSub($fich, $cadeira_id);
-                if(empty($res)){
-                    $data_send = Array(
-                        "user_id"        =>  $user_id,
-                        "cadeira_id"     =>  $cadeira_id,
-                        "url"            =>  $name_enunciado,
-                        "url_original"   =>  $fich,    
-                     );
-                     
-                    $this->SubjectModel->submitFicheiroArea($data_send);
-                } else {
-                    $this->SubjectModel->changeFicheirosAreaURL($name_enunciado, $cadeira_id);
-                }
-
-                header("Location: ".base_url()."subjects/ficheiros/".$cadeira_code.'/'.$year);
             }
+
+            $this->load->model('SubjectModel');
+            $res = $this->SubjectModel->getFicheiroAreaByURLSub($realName, $cadeira_id);
+
+
+            if(empty($res)){
+                $data_send = Array(
+                    "user_id"        =>  $user_id,
+                    "cadeira_id"     =>  $cadeira_id,
+                    "url"            =>  $realName,
+                    "url_original"   =>  $realName,    
+                    );
+                    
+                $this->SubjectModel->submitFicheiroArea($data_send);
+            } else {
+                $this->SubjectModel->changeFicheirosAreaURL($realName, $cadeira_id);
+            }
+            header("Location: ".base_url()."subjects/ficheiros/".$cadeira_code.'/'.$year);
         } else {
             header("Location: ".base_url()."errors/403");
         }
@@ -332,31 +385,45 @@ class UploadsC extends CI_Controller {
     public function uploadProfilePic()
     {
         $user_id = $this->session->userdata('id');
-        $upload['upload_path'] = './uploads/profile/';
-        $upload['allowed_types'] = 'jpeg|jpg|png';
-        $upload['max_size'] = 2048;
-        $upload['file_name'] = $user_id;
-        $upload['overwrite'] = true;
 
-        $this->load->library('upload', $upload);
+        $realName = basename($_FILES["fileToUpload"]['name']);
+        $allowed = array('jpeg', 'jpg', 'png');
+        $ext = pathinfo($realName, PATHINFO_EXTENSION);
+        if (!in_array($ext, $allowed)) {
+            echo 'file type not supported, error';
+        }
 
-        if ( ! $this->upload->do_upload('userfile'))
-        {
+        $keyName = 'profile/' . $user_id . $ext;
+        $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
+
+
+        try {
+            // Uploaded:
+            $file = $_FILES["fileToUpload"]['tmp_name'];
+    
+            $s3->putObject(
+                array(
+                    'Bucket'=>$bucketName,
+                    'Key' =>  $keyName,
+                    'SourceFile' => $file,
+                    'StorageClass' => 'REDUCED_REDUNDANCY'
+                )
+            );
+    
+        } catch (Exception $e) {
             $error = array('error' => $this->upload->display_errors());
             $this->session->set_userdata('std-message', "O formato escolhido não é suportado.");
             $this->session->set_userdata('std-message-type', "error");
             header("Location: ".base_url()."app/profile/edit");
         }
-        else
-        {
-            $this->load->model('UserModel');
-            $ext = $this->upload->data('file_ext');
-            $this->UserModel->updatePicture($user_id, $ext);
-            $this->session->set_userdata('picture', $ext);
-            $this->session->set_userdata('std-message', "A sua imagem de perfil foi atualizada.");
-            $this->session->set_userdata('std-message-type', "success");
-            header("Location: ".base_url()."app/profile/".$user_id);
-        }
+
+        $this->load->model('UserModel');
+        $this->UserModel->updatePicture($user_id, $ext);
+        $this->session->set_userdata('picture', $ext);
+        $this->session->set_userdata('std-message', "A sua imagem de perfil foi atualizada.");
+        $this->session->set_userdata('std-message-type', "success");
+        header("Location: ".base_url()."app/profile/".$user_id);
+        
     }
 
 

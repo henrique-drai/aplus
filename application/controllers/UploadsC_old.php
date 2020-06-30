@@ -2,12 +2,6 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require '../vendor/autoload.php';
-	
-use Aws\S3\S3Client;
-use Aws\S3\Exception\S3Exception;
-
-
 class UploadsC extends CI_Controller {
 
     public function __construct()
@@ -16,26 +10,6 @@ class UploadsC extends CI_Controller {
         $this->load->helper('url');
         if(is_null($this->session->userdata('role'))){ $this->load->view('errors/403'); }
         $this->load->model('ProjectModel');
-
-        $bucketName = 'plusa';
-        $IAM_KEY = 'AKIAVFIHVJAOIQ3CYTWP';
-        $IAM_SECRET = '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';
-        
-        try {
-            $s3 = S3Client::factory(
-                array(
-                    'credentials' => array(
-                        'key' => $IAM_KEY,
-                        'secret' => $IAM_SECRET
-                    ),
-                    'version' => 'latest',
-                    'region'  => 'eu-west-3'
-                )
-            );
-        } catch (Exception $e) {
-            die("Error: " . $e->getMessage());
-        }
-
     }
 
 
@@ -47,26 +21,27 @@ class UploadsC extends CI_Controller {
 
         if($this->verify_teacher($user_id, $project_id, "projeto")){
 
-            // MUDAR NOME $_FILES
-            $realName = basename($_FILES["fileToUpload"]['name']);
-            $keyName = 'enunciados_files/' . $project_id . pathinfo($realName, PATHINFO_EXTENSION);
-            $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
+            $path = './uploads/enunciados_files/';
 
-            try {
-                // Uploaded:
-                $file = $_FILES["fileToUpload"]['tmp_name'];
-        
-                $s3->putObject(
-                    array(
-                        'Bucket'=>$bucketName,
-                        'Key' =>  $keyName,
-                        'SourceFile' => $file,
-                        'StorageClass' => 'REDUCED_REDUNDANCY'
-                    )
-                );
-        
-            } catch (Exception $e) {
+            if(!is_dir($path)){
+                mkdir($path, 0777, TRUE);
+            } else {
+                chmod($path, 0777);
+            }
 
+            $upload['upload_path'] = $path;
+            $upload['allowed_types'] = 'pdf';
+            $upload['file_name'] = $project_id;
+            $upload['max_size'] = 2048;
+        
+            $this->load->library('upload', $upload);
+            $this->upload->initialize($upload);
+
+            // type == S -> msg de sucesso
+            // type == E -> msg de erro
+    
+            if ( ! $this->upload->do_upload('file_projeto'))
+            {
                 $arr_msg = array (
                     "msg" => "Erro ao submeter ficheiro",
                     "type" => "E",
@@ -75,22 +50,24 @@ class UploadsC extends CI_Controller {
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
+            else
+            {
+                $arr_msg = array (
+                    "msg" => "Ficheiro submetido com sucesso",
+                    "type" => "S",
+                );
 
-            $arr_msg = array (
-                "msg" => "Ficheiro submetido com sucesso",
-                "type" => "S",
-            );
+                $enunciado = $this->upload->data('raw_name');
+                $ext = $this->upload->data('file_ext');
+                $enunciado_original = $this->upload->data('client_name');
 
-            $name_enunciado = $project_id . pathinfo($realName, PATHINFO_EXTENSION);
-
-            $this->ProjectModel->updateProjEnunciado($name_enunciado, $realName, $project_id);
-            $this->session->set_userdata('result_msg', $arr_msg);
-            header("Location: ".base_url()."projects/project/".$project_id);
-        
-            
-            // VERIFICAR O LINK PARA IR BUSCAR O FICHEIRO
-            echo "<a href='" . $pathInS3 . "' > Link </a>";
-        
+                $name_enunciado = $enunciado . '_' . time() . $ext;
+                rename("uploads/enunciados_files/" . $enunciado . ".pdf", "uploads/enunciados_files/" . $name_enunciado);
+                
+                $this->ProjectModel->updateProjEnunciado($name_enunciado, $enunciado_original, $project_id);
+                $this->session->set_userdata('result_msg', $arr_msg);
+                header("Location: ".base_url()."projects/project/".$project_id);
+            }
         } else {
             header("Location: ".base_url()."errors/403");
         }
@@ -105,29 +82,20 @@ class UploadsC extends CI_Controller {
         $user_id = $this->session->userdata('id');
    
         if($this->verify_teacher($user_id, $project_id, "projeto")){
+            
+            if(!is_dir('./uploads/enunciados_files/' . strval($project_id) . '/')){
+                mkdir('./uploads/enunciados_files/' . strval($project_id) . '/', 0777, TRUE);
+            }
 
+            $upload['upload_path'] = './uploads/enunciados_files/' . strval($project_id) . '/';
+            $upload['allowed_types'] = 'pdf';
+            $upload['file_name'] = $etapa_id;
+            $upload['max_size'] = 2048;
 
+            $this->load->library('upload', $upload);
 
-            $realName = basename($_FILES["fileToUpload"]['name']);
-            $keyName = 'enunciados_files/' . $project_id . "/" . $etapa_id . pathinfo($realName, PATHINFO_EXTENSION);
-            $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
-
-
-            try {
-                // Uploaded:
-                $file = $_FILES["fileToUpload"]['tmp_name'];
-        
-                $s3->putObject(
-                    array(
-                        'Bucket'=>$bucketName,
-                        'Key' =>  $keyName,
-                        'SourceFile' => $file,
-                        'StorageClass' => 'REDUCED_REDUNDANCY'
-                    )
-                );
-        
-            } catch (Exception $e) {
-
+            if ( ! $this->upload->do_upload('file_etapa'))
+            {
                 $arr_msg = array (
                     "msg" => "Erro ao submeter ficheiro da etapa",
                     "type" => "E",
@@ -136,22 +104,24 @@ class UploadsC extends CI_Controller {
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
+            else
+            {
+                $arr_msg = array (
+                    "msg" => "Ficheiro da etapa submetido com sucesso",
+                    "type" => "S",
+                );
 
-            $arr_msg = array (
-                "msg" => "Ficheiro da etapa submetido com sucesso",
-                "type" => "S",
-            );
+                $enunciado = $this->upload->data('raw_name');
+                $ext = $this->upload->data('file_ext');
+                $enunciado_original = $this->upload->data('client_name');
 
-            $name_enunciado = $project_id . pathinfo($realName, PATHINFO_EXTENSION);
-
-            $this->ProjectModel->editEtapaEnunciado($name_enunciado, $realName, $etapa_id);
-            $this->session->set_userdata('result_msg', $arr_msg);
-            header("Location: ".base_url()."projects/project/".$project_id);
-                  
-            // VERIFICAR O LINK PARA IR BUSCAR O FICHEIRO
-            echo "<a href='" . $pathInS3 . "' > Link </a>";
-
-
+                $name_enunciado = $enunciado . '_' . time() . $ext;
+                rename("uploads/enunciados_files/" . $project_id . "/" . $enunciado . ".pdf", "uploads/enunciados_files/" . $project_id . "/" . $name_enunciado);
+                
+                $this->ProjectModel->editEtapaEnunciado($name_enunciado, $enunciado_original, $etapa_id);
+                $this->session->set_userdata('result_msg', $arr_msg);
+                header("Location: ".base_url()."projects/project/".$project_id);
+            }
         } else {
             header("Location: ".base_url()."errors/403");
         }
@@ -167,29 +137,24 @@ class UploadsC extends CI_Controller {
 
         if($this->verify_student($user_id, $grupo_id)){
 
+            if(!is_dir('./uploads/submissions/' . strval($project_id) . '/' . strval($etapa_id) . '/')){
+                mkdir('./uploads/submissions/' . strval($project_id) . '/' . strval($etapa_id) . '/', 0777, TRUE);
+            }
 
-            $realName = basename($_FILES["fileToUpload"]['name']);
-            $keyName = 'submissions/' . $project_id . "/" . $etapa_id . "/" . $grupo_id . pathinfo($realName, PATHINFO_EXTENSION);
-            $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
+            $upload['upload_path'] = './uploads/submissions/' . strval($project_id) . '/' . strval($etapa_id) . '/';
+            $upload['allowed_types'] = 'zip|rar|pdf|docx';
+            $upload['file_name'] = $grupo_id;
+            $upload['max_size'] = 2048;
+            $upload['overwrite'] = true;
 
+            $this->load->library('upload', $upload);
 
-            try {
-                // Uploaded:
-                $file = $_FILES["fileToUpload"]['tmp_name'];
-        
-                $s3->putObject(
-                    array(
-                        'Bucket'=>$bucketName,
-                        'Key' =>  $keyName,
-                        'SourceFile' => $file,
-                        'StorageClass' => 'REDUCED_REDUNDANCY'
-                    )
-                );
+            // foreach (glob("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $grupo_id ."*.*") as $filename) {
+            //     unlink($filename);
+            // }
 
-                
-        
-            } catch (Exception $e) {
-
+            if ( ! $this->upload->do_upload('file_submit'))
+            {
                 $arr_msg = array (
                     "msg" => "Erro ao submeter o trabalho",
                     "type" => "E",
@@ -198,41 +163,40 @@ class UploadsC extends CI_Controller {
                 $this->session->set_userdata('result_msg', $arr_msg);
                 header("Location: ".base_url()."projects/project/".$project_id);
             }
-
-
-            $arr_msg = array (
-                "msg" => "Trabalho submetido com sucesso",
-                "type" => "S",
-            );
-
-
-            $name_enunciado = $project_id . pathinfo($realName, PATHINFO_EXTENSION);
-
-
-            $sub = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
-
-            if(empty($sub->row())){
-                //submit
-                $data_send = Array(
-                    "grupo_id"            => $grupo_id,
-                    "etapa_id"            => $etapa_id,
-                    "submit_url"          => $name_enunciado,
-                    "submit_original"     => $realName,
-                    "feedback"            => "",
+            else
+            {
+                $arr_msg = array (
+                    "msg" => "Trabalho submetido com sucesso",
+                    "type" => "S",
                 );
 
-                $this->ProjectModel->submitEtapa($data_send);
-            } else {
-                //update
-                $this->ProjectModel->updateSubmission($grupo_id, $etapa_id, $name_enunciado, $realName);
+                $enunciado = $this->upload->data('raw_name');
+                $ext = $this->upload->data('file_ext');
+                $name_enunciado = $enunciado . '_' . time() . $ext;
+
+                rename("uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $enunciado . $ext, "uploads/submissions/" . $project_id . '/' . $etapa_id . '/' . $name_enunciado);
+                $fich = $this->upload->data('client_name');
+                $sub = $this->ProjectModel->getSubmission($grupo_id, $etapa_id);
+
+                if(empty($sub->row())){
+                    //submit
+                    $data_send = Array(
+                        "grupo_id"            => $grupo_id,
+                        "etapa_id"            => $etapa_id,
+                        "submit_url"          => $name_enunciado,
+                        "submit_original"     => $fich,
+                        "feedback"            => "",
+                    );
+
+                    $this->ProjectModel->submitEtapa($data_send);
+                } else {
+                    //update
+                    $this->ProjectModel->updateSubmission($grupo_id, $etapa_id, $name_enunciado, $fich);
+                }
+
+                $this->session->set_userdata('result_msg', $arr_msg);
+                header("Location: ".base_url()."projects/project/".$project_id);
             }
-
-            $this->session->set_userdata('result_msg', $arr_msg);
-            header("Location: ".base_url()."projects/project/".$project_id);
-                  
-            // VERIFICAR O LINK PARA IR BUSCAR O FICHEIRO
-            echo "<a href='" . $pathInS3 . "' > Link </a>";
-
         } else {
             header("Location: ".base_url()."errors/403");
         }

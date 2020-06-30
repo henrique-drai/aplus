@@ -62,6 +62,7 @@ li p{
     min-width: 220px;
     border-left: 1px solid #c4c4c4;
     height: 105%;
+    max-width: 270px;
 }
 
 .list-group {
@@ -99,7 +100,7 @@ li p{
 
 #chatList{
     padding: 0px 0px 0px 0px;
-    overflow-y: auto
+    /* overflow-y: auto */
 }
 #chatList1{
     margin: 0;
@@ -112,8 +113,7 @@ li p{
 
 #chat-container{
     /* float: left; */
-    width: 70%;
-
+    width: calc(95% - 215px);
 }
 
 .msg-history{
@@ -294,6 +294,7 @@ li p{
         margin-left: auto;
         margin-right: auto;
         margin-top: 15px;
+        max-width: 100%;
     }
     #all-chat {
         display: contents;
@@ -331,6 +332,7 @@ li p{
     #leftSideChat{
         height: 53%;
         margin-top: 15px;
+        width: 100%;
 
     }
     .msg-history{

@@ -233,6 +233,7 @@ $(document).ready(() => {
             $("#name-enunciado-etapa").text("Envie o ficheiro do enunciado");
             $("#file-img-etapa").attr('src',base_url+"images/icons/upload-solid.png");
             $("#error-popup").text("Selecione um ficheiro");
+            $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
             $("#error-popup").show();
         }
     })
@@ -536,6 +537,7 @@ function submit_etapa(){
         });
     } else {
         //msg de erro
+        $("#error-popup").append('<i id="closeError" class="fa fa-times" aria-hidden="true"></i>');
         $("#error-popup").show();
         return false;
     }
@@ -790,7 +792,7 @@ function createEtapaPopup(){
     '<label class="form-label">Nome</label><input class="form-input-text" type="text" name="etapaName" required>'+
     '<label class="form-label">Descrição</label><textarea class="form-text-area" type="text" name="etapaDescription" required></textarea>'+
     '<label class="form-label" id="date-picker-label">Data de entrega'+
-    '<input class="form-input-text" id="datepickernew" name="etapaDate" autocomplete="off" readonly="readonly" required></label>'+
+    '<input class="form-input-text" id="datepickernew" name="etapaDate" autocomplete="off" readonly="readonly" required></label><br><br>'+
     '</form><div id="placeholder-picker-new"></div>' 
 
     $(".cd-message").html(content);

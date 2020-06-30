@@ -49,7 +49,7 @@ $(document).ready(() => {
                 $('#write_msg').unbind("keydown");
                 bindEnterChatGroup();  //######################################
             }
-        }else{
+        }else if (chat_user_id==null&&chatType==null){
             loadRecentChat()   
 
         }
@@ -156,7 +156,7 @@ function bindPrivateChatLiClick(){
         limit=30;
         $(".chatList li").removeClass("activeTwo")
         this.classList.toggle("activeTwo");
-        console.log("click privado")
+        // console.log("click privado")
         flagScroll=false
         var id_sender = $(this).attr("user_id");
         clicked_user = id_sender;
@@ -182,7 +182,7 @@ function bindGroupLiClick(){
         limit=30;
         $(".chatList li").removeClass("activeTwo")
         this.classList.toggle("activeTwo");
-        console.log("click Grupo")
+        // console.log("click Grupo")
         flagScroll=false
         var id_group = $(this).attr("group_id");
         // var id_projecto = $(this).attr("projecto_id");
@@ -485,7 +485,7 @@ function makeUserList(dataFromUser){
     users= '';
     var d = new Date();
     var miliseconds = d.getTime();
-    console.log(dataFromUser)
+    // console.log(dataFromUser)
     for (i=0;i<dataFromUser.users.length;i++){
         var src=base_url+"uploads/profile/"+dataFromUser.users[i].id+dataFromUser.users[i].picture+"?"+miliseconds;
         if(dataFromUser.users[i].picture==""){

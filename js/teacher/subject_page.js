@@ -86,6 +86,16 @@ $(document).ready(() => {
         validateFormNumb(id);
     })
 
+    $("body").on("change", ".maxnuminput", function(){
+        var id = $(this).attr("id");
+        validateFormNumb(id);
+    })
+
+    $("body").on("change", ".minnuminput", function(){
+        var id = $(this).attr("id");
+        validateFormNumb(id);
+    })
+
     $("body").on("click", "#add_hour_confirm", function() {
         var flag = false;
 
@@ -173,11 +183,11 @@ function setCode(newcode){
 
 function validateFormNumb(id){
     if($("#" + id + ".minnuminput").val() != '' && $("#" + id +".maxnuminput").val() != ''){
-        if($("#" + id +".maxnuminput").val() <= $("#" + id + ".minnuminput").val()){
+        if($("#" + id +".maxnuminput").val() <= $("#" + id + ".minnuminput").val() || "09:00" > $("#" + id + ".minnuminput").val() || $("#" + id +".maxnuminput").val() > "20:00"){
             $("#" + id + ".minnuminput").css("border-left-color", "red");
             $("#" + id +".maxnuminput").css("border-left-color", "red");
             return false;
-        } else if($("#" + id + ".minnuminput").val() < $("#" + id +".maxnuminput").val() < "20:00" && "09:00" < $("#" + id + ".minnuminput").val() < $("#" + id +".maxnuminput").val()){
+        } else if($("#" + id + ".minnuminput").val() < $("#" + id +".maxnuminput").val() && $("#" + id +".maxnuminput").val() < "20:00" && "09:00" < $("#" + id + ".minnuminput").val()){
             $("#" + id + ".minnuminput").css("border-left-color", "#42d542");
             $("#" + id +".maxnuminput").css("border-left-color", "#42d542");
             return true;

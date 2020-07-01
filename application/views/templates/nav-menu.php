@@ -1,9 +1,3 @@
-<?php
-$file = "uploads/profile/" . $this->session->id . $this->session->picture;
-if(!file_exists($file)) {$file = "uploads/profile/default.jpg";}
-$picture = $base_url . $file . "?" . time();
-
-?>
 
 <link rel="stylesheet" type="text/css" href="<?=$base_url?>css/nav-menu.css">
 <script src="<?=$base_url?>js/nav-menu.js"></script>
@@ -15,7 +9,7 @@ $picture = $base_url . $file . "?" . time();
         <div class="nav-menu-user-section">
             <div class="nav-menu-profile-picture">
                 <a href="<?=$base_url?>app/profile/edit">
-                    <img src="<?=$picture?>" alt="Profile Picture">
+                    <img src="<?=$base_url . "file/profilePic/" . $this->session->id ?>" alt="Profile Picture">
                     <div class="nav-menu-profile-picture-hover">
                         Edit
                     </div>
@@ -52,6 +46,6 @@ $picture = $base_url . $file . "?" . time();
             <img src="<?=$base_url?>images/icons/bell.png" alt="">
             <div class="alert hidden"></div>
         </div>
-        <div class="img"><img src="<?=$picture?>" alt="Profile"></div>
+        <div class="img"><img src="<?=$base_url . "file/profilePic/" . $this->session->id ?>" alt="Profile"></div>
     </div>
 </div>

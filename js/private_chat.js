@@ -289,13 +289,13 @@ function makeUserListLastText(dataFromUser){
             src=base_url+"uploads/profile/default.jpg"
         }
         if(clicked_id==dataFromUser.users[i].id){
-            users += '<li class="list-group-class activeTwo" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat"><img src='+src+' class="chat_profile" alt="Profile Picture"></img>' +
+            users += "<li class='list-group-class activeTwo' user_id='"+ dataFromUser.users[i].id + "'> <div class='list-chat'><img src='"+ base_url +'file/profilePic/'+ dataFromUser.users[i].id +"' class='chat_profile' alt='Profile Picture'></img>" +
             dataFromUser.users[i].name +' '+ dataFromUser.users[i].surname + '</div>'
            //  '<p>'+ dataFromUser.content[i].content +'</p></li>';
            incr++;
 
         }else{
-            users += '<li class="list-group-class" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat"><img src='+src+' class="chat_profile" alt="Profile Picture"></img>' +
+            users += "<li class='list-group-class' user_id='" + dataFromUser.users[i].id + "'> <div class='list-chat'><img src='" + base_url +'file/profilePic/'+ dataFromUser.users[i].id + "' class='chat_profile' alt='Profile Picture'></img>" +
             dataFromUser.users[i].name +' '+ dataFromUser.users[i].surname + '</div>'
            //  '<p>'+ dataFromUser.content[i].content +'</p></li>';
            incr++;
@@ -491,7 +491,7 @@ function makeUserList(dataFromUser){
         if(dataFromUser.users[i].picture==""){
             src=base_url+"uploads/profile/default.jpg"
         }
-        users += '<li class="list-group-class" user_id='+ dataFromUser.users[i].id +'> <div class="list-chat"><img src='+src+' class="chat_profile" alt="Profile Picture"</img>' +
+        users += "<li class='list-group-class' user_id='" + dataFromUser.users[i].id +"'> <div class='list-chat'><img src='"+ base_url + "file/profilePic/" + dataFromUser.users[i].id + "' class='chat_profile' alt='Profile Picture'</img>" +
          dataFromUser.users[i].name +' '+ dataFromUser.users[i].surname + '</div></li>'
         //  <p>'+ getLastPrivateMsg(dataFromUser.users[i].content)
         //  "test"+'</p></li>';

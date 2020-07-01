@@ -392,11 +392,12 @@ class UploadsC extends CI_Controller {
 
         $realName = basename($_FILES["userfile"]['name']);
         $allowed = array('jpeg', 'jpg', 'png');
-        $ext = pathinfo($realName, PATHINFO_EXTENSION);
+        $ext = strtolower(pathinfo($realName, PATHINFO_EXTENSION));
         if (!in_array($ext, $allowed)) {
             echo 'file type not supported, error';
         }
 
+        // echo $ext;
         $keyName = 'profile/' . $user_id . "." . $ext;
         $pathInS3 = 'https://plusa.s3.eu-west-3.amazonaws.com/' . $keyName;
 

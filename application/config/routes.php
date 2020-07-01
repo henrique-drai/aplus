@@ -167,6 +167,8 @@ $route['route/subject/(:num)']                  = 'Router/subjectById/$1';
 $route['upload/profilePic']                     = 'UploadsC/uploadProfilePic';
 $route['app/profile/edit']                      = 'App/editProfile';
 
+$route['file/profilePic/(:num)']                = 'S3_Routing/profile_pic/$1';
+
 
 $route['default_controller'] = 'landing';
 $route['404_override'] = '';

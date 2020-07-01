@@ -7,3 +7,5 @@
 
 define("EXEMPLO","valor");
 define("TamnhoCodigoUC", "10");
+define("S3_URL", "https://plusa.s3.eu-west-3.amazonaws.com/");
+

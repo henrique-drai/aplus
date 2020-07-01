@@ -722,10 +722,10 @@ function groupMembers(group_id){;
         success: function(data) {
             var names = '';
             for(var j=0; j < data["users"].length; j++) {
-                var _img = data["users"][j]["picture"]!=""? data["users"][j]["id"] + data["users"][j]["picture"] : "default.jpg";
-                var _src = base_url + "uploads/profile/"+ _img; 
+                // var _img = data["users"][j]["picture"]!=""? data["users"][j]["id"] + data["users"][j]["picture"] : "default.jpg";
+                // var _src = base_url + "uploads/profile/"+ _img; 
                 var _name = data["users"][j]["name"] + data["users"][j]["surname"]
-                names = names + '<a class="groupmember" href="'+ base_url +'app/profile/'+ data["users"][j]["id"] + '">' + '<img class="groupMemberImg" src="'+_src+'" alt="' + _name +'">' + "<span class='memberName'>" + data["users"][j]["name"] + " " + data["users"][j]["surname"] + "</span>" + "</a>";
+                names = names + '<a class="groupmember" href="'+ base_url +'app/profile/'+ data["users"][j]["id"] + '">' + '<img class="groupMemberImg" src="'+ base_url + "file/profilePic/" + data["users"][j]["id"] +'" alt="' + _name +'">' + "<span class='memberName'>" + data["users"][j]["name"] + " " + data["users"][j]["surname"] + "</span>" + "</a>";
             }
             $(".GroupMembers").html('<br><h3>Membros do grupo</h3>' + '<p>'+ names +'</p>');
         },

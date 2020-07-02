@@ -12,6 +12,7 @@ class S3_Routing extends CI_Controller {
     
     public $s3;
     public $bucketName;
+    public $mime_types
 
 
     public function __construct()
@@ -19,7 +20,7 @@ class S3_Routing extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
         $this->load->model('UserModel');
-
+        $this->load->model('ProjectModel');
 
         $this->bucketName = 'plusa';
         $IAM_KEY = 'AKIAVFIHVJAOIQ3CYTWP';
@@ -35,7 +36,14 @@ class S3_Routing extends CI_Controller {
                 'region'  => 'eu-west-3'
             )
         );
-        
+
+        $this->mime_types = array (
+            "pdf" => "pdf",
+            "rar" => "x-rar-compressed",
+            "zip" => "zip",
+            "docx"=> "vnd.openxmlformats-officedocument.wordprocessingml.document",
+        );
+
     }
 
   
@@ -68,7 +76,6 @@ class S3_Routing extends CI_Controller {
     public function enunciado_projeto($idProjeto){
 
         $idProjeto = htmlspecialchars($idProjeto);
-        // $idCadeira = htmlspecialchars($idCadeira);
 
         $plain_url = $this->s3->getObjectUrl($this->bucketName, "enunciados_files/" . $idProjeto . ".pdf");
 
@@ -76,12 +83,41 @@ class S3_Routing extends CI_Controller {
         header('Content-type: application/pdf;');
         header("Content-Length: " . strlen($file));
 
-        // echo $plain_url;
-
-        // print_r($plain_url);
-
         echo $file;
 
     }
 
+    public function enunciado_etapa_projeto($idProjeto, $idEtapa){
+
+        $idProjeto = htmlspecialchars($idProjeto);
+        $idEtapa = htmlspecialchars($idEtapa);
+
+        $plain_url = $this->s3->getObjectUrl($this->bucketName, "enunciados_files/" . $idProjeto . "/" . $idEtapa . ".pdf");
+
+        $file = file_get_contents($plain_url);
+        header('Content-type: application/pdf;');
+        header("Content-Length: " . strlen($file));
+
+        echo $file;
+    }
+
+    public function submissao_etapa($idProjeto, $idEtapa, $idGrupo){
+
+        $idProjeto = htmlspecialchars($idProjeto);
+        $idEtapa = htmlspecialchars($idEtapa);
+        $idGrupo = htmlspecialchars($idGrupo);
+
+        $sub = $this->ProjectModel->getSubmission($idGrupo, $idEtapa)->row()->submit_url;
+
+        $ext = explode(".", $sub)[1];
+
+        $plain_url = $this->s3->getObjectUrl($this->bucketName, "submissions/" . $idProjeto . "/" . $idEtapa . "/" . $idGrupo . "." . $ext);
+
+        $file = file_get_contents($plain_url);
+        header('Content-type: application/' . $this->mime_types[$ext] . ';');
+        header("Content-Length: " . strlen($file));
+
+        echo $file;
+
+    }
 }

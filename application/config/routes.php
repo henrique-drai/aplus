@@ -167,9 +167,10 @@ $route['route/subject/(:num)']                  = 'Router/subjectById/$1';
 $route['upload/profilePic']                     = 'UploadsC/uploadProfilePic';
 $route['app/profile/edit']                      = 'App/editProfile';
 
-$route['file/profilePic/(:num)']                = 'S3_Routing/profile_pic/$1';
-$route['file/enunciadoFile/(:num)']             = 'S3_Routing/enunciado_projeto/$1';
-
+$route['file/profilePic/(:num)']                    = 'S3_Routing/profile_pic/$1';
+$route['file/enunciadoFile/(:num)']                 = 'S3_Routing/enunciado_projeto/$1';
+$route['file/enunciadoEtapa/(:num)/(:num)']         = 'S3_Routing/enunciado_etapa_projeto/$1/$2';
+$route['file/submissionEtapa/(:num)/(:num)/(:num)'] = 'S3_Routing/submissao_etapa/$1/$2/$3';
 
 $route['default_controller'] = 'landing';
 $route['404_override'] = '';

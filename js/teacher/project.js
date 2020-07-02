@@ -433,9 +433,8 @@ function getSumbission(grupo_id, etapa, proj){
         success: function(data) {
             console.log(data)
             if (data.length > 0){
-                var base_link = base_url + "uploads/submissions/" + proj + "/" + etapa + "/";
-                var extension = data[0]["submit_url"].split(".").pop();
-                $("#sub_url").html('<a target="_blank" href="'+base_link+data[0]["submit_url"]+'">' + data[0]["submit_original"] + '</a>');
+                var base_link = base_url + "uploads/submissao_etapa/" + proj + "/" + etapa + "/" + grupo_id;
+                $("#sub_url").html('<a target="_blank" href="'+base_link+'">' + data[0]["submit_original"] + '</a>');
                 $("#confirmFeedback").show();
                 $("textarea[name='feedback-text']").prop("disabled", false);
 
@@ -713,7 +712,7 @@ function makeEtapaTable(data){
             removebut = ''
         } else {
             removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
-            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + enunciado + "'>" + enunciado_original + "</a>"
+            newenunciado = "<a target='_blank' href='" + base_url + "file/enunciadoEtapa/" + proj + "/" + json["id"] + "'>" + enunciado_original + "</a>"
         }
 
         console.log(removebut)

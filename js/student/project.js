@@ -321,7 +321,7 @@ function makeEtapaDiv(data){
             removebut = ''
         } else {
             removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
-            newenunciado = "<a target='_blank' href='" + base_url + "uploads/enunciados_files/" + proj + "/" + enunciado + "'>" + enunciado_original + "</a>"
+            newenunciado = "<a target='_blank' href='" + base_url + "file/enunciadoEtapa/" + proj + "/" + json["id"] + "'>" + enunciado_original + "</a>"
         }
 
 
@@ -397,14 +397,13 @@ function checkSubmission(grupo, etapa, proj){
         success: function(data) {
             if (data.length > 0){
                 console.log(data);
-                var base_link = base_url + "uploads/submissions/" + proj + "/" + etapa + "/";
-                var extension = data[0]["submit_url"].split(".").pop();
+                var base_link = base_url + "uploads/submissao_etapa/" + proj + "/" + etapa + "/" + grupo;
                 if (data[0]["feedback"] == ""){
                     $("#feedback_label").text("Ainda não foi atribuido feedback a esta etapa.");
                 } else {
                     $("#feedback_label").text(data[0]["feedback"]);
                 }
-                $("#sub_label").html('<a target="_blank" href="'+base_link+data[0]["submit_url"]+'">' + data[0]["submit_original"] + '</a>');
+                $("#sub_label").html('<a target="_blank" href="'+base_link+'">' + data[0]["submit_original"] + '</a>');
             } else {
                 $("#sub_label").text("O seu grupo ainda não submeteu uma entrega.");
                 $("#feedback_label").text("Ainda não foi atribuido feedback a esta etapa.");

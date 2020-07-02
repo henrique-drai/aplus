@@ -114,13 +114,18 @@ class GroupModel extends CI_Model { //grupo & member_classification & grupo_msg
         return $this->db->get_where("grupo_aluno", array("user_id" => $user_id, "grupo_id" => $group_id))->row();
     }
 
-    public function change_ficheiro_areagrupo_url($name_enunciado, $grupo_id){
-        $this->db->set("url", $name_enunciado);
+    public function change_ficheiro_areagrupo_url($name_wext, $name_enunciado, $grupo_id){
+        $this->db->set("url", $name_wext);
+        $this->db->set("url_original", $name_enunciado);
         $this->db->where("grupo_id", $grupo_id);
         $this->db->update("ficheiros_grupo");
     }
 
     public function confirmNameInProject($proj_id, $groupName){
         return $this->db->get_where("grupo", array("projeto_id" => $proj_id, "name" => $groupName))->row();
+    }
+
+    public function getFicheiroGrupoByNormalURL($ficheiro_url, $grupo_id){
+        return $this->db->get_where("ficheiros_grupo", array("url" => $ficheiro_url, "grupo_id" => $grupo_id))->row();
     }
 }

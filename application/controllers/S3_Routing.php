@@ -21,6 +21,8 @@ class S3_Routing extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('UserModel');
         $this->load->model('ProjectModel');
+        $this->load->model('GroupModel');
+        $this->load->model('SubjectModel');
 
         $this->bucketName = 'plusa';
         $IAM_KEY = 'AKIAVFIHVJAOIQ3CYTWP';
@@ -119,5 +121,38 @@ class S3_Routing extends CI_Controller {
 
         echo $file;
 
+    }
+
+    public function group_files($idGrupo, $file_url){
+        
+        $idGrupo = htmlspecialchars($idGrupo);
+        $file_url = urldecode(htmlspecialchars($file_url));
+
+        $file = $this->GroupModel->getFicheiroGrupoByNormalURL($file_url, $idGrupo)->url_original;
+        $ext = explode(".", $file)[1];
+
+        $plain_url = $this->s3->getObjectUrl($this->bucketName, "grupo_files/" . $idGrupo . "/" . $file);
+
+        $file = file_get_contents($plain_url);
+        header('Content-type: application/' . $this->mime_types[$ext] . ';');
+        header("Content-Length: " . strlen($file));
+
+        echo $file;
+    }
+
+    public function subject_files($idCadeira, $file_url){
+        $idCadeira = htmlspecialchars($idCadeira);
+        $file_url = urldecode(htmlspecialchars($file_url));
+
+        $file = $this->SubjectModel->getFicheiroAreaByNormalURL($file_url, $idCadeira)->url_original;
+        $ext = explode(".", $file)[1];
+
+        $plain_url = $this->s3->getObjectUrl($this->bucketName, "cadeira_files/" . $idCadeira . "/" . $file);
+
+        $file = file_get_contents($plain_url);
+        header('Content-type: application/' . $this->mime_types[$ext] . ';');
+        header("Content-Length: " . strlen($file));
+
+        echo $file;
     }
 }

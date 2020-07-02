@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 // $config['base_url'] = '';
 if (ENVIRONMENT == "development"){
-    $config['base_url'] = 'http://localhost/aplus';
+    $config['base_url'] = 'http://localhost';
 } else {
 	$config['base_url'] = 'https://plusa.me';
     // $config['base_url'] = 'http://aplus2.eu-west-3.elasticbeanstalk.com';

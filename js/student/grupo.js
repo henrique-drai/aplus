@@ -481,11 +481,14 @@ function getTasks(flag, mediaFlag) {
                             $(".insertHere").html(data);
                         }
                     })
+
+                    $("#exportInfo").show();
                     
                 } else {
                     $('.container2').empty();
                     $(".tasksTable p").remove();
                     $(".tasksTable").append("<p>Não existem tarefas.</p>");
+                    $("#exportInfo").hide();
                 }
             } else {
                 $("#newTarefa").remove();

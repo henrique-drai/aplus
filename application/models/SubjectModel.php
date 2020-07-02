@@ -300,10 +300,14 @@ class SubjectModel extends CI_Model { //cadeira
     }
 
 
-    public function changeFicheirosAreaURL($name_enunciado, $cadeira_id){
-        $this->db->set("url", $name_enunciado);
+    public function changeFicheirosAreaURL($name_enunciado_wext, $name_enunciado, $cadeira_id){
+        $this->db->set("url", $name_enunciado_wext);
+        $this->db->set("url_original", $name_enunciado);
         $this->db->where("cadeira_id", $cadeira_id);
         $this->db->update("ficheiros_cadeira");
     }
 
+    public function getFicheiroAreaByNormalURL($url, $cadeira_id){
+        return $this->db->get_where("ficheiros_cadeira", array('url' => $url, "cadeira_id" => $cadeira_id))->row();
+    }
 }

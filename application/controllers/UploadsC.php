@@ -52,7 +52,7 @@ class UploadsC extends CI_Controller {
 
             // MUDAR NOME $_FILES
 
-            $realName = basename($_FILES["file_projeto"]['name']);
+            $realName = htmlspecialchars(basename($_FILES["file_projeto"]['name']));
             $allowed = array('pdf');
             $ext = pathinfo($realName, PATHINFO_EXTENSION);
             if (!in_array($ext, $allowed)) {
@@ -119,7 +119,7 @@ class UploadsC extends CI_Controller {
 
 
 
-            $realName = basename($_FILES["file_etapa"]['name']);
+            $realName = htmlspecialchars(basename($_FILES["file_etapa"]['name']));
             $allowed = array('pdf');
             $ext = pathinfo($realName, PATHINFO_EXTENSION);
             if (!in_array($ext, $allowed)) {
@@ -185,7 +185,7 @@ class UploadsC extends CI_Controller {
         if($this->verify_student($user_id, $grupo_id)){
 
 
-            $realName = basename($_FILES["file_submit"]['name']);
+            $realName = htmlspecialchars(basename($_FILES["file_submit"]['name']));
             $allowed = array('zip', 'rar', 'pdf', 'docx');
             $ext = pathinfo($realName, PATHINFO_EXTENSION);
             if (!in_array($ext, $allowed)) {
@@ -268,7 +268,7 @@ class UploadsC extends CI_Controller {
 
         if($this->verify_student($user_id, $grupo_id)){
 
-            $realName = basename($_FILES["file_submit"]['name']);
+            $realName = htmlspecialchars(basename($_FILES["file_submit"]['name']));
             $allowed = array('zip', 'rar', 'pdf', 'docx');
             $ext = pathinfo($realName, PATHINFO_EXTENSION);
             if (!in_array($ext, $allowed)) {
@@ -298,16 +298,18 @@ class UploadsC extends CI_Controller {
             $this->load->model('GroupModel');
             $res = $this->GroupModel->getFicheiroGrupoByURLSub($realName, $grupo_id);
 
+            $name_without_ext = explode(".", $realName)[0];
+
             if(empty($res)){
                 $data_send = Array(
                     "grupo_id"      => $grupo_id,
                     "user_id"       => $user_id,
-                    "url"           => $realName,
+                    "url"           => $name_without_ext,
                     "url_original"  => $realName,
                 );
                 $this->GroupModel->submit_ficheiro_areagrupo($data_send);
             } else {
-                $this->GroupModel->change_ficheiro_areagrupo_url($realName, $grupo_id);
+                $this->GroupModel->change_ficheiro_areagrupo_url($name_without_ext, $realName, $grupo_id);
             }
             header("Location: ".base_url()."app/ficheiros/".$grupo_id);
         } else {
@@ -336,7 +338,7 @@ class UploadsC extends CI_Controller {
                 header("Location: ".base_url()."errors/404");
             }
 
-            $realName = basename($_FILES["file_submit"]['name']);
+            $realName = htmlspecialchars(basename($_FILES["file_submit"]['name']));
             $allowed = array('zip', 'rar', 'pdf', 'docx');
             $ext = pathinfo($realName, PATHINFO_EXTENSION);
             if (!in_array($ext, $allowed)) {
@@ -365,19 +367,19 @@ class UploadsC extends CI_Controller {
 
             $this->load->model('SubjectModel');
             $res = $this->SubjectModel->getFicheiroAreaByURLSub($realName, $cadeira_id);
-
+            $name_without_ext = explode(".", $realName)[0];
 
             if(empty($res)){
                 $data_send = Array(
                     "user_id"        =>  $user_id,
                     "cadeira_id"     =>  $cadeira_id,
-                    "url"            =>  $realName,
+                    "url"            =>  $name_without_ext,
                     "url_original"   =>  $realName,    
                     );
                     
                 $this->SubjectModel->submitFicheiroArea($data_send);
             } else {
-                $this->SubjectModel->changeFicheirosAreaURL($realName, $cadeira_id);
+                $this->SubjectModel->changeFicheirosAreaURL($name_without_ext, $realName, $cadeira_id);
             }
             header("Location: ".base_url()."subjects/ficheiros/".$cadeira_code.'/'.$year);
         } else {

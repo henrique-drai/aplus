@@ -56,7 +56,7 @@ function get_ficheiros_grupo(grupo){
         data: data,
         success: function(data) {
             console.log(data);
-            var base_link = base_url + "uploads/grupo_files/" + grupo + "/"; 
+            var base_link = base_url + "file/group_files/" + grupo + "/"; 
             var array = [];
 
             if(data["ficheiros"].length == 0){

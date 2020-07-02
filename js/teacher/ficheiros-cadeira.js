@@ -56,7 +56,7 @@ function get_ficheiros(cadeira_id){
         data: data,
         success: function(data) {
             console.log(data.length);
-            var base_link = base_url + "uploads/cadeira_files/" + cadeira_id + "/"; 
+            var base_link = base_url + "file/subject_files/" + cadeira_id + "/";
             var array = [];
 
             if(data.length == 0){

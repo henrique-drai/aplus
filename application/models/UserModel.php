@@ -91,6 +91,7 @@ class UserModel extends CI_Model {
             $this->db->or_like("name", $query);
             $this->db->or_like("surname", $query);
             $this->db->or_like("CONCAT(name,' ',surname)", $query);
+            $this->db->limit(10);  
             $this->db->group_end();
         }
         $this->db->order_by("name","ASC");

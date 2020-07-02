@@ -50,8 +50,7 @@ class S3_Routing extends CI_Controller {
             $plain_url = base_url() . "uploads/profile/default.jpg";
 
             $image = file_get_contents($plain_url);
-            header('Content-type: image/jpg;');
-            
+            header('Content-type: image/jpg;');            
         }
         else{
 
@@ -65,5 +64,24 @@ class S3_Routing extends CI_Controller {
         echo $image;
     }
 
+
+    public function enunciado_projeto($idProjeto){
+
+        $idProjeto = htmlspecialchars($idProjeto);
+        // $idCadeira = htmlspecialchars($idCadeira);
+
+        $plain_url = $this->s3->getObjectUrl($this->bucketName, "enunciados_files/" . $idProjeto . ".pdf");
+
+        $file = file_get_contents($plain_url);
+        header('Content-type: application/pdf;');
+        header("Content-Length: " . strlen($file));
+
+        // echo $plain_url;
+
+        // print_r($plain_url);
+
+        echo $file;
+
+    }
 
 }

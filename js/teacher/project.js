@@ -748,7 +748,7 @@ function makeEtapaTable(data){
 function checkEnunciado(){
     //enunciado h4 é setted através do registo da bd associado ao proj
     if (enunciado_h4 != "" && enunciado_original != ""){
-        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "uploads/enunciados_files/"+ enunciado_h4 +"'>" + enunciado_original + "</a>");
+        $("#enunciado_h4").html("Enunciado: <a target='_blank' href='"+ base_url + "file/enunciadoFile/" + proj  + "'>" + enunciado_original + "</a>");
         $("#openEnunc").val("Editar Enunciado");
     } else {
         $("#enunciado_h4").text("Este projeto ainda não tem enunciado.")

@@ -318,9 +318,7 @@ function makeEtapaDiv(data){
 
         if (enunciado == ""){
             newenunciado = "Não existe enunciado associado a esta etapa."
-            removebut = ''
         } else {
-            removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
             newenunciado = "<a target='_blank' href='" + base_url + "file/enunciadoEtapa/" + proj + "/" + json["id"] + "'>" + enunciado_original + "</a>"
         }
 
@@ -397,7 +395,7 @@ function checkSubmission(grupo, etapa, proj){
         success: function(data) {
             if (data.length > 0){
                 console.log(data);
-                var base_link = base_url + "uploads/submissao_etapa/" + proj + "/" + etapa + "/" + grupo;
+                var base_link = base_url + "file/submissionEtapa/" + proj + "/" + etapa + "/" + grupo;
                 if (data[0]["feedback"] == ""){
                     $("#feedback_label").text("Ainda não foi atribuido feedback a esta etapa.");
                 } else {

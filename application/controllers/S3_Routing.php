@@ -12,7 +12,7 @@ class S3_Routing extends CI_Controller {
     
     public $s3;
     public $bucketName;
-    public $mime_types
+    public $mime_types;
 
 
     public function __construct()

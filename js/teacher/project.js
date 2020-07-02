@@ -433,7 +433,7 @@ function getSumbission(grupo_id, etapa, proj){
         success: function(data) {
             console.log(data)
             if (data.length > 0){
-                var base_link = base_url + "uploads/submissao_etapa/" + proj + "/" + etapa + "/" + grupo_id;
+                var base_link = base_url + "file/submissionEtapa/" + proj + "/" + etapa + "/" + grupo_id;
                 $("#sub_url").html('<a target="_blank" href="'+base_link+'">' + data[0]["submit_original"] + '</a>');
                 $("#confirmFeedback").show();
                 $("textarea[name='feedback-text']").prop("disabled", false);
@@ -709,19 +709,16 @@ function makeEtapaTable(data){
 
         if (enunciado == ""){
             newenunciado = "Não existe enunciado associado a esta etapa."
-            removebut = ''
         } else {
-            removebut = '<label id="removeEnunciado" class="labelRemove"><img src="'+base_url+'/images/close.png"></label> '
             newenunciado = "<a target='_blank' href='" + base_url + "file/enunciadoEtapa/" + proj + "/" + json["id"] + "'>" + enunciado_original + "</a>"
         }
 
-        console.log(removebut)
 
         var obj = {
             id: json["id"],
             description: json["description"],
             enunciado:  newenunciado,
-            remove: removebut
+            remove: "",
         };
         etapas_info.push(obj);
     }
@@ -858,11 +855,18 @@ function createInfoPopup(etapa_rec, name){
 
 
 function createEnunciadoEtapaPopup(){
+
+    if ($("#enunciado_label").text()!="Não existe enunciado associado a esta etapa."){
+        button_text = "Edite o ficheiro do enunciado";
+    } else {
+        button_text = "Envie o ficheiro do enunciado";
+    }
+
     form = '<form enctype="multipart/form-data" accept-charset="utf-8" method="post" id="form-upload-etapa" action="'+base_url + 'UploadsC/uploadEnunciadoEtapa/' + proj + "/" + selected_etapa +'">' +
     '<br><input class="form-input-file" type="file" id="file_etapa" name="file_etapa" accept=".pdf">'+
     '<label for="file_etapa" class="input-label">'+
     '<img id="file-img-etapa" class="file-img" src="'+base_url+'images/icons/upload-solid.png">'+
-    '<span id="name-enunciado-etapa" class="span-name">Envie o ficheiro do enunciado</span></label>'+
+    '<span id="name-enunciado-etapa" class="span-name">'+ button_text +'</span></label>'+
     '<p class="msg-warning-size"><b>Tamanho máximo de ficheiro é de 2MB</b></p></form>'
 
     $("#popup-form").html(form);

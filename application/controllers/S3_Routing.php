@@ -155,4 +155,14 @@ class S3_Routing extends CI_Controller {
 
         echo $file;
     }
+
+    public function delete_from_bucket($filename, $type){
+        // type = 0 -> area de grupo; type = 1 -> area de ficheiros;
+        $filename = htmlspecialchars($filename);
+        $type = htmlspecialchars($type);
+
+        echo $filename;
+
+
+    }
 }

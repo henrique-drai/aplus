@@ -107,7 +107,7 @@ function removeFicheiro(grupo_id, ficheiro_id){
         success: function(data) {
             console.log("mensagem de sucesso");
             console.log(data);
-            window.location.reload();
+            window.location(base_url + "file/delete_file/" + ficheiro_id + "/" + "0");
         },
         error: function(data) {
             console.log("Erro na API - Remove Ficheiro")

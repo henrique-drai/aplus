@@ -162,6 +162,7 @@ $route['api/getLastConvo']                      = 'Api_Chat/getLastConvo';
 
 # ROUTER.php
 $route['route/subject/(:num)']                  = 'Router/subjectById/$1';
+$route['route/subject_files/(:num)']            = 'Router/areaFicheirosById/$1';
 
 # OTHERS
 $route['upload/profilePic']                     = 'UploadsC/uploadProfilePic';
@@ -173,7 +174,7 @@ $route['file/enunciadoEtapa/(:num)/(:num)']         = 'S3_Routing/enunciado_etap
 $route['file/submissionEtapa/(:num)/(:num)/(:num)'] = 'S3_Routing/submissao_etapa/$1/$2/$3';
 $route['file/group_files/(:num)/(:any)']            = 'S3_Routing/group_files/$1/$2';
 $route['file/subject_files/(:num)/(:any)']          = 'S3_Routing/subject_files/$1/$2';
-$route['file/delete_file/(:num)/(:num)']            = 'S3_Routing/delete_from_bucket/$1';
+$route['file/delete_file/(:any)/(:num)/(:num)']     = 'S3_Routing/delete_from_bucket/$1/$2/$3';
 
 $route['default_controller'] = 'landing';
 $route['404_override'] = '';

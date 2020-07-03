@@ -100,9 +100,7 @@ function removeFicheiro(cadeira_id, ficheiro_id){
         url: base_url + "api/removeFicheiroAreaCadeira/" + ficheiro_id,
         data: data,
         success: function(data) {
-            console.log("mensagem de sucesso");
-            console.log(data);
-            window.location.reload();
+            window.location = base_url + "file/delete_file/" + data["ficheiro"][0]["url_original"] + "/" + cadeira_id + "/" + 1;
         },
         error: function(data) {
             console.log("Erro na API - Remove Etapa")

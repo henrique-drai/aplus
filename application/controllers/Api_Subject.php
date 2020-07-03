@@ -598,8 +598,7 @@ class Api_Subject extends REST_Controller {
         $ficheiro_id = htmlspecialchars($this->delete("ficheiro_id"));
 
         if($this->verify_teacher($user_id, $cadeira_id, "cadeira")){
-            $ficheiro = $this->SubjectModel->getFicheiroById($ficheiro_id);
-            unlink("uploads/cadeira_files/" . $cadeira_id . "/" . $ficheiro[0]["url"]);
+            $data["ficheiro"] = $this->SubjectModel->getFicheiroById($ficheiro_id);
             $this->SubjectModel->removeFicheiroAreaCadeira($ficheiro_id);
             $this->response($data, parent::HTTP_OK);
         } else {

@@ -881,8 +881,7 @@ class Api_Project extends REST_Controller {
         $ficheiro_id = htmlspecialchars($this->delete("ficheiro_id"));
 
         if($this->verify_student($user_id, $group_id)){
-            $ficheiro = $this->GroupModel->getFicheiroGrupoById($ficheiro_id);
-            unlink("uploads/grupo_files/" . $group_id . "/" . $ficheiro[0]["url"]);
+            $data["ficheiro"] = $this->GroupModel->getFicheiroGrupoById($ficheiro_id);
             $this->GroupModel->removeFicheiroAreaGrupo($ficheiro_id);
             $this->response($data, parent::HTTP_OK);
         } else {

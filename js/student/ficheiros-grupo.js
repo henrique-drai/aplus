@@ -105,9 +105,7 @@ function removeFicheiro(grupo_id, ficheiro_id){
         url: base_url + "api/removeFicheiroAreaGrupo/" + ficheiro_id,
         data: data,
         success: function(data) {
-            console.log("mensagem de sucesso");
-            console.log(data);
-            window.location(base_url + "file/delete_file/" + ficheiro_id + "/" + "0");
+            window.location = base_url + "file/delete_file/" + data["ficheiro"][0]["url_original"] + "/" + grupo_id + "/" + 0;
         },
         error: function(data) {
             console.log("Erro na API - Remove Ficheiro")

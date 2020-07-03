@@ -20,6 +20,13 @@ class Router extends CI_Controller {
     header("Location: " . base_url() . "subjects/subject/".$result->code."/".$result->inicio);      
   }   
 
+  public function areaFicheirosById($id){
+    $id = htmlspecialchars($id);
 
+    $this->load->model('SubjectModel');
+    $result = $this->SubjectModel->getSubjectAndYearById($id);
+
+    header("Location: " . base_url() . "subjects/ficheiros/".$result->code."/".$result->inicio);      
+  }
 }
 

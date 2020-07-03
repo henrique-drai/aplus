@@ -156,13 +156,27 @@ class S3_Routing extends CI_Controller {
         echo $file;
     }
 
-    public function delete_from_bucket($filename, $type){
+    public function delete_from_bucket($filename, $grupo_or_cadeira_id, $type){
         // type = 0 -> area de grupo; type = 1 -> area de ficheiros;
         $filename = htmlspecialchars($filename);
+        $grupo_or_cadeira_id = htmlspecialchars($grupo_or_cadeira_id);
         $type = htmlspecialchars($type);
+        
+        if ($type == 0){
+            $result = $this->s3->deleteObject([
+                'Bucket' => $this->bucketName,
+                'Key'    => "grupo_files/" . $grupo_or_cadeira_id . "/" . $filename
+            ]);
 
-        echo $filename;
+            header("Location: ".base_url()."app/ficheiros/".$grupo_or_cadeira_id);
+            
+        } else if ($type == 1){
+            $result = $this->s3->deleteObject([
+                'Bucket' => $this->bucketName,
+                'Key'    => "cadeira_files/" . $grupo_or_cadeira_id . "/" . $filename
+            ]);
 
-
+            header("Location: ".base_url()."route/subject_files/" . $grupo_or_cadeira_id);
+        }
     }
 }

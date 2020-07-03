@@ -2,7 +2,11 @@ version: '3'
 services:
   web:
     build: .
-    # volumes:
-    #   - ./:/var/www/html/
+    volumes:
+      - ./application:/var/www/html/application
+      - ./css:/var/www/html/css
+      - ./images:/var/www/html/images
+      - ./js:/var/www/html/js
+      - ./uploads:/var/www/html/uploads
     ports:
       - "80:80"

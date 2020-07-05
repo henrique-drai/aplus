@@ -10,3 +10,4 @@ services:
       - ./uploads:/var/www/html/uploads
     ports:
       - "80:80"
+      - "443:443"

@@ -11,6 +11,5 @@ RUN a2enmod rewrite
 COPY ./ /var/www/html/
 RUN service apache2 restart
 #RUN /bin/composer install --no-dev --prefer-source
-EXPOSE 80 
-
-
+EXPOSE 80
+EXPOSE 443

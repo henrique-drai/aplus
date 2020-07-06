@@ -61,6 +61,6 @@ class __TwigTemplate_e9cf11a1ab38ff4a214ac7ab0676c06e604985ea1b22b486d8cc39432fc
 
     public function getSourceContext()
     {
-        return new Source("", "login/footer.twig", "C:\\xampp\\htdocs\\connect\\templates\\login\\footer.twig");
+        return new Source("", "login/footer.twig", "C:\\xampp\\htdocs\\aplus\\connect\\templates\\login\\footer.twig");
     }
 }

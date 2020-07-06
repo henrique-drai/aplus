@@ -337,7 +337,7 @@ function updateTaskPopup(task_id, proj_name, tr_id){
             $(".insertHere ." + tr_id).empty();
             $(".insertHere ." + tr_id).append("<td>" + data.task[0].name + "</td>" +
                 "<td class='member' id='" + data.task[0].id + "'><span>" + name + "</span></td>" +
-                "<td  class='final'>" + (completed ? "Sim" : "Não") + "</td><td class='time_end'>" + (time_spent == '' ? "Ainda não terminado" : time_spent) + "</td>" +
+                "<td  class='final' id='" + data.task[0].id + "'>" + (completed ? "Sim" : "Não") + "</td><td class='time_end'>" + (time_spent == '' ? "Ainda não terminado" : time_spent) + "</td>" +
                 "<td><input class='taskInfo' id='" + data.task[0].id + "' type='button' value='Opções' style='background-color: rgb(153, 156, 155);'></td>" +
                 "<td><input id='" + data.task[0].id + "' class='remove' type='button' value='Eliminar'></td></tr>");
             $(".taskInfo#" + data.task[0].id).css("background-color", "rgb(153, 156, 155)");
@@ -459,14 +459,14 @@ function getTasks(flag, mediaFlag) {
                         }                    
     
                         if(data.tasks[i].done_date == "0000-00-00 00:00:00") {
-                            table = table + "<td class='final'>Não</td class='time_end'><td>Ainda não terminado</td>";
+                            table = table + "<td class='final' id='" + data.task[0].id + "'>Não</td class='time_end'><td>Ainda não terminado</td>";
                         } else {
                             // console.log(data)
                             var day = data.tasks[i].done_date.substring(8, 10) - data.tasks[i].start_date.substring(8, 10);
                             var hours = data.tasks[i].done_date.substring(11, 13) - data.tasks[i].start_date.substring(11, 13);
                             var min = data.tasks[i].done_date.substring(14, 16) - data.tasks[i].start_date.substring(14, 16);
                             var seconds = data.tasks[i].done_date.substring(17, 19) - data.tasks[i].start_date.substring(17, 19);
-                            table = table + "<td class='final'>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</td>";
+                            table = table + "<td class='final' id='" + data.task[0].id + "'>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</td>";
                         }
     
                         table = table + "<td><input class='taskInfo' id='" + data.tasks[i].id + 
@@ -505,14 +505,14 @@ function getTasks(flag, mediaFlag) {
                         }                    
     
                         if(data.tasks[i].done_date == "0000-00-00 00:00:00") {
-                            table = table + "<td class='final'>Não</td class='time_end'><td>Ainda não terminado</td>";
+                            table = table + "<td class='final' id='" + data.task[0].id + "'>Não</td class='time_end'><td>Ainda não terminado</td>";
                         } else {
                             // console.log(data)
                             var day = data.tasks[i].done_date.substring(8, 10) - data.tasks[i].start_date.substring(8, 10);
                             var hours = data.tasks[i].done_date.substring(11, 13) - data.tasks[i].start_date.substring(11, 13);
                             var min = data.tasks[i].done_date.substring(14, 16) - data.tasks[i].start_date.substring(14, 16);
                             var seconds = data.tasks[i].done_date.substring(17, 19) - data.tasks[i].start_date.substring(17, 19);
-                            table = table + "<td class='final'>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</td>";
+                            table = table + "<td class='final' id='" + data.task[0].id + "'>Sim</td><td>" + day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos</td>";
                         }
     
                         table = table + "<td><input class='taskInfoDetails' id='" + data.tasks[i].id + 
@@ -634,8 +634,8 @@ function insertTaskEndDate(task_id) {
             $(".title_end").append("<h3>Data de Fim</div>");
             $(".time_end").append(day + " dia(s) " + hours + " hora(s) " + Math.abs(min) + " minutos " + Math.abs(seconds) + " segundos")
             $(".wrapper").remove();
-            $(".final").empty()
-            $(".final").append("Sim");
+            $("#" + task_id + ".final").empty()
+            $("#" + task_id + ".final").append("Sim");
         },
         error: function (data) {
             alert("Houve um erro a inserir a data-fim da tarefa.")

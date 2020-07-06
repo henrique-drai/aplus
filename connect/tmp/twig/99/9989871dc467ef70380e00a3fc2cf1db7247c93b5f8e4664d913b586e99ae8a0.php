@@ -274,6 +274,6 @@ class __TwigTemplate_40a4ff5d3f3b43ba9d0857e7a02099cc3912a2849afe3de56ecd85acebb
 
     public function getSourceContext()
     {
-        return new Source("", "navigation/main.twig", "C:\\xampp\\htdocs\\connect\\templates\\navigation\\main.twig");
+        return new Source("", "navigation/main.twig", "C:\\xampp\\htdocs\\aplus\\connect\\templates\\navigation\\main.twig");
     }
 }

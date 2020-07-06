@@ -131,6 +131,6 @@ class __TwigTemplate_7dca50476123473f92d2dfe04b0a7af96c48cdcef927031c2d79028a7a6
 
     public function getSourceContext()
     {
-        return new Source("", "list/item.twig", "C:\\xampp\\htdocs\\connect\\templates\\list\\item.twig");
+        return new Source("", "list/item.twig", "C:\\xampp\\htdocs\\aplus\\connect\\templates\\list\\item.twig");
     }
 }

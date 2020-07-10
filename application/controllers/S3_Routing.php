@@ -26,7 +26,6 @@ class S3_Routing extends CI_Controller {
         $this->load->model('SubjectModel');
         $this->load->model('StudentListModel');
 
-        $this->bucketName = 'plusa';
         $IAM_KEY = 'AKIAVFIHVJAOIQ3CYTWP';
         $IAM_SECRET = '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';
         
@@ -39,7 +38,9 @@ class S3_Routing extends CI_Controller {
                 'version' => 'latest',
                 'region'  => 'eu-west-3'
             )
-        );
+        );       
+
+        $this->bucketName = 'plusa';
 
         $this->mime_types = array (
             "pdf" => "pdf",
@@ -66,10 +67,18 @@ class S3_Routing extends CI_Controller {
         }
         else{
 
-            $plain_url = $this->s3->getObjectUrl($this->bucketName, "profile/" . $userId . "." . $userPicture);
+            if($s3->doesObjectExist($bucketName, $userPicture)) {
+                $plain_url = $this->s3->getObjectUrl($this->bucketName, "profile/" . $userId . "." . $userPicture);
         
-            $image = file_get_contents($plain_url);
-            header('Content-type: image/' . $userPicture . ';');
+                $image = file_get_contents($plain_url);
+                header('Content-type: image/' . $userPicture . ';');
+            } else {
+                $plain_url = $this->s3->getObjectUrl('plusa-replica', "profile/" . $userId . "." . $userPicture);
+        
+                $image = file_get_contents($plain_url);
+                header('Content-type: image/' . $userPicture . ';');
+            }
+            
         }
 
         header("Content-Length: " . strlen($image));

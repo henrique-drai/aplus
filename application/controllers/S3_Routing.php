@@ -67,17 +67,14 @@ class S3_Routing extends CI_Controller {
         }
         else{
 
-            if($s3->doesObjectExist($bucketName, $userPicture)) {
-                $plain_url = $this->s3->getObjectUrl($this->bucketName, "profile/" . $userId . "." . $userPicture);
+            if(!$s3->doesObjectExist($bucketName, $userPicture)) {
+                $this->bucketName = 'plusa-replicate';
+            } 
+
+            $plain_url = $this->s3->getObjectUrl($this->bucketName, "profile/" . $userId . "." . $userPicture);
         
-                $image = file_get_contents($plain_url);
-                header('Content-type: image/' . $userPicture . ';');
-            } else {
-                $plain_url = $this->s3->getObjectUrl('plusa-replica', "profile/" . $userId . "." . $userPicture);
-        
-                $image = file_get_contents($plain_url);
-                header('Content-type: image/' . $userPicture . ';');
-            }
+            $image = file_get_contents($plain_url);
+            header('Content-type: image/' . $userPicture . ';');
             
         }
 

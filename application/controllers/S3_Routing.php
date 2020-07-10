@@ -11,7 +11,9 @@ class S3_Routing extends CI_Controller {
 
     
     public $s3;
+    public $s3Replica;
     public $bucketName;
+    public $replica_name;
     public $mime_types;
 
 
@@ -38,9 +40,21 @@ class S3_Routing extends CI_Controller {
                 'version' => 'latest',
                 'region'  => 'eu-west-3'
             )
+        );    
+        
+        $this -> s3Replica = S3Client::factory(
+            array(
+                'credentials' => array(
+                    'key' => $IAM_KEY,
+                    'secret' => $IAM_SECRET
+                ),
+                'version' => 'latest',
+                'region'  => 'eu-central-1'
+            )
         );       
 
         $this->bucketName = 'plusa';
+        $this->replica_name = 'plusa-replicate-new';
 
         $this->mime_types = array (
             "pdf" => "pdf",
@@ -59,7 +73,7 @@ class S3_Routing extends CI_Controller {
         $userPicture = $this->UserModel->getUserById($userId)->picture;
 
 
-        if($userPicture ==""){
+        if($userPicture == ""){
             $plain_url = base_url() . "uploads/profile/default.jpg";
 
             $image = file_get_contents($plain_url);
@@ -67,12 +81,14 @@ class S3_Routing extends CI_Controller {
         }
         else{
 
-            if(!$s3->doesObjectExist($bucketName, $userPicture)) {
-                $this->bucketName = 'plusa-replicate';
-            } 
+            $file_path = "profile/" . $userId . "." . $userPicture;
 
-            $plain_url = $this->s3->getObjectUrl($this->bucketName, "profile/" . $userId . "." . $userPicture);
-        
+            if(!$this->s3->doesObjectExist($this->bucketName, $file_path)) {
+                $plain_url = $this->s3Replica->getObjectUrl($this->replica_name, $file_path);
+            } else {
+                $plain_url = $this->s3->getObjectUrl($this->bucketName, $file_path);
+            }
+            
             $image = file_get_contents($plain_url);
             header('Content-type: image/' . $userPicture . ';');
             
@@ -91,7 +107,15 @@ class S3_Routing extends CI_Controller {
         $cadeira_id = $projeto[0]["cadeira_id"];
 
         if($this->verify_teacher($user_id, $idProjeto, "projeto") || $this->verify_studentInCadeira($user_id, $cadeira_id)){
-            $plain_url = $this->s3->getObjectUrl($this->bucketName, "enunciados_files/" . $idProjeto . ".pdf");
+            
+            $file_path = "enunciados_files/" . $idProjeto . ".pdf";
+
+            if(!$this->s3->doesObjectExist($this->bucketName, $file_path)) {
+                $plain_url = $this->s3Replica->getObjectUrl($this->replica_name, $file_path);
+            } else {
+                $plain_url = $this->s3->getObjectUrl($this->bucketName, $file_path);
+            }
+            
             $file = file_get_contents($plain_url);
             header('Content-type: application/pdf;');
             header("Content-Length: " . strlen($file));
@@ -110,7 +134,15 @@ class S3_Routing extends CI_Controller {
         $cadeira_id = $projeto[0]["cadeira_id"];
 
         if($this->verify_teacher($user_id, $idProjeto, "projeto") || $this->verify_studentInCadeira($user_id, $cadeira_id)){
-            $plain_url = $this->s3->getObjectUrl($this->bucketName, "enunciados_files/" . $idProjeto . "/" . $idEtapa . ".pdf");
+
+            $file_path = "enunciados_files/" . $idProjeto . "/" . $idEtapa . ".pdf";
+
+            if(!$this->s3->doesObjectExist($this->bucketName, $file_path)) {
+                $plain_url = $this->s3Replica->getObjectUrl($this->replica_name, $file_path);
+            } else {
+                $plain_url = $this->s3->getObjectUrl($this->bucketName, $file_path);
+            }
+            
             $file = file_get_contents($plain_url);
             header('Content-type: application/pdf;');
             header("Content-Length: " . strlen($file));
@@ -129,7 +161,15 @@ class S3_Routing extends CI_Controller {
         if($this->verify_teacher($user_id, $idProjeto, "projeto") || $this->verify_student_group($user_id, $idGrupo)){
             $sub = $this->ProjectModel->getSubmission($idGrupo, $idEtapa)->row()->submit_url;
             $ext = explode(".", $sub)[1];
-            $plain_url = $this->s3->getObjectUrl($this->bucketName, "submissions/" . $idProjeto . "/" . $idEtapa . "/" . $idGrupo . "." . $ext);
+
+            $file_path = "submissions/" . $idProjeto . "/" . $idEtapa . "/" . $idGrupo . "." . $ext;
+
+            if(!$this->s3->doesObjectExist($this->bucketName, $file_path)) {
+                $plain_url = $this->s3Replica->getObjectUrl($this->replica_name, $file_path);
+            } else {
+                $plain_url = $this->s3->getObjectUrl($this->bucketName, $file_path);
+            }
+            
             $file = file_get_contents($plain_url);
             header('Content-type: application/' . $this->mime_types[$ext] . ';');
             header("Content-Length: " . strlen($file));
@@ -148,7 +188,15 @@ class S3_Routing extends CI_Controller {
         if($this->verify_student_group($user_id, $idGrupo)){
             $file = $this->GroupModel->getFicheiroGrupoByNormalURL($file_url, $idGrupo)->url_original;
             $ext = explode(".", $file)[1];
-            $plain_url = $this->s3->getObjectUrl($this->bucketName, "grupo_files/" . $idGrupo . "/" . $file);
+
+            $file_path = "grupo_files/" . $idGrupo . "/" . $file;
+
+            if(!$this->s3->doesObjectExist($this->bucketName, $file_path)) {
+                $plain_url = $this->s3Replica->getObjectUrl($this->replica_name, $file_path);
+            } else {
+                $plain_url = $this->s3->getObjectUrl($this->bucketName, $file_path);
+            }
+
             $file = file_get_contents($plain_url);
             header('Content-type: application/' . $this->mime_types[$ext] . ';');
             header("Content-Length: " . strlen($file));
@@ -166,7 +214,15 @@ class S3_Routing extends CI_Controller {
         if($this->verify_teacher($user_id, $idCadeira, "cadeira") || $this->verify_studentInCadeira($user_id, $idCadeira)){
             $file = $this->SubjectModel->getFicheiroAreaByNormalURL($file_url, $idCadeira)->url_original;
             $ext = explode(".", $file)[1];
-            $plain_url = $this->s3->getObjectUrl($this->bucketName, "cadeira_files/" . $idCadeira . "/" . $file);
+
+            $file_path = "cadeira_files/" . $idCadeira . "/" . $file;
+
+            if(!$this->s3->doesObjectExist($this->bucketName, $file_path)) {
+                $plain_url = $this->s3Replica->getObjectUrl($this->replica_name, $file_path);
+            } else {
+                $plain_url = $this->s3->getObjectUrl($this->bucketName, $file_path);
+            }
+
             $file = file_get_contents($plain_url);
             header('Content-type: application/' . $this->mime_types[$ext] . ';');
             header("Content-Length: " . strlen($file));
@@ -187,10 +243,21 @@ class S3_Routing extends CI_Controller {
         
         if ($type == 0){
             if($this->verify_student_group($user_id, $grupo_or_cadeira_id)){
-                $result = $this->s3->deleteObject([
-                    'Bucket' => $this->bucketName,
-                    'Key'    => "grupo_files/" . $grupo_or_cadeira_id . "/" . $filename
-                ]);
+                $file_path = "grupo_files/" . $grupo_or_cadeira_id . "/" . $filename;
+                if($this->s3->doesObjectExist($this->bucketName, $file_path)) {
+                    $result = $this->s3->deleteObject([
+                        'Bucket' => $this->bucketName,
+                        'Key'    => $file_path
+                    ]);
+                }
+
+                $file_path2 = "grupo_files/" . $grupo_or_cadeira_id . "/" . $filename;
+                if($this->s3Replica->doesObjectExist($this->replica_name, $file_path2)) {
+                    $result = $this->s3Replica->deleteObject([
+                        'Bucket' => $this->replica_name,
+                        'Key'    => $file_path2
+                    ]);
+                }
 
                 header("Location: ".base_url()."app/ficheiros/".$grupo_or_cadeira_id);
             } else {
@@ -199,10 +266,21 @@ class S3_Routing extends CI_Controller {
             
         } else if ($type == 1){
             if($this->verify_teacher($user_id, $grupo_or_cadeira_id, "cadeira")){
-                $result = $this->s3->deleteObject([
-                    'Bucket' => $this->bucketName,
-                    'Key'    => "cadeira_files/" . $grupo_or_cadeira_id . "/" . $filename
-                ]);
+                $file_path = "cadeira_files/" . $grupo_or_cadeira_id . "/" . $filename;
+                if($this->s3->doesObjectExist($this->bucketName, $file_path)) {
+                    $result = $this->s3->deleteObject([
+                        'Bucket' => $this->bucketName,
+                        'Key'    => $file_path
+                    ]);
+                }
+
+                $file_path2 = "cadeira_files/" . $grupo_or_cadeira_id . "/" . $filename;
+                if($this->s3Replica->doesObjectExist($this->replica_name, $file_path2)) {
+                    $result = $this->s3Replica->deleteObject([
+                        'Bucket' => $this->replica_name,
+                        'Key'    => $file_path2
+                    ]);
+                }
 
                 header("Location: ".base_url()."route/subject_files/" . $grupo_or_cadeira_id);
             } else {

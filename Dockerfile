@@ -1,7 +1,7 @@
 FROM fc51606/our-php-7.4
 
 RUN mkdir -p /bin
-COPY ./plusa_me.crt /etc/pki/tls/certs/
+#COPY ./plusa_me.crt /etc/pki/tls/certs/
 RUN curl -sS https://getcomposer.org/installer | php 
 RUN mv composer.phar /bin/composer
 RUN composer require twig/twig

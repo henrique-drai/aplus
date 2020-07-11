@@ -4,3 +4,13 @@ RewriteCond %(REQUEST_FILENAME) !-f
 RewriteCond %(REQUEST_FILENAME) !-d
 RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://./index.php/$1 [L,R=301,NE]
+
+# Security Headers
+<IfModule mod_headers.c>
+	Header set X-XSS-Protection "1; mode=block"
+	Header set X-Frame-Options "SAMEORIGIN"
+	Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+	# Header set Content-Security-Policy ...
+	Header set Referrer-Policy "same-origin"
+	Header set Feature-Policy "geolocation 'self'; vibrate 'none'"
+</IfModule>

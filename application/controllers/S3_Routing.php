@@ -17,8 +17,7 @@ class S3_Routing extends CI_Controller {
     public $mime_types;
 
 
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
         $this->load->helper('url');
         if(is_null($this->session->userdata('role'))){ $this->load->view('errors/403'); }
@@ -62,7 +61,6 @@ class S3_Routing extends CI_Controller {
             "zip" => "zip",
             "docx"=> "vnd.openxmlformats-officedocument.wordprocessingml.document",
         );
-
     }
 
   

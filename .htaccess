@@ -3,13 +3,3 @@ RewriteCond $1 !^(index\.php|assets|images|js|css|uploads|connect|favicon.png)
 RewriteCond %(REQUEST_FILENAME) !-f
 RewriteCond %(REQUEST_FILENAME) !-d
 RewriteRule ^(.*)$ ./index.php/$1 [L]
-
-# Security Headers
-<IfModule mod_headers.c>
-	Header set X-XSS-Protection "1; mode=block"
-	Header set X-Frame-Options "SAMEORIGIN"
-	Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
-	# Header set Content-Security-Policy ...
-	Header set Referrer-Policy "same-origin"
-	Header set Feature-Policy "geolocation 'self'; vibrate 'none'"
-</IfModule>
